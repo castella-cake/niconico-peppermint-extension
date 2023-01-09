@@ -1,0 +1,42 @@
+{
+
+    "description": "ニコニコ動画をちょっとクールにします。",
+    "manifest_version": 2,
+    "name": "Niconico-PepperMint",
+    "version": "0.1",
+
+
+    "content_scripts": [
+        {
+            "matches": ["*://www.nicovideo.jp/*"],
+            "js": ["js/jquery-3.6.3.min.js","js/forall.js"]
+        },
+        {
+            "matches": ["*://www.nicovideo.jp/ranking"],
+            "js": ["js/ranking.js"]
+        },
+        {
+            "matches": ["*://www.nicovideo.jp/watch/*"],
+            "js": ["js/watch.js"]
+        }
+    ],
+    "web_accessible_resources": [
+        "pagemod/*"
+    ],
+
+    "browser_action": {
+        "browser_style": true,
+        "default_popup": "popup/option.html",
+        "default_icon": {
+            "16": "icons/page-16.png",
+            "32": "icons/page-32.png"
+        }
+    },
+    "permissions": ["storage"],
+
+    "applications": {
+        "gecko": {
+            "id": "niconicopeppermint@example.com"
+        }
+    }
+}

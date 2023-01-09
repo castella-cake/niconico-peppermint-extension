@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="options.css"/>
+    </head>
+
+    <body>
+        <h1>Develop feature</h1>
+        <form id="test-form">
+            <div>
+                <label>Test<input type="text" id="test-form-input"></label>
+            </div>
+            <div>
+                <label>黄金のニコニコ動画<input type="checkbox" id="checkbox-form-input"></label>
+            </div>
+        </form>
+        <h1>Hide</h1>
+        <form id="form-hidefeature">
+            <div>
+                <label>ランキングページのニコニ広告行を隠す<input type="checkbox" id="input-hiderankpagead"></label>
+            </div>
+        </form>
+        <h1>Player</h1>
+        <form id="form-player">
+            <div>
+                <label>プレイヤーテーマ
+                    <select id="select-playertheme">
+                        <option value="">Disable</option>
+                        <option value="hrzkv1">原宿 v1</option>
+                    </select>
+                </label>
+            </div>
+        </form>
+        <div id="debug"></div>
+        <form id="save-form">
+            <button type="submit">保存</button>
+        </form>
+        <div id="test-form-stat">konntiha</div>
+        <div id="save-state">
+            変更は自動保存されません。「保存」ボタンを押してすべての設定を保存します<br>保存した設定を反映させるには、リロードする必要があります。
+        </div>
+        <div id="info-area">
+            <div id="version-display">
+                Niconico-PepperMint(Extension版) <span id="current-version" style="color: red"></span>
+            </div>
+            <div id="credit">
+                Created by CYakigasi(@CYaki_xcf) <a href="https://www.cyakigasi.net">CYakigasi Website</a>
+            </div>
+        </div>
+        <script src="jquery-3.6.3.min.js"></script>
+        <script src="options.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,35 @@
+html, body {
+    width: 360px;
+}
+body {
+    padding: 10px;
+}
+h1 {
+    font-size: 20px;
+    margin: 5px 0px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5)
+}
+#test-form > label {
+    font-size:16px;
+}
+#test-form {
+    display: table;
+}
+#save-state {
+    width: 100%;
+    font-size:10px;
+    font-style:italic
+}
+#save-form > button {
+    width:100%;
+    height: 25px;
+    text-align: center;
+    outline: none;
+    border: none;
+}
+form {
+    margin-bottom: 2px;
+}
+form > label > input {
+    margin-left: 5px;
+}
