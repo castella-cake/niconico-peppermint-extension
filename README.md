@@ -16,3 +16,7 @@ Niconico-PepperMint Extension版は現在試験的なものです。
 - [ ] Chromium系との相性を確認する
 - [ ] マイナー機能をUserStyle版から移植する
 - [ ] UserStyle版の開発停止
+
+# ライセンス
+Niconico-PepperMint Extension版のライセンスは``MIT License``です。
+詳細は``LICENSE.txt``を確認してください。
