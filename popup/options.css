@@ -20,6 +20,10 @@ h1 {
     font-size:10px;
     font-style:italic
 }
+.hint {
+    font-size:10px;
+    font-style:italic;
+}
 #save-form > button {
     width:100%;
     height: 25px;

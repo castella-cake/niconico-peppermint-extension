@@ -1,22 +1,24 @@
+// www.nicovideo.jpの全てで実行
+
 $(function(){
     function onError(error) {
         console.log(`Error: ${error}`);
     }
+    function appendCSS(cssfile) {
+        $('body').append( $('<link>').attr( {'rel': 'stylesheet','href': cssfile} ) );
+    }
     var getting = browser.storage.sync.get(null);
     getting.then(createCSSRule, onError);
     function createCSSRule(result) {
-        if ( result.test_checkbox == true ) {
-            $('*').css('background', '#ff0');
-        }
-        if (result.test_var == "hello") {
-            console.log(`CSS Loaded!`)
-            var link_style = $('<link>').attr({
-                'rel': 'stylesheet',
-                'href': browser.runtime.getURL("pagemod/css/hello.css")
+        if ( result.alignpagewidth == true ) {
+            /*
+            $('.TopPage-section,.common-header-654o26').css({
+                'max-width': '1024px',
+                'min-width': '1024px',
+                'width': '1024px'
             });
-            $('body').append(link_style);
-        } else {
-            console.log(`CSS not Loaded!`)
+            */
+            appendCSS(browser.runtime.getURL("pagemod/css/other/alignpagewidth.css"));
         }
     }
 });

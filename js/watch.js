@@ -1,4 +1,3 @@
-
 function onError(error) {
     console.log(`Error: ${error}`);
 }
@@ -8,12 +7,26 @@ function appendCSS(cssfile) {
 var getting = browser.storage.sync.get(null);
 getting.then(createCSSRule, onError);
 function createCSSRule(result) {
-    if (result.playertheme == "hrzkv1") {
+    if (result.playertheme != "") {
         console.log(`CSS Loaded!`);
-        appendCSS(browser.runtime.getURL("pagemod/css/playerstyle/harazyuku.css"));
-        appendCSS(browser.runtime.getURL("pagemod/css/playertheme/harazyuku.css"));
-        $('.ControllerContainer-inner').css('top', '3px');
-    } else {
-        console.log(`CSS not Loaded!`)
+        if (result.playerstyleoverride == "") {
+            appendCSS(browser.runtime.getURL("pagemod/css/playerstyle/" + result.playertheme + ".css"));
+        } else if (result.playerstyleoverride != "none") {
+            appendCSS(browser.runtime.getURL("pagemod/css/playerstyle/" + result.playerstyleoverride + ".css"));
+        }
+        appendCSS(browser.runtime.getURL("pagemod/css/playertheme/" + result.playertheme + ".css"));
+    }
+    if (result.hidepopup == true) {
+        console.log(`Hiding popup...`)
+        // cssじゃないとロードの都合で反映されなかった
+        //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none !important')
+        appendCSS(browser.runtime.getURL("pagemod/css/hide/hidepopup.css"));
+    }
+    if (result.hideeventbanner == true) {
+        // 未検証
+        $('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').css('display','none')
+    }
+    if (result.replacemarqueetext == true) {
+        appendCSS(browser.runtime.getURL("pagemod/css/hide/replacemarqueetext.css"));
     }
 }

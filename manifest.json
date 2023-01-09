@@ -9,15 +9,18 @@
     "content_scripts": [
         {
             "matches": ["*://www.nicovideo.jp/*"],
-            "js": ["js/jquery-3.6.3.min.js","js/forall.js"]
+            "js": ["js/jquery-3.6.3.min.js","js/forall.js"],
+            "run_at": "document_end"
         },
         {
             "matches": ["*://www.nicovideo.jp/ranking"],
-            "js": ["js/ranking.js"]
+            "js": ["js/ranking.js"],
+            "run_at": "document_end"
         },
         {
             "matches": ["*://www.nicovideo.jp/watch/*"],
-            "js": ["js/watch.js"]
+            "js": ["js/watch.js"],
+            "run_at": "document_end"
         }
     ],
     "web_accessible_resources": [

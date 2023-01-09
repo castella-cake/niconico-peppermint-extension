@@ -9,8 +9,17 @@ function saveOptions(e) {
         {
             "test_var": document.querySelector("#test-form-input").value,
             "test_checkbox": document.querySelector("#checkbox-form-input").checked,
+
             "hiderankpagead": document.querySelector("#input-hiderankpagead").checked,
-            "playertheme": document.querySelector("#select-playertheme").value
+            "hideeventbanner": document.querySelector("#input-hideeventbanner").checked,
+            "hidepopup": document.querySelector("#input-hidepopup").checked,
+            
+            "playertheme": document.querySelector("#select-playertheme").value,
+            "playerstyleoverride": document.querySelector("#select-playerstyleoverride").value,
+
+            "replacemarqueetext": document.querySelector("#input-replacemarqueetext").checked,
+            "alignpagewidth": document.querySelector("#input-alignpagewidth").checked,
+            "darkmode": document.querySelector("#select-darkmode").value
         }
     );
     location.reload();
@@ -37,7 +46,14 @@ function restoreOptions() {
         document.querySelector("#test-form-input").value = result.test_var || "hello";
         document.querySelector("#checkbox-form-input").checked = result.test_checkbox;
         document.querySelector("#input-hiderankpagead").checked = result.hiderankpagead;
-        document.querySelector("#select-playertheme").value = result.playertheme
+        document.querySelector("#input-hideeventbanner").checked = result.hideeventbanner;
+        document.querySelector("#input-hidepopup").checked = result.hidepopup;
+        document.querySelector("#select-playertheme").value = result.playertheme || "";
+        // TODO: 後回しのためとりあえずDisableに戻す
+        document.querySelector("#select-playerstyleoverride").value = "";
+        document.querySelector("#input-replacemarqueetext").checked = result.replacemarqueetext;
+        document.querySelector("#input-alignpagewidth").checked = result.alignpagewidth;
+        document.querySelector("#select-darkmode").value = result.darkmode || "";
         if (result.test_var == "hello") {
             $("#test-form-stat").text ("HELLO WORLD!!!!!!!!")
         } else {
