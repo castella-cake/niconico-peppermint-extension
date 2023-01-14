@@ -83,12 +83,14 @@
             </div>
             <div>
                 <label>ヘッダー背景
-                    <select id="header-background">
+                    <select id="select-headerbg">
                         <option value="">Default</option>
                         <option value="gradient">Gradient</option>
                         <option value="custom">Custom</option>
                     </select>
                 </label>
+                <!-- type=colorはpopupだとウィンドウが閉じて使い物にならないのでtextで -->
+                <label id="headerbg-customcolor">カスタム色<input type="text" id="input-headercolor" value="#252525" placeholder="#252525"></label>
             </div>
         </form>
         <div id="debug"></div>

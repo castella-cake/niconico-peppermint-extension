@@ -45,3 +45,6 @@ form {
 form > label > input {
     margin-left: 5px;
 }
+#input-headercolor {
+    width:64px;
+}

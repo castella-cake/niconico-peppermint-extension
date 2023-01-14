@@ -5,6 +5,7 @@
     }
     function appendCSS(cssfile) {
         $('head').append( $('<link>').attr( {'rel': 'stylesheet','href': cssfile} ) );
+        console.log(`CSS Added: ${cssfile}`);
     }
     var getting = browser.storage.sync.get(null);
     getting.then(createCSSRule, onError);
@@ -19,5 +20,11 @@
         }
         if ( result.alignpagewidth == true ) {
             appendCSS(browser.runtime.getURL("pagemod/css/other/alignpagewidth.css"));
+        }
+        if (result.headerbg == "gradient") {
+            appendCSS(browser.runtime.getURL("pagemod/css/header/gradient.css"));
+        } else if (result.headerbg == "custom") {
+            appendCSS(browser.runtime.getURL("pagemod/css/header/custom.css"));
+            $('body').css('--headercolor', result.headercolor);
         }
     }
