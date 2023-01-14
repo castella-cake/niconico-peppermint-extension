@@ -1,0 +1,106 @@
+.tagCaption {
+    background-color: var(--bgcolor1);
+    border-bottom: 1px solid var(--accent1);
+}
+.header {
+    background: var(--bgcolor1);
+}
+.siteHeader .pageLogo .logo a svg path {
+    fill: var(--textcolor1);
+}
+.tagCaption .tagListBox {
+    background: var(--bgcolor2);
+}
+p {
+    color: var(--textcolor1);
+}
+.formSearch {
+    background: linear-gradient( var(--accent1), var(--bgcolor2)) left repeat;
+    border: 2px solid var(--accent2);
+    box-shadow: 0 0 0 0px #e4e7e7;
+}
+.formSearch .searchFormB {
+    border: 1px solid var(--accent2);
+}
+.formSearch .searchFormB,.formSearch .searchFormB .sbubmit input {
+    background: var(--accent1);
+}
+.formSearch .searchFormB .sbubmit input {
+    box-shadow: 0 0px 0px 0px var(--accent2) inset;
+    color: var(--textcolor1);
+}
+.videoSearchOption .tab {
+    border-radius: 4px 4px 0 0;
+    background-color: var(--bgcolor3);
+    color: var(--textcolor1);
+}
+.videoSearchOption .active {
+    background-color: var(--bgcolor2);
+    color: var(--textcolor1);
+}
+.videoSearchOption .tab a {
+    color: var(--textcolor1);
+}
+.videoSearchInput .inputText input,.videoSearchInput {
+    background: var(--bgcolor2);
+    color:var(--textcolor1);
+}
+.tagCaption .tag {
+    background-color: var(--bgcolor3);
+    color: var(--textcolor1);
+    border: var(--accent2) solid 1px;
+}
+.tagCaption .tag:hover {
+    background-color: var(--hover2);
+}
+.tagCaption .itemDescription p .more {
+    color: var(--textcolor2);
+}
+.videoList01 .itemContent .itemTitle a:visited {
+    color: var(--textcolor3);
+}
+.videoList01 .itemContent .itemTitle a:link {
+    color: var(--linktext3);
+}
+.video .itemData .count .value {
+    color: var(--textcolor2);
+}
+.video .itemDescription {
+    color: var(--textcolor3);
+}
+.videoList01 .itemContent .itemComment {
+    border: var(--accent1) solid 2px;
+    background-color: var(--bgcolor2);
+    color: var(--textcolor2);
+}
+/* ページ */
+.switchingBtn {
+    background: var(--accent1);
+    border: 1px solid var(--accent2);
+    color: var(--textcolor2);
+}
+/* サイドバー */
+.sub {
+    background: var(--bgcolor1);
+}
+.list .contentHeader {
+    background-color: var(--accent1);
+}
+.list .contentHeader .title {
+    color: var(--textcolor1);
+}
+.nicopedia .itemTitleLink:link {
+    color: var(--textcolor3);
+}
+.relatedInfo .exTxt {
+    color: var(--textcolor2);
+}
+.button.default {
+    background-color: var(--accent1);
+    border: 2px solid var(--bgcolor2);
+    color: var(--textcolor2);
+}
+.TagRelatedBannerBox {
+    background-color: #40403a;
+    border-top: 1px solid #60605a;
+}

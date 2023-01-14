@@ -1,0 +1,42 @@
+/* ニコニコ動画 - ランキング(ダークテーマ) */
+.NC-MutedVideoCard, .NC-SensitiveVideoCard, .VideoItem.NC-Card, .RankingHeaderContainer-header_sticky,.NC-Card.NC-NicoadCard.NicoadItem {
+    background-color: var(--bgcolor2)
+}
+.CustomButton {
+    background-color: var(--bgcolor3)
+}
+.CustomButton:hover {
+    background-color: var(--hover);
+}
+.CustomButton > span {
+    color: #f0f0f0
+}
+.RankingFilterTag,.BaseRankingContentContainer.TrendyTagContainer .TrendyTagContainer-link {
+    background: var(--accent1)
+    border 1px solid var(--accent2)
+}
+.RankingFilterTag_active {
+    background: #007cff;
+    border-color: transparent;
+    color: #fff;
+}
+.RankingVideoListContainer > * {
+    border-bottom: 2px solid var(--accent1);
+}
+.BaseRankingContentContainer header {
+    background-color: var(--accent1);
+}
+.BaseRankingContentContainer header h1 {
+    color: var(--bgcolor1)
+}
+.AnotherRankingLink-button {
+    background-color: var(--accent1);
+    border: 2px solid var(--bgcolor2);
+    color: var(--bgcolor2)
+}
+.RankingTermSelector-label {
+    color: var(--bgcolor2)
+}
+.RankingTermSelector .Dropdown-button {
+    color: var(--bgcolor2)
+}

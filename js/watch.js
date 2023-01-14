@@ -2,7 +2,7 @@ function onError(error) {
     console.log(`Error: ${error}`);
 }
 function appendCSS(cssfile) {
-    $('body').append( $('<link>').attr( {'rel': 'stylesheet','href': cssfile} ) );
+    $('head').append( $('<link>').attr( {'rel': 'stylesheet','href': cssfile} ) );
 }
 var getting = browser.storage.sync.get(null);
 getting.then(createCSSRule, onError);
@@ -19,7 +19,7 @@ function createCSSRule(result) {
     if (result.hidepopup == true) {
         console.log(`Hiding popup...`)
         // cssじゃないとロードの都合で反映されなかった
-        //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none !important')
+        //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none')
         appendCSS(browser.runtime.getURL("pagemod/css/hide/hidepopup.css"));
     }
     if (result.hideeventbanner == true) {
@@ -28,5 +28,9 @@ function createCSSRule(result) {
     }
     if (result.replacemarqueetext == true) {
         appendCSS(browser.runtime.getURL("pagemod/css/hide/replacemarqueetext.css"));
+    }
+    if ( result.darkmode != "" ) {
+        appendCSS(browser.runtime.getURL("pagemod/css/darkmode/watch.css"));
+        $(function() { appendCSS(browser.runtime.getURL("pagemod/css/darkmode/watch_ichiba.css")) });
     }
 }
