@@ -1,0 +1,206 @@
+/* ここから動画ページ用 */
+    
+/* 動画ジャンルリスト */
+.VideoTopGenreListContainer,.RankingGenreListContainer {
+    background-color: var(--bgcolor2)!important ;
+}
+.VideoTopGenreListContainer-item,.RankingGenreListContainer-item {
+    background: var(--bgcolor2)!important ;
+    border: 1px solid #747474!important ;
+}
+.VideoTopGenreListContainer-item.is-current,.RankingGenreListContainer-item.is-current {
+    background: var(--accent2)!important ;
+}
+.VideoTopGenreListContainer-item > a,.RankingGenreListContainer-item > a {
+    color: #f9f9f9!important ;
+}
+/* 検索ボックス */
+.SearchBox-form {
+    background: var(--accent1)!important ;
+    box-shadow: inset 0 0 0 1px var(--accent2)!important ;
+}
+.SearchBox-query {
+    color: var(--textcolor1)!important ;
+}
+.SearchBox-option {
+    background-color: var(--bgcolor3)!important ;
+    color: var(--textcolor1)!important ;
+}
+.SearchBox-option[data-active="true"] {
+    background-color: #1f1f1f!important ;
+}
+/* 動画カードなど */
+.NC-Card .NC-CardTitle,.NewsNotificationList-item,.LiveWindowContainer-metaTitle {
+    color: #f5f5f5!important ;
+}
+
+/* フッターフィードバック */
+.FooterContainer-feedback {
+    background-color: var(--bgcolor2)!important ;
+    border: 1px solid var(--bgcolor2)!important ;
+}
+.NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary::before,.NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary {
+    background-color: var(--bgcolor2)!important ;
+}
+
+/* ここからユーザーページ */
+
+.UserDetailsContainer::after, .UserPage-header, .UserDetailsHeader {
+    background-color: var(--bgcolor1)!important ;
+}
+.UserDetailsHeader-nickname {
+    color: var(--textcolor1)!important ;
+}
+.MainMenuContainer-menu, .NC-Tabs {
+    background-color: var(--bgcolor2)!important ;
+}
+.NC-Tab {
+    color: var(--textcolor1)!important ;
+}
+.Dropdown-button,.UserDetailsHeader-account,.UserDetailsStatusItem-linkLabel {
+    color: var(--textcolor2)!important ;
+}
+.Dropdown-button:hover {
+    background-color: var(--hover1)!important ;
+}
+.NiconicoPoint {
+    background-color: var(--bgcolor2)!important ;
+    color: var(--textcolor2)!important ;
+}
+.NicorepoItem-item,.NC-MylistMediaObject,.ChannelItem-content,.CommunityItem-content {
+    background-color: var(--bgcolor2)!important ;
+    border: 1px solid var(--accent1)!important ;
+}
+.NicorepoItem-senderName,.ChannelItem-name,.CommunityItem-name {
+    color: var(--textcolor2)!important ;
+}
+.NicorepoItem-senderName:visited {
+    color: var(--textcolor3)!important ;
+}
+.NicorepoItem-activityDescription {
+    color: var(--textcolor3)!important ;
+}
+.NicorepoItem-activityCreatedAt_new {
+    color: var(--textcolornew)!important ;
+}
+.UserDetailsHeader-icon .UserIcon {
+    background-color: var(--bgcolor3)!important ;
+}
+.OtherMypageLinks,.NC-ThreePointMenu-menu {
+    background-color: var(--bgcolor2)!important ;
+}
+.OtherMypageLinks-link,.NC-ThreePointMenu-menu > * {
+    color: var(--textcolor1)!important ;
+}
+/* フォロー */
+.UserItem-content {
+    background-color: var(--bgcolor2)!important ;
+    border: 1px solid var(--accent1)!important ;
+}
+.UserItem-nickname {
+    color: var(--textcolor2)!important ;
+}
+.UserItem-description {
+    color: var(--textcolor3)!important ;
+}
+.c-body, .p-embed-supporter-supporting-creators {
+    background-color: #252525!important ;
+}
+/* マイリス/後で見る */
+.NC-MediaObject .NC-MediaObjectTitle {
+    color: var(--textcolor2)!important ;
+}
+.NC-MylistMediaObject-thumbnails {
+    background-color: var(--bgcolor3)!important ;
+    border: 1px solid var(--accent1)!important ;
+}
+.WatchLaterHeader-metaValue,.MylistHeader-metaItemValue {
+    color: var(--textcolor2)!important ;
+}
+/* マイリスボタン */
+.ModalActionButton {
+    background-color: var(--bgcolor2)!important ;
+}
+.ContinuousPlayButton,.VideoListEditMenuButton,.PaginationItem,.Checkbox-check::before {
+    background-color: var(--bgcolor2)!important ;
+    color: var(--textcolor2)!important ;
+    border: 2px solid var(--accent2)!important ;
+}
+.ContinuousPlayButton-icon {
+    fill: var(--textcolor2)!important ;
+}
+.Selectbox-button {
+    background-color: var(--bgcolor2)!important ;
+    border: 2px solid var(--accent2)!important ;
+}
+.Selectbox-label {
+    color: var(--textcolor2)!important ;
+}
+.Selectbox {
+    background-color: var(--bgcolor2)!important ;
+}
+.VideoListEditMenu-delete.VideoListEditMenuButton:hover {
+    border: 2px solid #d0021b!important ;
+    color: #fff!important ;
+    background: #512828!important ;
+}
+/* 履歴 */
+.NC-MediaObject .NC-MediaObjectTitle {
+    color: var(--textcolor2)!important ;
+}
+/* サイドバー */
+.SubMenuLink-label {
+    color:var(--textcolor2)!important ;
+}
+.ExpandBoxButton-overlay {
+    background: linear-gradient(180deg,hsla(0,0%,100%,0) 0,var(--bgcolor1))!important ;
+}
+.SubMenuLink-link_active {
+    background-color: #4e5358!important ;
+}
+.SubMenuLink-link_active:hover {
+    background-color: #687d91!important ;
+}
+.SubMenuLink-link:hover .SubMenuLink-label, .SubMenuLink-link_active .SubMenuLink-label {
+    color: var(--linktext2)!important ;
+}
+.SubMenuLink-link_internal:hover {
+    background-color: #45525e!important ;
+}
+/* ニコる */
+.NicoruHistoryPassiveItem, .NicoruHistoryActiveItem {
+    background: var(--bgcolor2)!important ;
+}
+.NicoruHistoryPassiveItem-video, .NicoruHistoryActiveItem-video {
+    background: var(--accent1)!important ;
+}
+.NicoruHistoryPassiveItem-videoTitleArea > a:visited, .NicoruHistoryActiveItem-videoTitleArea > a:visited {
+    color: var(--textcolor3)!important ;
+}
+.NicoruHistoryPassiveItem-videoTitleArea > a, .NicoruHistoryActiveItem-videoTitleArea > a {
+    color: var(--textcolor2)!important ;
+}
+.NicoruHistoryPassiveItem-videoOwner {
+    background: #998221!important ;
+}
+/* あなたへのおすすめ */
+.PersonalFrame {
+    background-color: var(--bgcolor2)!important ;
+}
+.PersonalFrame-body {
+    border: 2px solid var(--accent1)!important ;
+}
+.PersonalFrame-header {
+    background-color: #07576c!important ;
+}
+.PersonalFrame-text {
+    color: var(--textcolor1)!important ;
+}
+/* その他 */
+.nico-CommonHeaderRoot .common-header-eyo3v5 {
+    background-color: var(--bgcolor3)!important ;
+}
+.nico-CommonHeaderRoot .common-header-10t70iy {
+    background-color: var(--bgcolor3)!important ;
+    color: var(--textcolor1)!important ;
+}

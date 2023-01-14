@@ -18,10 +18,6 @@ Niconico-PepperMint Extension版は現在試験的なものです。
 - [ ] マイナー機能をUserStyle版から移植する
 - [ ] UserStyle版の開発停止
 
-# 依存関係
-ダークモード(NordColor)のためにNordモジュールを使用しています。
-``npm install --save nord`` でインストールできます。
-
 # ライセンス
 Niconico-PepperMint Extension版のライセンスは``MIT License``です。
 詳細は``LICENSE.txt``を確認してください。

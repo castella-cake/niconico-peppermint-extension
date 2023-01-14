@@ -9,11 +9,19 @@ h1 {
     margin: 5px 0px;
     border-bottom: 2px solid rgba(0, 0, 0, 0.5)
 }
+.title {
+    font-size: 22px;
+    margin: 5px 5px;
+    border-bottom: 0px solid rgba(0, 0, 0, 0.5);
+    text-align:center;
+    font-family:"Lato",sans-serif;
+    letter-spacing: 2px;
+}
 #test-form > label {
     font-size:16px;
 }
 #test-form {
-    display: table;
+    display:none;
 }
 #save-state {
     width: 100%;

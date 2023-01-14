@@ -1,0 +1,71 @@
+/* ＞＞＞＞インライン＜＜＜＜ */
+
+/* お知らせ */
+.nico-CommonHeaderRoot .common-header-105n2rz {
+    background-color: var(--bgcolor2) !important;
+}
+.nico-CommonHeaderRoot .common-header-abyv5k {
+    color: var(--textcolor2) !important;
+}
+.nico-CommonHeaderRoot .common-header-1l1lwin {
+    border-bottom: 1px solid var(--accent1) !important;
+}
+.nico-CommonHeaderRoot .common-header-1swev0c {
+    background-color: var(--bgcolor2) !important;
+    border-bottom: 1px solid var(--accent2) !important;
+}
+.nico-CommonHeaderRoot .common-header-1swev0c:hover {
+    background-color: #555 !important;
+}
+.nico-CommonHeaderRoot .common-header-kolmxm {
+    background: var(--bgcolor2) url("data:image/svg+xml !important;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDEwMCAxMDAiPjxwYXRoIGZpbGw9IiNkNTU3NTIiIGQ9Ik00MyAuNDRDODUuOS01LjA2IDExNS45MSA0MiA5MS42NCA3OEE1MC4wMiA1MC4wMiAwIDAgMSA3OCA5MS42NGMtNi41NCA0LjQxLTEzLjI1IDYuNzEtMjEgNy45Mi01LjU1Ljg3LTExLjUyLjU1LTE3LS41Ni00MC44NC04LjMzLTUzLjkyLTU5LjUxLTIzLTg2LjgyQzI1LjAyIDUuMSAzMi43MSAyLjM0IDQzIC40NFoiLz48L3N2Zz4=") no-repeat !important;
+    background-size: 2% !important;
+    background-position: left 10px top 10px !important;
+    border-bottom: 1px solid var(--accent2) !important;
+}
+.nico-CommonHeaderRoot .common-header-kolmxm:hover {
+    background: #555 url("data:image/svg+xml !important;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDEwMCAxMDAiPjxwYXRoIGZpbGw9IiNkNTU3NTIiIGQ9Ik00MyAuNDRDODUuOS01LjA2IDExNS45MSA0MiA5MS42NCA3OEE1MC4wMiA1MC4wMiAwIDAgMSA3OCA5MS42NGMtNi41NCA0LjQxLTEzLjI1IDYuNzEtMjEgNy45Mi01LjU1Ljg3LTExLjUyLjU1LTE3LS41Ni00MC44NC04LjMzLTUzLjkyLTU5LjUxLTIzLTg2LjgyQzI1LjAyIDUuMSAzMi43MSAyLjM0IDQzIC40NFoiLz48L3N2Zz4=") no-repeat !important;
+    background-size: 2% !important;
+    background-position: left 10px top 10px !important;
+    border-bottom: 1px solid var(--accent2) !important;
+}
+.nico-CommonHeaderRoot .common-header-vv8zyj {
+    color: var(--textcolor1) !important;
+}
+.nico-CommonHeaderRoot .common-header-2cl2ey {
+    background-color: var(--bgcolor3) !important;
+
+}
+.nico-CommonHeaderRoot .common-header-ey0i79 {
+    color: var(--textcolor1) !important;
+}
+
+/* ユーザーをホバーした時に出るやつ */
+.nico-CommonHeaderRoot .common-header-17f7oiq > * {
+    border-bottom: 1px solid var(--bgcolor2) !important;
+}
+.nico-CommonHeaderRoot .common-header-17f7oiq > :nth-child(2n) {
+    border-left: 1px solid var(--bgcolor2) !important;
+}
+.nico-CommonHeaderRoot .common-header-m6vxd,.nico-CommonHeaderRoot .common-header-1ke4cb6, .nico-CommonHeaderRoot .common-header-1xzs4ko,.nico-CommonHeaderRoot .common-header-o214xd,.nico-CommonHeaderRoot .common-header-15czeyj {
+    background-color: var(--accent1) !important;
+}
+.nico-CommonHeaderRoot .common-header-8xay8a,.nico-CommonHeaderRoot .common-header-o214xd:hover,.nico-CommonHeaderRoot .common-header-1xzs4ko:hover,.nico-CommonHeaderRoot .common-header-z5pyn9:hover,.nico-CommonHeaderRoot .common-header-8g5w98:hover {
+    background-color: var(--accent2) !important;
+}
+.nico-CommonHeaderRoot .common-header-yxm7eu,.nico-CommonHeaderRoot .common-header-1xmxna8 {
+    background-color: var(--bgcolor2) !important;
+    color: #f0f0f0 !important;
+}
+.nico-CommonHeaderRoot .common-header-jmhvxm,.nico-CommonHeaderRoot .common-header-n0qa7l,.nico-CommonHeaderRoot .common-header-ddpru6,.nico-CommonHeaderRoot .common-header-1yxywo9,.nico-CommonHeaderRoot .common-header-ndczso {
+    color: #f0f0f0 !important;
+}
+.nico-CommonHeaderRoot .common-header-17kau2v svg path,.nico-CommonHeaderRoot .common-header-z0oejq svg path,.nico-CommonHeaderRoot .common-header-17qo8f1 path {
+    fill: var(--textcolor1) !important;
+}
+.nico-CommonHeaderRoot .common-header-cvcm83 > * {
+    border-top: 0px !important;
+}
+.common-header-1cznxpg {
+    background: var(--bgcolor2) !important;
+}

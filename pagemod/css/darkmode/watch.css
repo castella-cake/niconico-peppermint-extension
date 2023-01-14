@@ -1,0 +1,233 @@
+/* 色浮き防止 */
+.HeaderContainer,.BottomSideContainer,.BottomMainContainer {
+    background-color:var(--bgcolor1);
+}
+/* タイトル */
+.VideoTitle {
+    color: var(--textcolor1);
+}
+/* メタデータ */
+.VideoUploadDateMeta-title,.VideoViewCountMeta-title,.CommentCountMeta-title,.MylistCountMeta-title,.VideoGenreMeta-title,.GenreRankMeta-genreName {
+    color: #dadada;
+}
+.VideoUploadDateMeta-dateTimeLabel,.VideoViewCountMeta-counter,.CommentCountMeta-counter,.MylistCountMeta-counter,.VideoGenreMeta-genreName,.VideoGenreMeta-link,.GenreRankMeta-yesterdayRank {
+    color: #cfcfcf;
+}
+.VideoMetaContainer > *, .VideoMetaOverflowMenuContainer {
+    border-left: 1px solid var(--accent1);
+    box-shadow: -1px 0 0 0 var(--bgcolor2);
+}
+/* メタデータメニュー */
+.VideoMetaOverflowMenuContainer-menu {
+    background: var(--bgcolor2);
+    border: 1px solid var(--accent2);
+}
+/* コメント入力 */
+.CommentPostContainer-commentInput,.CommentPostContainer-commandInput {
+    background-color: var(--bgcolor3);
+    border: 1px solid var(--accent1);
+}
+.CommentCommandInput {
+    color: var(--textcolor1);
+}
+.CommentInput-textarea {
+    color: var(--textcolor1);
+}
+/* 右側いいねetc */
+.VideoMenuContainer, .BottomContainer, .VideoMenuContainer-areaLeft, .VideoMenuContainer-areaRight {
+    background-color: var(--bgcolor1);
+}
+.VideoMenuContainer-areaLeft .VideoMenuContainer-button,.SharePanelVisibleActionButton svg {
+    fill: #f0f0f0;
+}
+.VideoMenuContainer .UadButtonBalloon {
+    background-color: #3f3f3f;
+}
+.PlayerPanelContainer {
+    background-color: #282828;
+}
+.WatchRecommendation-heading {
+    color: var(--textcolor3);
+}
+.VideoMenuContainer::after {
+    border-bottom: 0px;
+}
+.SharePanelVisibleActionButton:hover {
+    background: var(--accent1);
+}
+.VideoMenuContainer {
+    background-color: var(--bgcolor2);
+}
+/* コメント表示 */
+.CommentPanelContainer {
+    background-color: #303030;
+}
+.CommentPanelContainer .CommentPanelDataGrid {
+    color: var(--textcolor1);
+}
+.CommentPanelDataGrid .CommentPanelDataGrid-TableRow:hover {
+    background-color: var(--accent1);
+}
+.CommentPanelDataGrid .CommentPanelDataGrid-HeaderCell {
+    background-color: var(--bgcolor3);
+}
+.CommentPanelContainer [data-row-nicoru-rank="1"] {
+    background:#454339;
+}
+.CommentPanelContainer [data-row-nicoru-rank="2"] {
+    background:#504b36;
+}
+.CommentPanelContainer [data-row-nicoru-rank="3"] {
+    background:#635d3c;
+}
+.CommentPanelContainer [data-row-nicoru-rank="4"] {
+    background:#715d0d;
+}
+/* タグ */
+.TagItem {
+    background-color: var(--accent1);
+    border: 1px solid var(--bgcolor3);
+}
+.TagItem-name {
+    color: var(--textcolor1);
+}
+.TagContainer-editButton {
+    background-color: #4c4f53;
+}
+/* 下側 */
+.Card {
+    background-color: var(--bgcolor2);
+}
+.Card-title {
+    color: #fafafa;
+}
+.ContentTreeContainer-guideMessage {
+    color: var(--textcolor3);
+}
+.EventTagRelatedBanner-description .Link {
+    color: var(--textcolor2);
+}
+.EventTagRelatedBanner-title .Link {
+    color: var(--linktext1);
+}
+/* コンテンツツリー */
+.ContentTree-summary .Link {
+    background-color: var(--accent1);
+    color: var(--linktext2);
+}
+/* 検索 */
+.SearchBox {
+    background: var(--bgcolor3);
+    border: 1px solid var(--bgcolor4);
+}
+.SearchBox-input {
+    box-shadow: inset 0 0 8px 0 #333;
+}
+.TagSuggestionInput-input {
+    background: #696969;
+    color: #f0f0f0;
+}
+.SearchBox-submitIcon {
+    fill: var(--textcolor2);
+}
+/* いいねボタン */
+.LikeActionButton {
+    background: var(--bgcolor3);
+    color: var(--textcolor1);
+}
+.LikeActionButton:hover {
+    background: var(--accent2);
+}
+.LikeActionButton--default {
+    border: 2px solid var(--accent1);
+}
+#LikeIcon_svg__frame-0 path {
+    fill: #fff;
+}
+/* ギフト */
+.GiftSubEffectContainer-balloon {
+    background: var(--bgcolor2);
+    border: 1px solid var(--accent1);
+}
+.GiftSubEffectContainer-balloon::after, .GiftSubEffectContainer-balloon::before {
+    border-right-color: var(--bgcolor2);
+}
+.GiftSubEffectGivenGift-giftPoint,.GiftSubEffectGivenGift-name,.GiftSubEffectRanker-rankerName,.GiftSubEffectRanker-honorificTitle,.GiftSubEffectGivenGift-honorificTitle {
+    color:var(--textcolor3);
+}
+.GiftSubEffectGivenGift-giftName,.GiftSubEffectGivenGift-text {
+    color:var(--textcolor2);
+}
+.GiftSubEffectConductor {
+    color: var(--linktext1);
+}
+.GiftSubEffectConductor-openBlankIcon > * {
+    fill: var(--linktext1);
+}
+.GiftButton {
+    background: var(--bgcolor2);
+}
+.GiftButton-icon svg svg path,.GiftButton-point {
+    color: var(--textcolor2);
+    fill: var(--textcolor2);
+}
+/* 右側タブ */
+.PlayerPanelContainer-tabItem {
+    border-bottom: 3px solid var(--bgcolor3);
+}
+/* 右下イベントカード */
+.TagRelatedBanner-title .Link {
+    color: var(--linktext1);
+}
+.TagRelatedBanner-description .Link {
+    color: var(--textcolor2);
+}
+/* フィードバック */
+.FeedbackLink {
+    background: #4a4d51;
+}
+/* ライブ中 */
+.OwnerNicoliveBanner {
+    background: var(--bgcolor2);
+}
+.OwnerNicoliveBanner-title {
+    color: var(--textcolor1);
+}
+.OwnerNicoliveBanner-time {
+    color: var(--textcolor3);
+}
+/* NG設定 */
+.NGSettingPanelContainer-contentMain {
+    background: var(--accent1);
+}
+.NGSettingPanelContainer {
+    background: var(--bgcolor2);
+}
+.ViewerNGList .ViewerNGListDataGrid-HeaderCell {
+    background: var(--accent2);
+}
+.NGSettingPanelContainer-removeButton[disabled] {
+    background: var(--accent2);
+    color: var(--textcolor2);
+}
+.NGSettingPanelContainer-openViewerNGRegisterButton {
+    background: var(--accent1);
+}
+/* 概要 */
+.VideoDescriptionSeriesContainer-label {
+    color: var(--textcolor3);
+}
+.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand {
+    background: linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%);
+}
+
+/* ダークなコメントエリア */
+.ControllerBoxCommentAreaContainer, .EasyCommentContainer {
+    background-color: #222;
+    border-right: 0px solid #ddd;
+}
+.EasyCommentButton {
+    background-image: linear-gradient(#616161,#414141);
+    color: #fff;
+    border: 2px solid #909090;
+}

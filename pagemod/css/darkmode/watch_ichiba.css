@@ -1,0 +1,24 @@
+.IchibaForWatch {
+    background: var(--bgcolor2) !important;
+}
+.IchibaMain_Container .IchibaBalloon {
+    background: var(--bgcolor3);
+}
+.IchibaMain_Container .IchibaBalloon::after {
+    border-top: 16px solid #555;
+}
+.IchibaForWatch_Title_Body,.IchibaSuggest_Title {
+    color: #fafafa;
+}
+.IchibaMainItem_Info,.IchibaSuggestItem_Info_Shop {
+    color: var(--textcolor2);
+}
+.IchibaMainItem_Price_Number,.IchibaSuggestItem_Price_Number {
+    color: var(--textcolor3);
+}
+.IchibaMainItem_Name,.IchibaSuggestItem_Name {
+    color: #8fb9df;
+}
+.IchibaSuggestItem {
+    border: 1px solid var(--accent2);
+}

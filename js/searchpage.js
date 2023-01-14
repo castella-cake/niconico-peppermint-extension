@@ -1,4 +1,5 @@
-$(function(){
+
+    //alert("Hello!")
     function onError(error) {
         console.log(`Error: ${error}`);
     }
@@ -9,10 +10,6 @@ $(function(){
     getting.then(createCSSRule, onError);
     function createCSSRule(result) {
         if ( result.darkmode != "" ) {
-            appendCSS(browser.runtime.getURL("pagemod/css/darkmode/ranking.css"));
-        }
-        if ( result.hiderankpagead == true ) {
-            $('.RankingMatrixNicoadsRow,.NC-NicoadMediaObject').css('display', 'none');
+            appendCSS(browser.runtime.getURL("pagemod/css/darkmode/searchpage.css"));
         }
     }
-});
