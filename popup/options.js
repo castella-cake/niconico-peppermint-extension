@@ -21,7 +21,9 @@ function saveOptions(e) {
             "alignpagewidth": document.querySelector("#input-alignpagewidth").checked,
             "darkmode": document.querySelector("#select-darkmode").value,
             "headerbg": document.querySelector("#select-headerbg").value,
-            "headercolor": document.querySelector("#input-headercolor").value
+            "headercolor": document.querySelector("#input-headercolor").value,
+            "highlightlockedtag": document.querySelector("#input-highlightlockedtag").checked,
+            "watchpagetheme": document.querySelector("#select-watchpagetheme").value
         }
     );
     location.reload();
@@ -58,6 +60,8 @@ function restoreOptions() {
         document.querySelector("#select-darkmode").value = result.darkmode || "";
         document.querySelector("#select-headerbg").value = result.headerbg || "";
         document.querySelector("#input-headercolor").value = result.headercolor || "#252525";
+        document.querySelector("#input-highlightlockedtag").checked = result.highlightlockedtag;
+        document.querySelector("#select-watchpagetheme").value = result.watchpagetheme || "";
         if (result.test_var == "hello") {
             $("#test-form-stat").text ("HELLO WORLD!!!!!!!!")
         } else {

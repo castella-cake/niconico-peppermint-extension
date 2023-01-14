@@ -1,0 +1,10 @@
+.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand, .VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse {
+    fill: var(--textcolor1);
+    color: var(--textcolor1);
+}
+.VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse::before {
+    border-color: transparent transparent var(--textcolor1) !important
+}
+.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand::before {
+    border-color: var(--textcolor1) transparent transparent !important
+}

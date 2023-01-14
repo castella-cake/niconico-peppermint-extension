@@ -38,8 +38,8 @@
                 <label>プレイヤーテーマ
                     <select id="select-playertheme">
                         <option value="">Disable</option>
-                        <option value="harazyuku">原宿 v1</option>
-                        <option value="mint">Mint v1</option>
+                        <option value="harazyuku">原宿</option>
+                        <option value="mint">Mint</option>
                     </select>
                 </label>
                 <div class="hint">プレイヤーのレイアウトと見た目を一括変更します。<br>スタイルは「プレイヤースタイルのオーバーライド」によって上書きされることがあります。</div>
@@ -49,8 +49,8 @@
                     <!-- 後回しのためdisabledにする -->
                     <select id="select-playerstyleoverride" disabled>
                         <option value="">Coming Soon™</option>
-                        <option value="harazyuku">原宿 v1</option>
-                        <option value="mint">Mint v1</option>
+                        <option value="harazyuku">原宿</option>
+                        <option value="mint">Mint</option>
                         <option value="none">None</option>
                     </select>
                 </label>
@@ -60,7 +60,18 @@
         <h1>WatchPage</h1>
         <form id="form-watch">
             <div>
+                <label>視聴ページテーマ
+                    <select id="select-watchpagetheme">
+                        <option value="">Disable</option>
+                        <option value="mint">Mint</option>
+                    </select>
+                </label>
+            </div>
+            <div>
                 <label>マーキーテキストをロゴに置き換え<input type="checkbox" id="input-replacemarqueetext"></label>
+            </div>
+            <div>
+                <label>ロック中のタグをハイライト<input type="checkbox" id="input-highlightlockedtag"></label>
             </div>
         </form>
         <h1>Other</h1>

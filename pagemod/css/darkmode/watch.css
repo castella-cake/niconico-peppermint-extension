@@ -56,7 +56,7 @@
     background: var(--accent1);
 }
 .VideoMenuContainer {
-    background-color: var(--bgcolor2);
+    background-color: var(--bgcolor1);
 }
 /* コメント表示 */
 .CommentPanelContainer {
