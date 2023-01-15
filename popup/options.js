@@ -23,7 +23,10 @@ function saveOptions(e) {
             "headerbg": document.querySelector("#select-headerbg").value,
             "headercolor": document.querySelector("#input-headercolor").value,
             "highlightlockedtag": document.querySelector("#input-highlightlockedtag").checked,
-            "watchpagetheme": document.querySelector("#select-watchpagetheme").value
+            "watchpagetheme": document.querySelector("#select-watchpagetheme").value,
+
+            "enablenicoboxui": document.querySelector("#input-enablenicoboxui").checked,
+            "usenicoboxui": document.querySelector("#input-usenicoboxui").checked
         }
     );
     location.reload();
@@ -62,6 +65,8 @@ function restoreOptions() {
         document.querySelector("#input-headercolor").value = result.headercolor || "#252525";
         document.querySelector("#input-highlightlockedtag").checked = result.highlightlockedtag;
         document.querySelector("#select-watchpagetheme").value = result.watchpagetheme || "";
+        document.querySelector("#input-enablenicoboxui").checked = result.enablenicoboxui;
+        document.querySelector("#input-usenicoboxui").checked = result.usenicoboxui;
         if (result.test_var == "hello") {
             $("#test-form-stat").text ("HELLO WORLD!!!!!!!!")
         } else {
