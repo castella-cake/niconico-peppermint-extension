@@ -7,8 +7,8 @@ function saveOptions(e) {
     // storageに変更を書き込む。
     chrome.storage.sync.set(
         {
-            "test_var": document.querySelector("#test-form-input").value,
-            "test_checkbox": document.querySelector("#checkbox-form-input").checked,
+            //"test_var": document.querySelector("#test-form-input").value,
+            //"test_checkbox": document.querySelector("#checkbox-form-input").checked,
 
             "hiderankpagead": document.querySelector("#input-hiderankpagead").checked,
             "hideeventbanner": document.querySelector("#input-hideeventbanner").checked,
@@ -52,8 +52,8 @@ function onError(error) {
 function restoreOptions() {
 
     function setCurrentChoice(result) {
-        document.querySelector("#test-form-input").value = result.test_var || "hello";
-        document.querySelector("#checkbox-form-input").checked = result.test_checkbox;
+        //document.querySelector("#test-form-input").value = result.test_var || "hello";
+        //document.querySelector("#checkbox-form-input").checked = result.test_checkbox;
         document.querySelector("#input-hiderankpagead").checked = result.hiderankpagead;
         document.querySelector("#input-hideeventbanner").checked = result.hideeventbanner;
         document.querySelector("#input-hidepopup").checked = result.hidepopup;
@@ -70,12 +70,6 @@ function restoreOptions() {
         document.querySelector("#input-enablenicoboxui").checked = result.enablenicoboxui;
         document.querySelector("#input-usenicoboxui").checked = result.usenicoboxui;
         document.querySelector("#input-quickvidarticle").checked = result.quickvidarticle;
-        if (result.test_var == "hello") {
-            $("#test-form-stat").text ("HELLO WORLD!!!!!!!!")
-        } else {
-            $("#test-form-stat").text (result.test_var)
-        }
-        $("#debug").text ()
     }
 
     function onError(error) {
