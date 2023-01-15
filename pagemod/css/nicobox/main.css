@@ -1,0 +1,33 @@
+.CommentRenderer, .EnableFullScreenButton {
+    display:none
+}
+.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
+    fill: #1d2128
+}
+.ActionButton.ControllerButton.PlayerPauseButton,.ActionButton.ControllerButton.PlayerPlayButton {
+    position:absolute;
+    left:50%;
+    right:50%;
+    transform:translate(-50%, 0%);
+}
+.PlayerSkipNextButton {
+    position: relative;
+    left: 18px
+}
+.InView.VideoContainer {
+    height: 360px !important;
+    width: 640px !important;
+}
+.ControllerContainer-centerArea .PlayerSeekBackwardButton, .ControllerContainer-centerArea .PlayerSeekForwardButton, .ControllerContainer-centerArea .PlayerSkipNextButton, .ControllerContainer-centerArea .SeekToHeadButton {
+    width:40px;
+    height:40px;
+    top:4px;
+}
+.PlayerPauseButton,.PlayerPlayButton {
+    width:48px;
+    height:48px
+}
+.MuteVideoButton,.VolumeBarContainer,.PlaybackRateButton,.PlayerRepeatOnButton,.PlayerRepeatOffButton,.PlayerOptionButton {
+    position:relative;
+    top:4px
+}

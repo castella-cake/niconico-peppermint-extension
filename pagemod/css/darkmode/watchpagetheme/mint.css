@@ -8,3 +8,7 @@
 .VideoDescriptionExpander .VideoDescriptionExpander-switchExpand::before {
     border-color: var(--textcolor1) transparent transparent !important
 }
+.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand,.VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse {
+    background-color: transparent;
+    background: transparent;
+}

@@ -19,5 +19,9 @@ Niconico-PepperMint Extension版は現在試験的なものです。
 - [ ] UserStyle版の開発停止
 
 # ライセンス
-Niconico-PepperMint Extension版のライセンスは``MIT License``です。
-詳細は``LICENSE.txt``を確認してください。
+Niconico-PepperMint Extension版のライセンスは``MIT License``です。  
+詳細は``LICENSE.txt``を確認してください。  
+
+Niconico-PepperMint内には、Material Iconsを使用している箇所があります。    
+Material Iconsは``Apache License 2.0`` のもとで配布されています。  
+Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0

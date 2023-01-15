@@ -7,8 +7,8 @@
         $('head').append( $('<link>').attr( {'rel': 'stylesheet','href': cssfile} ) );
         console.log(`CSS Added: ${cssfile}`);
     }
-    var getting = browser.storage.sync.get(null);
-    getting.then(createCSSRule, onError);
+    var getstoragedata = browser.storage.sync.get(null);
+    getstoragedata.then(createCSSRule, onError);
     function createCSSRule(result) {
         if ( result.darkmode != "" ) {
             appendCSS(browser.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
@@ -24,7 +24,10 @@
         if (result.headerbg == "gradient") {
             appendCSS(browser.runtime.getURL("pagemod/css/header/gradient.css"));
         } else if (result.headerbg == "custom") {
+            $(function() {
             appendCSS(browser.runtime.getURL("pagemod/css/header/custom.css"));
             $('body').css('--headercolor', result.headercolor);
+            console.log(`HeaderBG changed to ${result.headercolor}`);
+        });
         }
     }
