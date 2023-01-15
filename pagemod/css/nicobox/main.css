@@ -31,3 +31,9 @@
     position:relative;
     top:4px
 }
+.PlayerOptionContainer {
+    max-height: 330px;
+}
+.PlayerSizeMenuItem, .FullscreenModeMenuItem, .PlayerOptionMenuGroup:nth-child(2), .PlayerOptionMenuGroup:nth-child(3)  {
+    display:none;
+}
