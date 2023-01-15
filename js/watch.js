@@ -4,17 +4,17 @@ function onError(error) {
 function appendCSS(cssfile) {
     $('head').append( $('<link>').attr( {'rel': 'stylesheet','href': cssfile} ) );
 }
-var getstoragedata = browser.storage.sync.get(null);
+var getstoragedata = chrome.storage.sync.get(null);
 getstoragedata.then(createCSSRule, onError);
 function createCSSRule(result) {
     if (result.enablenicoboxui == true) {
         appendCSS("https://fonts.googleapis.com/icon?family=Material+Icons")
         $('body').append('<button id="togglenicobox" class="material-icons" style="cursor: pointer; position: sticky; left:16px; bottom:16px; width: 52px; height:52px; border:none; background: #d85353; border-radius: 128px; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); padding:0px; color: #fff; font-size: 24px;">music_note</button>');
-        $("#togglenicobox").load(browser.runtime.getURL("pagemod/svg/nicotv-toggle.svg"))
+        $("#togglenicobox").load(chrome.runtime.getURL("pagemod/svg/nicotv-toggle.svg"))
         $('#togglenicobox').on('click', ToggleNicobox);
         function ToggleNicobox() {
             console.log(`Nicobox Toggled!!! ${result.usenicoboxui}`)
-            browser.storage.sync.set({"usenicoboxui": !result.usenicoboxui});
+            chrome.storage.sync.set({"usenicoboxui": !result.usenicoboxui});
             location.reload();
         }
     }
@@ -22,28 +22,28 @@ function createCSSRule(result) {
         if (result.playertheme != "") {
             console.log(`CSS Loaded!`);
             if (result.playerstyleoverride == "") {
-                appendCSS(browser.runtime.getURL("pagemod/css/playerstyle/" + result.playertheme + ".css"));
+                appendCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playertheme + ".css"));
             } else if (result.playerstyleoverride != "none") {
-                appendCSS(browser.runtime.getURL("pagemod/css/playerstyle/" + result.playerstyleoverride + ".css"));
+                appendCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playerstyleoverride + ".css"));
             }
-            appendCSS(browser.runtime.getURL("pagemod/css/playertheme/" + result.playertheme + ".css"));
+            appendCSS(chrome.runtime.getURL("pagemod/css/playertheme/" + result.playertheme + ".css"));
         }
         if (result.watchpagetheme != "") {
             console.log(`CSS Loaded!`);
-            appendCSS(browser.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
+            appendCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
         }
         if (result.hidepopup == true) {
             console.log(`Hiding popup...`)
             // cssじゃないとロードの都合で反映されなかった
             //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none')
-            appendCSS(browser.runtime.getURL("pagemod/css/hide/hidepopup.css"));
+            appendCSS(chrome.runtime.getURL("pagemod/css/hide/hidepopup.css"));
         }
         if (result.hideeventbanner == true) {
             // 未検証
             $('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').css('display','none')
         }
         if (result.replacemarqueetext == true) {
-            appendCSS(browser.runtime.getURL("pagemod/css/hide/replacemarqueetext.css"));
+            appendCSS(chrome.runtime.getURL("pagemod/css/hide/replacemarqueetext.css"));
             /* 
             $(function() { 
                 $('.Marquee-itemArea').css({
@@ -57,10 +57,10 @@ function createCSSRule(result) {
             });*/
         }
         if ( result.darkmode != "" ) {
-            appendCSS(browser.runtime.getURL("pagemod/css/darkmode/watch.css"));
-            $(function() { appendCSS(browser.runtime.getURL("pagemod/css/darkmode/watch_ichiba.css")) });
+            appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            $(function() { appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch_ichiba.css")) });
             if (result.watchpagetheme != "") {
-                appendCSS(browser.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"));
+                appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"));
             }
         }
         if (result.highlightlockedtag == true) {
@@ -69,7 +69,7 @@ function createCSSRule(result) {
     } else {
         $(function() {
             // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
-            appendCSS(browser.runtime.getURL("pagemod/css/nicobox/main.css"));
+            appendCSS(chrome.runtime.getURL("pagemod/css/nicobox/main.css"));
             $('body').removeClass('is-middle');
             $('body').removeClass('is-large');
             $('body').addClass('is-autoResize');
@@ -160,8 +160,8 @@ function createCSSRule(result) {
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer').remove();
             $('.WatchAppContainer-main').scrollTop(0);
             if ( result.darkmode != "" ) {
-                appendCSS(browser.runtime.getURL("pagemod/css/darkmode/watch.css"));
-                appendCSS(browser.runtime.getURL("pagemod/css/darkmode/nicobox.css"));
+                appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+                appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/nicobox.css"));
             } else {
                 $('.HeaderContainer').css({
                     'background':'#fefefe'
@@ -179,6 +179,6 @@ $('#togglenicobox').on('click', function() {
     console.log(`Nicobox Toggled!!!`)
     alert("Nicobox万歳！！！！");
     getstoragedata.then(function(result) {
-        browser.storage.sync.set("usenicoboxui", !result.usenicoboxui);
+        cchrome.storage.sync.set("usenicoboxui", !result.usenicoboxui);
     }, onError);
 });*/

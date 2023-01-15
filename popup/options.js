@@ -1,11 +1,11 @@
-let manifestData = browser.runtime.getManifest();
+let manifestData = chrome.runtime.getManifest();
 $("#current-version").text ("v" + manifestData.version + " Manifest V" + manifestData.manifest_version)
 
 // button "保存"(#submit)が押されたときに発火！！！！
 function saveOptions(e) {
     e.preventDefault();
     // storageに変更を書き込む。
-    browser.storage.sync.set(
+    chrome.storage.sync.set(
         {
             "test_var": document.querySelector("#test-form-input").value,
             "test_checkbox": document.querySelector("#checkbox-form-input").checked,
@@ -79,7 +79,7 @@ function restoreOptions() {
         console.log(`Error: ${error}`);
     }
 
-    var getting = browser.storage.sync.get(null);
+    var getting = chrome.storage.sync.get(null);
     getting.then(setCurrentChoice, onError);
 }
 
