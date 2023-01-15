@@ -2,7 +2,7 @@
     "description": "ニコニコ動画をちょっとクールにします。",
     "manifest_version": 3,
     "name": "Niconico-PepperMint",
-    "version": "0.1",
+    "version": "0.2",
 
 
     "content_scripts": [
