@@ -26,7 +26,9 @@ function saveOptions(e) {
             "watchpagetheme": document.querySelector("#select-watchpagetheme").value,
 
             "enablenicoboxui": document.querySelector("#input-enablenicoboxui").checked,
-            "usenicoboxui": document.querySelector("#input-usenicoboxui").checked
+            "usenicoboxui": document.querySelector("#input-usenicoboxui").checked,
+            "quickvidarticle": document.querySelector("#input-quickvidarticle").checked
+
         }
     );
     location.reload();
@@ -67,6 +69,7 @@ function restoreOptions() {
         document.querySelector("#select-watchpagetheme").value = result.watchpagetheme || "";
         document.querySelector("#input-enablenicoboxui").checked = result.enablenicoboxui;
         document.querySelector("#input-usenicoboxui").checked = result.usenicoboxui;
+        document.querySelector("#input-quickvidarticle").checked = result.quickvidarticle;
         if (result.test_var == "hello") {
             $("#test-form-stat").text ("HELLO WORLD!!!!!!!!")
         } else {

@@ -7,7 +7,7 @@
 
     "content_scripts": [
         {
-            "matches": ["*://www.nicovideo.jp/*"],
+            "matches": ["*://*.nicovideo.jp/*"],
             "js": ["js/jquery-3.6.3.min.js","js/forall.js"],
             "run_at": "document_start"
         },
@@ -30,6 +30,11 @@
             "matches": ["*://www.nicovideo.jp/watch/*"],
             "js": ["js/watch.js"],
             "run_at": "document_end"
+        },
+        {
+            "matches": ["*://www.nicovideo.jp/watch/*"],
+            "js": ["js/watch_idle.js"],
+            "run_at": "document_idle"
         }
     ],
     "web_accessible_resources": [

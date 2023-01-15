@@ -1,4 +1,3 @@
-// なんでこれ動いてんの...？？？？？？
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     if ( result.darkmode != "" ) {

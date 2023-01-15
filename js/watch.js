@@ -63,13 +63,10 @@ function createCSSRule(result) {
         $(function() {
             // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
             appendCSS(chrome.runtime.getURL("pagemod/css/nicobox/main.css"));
-            $('body').removeClass('is-middle');
-            $('body').removeClass('is-large');
-            $('body').addClass('is-autoResize');
-            $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')
+            $('body').css('background-color','#fefefe')
+            // 基本レイアウト変更
             $('.HeaderContainer').before($('.MainContainer'));
             $('.BottomRightNoticeCenter').after($('.MainContainer-playerPanel'));
-            $('body').css('background-color','#fefefe')
             $('.MainContainer').css({
                 'padding-top': '200px',
                 'box-shadow': '0px 0px 0px #000',
@@ -88,6 +85,15 @@ function createCSSRule(result) {
                 'position':'fixed',
                 'top':'36px',
             })
+            $('.VideoContainer').css({
+                'background':'transparent',
+                'margin':'auto',
+                'overflow':'visible'
+            })
+            // かつてヘッダーだったもの(動画情報)
+            $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')
+            $('.VideoTitle').css('color','#d85353')
+            $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background','linear-gradient(90deg,hsla(0,0%,96%,0),#fefefe 16%)')
             $('.HeaderContainer-searchBox').css({
                 'position':'fixed',
                 'top':'36px',
@@ -98,17 +104,21 @@ function createCSSRule(result) {
                 'padding': '16px 8px 0',
                 'margin': '0 0 240px'
             })
-            $('.VideoContainer').css({
-                'background':'transparent',
-                'margin':'auto',
-                'overflow':'visible'
-            })
-            $('.MainVideoPlayer > video').css({
-                'width':'auto',
-                'margin':'auto',
-                'box-shadow':'0px 0px 10px rgba(0,0,0,0.8)'
-            })
             $('.HeaderContainer-topArea').css('text-align','center')
+            $('.HeaderContainer-row .GridCell:last-child').css({
+                'width':'fit-content',
+                'display':'flex'
+            })
+            $('.HeaderContainer-row').css({
+                'width':'fit-content',
+                'display':'flex',
+                'margin':'auto auto 12px'
+            })
+            $('.VideoOwnerInfo').css({
+                'position':'absolute',
+                'right':'0'
+            })
+            // プレイヤー
             $('.PlayerContainer,.ControllerBoxContainer').css('background-color','transparent')
             $('.VideoDescriptionContainer').css({
                 'left': '25%'
@@ -144,17 +154,16 @@ function createCSSRule(result) {
                 'left':'20px'
             })
             $('.CommentOnOffButton').css('display','none')
-            $('.VideoTitle').css('color','#d85353')
             $('.SeekBarContainer').css('padding','8px 64px 0')
             $('.SeekBar-played').css('background-color','#d85353')
             $('.SeekBar-buffered').css('background-color','#666')
-            $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background','linear-gradient(90deg,hsla(0,0%,96%,0),#fefefe 16%)')
-            // 
+            // 不要な要素の削除
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer').remove();
-            $('.WatchAppContainer-main').scrollTop(0);
+            window.scroll({top: 0, behavior: 'smooth'});
             if ( result.darkmode != "" ) {
                 appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
                 appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/nicobox.css"));
+                $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background','linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%)')
             } else {
                 $('.HeaderContainer').css({
                     'background':'#fefefe'

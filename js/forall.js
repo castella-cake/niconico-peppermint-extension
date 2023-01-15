@@ -14,7 +14,10 @@
         if ( result.darkmode != "" ) {
             appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
             appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/forall.css"));
-            $(function() { 
+            $(function() {
+                // 初めて読み込む時だとロード終わりを待たないとだめっぽい
+                appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
+                appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/forall.css"));
                 appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/header.css"))
                 appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/userpage.css"))
             });
