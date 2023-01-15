@@ -37,3 +37,6 @@ Niconico-PepperMint Extension版のライセンスは``MIT License``です。
 Niconico-PepperMint内には、Material Iconsを使用している箇所があります。    
 Material Iconsは``Apache License 2.0`` のもとで配布されています。  
 Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
+
+Niconico-PepperMint内には、JQueryが含まれています。
+JQueryは``MIT License``のもとで配布されています。
