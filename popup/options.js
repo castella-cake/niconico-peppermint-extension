@@ -78,9 +78,8 @@ function restoreOptions() {
     function onError(error) {
         console.log(`Error: ${error}`);
     }
-
-    var getting = chrome.storage.sync.get(null);
-    getting.then(setCurrentChoice, onError);
+    let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+    getStorageData.then(setCurrentChoice, onError)
 }
 
     document.addEventListener("DOMContentLoaded", restoreOptions);

@@ -1,11 +1,4 @@
-function onError(error) {
-    console.log(`Error: ${error}`);
-}
-function appendCSS(cssfile) {
-    $('head').append( $('<link>').attr( {'rel': 'stylesheet','href': cssfile} ) );
-}
-var getstoragedata = chrome.storage.sync.get(null);
-getstoragedata.then(createCSSRule, onError);
+getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     if (result.enablenicoboxui == true) {
         appendCSS("https://fonts.googleapis.com/icon?family=Material+Icons")

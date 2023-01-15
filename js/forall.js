@@ -7,9 +7,10 @@
         $('head').append( $('<link>').attr( {'rel': 'stylesheet','href': cssfile} ) );
         console.log(`CSS Added: ${cssfile}`);
     }
-    var getstoragedata = chrome.storage.sync.get(null);
-    getstoragedata.then(createCSSRule, onError);
-    function createCSSRule(result) {
+    let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+
+    getStorageData.then(createBaseCSSRule, onError);
+    function createBaseCSSRule(result) {
         if ( result.darkmode != "" ) {
             appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
             appendCSS(chrome.runtime.getURL("pagemod/css/darkmode/forall.css"));
