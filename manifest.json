@@ -40,8 +40,9 @@
         "browser_style": true,
         "default_popup": "popup/option.html",
         "default_icon": {
-            "16": "icons/page-16.png",
-            "32": "icons/page-32.png"
+            "16": "icons/peppermint-logo-16.png",
+            "32": "icons/peppermint-logo-32.png",
+            "64": "icons/peppermint-logo-64.png"
         }
     },
     "permissions": ["storage"],
