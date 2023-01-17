@@ -147,11 +147,11 @@ function createCSSRule(result) {
             })
             $('.PlayerSeekBackwardButton, .SeekToHeadButton').css({
                 'position':'relative',
-                'right':'20px'
+                'right':'30px'
             })
             $('.PlayerSeekForwardButton').css({
                 'position':'relative',
-                'left':'20px'
+                'left':'8px'
             })
             $('.VideoPlayer video').css({
                 'width':'auto',

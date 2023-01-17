@@ -8,11 +8,11 @@
     position:absolute;
     left:50%;
     right:50%;
-    transform:translate(-50%, 0%);
+    transform:translate(-75%, 0%);
 }
 .PlayerSkipNextButton {
     position: relative;
-    left: 18px
+    left: 4px
 }
 .InView.VideoContainer {
     height: 360px !important;
