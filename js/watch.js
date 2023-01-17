@@ -153,6 +153,11 @@ function createCSSRule(result) {
                 'position':'relative',
                 'left':'20px'
             })
+            $('.VideoPlayer video').css({
+                'width':'auto',
+                'margin':'auto',
+                'box-shadow':'0px 0px 10px rgba(0,0,0,0.8);'
+            })
             $('.CommentOnOffButton').css('display','none')
             $('.SeekBarContainer').css('padding','8px 64px 0')
             $('.SeekBar-played').css('background-color','#d85353')

@@ -38,7 +38,7 @@
     display:none;
 }
 .VideoPlayer video {
-    width:auto;
-    margin:auto;
-    box-shadow:0px 0px 10px rgba(0,0,0,0.8);
+    width:auto !important;
+    margin:auto !important;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.8) !important;
 }

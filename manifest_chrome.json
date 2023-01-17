@@ -2,12 +2,12 @@
     "description": "ニコニコ動画をちょっとクールにします。",
     "manifest_version": 3,
     "name": "Niconico-PepperMint",
-    "version": "0.2",
+    "version": "0.3",
 
 
     "content_scripts": [
         {
-            "matches": ["*://www.nicovideo.jp/*"],
+            "matches": ["*://*.nicovideo.jp/*"],
             "js": ["js/jquery-3.6.3.min.js","js/forall.js"],
             "run_at": "document_start"
         },
@@ -19,7 +19,7 @@
         {
             "matches": ["*://www.nicovideo.jp/ranking"],
             "js": ["js/ranking.js"],
-            "run_at": "document_start"
+            "run_at": "document_end"
         },
         {
             "matches": ["*://www.nicovideo.jp/search/*", "*://www.nicovideo.jp/tag/*", "*://www.nicovideo.jp/mylist_search/*"],
@@ -30,6 +30,11 @@
             "matches": ["*://www.nicovideo.jp/watch/*"],
             "js": ["js/watch.js"],
             "run_at": "document_end"
+        },
+        {
+            "matches": ["*://www.nicovideo.jp/watch/*"],
+            "js": ["js/watch_idle.js"],
+            "run_at": "document_idle"
         }
     ],
     "web_accessible_resources": [{
@@ -37,7 +42,7 @@
             "pagemod/*"
         ],
         "matches": [
-            "*://www.nicovideo.jp/*"
+            "*://*.nicovideo.jp/*"
         ]
     }],
 
@@ -47,7 +52,8 @@
         "default_icon": {
             "16": "icons/page-16.png",
             "32": "icons/page-32.png"
-        }
+        },
+        "default_title": "Niconico-PepperMint"
     },
     "permissions": ["storage"],
 

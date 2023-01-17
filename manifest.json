@@ -1,9 +1,13 @@
 {
-    "description": "ニコニコ動画をちょっとクールにします。",
     "manifest_version": 2,
     "name": "Niconico-PepperMint",
-    "version": "0.2",
+    "description": "ニコニコ動画をちょっとクールにする拡張機能",
+    "version": "0.3",
 
+    "homepage_url": "https://github.com/castella-cake/niconico-peppermint-extension",
+    "icons": {
+        "64": "icons/peppermint-logo-64.png"
+    },
 
     "content_scripts": [
         {
@@ -17,9 +21,9 @@
             "run_at": "document_end"
         },
         {
-            "matches": ["*://www.nicovideo.jp/ranking"],
+            "matches": ["*://www.nicovideo.jp/ranking*"],
             "js": ["js/ranking.js"],
-            "run_at": "document_start"
+            "run_at": "document_end"
         },
         {
             "matches": ["*://www.nicovideo.jp/search/*", "*://www.nicovideo.jp/tag/*", "*://www.nicovideo.jp/mylist_search/*"],
@@ -48,7 +52,8 @@
             "16": "icons/peppermint-logo-16.png",
             "32": "icons/peppermint-logo-32.png",
             "64": "icons/peppermint-logo-64.png"
-        }
+        },
+        "default_title": "Niconico-PepperMint"
     },
     "permissions": ["storage"],
 

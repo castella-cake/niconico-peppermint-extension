@@ -25,6 +25,9 @@
         if ( result.alignpagewidth == true ) {
             appendCSS(chrome.runtime.getURL("pagemod/css/other/alignpagewidth.css"));
         }
+        if ( result.highlightnewnotice == true ) {
+            $(function() {appendCSS(chrome.runtime.getURL("pagemod/css/other/highlightnewnotice.css"))});
+        }
         if (result.headerbg == "gradient") {
             appendCSS(chrome.runtime.getURL("pagemod/css/header/gradient.css"));
         } else if (result.headerbg == "custom") {

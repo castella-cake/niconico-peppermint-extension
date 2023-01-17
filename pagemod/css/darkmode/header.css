@@ -18,16 +18,12 @@
     background-color: #555 !important;
 }
 .nico-CommonHeaderRoot .common-header-kolmxm {
-    background: var(--bgcolor2) url("data:image/svg+xml !important;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDEwMCAxMDAiPjxwYXRoIGZpbGw9IiNkNTU3NTIiIGQ9Ik00MyAuNDRDODUuOS01LjA2IDExNS45MSA0MiA5MS42NCA3OEE1MC4wMiA1MC4wMiAwIDAgMSA3OCA5MS42NGMtNi41NCA0LjQxLTEzLjI1IDYuNzEtMjEgNy45Mi01LjU1Ljg3LTExLjUyLjU1LTE3LS41Ni00MC44NC04LjMzLTUzLjkyLTU5LjUxLTIzLTg2LjgyQzI1LjAyIDUuMSAzMi43MSAyLjM0IDQzIC40NFoiLz48L3N2Zz4=") no-repeat !important;
-    background-size: 2% !important;
-    background-position: left 10px top 10px !important;
-    border-bottom: 1px solid var(--accent2) !important;
+    background: rgba(255,255,255,0.1) !important;
+    border-bottom: 1px solid var(--accent1) !important;
 }
 .nico-CommonHeaderRoot .common-header-kolmxm:hover {
-    background: #555 url("data:image/svg+xml !important;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDEwMCAxMDAiPjxwYXRoIGZpbGw9IiNkNTU3NTIiIGQ9Ik00MyAuNDRDODUuOS01LjA2IDExNS45MSA0MiA5MS42NCA3OEE1MC4wMiA1MC4wMiAwIDAgMSA3OCA5MS42NGMtNi41NCA0LjQxLTEzLjI1IDYuNzEtMjEgNy45Mi01LjU1Ljg3LTExLjUyLjU1LTE3LS41Ni00MC44NC04LjMzLTUzLjkyLTU5LjUxLTIzLTg2LjgyQzI1LjAyIDUuMSAzMi43MSAyLjM0IDQzIC40NFoiLz48L3N2Zz4=") no-repeat !important;
-    background-size: 2% !important;
-    background-position: left 10px top 10px !important;
-    border-bottom: 1px solid var(--accent2) !important;
+    background: rgba(255,255,255,0.2) !important;
+    border-bottom: 1px solid var(--accent1) !important;
 }
 .nico-CommonHeaderRoot .common-header-vv8zyj {
     color: var(--textcolor1) !important;
