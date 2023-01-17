@@ -16,7 +16,7 @@
 }
 .InView.VideoContainer {
     height: 360px !important;
-    width: 640px !important;
+    width: 100% !important;
 }
 .ControllerContainer-centerArea .PlayerSeekBackwardButton, .ControllerContainer-centerArea .PlayerSeekForwardButton, .ControllerContainer-centerArea .PlayerSkipNextButton, .ControllerContainer-centerArea .SeekToHeadButton {
     width:40px;
