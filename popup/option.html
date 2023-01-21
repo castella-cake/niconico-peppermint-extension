@@ -4,15 +4,32 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="options.css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined"/>
     </head>
 
     <body>
-        <h1 class="title">Niconico-PepperMint</h1>
-        <h1>Hide</h1>
+        <header class="title">Niconico-PepperMint</header>
         <form id="settings-form">
+            <h1>Hide</h1>
             <div class="settings-row">
                 <label><input type="checkbox" id="input-hiderankpagead">ランキングページのニコニ広告行を隠す</label>
             </div>
+            <!--
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-hideeventbanner">動画トップページのいきなり！動画紹介を隠す</label>
+                <div class="hint">動画トップの一番上に表示される、いきなり！動画紹介を隠します。</div>
+            </div>
+            <div class="settings-row">
+                <label>ジャンルと投稿日時以外のメタデータを隠す
+                    <select id="select-playertheme">
+                        <option value="">Disable</option>
+                        <option value="watch">視聴ページで</option>
+                        <option value="searchandhome">検索結果やホームで</option>
+                        <option value="all">両方で</option>
+                    </select>
+                </label>
+                <div class="hint">視聴回数、いいね数、マイリス数、コメント数、ランキング最高順位を隠します。</div>
+            </div>-->
             <div class="settings-row">
                 <label><input type="checkbox" id="input-hideeventbanner">視聴ページ上のイベント告知バナーを隠す</label>
                 <div class="hint">プレイヤー上のマーキーテキストではありません！視聴ページでヘッダーの下に表示される、赤いイベント告知を隠します。<span style="color:red">(未検証)</span></div>
@@ -62,6 +79,10 @@
                 <div class="hint">ロックされているタグのアウトラインを黄色にします。</div>
             </div>
             <div class="settings-row">
+                <label><input type="checkbox" id="input-usetheaterui" checked>シアターUIを使用</label>
+                <div class="hint">動画を大きく表示しつつ、プレイヤーパネルを表示するシアターページを使用します。「Nicobox風UIを使用」が優先されます。</div>
+            </div>
+            <div class="settings-row">
                 <label><input type="checkbox" id="input-enablenicoboxui">Nicobox風UIのトグルボタンを表示</label>
                 <div class="hint">左下にNicobox風ページと通常ページを切り替えるボタンを表示します。</div>
             </div>
@@ -69,6 +90,36 @@
                 <label><input type="checkbox" id="input-usenicoboxui">Nicobox風UIを使用</label>
                 <div class="hint">Nicobox風視聴ページを使用します。</div>
             </div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-enabledlbutton">動画のダウンロードボタンを表示</label>
+                <div class="hint">左下に動画をダウンロードするボタンを表示します。一般的なダウンロード手順を短縮しているだけです。(チャンネル動画では表示されません)</div>
+            </div>
+            <h1>NicoPedia</h1>
+            <div class="settings-row">
+                <label>評価数を隠す
+                    <select id="select-hidereputation">
+                        <option value="">Disable</option>
+                        <option value="dislikeonly">低評価のみ</option>
+                        <option value="all">すべて</option>
+                    </select>
+                </label>
+            </div>
+            <div class="hint">大百科記事のレスに付けられた評価数を隠します。</div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-liketonicoru">高評価をニコるに変更</label>
+                <div class="hint">レスの高評価ボタンをニコるに変更します。</div>
+            </div>
+            <!--<div class="settings-row">
+                <label><input type="checkbox" id="input-dicfullwidth">最大幅を開放</label><label><input type="checkbox" id="input-dicforcefullwidth">互換モード</label>
+                <div class="hint">コンテンツの最大幅を開放し、記事を読みやすくします。</div>
+            </div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-sidebartoleft">サイドバーを左に移動</label>
+            </div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-darkcodeeditor">ダークHTMLエディタ</label>
+                <div class="hint">記事編集時のHTMLエディターをダークに変更し、フォントをConsolasに変更します。</div>
+            </div>-->
             <h1>Other</h1>
             <div class="settings-row">
                 <label><input type="checkbox" id="input-alignpagewidth">ニコニコホームの最大幅をニコニコ動画ホームに合わせる</label>
@@ -86,6 +137,7 @@
                         <option value="pmcolor">Enable(PMColor)</option>
                         <option value="spcolor">Enable(SPColor)</option>
                         <option value="nordcolor">Enable(NordColor)</option>
+                        <option value="black">Enable(Black)</option>
                     </select>
                 </label>
                 <div class="hint">ダークモードを使用します。現在はニコニコホーム,動画ホーム,視聴ページ,ユーザーページ,検索ページ,ランキングページに対応しています。</div>
@@ -101,6 +153,11 @@
                 <!-- type=colorはpopupだとウィンドウが閉じて使い物にならないのでtextで -->
                 <label id="headerbg-customcolor">カスタム色<input type="text" id="input-headercolor" value="#252525" placeholder="#252525"></label>
             </div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-enableseriesstock">シリーズストックを有効化</label>
+                <div class="hint">シリーズページまたはシリーズが設定されている視聴ページの左下にシリーズをストックするボタンが表示され、動画トップの左下で保存したシリーズを表示できます。<br>ストック中のシリーズは「ストック中のシリーズを管理」から削除・追加できます。</div>
+            </div>
+            <a href="manageseries.html" target="_self" class="manageseries">ストック中のシリーズを管理</a>
             <h1>Unstable</h1>
             <div class="settings-row">
                 <label>タイトルの後に動画記事へのリンクを表示<input type="checkbox" id="input-quickvidarticle"></label>

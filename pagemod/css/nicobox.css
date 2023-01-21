@@ -42,3 +42,6 @@
     margin:auto !important;
     box-shadow:0px 0px 10px rgba(0,0,0,0.8) !important;
 }
+.PlayerPanelContainer {
+    border-top-left-radius: 16px;
+}

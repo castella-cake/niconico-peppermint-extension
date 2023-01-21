@@ -1,0 +1,41 @@
+.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
+    fill: #fff
+}
+.ActionButton.ControllerButton.PlayerPauseButton,.ActionButton.ControllerButton.PlayerPlayButton {
+    position:absolute;
+    left:50%;
+    right:50%;
+    transform:translate(-75%, 0%);
+}
+.PlayerSkipNextButton {
+    position: relative;
+    left: 4px
+}
+.ControllerContainer-centerArea .PlayerSeekBackwardButton, .ControllerContainer-centerArea .PlayerSeekForwardButton, .ControllerContainer-centerArea .PlayerSkipNextButton, .ControllerContainer-centerArea .SeekToHeadButton {
+    width:40px;
+    height:40px;
+    top:4px;
+}
+.PlayerPauseButton,.PlayerPlayButton {
+    width:48px;
+    height:48px
+}
+.MuteVideoButton,.VolumeBarContainer,.PlaybackRateButton,.PlayerRepeatOnButton,.PlayerRepeatOffButton,.PlayerOptionButton,.EnableFullScreenButton,.CommentOnOffButton {
+    position:relative;
+    top:4px
+}
+.PlayerOptionContainer {
+    max-height: 330px;
+}
+.common-header-1v0m9lc,.common-header-1nvgp3g,.common-header-h0l8yl,.common-header-cdesjj,.common-header-171vphh,.common-header-wb7b82,.common-header-1ufbzdh,.common-header-654o26,.common-header-11u4gc2,.common-header-1pxv7y0,.commonHeaderArea,#CommonHeader {
+    background-color: #000 !important;
+}
+.HeaderContainer, .BottomSideContainer, .BottomMainContainer {
+    background-color: transparent !important;
+}
+.TagItem {
+    background-color: transparent !important;
+}
+.PlayerPanelContainer {
+    border-top-left-radius: 16px;
+}

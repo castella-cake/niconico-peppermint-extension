@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="options.css"/>
+    </head>
+
+    <body>
+        <header class="title"><a href="option.html" target="_self"><</a>シリーズの管理</header>
+        <div class="page-desc">ストック中のシリーズを追加・削除します。</div>
+        <form id="settings-form">
+            <table id="serieslist">
+                <tbody>
+                    <tr>
+                        <th>選択</th>
+                        <th>シリーズID</th>
+                        <th>名前</th>
+                        <th></th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="settings-row">
+                <label id="add">
+                    <input type="text" id="input-addseriesid" value="" placeholder="シリーズID" style="width:7rem">
+                    <input type="text" id="input-addseriesname" value="" placeholder="シリーズ名(任意)" style="width:12rem">
+                    <button id="addseries" type="button">追加</button>
+                </label>
+            </div>
+            <div class="settings-row">
+                <button id="removeselectedseries" type="button">選択中のシリーズを削除</button>
+            </div>
+        </form>
+        <script src="jquery-3.6.3.min.js"></script>
+        <script src="manageseries.js"></script>
+    </body>
+
+</html>

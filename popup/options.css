@@ -1,21 +1,31 @@
 html, body {
     width: 360px;
 }
-body {
-    padding: 10px;
-}
 h1 {
     font-size: 20px;
     margin: 5px 0px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.5)
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    width: 100%;
 }
 .title {
-    font-size: 22px;
-    margin: 5px 5px;
-    border-bottom: 0px solid rgba(0, 0, 0, 0.5);
-    text-align:center;
-    font-family:"Lato",sans-serif;
-    letter-spacing: 2px;
+	font-size: 20px;
+	padding: 10px 0px 10px 16px;
+	border-bottom: 0px solid rgba(0, 0, 0, 0.5);
+	text-align: left;
+	font-family: "Lato",sans-serif;
+	letter-spacing: 1px;
+	background: #00796b;
+	color: #fff;
+	box-shadow: 0px 0px 5px #000;
+	line-height: 24px;
+}
+.title > a {
+	font-size: 24px;
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+	margin-right: 8px;
+	line-height: 24px;
 }
 #test-form > label {
     font-size:16px;
@@ -59,6 +69,7 @@ h1 {
 }
 form {
     margin-bottom: 2px;
+    padding: 0px 10px 10px;
 }
 .settings-row {
     margin: 4px 0;
@@ -66,6 +77,19 @@ form {
 #input-headercolor {
     width:64px;
 }
-#info-area {
-    margin-bottom: 30px;
+
+.manageseries {
+	text-decoration: none;
+	color: #000;
+	padding: 5px;
+	background: #fff;
+	box-shadow: 0px 0px 5px #0070ff;
+	border-radius: 5px;
+	margin: 8px 0;
+	display: block;
+	text-align: center;
+}
+
+.page-desc {
+    padding: 5px
 }

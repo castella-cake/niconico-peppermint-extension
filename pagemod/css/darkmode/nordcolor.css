@@ -248,7 +248,7 @@ Styleguide Nord
     --accent2: var(--nord2);
     --hover1: var(--nord2);
     --hover2: var(--nord3);
-    --linktext1: var(--nord7);
+    --linktext1: var(--nord8);
     --linktext2: var(--nord8);
-    --linktext3: var(--nord9);
+    --linktext3: var(--nord8);
 }

@@ -5,32 +5,41 @@ $("#current-version").text ("v" + manifestData.version + " Manifest V" + manifes
 function saveOptions() {
     console.log(`submit!`)
     // storageに変更を書き込む。
+    console.log($("#input-alignpagewidth").prop('checked'))
     chrome.storage.sync.set(
         {
-            //"test_var": document.querySelector("#test-form-input").value,
-            //"test_checkbox": document.querySelector("#checkbox-form-input").checked,
+            //"test_var": $("#test-form-input").val,
+            //"test_checkbox": $("#checkbox-form-input").prop('checked'),
             // Hide
-            "hiderankpagead": document.querySelector("#input-hiderankpagead").checked,
-            "hideeventbanner": document.querySelector("#input-hideeventbanner").checked,
-            "hidepopup": document.querySelector("#input-hidepopup").checked,
+            "hiderankpagead": $("#input-hiderankpagead").prop('checked'),
+            "hideeventbanner": $("#input-hideeventbanner").prop('checked'),
+            "hidepopup": $("#input-hidepopup").prop('checked'),
             // Player
-            "playertheme": document.querySelector("#select-playertheme").value,
-            "playerstyleoverride": document.querySelector("#select-playerstyleoverride").value,
+            "playertheme": $("#select-playertheme").val(),
+            "playerstyleoverride": $("#select-playerstyleoverride").val(),
             // Watchpage
-            "replacemarqueetext": document.querySelector("#input-replacemarqueetext").checked,
-            "highlightlockedtag": document.querySelector("#input-highlightlockedtag").checked,
-            "watchpagetheme": document.querySelector("#select-watchpagetheme").value,
-            "enablenicoboxui": document.querySelector("#input-enablenicoboxui").checked,
-            "usenicoboxui": document.querySelector("#input-usenicoboxui").checked,
+            "replacemarqueetext": $("#input-replacemarqueetext").prop('checked'),
+            "highlightlockedtag": $("#input-highlightlockedtag").prop('checked'),
+            "watchpagetheme": $("#select-watchpagetheme").val(),
+            "usetheaterui": $("#input-usetheaterui").prop('checked'),
+            "enablenicoboxui": $("#input-enablenicoboxui").prop('checked'),
+            "usenicoboxui": $("#input-usenicoboxui").prop('checked'),
+            "enabledlbutton": $("#input-enabledlbutton").prop('checked'),
+            // NicoPedia
+            "hidereputation": $("#select-hidereputation").val(),
+            "liketonicoru": $('#input-liketonicoru').prop('checked'),
+            //"dicfullwidth": $("#input-dicfullwidth").prop('checked'),
+            //"sidebartoleft": $("#input-sidebartoleft").prop('checked'),
             // Other
-            "alignpagewidth": document.querySelector("#input-alignpagewidth").checked,
-            "highlightnewnotice": document.querySelector("#input-highlightnewnotice").checked,
+            "alignpagewidth": $("#input-alignpagewidth").prop('checked'),
+            "highlightnewnotice": $("#input-highlightnewnotice").prop('checked'),
             // Global
-            "darkmode": document.querySelector("#select-darkmode").value,
-            "headerbg": document.querySelector("#select-headerbg").value,
-            "headercolor": document.querySelector("#input-headercolor").value,
+            "darkmode": $("#select-darkmode").val(),
+            "headerbg": $("#select-headerbg").val(),
+            "headercolor": $("#input-headercolor").val(),
+            "enableseriesstock": $("#input-enableseriesstock").prop('checked'),
             // Unstable
-            "quickvidarticle": document.querySelector("#input-quickvidarticle").checked
+            "quickvidarticle": $("#input-quickvidarticle").prop('checked')
         }
     );
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
@@ -47,42 +56,51 @@ function onError(error) {
 // ストレージからHTMLに戻す！！！
 function restoreOptions() {
     function setCurrentChoice(result) {
-        //document.querySelector("#test-form-input").value = result.test_var || "hello";
-        //document.querySelector("#checkbox-form-input").checked = result.test_checkbox;
+        //$("#test-form-input").val = result.test_var || "hello";
+        //$("#checkbox-form-input").prop('checked',result.test_checkbox;
         // Hide
-        document.querySelector("#input-hiderankpagead").checked = result.hiderankpagead;
-        document.querySelector("#input-hideeventbanner").checked = result.hideeventbanner;
-        document.querySelector("#input-hidepopup").checked = result.hidepopup;
+        $("#input-hiderankpagead").prop('checked',result.hiderankpagead);
+        $("#input-hideeventbanner").prop('checked',result.hideeventbanner);
+        $("#input-hidepopup").prop('checked',result.hidepopup);
         // Player
-        document.querySelector("#select-playertheme").value = result.playertheme || "";
+        $("#select-playertheme").val(result.playertheme || "");
         // TODO: 後回しのためとりあえずDisableに戻す
-        document.querySelector("#select-playerstyleoverride").value = "";
+        $("#select-playerstyleoverride").val("");
         // WatchPage
-        document.querySelector("#input-replacemarqueetext").checked = result.replacemarqueetext;
-        document.querySelector("#input-highlightlockedtag").checked = result.highlightlockedtag;
-        document.querySelector("#select-watchpagetheme").value = result.watchpagetheme || "";
-        document.querySelector("#input-enablenicoboxui").checked = result.enablenicoboxui;
-        document.querySelector("#input-usenicoboxui").checked = result.usenicoboxui;
+        $("#input-replacemarqueetext").prop('checked',result.replacemarqueetext);
+        $("#input-highlightlockedtag").prop('checked',result.highlightlockedtag);
+        $("#select-watchpagetheme").val(result.watchpagetheme || "");
+        $("#input-usetheaterui").prop('checked',result.usetheaterui);
+        $("#input-enablenicoboxui").prop('checked',result.enablenicoboxui);
+        $("#input-usenicoboxui").prop('checked',result.usenicoboxui);
+        $("#input-enabledlbutton").prop('checked',result.enabledlbutton);
+        // NicoPedia
+        $("#select-hidereputation").val(result.hidereputation || "");
+        $('#input-liketonicoru').prop('checked',result.liketonicoru)
+        //$("#input-dicfullwidth").prop('checked',result.dicfullwidth;
+        //$("#input-sidebartoleft").prop('checked',result.sidebartoleft;
         // Other
-        document.querySelector("#input-alignpagewidth").checked = result.alignpagewidth;
-        document.querySelector("#input-highlightnewnotice").checked = result.highlightnewnotice;
+        $("#input-alignpagewidth").prop('checked',result.alignpagewidth);
+        $("#input-highlightnewnotice").prop('checked',result.highlightnewnotice);
         // Global
-        document.querySelector("#select-darkmode").value = result.darkmode || "";
-        document.querySelector("#select-headerbg").value = result.headerbg || "";
-        document.querySelector("#input-headercolor").value = result.headercolor || "#252525";
+        $("#select-darkmode").val(result.darkmode || "");
+        $("#select-headerbg").val(result.headerbg || "");
+        $("#input-headercolor").val(result.headercolor || "#252525");
+        $("#input-enableseriesstock").prop('checked',result.enableseriesstock)
         // Unstable
-        document.querySelector("#input-quickvidarticle").checked = result.quickvidarticle;
+        $("#input-quickvidarticle").prop('checked',result.quickvidarticle);
         if ( result.headerbg != "custom" ) {
             $('#input-headercolor').prop('disabled', true);
         } else {
             $('#input-headercolor').prop('disabled', false);
         }
+        console.log(result.alignpagewidth)
     }
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(setCurrentChoice, onError)
 }
 
-$("#settings-form").change(saveOptions);
+$("#settings-form").on('change',saveOptions);
 
     document.addEventListener("DOMContentLoaded", restoreOptions);
-    document.querySelector("#settings-form").addEventListener("click", saveOptions);
+    //document.querySelector("#settings-form").addEventListener("click", saveOptions);

@@ -1,8 +1,13 @@
 {
     "manifest_version": 2,
     "name": "Niconico-PepperMint",
+    "short_name": "PepperMint",
     "description": "ニコニコ動画をちょっとクールにする拡張機能",
     "version": "0.3",
+    "version_name": "0.3 rc",
+    "developer": {
+        "name": "CYakigasi"
+    },
 
     "homepage_url": "https://github.com/castella-cake/niconico-peppermint-extension",
     "icons": {
@@ -14,6 +19,16 @@
             "matches": ["*://*.nicovideo.jp/*"],
             "js": ["js/jquery-3.6.3.min.js","js/forall.js"],
             "run_at": "document_start"
+        },
+        {
+            "matches": ["*://*.nicovideo.jp/*"],
+            "js": ["js/forall_waitdom.js"],
+            "run_at": "document_end"
+        },
+        {
+            "matches": ["*://dic.nicovideo.jp/*"],
+            "js": ["js/nicopedia.js"],
+            "run_at": "document_end"
         },
         {
             "matches": ["*://www.nicovideo.jp/video_top*"],
@@ -39,6 +54,11 @@
             "matches": ["*://www.nicovideo.jp/watch/*"],
             "js": ["js/watch_idle.js"],
             "run_at": "document_idle"
+        },
+        {
+            "matches": ["*://*.nicovideo.jp/series/*"],
+            "js": ["js/series.js"],
+            "run_at": "document_end"
         }
     ],
     "web_accessible_resources": [
@@ -55,7 +75,9 @@
         },
         "default_title": "Niconico-PepperMint"
     },
-    "permissions": ["storage"],
+    "permissions": [
+        "storage"
+    ],
 
     "browser_specific_settings": {
         "gecko": {

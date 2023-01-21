@@ -1,0 +1,94 @@
+.pmbutton-container {
+    position: sticky;
+    left:0;
+    bottom:12px;
+    margin: 12px;
+    width: fit-content;
+}
+.mainaction-button {
+    cursor: pointer;
+    width: 52px;
+    height:52px;
+    border:none;
+    border-radius: 128px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    padding:0px;
+    color: #fff;
+    font-size: 24px;
+}
+.stockedserieswindow-container {
+    background: var(--bgcolor2);
+    width: 360px;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+}
+.stockedseries-row {
+	margin: 5px 0;
+	border-bottom: 2px solid var(--bgcolor4);
+	border-radius: 5px;
+	background: var(--bgcolor1);
+	padding: 5px 8px;
+}
+.serieslink-container {
+	display: flex;
+}
+.stockedseries-row-link {
+	color: var(--linktext2);
+	text-overflow: ellipsis;
+	max-height: 24px;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 100%;
+	line-height: 1;
+	margin: 8px 0px;
+	padding: 0;
+}
+
+.serieslink-container .stockedseries-row-link {
+	font-weight: bold;
+	font-size: 15px;
+	margin: 5px 0;
+	color: var(--textcolor1);
+}
+
+.serieslink-container .stockedseries-row-link:hover {
+	color: var(--linktext2);
+}
+.removeseries {
+	color: var(--textcolor1);
+	background-color: var(--accent2);
+	border-radius: 5px;
+	margin: auto 0 auto auto;
+}
+
+.mainaction-button:hover {
+    font-size:28px;
+    transition:all .1s
+}
+
+.subaction-button {
+    cursor: pointer;
+    width: 32px;
+    height:32px;
+    border:none;
+    border-radius: 128px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    padding:5px 0px;
+    color: #222;
+    background: #ccc;
+    font-size: 22px;
+    text-align: center;
+    text-decoration: none !important;
+}
+.subaction-button:hover {
+    font-size:24px;
+    transition:all .1s
+}
+
+.subaction-button.disabled {
+    color: #aaa;
+    background: #444;
+}

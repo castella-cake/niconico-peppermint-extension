@@ -1,10 +1,13 @@
 {
-    "description": "ニコニコ動画をちょっとクールにします。",
     "manifest_version": 3,
     "name": "Niconico-PepperMint",
+    "short_name": "PepperMint",
+    "description": "ニコニコ動画をちょっとクールにする拡張機能",
     "version": "0.3",
-
-
+    "version_name": "0.3 rc",
+    "developer": {
+        "name": "CYakigasi"
+    },
     "content_scripts": [
         {
             "matches": ["*://*.nicovideo.jp/*"],
@@ -12,12 +15,22 @@
             "run_at": "document_start"
         },
         {
+            "matches": ["*://*.nicovideo.jp/*"],
+            "js": ["js/forall_waitdom.js"],
+            "run_at": "document_end"
+        },
+        {
+            "matches": ["*://dic.nicovideo.jp/*"],
+            "js": ["js/nicopedia.js"],
+            "run_at": "document_end"
+        },
+        {
             "matches": ["*://www.nicovideo.jp/video_top*"],
             "js": ["js/video_top.js"],
             "run_at": "document_end"
         },
         {
-            "matches": ["*://www.nicovideo.jp/ranking"],
+            "matches": ["*://www.nicovideo.jp/ranking*"],
             "js": ["js/ranking.js"],
             "run_at": "document_end"
         },
@@ -35,6 +48,11 @@
             "matches": ["*://www.nicovideo.jp/watch/*"],
             "js": ["js/watch_idle.js"],
             "run_at": "document_idle"
+        },
+        {
+            "matches": ["*://*.nicovideo.jp/series/*"],
+            "js": ["js/series.js"],
+            "run_at": "document_end"
         }
     ],
     "web_accessible_resources": [{
@@ -50,8 +68,9 @@
         "browser_style": true,
         "default_popup": "popup/option.html",
         "default_icon": {
-            "16": "icons/page-16.png",
-            "32": "icons/page-32.png"
+            "16": "icons/peppermint-logo-16.png",
+            "32": "icons/peppermint-logo-32.png",
+            "64": "icons/peppermint-logo-64.png"
         },
         "default_title": "Niconico-PepperMint"
     },
@@ -59,7 +78,7 @@
 
     "applications": {
         "gecko": {
-            "id": "niconicopeppermint@example.com"
+            "id": "niconico-peppermint@cyakigasi.net"
         }
     }
 }
