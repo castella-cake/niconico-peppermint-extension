@@ -9,7 +9,6 @@ function createCSSRule(result) {
     if (result.usenicoboxui != true && result.usetheaterui == true ) {
         // theater UI
         document.querySelector('.MainVideoPlayer video').addEventListener('canplay', function(e) {
-            console.log(`Played!!!!!!!!!!!!!!!!!!`)
             $('.CommentRenderer').css({
                 'width': $(e).width() + "px",
                 'height': $(e).height() + "px",
