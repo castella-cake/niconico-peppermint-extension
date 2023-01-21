@@ -65,6 +65,14 @@
             }
         })
     }
+
+    function seriesIsStocked(seriesid) {
+        // 渡されたシリーズIDがシリーズストック内にストックされているかどうかを返します。
+        chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
+            let currentstock = stockdata.stockedseries || [];
+            return currentstock.findIndex(series => series.seriesID === seriesid ) != -1;
+        })
+    }
     
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(createBaseCSSRule, onError);
@@ -72,10 +80,11 @@
         if ( result.highlightnewnotice == true ) {
             addCSS(chrome.runtime.getURL("pagemod/css/other/highlightnewnotice.css"))
         }
-        if ( result.darkmode != "" ) {
+        if ( result.darkmode != "" && result.darkmode != undefined ) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/forall.css"));
-        }
+            addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
+        } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
         if ( result.alignpagewidth == true ) {
             addCSS(chrome.runtime.getURL("pagemod/css/other/alignpagewidth.css"));
         } else {

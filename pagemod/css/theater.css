@@ -20,7 +20,7 @@
     width:48px;
     height:48px
 }
-.MuteVideoButton,.VolumeBarContainer,.PlaybackRateButton,.PlayerRepeatOnButton,.PlayerRepeatOffButton,.PlayerOptionButton,.EnableFullScreenButton,.CommentOnOffButton {
+.MuteVideoButton,.UnMuteVideoButton,.VolumeBarContainer,.PlaybackRateButton,.PlayerRepeatOnButton,.PlayerRepeatOffButton,.PlayerOptionButton,.EnableFullScreenButton,.CommentOnOffButton {
     position:relative;
     top:4px
 }
@@ -38,4 +38,7 @@
 }
 .PlayerPanelContainer {
     border-top-left-radius: 16px;
+}
+.EasyCommentContainer-caption {
+    display: none;
 }

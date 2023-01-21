@@ -1,9 +1,12 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
+    console.log(result)
     if ( result.enableseriesstock == true ) {
         $('.pmbutton-container').append('<div class="addtostock-container" style="padding-left: 10px; margin-bottom: 8px"><a id="addtostock" class="material-icons-outlined subaction-button">add</a></div>')
         
         if ( document.querySelector('.SeriesBreadcrumbs-title') != null ) {
+            console.log(result.stockedseries)
+            let stockedseries = result.stockedseries || [];
             function updateSeriesNextVid() {
                 let stockedseriesarray = result.stockedseries
                 $.each(stockedseriesarray, function(i,object) {
@@ -41,30 +44,25 @@ function createCSSRule(result) {
 
             $('#addtostock').on('mouseenter', function() {
                 $('.addtostock-container').append('<span id="addtostock-text" style="background: #ddd;padding: 5px;border-radius: 5px;margin-left: 5px;box-shadow: 0px 0px 5px rgba(0,0,0,40%);">シリーズをストックに追加</span>')
-                var getNewStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
-                getNewStorageData.then(function(newresult) {
-                    if ( newresult.stockedseries.findIndex(series => series.seriesID === $('.SeriesBreadcrumbs-title').prop('href').slice(32) ) != -1 ) {
-                        $('#addtostock-text').text("シリーズをストックから削除")
-                    }
-                }, onError);
+                if ( seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32)) == false ) {
+                    $('#addtostock-text').text("シリーズをストックから削除")
+                }
             })
             $('#addtostock').on('mouseleave', function() {
                 $('#addtostock-text').remove()
             })
-            if ( result.stockedseries.findIndex(series => series.seriesID === $('.SeriesBreadcrumbs-title').prop('href').slice(32) ) != -1 ) {
+            if ( seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32)) == true ) {
                 $('#addtostock').text("remove")
             }
             $('#addtostock').on('click', function() {
                 manageSeriesStock($('.SeriesBreadcrumbs-title').prop('href').slice(32), $('.SeriesBreadcrumbs-title').text())
-                chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
-                    if ( stockdata.stockedseries.findIndex(series => series.seriesID === $('.SeriesBreadcrumbs-title').prop('href').slice(32) ) != -1 ) {
-                        $('#addtostock').text("add")
-                        $("#addtostock-text").text("シリーズをストックに追加")
-                    } else {
-                        $('#addtostock').text("remove")
-                        $("#addtostock-text").text("シリーズをストックから削除")
-                    }
-                })
+                if ( seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32)) == true ) {
+                    $('#addtostock').text("remove")
+                    $("#addtostock-text").text("シリーズをストックから削除")
+                } else {
+                    $('#addtostock').text("add")
+                    $("#addtostock-text").text("シリーズをストックに追加")
+                }
             })
         } else {
             $('#addtostock').addClass('disabled')
@@ -360,7 +358,7 @@ function createCSSRule(result) {
         $('body').css('background-color','#fefefe')
         // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
         // video関連は早めにスタイルシートで書かないとコメントコンテナーやシンボルが動画サイズの変更を反映してくれない
-        addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
+        //addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
         // 基本レイアウト変更
         $('.HeaderContainer').before($('.MainContainer'));
         $('.BottomRightNoticeCenter').after($('.MainContainer-playerPanel'));
@@ -427,7 +425,7 @@ function createCSSRule(result) {
             })
             // プレイヤー
             $('.VideoDescriptionContainer').css({
-                'left': '25%'
+                'margin':'0 auto'
             })
             $('.ControllerBoxContainer').css({
                 'margin-top': '8px',
