@@ -81,7 +81,8 @@
 
     "browser_specific_settings": {
         "gecko": {
-            "id": "niconico-peppermint@cyakigasi.net"
+            "id": "niconico-peppermint@cyakigasi.net",
+            "update_url": "https://www.cyakigasi.net/peppermint/updates.json"
         }
     }
 }
