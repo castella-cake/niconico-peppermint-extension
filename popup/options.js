@@ -1,5 +1,12 @@
 let manifestData = chrome.runtime.getManifest();
-$("#current-version").text ("v" + manifestData.version + " Manifest V" + manifestData.manifest_version)
+$("#current-version").text ("v" + manifestData.version_name + " MV" + manifestData.manifest_version)
+
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    $('body').css({
+        'color':'#fff',
+        'background-color':'#252525'
+    })
+}
 
 // button がclickされたときに発火！！！！(前はsubmitだったけど必要ないと思ったのでclickへ)
 function saveOptions() {
@@ -14,9 +21,10 @@ function saveOptions() {
             "hiderankpagead": $("#input-hiderankpagead").prop('checked'),
             "hideeventbanner": $("#input-hideeventbanner").prop('checked'),
             "hidepopup": $("#input-hidepopup").prop('checked'),
+            //"hidevidtopad": $("#input-hidevidtopad").prop('checked'),
             // Player
             "playertheme": $("#select-playertheme").val(),
-            "playerstyleoverride": $("#select-playerstyleoverride").val(),
+            //"playerstyleoverride": $("#select-playerstyleoverride").val(),
             // Watchpage
             "replacemarqueetext": $("#input-replacemarqueetext").prop('checked'),
             "highlightlockedtag": $("#input-highlightlockedtag").prop('checked'),
@@ -33,18 +41,23 @@ function saveOptions() {
             // Other
             "alignpagewidth": $("#input-alignpagewidth").prop('checked'),
             "highlightnewnotice": $("#input-highlightnewnotice").prop('checked'),
+            "vidtoptwocolumn": $('#input-vidtoptwocolumn').prop('checked'),
             // Global
             "darkmode": $("#select-darkmode").val(),
             "headerbg": $("#select-headerbg").val(),
             "headercolor": $("#input-headercolor").val(),
+            "enablevisualpatch": $("#input-enablevisualpatch").prop('checked'),
+            "enablespredirect": $("#input-enablespredirect").prop('checked'),
+            //"enablefocusheader": $("#input-enablefocusheader").prop('checked'),
             "enableseriesstock": $("#input-enableseriesstock").prop('checked'),
+            "enablecustomvideotop": $("#input-enablecustomvideotop").prop('checked'),
             // Unstable
             "quickvidarticle": $("#input-quickvidarticle").prop('checked')
         }
     );
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(restoreOptions, onError)
-    console.log(`Saved!:`)
+    console.log(`Saved!`)
 }
 
 
@@ -62,10 +75,11 @@ function restoreOptions() {
         $("#input-hiderankpagead").prop('checked',result.hiderankpagead);
         $("#input-hideeventbanner").prop('checked',result.hideeventbanner);
         $("#input-hidepopup").prop('checked',result.hidepopup);
+        //$("#input-hidevidtopad").prop('checked',result.hidevidtopad);
         // Player
         $("#select-playertheme").val(result.playertheme || "");
         // TODO: 後回しのためとりあえずDisableに戻す
-        $("#select-playerstyleoverride").val("");
+        //$("#select-playerstyleoverride").val("");
         // WatchPage
         $("#input-replacemarqueetext").prop('checked',result.replacemarqueetext);
         $("#input-highlightlockedtag").prop('checked',result.highlightlockedtag);
@@ -82,11 +96,16 @@ function restoreOptions() {
         // Other
         $("#input-alignpagewidth").prop('checked',result.alignpagewidth);
         $("#input-highlightnewnotice").prop('checked',result.highlightnewnotice);
+        $("#input-vidtoptwocolumn").prop('checked',result.vidtoptwocolumn);
         // Global
         $("#select-darkmode").val(result.darkmode || "");
         $("#select-headerbg").val(result.headerbg || "");
         $("#input-headercolor").val(result.headercolor || "#252525");
+        $("#input-enablevisualpatch").prop('checked',result.enablevisualpatch)
+        $("#input-enablespredirect").prop('checked',result.enablespredirect)
+        //$("#input-enablefocusheader").prop('checked',result.enablefocusheader)
         $("#input-enableseriesstock").prop('checked',result.enableseriesstock)
+        $("#input-enablecustomvideotop").prop('checked',result.enablecustomvideotop)
         // Unstable
         $("#input-quickvidarticle").prop('checked',result.quickvidarticle);
         if ( result.headerbg != "custom" ) {
@@ -102,5 +121,5 @@ function restoreOptions() {
 
 $("#settings-form").on('change',saveOptions);
 
-    document.addEventListener("DOMContentLoaded", restoreOptions);
-    //document.querySelector("#settings-form").addEventListener("click", saveOptions);
+document.addEventListener("DOMContentLoaded", restoreOptions);
+//document.querySelector("#settings-form").addEventListener("click", saveOptions);

@@ -3,8 +3,8 @@
     "name": "Niconico-PepperMint",
     "short_name": "PepperMint",
     "description": "ニコニコ動画をちょっとクールにする拡張機能",
-    "version": "0.3.1",
-    "version_name": "0.3.1 rc",
+    "version": "0.4.0",
+    "version_name": "0.4.0",
     "developer": {
         "name": "CYakigasi"
     },
@@ -43,7 +43,7 @@
         {
             "matches": ["*://www.nicovideo.jp/search/*", "*://www.nicovideo.jp/tag/*", "*://www.nicovideo.jp/mylist_search/*"],
             "js": ["js/searchpage.js"],
-            "run_at": "document_start"
+            "run_at": "document_end"
         },
         {
             "matches": ["*://www.nicovideo.jp/watch/*"],
@@ -64,6 +64,16 @@
             "matches": ["*://*.nicovideo.jp/series/*"],
             "js": ["js/series.js"],
             "run_at": "document_end"
+        },
+        {
+            "matches": ["*://live.nicovideo.jp/*"],
+            "js": ["js/live.js"],
+            "run_at": "document_start"
+        },
+        {
+            "matches": ["*://sp.nicovideo.jp/watch/*"],
+            "js": ["js/spredirect.js"],
+            "run_at": "document_start"
         }
     ],
     "web_accessible_resources": [

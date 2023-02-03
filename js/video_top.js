@@ -3,6 +3,38 @@ function createCSSRule(result) {
     if ( result.darkmode != "" ) {
         addCSS(chrome.runtime.getURL("pagemod/css/darkmode/video_top.css"));
     }
+    if ( result.hidevidtopad ) {
+        $('.VideoIntroductionAreaContainer').remove();
+    }
+    console.log(location.pathname)
+    if ( result.enablecustomvideotop && result.customvideotop != undefined && ( location.pathname == "/video_top" || location.pathname == "/video_top/" ) ) {
+        $('.BaseLayout-main').append('<div class="BaseLayout-main-custom" style="margin-top: 16px"></div>')
+        $.each(result.customvideotop, function(i,object) {
+            if ( object.dispstat == true ) {
+                $('.BaseLayout-main-custom').append($(`.${object.classname}`).parent('.BaseLayout-block'))
+            } else {
+                $(`.${object.classname}`).parent('.BaseLayout-block').css('display','none');
+            }
+            $('.BaseLayout-main-custom').before($('.BaseLayout-main-custom > .BaseLayout-block'))
+        })
+        $('.BaseLayout-main-custom').remove()
+
+    }
+    if ( result.vidtoptwocolumn ) {
+        $('.BaseLayout-main').append('<div class="Baselayout-main-twocolumn BaseLayout-main-left" style="margin-top: 16px"></div><div class="Baselayout-main-twocolumn BaseLayout-main-right" style="margin-top: 16px"></div>');
+        $('.BaseLayout-main .BaseLayout-block').each(function(i, elem){
+            if ( (i + 1) % 2 == 1 ) {
+                $('.BaseLayout-main-left').append(elem)
+            } else {
+                $('.BaseLayout-main-right').append(elem)
+            }
+        });
+        $('.BaseLayout-main').css({
+            'flex-direction':'row',
+            'padding':'0 32px'
+        })
+        addCSS(chrome.runtime.getURL("pagemod/css/vidtoptwocolumn.css"))
+    }
     if ( result.enableseriesstock == true ) {
         $('.pmbutton-container').append('<div class="openstock-container"><button id="openstock" class="material-icons mainaction-button" style="background: #00796b">folder</button></div>')
         $('#openstock').on('mouseenter', function() {
@@ -46,7 +78,6 @@ function createCSSRule(result) {
         })
 
         $(document).on('click', '#removeseries', function() {
-            console.log(`Hello!`)
             manageSeriesStock( $(this).prev().prop('href').slice(32) )
             $(this).parent('.stockedseries-row').remove()
         })

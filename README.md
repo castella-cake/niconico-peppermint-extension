@@ -1,10 +1,9 @@
 # Niconico-PepperMint Extension版
-**UNDER CONSTRUCTION**  
-Niconico-PepperMint Extension版は現在試験的なものです。  
-重大なパフォーマンスの問題、バグなどが発生する可能性があります。
-
 「ニコニコ動画をちょっとクールに」を目標に開発しているUserCSS「Niconico-PepperMint」  
 ...を拡張機能化し、UserStyle版を置き換えることを目標に開発している拡張機能。
+
+Niconico-PepperMint Extension版は現在試験的なものです。  
+重大なパフォーマンスの問題、バグなどが発生する可能性があります。  
 
 作者はJavaScript初心者なので、貢献は大歓迎です。  
 
@@ -43,7 +42,7 @@ Firefox Add-onsからアドオンを入手できます。
 7. 解凍したフォルダーを選択します
 8. おわり
 ### Firefoxの場合
-ここでインストールした拡張機能は、再起動するとなかったことになります  
+ここでインストールした拡張機能は、Firefoxを再起動するとなかったことになります  
 1. 緑色のCodeボタンからソースコードをダウンロードします
 2. ``about:debugging`` を開きます
 3. ``この Firefox`` をクリックします
@@ -59,7 +58,6 @@ Firefox Add-onsからアドオンを入手できます。
 - [x] ダークモードをUserStyle版から移植する
 - [x] Chromium系との相性を確認する
 - [ ] マイナー機能をUserStyle版から移植する
-- [ ] UserStyle版の開発停止
 
 # License
 Niconico-PepperMint Extension版のライセンスは``MIT License``です。  

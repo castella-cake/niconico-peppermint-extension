@@ -79,6 +79,19 @@ p {
     border: 1px solid var(--accent2);
     color: var(--textcolor2);
 }
+.switchingBtn.expand, .switchingBtn:hover {
+    background: var(--hover1);
+}
+.searchOption {
+    border: 4px solid var(--accent1);
+    background: var(--bgcolor2)
+}
+.searchOption .more {
+    color: var(--textcolor2);
+}
+.tagCaption .tagListBox .contentHeader .edit a {
+    color: var(--textcolor2);
+}
 /* サイドバー */
 .sub {
     background: var(--bgcolor1);

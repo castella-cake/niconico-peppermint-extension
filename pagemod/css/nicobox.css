@@ -4,32 +4,22 @@
 .ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
     fill: #1d2128
 }
-.ActionButton.ControllerButton.PlayerPauseButton,.ActionButton.ControllerButton.PlayerPlayButton {
-    position:absolute;
-    left:50%;
-    right:50%;
-    transform:translate(-75%, 0%);
+.ControllerContainer-inner {
+    top:4px
 }
-.PlayerSkipNextButton {
-    position: relative;
-    left: 4px
+.PlayerPauseButton, .PlayerPlayButton {
+	left: 50%;
+	right: 50%;
+	position: absolute !important;
+	transform: translate(-50%);
+    padding: 2px;
+}
+.ControllerContainer-centerArea > .ControllerButton {
+    padding: 5px
 }
 .InView.VideoContainer {
     height: 360px !important;
     width: 100% !important;
-}
-.ControllerContainer-centerArea .PlayerSeekBackwardButton, .ControllerContainer-centerArea .PlayerSeekForwardButton, .ControllerContainer-centerArea .PlayerSkipNextButton, .ControllerContainer-centerArea .SeekToHeadButton {
-    width:40px;
-    height:40px;
-    top:4px;
-}
-.PlayerPauseButton,.PlayerPlayButton {
-    width:48px;
-    height:48px
-}
-.MuteVideoButton,.VolumeBarContainer,.PlaybackRateButton,.PlayerRepeatOnButton,.PlayerRepeatOffButton,.PlayerOptionButton {
-    position:relative;
-    top:4px
 }
 .PlayerOptionContainer {
     max-height: 330px;
@@ -44,4 +34,17 @@
 }
 .PlayerPanelContainer {
     border-top-left-radius: 16px;
+}
+/* 競合防止 */
+.PlayerContainer, .ControllerBoxContainer {
+    background-color: transparent !important;
+}
+.MainContainer-playerPanel {
+    display: block !important;
+}
+#comments-enable-ex, #comments-disable-ex {
+    display:none !important;
+}
+.SearchBox-optionMenu {
+    bottom: 32px
 }

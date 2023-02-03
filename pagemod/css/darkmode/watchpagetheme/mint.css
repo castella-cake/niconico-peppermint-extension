@@ -11,4 +11,5 @@
 .VideoDescriptionExpander .VideoDescriptionExpander-switchExpand,.VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse {
     background-color: transparent;
     background: transparent;
+    color: var(--textcolor1);
 }

@@ -4,7 +4,6 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="options.css"/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined"/>
     </head>
 
     <body>
@@ -15,6 +14,11 @@
                 <label><input type="checkbox" id="input-hiderankpagead">ランキングページのニコニ広告行を隠す</label>
             </div>
             <!--
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-hidevidtopad">動画トップのいきなり！動画紹介を隠す</label>
+                <div class="hint">ニコニコ動画トップページに表示される、いきなり！動画紹介を隠します。</div>
+            </div>
+            <a href="selvidtopcontent.html" target="_self" class="settinglink">動画トップページの並び替え・削除</a>
             <div class="settings-row">
                 <label><input type="checkbox" id="input-hideeventbanner">動画トップページのいきなり！動画紹介を隠す</label>
                 <div class="hint">動画トップの一番上に表示される、いきなり！動画紹介を隠します。</div>
@@ -31,10 +35,6 @@
                 <div class="hint">視聴回数、いいね数、マイリス数、コメント数、ランキング最高順位を隠します。</div>
             </div>-->
             <div class="settings-row">
-                <label><input type="checkbox" id="input-hideeventbanner">視聴ページ上のイベント告知バナーを隠す</label>
-                <div class="hint">プレイヤー上のマーキーテキストではありません！視聴ページでヘッダーの下に表示される、赤いイベント告知を隠します。<span style="color:red">(未検証)</span></div>
-            </div>
-            <div class="settings-row">
                 <label><input type="checkbox" id="input-hidepopup">フォロー/サポーター/プレ会勧誘を隠す</label>
                 <div class="hint">特定ユーザーの動画をよく視聴している際に表示されるフォローバナー、ユーザーページ左下のサポーター勧誘、プレミアム会員勧誘を隠します。</div>
             </div>
@@ -44,14 +44,15 @@
                     <select id="select-playertheme">
                         <option value="">Disable</option>
                         <option value="harazyuku">原宿</option>
+                        <option value="rc1">RC1</option>
                         <option value="mint">Mint</option>
                     </select>
                 </label>
                 <div class="hint">プレイヤーのレイアウトと見た目を一括変更します。<br>スタイルは「プレイヤースタイルのオーバーライド」によって上書きされることがあります。</div>
             </div>
-            <div class="settings-row">
+            <!-- <div class="settings-row">
                 <label>プレイヤースタイルのオーバーライド
-                    <!-- 後回しのためdisabledにする -->
+                    後回しのためdisabledにする
                     <select id="select-playerstyleoverride" disabled>
                         <option value="">Coming Soon™</option>
                         <option value="harazyuku">原宿</option>
@@ -59,7 +60,7 @@
                         <option value="none">None</option>
                     </select>
                 </label>
-                <div class="hint">プレイヤーの見た目を変更します。「プレイヤーテーマ」によって設定されたプレイヤースタイルも上書きします。</div>
+                <div class="hint">プレイヤーの見た目を変更します。「プレイヤーテーマ」によって設定されたプレイヤースタイルも上書きします。</div> -->
             <h1>WatchPage</h1>
             <div class="settings-row">
                 <label>視聴ページテーマ
@@ -92,7 +93,7 @@
             </div>
             <div class="settings-row">
                 <label><input type="checkbox" id="input-enabledlbutton">動画のダウンロードボタンを表示</label>
-                <div class="hint">左下に動画をダウンロードするボタンを表示します。一般的なダウンロード手順を短縮しているだけです。(チャンネル動画では表示されません)</div>
+                <div class="hint">左下に動画をダウンロードするボタンを表示します。一般的なダウンロード手順を短縮しているだけです。(チャンネル動画では利用できません)</div>
             </div>
             <h1>NicoPedia</h1>
             <div class="settings-row">
@@ -129,6 +130,10 @@
                 <label><input type="checkbox" id="input-highlightnewnotice">新着通知に赤丸を表示</label>
                 <div class="hint">アプリ版ニコニコ動画の通知表示のように、新着通知の左上に小さい赤丸が表示されます。</div>
             </div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-vidtoptwocolumn">動画トップを2カラムで表示</label>
+                <div class="hint">ニコニコ動画トップページを2カラムで折り返して表示します。</div>
+            </div>
             <h1>Global</h1>
             <div class="settings-row">
                 <label>ダークモード
@@ -154,28 +159,51 @@
                 <label id="headerbg-customcolor">カスタム色<input type="text" id="input-headercolor" value="#252525" placeholder="#252525"></label>
             </div>
             <div class="settings-row">
+                <label><input type="checkbox" id="input-enablevisualpatch">ビジュアルパッチを有効化</label>
+                <div class="hint">line-heightやレジューム再生表示などの視覚的なバグ修正や、角丸ボタンへの統合などを含むCSSを適用します。</div>
+            </div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-enablespredirect">spwatchリダイレクトを有効化</label>
+                <div class="hint">モバイルブラウザ版ニコニコの視聴ページにアクセスした際に、自動でPC版ニコニコ動画にリダイレクトします。</div>
+            </div>
+            <!--focus header is disabled because the header modification will be messed up by niconico AAAAAAAAAAAAAAAAAAAAAAAA
+                <div class="settings-row">
+                <label><input type="checkbox" id="input-enablefocusheader">フォーカスヘッダーを有効化</label>
+                <div class="hint">ヘッダーの内容をニコニコホーム・動画・静画・生放送・アツマール・大百科に変更します。</div>
+            </div>-->
+            <div class="settings-row">
                 <label><input type="checkbox" id="input-enableseriesstock">シリーズストックを有効化</label>
                 <div class="hint">シリーズページまたはシリーズが設定されている視聴ページの左下にシリーズをストックするボタンが表示され、動画トップの左下で保存したシリーズを表示できます。<br>ストック中のシリーズは「ストック中のシリーズを管理」から削除・追加できます。</div>
             </div>
-            <a href="manageseries.html" target="_self" class="manageseries">ストック中のシリーズを管理</a>
-            <h1>Unstable</h1>
+            <a href="manageseries.html" target="_self" class="settinglink">ストック中のシリーズを管理</a>
             <div class="settings-row">
-                <label>タイトルの後に動画記事へのリンクを表示<input type="checkbox" id="input-quickvidarticle"></label>
+                <label><input type="checkbox" id="input-enablecustomvideotop">カスタム動画トップを有効化</label>
+                <div class="hint">動画トップのコンテンツを設定した内容で並び替えたり非表示にします。設定は下の「カスタム動画トップを設定」から設定します。</div>
+            </div>
+            <a href="customvidtop.html" target="_self" class="settinglink">カスタム動画トップを設定</a>
+            <h1>Experimental</h1>
+            <div class="hint">
+                不安定または未完成の実験的な機能。<br>内容は変更されたり、削除される可能性があります。
+            </div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-quickvidarticle">タイトルの後に動画記事へのリンクを表示</label>
                 <div class="hint">タイトルの後ろに動画記事へ繋がるアイコンを表示します。表示されない場合は、ページをリロードしてください。</div>
             </div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-hideeventbanner">視聴ページ上のイベント告知バナーを隠す</label>
+                <div class="hint">プレイヤー上のマーキーテキストではありません！視聴ページでヘッダーの下に表示される、赤いイベント告知を隠します。<span style="color:red">(未検証)</span></div>
+            </div>
         </form>
-        <div id="save-state">
-            設定は自動保存されます。保存した設定を反映させるには、リロードする必要があります。
-        </div>
-        <div class="hint">表示が崩れたり、設定が反映されませんか？Ctrl+Shift+Rでハード再読み込みを試してみてください。</div>
         <div id="info-area">
-            <div id="version-display">
-                Niconico-PepperMint(Extension版) <span id="current-version"></span>
+            <div class="hint">
+                設定は自動保存されます。保存した設定を反映させるには、リロードする必要があります。<br>
+                PepperMintの更新後に表示が崩れた場合は、Ctrl+Shift+Rでハード再読み込みを試してみてください。
             </div>
-            <div id="credit">
-                Created by CYakigasi(@CYaki_xcf) <a href="https://www.cyakigasi.net">CYakigasi Website</a>
-            </div>
+            Niconico-PepperMint(Extension版) <a href="https://github.com/castella-cake/niconico-peppermint-extension">Github Repo</a><br>
+            Created by CYakigasi <a href="https://www.cyakigasi.net">Website</a> <a href="https://twitter.com/CYaki_xcf">@CYaki_xcf(更新情報もここから)</a>
+            <a href="credit.html" target="_self" class="settinglink">PepperMintについて・クレジット・サポート/デバッグ情報</a>
         </div>
+        <div id="current-version"></div>
         <script src="jquery-3.6.3.min.js"></script>
         <script src="options.js"></script>
     </body>

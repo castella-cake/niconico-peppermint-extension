@@ -1,0 +1,53 @@
+.Baselayout-main-twocolumn.BaseLayout-main-left {
+	padding-right: 16px;
+	width: calc(50vw - 32px);
+}
+.Baselayout-main-twocolumn.BaseLayout-main-right {
+	padding-left: 16px;
+	width: calc(50vw - 32px);
+}
+.BaseLayout-block {
+    width: 100%;
+}
+.NC-VideoCard_thumbnailWidth160 {
+	width: 140px;
+}
+.NC-VideoCard_thumbnailWidth192 {
+	width: 172px;
+}
+.NC-VideoCard_thumbnailWidth224 {
+	width: 204px;
+}
+.FollowingVideosContainer .NC-Card, .FollowingVideosContainer .NC-VideoCardSkeleton, .FollowingVideosContainer .VideoFillCard {
+	width: 220px;
+}
+.TagPushVideosContainer-list .NC-Card, .TagPushVideosContainer-list .NC-VideoCardSkeleton {
+	width: 220px;
+}
+.OnTvAnimeVideosContainer .NC-Card, .OnTvAnimeVideosContainer .NC-VideoCardSkeleton, .OnTvAnimeVideosContainer .VideoFillCard {
+	width: 220px;
+}
+.NicoadVideoItem {
+    width: 210px;
+}
+.NicoadVideoItem-thumbnail {
+	height: 115px;
+	width: 210px;
+}
+.RankingVideosContainer-columnRight {
+	width: 0;
+}
+.VideoIntroductionAreaContainer-columnLeft {
+	width: 100%;
+}
+.TagWithVideoItem .TagItem {
+	width: 204px;
+}
+.TagWithVideoItem-nicopediaText {
+    width: 204px;
+}
+.NewsNotificationContainer-bannerLink {
+	height: 72px;
+	width: 450px;
+	background-size: contain;
+}

@@ -143,7 +143,7 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 .nico-CommonHeaderRoot .common-header-vv8zyj {
     color: var(--textcolor1) !important;
 }
-.nico-CommonHeaderRoot .common-header-2cl2ey {
+.nico-CommonHeaderRoot .common-header-2cl2ey,.nico-CommonHeaderRoot .common-header-uruoug {
     background-color: var(--bgcolor3) !important;
 
 }
@@ -263,6 +263,9 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 .NicorepoItem-activityDescription {
     color: var(--textcolor3)!important ;
 }
+.NicorepoItem-activityCreatedAt {
+    color: var(--textcolor2) !important ;
+}
 .NicorepoItem-activityCreatedAt_new {
     color: var(--textcolornew)!important ;
 }
@@ -350,6 +353,15 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 .SubMenuLink-link_internal:hover {
     background-color: #45525e!important ;
 }
+.MylistSideContainer-mylistList > *, .VideoSideContainer-seriesList > * {
+    background: var(--bgcolor2)
+}
+.MylistHeader-name {
+    color: var(--textcolor1)
+}
+.VideoContainer-headerTotalCountValue,.FolloweeContainer-header {
+    color: var(--textcolor2)
+}
 /* ニコる */
 .NicoruHistoryPassiveItem, .NicoruHistoryActiveItem {
     background: var(--bgcolor2)!important ;
@@ -391,4 +403,20 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 /* シリーズ */
 .SeriesAdditionalContainer, .SeriesMenuContainer-seriesList {
     background: var(--bgcolor2);
+}
+
+/* タグ */
+.TagItem-link {
+    background-color: var(--bgcolor2);
+    color: var(--textcolor2);
+    border: 1px solid var(--accent2);
+}
+
+.RecommendVideoListContainer-more {
+    background-color: var(--bgcolor2);
+    color: var(--textcolor2);
+    border: 1px solid var(--accent2);
+}
+.RecommendVideoListContainer-more:hover {
+    background-color: var(--hover2);
 }

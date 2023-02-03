@@ -47,7 +47,6 @@
     padding: 4px;
     position: relative;
     width: 28px;
-    top: 3px
 }
 .ActionButton.ControllerButton.PlayerRepeatOnButton,.ActionButton.ControllerButton.PlayerRepeatOffButton {
     height: 28px;

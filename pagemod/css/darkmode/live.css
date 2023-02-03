@@ -1,0 +1,183 @@
+/* ニコニコ生放送 - 全体(ダークテーマ) */
+.___ad-billboard___h5wFu,.___ranking-contents-area___JJEgK,.___site-information-list-section___jeb3o,.___heading___CJvYF,.___item-list___wLWhZ {
+    background-color: var(--bgcolor1)
+}
+.___top-page___lzeZb {
+    background-color: var(--bgcolor1) !important
+}
+.___program-card___Z1MHA,.___program-broadcaster-card___YaAo0,.___site-header___tbYXk,.___site-local-navigation___o_VEo {
+    background-color: var(--bgcolor2);
+}
+.___toggle-button___LnwPF {
+    background-color: var(--bgcolor3);
+}
+.___heading___lUv79,.___base-page___fYQlz,.___program-summary___SCX6j,.___heading___CJvYF,.___item___M8hMc,.___heading___F1uwm {
+    color: var(--textcolor1)
+}
+.___description___ggUkb,.___duration___JYN2p, .___start-at___lS5DV,.___content___nFXTd,.___name-label___nYx6H,.___related-anchor___YsMqK,.___more-anchor___d6ACJ,.___description___JRoJu,.___konomi-tag-match-counter___Fp4ev {
+    color: var(--textcolor2)
+}
+.___item___tKsP4,.___card___YL9vY > .program-summary {
+    color: var(--textcolor3);
+}
+.___symbol-mark___ZVkDe > path,.___heading___imORq > svg {
+    fill: var(--textcolor1);
+}
+.___menu-area___pdDBO {
+    box-shadow: 0 1px 0 var(--accent2);
+}
+.___related-anchor___YsMqK {
+    background-color: var(--bgcolor2);
+    border: 1px solid var(--accent2);
+}
+.___item___M8hMc {
+    border: solid var(--accent2);
+    border-width: 1px 0 0;
+}
+.___item___M8hMc:hover {
+    background-color: var(--hover1)
+}
+.___organization-program-list-carousel___iPXh7 {
+    background-image: linear-gradient(180deg,var(--bgcolor1) 80%,hsla(0,0%,96%,0));
+}
+
+/* watch */
+.___base-page___1qjh0,.___program-information-header-area___3F--P,.___program-summary___1oPMV,.___program-information-area___2mmJb {
+    background-color: var(--bgcolor1);
+}
+.___site-header____SQrF,.___menu___33KGv,.___target___3ktMG {
+    background-color: var(--bgcolor2);
+}
+.___program-summary___1oPMV {
+    box-shadow: 0 4px 8px 0 var(--bgcolor1);
+}
+.___program-title___2JFq_,.___description___1L7rU,.___channel-name___1oxJz,.___anchor___35l4y,.___target___3ktMG > .item-anchor, .___target___3ktMG > .item-button {
+    color: var(--textcolor1);
+}
+.___airtime___29RyY, .___onair-time___1alWf,.___profile___KOpo7,.___heading___2_9EL,.___content-title___CC5oQ {
+    color: var(--textcolor2);
+}
+.___channel-supplier-name___SvdPM{
+    color: var(--textcolor3);
+}
+
+.___toggle-button___1UEbA::before {
+    background-color: var(--textcolor2)
+}
+.___toggle-button___a0OoH > svg > path {
+    fill: var(--textcolor2);
+}
+.___toggle-button___1UEbA:hover, .___toggle-button___a0OoH:hover,.___related-content-card___b-sI-:hover, .___anchor___35l4y:hover,.___target___3ktMG > .item-anchor:hover, .___target___3ktMG > .item-button:hover, [data-input-mode="keyboard"] .___target___3ktMG > .item-anchor:focus, [data-input-mode="keyboard"] .___target___3ktMG > .item-button:focus,.___count___1iDNX[type="button"]:enabled:not([aria-busy="true"])::before {
+    background-color: var(--hover1);
+}
+.___item___3E53p {
+    border-top: 1px solid var(--accent2);
+}
+.___menu___33KGv {
+    border: 1px solid var(--accent2);
+}
+
+/* プレイヤー */
+.___broadcast-participation-area___3csnv {
+    background-color: var(--bgcolor2);
+    border: 1px solid var(--accent1);
+    border-top: 0 solid var(--accent1);
+}
+.___item-placeholder___129lf {
+    border: 2px solid var(--accent1);
+}
+.___item-image___3ip3S {
+    background-color: #fff;
+}
+.___comment-text-box___3Xdkv, .___command-text-box___3d0dQ {
+    background-color: var(--accent1);
+    border: 2px solid var(--accent2);
+    border-right: none;
+    color: #fff;
+}
+.___command-text-box___3d0dQ:not([data-color]):not([data-size]):not([data-position]) + .___command-status___3VUap * {
+    fill: var(--textcolor2);
+}
+.___player-status-panel___2jsdt {
+    background-color: var(--bgcolor2);
+    color: var(--textcolor1);
+    border: 1px solid var(--accent1);
+    border-left-width: 0;
+}
+.___content___25NJ_ {
+    color: var(--textcolor1);
+}
+.___program-statistics-menu___3uraS {
+    border-bottom: 1px solid var(--accent1);
+}
+.___table-row___3DxXW:hover, .___table-row___3DxXW[aria-selected="true"] {
+    background-color: var(--hover1);
+}
+.___tab-area___2JXcU {
+    background-color: var(--bgcolor2);
+    border-bottom: 2px solid var(--accent1);
+}
+.___tab___1xHID {
+    background-color: var(--bgcolor2);
+    color: var(--textcolor1);
+}
+.___tab___1xHID::after {
+    background-color: var(--accent1);
+}
+.___tab___1xHID[aria-selected="true"]::after {
+    background-color: var(--accent2);
+}
+.___ng-setting-popup-button___1vmou > svg path {
+    fill: var(--textcolor2);
+}
+.___ng-setting-controller___3WttV::after {
+    background-color: var(--accent2);
+}
+.___program-title___FB5i8 {
+    color: var(--textcolor1);
+}
+.___program-card___1-WDt:hover {
+    background-color: var(--hover1);
+}
+
+/* タグ */
+.___tag___EJrKa {
+    background-color: var(--accent1);
+}
+.___name-anchor___3rPJd {
+    color: var(--textcolor1);
+}
+
+/* フォローボタン */
+.___toggle-button___3YYmf[aria-pressed="false"] {
+    --follow-toggle-form-toggle-button-color: var(--textcolor2);
+    --follow-toggle-form-toggle-button-background-color: var(--bgcolor1);
+    --follow-toggle-form-toggle-button-border-color: #056dff;
+    --follow-toggle-form-toggle-button-symbol-color-key: #056dff;
+}
+.___toggle-button___3YYmf[aria-pressed="true"] {
+    --follow-toggle-form-toggle-button-color: var(--textcolor2);
+    --follow-toggle-form-toggle-button-background-color: var(--bgcolor2);
+    --follow-toggle-form-toggle-button-border-color: #727272;
+    --follow-toggle-form-toggle-button-symbol-color-key: #727272;
+}
+
+/* プロモーションバルーン */
+.___promotion-balloon___3qFLi, .___promotion-balloon___3qFLi::before {
+    background-color: var(--bgcolor2);
+}
+.___promotion-anchor___1S_ag {
+    color: var(--textcolor1);
+}
+.___symbol-mark___sgmix {
+    fill: var(--textcolor2)
+}
+
+/* PAGE TOP */
+.___page-top-anchor___30r5g {
+    background-color: var(--accent1);
+    color: var(--textcolor1);
+}
+.___page-top-anchor___30r5g::after, .___page-top-anchor___30r5g::before {
+    border-color: var(--textcolor2) transparent transparent var(--textcolor2);
+}

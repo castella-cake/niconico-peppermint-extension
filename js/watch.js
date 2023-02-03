@@ -43,26 +43,51 @@ function createCSSRule(result) {
             });
 
             $('#addtostock').on('mouseenter', function() {
-                $('.addtostock-container').append('<span id="addtostock-text" style="background: #ddd;padding: 5px;border-radius: 5px;margin-left: 5px;box-shadow: 0px 0px 5px rgba(0,0,0,40%);">シリーズをストックに追加</span>')
-                if ( seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32)) == false ) {
-                    $('#addtostock-text').text("シリーズをストックから削除")
-                }
+                seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32))
+                .then(result => {
+                    if (document.querySelector('#addtostock-text') == null) {
+                        if ( result ) {
+                            $('.addtostock-container').append('<span id="addtostock-text" style="background: #ddd;padding: 5px;border-radius: 5px;margin-left: 5px;box-shadow: 0px 0px 5px rgba(0,0,0,40%);">シリーズをストックから削除</span>')
+                        } else {
+                            $('.addtostock-container').append('<span id="addtostock-text" style="background: #ddd;padding: 5px;border-radius: 5px;margin-left: 5px;box-shadow: 0px 0px 5px rgba(0,0,0,40%);">シリーズをストックに追加</span>')
+                        }
+                    }
+                    console.log(result)
+                }).catch(error => {
+                    console.log(error);
+                });
             })
             $('#addtostock').on('mouseleave', function() {
                 $('#addtostock-text').remove()
             })
             if ( seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32)) == true ) {
-                $('#addtostock').text("remove")
+                
             }
-            $('#addtostock').on('click', function() {
-                manageSeriesStock($('.SeriesBreadcrumbs-title').prop('href').slice(32), $('.SeriesBreadcrumbs-title').text())
-                if ( seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32)) == true ) {
+            seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32))
+            .then(result => {
+                if ( result ) {
                     $('#addtostock').text("remove")
-                    $("#addtostock-text").text("シリーズをストックから削除")
-                } else {
-                    $('#addtostock').text("add")
-                    $("#addtostock-text").text("シリーズをストックに追加")
                 }
+                console.log(result)
+            }).catch(error => {
+                console.log(error);
+            });
+            $('#addtostock').on('click', function() {
+                console.log(manageSeriesStock($('.SeriesBreadcrumbs-title').prop('href').slice(32), $('.SeriesBreadcrumbs-title').text()))
+                seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32))
+                .then(result => {
+                    if ( result ) {
+                        $('#addtostock').text("add")
+                        $("#addtostock-text").text("シリーズをストックに追加")
+                    } else {
+                        $('#addtostock').text("remove")
+                        $("#addtostock-text").text("シリーズをストックから削除")
+
+                    }
+                    console.log(result)
+                }).catch(error => {
+                    console.log(error);
+                });
             })
         } else {
             $('#addtostock').addClass('disabled')
@@ -95,6 +120,8 @@ function createCSSRule(result) {
                 // ロード前にクリックされるかもしれないので、undefinedだったら蹴る
                 if ( videourl == undefined || videourl == "" || videourl == null ) {
                     $('#downloadvideo-text').text('ダウンロードリンクの設定に失敗しました')
+                } else if ( videourl.startsWith('blob:') ) {
+                    $('#downloadvideo-text').text('視聴方式をHTTPに変更してください')
                 } else {
                     $('#downloadvideo-text').text('もう一度クリックしてダウンロード')
                     $('#downloadvideo').css({
@@ -178,6 +205,18 @@ function createCSSRule(result) {
             location.reload();
         }
     }
+
+    if (result.highlightlockedtag == true) {
+        $(function() { $('.TagItem.is-locked').css('border', '1px solid #ffd794') });
+        $('.VideoMetaContainer .VideoViewCountMeta').on('DOMSubtreeModified propertychange', function() {
+            $('.TagItem.is-locked').css('border', '1px solid #ffd794')
+        });
+    }
+    if (result.hideeventbanner == true) {
+        // 未検証
+        $('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').remove()
+    }
+    
     if (result.usenicoboxui != true && result.usetheaterui != true ) {
         if (result.playertheme != "") {
             console.log(`CSS Loaded!`);
@@ -187,20 +226,23 @@ function createCSSRule(result) {
                 addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playerstyleoverride + ".css"));
             }
             addCSS(chrome.runtime.getURL("pagemod/css/playertheme/" + result.playertheme + ".css"));
+            if (result.playertheme == "harazyuku") {
+                let lastbuttonwidth = ( ( $(".ControllerContainer-area:last-child").length - 1 ) * 32 ) + 64
+                if ( lastbuttonwidth - 172 != 0 ) {
+                    //$('.VolumeBarContainer').css('right', 165 + (lastbuttonwidth - 172) )
+                }
+                //
+                //$('.MuteVideoButton,.UnMuteVideoButton').css('right', lastbuttonwidth)
+            }
         }
         if (result.watchpagetheme != "") {
             console.log(`CSS Loaded!`);
             addCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
         }
         if (result.hidepopup == true) {
-            console.log(`Hiding popup...`)
             // cssじゃないとロードの都合で反映されなかった
             //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none')
             addCSS(chrome.runtime.getURL("pagemod/css/hide/hidepopup.css"));
-        }
-        if (result.hideeventbanner == true) {
-            // 未検証
-            $('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').css('display','none')
         }
         if (result.replacemarqueetext == true) {
             addCSS(chrome.runtime.getURL("pagemod/css/hide/replacemarqueetext.css"));
@@ -218,23 +260,25 @@ function createCSSRule(result) {
         }
         if ( result.darkmode != "" ) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
-            $(function() { addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch_ichiba.css")) });
             if (result.watchpagetheme != "") {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"));
             }
         }
-        if (result.highlightlockedtag == true) {
-            $(function() { $('.TagItem.is-locked').css('border', '1px solid #ffd794') });
-        }
     } else if ( result.usenicoboxui == true ) {
         // Nicobox UI
         $(function() {
+            if ( document.querySelector('.WakutkoolNoticeContainer') != null ) {
+                $('.MainContainer').before($('.WakutkoolNoticeContainer'))
+            }
             // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
             addCSS(chrome.runtime.getURL("pagemod/css/nicobox.css"));
+            $('.SeekBar').before($('.PlayerPlayTime-playtime'));
+            $('.SeekBar').after($('.PlayerPlayTime-duration'));
             $('body').css('background-color','#fefefe')
             // 基本レイアウト変更
+            $('.WatchAppContainer').css('display','flex')
             $('.HeaderContainer').before($('.MainContainer'));
-            $('.BottomRightNoticeCenter').after($('.MainContainer-playerPanel'));
+            $('.WatchAppContainer-main').after($('.MainContainer-playerPanel'));
             $('.MainContainer').css({
                 'padding-top': '200px',
                 'box-shadow': '0px 0px 0px #000',
@@ -271,6 +315,7 @@ function createCSSRule(result) {
             })
             $('.SearchBox-input').css('width','335px')
             $('.SearchBox').css('width','382px')
+            $('.SearchBox-optionDown').text('▲')
             $('.HeaderContainer').css({
                 'width': '100%',
                 'padding': '16px 8px 0',
@@ -290,49 +335,44 @@ function createCSSRule(result) {
                 'position':'absolute',
                 'right':'0'
             })
-            // プレイヤー
-            $('.PlayerContainer,.ControllerBoxContainer').css('background-color','transparent')
-            $('.VideoDescriptionContainer').css({
-                'left': '25%'
-            })
-            $('.ControllerBoxContainer').css({
-                'margin-top': '64px',
-                'padding': '0 128px'
-            })
-            $('.ControllerContainer').css({
-                'height': '48px'
-            })
-            $('.PlayerPlayTime').css({
-                'text-shadow':'0px 0px 0px #000',
-                'position': 'absolute',
-                'left': '0',
-                'width': '100%',
-                'top': '-20px'
-            })
-            $('.PlayTimeFormatter.PlayerPlayTime-playtime').css({
-                'position': 'absolute',
-                'left': '20px'
-            })
-            $('.PlayTimeFormatter.PlayerPlayTime-duration').css({
-                'position': 'absolute',
-                'right': '20px'
-            })
-            $('.PlayerSeekBackwardButton, .SeekToHeadButton').css({
-                'position':'relative',
-                'right':'30px'
-            })
-            $('.PlayerSeekForwardButton').css({
-                'position':'relative',
-                'left':'8px'
-            })
+            // vid
             $('.MainVideoPlayer video').css({
                 'width':'auto',
                 'margin':'auto',
                 'box-shadow':'0px 0px 10px rgba(0,0,0,0.8)'
             })
+            // プレイヤー
+            //$('.PlayerContainer,.ControllerBoxContainer').css('background-color','transparent')
+            $('.VideoDescriptionContainer').css({
+                'margin': '0 auto'
+            })
+            $('.SeekBar').css({
+                'margin':'auto 0'
+            })
+            $('.PlayerPlayTime-playtime, .PlayerPlayTime-duration').css({
+                'margin':'auto 10px'
+            })
+            $('.ControllerBoxContainer').css({
+                'margin-top': '8px',
+                'padding': '0 128px'
+            })
+            $('.ControllerContainer').css({
+                'height': '48px'
+            })
+            $('.EasyCommentContainer').css(
+                'height','auto'
+            )
+            $('.SeekBarContainer').css({
+                'padding':'8px 16px 0',
+                'display':'flex'
+            })
+            $('.PlayerPlayTime').css({
+                'width': '40px',
+            })
+            $('.SeekBar-buffered').css('background-color','#666')
+            $('.ControllerBoxCommentAreaContainer, .EasyCommentContainer').css('background','transparent')
             $('.CommentOnOffButton').css('display','none')
-            $('.SeekBarContainer').css('padding','8px 64px 0')
-            $('.SeekBar-played').css('background-color','#d85353')
+            $('.SeekBar-played, .SeekBarHandle-handle').css('background-color','#d85353')
             $('.SeekBar-buffered').css('background-color','#666')
             // 不要な要素の削除
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer,.EasyCommentContainer-buttonBox').remove();
@@ -355,13 +395,14 @@ function createCSSRule(result) {
         $('body').removeClass('is-large')
         $('body').removeClass('is-medium')
         $('body').addClass('is-autoResize')
-        $('body').css('background-color','#fefefe')
+        $('body').css('background-color','#000')
         // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
         // video関連は早めにスタイルシートで書かないとコメントコンテナーやシンボルが動画サイズの変更を反映してくれない
         //addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
         // 基本レイアウト変更
+        $('.WatchAppContainer').css('display','flex')
         $('.HeaderContainer').before($('.MainContainer'));
-        $('.BottomRightNoticeCenter').after($('.MainContainer-playerPanel'));
+        $('.WatchAppContainer-main').after($('.MainContainer-playerPanel'));
         $('.MainContainer').css({
             'padding-top': '16px',
             'box-shadow': '0px 0px 0px #000',
@@ -390,7 +431,12 @@ function createCSSRule(result) {
             'overflow':'visible'
         })
         $(function() {
+            if ( document.querySelector('.WakutkoolNoticeContainer') != null ) {
+                $('.MainContainer').before($('.WakutkoolNoticeContainer'))
+            }
             addCSS(chrome.runtime.getURL("pagemod/css/theater.css"));
+            $('.SeekBar').before($('.PlayerPlayTime-playtime'));
+            $('.SeekBar').after($('.PlayerPlayTime-duration'));
             $('.VideoTitle').after($('.SeriesBreadcrumbs'));
             $('.PlayerPanelContainer').css('border-top-left-radius','16px')
             // かつてヘッダーだったもの(動画情報)
@@ -404,6 +450,7 @@ function createCSSRule(result) {
             })
             $('.SearchBox-input').css('width','335px')
             $('.SearchBox').css('width','382px')
+            $('.SearchBox-optionDown').text('▲')
             $('.HeaderContainer').css({
                 'width': '100%',
                 'padding': '0px 8px 0',
@@ -423,9 +470,15 @@ function createCSSRule(result) {
                 'position':'absolute',
                 'right':'0'
             })
-            // プレイヤー
             $('.VideoDescriptionContainer').css({
                 'margin':'0 auto'
+            })
+            // プレイヤー
+            $('.SeekBar').css({
+                'margin':'auto 0'
+            })
+            $('.PlayerPlayTime-playtime, .PlayerPlayTime-duration').css({
+                'margin':'auto 10px'
             })
             $('.ControllerBoxContainer').css({
                 'margin-top': '8px',
@@ -434,33 +487,18 @@ function createCSSRule(result) {
             $('.ControllerContainer').css({
                 'height': '48px'
             })
-            $('.PlayerPlayTime').css({
-                'text-shadow':'0px 0px 0px #000',
-                'position': 'absolute',
-                'left': '0',
-                'width': '100%',
-                'top': '-20px'
-            })
-            $('.PlayTimeFormatter.PlayerPlayTime-playtime').css({
-                'position': 'absolute',
-                'left': '20px'
-            })
-            $('.PlayTimeFormatter.PlayerPlayTime-duration').css({
-                'position': 'absolute',
-                'right': '20px'
-            })
-            $('.PlayerSeekBackwardButton, .SeekToHeadButton').css({
-                'position':'relative',
-                'right':'30px'
-            })
-            $('.PlayerSeekForwardButton').css({
-                'position':'relative',
-                'left':'8px'
-            })
             $('.EasyCommentContainer').css(
                 'height','auto'
             )
-            $('.SeekBarContainer').css('padding','8px 64px 0')
+            $('.EasyCommentButton').css({
+                'background': 'transparent',
+                'color': '#fff',
+                'border': '1px solid #aaa'
+            })
+            $('.SeekBarContainer').css({
+                'padding':'8px 16px 0',
+                'display':'flex'
+            })
             $('.SeekBar-buffered').css('background-color','#666')
             $('.ControllerBoxCommentAreaContainer, .EasyCommentContainer').css('background','transparent')
             // 不要な要素の削除
@@ -472,6 +510,7 @@ function createCSSRule(result) {
             }
             $('.PlayerPlayTime').css({
                 'color': '#fff',
+                'width': '40px',
             })
             // ダークモードオーバーライド
             $('.BaseLayout-main, .BaseLayout').css('background-color','#000')
@@ -495,6 +534,7 @@ function createCSSRule(result) {
             })
             $('.TagItem-name').css('color','#fff')
             $('.VideoLiveTimeshiftContainer').css('text-align','center')
+            $('.VideoMenuContainer').css('background','#000')
         });
     }
     console.log(`createCSSRule Finished!`)

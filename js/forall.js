@@ -2,7 +2,7 @@
     function onError(error) {
         console.log(`Error: ${error}`);
     }
-    function addCSS(cssfile, var1 = false, var2 = 'head', var3 = 'after') {
+    function addCSS(cssfile, var1 = true, var2 = 'head', var3 = 'after') {
         // headの後にstylesheetとしてlinkをくっつけるやつ
         // 書き方: cssfile(必須), 二重書き防止(任意), after/before/appendに使う要素(任意), モード(after,before,append 任意)
         // 二重書き防止と要素は反転して使うことができる(a.css,body,falseのように)
@@ -15,7 +15,7 @@
             if ( var2 == true || var2 == false ) {
                 var safeappend = var2;
             } else {
-                var safeappend = false;
+                var safeappend = true;
             }
             var mode = var3;
         }
@@ -43,10 +43,10 @@
         }
     }
 
-    function manageSeriesStock(seriesid, seriesname = '名称未設定') {
+    async function manageSeriesStock(seriesid, seriesname = '名称未設定') {
         // シリーズストックの管理を行うFunction。存在しない場合はストックに追加し、すでに存在する場合はストックから削除します。
         chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
-            if ( stockdata.stockedseries.findIndex(series => series.seriesID === seriesid ) != -1 ) {
+            if ( stockdata.stockedseries != undefined && stockdata.stockedseries.findIndex(series => series.seriesID === seriesid ) != -1 ) {
                 var currentstock = stockdata.stockedseries
                 var newstock = currentstock.filter(obj => obj.seriesID !== seriesid);
                 chrome.storage.sync.set({
@@ -55,7 +55,7 @@
                 console.log(`Removed series from stock: id = ${seriesid}, name = ${seriesname}`)
                 return 'removed';
             } else {
-                var currentstock = stockdata.stockedseries
+                var currentstock = stockdata.stockedseries || []
                 currentstock.push( { seriesID : seriesid, seriesName : seriesname } );
                 chrome.storage.sync.set({
                     "stockedseries": currentstock
@@ -66,12 +66,21 @@
         })
     }
 
-    function seriesIsStocked(seriesid) {
+    async function seriesIsStocked(seriesid) {
         // 渡されたシリーズIDがシリーズストック内にストックされているかどうかを返します。
-        chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
-            let currentstock = stockdata.stockedseries || [];
-            return currentstock.findIndex(series => series.seriesID === seriesid ) != -1;
-        })
+        return new Promise((resolve, reject) => {
+            try {
+                chrome.storage.sync.get(["stockedseries"], function(stockdata) {
+                    console.log(seriesid)
+                    let currentstock = stockdata.stockedseries || [];
+                    console.log(stockdata)
+                    console.log(currentstock.findIndex(series => series.seriesID === seriesid ) != -1)
+                    resolve(currentstock.findIndex(series => series.seriesID === seriesid ) != -1);
+                });
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
     
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
@@ -80,10 +89,90 @@
         if ( result.highlightnewnotice == true ) {
             addCSS(chrome.runtime.getURL("pagemod/css/other/highlightnewnotice.css"))
         }
+        if ( result.hidepopup == true ) {
+            addCSS(chrome.runtime.getURL("pagemod/css/hide/hidepopup.css"))
+        }
+        if ( result.enablevisualpatch == true ) {
+            addCSS(chrome.runtime.getURL("pagemod/css/visualpatch.css"))
+        }
         if ( result.darkmode != "" && result.darkmode != undefined ) {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
+            /*
+            if ( result.darkmode == "pmcolor" ) {
+                $('body').css({
+                    '--bgcolor1': '#252525',
+                    '--bgcolor2': '#333',
+                    '--bgcolor3': '#666',
+                    '--bgcolor4': '#aaa',
+                    '--textcolor1': '#fff',
+                    '--textcolor2': '#ddd',
+                    '--textcolor3': '#aaa',
+                    '--textcolornew': '#e05050',
+                    '--accent1': '#444',
+                    '--accent2': '#888',
+                    '--hover1': '#666',
+                    '--hover2': '#aaa',
+                    '--linktext1': '#8fb9df',
+                    '--linktext2': '#8ed9ff',
+                    '--linktext3': '#008acf',
+                })
+            } else if ( result.darkmode == "spcolor" ) {
+                $('body').css({
+                    '--bgcolor1': '#191919',
+                    '--bgcolor2': '#252525',
+                    '--bgcolor3': '#3b3b3b',
+                    '--bgcolor4': '#aaa',
+                    '--textcolor1': '#fff',
+                    '--textcolor2': '#ddd',
+                    '--textcolor3': '#aaa',
+                    '--textcolornew': '#e05050',
+                    '--accent1': '#3b3b3b',
+                    '--accent2': '#929292',
+                    '--hover1': '#666',
+                    '--hover2': '#bebebe',
+                    '--linktext1': '#8fb9df',
+                    '--linktext2': '#8ed9ff',
+                    '--linktext3': '#008acf',
+                })
+            } else if ( result.darkmode == "nordcolor" ) {
+                $('body').css({
+                    '--bgcolor1': 'var(--nord0)',
+                    '--bgcolor2': 'var(--nord1)',
+                    '--bgcolor3': 'var(--nord2)',
+                    '--bgcolor4': 'var(--nord3)',
+                    '--textcolor1': 'var(--nord6)',
+                    '--textcolor2': 'var(--nord5)',
+                    '--textcolor3': 'var(--nord7)',
+                    '--textcolornew': 'var(--nord11)',
+                    '--accent1': 'var(--nord1)',
+                    '--accent2': 'var(--nord2)',
+                    '--hover1': 'var(--nord2)',
+                    '--hover2': 'var(--nord3)',
+                    '--linktext1': 'var(--nord8)',
+                    '--linktext2': 'var(--nord8)',
+                    '--linktext3': 'var(--nord8)',
+                })
+            } else {
+                $('body').css({
+                    '--bgcolor1': '#000',
+                    '--bgcolor2': '#1a1a1a',
+                    '--bgcolor3': '#252525',
+                    '--bgcolor4': '#3a3a3a',
+                    '--textcolor1': '#fff',
+                    '--textcolor2': '#ddd',
+                    '--textcolor3': '#aaa',
+                    '--textcolornew': '#e05050',
+                    '--accent1': '#1e1e1e',
+                    '--accent2': '#2a2a2a',
+                    '--hover1': '#404040',
+                    '--hover2': '#5a5a5a',
+                    '--linktext1': '#8fb9df',
+                    '--linktext2': '#8ed9ff',
+                    '--linktext3': '#008acf',
+                })
+            }*/
+            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"), true);
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/forall.css"));
-            addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
+            //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
         } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
         if ( result.alignpagewidth == true ) {
             addCSS(chrome.runtime.getURL("pagemod/css/other/alignpagewidth.css"));

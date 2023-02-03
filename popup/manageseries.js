@@ -1,3 +1,10 @@
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    $('body').css({
+        'color':'#fff',
+        'background-color':'#252525'
+    })
+}
+
 function appendTableRow(seriesid, seriesname) {
     var addTable = '<tr><td><input type="checkbox" id="input-tablecheck"></td><td id="tableid">' + seriesid + '</td><td id="tablename">' + seriesname + '</td><td><td><button id="remove" type="button">削除</button></td></td></tr>'
     console.log(`added series: ${addTable}`)

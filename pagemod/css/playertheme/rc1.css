@@ -1,0 +1,73 @@
+
+.ControllerContainer-inner {
+    position:relative;
+    top: 6px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.ControllerContainer {
+    top:0px;
+}
+.ControllerContainer-area:last-child {
+    position:absolute;
+    right:0;
+}
+.ControllerContainer-area {
+    flex: 0 1 auto;
+}
+.ControllerContainer-centerArea {
+    flex: 0 1 auto;
+}
+.VolumeBarContainer {
+    position: absolute;
+    right: 185px;
+}
+.MuteVideoButton,.UnMuteVideoButton {
+    position: absolute !important;
+    right: 275px;
+}
+.PlayerSkipNextButton {
+    position: absolute !important;
+    right: 310px;
+}
+.PlayerSeekForwardButton {
+    position: absolute !important;
+    right: 343px;
+}
+.PlayerPlayTime {
+    position:absolute;
+    right: 380px;
+}
+.SeekBarContainer {
+    padding-left: 113px;
+    padding-right: 486px;
+    padding-top: 0px;
+    position: relative;
+    height:1px
+}
+.SeekBar {
+    top: 23px;
+}
+.ActionButton.MylistButton.ControllerButton.ignore-out-of-click-event {
+    display:none;
+}
+.ControllerButton {
+    margin-right: 4px;
+}
+.ControllerContainer {
+    height: 50px;
+}
+.CommentPostContainer-commandInput {
+    border-radius: 0px 0 0 0px;
+}
+.CommentPostContainer-postButton .CommentPostButton {
+    border-radius: 0px 0 0 0px;
+    width:104px
+}
+.EasyCommentContainer-caption {
+    font-size: 10px;
+    color: transparent;
+    line-height: 1.2;
+    margin: 0px auto 0px;
+    padding: 0 8px;
+}

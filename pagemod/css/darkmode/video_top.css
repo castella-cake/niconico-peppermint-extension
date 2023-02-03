@@ -5,11 +5,6 @@
 .ColumnTitle-linkText {
     color: var(--textcolor2);
 }
-.TagItem-link {
-    background-color: var(--bgcolor2);
-    color: var(--textcolor2);
-    border: 1px solid var(--accent2);
-}
 .TagWithVideoItem-articleLink {
     background: linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 20px);
 }
