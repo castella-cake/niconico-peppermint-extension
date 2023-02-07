@@ -420,3 +420,14 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 .RecommendVideoListContainer-more:hover {
     background-color: var(--hover2);
 }
+/* いいね！ */
+.LikeItemAfter-thanksMessage {
+    background: var(--accent1) !important;
+    border: 1px solid var(--accent2) !important;
+}
+.LikeItemAfter-thanksMessage::after, .LikeItemAfter-thanksMessage::before {
+    border-bottom: 8px solid var(--accent2);
+}
+.LikeItemAfter-thanksMessage::after {
+    border-bottom-color: var(--accent1);
+}
