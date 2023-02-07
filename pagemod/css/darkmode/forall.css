@@ -334,6 +334,18 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 .NC-MediaObject .NC-MediaObjectTitle {
     color: var(--textcolor2)!important ;
 }
+.VideoWatchHistoryContainer-headerAllDeleteButton {
+    background-color: var(--bgcolor2) !important;
+    border: 2px solid var(--accent2) !important;
+    color: var(--textcolor1) !important;
+}
+.NC-FollowButton[data-is-following="true"] {
+	background-color: var(--accent2) !important;
+	color: var(--textcolor1) !important;
+}
+.NC-VideoMediaObjectOwnerInfo-link {
+    color: var(--textcolor2) !important;
+}
 /* サイドバー */
 .SubMenuLink-label {
     color:var(--textcolor2)!important ;
