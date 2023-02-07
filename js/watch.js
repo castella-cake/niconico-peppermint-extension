@@ -60,9 +60,6 @@ function createCSSRule(result) {
             $('#addtostock').on('mouseleave', function() {
                 $('#addtostock-text').remove()
             })
-            if ( seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32)) == true ) {
-                
-            }
             seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32))
             .then(result => {
                 if ( result ) {
@@ -82,7 +79,6 @@ function createCSSRule(result) {
                     } else {
                         $('#addtostock').text("remove")
                         $("#addtostock-text").text("シリーズをストックから削除")
-
                     }
                     console.log(result)
                 }).catch(error => {
