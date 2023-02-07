@@ -335,16 +335,16 @@ a,.FrameTitleLink-titleText,.FrameTitle {
     color: var(--textcolor2)!important ;
 }
 .VideoWatchHistoryContainer-headerAllDeleteButton {
-    background-color: var(--bgcolor2) !important;
-    border: 2px solid var(--accent2) !important;
-    color: var(--textcolor1) !important;
+    background-color: var(--bgcolor2);
+    border: 2px solid var(--accent2);
+    color: var(--textcolor1);
 }
 .NC-FollowButton[data-is-following="true"] {
-	background-color: var(--accent2) !important;
-	color: var(--textcolor1) !important;
+	background-color: var(--accent2);
+	color: var(--textcolor1);
 }
 .NC-VideoMediaObjectOwnerInfo-link {
-    color: var(--textcolor2) !important;
+    color: var(--textcolor2);
 }
 /* サイドバー */
 .SubMenuLink-label {
@@ -434,8 +434,8 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 }
 /* いいね！ */
 .LikeItemAfter-thanksMessage {
-    background: var(--accent1) !important;
-    border: 1px solid var(--accent2) !important;
+    background: var(--accent1);
+    border: 1px solid var(--accent2);
 }
 .LikeItemAfter-thanksMessage::after, .LikeItemAfter-thanksMessage::before {
     border-bottom: 8px solid var(--accent2);
