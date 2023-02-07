@@ -15,15 +15,6 @@
             </div>
             <!--
             <div class="settings-row">
-                <label><input type="checkbox" id="input-hidevidtopad">動画トップのいきなり！動画紹介を隠す</label>
-                <div class="hint">ニコニコ動画トップページに表示される、いきなり！動画紹介を隠します。</div>
-            </div>
-            <a href="selvidtopcontent.html" target="_self" class="settinglink">動画トップページの並び替え・削除</a>
-            <div class="settings-row">
-                <label><input type="checkbox" id="input-hideeventbanner">動画トップページのいきなり！動画紹介を隠す</label>
-                <div class="hint">動画トップの一番上に表示される、いきなり！動画紹介を隠します。</div>
-            </div>
-            <div class="settings-row">
                 <label>ジャンルと投稿日時以外のメタデータを隠す
                     <select id="select-playertheme">
                         <option value="">Disable</option>
@@ -34,6 +25,10 @@
                 </label>
                 <div class="hint">視聴回数、いいね数、マイリス数、コメント数、ランキング最高順位を隠します。</div>
             </div>-->
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-hideeventbanner">視聴ページ上のイベント告知バナーを隠す</label>
+                <div class="hint">プレイヤー上のマーキーテキストではありません！視聴ページでヘッダーの下に表示される、赤いイベント告知を隠します。</div>
+            </div>
             <div class="settings-row">
                 <label><input type="checkbox" id="input-hidepopup">フォロー/サポーター/プレ会勧誘を隠す</label>
                 <div class="hint">特定ユーザーの動画をよく視聴している際に表示されるフォローバナー、ユーザーページ左下のサポーター勧誘、プレミアム会員勧誘を隠します。</div>
@@ -110,17 +105,22 @@
                 <label><input type="checkbox" id="input-liketonicoru">高評価をニコるに変更</label>
                 <div class="hint">レスの高評価ボタンをニコるに変更します。</div>
             </div>
-            <!--<div class="settings-row">
-                <label><input type="checkbox" id="input-dicfullwidth">最大幅を開放</label><label><input type="checkbox" id="input-dicforcefullwidth">互換モード</label>
-                <div class="hint">コンテンツの最大幅を開放し、記事を読みやすくします。</div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-dicfullwidth">最大幅を開放</label>
+                <label>強制モード<select id="select-dicforcewidthmode">
+                    <option value="">無効</option>
+                    <option value="auto">中(auto)</option>
+                    <option value="100">強(100%)</option>
+                </select></label>
+                <div class="hint">コンテンツの最大幅を開放し、記事を読みやすくします。強制モードを有効化すると、記事内でWidthが指定されている要素に対して設定した方法で幅を指定します。<br>強制モードを設定すると、一部の要素が崩れる場合があります。</div>
             </div>
             <div class="settings-row">
                 <label><input type="checkbox" id="input-sidebartoleft">サイドバーを左に移動</label>
             </div>
             <div class="settings-row">
-                <label><input type="checkbox" id="input-darkcodeeditor">ダークHTMLエディタ</label>
+                <label><input type="checkbox" id="input-dicbettereditor">ダークHTMLエディター</label>
                 <div class="hint">記事編集時のHTMLエディターをダークに変更し、フォントをConsolasに変更します。</div>
-            </div>-->
+            </div>
             <h1>Other</h1>
             <div class="settings-row">
                 <label><input type="checkbox" id="input-alignpagewidth">ニコニコホームの最大幅をニコニコ動画ホームに合わせる</label>
@@ -188,10 +188,6 @@
             <div class="settings-row">
                 <label><input type="checkbox" id="input-quickvidarticle">タイトルの後に動画記事へのリンクを表示</label>
                 <div class="hint">タイトルの後ろに動画記事へ繋がるアイコンを表示します。表示されない場合は、ページをリロードしてください。</div>
-            </div>
-            <div class="settings-row">
-                <label><input type="checkbox" id="input-hideeventbanner">視聴ページ上のイベント告知バナーを隠す</label>
-                <div class="hint">プレイヤー上のマーキーテキストではありません！視聴ページでヘッダーの下に表示される、赤いイベント告知を隠します。<span style="color:red">(未検証)</span></div>
             </div>
         </form>
         <div id="info-area">

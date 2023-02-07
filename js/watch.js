@@ -266,32 +266,30 @@ function createCSSRule(result) {
         }
     } else if ( result.usenicoboxui == true ) {
         // Nicobox UI
+        addCSS(chrome.runtime.getURL("pagemod/css/nicobox.css"));
+        $('body').css('background-color','#fefefe')
+        // 基本レイアウト変更
+        $('.WatchAppContainer').css('display','flex')
+        $('.HeaderContainer').before($('.MainContainer'));
+        $('.WatchAppContainer-main').after($('.MainContainer-playerPanel'));
+        $('.MainContainer').css({
+            'padding-top': '200px',
+            'box-shadow': '0px 0px 0px #000',
+            'width': '100%'
+        })
+
+        $('.WatchAppContainer-main').css({
+            'width':'calc( 100% - 384px )',
+            'right':'384px',
+            'margin':'0 0 0 auto',
+            'padding':'0px 64px'
+        })
+
         $(function() {
-            if ( document.querySelector('.WakutkoolNoticeContainer') != null ) {
-                $('.MainContainer').before($('.WakutkoolNoticeContainer'))
-            }
-            // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
-            addCSS(chrome.runtime.getURL("pagemod/css/nicobox.css"));
             $('.SeekBar').before($('.PlayerPlayTime-playtime'));
             $('.SeekBar').after($('.PlayerPlayTime-duration'));
-            $('body').css('background-color','#fefefe')
-            // 基本レイアウト変更
-            $('.WatchAppContainer').css('display','flex')
-            $('.HeaderContainer').before($('.MainContainer'));
-            $('.WatchAppContainer-main').after($('.MainContainer-playerPanel'));
-            $('.MainContainer').css({
-                'padding-top': '200px',
-                'box-shadow': '0px 0px 0px #000',
-                'width': '100%'
-            })
             $('.MainContainer-player').css({
                 'width': '100%'
-            })
-            $('.WatchAppContainer-main').css({
-                'width':'calc( 100% - 384px )',
-                'right':'384px',
-                'margin':'0 0 0 auto',
-                'padding':'0px 64px'
             })
             $('.MainContainer-playerPanel').css({
                 'position':'fixed',
@@ -304,6 +302,10 @@ function createCSSRule(result) {
                 'margin':'auto',
                 'overflow':'visible'
             })
+            if ( document.querySelector('.WakutkoolNoticeContainer') != null ) {
+                $('.MainContainer').before($('.WakutkoolNoticeContainer'))
+            }
+            // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
             // かつてヘッダーだったもの(動画情報)
             $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')
             $('.VideoTitle').css('color','#d85353')

@@ -62,7 +62,9 @@ $('#serieslist').on('click', '#remove', function() {
 // 選択中のシリーズを削除が押された時
 $("#removeselectedseries").on('click',function() {
     $('table #input-tablecheck').each(function(i, elem){
-        $(elem).parents('tr').remove();
+        if ( $(elem).prop('checked') ) {
+            $(elem).parents('tr').remove();
+        }
     });
     saveOptions();
 })

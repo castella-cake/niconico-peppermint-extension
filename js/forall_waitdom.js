@@ -27,7 +27,7 @@ function createBaseCSSRule(result) {
             $('body').css('--headercolor', result.headercolor);
             console.log(`HeaderBG changed to ${result.headercolor}`);
         }
-        if ( result.enableseriesstock == true && location.pathname == "/" ){
+        if ( result.enableseriesstock == true && location.pathname == "/" && location.hostname == "www.nicovideo.jp" ){
             $('.pmbutton-container').append('<div class="openstock-container"><button id="openstock" class="material-icons mainaction-button" style="background: #00796b">folder</button></div>')
             $('#openstock').on('mouseenter', function() {
                 $('#openstock').css({

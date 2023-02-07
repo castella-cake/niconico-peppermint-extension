@@ -36,8 +36,10 @@ function saveOptions() {
             // NicoPedia
             "hidereputation": $("#select-hidereputation").val(),
             "liketonicoru": $('#input-liketonicoru').prop('checked'),
-            //"dicfullwidth": $("#input-dicfullwidth").prop('checked'),
-            //"sidebartoleft": $("#input-sidebartoleft").prop('checked'),
+            "dicfullwidth": $("#input-dicfullwidth").prop('checked'),
+            "dicforcewidthmode": $("#select-dicforcewidthmode").val(),
+            "sidebartoleft": $("#input-sidebartoleft").prop('checked'),
+            "dicbettereditor": $("#input-dicbettereditor").prop('checked'),
             // Other
             "alignpagewidth": $("#input-alignpagewidth").prop('checked'),
             "highlightnewnotice": $("#input-highlightnewnotice").prop('checked'),
@@ -91,8 +93,10 @@ function restoreOptions() {
         // NicoPedia
         $("#select-hidereputation").val(result.hidereputation || "");
         $('#input-liketonicoru').prop('checked',result.liketonicoru)
-        //$("#input-dicfullwidth").prop('checked',result.dicfullwidth;
-        //$("#input-sidebartoleft").prop('checked',result.sidebartoleft;
+        $("#input-dicfullwidth").prop('checked',result.dicfullwidth);
+        $("#select-dicforcewidthmode").val(result.dicforcewidthmode || "");
+        $("#input-sidebartoleft").prop('checked',result.sidebartoleft);
+        $("#input-dicbettereditor").prop('checked',result.dicbettereditor);
         // Other
         $("#input-alignpagewidth").prop('checked',result.alignpagewidth);
         $("#input-highlightnewnotice").prop('checked',result.highlightnewnotice);
@@ -112,6 +116,11 @@ function restoreOptions() {
             $('#input-headercolor').prop('disabled', true);
         } else {
             $('#input-headercolor').prop('disabled', false);
+        }
+        if ( result.dicfullwidth != true) {
+            $('#input-dicforcefullwidth').prop('disabled', true);
+        } else {
+            $('#input-dicforcefullwidth').prop('disabled', false);
         }
         console.log(result.alignpagewidth)
     }
