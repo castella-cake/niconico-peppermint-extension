@@ -90,6 +90,12 @@ form {
     margin-bottom: 2px;
     padding: 0px 10px 10px;
 }
+select {
+	margin-left: 5px;
+	border: 0px solid #fff;
+	border-radius: 2px;
+	padding: 3px 6px;
+}
 .settings-row {
     margin: 4px 0;
 }
