@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - 大百科向け機能を追加
 - ``サポーターボタンを隠す`` 機能を追加
+- NicoboxUIのトグル時に簡易アニメーションを追加
 
 ### Changed
 - アイコンを変更

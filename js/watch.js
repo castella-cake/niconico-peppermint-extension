@@ -197,8 +197,27 @@ function createCSSRule(result) {
         $('#togglenicobox').on('click', ToggleNicobox);
         function ToggleNicobox() {
             console.log(`Nicobox Toggled!!! ${result.usenicoboxui}`)
-            chrome.storage.sync.set({"usenicoboxui": !result.usenicoboxui});
-            location.reload();
+            chrome.storage.sync.set({"usenicoboxui": !result.usenicoboxui,"nicoboxuichanged": true});
+            $('.togglenicobox-container').css('height','52px')
+            $('#togglenicobox').css({
+                'width': '250vw',
+                'height': '250vh',
+                'transition': 'width 0.25s ease, height 0.25s ease, background-color 0.25s ease',
+                'position': 'fixed',
+                'left': '-12px',
+                'bottom': '36px',
+                'transform': 'translate(-50%, 50%)',
+                'z-index': '10000000',
+                'border-radius': '250vw',
+                'background-color': 'var(--bgcolor1)'
+            })
+            $('#CommonHeader').css({
+                'transform': 'translate(0, -100%)',
+                'transition': 'transform 0.1s ease',
+            })
+            setTimeout(function() {
+                location.reload()
+            },250)
         }
     }
 

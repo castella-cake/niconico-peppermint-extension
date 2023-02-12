@@ -92,3 +92,14 @@
     color: #aaa;
     background: #444;
 }
+
+#fadeouter {
+	opacity: 100%;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	transition: opacity 0.1s ease 0s;
+	background: var(--bgcolor1);
+	top: 0;
+	z-index: 10000002;
+}
