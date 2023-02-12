@@ -185,17 +185,20 @@ a,.FrameTitleLink-titleText,.FrameTitle {
     
 /* 動画ジャンルリスト */
 .VideoTopGenreListContainer,.RankingGenreListContainer {
-    background-color: var(--bgcolor2)!important ;
+    background-color: var(--bgcolor2);
 }
 .VideoTopGenreListContainer-item,.RankingGenreListContainer-item {
-    background: var(--bgcolor2)!important ;
-    border: 1px solid #747474!important ;
+    background: var(--bgcolor2);
+    border: 1px solid #747474;
 }
 .VideoTopGenreListContainer-item.is-current,.RankingGenreListContainer-item.is-current {
-    background: var(--accent2)!important ;
+    background: var(--textcolor2);
+}
+.VideoTopGenreListContainer-item.is-current > a {
+    color: var(--bgcolor1) !important;
 }
 .VideoTopGenreListContainer-item > a,.RankingGenreListContainer-item > a {
-    color: #f9f9f9!important ;
+    color: #f9f9f9;
 }
 /* 検索ボックス */
 .SearchBox-form {
@@ -442,4 +445,38 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 }
 .LikeItemAfter-thanksMessage::after {
     border-bottom-color: var(--accent1);
+}
+
+/* iframe */
+.c-body {
+    background-color: var(--bgcolor1)
+}
+.p-embed-supporter-supporting-creators {
+    color: var(--textcolor2)
+}
+/* バッジ */
+.t-badge-wrapper--list {
+    background: var(--bgcolor2);
+}
+.m-badge-card {
+    background: var(--accent1);
+    border: 1px solid var(--accent1);
+    color: var(--textcolor1);
+}
+.m-badge-card .m-badge-card__title::after {
+    background: var(--accent2);
+}
+.m-badge-card .m-badge-card__title p {
+    color: var(--textcolor1);
+}
+/* タイムシフト */
+.___timeshift-reservations-page___ZJdqt {
+    background: var(--bgcolor1);
+    color: var(--textcolor1);
+}
+.___program-title___fdLyH {
+    color: var(--textcolor2)
+}
+.___counter___Xdjcm > .score {
+    color: var(--textcolor2)
 }

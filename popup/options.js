@@ -33,6 +33,7 @@ function saveOptions() {
             "enablenicoboxui": $("#input-enablenicoboxui").prop('checked'),
             "usenicoboxui": $("#input-usenicoboxui").prop('checked'),
             "enabledlbutton": $("#input-enabledlbutton").prop('checked'),
+            "hidesupporterbutton": $("#select-hidesupporterbutton").val(),
             // NicoPedia
             "hidereputation": $("#select-hidereputation").val(),
             "liketonicoru": $('#input-liketonicoru').prop('checked'),
@@ -90,6 +91,7 @@ function restoreOptions() {
         $("#input-enablenicoboxui").prop('checked',result.enablenicoboxui);
         $("#input-usenicoboxui").prop('checked',result.usenicoboxui);
         $("#input-enabledlbutton").prop('checked',result.enabledlbutton);
+        $("#select-hidesupporterbutton").val(result.hidesupporterbutton || "");
         // NicoPedia
         $("#select-hidereputation").val(result.hidereputation || "");
         $('#input-liketonicoru').prop('checked',result.liketonicoru)

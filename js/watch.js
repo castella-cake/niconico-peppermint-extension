@@ -212,7 +212,14 @@ function createCSSRule(result) {
         // 未検証
         $('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').remove()
     }
-    
+    if ( result.hidesupporterbutton == "watch" || result.hidesupporterbutton == "all" ) {
+        addCSS(chrome.runtime.getURL("pagemod/css/other/hidesupporter.css"))
+    }
+    /*
+    $(document).on('mousemove', function(e) {
+        window.cursorX = e.pageX;
+        window.cursorY = e.pageY;
+    });*/
     if (result.usenicoboxui != true && result.usetheaterui != true ) {
         if (result.playertheme != "") {
             console.log(`CSS Loaded!`);

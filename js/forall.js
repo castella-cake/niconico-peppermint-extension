@@ -66,6 +66,23 @@
         })
     }
 
+    /*
+    $(document).on('keypress', keypress_event);
+
+    function keypress_event(e) {
+	    if((e.key === 'q' || e.key === 'Q') && !$(e.target).closest("input, textarea").length ){
+            $('img,span,a,svg,li,div > div > div').each(function(i, elem) {
+                setTimeout( function () {
+                    console.log('hello!')
+                    $(elem).css({
+                        'transition': 'transform 1s ease-in',
+                        'transform': 'translate(0,800px)'
+                    })
+                }, (Math.floor(Math.random() * 80) * i)) //
+            })
+	    }
+    }*/
+
     async function seriesIsStocked(seriesid) {
         // 渡されたシリーズIDがシリーズストック内にストックされているかどうかを返します。
         return new Promise((resolve, reject) => {

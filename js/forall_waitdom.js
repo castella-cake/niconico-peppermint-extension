@@ -75,4 +75,12 @@ function createBaseCSSRule(result) {
             })
         }
     });
+    if ( result.hidesupporterbutton == "all" && !location.pathname.indexOf('/user') ) {
+        addCSS(chrome.runtime.getURL("pagemod/css/other/hidesupporter.css"))
+    }
+    $(document).on('click',function(e) {
+        if(!$(e.target).closest('.pmbutton-container').length) {
+            $('.stockedserieswindow-container, .quickcommander-container').remove()
+        }
+    });
 }
