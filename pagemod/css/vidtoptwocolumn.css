@@ -51,3 +51,7 @@
 	width: 450px;
 	background-size: contain;
 }
+/* この広告は消さないとはみ出してしまうので、残念ながらボッシュートとなります！(ﾃﾞﾃﾞｯﾃﾞﾃﾞｯﾃﾞｯﾃﾞｰﾝ) */
+.RankingVideosContainer-columnRight > .Ads300x250WebPcMiddle {
+	display: none;
+}

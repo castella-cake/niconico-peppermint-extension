@@ -60,6 +60,21 @@ Firefoxでは、新しいバージョンがある場合自動的にアップデ�
 - [x] Chromium系との相性を確認する
 - [ ] マイナー機能をUserStyle版から移植する
 
+# Supported Browser
+Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、そしてChromium系ブラウザをサポートします。  
+  
+## 動作確認済みブラウザーの一覧
+開発者の意図的に動作することを確認したブラウザー。
+チェックボックスの付いていないブラウザーは、テストしたが何かしらの無視できない問題があることを示します。
+### Firefox
+- [x] Firefox 110
+- [x] Waterfox 5.1.2
+- [x] Floorp (10.10.0時点で表示に軽微な問題あり、Floorp側のアップデートで解決されます)
+### Chromium
+- [x] Google Chrome 110
+- [x] Vivaldi 5.6.2867.62
+- [ ] Microsoft Edge 110(シアターモードのvideo要素に問題あり、document_firstの問題？)
+
 # License
 Niconico-PepperMint Extension版のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  

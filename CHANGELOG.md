@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.5.0] - 2023/02/13
 
 ### Added
 - 大百科向け機能を追加
@@ -32,10 +32,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - サポートのデバッグストレージ情報をfocusでも表示するように
 - シアターUIで再生ボタンのヒントがシークバーに隠れる問題を修正
 - NicoboxUIでプレイヤーボタンの色に関する問題を修正
+- 広告ブロッカーを使用しない環境で2カラム動画トップを使用すると、ランキングに広告が表示されはみ出す問題を解決
 
 ### Removed
 - AboutページのSupportセクション  
 ストレージ表示が設定のインポート/エクスポートに移動したため。
+- 16pxアイコンはツールバーアイコンとして使用されなくなりました
 
 ## [0.4.0] - 2023-02-03
 
