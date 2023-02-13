@@ -191,10 +191,10 @@ a,.FrameTitleLink-titleText,.FrameTitle {
     background: var(--bgcolor2);
     border: 1px solid #747474;
 }
-.VideoTopGenreListContainer-item.is-current,.RankingGenreListContainer-item.is-current {
+.VideoTopGenreListContainer-item.is-current, .RankingGenreListContainer-item.is-current {
     background: var(--textcolor2);
 }
-.VideoTopGenreListContainer-item.is-current > a {
+.VideoTopGenreListContainer-item.is-current > a, .RankingGenreListContainer-item.is-current > a {
     color: var(--bgcolor1) !important;
 }
 .VideoTopGenreListContainer-item > a,.RankingGenreListContainer-item > a {

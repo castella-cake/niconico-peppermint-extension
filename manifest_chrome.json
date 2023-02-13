@@ -15,7 +15,8 @@
         {
             "matches": ["*://*.nicovideo.jp/*"],
             "js": ["js/jquery-3.6.3.min.js","js/forall.js"],
-            "run_at": "document_start"
+            "run_at": "document_start",
+            "all_frames" : true
         },
         {
             "matches": ["*://*.nicovideo.jp/*"],
@@ -25,7 +26,7 @@
         {
             "matches": ["*://dic.nicovideo.jp/*"],
             "js": ["js/nicopedia.js"],
-            "run_at": "document_end"
+            "run_at": "document_start"
         },
         {
             "matches": ["*://dic.nicovideo.jp/*"],

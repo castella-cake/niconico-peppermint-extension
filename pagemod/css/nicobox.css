@@ -4,6 +4,7 @@
 .ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
     fill: #1d2128
 }
+
 .ControllerContainer-inner {
     top:4px
 }

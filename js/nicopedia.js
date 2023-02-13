@@ -1,4 +1,4 @@
-console.log(`hello nicopedia!`)
+//console.log(`hello nicopedia!`)
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     if ( result.dicfullwidth == true && result.dicforcewidthmode != "auto" && result.dicforcewidthmode != "100" ) {

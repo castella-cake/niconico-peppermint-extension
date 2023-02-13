@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="options.css"/>
+    </head>
+
+    <body>
+        <header class="title"><a href="credit.html" target="_self"><</a>PepperMintをリセット</header>
+        <form>
+            <h1>Are you sure?</h1>
+            <div style="margin-bottom: 8px;">
+                本当にPepperMintのストレージを削除し、初期状態に戻しますか？<br>
+                <strong>GoogleアカウントやFirefoxアカウントによってブラウザーが同期されている場合、<br>
+                同期されているブラウザーからも設定が削除されます。</strong><br>
+                デバッグ目的であれば、事前に設定をエクスポートしておくことをおすすめします。
+                <br><br>
+                この操作は元に戻せません！<br>
+            </div>
+            <a href="credit.html" target="_self" class="settinglink" style="display: inline; margin-right: 16px;">やっぱりやめる</a><button type="button" class="dangerous-button" id="confirmreset">全て削除する</button>
+            <div id="result"></div>
+        </form>
+        <script src="jquery-3.6.3.min.js"></script>
+        <script src="confirmreset.js"></script>
+    </body>
+
+</html>

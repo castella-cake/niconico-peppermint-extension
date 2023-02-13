@@ -67,9 +67,13 @@ function createCSSRule(result) {
                         let nextvidhtml = ``
                         if ( object.lastVidID != undefined && object.lastVidName != undefined ) {
                             lastvidhtml = `<a class="stockedseries-row-link" href="https://www.nicovideo.jp/watch/${object.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}">最後に見た動画: ${object.lastVidName}</a>`
+                        } else {
+                            lastvidhtml = `<span class="stockedseries-row-link" style="color: var(--textcolor3)">最後に見た動画が保存されていません</span>`
                         }
-                        if ( object.nextVidID != undefined && object.nextVidName != undefined ) {
+                        if ( object.nextVidID != undefined && object.nextVidID != undefined ) {
                             nextvidhtml = `<a class="stockedseries-row-link" href="https://www.nicovideo.jp/watch/${object.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}">次の動画: ${object.nextVidName}</a>`
+                        } else {
+                            nextvidhtml = `<span class="stockedseries-row-link" style="color: var(--textcolor3)">次の動画が保存されていません</span>`
                         }
                         $('.stockedserieswindow-container').append(`<div class="stockedseries-row"><div class="serieslink-container"><a class="stockedseries-row-link" href="https://www.nicovideo.jp/series/${object.seriesID}">${object.seriesName}</a><button id="removeseries" class="removeseries">削除</button></div>${lastvidhtml}${nextvidhtml}</div>`)
                     })

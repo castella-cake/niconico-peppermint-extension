@@ -5,34 +5,34 @@ function createCSSRule(result) {
         $('.pmbutton-container').append('<div class="addtostock-container" style="padding-left: 10px; margin-bottom: 8px"><a id="addtostock" class="material-icons-outlined subaction-button">add</a></div>')
         
         if ( document.querySelector('.SeriesBreadcrumbs-title') != null ) {
-            console.log(result.stockedseries)
-            let stockedseries = result.stockedseries || [];
             function updateSeriesNextVid() {
-                let stockedseriesarray = result.stockedseries
-                $.each(stockedseriesarray, function(i,object) {
-                    if ( object.seriesID == $('.SeriesBreadcrumbs-title').prop('href').slice(32) ) {
-                        console.log(`current series! ${location.pathname.slice(7)}`)
-                        object.lastVidID = location.pathname.slice(7)
-                        object.lastVidName = $('.VideoTitle').text()
-                        if ( document.querySelector('.VideoDescriptionExpander-switchExpand') != null ) {
-                            // 概要欄から読み取るので、概要欄が開かれてないときは一瞬開いて読み取る
-                            $('.VideoDescriptionExpander-switch').trigger('click');
-                            if ( document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null ) {
-                                object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
-                                object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
+                chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
+                    let stockedseriesarray = stockdata.stockedseries
+                    $.each(stockedseriesarray, function(i,object) {
+                        if ( object.seriesID == $('.SeriesBreadcrumbs-title').prop('href').slice(32) ) {
+                            console.log(`current series! ${location.pathname.slice(7)}`)
+                            object.lastVidID = location.pathname.slice(7)
+                            object.lastVidName = $('.VideoTitle').text()
+                            if ( document.querySelector('.VideoDescriptionExpander-switchExpand') != null ) {
+                                // 概要欄から読み取るので、概要欄が開かれてないときは一瞬開いて読み取る
+                                $('.VideoDescriptionExpander-switch').trigger('click');
+                                if ( document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null ) {
+                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
+                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
+                                }
+                                $('.VideoDescriptionExpander-switch').trigger('click');
+                            } else {
+                                if ( document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null ) {
+                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
+                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
+                                }
                             }
-                            $('.VideoDescriptionExpander-switch').trigger('click');
-                        } else {
-                            if ( document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null ) {
-                                object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
-                                object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
-                            }
+                            console.log(object)
                         }
-                        console.log(object)
-                    }
-                })
-                chrome.storage.sync.set({
-                    "stockedseries": stockedseriesarray
+                    })
+                    chrome.storage.sync.set({
+                        "stockedseries": stockedseriesarray
+                    })
                 })
             }
             updateSeriesNextVid()
@@ -47,8 +47,10 @@ function createCSSRule(result) {
                 .then(result => {
                     if (document.querySelector('#addtostock-text') == null) {
                         if ( result ) {
+                            $('#addtostock').text("remove")
                             $('.addtostock-container').append('<span id="addtostock-text" style="background: #ddd;padding: 5px;border-radius: 5px;margin-left: 5px;box-shadow: 0px 0px 5px rgba(0,0,0,40%);">シリーズをストックから削除</span>')
                         } else {
+                            $('#addtostock').text("add")
                             $('.addtostock-container').append('<span id="addtostock-text" style="background: #ddd;padding: 5px;border-radius: 5px;margin-left: 5px;box-shadow: 0px 0px 5px rgba(0,0,0,40%);">シリーズをストックに追加</span>')
                         }
                     }
@@ -70,17 +72,17 @@ function createCSSRule(result) {
                 console.log(error);
             });
             $('#addtostock').on('click', function() {
-                console.log(manageSeriesStock($('.SeriesBreadcrumbs-title').prop('href').slice(32), $('.SeriesBreadcrumbs-title').text()))
-                seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32))
+                manageSeriesStock($('.SeriesBreadcrumbs-title').prop('href').slice(32), $('.SeriesBreadcrumbs-title').text())
                 .then(result => {
+                    console.log(result)
                     if ( result ) {
-                        $('#addtostock').text("add")
-                        $("#addtostock-text").text("シリーズをストックに追加")
-                    } else {
                         $('#addtostock').text("remove")
                         $("#addtostock-text").text("シリーズをストックから削除")
+                        updateSeriesNextVid()
+                    } else {
+                        $('#addtostock').text("add")
+                        $("#addtostock-text").text("シリーズをストックに追加")
                     }
-                    console.log(result)
                 }).catch(error => {
                     console.log(error);
                 });
@@ -288,6 +290,10 @@ function createCSSRule(result) {
         }
     } else if ( result.usenicoboxui == true ) {
         // Nicobox UI
+        if ( result.darkmode != "" ) {
+            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/nicobox.css"));
+        }
         addCSS(chrome.runtime.getURL("pagemod/css/nicobox.css"));
         $('body').css('background-color','#fefefe')
         // 基本レイアウト変更
@@ -398,12 +404,11 @@ function createCSSRule(result) {
             $('.CommentOnOffButton').css('display','none')
             $('.SeekBar-played, .SeekBarHandle-handle').css('background-color','#d85353')
             $('.SeekBar-buffered').css('background-color','#666')
+            $('.ControllerContainer').css('z-index','3')
             // 不要な要素の削除
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer,.EasyCommentContainer-buttonBox').remove();
             window.scroll({top: 0, behavior: 'smooth'});
             if ( result.darkmode != "" ) {
-                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
-                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/nicobox.css"));
                 $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background','linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%)')
             } else {
                 $('.HeaderContainer').css({
@@ -525,6 +530,7 @@ function createCSSRule(result) {
             })
             $('.SeekBar-buffered').css('background-color','#666')
             $('.ControllerBoxCommentAreaContainer, .EasyCommentContainer').css('background','transparent')
+            $('.ControllerContainer').css('z-index','3')
             // 不要な要素の削除
             $('.MainContainer-marquee, .PlayerPlayTime-separator, .EasyCommentContainer-buttonBox').remove();
             window.scroll({top: 0, behavior: 'smooth'});

@@ -9,14 +9,6 @@ function onError(error) {
     console.log(`Error: ${error}`);
 }
 
-// 選択中のシリーズを削除が押された時
-$("#removeselectedseries").on('click',function() {
-    $('table #input-tablecheck').each(function(i, elem){
-        $(elem).parents('tr').remove();
-    });
-    saveOptions();
-})
-
 document.addEventListener("DOMContentLoaded", function () {
     function showStorageData(result) {
         let storageText = JSON.stringify(result)
