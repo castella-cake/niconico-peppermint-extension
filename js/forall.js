@@ -207,3 +207,22 @@ function createBaseCSSRule(result) {
         console.log(result.alignpagewidth)
     }
 }
+
+function isExist(nijika_fan) {
+    if ( nijika_fan >= 1000000 ) {
+        return true;
+    } else if ( nijika_fan >= 10 ) {
+        return true;
+    } else if ( nijika_fan >= 1 ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+if (isExist(current_nijika_fan)) {
+    console.log('私は存在します。')
+} else {
+    console.log('私は存在しません。')
+}
+
+

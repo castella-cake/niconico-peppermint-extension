@@ -51,6 +51,12 @@ Firefoxでは、新しいバージョンがある場合自動的にアップデ�
 5. ダウンロードしたzipファイルを読み込みます
 6. おわり
 
+# About ``create.bat``
+``create.bat``は、拡張機能をリリースするための作業を短縮するためのものです。
+batを実行して、バージョン名を入力するだけで、buildフォルダー内に作成されます。
+buildとは名ばかりで、Niconico-PepperMintはjavascriptとcssとhtmlで開発されているため、行っている作業はコピーと圧縮とリネームと削除のみです。
+そのため、通常のテストにこのバッチファイルを使用する必要はありません。
+
 # Todo
 現時点でやらねばならないこと。  
 - [x] 拡張機能を作成する
@@ -73,7 +79,7 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 ### Chromium
 - [x] Google Chrome 110
 - [x] Vivaldi 5.6.2867.62
-- [ ] Microsoft Edge 110(シアターモードのvideo要素に問題あり、document_firstの問題？)
+- [ ] Microsoft Edge 110 (シアターモードのvideo要素に問題あり、document_firstの問題？)
 
 # License
 Niconico-PepperMint Extension版のライセンスは``MIT License``です。  

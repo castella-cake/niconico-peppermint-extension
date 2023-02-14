@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.0] - 2023/02/14
+
+### Added
+- 「ニコニコ大百科で検索」機能を追加  
+ニコニコ動画内に限らず、全てのサイト内で単語をニコニコ大百科で検索します。
+検索したい単語を選択したら右クリックして、``ニコニコ大百科で <選択した内容> を検索``をクリックするだけで検索できます。
+- オプションを拡張機能の管理からも変更可能に
+- 新バージョンリリース用のファイルを作成する``create.bat``を作成
+
+### Changed
+- オプションのタイトル表示を変更
+
 ## [0.5.0] - 2023/02/13
 
 ### Added
@@ -118,7 +130,8 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 ### Removed
 - テスト用機能のコードを削除
 
-[Unreleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.4.0..HEAD
+[Unreleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.5.0..HEAD
+[0.5.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.4.0..v0.5.0
 [0.4.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.3.1..v0.4.0
 [0.3.1]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.3rc...v0.3.1
 [0.3.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/cdf30c9..d019f83
