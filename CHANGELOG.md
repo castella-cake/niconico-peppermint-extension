@@ -130,7 +130,7 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 ### Removed
 - テスト用機能のコードを削除
 
-[Unreleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.5.0..HEAD
+[0.6.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.5.0..v0.6.0
 [0.5.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.4.0..v0.5.0
 [0.4.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.3.1..v0.4.0
 [0.3.1]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.3rc...v0.3.1
