@@ -4,19 +4,29 @@ function createCSSRule(result) {
     if ( result.enableseriesstock == true ) {
         $('.pmbutton-container').append('<div class="addtostock-container" style="padding-left: 10px; margin-bottom: 8px"><a id="addtostock" class="material-icons-outlined subaction-button">add</a></div>')
         
+        // タイトルの下にあるシリーズを表示するやつがあるか。動画にシリーズがないなら、これは存在しない
         if ( document.querySelector('.SeriesBreadcrumbs-title') != null ) {
+            let currentVidSeriesID = $('.SeriesBreadcrumbs-title').prop('href').slice(32)
+            let currentVidSeriesName = $('.SeriesBreadcrumbs-title').text()
             function updateSeriesNextVid() {
                 chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
+                    // pathnameで /watch/sm.... が取得できるので、7文字切ってsm...だけ取得する
+                    let smID = location.pathname.slice(7)
                     let stockedseriesarray = stockdata.stockedseries
+                    // シリーズ要素のhrefで https://www.nicovideo.jp/series/1234... を取得できるので、32文字切ってシリーズIDを取得する
                     $.each(stockedseriesarray, function(i,object) {
-                        if ( object.seriesID == $('.SeriesBreadcrumbs-title').prop('href').slice(32) ) {
-                            console.log(`current series! ${location.pathname.slice(7)}`)
-                            object.lastVidID = location.pathname.slice(7)
+                        if ( object.seriesID == currentVidSeriesID ) {
+                            //console.log(`current series! ${smID}`)
+                            object.lastVidID = smID
                             object.lastVidName = $('.VideoTitle').text()
+                            console.log($('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href'))
+                            // 概要欄が開かれていない場合、.VideoDescriptionExpander-switch という要素に VideoDescriptionExpander-switchExpand というクラスが着く = nullではなくなる
                             if ( document.querySelector('.VideoDescriptionExpander-switchExpand') != null ) {
                                 // 概要欄から読み取るので、概要欄が開かれてないときは一瞬開いて読み取る
                                 $('.VideoDescriptionExpander-switch').trigger('click');
                                 if ( document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null ) {
+                                    // 概要欄のシリーズ表示にある、「次の動画」のhrefを31文字切る。hrefはこういう形式(https://www.nicovideo.jp/watch/sm123456?ref=pc_watch_description_series)
+                                    // なので、31文字切って不要なゴミトラッキング情報を消し飛ばす
                                     object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
                                     object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
                                 }
@@ -233,6 +243,11 @@ function createCSSRule(result) {
         // 未検証
         $('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').remove()
     }
+    if (result.commentrow != 1) {
+        $('.CommentPostContainer').css('height',`${32 * result.commentrow}px`)
+        $('.CommentPostContainer-commandInput .CommentCommandInput, .CommentPostContainer-commentInput .CommentInput, .CommentPostButton.ActionButton').css('height',`${28 * result.commentrow}px`)
+    }
+
     if ( result.hidesupporterbutton == "watch" || result.hidesupporterbutton == "all" ) {
         addCSS(chrome.runtime.getURL("pagemod/css/other/hidesupporter.css"))
     }

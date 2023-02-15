@@ -11,6 +11,7 @@ function onError(error) {
 
 document.addEventListener("DOMContentLoaded", function () {
         $('#confirmreset').on('click', function() {
+            // HACK: chrome.storage.sync.clear() はFirefoxで動作しないため、UAで判定する。bug?
             let storageclear = chrome.storage.sync.clear()
             if (window.navigator.userAgent.toLowerCase().indexOf("firefox") != -1) {
                 storageclear = browser.storage.sync.clear()

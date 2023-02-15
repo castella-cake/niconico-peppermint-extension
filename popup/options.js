@@ -27,6 +27,7 @@ function saveOptions() {
             //"playerstyleoverride": $("#select-playerstyleoverride").val(),
             // Watchpage
             "replacemarqueetext": $("#input-replacemarqueetext").prop('checked'),
+            "commentrow": $("#input-commentrow").val(),
             "highlightlockedtag": $("#input-highlightlockedtag").prop('checked'),
             "watchpagetheme": $("#select-watchpagetheme").val(),
             "usetheaterui": $("#input-usetheaterui").prop('checked'),
@@ -86,6 +87,7 @@ function restoreOptions() {
         // WatchPage
         $("#input-replacemarqueetext").prop('checked',result.replacemarqueetext);
         $("#input-highlightlockedtag").prop('checked',result.highlightlockedtag);
+        $("#input-commentrow").val(result.commentrow || 1);
         $("#select-watchpagetheme").val(result.watchpagetheme || "");
         $("#input-usetheaterui").prop('checked',result.usetheaterui);
         $("#input-enablenicoboxui").prop('checked',result.enablenicoboxui);
