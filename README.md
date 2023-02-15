@@ -2,9 +2,6 @@
 「ニコニコ動画をちょっとクールに」を目標に開発しているUserCSS「Niconico-PepperMint」  
 ...を拡張機能化し、UserStyle版の後継となることを目標に開発している拡張機能。
 
-Niconico-PepperMint Extension版は現在試験的なものです。  
-重大なパフォーマンスの問題、バグなどが発生する可能性があります。  
-
 作者はJavaScript初心者なので、貢献は大歓迎です。  
 
 # Install
