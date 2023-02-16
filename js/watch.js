@@ -259,11 +259,7 @@ function createCSSRule(result) {
     if (result.usenicoboxui != true && result.usetheaterui != true ) {
         if (result.playertheme != "") {
             console.log(`CSS Loaded!`);
-            if (result.playerstyleoverride == "") {
-                addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playertheme + ".css"));
-            } else if (result.playerstyleoverride != "none") {
-                addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playerstyleoverride + ".css"));
-            }
+            addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playertheme + ".css"));
             addCSS(chrome.runtime.getURL("pagemod/css/playertheme/" + result.playertheme + ".css"));
             if (result.playertheme == "harazyuku") {
                 let lastbuttonwidth = ( ( $(".ControllerContainer-area:last-child").length - 1 ) * 32 ) + 64

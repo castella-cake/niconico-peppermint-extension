@@ -51,8 +51,8 @@ function manageSeriesStock(seriesid, seriesname = '名称未設定') {
             // このため、.thenを使って追加された後に行う処理/削除された後に行う処理をIsSeriesStockedを使用せず簡潔に書くことができます。
             chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
                 if (stockdata.stockedseries != undefined && stockdata.stockedseries.findIndex(series => series.seriesID === seriesid) != -1) {
-                    var currentstock = stockdata.stockedseries
-                    var newstock = currentstock.filter(obj => obj.seriesID !== seriesid);
+                    let currentstock = stockdata.stockedseries
+                    let newstock = currentstock.filter(obj => obj.seriesID !== seriesid);
                     chrome.storage.sync.set({
                         "stockedseries": newstock
                     }).then(() => {
@@ -60,7 +60,7 @@ function manageSeriesStock(seriesid, seriesname = '名称未設定') {
                         resolve(false)
                     })
                 } else {
-                    var currentstock = stockdata.stockedseries || []
+                    let currentstock = stockdata.stockedseries || []
                     currentstock.push({ seriesID: seriesid, seriesName: seriesname });
                     chrome.storage.sync.set({
                         "stockedseries": currentstock
