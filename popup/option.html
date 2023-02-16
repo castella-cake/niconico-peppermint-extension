@@ -30,7 +30,7 @@
                 <div class="hint">プレイヤー上のマーキーテキストではありません！視聴ページでヘッダーの下に表示される、赤いイベント告知を隠します。</div>
             </div>
             <div class="settings-row">
-                <label><input type="checkbox" id="input-hidepopup">フォロー/サポーター/プレ会勧誘を隠す</label>
+                <label><input type="checkbox" id="input-hidepopup">フォロー/サポーター/プレミアム会員勧誘を隠す</label>
                 <div class="hint">特定ユーザーの動画をよく視聴している際に表示されるフォローバナー、ユーザーページ左下のサポーター勧誘、プレミアム会員勧誘を隠します。</div>
             </div>
             <div class="settings-row">
@@ -42,18 +42,6 @@
                     </select>
                 </label>
                 <div class="hint">サポーターボタンを非表示にします。</div>
-            </div>
-            <h1>Player</h1>
-            <div class="settings-row">
-                <label>プレイヤーテーマ
-                    <select id="select-playertheme">
-                        <option value="">Disable</option>
-                        <option value="harazyuku">原宿</option>
-                        <option value="rc1">RC1</option>
-                        <option value="mint">Mint</option>
-                    </select>
-                </label>
-                <div class="hint">プレイヤーのレイアウトと見た目を一括変更します。<br>スタイルは「プレイヤースタイルのオーバーライド」によって上書きされることがあります。</div>
             </div>
             <!-- <div class="settings-row">
                 <label>プレイヤースタイルのオーバーライド
@@ -77,7 +65,18 @@
                 <div class="hint">視聴ページの見た目、レイアウトを変更します。</div>
             </div>
             <div class="settings-row">
-                <label>コメント行数<input type="number" id="input-commentrow" min="1" max="32" style="width: 5rem; margin-left: 8px"></label>
+                <label>プレイヤーテーマ
+                    <select id="select-playertheme">
+                        <option value="">Disable</option>
+                        <option value="harazyuku">原宿</option>
+                        <option value="rc1">RC1</option>
+                        <option value="mint">Mint</option>
+                    </select>
+                </label>
+                <div class="hint">プレイヤーのレイアウトと見た目を一括変更します。</div>
+            </div>
+            <div class="settings-row">
+                <label>コメント入力欄行<input type="number" id="input-commentrow" min="1" max="32" style="width: 5rem; margin-left: 8px"></label>
                 <div class="hint">
                     コメント入力欄の行数を拡張します。AAの最終確認に最適です。
                 </div>
@@ -89,6 +88,10 @@
             <div class="settings-row">
                 <label><input type="checkbox" id="input-highlightlockedtag">ロック中のタグをハイライト</label>
                 <div class="hint">ロックされているタグのアウトラインを黄色にします。</div>
+            </div>
+            <div class="settings-row">
+                <label><input type="checkbox" id="input-cleanvidowner">クリーンな投稿者表示</label>
+                <div class="hint">投稿者名のみを表示し、投稿動画とフォローボタンを非表示にします。</div>
             </div>
             <div class="settings-row">
                 <label><input type="checkbox" id="input-usetheaterui">シアターUIを使用</label>

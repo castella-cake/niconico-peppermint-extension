@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.8.0 - 2023/02/15
+
+### Added
+- ``クリーンな投稿者表示``を追加
+
+### Changed
+- ``サポーターボタンを隠す`` をHideセクションに移動
+
+### Fixed
+- 適切でない変数宣言を``let``に置き換え
+- ``プレイヤーテーマ``機能で、プレイヤースタイルが適用されない問題を修正
+
 ## [0.7.0] - 2023/02/15
 
 ### Added

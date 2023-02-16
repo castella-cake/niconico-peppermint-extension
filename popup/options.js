@@ -28,6 +28,7 @@ function saveOptions() {
             // Watchpage
             "replacemarqueetext": $("#input-replacemarqueetext").prop('checked'),
             "commentrow": $("#input-commentrow").val(),
+            "cleanvidowner": $("#input-cleanvidowner").prop('checked'),
             "highlightlockedtag": $("#input-highlightlockedtag").prop('checked'),
             "watchpagetheme": $("#select-watchpagetheme").val(),
             "usetheaterui": $("#input-usetheaterui").prop('checked'),
@@ -79,6 +80,7 @@ function restoreOptions() {
         $("#input-hiderankpagead").prop('checked',result.hiderankpagead);
         $("#input-hideeventbanner").prop('checked',result.hideeventbanner);
         $("#input-hidepopup").prop('checked',result.hidepopup);
+        $("#select-hidesupporterbutton").val(result.hidesupporterbutton || "");
         //$("#input-hidevidtopad").prop('checked',result.hidevidtopad);
         // Player
         $("#select-playertheme").val(result.playertheme || "");
@@ -87,13 +89,13 @@ function restoreOptions() {
         // WatchPage
         $("#input-replacemarqueetext").prop('checked',result.replacemarqueetext);
         $("#input-highlightlockedtag").prop('checked',result.highlightlockedtag);
+        $("#input-cleanvidowner").prop('checked',result.cleanvidowner);
         $("#input-commentrow").val(result.commentrow || 1);
         $("#select-watchpagetheme").val(result.watchpagetheme || "");
         $("#input-usetheaterui").prop('checked',result.usetheaterui);
         $("#input-enablenicoboxui").prop('checked',result.enablenicoboxui);
         $("#input-usenicoboxui").prop('checked',result.usenicoboxui);
         $("#input-enabledlbutton").prop('checked',result.enabledlbutton);
-        $("#select-hidesupporterbutton").val(result.hidesupporterbutton || "");
         // NicoPedia
         $("#select-hidereputation").val(result.hidereputation || "");
         $('#input-liketonicoru').prop('checked',result.liketonicoru)

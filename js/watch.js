@@ -251,6 +251,14 @@ function createCSSRule(result) {
     if ( result.hidesupporterbutton == "watch" || result.hidesupporterbutton == "all" ) {
         addCSS(chrome.runtime.getURL("pagemod/css/other/hidesupporter.css"))
     }
+
+    if ( result.cleanvidowner ) {
+        $('.VideoOwnerInfo .FollowButton,.VideoOwnerInfo-linkButtons').remove()
+        $('.VideoOwnerInfo-links').css({
+            'position': 'relative',
+            'top': '6px',
+        })
+    }
     /*
     $(document).on('mousemove', function(e) {
         window.cursorX = e.pageX;
@@ -511,7 +519,8 @@ function createCSSRule(result) {
                 'right':'0'
             })
             $('.VideoDescriptionContainer').css({
-                'margin':'0 auto'
+                'margin':'0 auto',
+                'margin-bottom': '16px'
             })
             // プレイヤー
             $('.SeekBar').css({
