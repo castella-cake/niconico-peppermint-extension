@@ -33,6 +33,16 @@
                 <label><input type="checkbox" id="input-hidepopup">フォロー/サポーター/プレ会勧誘を隠す</label>
                 <div class="hint">特定ユーザーの動画をよく視聴している際に表示されるフォローバナー、ユーザーページ左下のサポーター勧誘、プレミアム会員勧誘を隠します。</div>
             </div>
+            <div class="settings-row">
+                <label>サポーターボタンを隠す
+                    <select id="select-hidesupporterbutton">
+                        <option value="">Default</option>
+                        <option value="watch">視聴ページで</option>
+                        <option value="all">全て隠す</option>
+                    </select>
+                </label>
+                <div class="hint">サポーターボタンを非表示にします。</div>
+            </div>
             <h1>Player</h1>
             <div class="settings-row">
                 <label>プレイヤーテーマ
@@ -65,16 +75,6 @@
                     </select>
                 </label>
                 <div class="hint">視聴ページの見た目、レイアウトを変更します。</div>
-            </div>
-            <div class="settings-row">
-                <label>サポーターボタンを隠す
-                    <select id="select-hidesupporterbutton">
-                        <option value="">Default</option>
-                        <option value="watch">視聴ページで</option>
-                        <option value="all">全て隠す</option>
-                    </select>
-                </label>
-                <div class="hint">サポーターボタンを非表示にします。</div>
             </div>
             <div class="settings-row">
                 <label>コメント行数<input type="number" id="input-commentrow" min="1" max="32" style="width: 5rem; margin-left: 8px"></label>
