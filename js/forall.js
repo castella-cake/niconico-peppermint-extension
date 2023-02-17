@@ -122,7 +122,7 @@ function createBaseCSSRule(result) {
     if (result.enablevisualpatch == true) {
         addCSS(chrome.runtime.getURL("pagemod/css/visualpatch.css"))
     }
-    if (result.darkmode != "" && result.darkmode != undefined) {
+    if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
         /*
         if ( result.darkmode == "pmcolor" ) {
             $('body').css({

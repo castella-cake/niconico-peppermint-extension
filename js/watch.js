@@ -301,7 +301,7 @@ function createCSSRule(result) {
                 $('.DefaultAnimator-text, .DefaultAnimator-category,.DefaultAnimator-excludeButton, .Marquee-buttonArea').css('display','none')
             });*/
         }
-        if ( result.darkmode != "" ) {
+        if ( result.darkmode != "" && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
             if (result.watchpagetheme != "") {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"));
@@ -309,7 +309,7 @@ function createCSSRule(result) {
         }
     } else if ( result.usenicoboxui == true ) {
         // Nicobox UI
-        if ( result.darkmode != "" ) {
+        if ( result.darkmode != "" && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/nicobox.css"));
         }
@@ -427,7 +427,7 @@ function createCSSRule(result) {
             // 不要な要素の削除
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer,.EasyCommentContainer-buttonBox').remove();
             window.scroll({top: 0, behavior: 'smooth'});
-            if ( result.darkmode != "" ) {
+            if ( result.darkmode != "" && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
                 $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background','linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%)')
             } else {
                 $('.HeaderContainer').css({
@@ -462,9 +462,10 @@ function createCSSRule(result) {
             'width': '100%'
         })
         $('.WatchAppContainer-main').css({
-            'width':'calc( 100% - 384px )',
-            'right':'384px',
-            'margin':'0 0 0 auto',
+            'width':'calc( 100vw - 384px )',
+            'left':'0',
+            'right':'auto',
+            'margin':'0',
             'padding':'0px 0px'
         })
         $('.MainContainer-playerPanel').css({
@@ -554,7 +555,7 @@ function createCSSRule(result) {
             // 不要な要素の削除
             $('.MainContainer-marquee, .PlayerPlayTime-separator, .EasyCommentContainer-buttonBox').remove();
             window.scroll({top: 0, behavior: 'smooth'});
-            if ( result.darkmode != "" ) {
+            if ( result.darkmode != "" && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch_ichiba.css"));
             }
@@ -589,11 +590,3 @@ function createCSSRule(result) {
     }
     console.log(`createCSSRule Finished!`)
 }
-/*
-$('#togglenicobox').on('click', function() {
-    console.log(`Nicobox Toggled!!!`)
-    alert("Nicobox万歳！！！！");
-    getstoragedata.then(function(result) {
-        cchrome.storage.sync.set("usenicoboxui", !result.usenicoboxui);
-    }, onError);
-});*/

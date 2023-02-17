@@ -35,3 +35,15 @@
 .SearchBox-optionMenu {
     bottom: 32px
 }
+
+.VideoMenuContainer-areaLeft .VideoMenuContainer-button,.SharePanelVisibleActionButton svg {
+    fill: #f0f0f0;
+}
+
+.VideoMenuContainer::after {
+    border-bottom: none;
+}
+.CommentRenderer > canvas, .CommentRenderer, .VideoSymbolContainer {
+    width: 100% !important;
+    height: 100% !important;
+}

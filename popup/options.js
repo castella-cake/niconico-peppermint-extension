@@ -49,6 +49,7 @@ function saveOptions() {
             "vidtoptwocolumn": $('#input-vidtoptwocolumn').prop('checked'),
             // Global
             "darkmode": $("#select-darkmode").val(),
+            "darkmodedynamic": $("#input-darkmodedynamic").prop('checked'),
             "headerbg": $("#select-headerbg").val(),
             "headercolor": $("#input-headercolor").val(),
             "enablevisualpatch": $("#input-enablevisualpatch").prop('checked'),
@@ -109,6 +110,7 @@ function restoreOptions() {
         $("#input-vidtoptwocolumn").prop('checked',result.vidtoptwocolumn);
         // Global
         $("#select-darkmode").val(result.darkmode || "");
+        $("#input-darkmodedynamic").prop('checked',result.darkmodedynamic)
         $("#select-headerbg").val(result.headerbg || "");
         $("#input-headercolor").val(result.headercolor || "#252525");
         $("#input-enablevisualpatch").prop('checked',result.enablevisualpatch)

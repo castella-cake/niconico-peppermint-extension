@@ -1,11 +1,8 @@
 .VideoContainer {
-	width: 100% !important;
-}
-.VideoContainer {
 	height: inherit !important;
-	width: calc(100vw - 384px) !important;
-	/* min-height: 65vh; */
+	/*width: calc(100vw - 384px);*/
 	aspect-ratio: 21 / 9;
+	width: 100% !important;
 }
 .MainVideoPlayer video {
 	box-shadow: 0px 0px 24px rgba(255,255,255,0.25);
