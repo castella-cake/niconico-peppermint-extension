@@ -12,7 +12,7 @@
 3. 画面の手順に従います
 4. おわり
 ### Chrome
-1. 準備中 に行きます
+1. https://chrome.google.com/webstore/detail/niconico-peppermint/oeadnodbjplclhibppgkkijomgcgochf に行きます
 2. ``Chrome に追加`` を押します
 3. 画面の手順に従います
 4. おわり
