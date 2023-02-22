@@ -1,4 +1,7 @@
-/* ニコニコ動画 - ランキング(ダークテーマ) */
+/* 
+    ニコニコ動画 - ランキング(ダークテーマ) 
+    all.cssに統合
+*/
 .NC-MutedVideoCard, .NC-SensitiveVideoCard, .VideoItem.NC-Card, .RankingHeaderContainer-header_sticky,.NC-Card.NC-NicoadCard.NicoadItem {
     background-color: var(--bgcolor2)
 }

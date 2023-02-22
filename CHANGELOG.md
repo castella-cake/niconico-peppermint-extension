@@ -5,7 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 0.8.0 - 2023/02/15
+## [1.0.0] - 2023/02/22
+
+### Added
+- ``ショートカットアシスト`` を追加
+- ``視聴ページテーマ`` に ``原宿風`` を追加
+
+### Changed
+- 名称を``Niconico-PepperMint`` から ``Niconico-PeppermintPlus`` に変更
+- 設定画面を拡張機能管理から開いた場合に幅を設定するように
+- 設定画面のページ移動にアニメーションを追加
+- 設定画面のダークモード対応を一部変更
+- 設定画面のカラーを[Acorn]準拠に変更
+- ニコニコ生放送でダークモードのコメント色を一部変更
+- 一部のダークモードCSSを統合
+
+### Fixed
+- 動画サイズに関する問題を修正
+- spwatchリダイレクトが場合によっては動作しない問題を修正
+- ニコニコ生放送でダークモードが動作しない場合がある問題を修正
+- ダークモードの設定を一度も触ったことがない場合にニコニコ生放送の表示が色がおかしくなる問題を修正
+
+## [0.8.0] - 2023/02/15
 
 ### Added
 - ``クリーンな投稿者表示``を追加
@@ -158,6 +179,8 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 ### Removed
 - テスト用機能のコードを削除
 
+[Acorn]: https://acorn.firefox.com/latest/acorn.html
+[0.8.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v0.7.0..v0.8.0
 [0.7.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.6.0..v0.7.0
 [0.6.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.5.0..v0.6.0
 [0.5.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.4.0..v0.5.0

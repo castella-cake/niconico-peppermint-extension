@@ -1,4 +1,4 @@
-# Niconico-PepperMint Extension版
+# Niconico-PepperMintPlus
 「ニコニコ動画をちょっとクールに」を目標に開発しているUserCSS「Niconico-PepperMint」  
 ...を拡張機能化し、UserStyle版の後継となることを目標に開発している拡張機能。
 
@@ -70,7 +70,7 @@ buildとは名ばかりで、Niconico-PepperMintはjavascriptとcssとhtmlで開
 #### WatchPage
 - [x] 視聴ページテーマ
     - [x] Mint
-    - [ ] 原宿風
+    - [x] 原宿風
 - [x] プレイヤーテーマ
     - [x] 原宿風
     - [x] RC1風

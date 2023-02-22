@@ -1,9 +1,13 @@
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+$('a').on('click', function(e) {
+    e.preventDefault();
     $('body').css({
-        'color':'#fff',
-        'background-color':'#252525'
+        'animation': 'fadeout 0.1s ease forwards 0s',
     })
-}
+    let href = $(this).attr('href')
+    setTimeout(function() {
+        location.href = href
+    }, 100)
+})
 
 function appendTableRow(seriesid, seriesname) {
     var addTable = '<tr><td><input type="checkbox" id="input-tablecheck"></td><td id="tableid">' + seriesid + '</td><td id="tablename">' + seriesname + '</td><td><td><button id="remove" type="button">削除</button></td></td></tr>'

@@ -1,4 +1,7 @@
-/* ニコニコ動画 - 動画トップ(ダークテーマ) */
+/*
+    ニコニコ動画 - 動画トップ(ダークテーマ) 
+    all.cssに統合
+*/
 .RecommendVideoContainer-footer {
     color: var(--textcolor3);
 }

@@ -1,0 +1,587 @@
+.BaseLayout-main,.BaseLayout {
+    background-color: var(--bgcolor1);
+    color: var(--textcolor1);
+}
+a,.FrameTitleLink-titleText,.FrameTitle {
+    color: var(--textcolor1)
+}
+
+.NiconicoLogo_re {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTc5IDMyIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik0xMzcuNyAyN2ExLjQgMS40IDAgMCAwIC40LTIgMTMuMyAxMy4zIDAgMCAxIC42LTE1LjMgMS40IDEuNCAwIDAgMC0xLjEtMi4yYy0uNSAwLS45LjItMS4xLjVhMTYgMTYgMCAwIDAtLjggMTguNSAxLjQgMS40IDAgMCAwIDIgLjRtMzguNy0uNGExNiAxNiAwIDAgMC0uNy0xOC41Yy0uMy0uMy0uNy0uNS0xLjEtLjVhMS40IDEuNCAwIDAgMC0xLjQgMS4yYzAgLjMgMCAuNy4zIDFBMTMuMiAxMy4yIDAgMCAxIDE3NCAyNWExLjQgMS40IDAgMCAwIC40IDJsLjguMmMuNCAwIC45LS4zIDEuMS0uN20tOC44LThjMCAuMy0uMi40LS40LjRhNzkuNCA3OS40IDAgMCAxLTQuNy0uMmMwLS42IDEuMS0xLjggMi43LTEuOCAyIDAgMi40IDEuMiAyLjQgMS42bTIuNSA2LjRjLjMtLjMuNC0uNi40LTEgMC0uNy0uNi0xLjQtMS40LTEuNC0uMyAwLS42LjItLjkuNS0uNi43LTEuNSAxLjQtMyAxLjQtMS40IDAtMy0xLTMtMi44IDAtLjMuMS0uNS4yLS41aDUuN2MxLjYgMCAyLjQtMSAyLjQtMi4yIDAtMS44LTEuOS00LjMtNS4zLTQuMy0zLjIgMC01LjggMi41LTUuOCA2LjIgMCAzLjYgMi41IDYgNS44IDZhNiA2IDAgMCAwIDUtMk0xNTMgMTMuNGMwIDEuMi0xIDIuNS0yLjcgMi42aC0xLjRjLTEuNSAwLTEuOSAwLTEuOS0uNXYtMy41Yy4xLS43LjItLjggMS45LS44aDEuMmMyIC4yIDIuOSAxLjIgMi45IDIuMm01LjMgMTJjMC0uNy0uNC0xLjQtMS40LTEuNWgtLjJjLS4zLS4xLS42LS4zLTEtLjlsLTEuNi0yLjRhMzIgMzIgMCAwIDAtMS44LTIuN2wuNC0uMmMyLS40IDMuMi0yLjQgMy4yLTQuMyAwLTItMS40LTQuNC01LjUtNC43SDE0My44Yy0xIDAtMS40LjctMS40IDEuNHMuNCAxLjQgMS42IDEuNGE0NDYuOCA0NDYuOCAwIDAgMSAuMyA3YzAgNS42IDAgNS42LS40IDUuNi0xIDAtMS42LjctMS42IDEuNHMuNiAxLjMgMS43IDEuM2gzLjZjMSAwIDEuNS0uNyAxLjUtMS40IDAtLjYtLjQtMS4yLTEuNS0xLjMtLjMgMC0uNi0uMi0uNi0uNnYtNC42YzAtLjYuMi0uNiAxLjYtLjYuNSAwIDEuMi43IDIuOCAzLjMuMSAwIDEuMyAyIDEuMyAyLjMgMCAuMiAwIC4zLS4yLjQtLjcuMS0xIC43LTEgMS4zIDAgLjYuNSAxLjIgMS40IDEuMmgzLjhjMSAwIDEuNi0uOCAxLjYtMS41TTEyNy42IDIydi05LjFjMC0zLTIuMy01LjMtNS4yLTUuM2gtMTEuMmMtMS4yIDAtMi4yIDEtMi4yIDIuMiAwIDEuMiAxIDIuMiAyLjIgMi4yaDEwLjFjMS4yIDAgMiAuOCAyIDJ2Ni45YzAgMS4yLS43IDItMiAyaC0xMC4xYy0xLjIgMC0yLjIgMS0yLjIgMi4yIDAgMS4yIDEgMi4yIDIuMiAyLjJoMTEuMmMyLjkgMCA1LjItMi40IDUuMi01LjNtLTIzLjYgM2MwLTEuMi0xLTIuMi0yLjItMi4ySDg3LjNjLTEuMiAwLTIuMiAxLTIuMiAyLjMgMCAxLjIgMSAyLjIgMi4yIDIuMmgxNC41YzEuMiAwIDIuMi0xIDIuMi0yLjJtLS4yLTE1YzAtMS4zLTEtMi4zLTIuMi0yLjNoLTE0Yy0xLjMgMC0yLjMgMS0yLjMgMi4zIDAgMS4yIDEgMi4yIDIuMiAyLjJoMTQuMWMxLjIgMCAyLjItMSAyLjItMi4yTTc5LjcgMjEuOXYtOS4xYzAtMy0yLjQtNS4zLTUuMy01LjNINjMuMmMtMS4yIDAtMi4yIDEtMi4yIDIuMiAwIDEuMiAxIDIuMiAyLjIgMi4yaDEwLjJjMS4xIDAgMiAuOCAyIDJ2Ni45YzAgMS4yLS44IDItMiAySDYzLjJjLTEuMiAwLTIuMiAxLTIuMiAyLjIgMCAxLjIgMSAyLjIgMi4yIDIuMmgxMS4yYzMgMCA1LjMtMi40IDUuMy01LjNtLTIzLjcgM2MwLTEuMi0xLTIuMi0yLjEtMi4ySDM5LjNjLTEuMiAwLTIuMSAxLTIuMSAyLjMgMCAxLjIgMSAyLjIgMi4xIDIuMkg1NGMxLjIgMCAyLjEtMSAyLjEtMi4yTTU2IDEwYzAtMS4zLTEtMi4zLTIuMi0yLjNIMzkuNmMtMS4yIDAtMi4yIDEtMi4yIDIuMyAwIDEuMiAxIDIuMiAyLjIgMi4yaDE0YzEuMyAwIDIuMy0xIDIuMy0yLjJNMjQuMiA3LjloLTcuN2wzLjItM2MuNC0uNC40LTEuMSAwLTEuNWExIDEgMCAwIDAtMS41LS4xbC00LjkgNC42LTQuOS00LjZhMSAxIDAgMCAwLTEuNSAwYy0uNC41LS40IDEuMiAwIDEuNmwzLjIgM0gyLjRDMSA3LjkgMCA4LjkgMCAxMC4zdjE0LjNDMCAyNS45IDEgMjcgMi40IDI3aDNsMS44IDJjLjMuNC44LjQgMSAwbDEuOS0yaDYuNGwxLjggMmMuMy40LjguNCAxLjEgMGwxLjgtMmgzYzEuMyAwIDIuNC0xLjEgMi40LTIuNFYxMC4zYzAtMS4zLTEtMi40LTIuNC0yLjQiIGZpbGw9IiNmYWZhZmEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==")
+}
+.NiconicoLogo_er.NiconicoLogo_black {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBpZD0iX+ODrOOCpOODpOODvF8yIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNDAuNCA0OC45Ij48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9Il/lkI3np7DmnKroqK3lrprjgrDjg6njg4fjg7zjgrfjg6fjg7NfNTMiIHgxPSIyNDguNiIgeTE9Ii0zODcuOSIgeDI9IjMzMy40IiB5Mj0iLTM2OS45IiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEgMCAwIC0xIDAgLTM1My4yKSIgZ3JhZGllbnRVbml0cz0idXNlclNwYWNlT25Vc2UiPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZjZmY1NSIvPjxzdG9wIG9mZnNldD0iLjMiIHN0b3AtY29sb3I9IiM2ZWZmNjIiLz48c3RvcCBvZmZzZXQ9Ii43IiBzdG9wLWNvbG9yPSIjODZhOGZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjZmY5YWJlIi8+PC9saW5lYXJHcmFkaWVudD48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZn08L3N0eWxlPjwvZGVmcz48ZyBpZD0iX+ODi+OCs+ODi+OCs19lUl8iPjxwYXRoIGQ9Ik0zMjAuMiA4LjZjLTkuMiAyLTIwIDIuNy0zOC40IDcuNS0xNC44IDMuNy0yMy45IDcuNS0zMy4yIDExLjEtOC40IDMuMi03LjggMTEtMy43IDE0LjIgNC45IDQgMTAgNC42IDIwLjcgMS40IDEwLjctMy4yIDUxLjItMTEuNyA1OC40LTEzIDcuMy0xLjQgMTcuMy0zLjggMTYuMy0xMS0uOC02LjEtOC42LTEyLjgtMjAuMS0xMC4yWiIgc3R5bGU9ImZpbGw6dXJsKCNf5ZCN56ew5pyq6Kit5a6a44Kw44Op44OH44O844K344On44OzXzUzKTtpc29sYXRpb246aXNvbGF0ZTtvcGFjaXR5Oi43Ii8+PHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMjY1LjcgNmMtMTUuOCAxNS4zLTE0IDMyLjUtOS43IDM5IC45IDEuMSAyIDMgNCAyLjIgMS43LS43IDEuNy0yLjYuNi0zLjktNi02LjgtMy41LTIxLjYgNy0zMy42LjgtLjkgNC4zLTEgMi40LTMuOC0xLTEuNi0zLjQtLjgtNC4zIDBaTTMyNi42IDUuN2MtMi0yLTUuMy0uOS00LjggMS44LjIgMSAxLjggMS41IDIuMyAxLjMgNC43IDguMiAxLjEgMjctOS4zIDMzLjgtMS41IDEtMiAzLTEgMy45LjYuNSAxLjYgMS42IDQuNS0uNCA5LjUtNi43IDE3LjQtMzEuNCA4LjQtNDAuNFpNMzEwLjkgMzguMmMtMi4zLTEuNi04LjYtNC41LTEzLTEwLjUgMy43LTEuNCA4LjItMy43IDEwLjYtNi4xIDYtNiAxLTExLjctNC0xMi40LTUuNi0uNy0xMS4yIDEuNC0xMi40IDIuNi0xLjQgMS41LjggNCAxIDMuNC0xLjYgNC03LjUgMjUuMi03LjkgMjctLjUgMS43LjkgMyAyIDMgMS40LjIgMi45LS4zIDMuMy0ybDMtMTNjNS4yIDYuOSAxMi43IDExIDE0IDEyIDEuMiAxIDIuOS41IDMuNy0uMyAxLjItMS4zLjUtMy4yLS4zLTMuN1pNMjk1LjcgMjNsMy4yLTkuM2MyLjktLjYgNy42LjMgNy4zIDIuNC0uNiAyLjgtNi40IDUuNS0xMC41IDdaTTI4Ni4zIDIzLjZjMC00LjgtNy41LTcuNy0xMy4zLTIuNy05LjMgNy45LTcgMjIuOCAyLjEgMjIuOCA0LjMgMCA3LjktMi4yIDcuOC00LjYgMC0xLjQtMS4zLTIuNy0yLjYtMi4zLTEuNC41LTMuMSAyLjMtNiAxLTItLjgtMi00LjItMS43LTUuMiA1LjggMi45IDEzLjctNC4yIDEzLjctOVptLTEyLjUgNC43YzEtMy42IDUuMy02LjYgNy42LTUuMyAxLjUgMi0zLjUgNy03LjYgNS4zWiIvPjxwYXRoIGQ9Ik00NSA5LjFIMzAuNmw1LjktNS42Yy44LS43LjktMiAwLTIuOWEyIDIgMCAwIDAtMi44IDBsLTkgOC41LTktOC41YTIgMiAwIDAgMC0zIDAgMiAyIDAgMCAwIC4yIDNMMTguOCA5SDQuNEMyIDkuMSAwIDExLjEgMCAxMy41djI2LjZjMCAyLjQgMiA0LjQgNC40IDQuNEgxMGwzLjMgMy45Yy42LjYgMS41LjYgMiAwbDMuNC00aDEybDMuMyA0Yy42LjYgMS41LjYgMiAwbDMuNC00SDQ1YzIuNCAwIDQuNC0xLjkgNC40LTQuM1YxMy41YzAtMi40LTItNC40LTQuNC00LjRabTU4LjYgMy44YTQgNCAwIDAgMC00LTQuMUg3My40Yy0yLjIgMC00IDEuOC00IDQuMXMxLjggNC4xIDQgNC4xaDI2LjJhNCA0IDAgMCAwIDQtNC4xWm0uNCAyNy44YTQgNCAwIDAgMC00LTRINzNjLTIuMiAwLTQgMS44LTQgNHMxLjggNC4xIDQgNC4xaDI3YTQgNCAwIDAgMCA0LTRabTQzLjgtNS43VjE4YzAtNS40LTQuMy05LjgtOS43LTkuOGgtMjAuOGMtMi4yIDAtNCAxLjgtNCA0LjFzMS44IDQuMSA0IDQuMWgxOC44YzIuMiAwIDMuNiAxLjQgMy42IDMuN1YzM2MwIDIuNC0xLjMgMy43LTMuNiAzLjdoLTE4LjhjLTIuMiAwLTQgMS45LTQgNC4xczEuOCA0LjIgNCA0LjJoMjAuOGM1LjQgMCA5LjctNC41IDkuNy05LjlabTQ0LjgtMjIuMWE0IDQgMCAwIDAtNC00LjFoLTI2LjJjLTIuMyAwLTQgMS44LTQgNHMxLjcgNC4yIDQgNC4yaDI2LjFhNCA0IDAgMCAwIDQtNC4xWm0uNCAyNy44YTQgNCAwIDAgMC00LTRoLTI3Yy0yLjMgMC00IDEuOC00IDRzMS43IDQuMSA0IDQuMWgyN2E0IDQgMCAwIDAgNC00Wm00My44LTUuN1YxOGMwLTUuNC00LjMtOS44LTkuNy05LjhoLTIwLjhjLTIuMiAwLTQgMS44LTQgNC4xczEuOCA0LjEgNCA0LjFoMTguOGMyLjEgMCAzLjYgMS40IDMuNiAzLjdWMzNjMCAyLjQtMS4zIDMuNy0zLjYgMy43aC0xOC44Yy0yLjIgMC00IDEuOS00IDQuMXMxLjggNC4yIDQgNC4yaDIwLjhjNS40IDAgOS43LTQuNSA5LjctOS45WiIgc3R5bGU9ImZpbGwtcnVsZTpldmVub2RkO2ZpbGw6I2ZmZiIvPjwvZz48L3N2Zz4=")
+}
+.NicovideoLogo[data-color="black"] {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMTYwIDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik05NiAyMy43SDgzLjVhMi41IDIuNSAwIDAgMS0yLjQtMi41YzAtMS4zIDEtMi40IDIuNC0yLjRoMTEuNGMxLjQgMCAyLjMtLjggMi4zLTIuM1Y4LjhjMC0xLjQtMS0yLjMtMi4zLTIuM0g4My40QTIuNSAyLjUgMCAwIDEgODEgNGMwLTEuMyAxLTIuNSAyLjQtMi41aDEyLjdhNiA2IDAgMCAxIDUuOSA2djEwLjNhNiA2IDAgMCAxLTYgNm0tMjMuMSAwSDU2LjVhMi41IDIuNSAwIDAgMS0yLjQtMi42YzAtMS4zIDEtMi40IDIuNC0yLjRINzNjMS4zIDAgMi40IDEgMi40IDIuNHMtMSAyLjUtMi40IDIuNW0tLjMtMTYuOUg1Ni43YTIuNSAyLjUgMCAwIDEtMi40LTIuNWMwLTEuMyAxLTIuNSAyLjQtMi41aDE2Qzc0IDEuOCA3NSAzIDc1IDQuM2MwIDEuNC0xLjEgMi41LTIuNSAyLjVNNDIgMjMuOEgyOS40YTIuNSAyLjUgMCAwIDEtMi41LTIuNmMwLTEuMyAxLjEtMi40IDIuNS0yLjRoMTEuNGMxLjQgMCAyLjItLjggMi4yLTIuM1Y4LjhjMC0xLjQtLjktMi4zLTIuMi0yLjNIMjkuNEEyLjUgMi41IDAgMCAxIDI2LjkgNGMwLTEuMyAxLjEtMi41IDIuNS0yLjVINDJhNiA2IDAgMCAxIDYgNnYxMC4zYTYgNiAwIDAgMS02IDZtLTIzLjIgMEgyLjVBMi41IDIuNSAwIDAgMSAwIDIxLjFjMC0xLjMgMS4xLTIuNCAyLjUtMi40aDE2LjNjMS40IDAgMi41IDEgMi41IDIuNHMtMS4xIDIuNS0yLjUgMi41bS0uMi0xNi45aC0xNkEyLjUgMi41IDAgMCAxIC4zIDQuM0MuMiAzIDEuMyAxLjggMi43IDEuOGgxNS45QzE5LjkgMS44IDIxIDMgMjEgNC4zYzAgMS40LTEgMi41LTIuNCAyLjVtOTkuMiAzLjh2LjVoLTJ2LTFoMS41Yy4zIDAgLjUuMi41LjVtLS42IDMuM2gtMS40di0xaDJ2LjRjMCAuNC0uMi42LS42LjZtLTYuMy0uNlYxM2gyLjF2MWgtMS41Yy0uMyAwLS42LS4yLS42LS42bS42LTMuMmgxLjV2MWgtMnYtLjRjMC0uMy4xLS42LjUtLjZtMTUuMS02LjNIMTI1VjEuNWExLjUgMS41IDAgMSAwLTMgMHYyLjNoLTZWM2gzLjNhMS40IDEuNCAwIDAgMCAwLTIuN2gtOS40YTEuNCAxLjQgMCAwIDAgMCAyLjdoM3YxSDExMGExLjUgMS41IDAgMSAwIDAgM2gyLjl2MWgtMi42Yy0xIDAtMi4xLjYtMi4xIDJ2NC4zYzAgMSAxIDIgMi4xIDJoMi42di45aC0zLjFhMS4yIDEuMiAwIDAgMCAwIDIuNGgzdjFoLTNhMS41IDEuNSAwIDEgMCAwIDNoOS4zYTEuNSAxLjUgMCAxIDAgMC0zaC0zLjJ2LTFoMy40YTEuMiAxLjIgMCAwIDAgMC0yLjRoLTMuNHYtMWgyLjNjMS4yIDAgMi40LS43IDIuNC0yVjkuOWEyIDIgMCAwIDAtMi0yaC0yLjd2LTFoNnYxMC42YTEuNSAxLjUgMCAwIDAgMyAwVjYuOWgxLjdjLjQgMCAuNC4zLjQuNmEyMDIwIDIwMjAgMCAwIDEgMCAxMi41YzAgLjYtLjguNy0xLjEuN0gxMjNhMS41IDEuNSAwIDAgMCAwIDNoMi45YzIuNCAwIDQuMS0xLjUgNC4xLTMuN2EyMDY5LjQgMjA2OS40IDAgMCAxIDAtMTIuNWMwLTItMS40LTMuNy0zLjQtMy43TTE2MCA2VjE5YzAgMi42LTIgNC42LTQuNiA0LjZIMTQwYy0yLjUgMC00LjYtMi00LjYtNC42VjZhMS40IDEuNCAwIDAgMSAyLjkgMFYxOWMwIDEgLjcgMS44IDEuNyAxLjhoMTUuNGMxIDAgMS43LS44IDEuNy0xLjhWNmExLjQgMS40IDAgMCAxIDIuOSAwbS03LjQgMi44VjExSDE0OXYtM2gyLjhjLjQgMCAuNy4zLjcuN20tLjcgNy43aC0yLjh2LTNoMy40VjE2YzAgLjMtLjIuNi0uNi42bS05LS43di0yLjNoMy40djNoLTIuOGEuNi42IDAgMCAxLS43LS43bS43LTcuN2gyLjh2M2gtMy41VjguOGMwLS40LjMtLjcuNy0uN20tMi4zLTVoNXYyLjNoLTMuM2EyLjggMi44IDAgMCAwLTIuOCAyLjh2OC4zYzAgMS41IDEuMiAyLjggMi44IDIuOGg5LjZjMS42IDAgMi44LTEuMyAyLjgtMi44VjguMmMwLTEuNi0xLjItMi44LTIuOC0yLjhoLTMuM1YzLjJoNWExLjUgMS41IDAgMSAwIDAtM2gtMTNhMS41IDEuNSAwIDAgMCAwIDMiIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==");
+}
+
+/* あなたへのおすすめの色変更 */
+.PersonalFrameContainer {
+    background: var(--bgcolor1);
+    border: 2px solid var(--accent1);
+}
+.PersonalFrameContainer-body,.NicoNewsContainer-photoNews { 
+    background: var(--bgcolor2);
+}
+/* ピックアップ */
+.ContentsPickupCard {
+    background: var(--bgcolor2)
+}
+.ContentsPickupCard-metaPickupComment,.ContentsDigestFrame-description,.ContentsDigestFrame-cardMetaTitle,.LiveWindowContainer-metaDescription {
+    color: var(--textcolor3)
+}
+.PersonalFrameContainer-close > svg {
+    fill: var(--accent2)
+}
+/* もっと見る */
+.SeeMoreLink-text {
+    background-color: var(--bgcolor2);
+    color: var(--textcolor2);
+    border: 1px solid var(--accent2)
+}
+.SeeMoreLink-text > svg {
+    fill: var(--textcolor2)
+}
+/* 検索 */
+.CrossSearch-form {
+    background: var(--accent1);
+    border: 1px solid var(--accent2)
+}
+.CrossSearch-input::placeholder {
+    color: var(--textcolor2);
+}
+.CrossSearch-input {
+    color: var(--textcolor1)
+}
+.CrossSearch-button {
+    background:url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAwIDEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEuNCI+PHBhdGggZD0iTTYwLjMgNzQuNWE0MCA0MCAwIDEgMSAxNC4xLTE0LjFsMjMuMyAyMy4xYTggOCAwIDAgMSAwIDExLjNsLTIuOSAyLjlhOCA4IDAgMCAxLTExLjMgMEw2MC4zIDc0LjVaTTQwIDE0YTI2IDI2IDAgMSAxIDAgNTIgMjYgMjYgMCAwIDEgMC01MloiIGZpbGw9IiNkZGQiLz48L3N2Zz4=") no-repeat;
+}
+.CrossSearch-rowSelector {
+    background-color: #bbb;
+    border: 1px solid var(--accent2)
+}
+/* ボーダー削除 */
+.TopPage-middleBillboardAdSection {
+    border: 0px;
+}
+.TopPage-stageArea {
+    border-top: 0px solid var(--textcolor2);
+}
+/* フッター色変更 */
+.TopPage-footer {
+    background: #2f2f2f;
+}
+
+/* ニコニ広告カード */
+.NicoAdContainer-card[data-nicoad-grade="silver"] {
+    background-color: #3b3d3d;
+}
+.NicoAdContainer-card[data-nicoad-grade="gold"] {
+    background-color: #3b3a38;
+}
+/* ライブ */
+.LiveWindowContainer {
+    background-color: var(--bgcolor2);
+    border: 1px solid #3f3f3f;
+}
+
+/* オーロラビジョン */
+.AuroraVisionCard {
+    background-color: var(--bgcolor2);
+}
+.AuroraVisionCard-metaCatch {
+    color: var(--textcolor1);
+}
+
+/* ニュース */
+.Tabs-tab {
+    background-color: var(--accent1);
+    color: var(--textcolor1);
+}
+.NicoNewsContainer-commentCount {
+    background-color: var(--bgcolor2);
+    border: 1px solid var(--accent1);
+}
+/* 下側 */
+.RealEventInformationAreaContainer > section > h1 {
+    color: var(--textcolor2);
+}
+.RealEventInformationAreaContainer > * {
+    border-top: 4px solid var(--accent1);
+}
+
+
+/* ヘッダー */
+/* ＞＞＞＞インライン＜＜＜＜ */
+
+/* お知らせ */
+.nico-CommonHeaderRoot .common-header-105n2rz {
+    background-color: var(--bgcolor2) !important;
+}
+.nico-CommonHeaderRoot .common-header-abyv5k {
+    color: var(--textcolor2) !important;
+}
+.nico-CommonHeaderRoot .common-header-1l1lwin {
+    border-bottom: 1px solid var(--accent1) !important;
+}
+.nico-CommonHeaderRoot .common-header-1swev0c {
+    background-color: var(--bgcolor2) !important;
+    border-bottom: 1px solid var(--accent2) !important;
+}
+.nico-CommonHeaderRoot .common-header-1swev0c:hover {
+    background-color: #555 !important;
+}
+.nico-CommonHeaderRoot .common-header-kolmxm {
+    background: rgba(255,255,255,0.1) !important;
+    border-bottom: 1px solid var(--accent1) !important;
+}
+.nico-CommonHeaderRoot .common-header-kolmxm:hover {
+    background: rgba(255,255,255,0.2) !important;
+    border-bottom: 1px solid var(--accent1) !important;
+}
+.nico-CommonHeaderRoot .common-header-vv8zyj {
+    color: var(--textcolor1) !important;
+}
+.nico-CommonHeaderRoot .common-header-2cl2ey,.nico-CommonHeaderRoot .common-header-uruoug {
+    background-color: var(--bgcolor3) !important;
+
+}
+.nico-CommonHeaderRoot .common-header-ey0i79 {
+    color: var(--textcolor1) !important;
+}
+
+/* ユーザーをホバーした時に出るやつ */
+.nico-CommonHeaderRoot .common-header-17f7oiq > * {
+    border-bottom: 1px solid var(--bgcolor2) !important;
+}
+.nico-CommonHeaderRoot .common-header-17f7oiq > :nth-child(2n) {
+    border-left: 1px solid var(--bgcolor2) !important;
+}
+.nico-CommonHeaderRoot .common-header-m6vxd,.nico-CommonHeaderRoot .common-header-1ke4cb6, .nico-CommonHeaderRoot .common-header-1xzs4ko,.nico-CommonHeaderRoot .common-header-o214xd,.nico-CommonHeaderRoot .common-header-15czeyj {
+    background-color: var(--accent1) !important;
+}
+.nico-CommonHeaderRoot .common-header-8xay8a,.nico-CommonHeaderRoot .common-header-o214xd:hover,.nico-CommonHeaderRoot .common-header-1xzs4ko:hover,.nico-CommonHeaderRoot .common-header-z5pyn9:hover,.nico-CommonHeaderRoot .common-header-8g5w98:hover {
+    background-color: var(--accent2) !important;
+}
+.nico-CommonHeaderRoot .common-header-yxm7eu,.nico-CommonHeaderRoot .common-header-1xmxna8 {
+    background-color: var(--bgcolor2) !important;
+    color: #f0f0f0 !important;
+}
+.nico-CommonHeaderRoot .common-header-jmhvxm,.nico-CommonHeaderRoot .common-header-n0qa7l,.nico-CommonHeaderRoot .common-header-ddpru6,.nico-CommonHeaderRoot .common-header-1yxywo9,.nico-CommonHeaderRoot .common-header-ndczso {
+    color: #f0f0f0 !important;
+}
+.nico-CommonHeaderRoot .common-header-17kau2v svg path,.nico-CommonHeaderRoot .common-header-z0oejq svg path,.nico-CommonHeaderRoot .common-header-17qo8f1 path {
+    fill: var(--textcolor1) !important;
+}
+.nico-CommonHeaderRoot .common-header-cvcm83 > * {
+    border-top: 0px !important;
+}
+.common-header-1cznxpg {
+    background: var(--bgcolor2) !important;
+}
+
+/* ここから動画ページ用 */
+    
+/* 動画ジャンルリスト */
+.VideoTopGenreListContainer,.RankingGenreListContainer {
+    background-color: var(--bgcolor2);
+}
+.VideoTopGenreListContainer-item,.RankingGenreListContainer-item {
+    background: var(--bgcolor2);
+    border: 1px solid #747474;
+}
+.VideoTopGenreListContainer-item.is-current, .RankingGenreListContainer-item.is-current {
+    background: var(--textcolor2);
+}
+.VideoTopGenreListContainer-item.is-current > a, .RankingGenreListContainer-item.is-current > a {
+    color: var(--bgcolor1) !important;
+}
+.VideoTopGenreListContainer-item > a,.RankingGenreListContainer-item > a {
+    color: #f9f9f9;
+}
+/* 検索ボックス */
+.SearchBox-form {
+    background: var(--accent1)!important ;
+    box-shadow: inset 0 0 0 1px var(--accent2)!important ;
+}
+.SearchBox-query {
+    color: var(--textcolor1)!important ;
+}
+.SearchBox-option {
+    background-color: var(--bgcolor3)!important ;
+    color: var(--textcolor1)!important ;
+}
+.SearchBox-option[data-active="true"] {
+    background-color: #1f1f1f!important ;
+}
+/* 動画カードなど */
+.NC-Card .NC-CardTitle,.NewsNotificationList-item,.LiveWindowContainer-metaTitle {
+    color: #f5f5f5!important ;
+}
+
+/* フッターフィードバック */
+.FooterContainer-feedback {
+    background-color: var(--bgcolor2)!important ;
+    border: 1px solid var(--bgcolor2)!important ;
+}
+.NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary::before,.NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary {
+    background-color: var(--bgcolor2)!important ;
+}
+
+/* ここからユーザーページ */
+
+.UserDetailsContainer::after, .UserPage-header, .UserDetailsHeader {
+    background-color: var(--bgcolor1)!important ;
+}
+.UserDetailsHeader-nickname {
+    color: var(--textcolor1)!important ;
+}
+.MainMenuContainer-menu, .NC-Tabs {
+    background-color: var(--bgcolor2)!important ;
+}
+.NC-Tab {
+    color: var(--textcolor1)!important ;
+}
+.Dropdown-button,.UserDetailsHeader-account,.UserDetailsStatusItem-linkLabel {
+    color: var(--textcolor2)!important ;
+}
+.Dropdown-button:hover {
+    background-color: var(--hover1)!important ;
+}
+.NiconicoPoint {
+    background-color: var(--bgcolor2)!important ;
+    color: var(--textcolor2)!important ;
+}
+.NicorepoItem-item,.NC-MylistMediaObject,.ChannelItem-content,.CommunityItem-content {
+    background-color: var(--bgcolor2)!important ;
+    border: 1px solid var(--accent1)!important ;
+}
+.NicorepoItem-senderName,.ChannelItem-name,.CommunityItem-name {
+    color: var(--textcolor2)!important ;
+}
+.NicorepoItem-senderName:visited {
+    color: var(--textcolor3)!important ;
+}
+.NicorepoItem-activityDescription {
+    color: var(--textcolor3)!important ;
+}
+.NicorepoItem-activityCreatedAt {
+    color: var(--textcolor2) !important ;
+}
+.NicorepoItem-activityCreatedAt_new {
+    color: var(--textcolornew)!important ;
+}
+.UserDetailsHeader-icon .UserIcon {
+    background-color: var(--bgcolor3)!important ;
+}
+.OtherMypageLinks,.NC-ThreePointMenu-menu {
+    background-color: var(--bgcolor2)!important ;
+}
+.OtherMypageLinks-link,.NC-ThreePointMenu-menu > * {
+    color: var(--textcolor1)!important ;
+}
+/* フォロー */
+.UserItem-content {
+    background-color: var(--bgcolor2)!important ;
+    border: 1px solid var(--accent1)!important ;
+}
+.UserItem-nickname {
+    color: var(--textcolor2)!important ;
+}
+.UserItem-description {
+    color: var(--textcolor3)!important ;
+}
+.c-body, .p-embed-supporter-supporting-creators {
+    background-color: #252525!important ;
+}
+/* マイリス/後で見る */
+.NC-MediaObject .NC-MediaObjectTitle {
+    color: var(--textcolor2)!important ;
+}
+.NC-MylistMediaObject-thumbnails {
+    background-color: var(--bgcolor3)!important ;
+    border: 1px solid var(--accent1)!important ;
+}
+.WatchLaterHeader-metaValue,.MylistHeader-metaItemValue {
+    color: var(--textcolor2)!important ;
+}
+/* マイリスボタン */
+.ModalActionButton {
+    background-color: var(--bgcolor2)!important ;
+}
+.ContinuousPlayButton,.VideoListEditMenuButton,.PaginationItem,.Checkbox-check::before {
+    background-color: var(--bgcolor2)!important ;
+    color: var(--textcolor2)!important ;
+    border: 2px solid var(--accent2)!important ;
+}
+.ContinuousPlayButton-icon {
+    fill: var(--textcolor2)!important ;
+}
+.Selectbox-button {
+    background-color: var(--bgcolor2)!important ;
+    border: 2px solid var(--accent2)!important ;
+}
+.Selectbox-label {
+    color: var(--textcolor2)!important ;
+}
+.Selectbox {
+    background-color: var(--bgcolor2)!important ;
+}
+.VideoListEditMenu-delete.VideoListEditMenuButton:hover {
+    border: 2px solid #d0021b!important ;
+    color: #fff!important ;
+    background: #512828!important ;
+}
+/* 履歴 */
+.NC-MediaObject .NC-MediaObjectTitle {
+    color: var(--textcolor2)!important ;
+}
+.VideoWatchHistoryContainer-headerAllDeleteButton {
+    background-color: var(--bgcolor2);
+    border: 2px solid var(--accent2);
+    color: var(--textcolor1);
+}
+.NC-FollowButton[data-is-following="true"] {
+	background-color: var(--accent2);
+	color: var(--textcolor1);
+}
+.NC-VideoMediaObjectOwnerInfo-link {
+    color: var(--textcolor2);
+}
+/* サイドバー */
+.SubMenuLink-label {
+    color:var(--textcolor2)!important ;
+}
+.ExpandBoxButton-overlay {
+    background: linear-gradient(180deg,hsla(0,0%,100%,0) 0,var(--bgcolor1))!important ;
+}
+.SubMenuLink-link_active {
+    background-color: #4e5358!important ;
+}
+.SubMenuLink-link_active:hover {
+    background-color: #687d91!important ;
+}
+.SubMenuLink-link:hover .SubMenuLink-label, .SubMenuLink-link_active .SubMenuLink-label {
+    color: var(--linktext2)!important ;
+}
+.SubMenuLink-link_internal:hover {
+    background-color: #45525e!important ;
+}
+.MylistSideContainer-mylistList > *, .VideoSideContainer-seriesList > * {
+    background: var(--bgcolor2)
+}
+.MylistHeader-name {
+    color: var(--textcolor1)
+}
+.VideoContainer-headerTotalCountValue,.FolloweeContainer-header {
+    color: var(--textcolor2)
+}
+/* ニコる */
+.NicoruHistoryPassiveItem, .NicoruHistoryActiveItem {
+    background: var(--bgcolor2)!important ;
+}
+.NicoruHistoryPassiveItem-video, .NicoruHistoryActiveItem-video {
+    background: var(--accent1)!important ;
+}
+.NicoruHistoryPassiveItem-videoTitleArea > a:visited, .NicoruHistoryActiveItem-videoTitleArea > a:visited {
+    color: var(--textcolor3)!important ;
+}
+.NicoruHistoryPassiveItem-videoTitleArea > a, .NicoruHistoryActiveItem-videoTitleArea > a {
+    color: var(--textcolor2)!important ;
+}
+.NicoruHistoryPassiveItem-videoOwner {
+    background: #998221!important ;
+}
+/* あなたへのおすすめ */
+.PersonalFrame {
+    background-color: var(--bgcolor2)!important ;
+}
+.PersonalFrame-body {
+    border: 2px solid var(--accent1)!important ;
+}
+.PersonalFrame-header {
+    background-color: #07576c!important ;
+}
+.PersonalFrame-text {
+    color: var(--textcolor1)!important ;
+}
+/* その他 */
+.nico-CommonHeaderRoot .common-header-eyo3v5 {
+    background-color: var(--bgcolor3)!important ;
+}
+.nico-CommonHeaderRoot .common-header-10t70iy {
+    background-color: var(--bgcolor3)!important ;
+    color: var(--textcolor1)!important ;
+}
+
+/* シリーズ */
+.SeriesAdditionalContainer, .SeriesMenuContainer-seriesList {
+    background: var(--bgcolor2);
+}
+
+/* タグ */
+.TagItem-link {
+    background-color: var(--bgcolor2);
+    color: var(--textcolor2);
+    border: 1px solid var(--accent2);
+}
+
+.RecommendVideoListContainer-more {
+    background-color: var(--bgcolor2);
+    color: var(--textcolor2);
+    border: 1px solid var(--accent2);
+}
+.RecommendVideoListContainer-more:hover {
+    background-color: var(--hover2);
+}
+/* いいね！ */
+.LikeItemAfter-thanksMessage {
+    background: var(--accent1);
+    border: 1px solid var(--accent2);
+}
+.LikeItemAfter-thanksMessage::after, .LikeItemAfter-thanksMessage::before {
+    border-bottom: 8px solid var(--accent2);
+}
+.LikeItemAfter-thanksMessage::after {
+    border-bottom-color: var(--accent1);
+}
+
+/* iframe */
+.c-body {
+    background-color: var(--bgcolor1)
+}
+.p-embed-supporter-supporting-creators {
+    color: var(--textcolor2)
+}
+/* バッジ */
+.t-badge-wrapper--list {
+    background: var(--bgcolor2);
+}
+.m-badge-card {
+    background: var(--accent1);
+    border: 1px solid var(--accent1);
+    color: var(--textcolor1);
+}
+.m-badge-card .m-badge-card__title::after {
+    background: var(--accent2);
+}
+.m-badge-card .m-badge-card__title p {
+    color: var(--textcolor1);
+}
+/* タイムシフト */
+.___timeshift-reservations-page___ZJdqt {
+    background: var(--bgcolor1);
+    color: var(--textcolor1);
+}
+.___program-title___fdLyH {
+    color: var(--textcolor2)
+}
+.___counter___Xdjcm > .score {
+    color: var(--textcolor2)
+}
+
+
+
+/* ranking */
+
+/* ニコニコ動画 - ランキング(ダークテーマ) */
+.NC-MutedVideoCard, .NC-SensitiveVideoCard, .VideoItem.NC-Card, .RankingHeaderContainer-header_sticky,.NC-Card.NC-NicoadCard.NicoadItem {
+    background-color: var(--bgcolor2)
+}
+.CustomButton {
+    background-color: var(--bgcolor3)
+}
+.CustomButton:hover {
+    background-color: var(--hove2);
+}
+.CustomButton > span {
+    color: #f0f0f0
+}
+.RankingFilterTag,.BaseRankingContentContainer.TrendyTagContainer .TrendyTagContainer-link {
+    background: var(--accent1);
+    border: 1px solid var(--accent2)
+}
+.RankingFilterTag_active {
+    background: #007cff;
+    border-color: transparent;
+    color: #fff;
+}
+.RankingVideoListContainer > * {
+    border-bottom: 2px solid var(--accent1);
+}
+.BaseRankingContentContainer header {
+    background-color: var(--accent1);
+}
+.BaseRankingContentContainer header h1 {
+    color: var(--textcolor1)
+}
+.AnotherRankingLink-button {
+    background-color: var(--accent1);
+    border: 2px solid var(--bgcolor2);
+    color: var(--textcolor2)
+}
+.RankingTermSelector-label {
+    color: var(--textcolor2)
+}
+.RankingTermSelector .Dropdown-button {
+    color: var(--textcolor2)
+}
+
+/* video_top */
+/* ニコニコ動画 - 動画トップ(ダークテーマ) */
+.RecommendVideoContainer-footer {
+    color: var(--textcolor3);
+}
+.ColumnTitle-linkText {
+    color: var(--textcolor2);
+}
+.TagWithVideoItem-articleLink {
+    background: linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 20px);
+}
+.VideoIntroductionPlayerContainer-historyButton {
+    background-color: var(--accent1);
+    border: 2px solid var(--accent2);
+    color: #dadada;
+}
+.VideoIntroductionPlayerContainer-historyButton:hover, .VideoIntroductionPlayerContainer-historyButton_isActive {
+    background-color: var(--bgcolor3);
+}
+.GenreTopPageHeader {
+    background: var(--bgcolor2);
+    border-top: 4px solid var(--accent1);
+}
+.GenreTopPageHeader-prefix {
+    color: var(--textcolor2);
+}
+.GenreTopPageHeader > h1 {
+    color: var(--textcolor1);
+}
+.RepresentedTag {
+    background: var(--accent1);
+    border: 1px solid var(--accent2);
+}
+.RepresentedTag_active {
+    background: #007cff;
+    border-color: transparent;
+    color: #fff;
+}
+.TrendyTagsContainer-expands {
+    background-image: linear-gradient(180deg, rgba(250,250,250,0.0), var(--bgcolor1) 18px);
+}
+.TrendyTagsWithVideosContainer-more {
+    background: linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 20px);
+}
+.RankingVideosContainer .NC-VideoCardWrapper::after {
+    border-bottom: 2px solid var(--accent1);
+}
+
+/* icons  */
+.RankingVideosContainer .ColumnTitle-icon,
+.ViewHistoriesContainer .ColumnTitle-icon,
+.NicoadVideosContainer .ColumnTitle-icon,
+.HotTagsContainer .ColumnTitle-icon,
+.NewArrivalVideosContainer .ColumnTitle-icon,
+.NewsNotificationContainer-column[data-sub-column="maintenance"] .ColumnTitle-icon {
+    filter: brightness(5.0)
+}

@@ -139,6 +139,20 @@
 .___program-card___1-WDt:hover {
     background-color: var(--hover1);
 }
+.___table-row___3DxXW[data-comment-type="cruise"] .___comment-text___2Gom1, .___table-row___3DxXW[data-comment-type="nicoad"] .___comment-text___2Gom1, .___table-row___3DxXW[data-comment-type="programExtend"] .___comment-text___2Gom1, .___table-row___3DxXW[data-comment-type="quote"] .___comment-text___2Gom1, .___table-row___3DxXW[data-comment-type="ranking"] .___comment-text___2Gom1, .___table-row___3DxXW[data-comment-type="spi"] .___comment-text___2Gom1, .___table-row___3DxXW[data-comment-type="transparent"] .___comment-text___2Gom1, .___table-row___3DxXW[data-comment-type="userFollow"] .___comment-text___2Gom1, .___table-row___3DxXW[data-comment-type="userLevelup"] .___comment-text___2Gom1, .___table-row___3DxXW[data-comment-type="visited"] .___comment-text___2Gom1 {
+	color: var(--textcolor3);
+}
+.___count___1iDNX[type="button"]:enabled:not([aria-busy="true"]):hover, [data-input-mode="keyboard"] .___count___1iDNX[type="button"]:enabled:not([aria-busy="true"]):focus {
+    background-color: var(--hover2);
+}
+
+/* 関連コンテンツ */
+.___content-card___Q6zKu > .content-area > .summary > .content-title {
+    color: var(--textcolor1)
+}
+.___content-card___Q6zKu:hover {
+    background-color: var(--hover1);
+}
 
 /* タグ */
 .___tag___EJrKa {

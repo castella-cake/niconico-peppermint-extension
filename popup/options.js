@@ -1,12 +1,16 @@
 let manifestData = chrome.runtime.getManifest();
 $("#current-version").text ("v" + manifestData.version_name + " MV" + manifestData.manifest_version)
 
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+$('a').on('click', function(e) {
+    e.preventDefault();
     $('body').css({
-        'color':'#fff',
-        'background-color':'#252525'
+        'animation': 'fadeout 0.1s ease forwards 0s',
     })
-}
+    let href = $(this).attr('href')
+    setTimeout(function() {
+        location.href = href
+    }, 100)
+})
 
 // button がclickされたときに発火！！！！(前はsubmitだったけど必要ないと思ったのでclickへ)
 function saveOptions() {
@@ -31,6 +35,7 @@ function saveOptions() {
             "cleanvidowner": $("#input-cleanvidowner").prop('checked'),
             "highlightlockedtag": $("#input-highlightlockedtag").prop('checked'),
             "watchpagetheme": $("#select-watchpagetheme").val(),
+            "shortcutassist": $("#input-shortcutassist").prop('checked'),
             "usetheaterui": $("#input-usetheaterui").prop('checked'),
             "enablenicoboxui": $("#input-enablenicoboxui").prop('checked'),
             "usenicoboxui": $("#input-usenicoboxui").prop('checked'),
@@ -93,6 +98,7 @@ function restoreOptions() {
         $("#input-cleanvidowner").prop('checked',result.cleanvidowner);
         $("#input-commentrow").val(result.commentrow || 1);
         $("#select-watchpagetheme").val(result.watchpagetheme || "");
+        $("#input-shortcutassist").prop('checked',result.shortcutassist);
         $("#input-usetheaterui").prop('checked',result.usetheaterui);
         $("#input-enablenicoboxui").prop('checked',result.enablenicoboxui);
         $("#input-usenicoboxui").prop('checked',result.usenicoboxui);

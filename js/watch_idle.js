@@ -8,7 +8,7 @@ function createCSSRule(result) {
     }
     if (result.usenicoboxui == true || result.usetheaterui == true) {
         $(function () {
-            /*function ContainerResize(e) {
+            function ContainerResize(e) {
                 console.log('VideoSymbolContainer resized!')
                 $('.CommentRenderer').css({
                     'width': $(e).width() + "px",
@@ -23,7 +23,7 @@ function createCSSRule(result) {
                 // theater and Nicobox UI
                 ContainerResize(document.querySelector('.VideoContainer'))
                 document.querySelector('.VideoContainer').addEventListener('canplay propertychange', ContainerResize)
-            }*/
+            }
             function changeNoPanelUI(control) {
                 if (control) {
                     $('.WatchAppContainer-main').css({
@@ -39,7 +39,7 @@ function createCSSRule(result) {
                         'width': '100vw'
                     })
                     $('.HeaderContainer-searchBox').css('display','none')
-                    //ContainerResize(document.querySelector('.VideoContainer'))
+                    ContainerResize(document.querySelector('.VideoContainer'))
                     $('.VideoTitle').css({
                         'position': 'fixed',
                         'left': '0',
@@ -80,7 +80,7 @@ function createCSSRule(result) {
                         'width': 'calc(100vw - 384px)'
                     })
                     $('.HeaderContainer-searchBox').css('display','inherit')
-                    //ContainerResize(document.querySelector('.VideoContainer'))
+                    ContainerResize(document.querySelector('.VideoContainer'))
                     $('.VideoTitle').css({
                         'position': '',
                         'left': '',

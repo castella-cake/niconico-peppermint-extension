@@ -110,7 +110,7 @@ async function seriesIsStocked(seriesid) {
     });
 }
 
-let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+var getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
 getStorageData.then(createBaseCSSRule, onError);
 function createBaseCSSRule(result) {
     if (result.highlightnewnotice == true) {
@@ -198,7 +198,7 @@ function createBaseCSSRule(result) {
             })
         }*/
         addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"), true);
-        addCSS(chrome.runtime.getURL("pagemod/css/darkmode/forall.css"));
+        addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"));
         //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
     } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
     if (result.alignpagewidth == true) {

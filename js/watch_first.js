@@ -1,3 +1,4 @@
+var getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     if (result.usenicoboxui != true && result.usetheaterui == true ) {

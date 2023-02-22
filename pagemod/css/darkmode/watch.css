@@ -1,6 +1,3 @@
-/* watch.cssは使いません(forall.cssに統合したほうが早かったため) */
-
-
 /* 色浮き防止 */
 .HeaderContainer,.BottomSideContainer,.BottomMainContainer {
     background-color:var(--bgcolor1);

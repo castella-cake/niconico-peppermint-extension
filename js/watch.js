@@ -259,6 +259,31 @@ function createCSSRule(result) {
             'top': '6px',
         })
     }
+
+    if ( result.shortcutassist ) {
+        $(document).on('keydown', shortCutAction);
+
+        function shortCutAction(e) {
+            if ( (e.key === ' ' || e.key === '　') && !$(e.target).closest("input, textarea").length ) {
+                document.querySelector('.PlayerPauseButton, .PlayerPlayButton').click();
+                document.querySelector(':focus-visible').blur();
+                return false;
+            } else if ( (e.key === 'ArrowLeft' ) && !$(e.target).closest("input, textarea").length ) {
+                document.querySelector('.PlayerSeekBackwardButton').click();
+                document.querySelector(':focus-visible').blur();
+                return false;
+            } else if ( (e.key === 'ArrowRight' ) && !$(e.target).closest("input, textarea").length ) {
+                document.querySelector('.PlayerSeekForwardButton').click();
+                document.querySelector(':focus-visible').blur();
+                return false;
+            } else if ( (e.key === 'c' || e.key === 'C' ) && !$(e.target).closest("input, textarea").length ) {
+                document.querySelector('.CommentInput-textarea').focus();
+                return false;
+            }
+        }
+    }
+
+
     /*
     $(document).on('mousemove', function(e) {
         window.cursorX = e.pageX;
@@ -277,10 +302,6 @@ function createCSSRule(result) {
                 //
                 //$('.MuteVideoButton,.UnMuteVideoButton').css('right', lastbuttonwidth)
             }
-        }
-        if (result.watchpagetheme != "") {
-            console.log(`CSS Loaded!`);
-            addCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
         }
         if (result.hidepopup == true) {
             // cssじゃないとロードの都合で反映されなかった
@@ -306,6 +327,10 @@ function createCSSRule(result) {
             if (result.watchpagetheme != "") {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"));
             }
+        }
+        if (result.watchpagetheme != "") {
+            console.log(`CSS Loaded!`);
+            addCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
         }
     } else if ( result.usenicoboxui == true ) {
         // Nicobox UI
