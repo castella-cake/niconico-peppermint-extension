@@ -79,6 +79,7 @@ buildとは名ばかりで、Niconico-PepperMintはjavascriptとcssとhtmlで開
 - [x] マーキーテキストをロゴに置き換え
 - [x] ロック中のタグをハイライト
 - [x] クリーンな投稿者表示
+- [x] ショートカットアシスト
 - [x] シアターUI
 - [x] Nicobox風UI
 - [x] 動画ダウンロードボタンを表示
