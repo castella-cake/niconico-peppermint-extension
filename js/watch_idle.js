@@ -11,18 +11,26 @@ function createCSSRule(result) {
             function ContainerResize(e) {
                 console.log('VideoSymbolContainer resized!')
                 $('.CommentRenderer').css({
-                    'width': $(e).width() + "px",
-                    'height': $(e).height() + "px",
+                    'width': $('.VideoContainer').width() + "px",
+                    'height': $('.VideoContainer').height() + "px",
                 })
                 $('.VideoSymbolContainer').css({
                     'width': $(e).width() + "px",
                     'height': $(e).height() + "px",
                 })
+                let fontsize = $(e).height() / 24
+                let width = $(e).width()
+                let height = $(e).height()
+                $('.SupporterView-content').css({
+                    'width': width + "px",
+                    'height': height + "px",
+                    'font-size': fontsize + "px"
+                })
             }
             if (document.querySelector('.VideoContainer') != null) {
                 // theater and Nicobox UI
-                ContainerResize(document.querySelector('.VideoContainer'))
-                document.querySelector('.VideoContainer').addEventListener('canplay propertychange', ContainerResize)
+                ContainerResize(document.querySelector('.MainVideoPlayer video'))
+                document.querySelector('.MainVideoPlayer video').addEventListener('canplay propertychange', ContainerResize)
             }
             function changeNoPanelUI(control) {
                 if (control) {
@@ -39,7 +47,7 @@ function createCSSRule(result) {
                         'width': '100vw'
                     })
                     $('.HeaderContainer-searchBox').css('display','none')
-                    ContainerResize(document.querySelector('.VideoContainer'))
+                    ContainerResize(document.querySelector('.MainVideoPlayer video'))
                     $('.VideoTitle').css({
                         'position': 'fixed',
                         'left': '0',
@@ -80,7 +88,7 @@ function createCSSRule(result) {
                         'width': 'calc(100vw - 384px)'
                     })
                     $('.HeaderContainer-searchBox').css('display','inherit')
-                    ContainerResize(document.querySelector('.VideoContainer'))
+                    ContainerResize(document.querySelector('.MainVideoPlayer video'))
                     $('.VideoTitle').css({
                         'position': '',
                         'left': '',
@@ -117,14 +125,28 @@ function createCSSRule(result) {
 
             // playerpanel style changed
             const playerpanel = document.querySelector('.MainContainer-playerPanel')
+            const supporterview = document.querySelector('.SupporterView-content')
             const observer = new MutationObserver(records => {
                 if ($('.MainContainer-playerPanel').css('display') == 'none') {
                     changeNoPanelUI(true)
                 } else {
                     changeNoPanelUI(false)
                 }
+                /*if ($('.SupporterView-content').css('width') != $('.VideoContainer').width() ) {
+                    let fontsize = $('video').height() / 13
+                    let width = $('.VideoContainer').width()
+                    let height = $('.VideoContainer').height()
+                    $('.SupporterView-content').css({
+                        'width': width + "px",
+                        'height': height + "px",
+                        'font-size': fontsize + "px"
+                    })
+                }*/
             })
             observer.observe(playerpanel, {
+                attributeFilter: ['style']
+            })
+            observer.observe(supporterview, {
                 attributeFilter: ['style']
             })
         })
