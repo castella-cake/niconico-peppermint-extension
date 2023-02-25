@@ -14,3 +14,9 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
             break;
     }
 })
+
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason == "install") {
+        
+    }
+});

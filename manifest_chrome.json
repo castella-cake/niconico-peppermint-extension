@@ -3,8 +3,8 @@
     "name": "Niconico-PepperMint+",
     "short_name": "PepperMint+",
     "description": "ニコニコ動画をちょっとクールにする拡張機能",
-    "version": "1.0.0",
-    "version_name": "1.0.0",
+    "version": "1.0.1",
+    "version_name": "1.0.1",
     "author": "CYakigasi",
     "homepage_url": "https://github.com/castella-cake/niconico-peppermint-extension",
     "icons": {
@@ -93,7 +93,7 @@
 
     "action": {
         "browser_style": true,
-        "default_popup": "popup/option.html",
+        "default_popup": "pages/option.html",
         "default_icon": {
             "32": "icons/peppermint-logo-32.png",
             "64": "icons/peppermint-logo-64.png"
@@ -101,7 +101,7 @@
         "default_title": "Niconico-PepperMint"
     },
     "options_ui": {
-        "page": "popup/option.html",
+        "page": "pages/option.html",
         "browser_style": true
     },
     "permissions": [
