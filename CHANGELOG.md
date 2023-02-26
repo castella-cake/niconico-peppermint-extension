@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- 設定画面のフォルダー名を``pages`` に変更
+
+### Fixed
+- NicoboxUI/シアターUIで、ニコニ貢献をリサイズするように修正
+- 設定画面の外部リンクを新しいタブで開くように修正
+- ページ内UIで、ストック中のシリーズがはみ出る問題を修正 ( #5 )
+
 ## [1.0.0] - 2023/02/22
 
 ### Added

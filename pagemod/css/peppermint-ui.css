@@ -1,9 +1,11 @@
 .pmbutton-container {
-    position: sticky;
+    position: fixed;
     left:0;
-    bottom:12px;
+    bottom:0;
     margin: 12px;
     width: fit-content;
+    max-height: calc( 100vh - 36px );
+    z-index: 100;
 }
 .mainaction-button {
     cursor: pointer;
@@ -23,6 +25,8 @@
     border-radius: 5px;
     margin: 5px;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+    max-height: calc(100vh - 128px);
+    overflow: scroll;
 }
 .stockedseries-row {
 	margin: 5px 0;

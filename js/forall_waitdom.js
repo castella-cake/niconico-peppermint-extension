@@ -1,6 +1,6 @@
 // www.nicovideo.jpの全てで実行
 
-$('body').append('<div class="pmbutton-container" style="position: fixed; left:0; bottom:0; margin: 12px; width: fit-content; z-index: 100;"></div>');
+$('body').append('<div class="pmbutton-container"></div>');
 //$('body').append('<div class="version-watermark" style="position: sticky; left:0; bottom:0px;color:#aaa;font-size:8px">Niconico-PepperMint Preview</div>');
 addCSS("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined")
 addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui.css"));
