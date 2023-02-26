@@ -1,15 +1,17 @@
 let manifestData = chrome.runtime.getManifest();
-$("#current-version").text ("v" + manifestData.version_name + " MV" + manifestData.manifest_version)
+$("#current-version").text("v" + manifestData.version_name + " MV" + manifestData.manifest_version)
 
-$('a').on('click', function(e) {
-    e.preventDefault();
-    $('body').css({
-        'animation': 'fadeout 0.1s ease forwards 0s',
-    })
-    let href = $(this).attr('href')
-    setTimeout(function() {
-        location.href = href
-    }, 100)
+$('a').on('click', function (e) {
+    if ($(this).attr('target') != "_blank") {
+        e.preventDefault();
+        $('body').css({
+            'animation': 'fadeout 0.1s ease forwards 0s',
+        })
+        let href = $(this).attr('href')
+        setTimeout(function () {
+            location.href = href
+        }, 100)
+    }
 })
 
 // button がclickされたときに発火！！！！(前はsubmitだったけど必要ないと思ったのでclickへ)
@@ -83,9 +85,9 @@ function restoreOptions() {
         //$("#test-form-input").val = result.test_var || "hello";
         //$("#checkbox-form-input").prop('checked',result.test_checkbox;
         // Hide
-        $("#input-hiderankpagead").prop('checked',result.hiderankpagead);
-        $("#input-hideeventbanner").prop('checked',result.hideeventbanner);
-        $("#input-hidepopup").prop('checked',result.hidepopup);
+        $("#input-hiderankpagead").prop('checked', result.hiderankpagead);
+        $("#input-hideeventbanner").prop('checked', result.hideeventbanner);
+        $("#input-hidepopup").prop('checked', result.hidepopup);
         $("#select-hidesupporterbutton").val(result.hidesupporterbutton || "");
         //$("#input-hidevidtopad").prop('checked',result.hidevidtopad);
         // Player
@@ -93,45 +95,45 @@ function restoreOptions() {
         // TODO: 後回しのためとりあえずDisableに戻す
         //$("#select-playerstyleoverride").val("");
         // WatchPage
-        $("#input-replacemarqueetext").prop('checked',result.replacemarqueetext);
-        $("#input-highlightlockedtag").prop('checked',result.highlightlockedtag);
-        $("#input-cleanvidowner").prop('checked',result.cleanvidowner);
+        $("#input-replacemarqueetext").prop('checked', result.replacemarqueetext);
+        $("#input-highlightlockedtag").prop('checked', result.highlightlockedtag);
+        $("#input-cleanvidowner").prop('checked', result.cleanvidowner);
         $("#input-commentrow").val(result.commentrow || 1);
         $("#select-watchpagetheme").val(result.watchpagetheme || "");
-        $("#input-shortcutassist").prop('checked',result.shortcutassist);
-        $("#input-usetheaterui").prop('checked',result.usetheaterui);
-        $("#input-enablenicoboxui").prop('checked',result.enablenicoboxui);
-        $("#input-usenicoboxui").prop('checked',result.usenicoboxui);
-        $("#input-enabledlbutton").prop('checked',result.enabledlbutton);
+        $("#input-shortcutassist").prop('checked', result.shortcutassist);
+        $("#input-usetheaterui").prop('checked', result.usetheaterui);
+        $("#input-enablenicoboxui").prop('checked', result.enablenicoboxui);
+        $("#input-usenicoboxui").prop('checked', result.usenicoboxui);
+        $("#input-enabledlbutton").prop('checked', result.enabledlbutton);
         // NicoPedia
         $("#select-hidereputation").val(result.hidereputation || "");
-        $('#input-liketonicoru').prop('checked',result.liketonicoru)
-        $("#input-dicfullwidth").prop('checked',result.dicfullwidth);
+        $('#input-liketonicoru').prop('checked', result.liketonicoru)
+        $("#input-dicfullwidth").prop('checked', result.dicfullwidth);
         $("#select-dicforcewidthmode").val(result.dicforcewidthmode || "");
-        $("#input-sidebartoleft").prop('checked',result.sidebartoleft);
-        $("#input-dicbettereditor").prop('checked',result.dicbettereditor);
+        $("#input-sidebartoleft").prop('checked', result.sidebartoleft);
+        $("#input-dicbettereditor").prop('checked', result.dicbettereditor);
         // Other
-        $("#input-alignpagewidth").prop('checked',result.alignpagewidth);
-        $("#input-highlightnewnotice").prop('checked',result.highlightnewnotice);
-        $("#input-vidtoptwocolumn").prop('checked',result.vidtoptwocolumn);
+        $("#input-alignpagewidth").prop('checked', result.alignpagewidth);
+        $("#input-highlightnewnotice").prop('checked', result.highlightnewnotice);
+        $("#input-vidtoptwocolumn").prop('checked', result.vidtoptwocolumn);
         // Global
         $("#select-darkmode").val(result.darkmode || "");
-        $("#input-darkmodedynamic").prop('checked',result.darkmodedynamic)
+        $("#input-darkmodedynamic").prop('checked', result.darkmodedynamic)
         $("#select-headerbg").val(result.headerbg || "");
         $("#input-headercolor").val(result.headercolor || "#252525");
-        $("#input-enablevisualpatch").prop('checked',result.enablevisualpatch)
-        $("#input-enablespredirect").prop('checked',result.enablespredirect)
+        $("#input-enablevisualpatch").prop('checked', result.enablevisualpatch)
+        $("#input-enablespredirect").prop('checked', result.enablespredirect)
         //$("#input-enablefocusheader").prop('checked',result.enablefocusheader)
-        $("#input-enableseriesstock").prop('checked',result.enableseriesstock)
-        $("#input-enablecustomvideotop").prop('checked',result.enablecustomvideotop)
+        $("#input-enableseriesstock").prop('checked', result.enableseriesstock)
+        $("#input-enablecustomvideotop").prop('checked', result.enablecustomvideotop)
         // Unstable
-        $("#input-quickvidarticle").prop('checked',result.quickvidarticle);
-        if ( result.headerbg != "custom" ) {
+        $("#input-quickvidarticle").prop('checked', result.quickvidarticle);
+        if (result.headerbg != "custom") {
             $('#input-headercolor').prop('disabled', true);
         } else {
             $('#input-headercolor').prop('disabled', false);
         }
-        if ( result.dicfullwidth != true) {
+        if (result.dicfullwidth != true) {
             $('#input-dicforcefullwidth').prop('disabled', true);
         } else {
             $('#input-dicforcefullwidth').prop('disabled', false);
@@ -142,7 +144,7 @@ function restoreOptions() {
     getStorageData.then(setCurrentChoice, onError)
 }
 
-$("#settings-form").on('change',saveOptions);
+$("#settings-form").on('change', saveOptions);
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
 //document.querySelector("#settings-form").addEventListener("click", saveOptions);
