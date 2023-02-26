@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - 設定画面のフォルダー名を``pages`` に変更
+- 設定画面内での呼び名を、 ``PepperMintPlus`` から ``PepperMint+`` に変更
 
 ### Fixed
 - NicoboxUI/シアターUIで、ニコニ貢献をリサイズするように修正
