@@ -377,6 +377,9 @@ function createCSSRule(result) {
             if ( document.querySelector('.WakutkoolNoticeContainer') != null ) {
                 $('.MainContainer').before($('.WakutkoolNoticeContainer'))
             }
+            if ( document.querySelector('.EditorMenuContainer') != null ) {
+                $('.MainContainer').before($('.EditorMenuContainer'))
+            }
             // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
             // かつてヘッダーだったもの(動画情報)
             $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')
@@ -507,6 +510,9 @@ function createCSSRule(result) {
         $(function() {
             if ( document.querySelector('.WakutkoolNoticeContainer') != null ) {
                 $('.MainContainer').before($('.WakutkoolNoticeContainer'))
+            }
+            if ( document.querySelector('.EditorMenuContainer') != null ) {
+                $('.MainContainer').before($('.EditorMenuContainer'))
             }
             addCSS(chrome.runtime.getURL("pagemod/css/theater.css"));
             $('.SeekBar').before($('.PlayerPlayTime-playtime'));
