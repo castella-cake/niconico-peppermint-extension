@@ -24,7 +24,7 @@ function appendTableRow(obj) {
         <td id="tablelastname">${lastname}</td>
         <td id="tablenextid">${nextid}</td>
         <td id="tablenextname">${nextname}</td>
-        <td><button id="remove" type="button">削除</button></td>
+        <td><button id="remove" type="button">×</button></td>
     </tr>`
     console.log(`added series: ${addTable}`)
     $('#serieslist tbody').append(addTable);

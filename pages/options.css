@@ -10,12 +10,15 @@
     100% {opacity: 0%;}
 }
 
-html, body {
+body {
     width: 480px;
     margin: 0;
 	background-color: Canvas;
 	color: CanvasText;
 	opacity: 100;
+}
+.width-big {
+	width: 560px;
 }
 body > * {
 	color-scheme: light dark;
@@ -190,6 +193,21 @@ label {
 	color: inherit
 }
 
+th, td {
+	padding: 3px;
+	border: 5px;
+	background-color: rgba(0,0,0,0.5);
+	border-radius: 3px;
+	overflow: hidden;
+	height: 16px;
+	max-height: 16px;
+	max-width: 6rem;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+tr td:nth-child(3) {
+	max-width: 12rem;
+}
 
 @media (prefers-color-scheme: dark) {
 	html,body {
