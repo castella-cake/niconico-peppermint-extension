@@ -575,6 +575,9 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 .RankingVideosContainer .NC-VideoCardWrapper::after {
     border-bottom: 2px solid var(--accent1);
 }
+.FollowingVideosContainer-ownerName {
+    color: var(--textcolor1);
+}
 
 /* icons  */
 .RankingVideosContainer .ColumnTitle-icon,
