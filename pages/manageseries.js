@@ -9,8 +9,23 @@ $('a').on('click', function(e) {
     }, 100)
 })
 
-function appendTableRow(seriesid, seriesname) {
-    var addTable = '<tr><td><input type="checkbox" id="input-tablecheck"></td><td id="tableid">' + seriesid + '</td><td id="tablename">' + seriesname + '</td><td><td><button id="remove" type="button">削除</button></td></td></tr>'
+function appendTableRow(obj) {
+    let id = obj.seriesID
+    let name = obj.seriesName
+    let lastid = obj.lastVidID || ''
+    let lastname = obj.lastVidName || ''
+    let nextid = obj.nextVidID || ''
+    let nextname = obj.nextVidName || ''
+    let addTable = `<tr>
+        <td><input type="checkbox" id="input-tablecheck"></td>
+        <td id="tableid">${id}</td>
+        <td id="tablename">${name}</td>
+        <td id="tablelastid">${lastid}</td>
+        <td id="tablelastname">${lastname}</td>
+        <td id="tablenextid">${nextid}</td>
+        <td id="tablenextname">${nextname}</td>
+        <td><button id="remove" type="button">削除</button></td>
+    </tr>`
     console.log(`added series: ${addTable}`)
     $('#serieslist tbody').append(addTable);
 }
@@ -22,8 +37,23 @@ function saveOptions() {
     $('table tr').each(function(i, elem){
         // idとnameが""じゃないならthじゃないと判断する
         if ( $(elem).children('#tableid').text() != "" && $(elem).children('#tablename').text() != "" ) {
+            // create obj
+            let seriesobj = {
+                seriesID : $(elem).children('#tableid').text(), 
+                seriesName : $(elem).children('#tablename').text(),
+                lastVidID : $(elem).children('#tablelastid').text(),
+                lastVidName : $(elem).children('#tablelastname').text(),
+                nextVidID : $(elem).children('#tablenextid').text(),
+                nextVidName : $(elem).children('#tablenextname').text(),
+            }
+            // remove empty key
+            for(let key in seriesobj) {
+                if (seriesobj[key] === "") {
+                    delete seriesobj[key]
+                }
+            }
             // 配列にオブジェクトを突っ込む
-            seriesArray.push( { seriesID : $(elem).children('#tableid').text(), seriesName : $(elem).children('#tablename').text() } );
+            seriesArray.push(seriesobj);
         }
     });
     console.log(seriesArray)
@@ -44,7 +74,7 @@ function restoreOptions() {
         // ストレージからオブジェクト入り配列を引っ張ってきてeachで一個ずつ処理する
         $.each(result.stockedseries, function(i,object) {
             console.log(object)
-            appendTableRow(object.seriesID, object.seriesName)
+            appendTableRow(object)
         })
     }
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
@@ -53,7 +83,8 @@ function restoreOptions() {
 
 // 追加が押された時
 $("#addseries").on('click',function() {
-    appendTableRow($('#input-addseriesid').val(), $('#input-addseriesname').val());
+    let seriesobj = { seriesID: $('#input-addseriesid').val(), seriesName: $('#input-addseriesname').val()}
+    appendTableRow(seriesobj);
     saveOptions();
 });
 
@@ -66,7 +97,7 @@ $('#serieslist').on('click', '#remove', function() {
 // 選択中のシリーズを削除が押された時
 $("#removeselectedseries").on('click',function() {
     $('table #input-tablecheck').each(function(i, elem){
-        if ( $(elem).prop('checked') ) {
+        if ( $(elem).prop('checked') == true ) {
             $(elem).parents('tr').remove();
         }
     });
