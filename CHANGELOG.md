@@ -5,16 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.1]
+
+### Added
+- クレジットページにSpecial Thanksを追加
 
 ### Changed
 - 設定画面のフォルダー名を``pages`` に変更
 - 設定画面内での呼び名を、 ``PepperMintPlus`` から ``PepperMint+`` に変更
+- ポップアップの設定画面のデフォルト幅を``360px`` から ``480px`` に変更
+- シリーズストックの管理画面の幅を``560px`` に変更
 
 ### Fixed
 - NicoboxUI/シアターUIで、ニコニ貢献をリサイズするように修正
 - 設定画面の外部リンクを新しいタブで開くように修正
+- 動画トップの「フォロー中の新着動画」のユーザー名を明瞭化
 - ページ内UIで、ストック中のシリーズがはみ出る問題を修正 ( #5 )
+- シリーズの管理画面でシリーズを保存すると、シリーズIDとシリーズ名以外が消滅する問題を修正
+- シアターUI/NicoboxUIで、投稿者用メニューの表示が原因でメインの表示が崩れる問題を修正
 
 ## [1.0.0] - 2023/02/22
 
