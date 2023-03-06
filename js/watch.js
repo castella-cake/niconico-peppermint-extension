@@ -156,7 +156,7 @@ function createCSSRule(result) {
             })
         }
     }
-    if ( result.usetheaterui == true ) {
+    if ( result.usetheaterui == true && result.usenicoboxui != true ) {
         let fullsize = false
         $('.pmbutton-container').append('<div class="togglefullsize-container" style="padding-left: 10px; margin-bottom: 8px"><a id="togglefullsize" class="material-icons-outlined subaction-button">width_full</a></div>')
         $('#togglefullsize').on('mouseenter', function() {

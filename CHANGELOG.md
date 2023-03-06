@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.1]
+## [1.1.0]
 
 ### Added
 - クレジットページにSpecial Thanksを追加
@@ -23,6 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ページ内UIで、ストック中のシリーズがはみ出る問題を修正 ( #5 )
 - シリーズの管理画面でシリーズを保存すると、シリーズIDとシリーズ名以外が消滅する問題を修正
 - シアターUI/NicoboxUIで、投稿者用メニューの表示が原因でメインの表示が崩れる問題を修正
+- 拡張機能との互換性を修正
+- シアターUIのビデオサイズに関する修正
+- NicoboxUIが有効の場合は、シアターUIの``21:9に拡大``ボタンを表示しないように修正
 
 ## [1.0.0] - 2023/02/22
 

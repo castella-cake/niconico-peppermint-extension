@@ -115,6 +115,9 @@
     background-color: var(--accent1);
     color: var(--linktext2);
 }
+.ContentTree-summaryLabel {
+    color: var(--textcolor1)
+}
 /* 検索 */
 .SearchBox {
     background: var(--bgcolor3);

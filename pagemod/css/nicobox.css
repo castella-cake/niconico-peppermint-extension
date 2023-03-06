@@ -49,3 +49,6 @@
 .SearchBox-optionMenu {
     bottom: 32px
 }
+.VideoContainer {
+	background: transparent !important;
+}

@@ -56,6 +56,7 @@ function createCSSRule(result) {
             if (document.querySelector('.stockedserieswindow-container') != null) {
                 $('.stockedserieswindow-container').remove()
             } else {
+                // <button id="togglelock" class="togglelock">ロック解除</button>
                 $('.openstock-container').before('<div class="stockedserieswindow-container"><div>ストック中のシリーズ</div></div>')
                 var getNewStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
                 getNewStorageData.then(function(newresult) {
@@ -76,14 +77,26 @@ function createCSSRule(result) {
                             nextvidhtml = `<span class="stockedseries-row-link" style="color: var(--textcolor3)">次の動画が保存されていません</span>`
                         }
                         $('.stockedserieswindow-container').append(`<div class="stockedseries-row"><div class="serieslink-container"><a class="stockedseries-row-link" href="https://www.nicovideo.jp/series/${object.seriesID}">${object.seriesName}</a><button id="removeseries" class="removeseries">削除</button></div>${lastvidhtml}${nextvidhtml}</div>`)
+                        $('.stockedseries-row').draggable();
+                        $('.stockedseries-row').draggable("disable");
                     })
                 }, onError);
             }
         })
-
+        /*
         $(document).on('click', '#removeseries', function() {
             manageSeriesStock( $(this).prev().prop('href').slice(32) )
             $(this).parent('.stockedseries-row').remove()
         })
+        $(document).on('click', '#togglelock', function() {
+            console.log($(this).text())
+            if ( $(this).text() == 'ロック解除' ) {
+                $('.stockedseries-row').draggable("enable");
+                $(this).text('ロック')
+            } else {
+                $('.stockedseries-row').draggable("disable");
+                $(this).text('ロック解除')
+            }
+        })*/
     }
 }

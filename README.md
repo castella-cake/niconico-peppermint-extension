@@ -138,5 +138,5 @@ Niconico-PepperMint内には、Material Iconsを使用している箇所があ�
 Material Iconsは``Apache License 2.0`` のもとで配布されています。  
 Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
 
-Niconico-PepperMint内には、JQueryが含まれています。
+Niconico-PepperMint内には、JQuery と JQuery UIが含まれています。
 JQueryは``MIT License``のもとで配布されています。
