@@ -118,7 +118,7 @@ Niconico-PepperMintはメインにニコニコ動画の視聴、サブにニコ�
 Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、そしてChromium系ブラウザをサポートします。  
 ### 動作確認済みブラウザーの一覧
 開発者の意図的に動作することを確認したブラウザー。  
-チェックボックスの付いていないブラウザーは、テストしたが何かしらの無視できない問題があることを示します。  
+チェックボックスの付いていないブラウザーは、テストしたが何らかの無視できない問題があることを示します。  
 #### Firefox
 - [x] Firefox 110
 - [x] Waterfox 5.1.2
@@ -128,15 +128,15 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 #### Chromium
 - [x] Google Chrome 110
 - [x] Vivaldi 5.6.2867.62
-- [ ] Microsoft Edge 110 (シアターモードのvideo要素に問題あり、document_firstの問題？)
+- [x] Microsoft Edge 110
 
 # License
-Niconico-PepperMint Extension版のライセンスは``MIT License``です。  
+Niconico-PepperMint+のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  
 
 Niconico-PepperMint内には、Material Iconsを使用している箇所があります。    
 Material Iconsは``Apache License 2.0`` のもとで配布されています。  
 Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
 
-Niconico-PepperMint内には、JQuery と JQuery UIが含まれています。
-JQueryは``MIT License``のもとで配布されています。
+Niconico-PepperMint内には、JQuery, JQuery UI, Nord が含まれています。
+JQuery, JQuery UI, Nordは``MIT License``のもとで配布されています。

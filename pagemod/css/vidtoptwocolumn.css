@@ -51,6 +51,14 @@
 	width: 450px;
 	background-size: contain;
 }
+.NicoadVideosContainer-list {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.NicoadVideoItem + .NicoadVideoItem {
+	margin-left: 0px
+}
 /* この広告は消さないとはみ出してしまうので、残念ながらボッシュートとなります！(ﾃﾞﾃﾞｯﾃﾞﾃﾞｯﾃﾞｯﾃﾞｰﾝ) */
 .RankingVideosContainer-columnRight > .Ads300x250WebPcMiddle {
 	display: none;

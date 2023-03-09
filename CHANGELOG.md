@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 設定画面内での呼び名を、 ``PepperMintPlus`` から ``PepperMint+`` に変更
 - ポップアップの設定画面のデフォルト幅を``360px`` から ``480px`` に変更
 - シリーズストックの管理画面の幅を``560px`` に変更
+- 法的問題を避けるためにアイコンを一から書き直したものに変更
 
 ### Fixed
 - NicoboxUI/シアターUIで、ニコニ貢献をリサイズするように修正
@@ -26,6 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 拡張機能との互換性を修正
 - シアターUIのビデオサイズに関する修正
 - NicoboxUIが有効の場合は、シアターUIの``21:9に拡大``ボタンを表示しないように修正
+- 動画トップ2カラムでニコニ広告行に対してflexを追加し、はみ出さないように修正
+
+### Removed
+- 16x16のアイコンを削除
 
 ## [1.0.0] - 2023/02/22
 

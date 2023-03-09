@@ -96,7 +96,8 @@
         "default_popup": "pages/option.html",
         "default_icon": {
             "32": "icons/peppermint-logo-32.png",
-            "64": "icons/peppermint-logo-64.png"
+            "64": "icons/peppermint-logo-64.png",
+            "128": "icons/peppermint-logo-128.png" 
         },
         "default_title": "Niconico-PepperMint"
     },
