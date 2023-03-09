@@ -17,7 +17,7 @@
     "content_scripts": [
         {
             "matches": ["*://*.nicovideo.jp/*"],
-            "js": ["js/jquery-3.6.3.min.js","js/forall.js"],
+            "js": ["js/jquery-3.6.3.min.js","js/jquery-ui.min.js","js/forall.js"],
             "run_at": "document_start",
             "all_frames" : true
         },
