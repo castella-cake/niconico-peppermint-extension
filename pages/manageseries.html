@@ -9,10 +9,11 @@
     <body class="width-big">
         <header class="title"><a href="option.html" target="_self"><</a>シリーズの管理</header>
         <div class="page-desc">ストック中のシリーズを追加・削除します。</div>
+
         <form id="settings-form">
-            <table id="serieslist">
+            <table id="seriesheader">
                 <tbody>
-                    <tr>
+                    <tr class="header">
                         <th>選択</th>
                         <th>シリーズID</th>
                         <th>名前</th>
@@ -22,6 +23,10 @@
                         <th>次(名前)</th>
                         <th>削除</th>
                     </tr>
+                </tbody>
+            </table>
+            <table id="serieslist">
+                <tbody>
                 </tbody>
             </table>
             <div class="settings-row">
@@ -36,7 +41,8 @@
             </div>
             <div class="hint">シリーズを追加するには？<br>シリーズのページに移動し、左下の追加ボタンを押してストックできます。<br>もしくは、視聴ページの左下にある追加ボタンから視聴中のシリーズをストックできます。</div>
         </form>
-        <script src="jquery-3.6.3.min.js"></script>
+        <script src="../lib/jquery-3.6.3.min.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
         <script src="manageseries.js"></script>
     </body>
 

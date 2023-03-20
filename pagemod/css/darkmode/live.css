@@ -195,3 +195,8 @@
 .___page-top-anchor___30r5g::after, .___page-top-anchor___30r5g::before {
     border-color: var(--textcolor2) transparent transparent var(--textcolor2);
 }
+
+/* Ads */
+.___ad-billboard___P7GUG {
+    background: transparent
+}

@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="options.css"/>
-    </head>
 
-    <body>
+<head>
+    <meta charset="utf-8">
+    <title>PepperMint+の設定</title>
+    <link rel="stylesheet" href="options.css" />
+</head>
+
+<body>
         <header class="title">PepperMint+の設定</header>
+        <div class="settings-page-desc">
+            PepperMint+ の設定を変更します。<br>
+            この設定は、ツールバーボタン、もしくは拡張機能管理ページの設定から再度アクセスできます。
+        </div>
         <form id="settings-form" class="browser-style">
             <h1>Hide</h1>
             <div class="settings-row browser-style">
@@ -77,7 +83,8 @@
                 <div class="hint">プレイヤーのレイアウトと見た目を一括変更します。</div>
             </div>
             <div class="settings-row browser-style">
-                <label>コメント入力欄行<input type="number" id="input-commentrow" min="1" max="32" style="width: 5rem; margin-left: 8px"></label>
+                <label>コメント入力欄行<input type="number" id="input-commentrow" min="1" max="32"
+                        style="width: 5rem; margin-left: 8px"></label>
                 <div class="hint">
                     コメント入力欄の行数を拡張します。AAの最終確認に最適です。
                 </div>
@@ -132,11 +139,13 @@
             <div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-dicfullwidth">最大幅を開放</label>
                 <label>強制モード<select id="select-dicforcewidthmode">
-                    <option value="">無効</option>
-                    <option value="auto">中(auto)</option>
-                    <option value="100">強(100%)</option>
-                </select></label>
-                <div class="hint">コンテンツの最大幅を開放し、記事を読みやすくします。強制モードを有効化すると、記事内でWidthが指定されている要素に対して設定した方法で幅を指定します。<br>強制モードを設定すると、一部の要素が崩れる場合があります。</div>
+                        <option value="">無効</option>
+                        <option value="auto">中(auto)</option>
+                        <option value="100">強(100%)</option>
+                    </select></label>
+                <div class="hint">
+                    コンテンツの最大幅を開放し、記事を読みやすくします。強制モードを有効化すると、記事内でWidthが指定されている要素に対して設定した方法で幅を指定します。<br>強制モードを設定すると、一部の要素が崩れる場合があります。
+                </div>
             </div>
             <div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-sidebartoleft">サイドバーを左に移動</label>
@@ -184,7 +193,8 @@
                     </select>
                 </label>
                 <!-- type=colorはpopupだとウィンドウが閉じて使い物にならないのでtextで -->
-                <label id="headerbg-customcolor">カスタム色<input type="text" id="input-headercolor" value="#252525" placeholder="#252525"></label>
+                <label id="headerbg-customcolor">カスタム色<input type="text" id="input-headercolor" value="#252525"
+                        placeholder="#252525"></label>
             </div>
             <div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-enablevisualpatch">ビジュアルパッチを有効化</label>
@@ -204,14 +214,16 @@
             </div>-->
             <div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-enableseriesstock">シリーズストックを有効化</label>
-                <div class="hint">シリーズページまたはシリーズが設定されている視聴ページの左下にシリーズをストックするボタンが表示され、動画トップの左下で保存したシリーズを表示できます。<br>ストック中のシリーズは「ストック中のシリーズを管理」から削除・追加できます。</div>
+                <div class="hint">
+                    シリーズページまたはシリーズが設定されている視聴ページの左下にシリーズをストックするボタンが表示され、動画トップの左下で保存したシリーズを表示できます。<br>ストック中のシリーズは「ストック中のシリーズを管理」から削除・追加できます。
+                </div>
             </div>
-            <a href="manageseries.html" target="_self" class="settinglink">ストック中のシリーズを管理</a>
+            <a href="manageseries.html" target="_self" class="settinglink">ストック中のシリーズを管理...</a>
             <div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-enablecustomvideotop">カスタム動画トップを有効化</label>
                 <div class="hint">動画トップのコンテンツを設定した内容で並び替えたり非表示にします。設定は下の「カスタム動画トップを設定」から設定します。</div>
             </div>
-            <a href="customvidtop.html" target="_self" class="settinglink">カスタム動画トップを設定</a>
+            <a href="customvidtop.html" target="_self" class="settinglink">カスタム動画トップを設定...</a>
             <h1>Experimental</h1>
             <div class="hint">
                 不安定または未完成の実験的な機能。<br>内容は変更されたり、削除される可能性があります。
@@ -226,13 +238,16 @@
                 設定は自動保存されます。保存した設定を反映させるには、リロードする必要があります。<br>
                 PepperMintの更新後に表示が崩れた場合は、Ctrl+Shift+Rでハード再読み込みを試してみてください。
             </div>
-            Niconico-PepperMint+ <a href="https://github.com/castella-cake/niconico-peppermint-extension" target="_blank" rel="noopener noreferrer">Github Repo</a><br>
-            Created by CYakigasi <a href="https://www.cyakigasi.net" target="_blank" rel="noopener noreferrer">Website</a> <a href="https://twitter.com/CYaki_xcf" target="_blank" rel="noopener noreferrer">@CYaki_xcf(更新情報もここから)</a>
-            <a href="credit.html" target="_self" class="settinglink">PepperMintについて・インポート/エクスポート・リセット</a>
+            Niconico-PepperMint+ <a href="https://github.com/castella-cake/niconico-peppermint-extension"
+                target="_blank" rel="noopener noreferrer">Github Repo</a><br>
+            Created by CYakigasi <a href="https://www.cyakigasi.net" target="_blank"
+                rel="noopener noreferrer">Website</a> <a href="https://twitter.com/CYaki_xcf" target="_blank"
+                rel="noopener noreferrer">@CYaki_xcf(更新情報もここから)</a>
+            <a href="credit.html" target="_self" class="settinglink">PepperMintについて・インポート/エクスポート・リセット...</a>
         </div>
         <div id="current-version"></div>
-        <script src="jquery-3.6.3.min.js"></script>
-        <script src="options.js"></script>
-    </body>
+    <script src="../lib/jquery-3.6.3.min.js"></script>
+    <script src="options.js"></script>
+</body>
 
 </html>

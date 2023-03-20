@@ -39,6 +39,7 @@ function saveOptions() {
             "watchpagetheme": $("#select-watchpagetheme").val(),
             "shortcutassist": $("#input-shortcutassist").prop('checked'),
             "usetheaterui": $("#input-usetheaterui").prop('checked'),
+            //"theateruialwaysdark": $("#input-theateruialwaysdark").prop('checked'),
             "enablenicoboxui": $("#input-enablenicoboxui").prop('checked'),
             "usenicoboxui": $("#input-usenicoboxui").prop('checked'),
             "enabledlbutton": $("#input-enabledlbutton").prop('checked'),
@@ -102,6 +103,7 @@ function restoreOptions() {
         $("#select-watchpagetheme").val(result.watchpagetheme || "");
         $("#input-shortcutassist").prop('checked', result.shortcutassist);
         $("#input-usetheaterui").prop('checked', result.usetheaterui);
+        //$("#input-theateruialwaysdark").prop('checked', result.theateruialwaysdark);
         $("#input-enablenicoboxui").prop('checked', result.enablenicoboxui);
         $("#input-usenicoboxui").prop('checked', result.usenicoboxui);
         $("#input-enabledlbutton").prop('checked', result.enabledlbutton);

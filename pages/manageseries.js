@@ -34,7 +34,7 @@ function saveOptions() {
     var seriesArray = [];
 
     // tr(行)をeachで一個づつ処理する
-    $('table tr').each(function(i, elem){
+    $('#serieslist tr').each(function(i, elem){
         // idとnameが""じゃないならthじゃないと判断する
         if ( $(elem).children('#tableid').text() != "" && $(elem).children('#tablename').text() != "" ) {
             // create obj
@@ -96,12 +96,19 @@ $('#serieslist').on('click', '#remove', function() {
 
 // 選択中のシリーズを削除が押された時
 $("#removeselectedseries").on('click',function() {
-    $('table #input-tablecheck').each(function(i, elem){
+    $('#serieslist #input-tablecheck').each(function(i, elem){
         if ( $(elem).prop('checked') == true ) {
             $(elem).parents('tr').remove();
         }
     });
     saveOptions();
+})
+
+$("#serieslist tbody").sortable({
+    "axis": "y",
+    "update": function(event,ui) {
+        saveOptions();
+    },
 })
 
 // 保存が押された時

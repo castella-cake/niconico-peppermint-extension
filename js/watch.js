@@ -322,7 +322,7 @@ function createCSSRule(result) {
                 $('.DefaultAnimator-text, .DefaultAnimator-category,.DefaultAnimator-excludeButton, .Marquee-buttonArea').css('display','none')
             });*/
         }
-        if ( result.darkmode != "" && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
+        if ( result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
             if (result.watchpagetheme != "") {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"));
@@ -334,7 +334,7 @@ function createCSSRule(result) {
         }
     } else if ( result.usenicoboxui == true ) {
         // Nicobox UI
-        if ( result.darkmode != "" && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
+        if ( result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/nicobox.css"));
         }
@@ -455,7 +455,7 @@ function createCSSRule(result) {
             // 不要な要素の削除
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer,.EasyCommentContainer-buttonBox').remove();
             window.scroll({top: 0, behavior: 'smooth'});
-            if ( result.darkmode != "" && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
+            if ( result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
                 $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background','linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%)')
             } else {
                 $('.HeaderContainer').css({
@@ -586,7 +586,7 @@ function createCSSRule(result) {
             // 不要な要素の削除
             $('.MainContainer-marquee, .PlayerPlayTime-separator, .EasyCommentContainer-buttonBox').remove();
             window.scroll({top: 0, behavior: 'smooth'});
-            if ( result.darkmode != "" && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
+            if ( result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch_ichiba.css"));
             }
@@ -615,7 +615,6 @@ function createCSSRule(result) {
                 'background': 'linear-gradient(180deg,hsla(0,0%,96%,0),#000 25%)'
             })
             $('.TagItem-name').css('color','#fff')
-            $('.VideoLiveTimeshiftContainer').css('text-align','center')
             $('.VideoMenuContainer').css('background','#000')
         });
     }

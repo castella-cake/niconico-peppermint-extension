@@ -1,7 +1,4 @@
-/*
-    ニコニコ動画 - 動画トップ(ダークテーマ) 
-    all.cssに統合
-*/
+/* ニコニコ動画 - 動画トップ(ダークテーマ) */
 .RecommendVideoContainer-footer {
     color: var(--textcolor3);
 }
@@ -46,6 +43,9 @@
 }
 .RankingVideosContainer .NC-VideoCardWrapper::after {
     border-bottom: 2px solid var(--accent1);
+}
+.FollowingVideosContainer-ownerName {
+    color: var(--textcolor1);
 }
 
 /* icons  */

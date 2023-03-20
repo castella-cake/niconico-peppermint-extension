@@ -1,7 +1,4 @@
-/* 
-    ニコニコ動画 - ランキング(ダークテーマ) 
-    all.cssに統合
-*/
+/* ニコニコ動画 - ランキング(ダークテーマ) */
 .NC-MutedVideoCard, .NC-SensitiveVideoCard, .VideoItem.NC-Card, .RankingHeaderContainer-header_sticky,.NC-Card.NC-NicoadCard.NicoadItem {
     background-color: var(--bgcolor2)
 }
@@ -42,4 +39,20 @@
 }
 .RankingTermSelector .Dropdown-button {
     color: var(--textcolor2)
+}
+.RankingSettingSummary-content,.RankingSettingSummary-content::before,.RankingSettingSummary-content::after {
+    background: var(--bgcolor2);
+}
+.RankingSettingSummary .RankingSettingRecommendations {
+    background: var(--accent1);
+    border-top: 1px solid var(--accent2)
+}
+.RankingSettingItem-content {
+    color: var(--textcolor1)
+}
+.RankingSettingSummary-main > h1, .RankingSettingItem h1 {
+    color: var(--textcolor2)
+}
+.RankingSettingRecommendations > ul > li + li {
+    border-top: 1px solid var(--textcolor3)
 }

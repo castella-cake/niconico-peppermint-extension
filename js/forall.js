@@ -75,6 +75,17 @@ function manageSeriesStock(seriesid, seriesname = '名称未設定') {
         }
     });
 }
+function isDarkmode() {
+    chrome.storage.sync.get(["darkmode","darkmodedynamic"]).then((result) => {
+        if (result.darkmode == "" || result.darkmode == undefined || result.darkmode == null) {
+            return(false)
+        } else if (result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            return(false)
+        } else if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ){
+            return(true)
+        }
+    })
+}
 
 /*
 $(document).on('keypress', keypress_event);
@@ -122,7 +133,7 @@ function createBaseCSSRule(result) {
     if (result.enablevisualpatch == true) {
         addCSS(chrome.runtime.getURL("pagemod/css/visualpatch.css"))
     }
-    if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+    if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
         /*
         if ( result.darkmode == "pmcolor" ) {
             $('body').css({
@@ -197,8 +208,8 @@ function createBaseCSSRule(result) {
                 '--linktext3': '#008acf',
             })
         }*/
-        addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"), true);
-        addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"));
+        addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
+        if ( location.hostname != "game.nicovideo.jp" ) { addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all_compressed.css"), true);}
         //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
     } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
     if (result.alignpagewidth == true) {

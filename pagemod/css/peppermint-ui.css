@@ -26,7 +26,7 @@
     margin: 5px;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
     max-height: calc(100vh - 128px);
-    overflow: scroll;
+    overflow-y: scroll;
 }
 .stockedseries-row {
 	margin: 5px 0;
@@ -112,4 +112,7 @@
 	background: var(--bgcolor1);
 	top: 0;
 	z-index: 10000002;
+}
+.ui-draggable-dragging {
+    opacity: 50%
 }

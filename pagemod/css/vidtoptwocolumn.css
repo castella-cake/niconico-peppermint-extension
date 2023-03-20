@@ -55,6 +55,7 @@
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
+	height: unset;
 }
 .NicoadVideoItem + .NicoadVideoItem {
 	margin-left: 0px

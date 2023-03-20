@@ -17,6 +17,8 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 
 chrome.runtime.onInstalled.addListener(function(details) {
     if (details.reason == "install") {
-        
+        chrome.tabs.create({
+            url: chrome.runtime.getURL("pages/welcome.html")
+        });
     }
 });
