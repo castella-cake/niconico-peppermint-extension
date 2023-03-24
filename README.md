@@ -1,8 +1,11 @@
-# Niconico-PepperMintPlus
-「ニコニコ動画をちょっとクールに」を目標に開発しているUserCSS「Niconico-PepperMint」  
-...を拡張機能化し、UserStyle版の後継となることを目標に開発している拡張機能。
+# Niconico-PepperMint+
 
-作者はJavaScript初心者なので、貢献は大歓迎です。  
+<img src="https://user-images.githubusercontent.com/65476384/227467934-a8654224-6a33-46b0-ba2d-fecd5071519d.png" width="50%"/>
+
+Niconico-PepperMint+は、「ニコニコ動画をちょっとクールに」を目標に開発している、   
+UserCSS版Niconico-PepperMintの後継として開発されている拡張機能です。   
+Chrome Webstore: https://chrome.google.com/webstore/detail/niconico-peppermint+/oeadnodbjplclhibppgkkijomgcgochf   
+Firefox Add-ONS: https://addons.mozilla.org/ja/firefox/addon/niconico-peppermint/
 
 # Install
 ## 安定版を入手
@@ -17,6 +20,7 @@
 3. 画面の手順に従います
 4. おわり
 ## リリースからインストールする
+通常使用には自動更新のある安定版を強く推奨します。
 ### Chrome
 1. リリースページに行きます
 2. ``-chrome``で終わるzipファイルをダウンロードします
@@ -122,7 +126,7 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 #### Firefox
 - [x] Firefox 110
 - [x] Waterfox 5.1.2
-- [x] Floorp (10.10.0時点で表示に軽微な問題あり、Floorp側のアップデートで解決されます)
+- [x] Floorp (表示に軽微な問題がありますが、使用には問題ありません)
 - [ ] MyPal 68.12.5b (Windows XP/10で動作確認、しかしニコニコ動画側がまともに動いてない模様  
 ``about:config``で``webextensions.storage.sync.enabled``をtrueに変更する必要があり、対応していないCSSルールがあるためシアターモードが動作せず)
 #### Chromium
