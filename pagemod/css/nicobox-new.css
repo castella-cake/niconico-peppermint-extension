@@ -1,0 +1,107 @@
+.CommentRenderer, .EnableFullScreenButton {
+    display:none
+}
+.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
+    fill: #1d2128
+}
+
+.ControllerContainer-inner {
+    top:4px
+}
+.PlayerPauseButton, .PlayerPlayButton {
+	left: 50%;
+	right: 50%;
+	position: absolute !important;
+	transform: translate(-50%);
+    padding: 2px;
+}
+.ControllerContainer-centerArea > .ControllerButton {
+    padding: 5px
+}
+.InView.VideoContainer {
+    height: 360px !important;
+    width: 100% !important;
+}
+.PlayerOptionContainer {
+    max-height: 330px;
+}
+.PlayerSizeMenuItem, .FullscreenModeMenuItem, .PlayerOptionMenuGroup:nth-child(2), .PlayerOptionMenuGroup:nth-child(3)  {
+    display:none;
+}
+.VideoPlayer video {
+    width:auto !important;
+    margin:auto !important;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.8) !important;
+}
+.PlayerPanelContainer {
+    border-top-left-radius: 16px;
+}
+/* 競合防止 */
+.PlayerContainer, .ControllerBoxContainer {
+    background-color: transparent !important;
+}
+.MainContainer-playerPanel {
+    display: block !important;
+}
+#comments-enable-ex, #comments-disable-ex {
+    display:none !important;
+}
+
+
+.SearchBox-optionMenu {
+    bottom: 32px
+}
+.VideoContainer {
+	background: transparent !important;
+}
+.WatchAppContainer-main {
+    position: relative;
+}
+.WatchAppContainer-main:before {
+    background-image: var(--thumburl);
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: blur(60px);
+    position: fixed;
+    z-index: 0;
+    content: "";
+    width: calc( 100% - 384px );
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 50%;
+}
+.MainContainer {
+    margin-bottom: 0px
+}
+.MainContainer::after {
+	content: "";
+	width: 100%;
+	height: 48px;
+	background: linear-gradient(0deg, var(--nb-bgcolor) 50%,rgba(255,255,255,0));
+	display: block;
+}
+.VideoMenuContainer-areaLeft, .VideoMenuContainer-areaRight {
+    background: transparent;
+}
+.VideoMenuContainer::after {
+    border-bottom: none;
+}
+.TagItem {
+	border: none;
+	box-shadow: 0px 0px 2px #aaa;
+}
+.TagItem.is-locked {
+	border: none;
+	box-shadow: 0px 0px 2px rgb(255, 215, 148);
+}
+.TagList {
+    padding-top: 2px;
+}
+.VideoMetaContainer > *, .VideoMetaOverflowMenuContainer {
+    border-left: 2px solid #e0e0e0;
+    box-shadow: none;
+}
+.ControllerButton:hover svg {
+    fill: #22f5dc
+}

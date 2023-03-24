@@ -10,13 +10,17 @@
         <header class="title"><a href="option.html" target="_self"><</a>動画トップの並び替え・削除</header>
         <div class="page-desc">ニコニコ動画トップのコンテンツを並び替え・削除します。</div>
         <form id="settings-form">
-            <table id="videotopcontentlist">
+            <table id="videotopcontentlist-header">
                 <tbody>
                     <tr>
                         <th>表示</th>
                         <th>名称</th>
                         <th>クラス名</th>
                     </tr>
+                </tbody>
+            </table>
+            <table id="videotopcontentlist">
+                <tbody>
                     <!--
                     <tr>
                         <td><input type="checkbox" id="input-tablecheck" enabled></td>
@@ -91,13 +95,14 @@
                 </tbody>
             </table>
             <div class="settings-row">
-                <button id="save" type="button">この内容で保存</button>
+                <!--<button id="save" type="button">この内容で保存</button>-->
             </div>
             <div class="settings-row">
                 <button id="reset" type="button">リセット</button>
             </div>
         </form>
         <script src="../lib/jquery-3.6.3.min.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
         <script src="customvidtop.js"></script>
     </body>
 

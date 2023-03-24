@@ -30,7 +30,7 @@
     display: none;
 }
 .VideoMenuContainer, .BottomContainer, .VideoMenuContainer-areaLeft, .VideoMenuContainer-areaRight {
-    background-color: #000;
+    background-color: transparent;
 }
 .SearchBox-optionMenu {
     bottom: 32px

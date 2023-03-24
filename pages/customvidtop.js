@@ -94,4 +94,11 @@ $("#reset").on('click',function() {
     location.reload()
 });
 
+$("#videotopcontentlist tbody").sortable({
+    "axis": "y",
+    "update": function(event,ui) {
+        saveOptions();
+    },
+})
+
 document.addEventListener("DOMContentLoaded", restoreOptions);

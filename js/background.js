@@ -1,7 +1,14 @@
-chrome.contextMenus.create({
-    id: "dicsearch",
-    title: 'ニコニコ大百科で %s を検索',
-    contexts: ["selection"]
+chrome.runtime.onInstalled.addListener(function (details) {
+    if (details.reason == "install") {
+        chrome.tabs.create({
+            url: chrome.runtime.getURL("pages/welcome.html")
+        });
+    }
+    chrome.contextMenus.create({
+        id: "dicsearch",
+        title: 'ニコニコ大百科で %s を検索',
+        contexts: ["selection"]
+    });
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -15,10 +22,36 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     }
 })
 
-chrome.runtime.onInstalled.addListener(function(details) {
-    if (details.reason == "install") {
-        chrome.tabs.create({
-            url: chrome.runtime.getURL("pages/welcome.html")
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type == "getThumbUrl") {
+        if ( message.smID != null || message.smID != undefined ){
+            fetch("https://ext.nicovideo.jp/api/getthumbinfo/" + message.smID, {'method': 'GET'}).then((res) => {
+                if( res.ok ) {
+                    res.text().then((data) => {
+                        sendResponse(data)
+                    })
+                } else {
+                    sendResponse({
+                        'status': false,
+                        'reason': 'API fetch failed'
+                    });
+                }
+            })
+            return true;
+        } else {
+            sendResponse({
+                'status': false,
+                'reason': 'smID is not defined'
+            });
+            return true;
+        }
+    } else {
+        sendResponse({
+            'status': false,
+            'reason': 'Invalid type or type is not defined'
         });
+        return true;
     }
+    //sendResponse({'status': false,'reason': 'Invalid error'});
+
 });

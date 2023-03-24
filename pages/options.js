@@ -42,6 +42,7 @@ function saveOptions() {
             //"theateruialwaysdark": $("#input-theateruialwaysdark").prop('checked'),
             "enablenicoboxui": $("#input-enablenicoboxui").prop('checked'),
             "usenicoboxui": $("#input-usenicoboxui").prop('checked'),
+            "useoldnicoboxstyle": $("#input-useoldnicoboxstyle").prop('checked'),
             "enabledlbutton": $("#input-enabledlbutton").prop('checked'),
             "hidesupporterbutton": $("#select-hidesupporterbutton").val(),
             // NicoPedia
@@ -105,6 +106,7 @@ function restoreOptions() {
         $("#input-usetheaterui").prop('checked', result.usetheaterui);
         //$("#input-theateruialwaysdark").prop('checked', result.theateruialwaysdark);
         $("#input-enablenicoboxui").prop('checked', result.enablenicoboxui);
+        $("#input-useoldnicoboxstyle").prop('checked', result.useoldnicoboxstyle);
         $("#input-usenicoboxui").prop('checked', result.usenicoboxui);
         $("#input-enabledlbutton").prop('checked', result.enabledlbutton);
         // NicoPedia
