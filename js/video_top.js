@@ -13,7 +13,7 @@ function createCSSRule(result) {
             if (object.dispstat == true) {
                 $('.BaseLayout-main-custom').append($(`.${object.classname}`).parent('.BaseLayout-block'))
             } else {
-                $(`.${object.classname}`).parent('.BaseLayout-block').css('display', 'none');
+                $(`.${object.classname}`).parent('.BaseLayout-block').remove()
             }
             $('.BaseLayout-main-custom').before($('.BaseLayout-main-custom > .BaseLayout-block'))
         })
@@ -23,10 +23,12 @@ function createCSSRule(result) {
     if (result.vidtoptwocolumn) {
         $('.BaseLayout-main').append('<div class="Baselayout-main-twocolumn BaseLayout-main-left" style="margin-top: 16px"></div><div class="Baselayout-main-twocolumn BaseLayout-main-right" style="margin-top: 16px"></div>');
         $('.BaseLayout-main .BaseLayout-block').each(function (i, elem) {
-            if ((i + 1) % 2 == 1) {
-                $('.BaseLayout-main-left').append(elem)
-            } else {
+            console.log(`${i + 1} ${(i + 1) % 2 === 0}`)
+            console.log(elem)
+            if ((i + 1) % 2 === 0) {
                 $('.BaseLayout-main-right').append(elem)
+            } else {
+                $('.BaseLayout-main-left').append(elem)
             }
         });
         $('.BaseLayout-main').css({
