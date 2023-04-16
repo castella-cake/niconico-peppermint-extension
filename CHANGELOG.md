@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - カスタム動画トップの上へ移動ボタンが、二行目に対して使えない問題を修正しました
+- シリーズページのダークモードサポートを改善しました
 
 ### Security
 - XSSに関する問題の軽減を行いました

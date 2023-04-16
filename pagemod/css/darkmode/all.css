@@ -409,6 +409,12 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 .SeriesAdditionalContainer, .SeriesMenuContainer-seriesList {
     background: var(--bgcolor2);
 }
+.ExpandableDescription .ExpandBox_is-expanded, .BlankState-title {
+    color: var(--textcolor1);
+}
+.NC-SeriesMediaObject .NC-MediaObject-contents {
+    background-color: var(--bgcolor2);
+}
 
 /* タグ */
 .TagItem-link {
