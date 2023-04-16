@@ -26,8 +26,34 @@ function appendTableRow(obj) {
         <td id="tablenextname">${nextname}</td>
         <td><button id="remove" type="button">×</button></td>
     </tr>`
-    console.log(`added series: ${addTable}`)
-    $('#serieslist tbody').append(addTable);
+    let tableelem = document.createElement('tr')
+
+    function addTDtoElem(id,text,elem) {
+        let td = document.createElement('td')
+        td.textContent = text
+        td.id = id
+        elem.appendChild(td)
+    }
+    let checktd = document.createElement('td')
+    let checkbox = document.createElement('input')
+    checkbox.id = 'input-tablecheck'
+    checkbox.setAttribute('type','checkbox')
+    checktd.appendChild(checkbox)
+    tableelem.appendChild(checktd)
+    addTDtoElem('tableid',obj.seriesID,tableelem)
+    addTDtoElem('tablename',obj.seriesName || '名称未設定',tableelem)
+    addTDtoElem('tablelastid',obj.lastVidID || '',tableelem)
+    addTDtoElem('tablelastname',obj.lastVidName,tableelem)
+    addTDtoElem('tablenextid',obj.nextVidID,tableelem)
+    addTDtoElem('tablenextname',obj.nextVidName,tableelem)
+    let removetd = document.createElement('td')
+    let removebtn = document.createElement('button')
+    removebtn.id = 'remove'
+    removebtn.setAttribute('type','button')
+    removebtn.textContent = '×'
+    removetd.appendChild(removebtn)
+    tableelem.appendChild(removetd)
+    document.querySelector('#serieslist tbody').appendChild(tableelem)
 }
 function saveOptions() {
     // 配列を作る

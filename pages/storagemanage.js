@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function showStorageData(result) {
         let storageText = JSON.stringify(result)
         console.log(storageText)
-        $('#storage-data').text(storageText)
+        document.querySelector('#storage-data').textContent = storageText
         $('#storagetoclipboard').on('click', function() {
             navigator.clipboard.writeText(storageText);
             $(this).text('コピーしました')

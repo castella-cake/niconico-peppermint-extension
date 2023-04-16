@@ -1,18 +1,83 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
+    if (result.replacemarqueecontent == "ranking") {
+        $(function () {
+            $('.Marquee-itemArea,.Marquee-buttonArea').remove()
+            chrome.runtime.sendMessage({ "type": "getRankingXml" }).then(res => {
+                // why chrome can't use domparser in service worker...
+                console.log(res)
+                let domparser = new DOMParser()
+                let parsedxml = domparser.parseFromString( res, "text/xml" );
+                console.log(parsedxml)
+                let xmlcontent = parsedxml.querySelectorAll("channel item")
+                console.log(xmlcontent[0].querySelector('title').textContent)
+                if (document.querySelector('.Marquee-itemArea,.Marquee-buttonArea') != null) {
+                    $('.Marquee-itemArea,.Marquee-buttonArea').remove()
+                }
+                let xmlloop = 0
+                $('.MarqueeContainer > div').append(`<div id="pm-marqueerankingbg"></div>`)
+                $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-current">${xmlloop + 1}</div>`)
+                $('.MarqueeContainer > div').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
+                if (xmlloop + 1 >= xmlcontent.length) {
+                    $('#pm-marqueerankingbg').append('<div id="pm-marqueerankingbg-next">1</div>')
+                } else {
+                    $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-next">${xmlloop + 2}</div>`)
+                }
+                console.log(xmlcontent.length)
+                setTimeout(function() {
+                    $('#pm-marqueerankingbg-current').css('animation', 'marqueebganim_1 0.5s linear forwards')
+                    $('#pm-marqueerankingbg-next').css('animation', 'marqueebganim_2 0.8s linear forwards')
+                }, 4200)
+                setTimeout(function() {
+                    $('#pm-marqueerankinglink').css('animation', 'fadeout 0.2s linear forwards')
+                }, 4500)
+                xmlloop = 1
+                setInterval(function() {
+                    setTimeout(function() {
+                    if(document.querySelector('#pm-marqueerankinglink') != null) {
+                        $('#pm-marqueerankingbg-current').remove()
+                        $('#pm-marqueerankingbg-next').remove()
+                        $('#pm-marqueerankinglink').remove()
+                    }
+                    $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-current">${xmlloop + 1}</div>`)
+                    $('.MarqueeContainer > div').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
+                    if (xmlloop + 1 >= xmlcontent.length) {
+                        $('#pm-marqueerankingbg').append('<div id="pm-marqueerankingbg-next">1</div>')
+                    } else {
+                        $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-next">${xmlloop + 2}</div>`)
+                    }
+                    xmlloop++
+                    if (xmlloop >= xmlcontent.length) {
+                        xmlloop = 0
+                    }
+                    }, 100)
+                    setTimeout(function() {
+                        $('#pm-marqueerankingbg-current').css('animation', 'marqueebganim_1 0.5s linear forwards')
+                        $('#pm-marqueerankingbg-next').css('animation', 'marqueebganim_2 0.8s linear forwards')
+                    }, 4200)
+                    setTimeout(function() {
+                        $('#pm-marqueerankinglink').css('animation', 'fadeout 0.2s linear forwards')
+                    }, 4500)
+                }, 5000);
+            })
+        })
+    } else if (result.replacemarqueecontent == "blank") {
+        pushCSSRule('.Marquee-itemArea,.Marquee-buttonArea {display:none;}')
+    }
+
     if (result.quickvidarticle == true) {
         $(function () {
             let diclink = "https://dic.nicovideo.jp/v/" + location.pathname.slice(7)
             $('.VideoTitle').append('<a href="' + diclink + '" style="width:16px;height:16px;display:inline-block;margin-left:5px;position:relative;top:5px;" class="Link NicoDicLink" target="_blank" rel="noopener noreferrer"><span class="NicoDicIcon is-available"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill="#fff" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.4"><path d="M4 12a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4h92a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4H62L50 24h38a4 4 0 0 1 4 4v68a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V28a4 4 0 0 1 4-4h18l12-12H4Zm26 52a2 2 0 0 0-2 2v20a2 2 0 0 0 2 2h40a2 2 0 0 0 2-2V66a2 2 0 0 0-2-2H30Zm0-28a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h40a2 2 0 0 0 2-2V38a2 2 0 0 0-2-2H30Z"></path></svg></span></a>')
         })
     }
-    if (result.usenicoboxui != true && result.usetheaterui == true ) {
+    if (result.usenicoboxui != true && result.usetheaterui == true) {
         // theater UI fallback
         addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
         addCSS(chrome.runtime.getURL("pagemod/css/header/black.css"))
     }
     if (result.usenicoboxui == true || result.usetheaterui == true) {
-        $('.VideoLiveTimeshiftContainer').css('text-align','center')
+        $('.VideoLiveTimeshiftContainer').css('text-align', 'center')
         $(function () {
             function ContainerResize(e) {
                 console.log('VideoSymbolContainer resized!')
@@ -52,7 +117,7 @@ function createCSSRule(result) {
                     $('.VideoContainer').css({
                         'width': '100vw'
                     })
-                    $('.HeaderContainer-searchBox').css('display','none')
+                    $('.HeaderContainer-searchBox').css('display', 'none')
                     ContainerResize(document.querySelector('.MainVideoPlayer video'))
                     $('.VideoTitle').css({
                         'position': 'fixed',
@@ -82,10 +147,10 @@ function createCSSRule(result) {
                     })
                 } else {
                     $('.WatchAppContainer-main').css({
-                        'width':'calc( 100% - 384px )',
-                        'left':'0',
-                        'margin':'0',
-                        'padding':'0px 0px'
+                        'width': 'calc( 100% - 384px )',
+                        'left': '0',
+                        'margin': '0',
+                        'padding': '0px 0px'
                     })
                     $('.MainVideoPlayer video').css({
                         'max-width': 'calc(100vw - 384px)'
@@ -93,7 +158,7 @@ function createCSSRule(result) {
                     $('.VideoContainer').css({
                         'width': 'calc(100vw - 384px)'
                     })
-                    $('.HeaderContainer-searchBox').css('display','inherit')
+                    $('.HeaderContainer-searchBox').css('display', 'inherit')
                     ContainerResize(document.querySelector('.MainVideoPlayer video'))
                     $('.VideoTitle').css({
                         'position': '',

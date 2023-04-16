@@ -32,7 +32,8 @@ function saveOptions() {
             "playertheme": $("#select-playertheme").val(),
             //"playerstyleoverride": $("#select-playerstyleoverride").val(),
             // Watchpage
-            "replacemarqueetext": $("#input-replacemarqueetext").prop('checked'),
+            //"replacemarqueetext": $("#input-replacemarqueetext").prop('checked'),
+            "replacemarqueecontent": $("#select-replacemarqueecontent").val(),
             "commentrow": $("#input-commentrow").val(),
             "cleanvidowner": $("#input-cleanvidowner").prop('checked'),
             "highlightlockedtag": $("#input-highlightlockedtag").prop('checked'),
@@ -97,7 +98,8 @@ function restoreOptions() {
         // TODO: 後回しのためとりあえずDisableに戻す
         //$("#select-playerstyleoverride").val("");
         // WatchPage
-        $("#input-replacemarqueetext").prop('checked', result.replacemarqueetext);
+        //$("#input-replacemarqueetext").prop('checked', result.replacemarqueetext);
+        $("#select-replacemarqueecontent").val(result.replacemarqueecontent || "");
         $("#input-highlightlockedtag").prop('checked', result.highlightlockedtag);
         $("#input-cleanvidowner").prop('checked', result.cleanvidowner);
         $("#input-commentrow").val(result.commentrow || 1);

@@ -120,15 +120,15 @@ async function seriesIsStocked(seriesid) {
         }
     });
 }
+function pushCSSRule(string) {
+    document.querySelector('#peppermint-css').textContent = document.querySelector('#peppermint-css').textContent + string
+}
 
 var getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
 getStorageData.then(createBaseCSSRule, onError);
 function createBaseCSSRule(result) {
     if (result.highlightnewnotice == true) {
         addCSS(chrome.runtime.getURL("pagemod/css/other/highlightnewnotice.css"))
-    }
-    if (result.hidepopup == true) {
-        addCSS(chrome.runtime.getURL("pagemod/css/hide/hidepopup.css"))
     }
     if (result.enablevisualpatch == true) {
         addCSS(chrome.runtime.getURL("pagemod/css/visualpatch.css"))

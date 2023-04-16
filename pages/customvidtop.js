@@ -12,13 +12,47 @@ $('a').on('click', function(e) {
 console.log('hello!')
 
 function appendTableRow(dispstat, contentname, contentclass) {
-    if (dispstat == true) { 
+    /*if (dispstat == true) { 
         var addTable = `<tr><td><input type="checkbox" id="disp" checked></td><td id="contentname">${contentname}</td><td id="contentclass">${contentclass}</td><td><button id="up" type="button">↑</button></td><td><button id="down" type="button">↓</button></td></tr>`
     } else {
         var addTable = `<tr><td><input type="checkbox" id="disp"></td><td id="contentname">${contentname}</td><td id="contentclass">${contentclass}</td><td><button id="up" type="button">↑</button></td><td><button id="down" type="button">↓</button></td></tr>`
     }
         console.log(`added row: ${addTable}`)
-    $('#videotopcontentlist tbody').append(addTable);
+    $('#videotopcontentlist tbody').append(addTable);*/
+    let tableelem = document.createElement('tr')
+    function addTDtoElem(id,text,elem) {
+        let td = document.createElement('td')
+        td.textContent = text
+        td.id = id
+        elem.appendChild(td)
+    }
+    let checktd = document.createElement('td')
+    let checkbox = document.createElement('input')
+    checkbox.id = 'disp'
+    checkbox.setAttribute('type','checkbox')
+    if (dispstat == true) { 
+        checkbox.setAttribute('checked', true)
+    }
+    checktd.appendChild(checkbox)
+    tableelem.appendChild(checktd)
+    addTDtoElem('contentname',contentname,tableelem)
+    addTDtoElem('contentclass',contentclass,tableelem)
+    let uptd = document.createElement('td')
+    let upbtn = document.createElement('button')
+    upbtn.id = 'up'
+    upbtn.setAttribute('type','button')
+    upbtn.textContent = '↑'
+    uptd.appendChild(upbtn)
+    tableelem.appendChild(uptd)
+
+    let downtd = document.createElement('td')
+    let downbtn = document.createElement('button')
+    downbtn.id = 'down'
+    downbtn.setAttribute('type','button')
+    downbtn.textContent = '↓'
+    downtd.appendChild(downbtn)
+    tableelem.appendChild(downtd)
+    document.querySelector('#videotopcontentlist tbody').appendChild(tableelem)
 }
 function saveOptions() {
     console.log('save!!!')
@@ -69,7 +103,7 @@ function restoreOptions() {
 $('#videotopcontentlist').on('click', '#up', function() {
     //一番最初の要素ではupは使えないようにする
     console.log(`never gonna give you up! ${$(this).parents('tr').index()}`)
-    if ($(this).parents('tr').index() > 1) {
+    if ($(this).parents('tr').index() > 0) {
         $(this).parents('tr').after($(this).parents('tr').prev('tr'))
     }
     saveOptions();

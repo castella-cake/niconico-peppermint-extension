@@ -308,7 +308,7 @@ function createCSSRule(result) {
             //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none')
             addCSS(chrome.runtime.getURL("pagemod/css/hide/hidepopup.css"));
         }
-        if (result.replacemarqueetext == true) {
+        if (result.replacemarqueecontent == "logo") {
             addCSS(chrome.runtime.getURL("pagemod/css/hide/replacemarqueetext.css"));
             /* 
             $(function() { 
@@ -322,6 +322,7 @@ function createCSSRule(result) {
                 $('.DefaultAnimator-text, .DefaultAnimator-category,.DefaultAnimator-excludeButton, .Marquee-buttonArea').css('display','none')
             });*/
         }
+
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
             if (result.watchpagetheme != "") {

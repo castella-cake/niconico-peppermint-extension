@@ -89,9 +89,19 @@
                     コメント入力欄の行数を拡張します。AAの最終確認に最適です。
                 </div>
             </div>
-            <div class="settings-row browser-style">
+            <!--<div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-replacemarqueetext">マーキーテキストをロゴに置き換え</label>
                 <div class="hint">動画の上部に表示されるマーキーテキストを、ニコニコロゴに置き換えます。</div>
+            </div>-->
+            <div class="settings-row browser-style">
+                <label>マーキーエリアコンテンツの置き換え
+                    <select id="select-replacemarqueecontent">
+                        <option value="">Disable</option>
+                        <option value="logo">ロゴに置き換え</option>
+                        <option value="ranking">ランキング表示</option>
+                        <option value="blank">何も表示しない</option>
+                    </select>
+                </label>
             </div>
             <div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-highlightlockedtag">ロック中のタグをハイライト</label>

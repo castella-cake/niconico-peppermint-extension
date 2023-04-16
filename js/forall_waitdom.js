@@ -4,6 +4,7 @@ $('body').append('<div class="pmbutton-container"></div>');
 //$('body').append('<div class="version-watermark" style="position: sticky; left:0; bottom:0px;color:#aaa;font-size:8px">Niconico-PepperMint Preview</div>');
 addCSS("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined")
 addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui.css"));
+$('html').append('<style id="peppermint-css"></style>')
 getStorageData.then(createBaseCSSRule, onError);
 function createBaseCSSRule(result) {
     $(function() {
@@ -56,30 +57,64 @@ function createBaseCSSRule(result) {
                     var getNewStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
                     getNewStorageData.then(function (newresult) {
                         $.each(newresult.stockedseries, function (i, object) {
-                            console.log(object)
+                            let seriesHref = `https://www.nicovideo.jp/series/${object.seriesID}`
+                            // ニコニコ動画は、watchページのリンクにクエリパラメータ playlist を渡すことで連続再生できるようになります
+                            // 内容はJSONで、Base64でエンコードします
                             let playlist = btoa(`{"type":"series","context":{"seriesId":${object.seriesID}}}`)
-                            let serieslinkhtml = `<div class="stockedseries-row"><div class="serieslink-container"><a class="stockedseries-row-link" href="https://www.nicovideo.jp/series/${object.seriesID}">${object.seriesName}</a><button id="removeseries" class="removeseries">削除</button></div></div>`
-                            let lastvidhtml = ``
-                            let nextvidhtml = ``
+                            // create row container dom
+                            let elem = document.createElement('div')
+                            elem.id = object.seriesID
+                            elem.classList.add('stockedseries-row')
+
+                            // create serieslink container
+                            let linkcontainer = document.createElement('div')
+                            linkcontainer.classList.add('serieslink-container')
+
+                            // create link
+                            let link = document.createElement('a')
+                            link.classList.add('stockedseries-row-link')
+                            link.setAttribute('href',seriesHref)
+                            link.textContent = object.seriesName
+                            linkcontainer.appendChild(link)
+                            // create remove button
+                            let removebutton = document.createElement('button')
+                            removebutton.id = 'removeseries'
+                            removebutton.textContent = '削除'
+                            linkcontainer.appendChild(removebutton)
+                            // push to row container
+                            elem.appendChild(linkcontainer)
+
+                            // create nextvid/lastvid link
+                            let lastvidlink = document.createElement('a')
+                            lastvidlink.classList.add('stockedseries-row-link')
                             if (object.lastVidID != undefined && object.lastVidName != undefined) {
-                                lastvidhtml = `<a class="stockedseries-row-link" href="https://www.nicovideo.jp/watch/${object.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}">最後に見た動画: ${object.lastVidName}</a>`
+                                lastvidlink.textContent = `最後に見た動画: ${object.lastVidName}`
+                                lastvidlink.setAttribute('href',`https://www.nicovideo.jp/watch/${object.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}`)
                             } else {
-                                lastvidhtml = `<span class="stockedseries-row-link" style="color: var(--textcolor3)">最後に見た動画が保存されていません</span>`
+                                lastvidlink.setAttribute('style','color: var(--textcolor3)')
+                                lastvidlink.textContent = `最後に見た動画が保存されていません`
                             }
+                            elem.appendChild(lastvidlink)
+                            let nextvidlink = document.createElement('a')
+                            nextvidlink.classList.add('stockedseries-row-link')
                             if (object.nextVidID != undefined && object.nextVidID != undefined) {
-                                nextvidhtml = `<a class="stockedseries-row-link" href="https://www.nicovideo.jp/watch/${object.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}">次の動画: ${object.nextVidName}</a>`
+                                nextvidlink.textContent = `次の動画: ${object.nextVidName}`
+                                nextvidlink.setAttribute('href',`https://www.nicovideo.jp/watch/${object.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}`)
                             } else {
-                                nextvidhtml = `<span class="stockedseries-row-link" style="color: var(--textcolor3)">次の動画が保存されていません</span>`
+                                nextvidlink.setAttribute('style','color: var(--textcolor3)')
+                                nextvidlink.textContent = `次の動画が保存されていません`
                             }
-                            $('.stockedserieslist-container').append(`<div class="stockedseries-row" id="${object.seriesID}"><div class="serieslink-container"><a class="stockedseries-row-link" href="https://www.nicovideo.jp/series/${object.seriesID}">${object.seriesName}</a><button id="removeseries" class="removeseries">削除</button></div>${lastvidhtml}${nextvidhtml}</div>`)
+                            elem.appendChild(nextvidlink)
+                            // push to stockedseries container
+                            document.querySelector('.stockedserieslist-container').appendChild(elem)
                         })
                     }, onError);
                 }
             })
     
             $(document).on('click', '#removeseries', function () {
-                manageSeriesStock($(this).prev().prop('href').slice(32))
-                $(this).parent('.stockedseries-row').remove()
+                manageSeriesStock(this.closest('.stockedseries-row').id)
+                this.closest('.stockedseries-row').remove()
             })
             $(document).on('click', '#togglelock', function () {
                 console.log($(this).text())
@@ -113,8 +148,12 @@ function createBaseCSSRule(result) {
         addCSS(chrome.runtime.getURL("pagemod/css/other/hidesupporter.css"))
     }
     $(document).on('click',function(e) {
-        if(!$(e.target).closest('.pmbutton-container').length) {
+        console.log(e.target.closest('.pmbutton-container'))
+        if(e.target.closest('.pmbutton-container') == null && e.target.id != 'removeseries') {
             $('.stockedserieswindow-container, .quickcommander-container').remove()
         }
     });
+    if (result.hidepopup == true) {
+        pushCSSRule('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer,.CreatorSupportAppealContainer {display:none;}')
+    }
 }

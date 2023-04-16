@@ -61,7 +61,7 @@
 .serieslink-container .stockedseries-row-link:hover {
 	color: var(--linktext2);
 }
-.removeseries {
+#removeseries {
 	color: var(--textcolor1);
 	background-color: var(--accent2);
 	border-radius: 5px;
@@ -115,4 +115,98 @@
 }
 .ui-draggable-dragging {
     opacity: 50%
+}
+
+.MarqueeContainer > div {
+    display: flex;
+}
+#pm-marqueerankinglink {
+	display: block;
+	line-height: 44px;
+	animation: fadein 0.1s linear forwards;
+	padding: 0px 32px;
+	width: 100%;
+	text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 5;
+}
+#pm-marqueerankingbg {
+	padding: 0px 8px 0px 32px;
+	display: flex;
+}
+#pm-marqueerankingbg::before {
+    position:absolute;
+    left: 0;
+    width: 32px;
+    background: linear-gradient(-90deg,rgba(0,0,0,0),rgba(0,0,0,255));
+    content: "";
+    top: 0;
+	display: block;
+	height: 44px;
+    z-index: 3;
+}
+#pm-marqueerankingbg::after {
+	position: absolute;
+	left: 80px;
+	width: 50px;
+	background: linear-gradient(90deg,rgba(0,0,0,0),rgb(0, 0, 0) 65%);
+	content: "";
+	top: 0;
+	display: block;
+	height: 44px;
+	z-index: 3;
+}
+#pm-marqueerankingbg-current, #pm-marqueerankingbg-next {
+    line-height: 44px;
+    font-weight: bold;
+    font-size: 32px;
+    font-style: italic;
+    opacity: 50%;
+}
+#pm-marqueerankingbg-next {
+    transform: translateY(15%) scale(0.6);
+    opacity: 30%
+}
+@keyframes fadeout {
+    0% {opacity: 100%;}
+    100% {opacity: 0%;}
+}
+@keyframes fadein {
+    0% {opacity: 0%;}
+    100% {opacity: 100%;}
+}
+@keyframes marqueebganim_1 {
+    0% { 
+        transform: translateX(0%) translateY(0%) scale(1.0);
+    }
+    50% {
+        transform: translateX(0%) translateY(15%) scale(0.6);
+    }
+    80% { 
+        transform: translateX(-100%) translateY(15%) scale(0.6);
+        opacity: 50%;
+    }
+    100% { 
+        transform: translateX(-100%) translateY(15%) scale(0.6);
+        opacity: 0%;
+    }
+}
+@keyframes marqueebganim_2 {
+    0% { 
+        transform: translateX(0%) translateY(15%) scale(0.6);
+    }
+    50% {
+        transform: translateX(-50%) translateY(15%) scale(0.6);
+        opacity: 30%;
+    }
+    95% { 
+        transform: translateX(-100%) translateY(0%) scale(1.0);
+        opacity: 50%;
+    }
+    100% { 
+        transform: translateX(-100%) translateY(0%) scale(1.0);
+        opacity: 50%;
+    }
 }

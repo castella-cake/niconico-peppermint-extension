@@ -67,3 +67,10 @@ body > * {
 .snslink > a {
 	color: #666;
 }
+@media (prefers-color-scheme: dark) {
+	html,
+	body {
+		background-color: #1c1b22;
+		color: #fff;
+	}
+}

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2023/04
+
+### Added
+- `マーキーエリアコンテンツの置き換え`を追加し、新たに`ランキング表示`と`何も表示しない`を追加しました
+- 設定のインポートに、信頼できないストレージに関する警告を追加しました
+- ウェルカムページをダークモード対応にしました
+
+### Fixed
+- カスタム動画トップの上へ移動ボタンが、二行目に対して使えない問題を修正しました
+
+### Security
+- XSSに関する問題の軽減を行いました
+
 ## [1.3.1] - 2023/03/26
 
 ### Fixed
