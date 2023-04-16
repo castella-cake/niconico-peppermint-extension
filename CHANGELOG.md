@@ -16,17 +16,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - カスタム動画トップの上へ移動ボタンが、二行目に対して使えない問題を修正しました
 - シリーズページのダークモードサポートを改善しました
 - シリーズストックウィンドウで「削除」を押しても、削除できない場合がある問題を修正しました
+- 動画トップ2カラムとカスタム動画トップを組み合わせた際に発生する問題を修正
 
 ### Removed
 - `マーキーテキストをロゴに置き換え`は`マーキーエリアコンテンツの置き換え`の追加により削除されました
 
 ### Security
 - XSSに関する問題の軽減を行いました
-
-## [1.3.1] - 2023/03/26
-
-### Fixed
-- 動画トップ2カラムとカスタム動画トップを組み合わせた際に発生する問題を修正
 
 ## [1.3.0] - 2023/03/23
 
@@ -268,7 +264,6 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
 [1.4.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.3.0..v1.4.0
-[1.3.1]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.3.0..v1.3.1
 [1.3.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.2.0..v1.3.0
 [1.2.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.1.0..v1.2.0
 [1.1.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.0.0..v1.1.0
