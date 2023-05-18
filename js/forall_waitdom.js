@@ -4,7 +4,17 @@ $('body').append('<div class="pmbutton-container"></div>');
 //$('body').append('<div class="version-watermark" style="position: sticky; left:0; bottom:0px;color:#aaa;font-size:8px">Niconico-PepperMint Preview</div>');
 addCSS("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined")
 addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui.css"));
-$('html').append('<style id="peppermint-css"></style>')
+if (document.getElementById('peppermint-css') == null || document.getElementById('peppermint-css') == undefined) {
+    let html = document.querySelector('html');
+    let peppermintStyle = document.createElement('style')
+    peppermintStyle.id = "peppermint-css"
+    html.appendChild(peppermintStyle)
+} else {
+    let html = document.querySelector('html');
+    let peppermintStyle = document.getElementById('peppermint-css')
+    html.appendChild(peppermintStyle)
+}
+
 getStorageData.then(createBaseCSSRule, onError);
 function createBaseCSSRule(result) {
     $(function() {
@@ -12,11 +22,17 @@ function createBaseCSSRule(result) {
             addCSS(chrome.runtime.getURL("pagemod/css/other/highlightnewnotice.css"), true);
         }
         if ( result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"), true);
-            if ( location.hostname != "game.nicovideo.jp" ) { addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all_compressed.css"), true);}
-            $('.NiconicoLogo_black').addClass('NiconicoLogo_white')
-            $('.NiconicoLogo_black').removeClass('NiconicoLogo_black')
-            $('.NicovideoLogo[data-color="black"]').attr('data-color',"white")
+            if (result.darkmode == 'custom') {
+                pushCSSRule(`:root{--bgcolor1:${result.customcolorpalette.bgcolor1};--bgcolor2:${result.customcolorpalette.bgcolor2};--bgcolor3:${result.customcolorpalette.bgcolor3};--bgcolor4:${result.customcolorpalette.bgcolor4};--textcolor1:${result.customcolorpalette.textcolor1};--textcolor2:${result.customcolorpalette.textcolor2};--textcolor3:${result.customcolorpalette.textcolor3};--textcolornew:${result.customcolorpalette.textcolornew};--accent1:${result.customcolorpalette.accent1};--accent2:${result.customcolorpalette.accent2};--hover1:${result.customcolorpalette.hover1};--hover2:${result.customcolorpalette.hover2};--linktext1:${result.customcolorpalette.linktext1};--linktext2:${result.customcolorpalette.linktext2};--linktext3:${result.customcolorpalette.linktext3};--nicoru1:${result.customcolorpalette.nicoru1};--nicoru2:${result.customcolorpalette.nicoru2};--nicoru3:${result.customcolorpalette.nicoru3};--nicoru4:${result.customcolorpalette.nicoru4};}`)
+            } else {
+                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
+            }
+            if ( location.hostname != "game.nicovideo.jp" ) { addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);}
+            if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
+                $('.NiconicoLogo_black').addClass('NiconicoLogo_white')
+                $('.NiconicoLogo_black').removeClass('NiconicoLogo_black')
+                $('.NicovideoLogo[data-color="black"]').attr('data-color',"white")
+            }
             //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
         } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
         if ( result.alignpagewidth == true ) {
@@ -146,6 +162,9 @@ function createBaseCSSRule(result) {
     });
     if ( result.hidesupporterbutton == "all" && !location.pathname.indexOf('/user') ) {
         addCSS(chrome.runtime.getURL("pagemod/css/other/hidesupporter.css"))
+    }
+    if (result.hidemetadata == "searchandhome" || result.hidemetadata == "all") {
+        pushCSSRule('.NC-VideoCard-metaCount,.NC-NicoadFrame_gold::after,.NC-NicoadFrame::after,.NC-VideoCard-metaCount,.itemData,.NC-VideoMediaObject-metaCount{display:none !important;}.NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary{min-height:20px;}.NC-MutedVideoCard,.NC-SensitiveVideoCard,.VideoItem.NC-Card,.RankingMatrixVideosRow{height:200px}')
     }
     $(document).on('click',function(e) {
         console.log(e.target.closest('.pmbutton-container'))

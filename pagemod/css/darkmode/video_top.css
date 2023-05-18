@@ -42,18 +42,8 @@
     background: linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 20px);
 }
 .RankingVideosContainer .NC-VideoCardWrapper::after {
-    border-bottom: 2px solid var(--accent1);
+    border-bottom: 2px solid var(--accent2);
 }
 .FollowingVideosContainer-ownerName {
     color: var(--textcolor1);
-}
-
-/* icons  */
-.RankingVideosContainer .ColumnTitle-icon,
-.ViewHistoriesContainer .ColumnTitle-icon,
-.NicoadVideosContainer .ColumnTitle-icon,
-.HotTagsContainer .ColumnTitle-icon,
-.NewArrivalVideosContainer .ColumnTitle-icon,
-.NewsNotificationContainer-column[data-sub-column="maintenance"] .ColumnTitle-icon {
-    filter: brightness(5.0)
 }

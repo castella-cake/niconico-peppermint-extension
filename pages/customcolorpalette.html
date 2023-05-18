@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="options.css"/>
+    </head>
+
+    <body class="width-big">
+        <div class="container">
+        <header class="title"><a href="option.html" target="_self"><</a>カスタムカラーパレットの設定</header>
+        <div class="page-desc">
+            カスタムカラーパレットの設定を行います。<br>
+            CSSで使用できるフォーマットで記述する必要があります。(htmlカラーコード,RGBA,etc)
+        </div>
+
+        <form id="settings-form">
+            <div class="settings-row browser-style">
+                <label>メインスキーム
+                    <select id="select-mainscheme">
+                        <option value="dark">Dark</option>
+                        <option value="light">Light</option>
+                    </select>
+                </label>
+                <div class="hint">
+                    このパレットがダークテーマであるか、ライトテーマであるかを選択します。<br>
+                    これはロゴやアイコン表示に影響します。
+                </div>
+            </div>
+            <div class="settings-row"><label>背景色1<input type="text" id="input-bgcolor1" value="#252525" placeholder="#252525"></div>
+            <div class="settings-row"><label>背景色2<input type="text" id="input-bgcolor2" value="#333" placeholder="#333"></div>
+            <div class="settings-row"><label>背景色3<input type="text" id="input-bgcolor3" value="#666" placeholder="#666"></div>
+            <div class="settings-row"><label>背景色4<input type="text" id="input-bgcolor4" value="#aaa" placeholder="#aaa"></div>
+            <div class="settings-row"><label>テキスト/アイコン色1<input type="text" id="input-textcolor1" value="#fff" placeholder="#fff"></div>
+            <div class="settings-row"><label>テキスト/アイコン色2<input type="text" id="input-textcolor2" value="#ddd" placeholder="#ddd"></div>
+            <div class="settings-row"><label>テキスト/アイコン色3<input type="text" id="input-textcolor3" value="#aaa" placeholder="#aaa"></div>
+            <div class="settings-row"><label>新着色<input type="text" id="input-textcolornew" value="#e05050" placeholder="#e05050"></div>
+            <div class="settings-row"><label>アクセント色1<input type="text" id="input-accent1" value="#444" placeholder="#444"></div>
+            <div class="settings-row"><label>アクセント色2<input type="text" id="input-accent2" value="#888" placeholder="#888"></div>
+            <div class="settings-row"><label>ホバー色1<input type="text" id="input-hover1" value="#666" placeholder="#666"></div>
+            <div class="settings-row"><label>ホバー色2<input type="text" id="input-hover2" value="#aaa" placeholder="#aaa"></div>
+            <div class="settings-row"><label>リンクテキスト色1<input type="text" id="input-linktext1" value="#8fb9df" placeholder="#8fb9df"></div>
+            <div class="settings-row"><label>リンクテキスト色2<input type="text" id="input-linktext2" value="#8ed9ff" placeholder="#8ed9ff"></div>
+            <div class="settings-row"><label>リンクテキスト色3<input type="text" id="input-linktext3" value="#008acf" placeholder="#008acf"></div>
+            <div class="settings-row"><label>ニコるグレード1背景<input type="text" id="input-nicoru1" value="rgba(201, 168, 62, 0.1)" placeholder="rgba(201, 168, 62, 0.1)"></div>
+            <div class="settings-row"><label>ニコるグレード2背景<input type="text" id="input-nicoru2" value="rgba(201, 168, 62, 0.2)" placeholder="rgba(201, 168, 62, 0.2)"></div>
+            <div class="settings-row"><label>ニコるグレード3背景<input type="text" id="input-nicoru3" value="rgba(201, 168, 62, 0.35)" placeholder="rgba(201, 168, 62, 0.35)"></div>
+            <div class="settings-row"><label>ニコるグレード4背景<input type="text" id="input-nicoru4" value="rgba(201, 168, 62, 0.5)" placeholder="rgba(201, 168, 62, 0.5)"></div>
+            <div class="settings-row">
+                <button id="reset" type="button">リセット</button>
+            </div>
+            </form>
+        </div>
+        <script src="../lib/jquery-3.6.3.min.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
+        <script src="customcolorpalette.js"></script>
+    </body>
+
+</html>

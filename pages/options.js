@@ -27,10 +27,10 @@ function saveOptions() {
             "hiderankpagead": $("#input-hiderankpagead").prop('checked'),
             "hideeventbanner": $("#input-hideeventbanner").prop('checked'),
             "hidepopup": $("#input-hidepopup").prop('checked'),
-            //"hidevidtopad": $("#input-hidevidtopad").prop('checked'),
+            "hidemetadata": $("#select-hidemetadata").val(),
             // Player
             "playertheme": $("#select-playertheme").val(),
-            //"playerstyleoverride": $("#select-playerstyleoverride").val(),
+            "playerstyleoverride": $("#select-playerstyleoverride").val(),
             // Watchpage
             //"replacemarqueetext": $("#input-replacemarqueetext").prop('checked'),
             "replacemarqueecontent": $("#select-replacemarqueecontent").val(),
@@ -92,11 +92,11 @@ function restoreOptions() {
         $("#input-hideeventbanner").prop('checked', result.hideeventbanner);
         $("#input-hidepopup").prop('checked', result.hidepopup);
         $("#select-hidesupporterbutton").val(result.hidesupporterbutton || "");
-        //$("#input-hidevidtopad").prop('checked',result.hidevidtopad);
+        $("#select-hidemetadata").val(result.hidemetadata || "");
         // Player
         $("#select-playertheme").val(result.playertheme || "");
         // TODO: 後回しのためとりあえずDisableに戻す
-        //$("#select-playerstyleoverride").val("");
+        $("#select-playerstyleoverride").val(result.playerstyleoverride || "");
         // WatchPage
         //$("#input-replacemarqueetext").prop('checked', result.replacemarqueetext);
         $("#select-replacemarqueecontent").val(result.replacemarqueecontent || "");
@@ -148,6 +148,8 @@ function restoreOptions() {
     }
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(setCurrentChoice, onError)
+    let flavortext = ['PepperMint+の開発コードネームは"Mentha"でした。','PepperMint+は、どこかの世界線ではPepperMintExとなっていたかもしれません。<br>しかし、これはExtensionと混同される可能性があるので、この世界線ではPlusになっています。','PepperMintはハッカを指します。ニコニコのハッカとの繋がりや、"ニコニコをハックする"、<br>"ハッカでニコニコをクールにする"の複数の意味を込めて、Niconico-PepperMintという名前になっています。超クールですよね？','- 「くれぐれも粘膜には塗らないように。たとえそれが薄めた状態であっても。」','- 「ちくわ大明神？誰ですかそれは？」','- 「リアルタイムでコメントを流す機構には絶対に触れないでください。それはあなたの家が燃える原因になります。」','- 「今のところ、ここを連打しても何も起きません。実績が欲しいのですか？」','- 「PepperMint+のGitログは見ないでください。開発者がこまめにコミットしていないことがバレてしまいます。」','- 「これがランダムに変わることは知っていますか？」','- 「JQueryは薬物です。プロジェクトが大規模になる前にいち早くやめておくことをおすすめします。私はやめられなくなりましたが。」']
+    document.getElementById('flavortext').innerHTML = flavortext[Math.floor(Math.random() * (flavortext.length))]
 }
 
 $("#settings-form").on('change', saveOptions);

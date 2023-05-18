@@ -9,7 +9,14 @@
 </head>
 
 <body>
-        <header class="title">PepperMint+の設定</header>
+    <div class="container">
+        <div class="title-container">
+            <div class="title toptitle"><a href="option.html" target="_blank" rel="noopener noreferrer" class="optlink">PepperMint+ の設定</a></div>
+            <div class="titlelink-container">
+                <a href="https://github.com/sponsors/castella-cake" target="_blank" rel="noopener noreferrer" class="titlelink">Donate</a>
+                <a href="https://github.com/castella-cake/niconico-peppermint-extension" target="_blank" rel="noopener noreferrer" class="titlelink">Github</a>
+            </div>
+        </div>
         <div class="settings-page-desc">
             PepperMint+ の設定を変更します。<br>
             この設定は、ツールバーボタン、もしくは拡張機能管理ページの設定から再度アクセスできます。
@@ -19,18 +26,6 @@
             <div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-hiderankpagead">ランキングページのニコニ広告行を隠す</label>
             </div>
-            <!--
-            <div class="settings-row browser-style">
-                <label>ジャンルと投稿日時以外のメタデータを隠す
-                    <select id="select-playertheme">
-                        <option value="">Disable</option>
-                        <option value="watch">視聴ページで</option>
-                        <option value="searchandhome">検索結果やホームで</option>
-                        <option value="all">両方で</option>
-                    </select>
-                </label>
-                <div class="hint">視聴回数、いいね数、マイリス数、コメント数、ランキング最高順位を隠します。</div>
-            </div>-->
             <div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-hideeventbanner">視聴ページ上のイベント告知バナーを隠す</label>
                 <div class="hint">プレイヤー上のマーキーテキストではありません！視聴ページでヘッダーの下に表示される、赤いイベント告知を隠します。</div>
@@ -49,17 +44,17 @@
                 </label>
                 <div class="hint">サポーターボタンを非表示にします。</div>
             </div>
-            <!-- <div class="settings-row browser-style">
-                <label>プレイヤースタイルのオーバーライド
-                    後回しのためdisabledにする
-                    <select id="select-playerstyleoverride" disabled>
-                        <option value="">Coming Soon™</option>
-                        <option value="harazyuku">原宿</option>
-                        <option value="mint">Mint</option>
-                        <option value="none">None</option>
+            <div class="settings-row browser-style">
+                <label>ジャンルと投稿日時以外のメタデータを隠す
+                    <select id="select-hidemetadata">
+                        <option value="">Disable</option>
+                        <option value="watch">視聴ページで</option>
+                        <option value="searchandhome">検索結果やホームで</option>
+                        <option value="all">両方で</option>
                     </select>
                 </label>
-                <div class="hint">プレイヤーの見た目を変更します。「プレイヤーテーマ」によって設定されたプレイヤースタイルも上書きします。</div> -->
+                <div class="hint">直感的な動画探索のために、視聴回数、いいね数、マイリス数、コメント数、ランキング最高順位を隠します。</div>
+            </div>
             <h1>WatchPage</h1>
             <div class="settings-row browser-style">
                 <label>視聴ページテーマ
@@ -83,6 +78,19 @@
                 <div class="hint">プレイヤーのレイアウトと見た目を一括変更します。</div>
             </div>
             <div class="settings-row browser-style">
+                <label>プレイヤースタイルのオーバーライド
+                    <select id="select-playerstyleoverride">
+                        <option value="">Disable</option>
+                        <option value="harazyuku">原宿</option>
+                        <option value="mint">Mint</option>
+                        <option value="rc1">RC1</option>
+                        <option value="rc1dark">RC1(Dark)</option>
+                        <option value="none">None</option>
+                    </select>
+                </label>
+                <div class="hint">プレイヤーの見た目を変更します。「プレイヤーテーマ」によって設定されたプレイヤースタイルも上書きします。</div>
+            </div>
+            <div class="settings-row browser-style">
                 <label>コメント入力欄行<input type="number" id="input-commentrow" min="1" max="32"
                         style="width: 5rem; margin-left: 8px"></label>
                 <div class="hint">
@@ -97,7 +105,6 @@
                 <label>マーキーエリアコンテンツの置き換え
                     <select id="select-replacemarqueecontent">
                         <option value="">Disable</option>
-                        <option value="logo">ロゴに置き換え</option>
                         <option value="ranking">ランキング表示</option>
                         <option value="blank">何も表示しない</option>
                     </select>
@@ -130,6 +137,10 @@
             <div class="settings-row browser-style">
                 <label><input type="checkbox" id="input-enabledlbutton">動画のダウンロードボタンを表示</label>
                 <div class="hint">左下に動画をダウンロードするボタンを表示します。一般的なダウンロード手順を短縮しているだけです。(チャンネル動画では利用できません)</div>
+            </div>
+            <div class="settings-row browser-style">
+                <label><input type="checkbox" id="input-quickvidarticle">動画記事ボタンを表示</label>
+                <div class="hint">ニコニコ大百科の動画記事へ繋がるボタンを表示します。</div>
             </div>
             <h1>NicoPedia</h1>
             <div class="settings-row browser-style">
@@ -179,13 +190,15 @@
             </div>
             <h1>Global</h1>
             <div class="settings-row browser-style">
-                <label>ダークモード
+                <label>ダークモード/カラーパレット
                     <select id="select-darkmode">
                         <option value="">Disable</option>
-                        <option value="pmcolor">Enable(PMColor)</option>
-                        <option value="spcolor">Enable(SPColor)</option>
-                        <option value="nordcolor">Enable(NordColor)</option>
-                        <option value="black">Enable(Black)</option>
+                        <option value="pmcolor">PMDark</option>
+                        <option value="spcolor">SPDark</option>
+                        <option value="nordcolor">NordNight</option>
+                        <option value="black">SolidBlack</option>
+                        <option value="cybernight">CyberNight</option>
+                        <option value="custom">カスタム設定</option>
                     </select>
                 </label>
                 <label><input type="checkbox" id="input-darkmodedynamic">ブラウザーに追従</label>
@@ -194,6 +207,7 @@
                     「ブラウザーに追従」を有効化した場合、ブラウザーがライトの場合はダークモードを使用しません。
                 </div>
             </div>
+            <a href="customcolorpalette.html" target="_self" class="settinglink">カスタムカラーパレットを設定(実験的)...</a>
             <div class="settings-row browser-style">
                 <label>ヘッダー背景
                     <select id="select-headerbg">
@@ -234,14 +248,6 @@
                 <div class="hint">動画トップのコンテンツを設定した内容で並び替えたり非表示にします。設定は下の「カスタム動画トップを設定」から設定します。</div>
             </div>
             <a href="customvidtop.html" target="_self" class="settinglink">カスタム動画トップを設定...</a>
-            <h1>Experimental</h1>
-            <div class="hint">
-                不安定または未完成の実験的な機能。<br>内容は変更されたり、削除される可能性があります。
-            </div>
-            <div class="settings-row browser-style">
-                <label><input type="checkbox" id="input-quickvidarticle">タイトルの後に動画記事へのリンクを表示</label>
-                <div class="hint">タイトルの後ろに動画記事へ繋がるアイコンを表示します。表示されない場合は、ページをリロードしてください。</div>
-            </div>
         </form>
         <div id="info-area">
             <div class="hint">
@@ -254,8 +260,10 @@
                 rel="noopener noreferrer">Website</a> <a href="https://twitter.com/CYaki_xcf" target="_blank"
                 rel="noopener noreferrer">@CYaki_xcf(更新情報もここから)</a>
             <a href="credit.html" target="_self" class="settinglink">PepperMintについて・インポート/エクスポート・リセット...</a>
+            <div class="flavortext" id="flavortext">あなたがこれを見ているなら、おそらくフレーバーテキストのランダマイズがうまく行かなかったということです。</div>
         </div>
         <div id="current-version"></div>
+    </div>
     <script src="../lib/jquery-3.6.3.min.js"></script>
     <script src="options.js"></script>
 </body>

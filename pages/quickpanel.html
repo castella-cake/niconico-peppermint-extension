@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>PepperMint+ クイックパネル</title>
+    <link rel="stylesheet" href="options.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="title-container">
+            <div class="title toptitle"><a href="option.html" target="_blank" rel="noopener noreferrer"
+                    class="optlink">PepperMint+</a></div>
+            <div class="titlelink-container">
+                <a href="https://github.com/sponsors/castella-cake" target="_blank" rel="noopener noreferrer"
+                    class="titlelink">Donate</a>
+                <a href="https://github.com/castella-cake/niconico-peppermint-extension" target="_blank"
+                    rel="noopener noreferrer" class="titlelink">Github</a>
+            </div>
+        </div>
+        <form id="settings-form">
+            <div class="settings-row browser-style">
+                <label>ダークモード/カラーパレット
+                    <select id="select-darkmode">
+                        <option value="">Disable</option>
+                        <option value="pmcolor">PMDark</option>
+                        <option value="spcolor">SPDark</option>
+                        <option value="nordcolor">NordNight</option>
+                        <option value="black">SolidBlack</option>
+                        <option value="cybernight">CyberNight</option>
+                        <option value="custom">Enable(Custom)</option>
+                    </select>
+                </label>
+                <label><input type="checkbox" id="input-darkmodedynamic">ブラウザーに追従</label>
+            </div>
+            <div class="settings-row browser-style">
+                <label>プレイヤーテーマ
+                    <select id="select-playertheme">
+                        <option value="">Disable</option>
+                        <option value="harazyuku">原宿</option>
+                        <option value="rc1">RC1</option>
+                        <option value="mint">Mint</option>
+                    </select>
+                </label>
+                <label><input type="checkbox" id="input-usetheaterui">シアターUIを使用</label>
+            </div>
+            <a href="option.html" target="_self" class="settinglink">クイック設定を開く</a>
+            <div id="content-area">
+            </div>
+        </form>
+        <div id="current-version"></div>
+    </div>
+    <script src="../lib/jquery-3.6.3.min.js"></script>
+    <script src="../lib/jquery-ui.min.js"></script>
+    <script src="quickpanel.js"></script>
+</body>
+
+</html>

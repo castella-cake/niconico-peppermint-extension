@@ -2,6 +2,13 @@
 function onError(error) {
     console.log(`Error: ${error}`);
 }
+
+if (document.getElementById('peppermint-css') == null || document.getElementById('peppermint-css') == undefined) {
+    let html = document.querySelector('html');
+    let peppermintStyle = document.createElement('style')
+    peppermintStyle.id = "peppermint-css"
+    html.appendChild(peppermintStyle)
+}
 function addCSS(cssfile, var1 = true, var2 = 'head', var3 = 'after') {
     // headの後にstylesheetとしてlinkをくっつけるやつ
     // 書き方: cssfile(必須), 二重書き防止(任意), after/before/appendに使う要素(任意), モード(after,before,append 任意)
@@ -19,18 +26,29 @@ function addCSS(cssfile, var1 = true, var2 = 'head', var3 = 'after') {
         }
         var mode = var3;
     }
-    if (document.querySelector(`link[href="${cssfile}"]`) == null || safeappend == false) {
+    let targetelem = document.querySelector(elementvar)
+    let link = document.createElement('link')
+    if ((document.querySelector(`link[href="${cssfile}"]`) == null || safeappend == false) && targetelem != null) {
+        link.setAttribute('rel','stylesheet')
+        link.setAttribute('href',cssfile)
         if (mode == 'after') {
-            $(elementvar).after($('<link>').attr({ 'rel': 'stylesheet', 'href': cssfile }));
+            targetelem.after(link)
         } else if (mode == 'before') {
-            $(elementvar).before($('<link>').attr({ 'rel': 'stylesheet', 'href': cssfile }));
+            targetelem.before(link)
         } else if (mode == 'append') {
-            $(elementvar).append($('<link>').attr({ 'rel': 'stylesheet', 'href': cssfile }));
+            targetelem.append(link)
         } else {
             mode = 'after(fallback)'
-            $(elementvar).after($('<link>').attr({ 'rel': 'stylesheet', 'href': cssfile }));
+            targetelem.after(link)
         }
         console.log(`CSS added( ${mode}: ${elementvar}, safeappend = ${safeappend} ): ${cssfile}`);
+    } else {
+        if (!(document.querySelector(`link[href="${cssfile}"]`) == null || safeappend == false)) {
+            console.warn(`addCSS() skipped because safeappend is enabled but already added`)
+        } else {
+            console.warn(`addCSS() skipped because targetelem is null`)
+        }
+        
     }
 }
 function removeCSS(cssfile) {
@@ -121,7 +139,13 @@ async function seriesIsStocked(seriesid) {
     });
 }
 function pushCSSRule(string) {
-    document.querySelector('#peppermint-css').textContent = document.querySelector('#peppermint-css').textContent + string
+    if (document.getElementById('peppermint-css') == null || document.getElementById('peppermint-css') == undefined) {
+        let html = document.querySelector('html');
+        let peppermintStyle = document.createElement('style')
+        peppermintStyle.id = "peppermint-css"
+        html.appendChild(peppermintStyle)
+    }
+    document.getElementById('peppermint-css').textContent = document.getElementById('peppermint-css').textContent + string
 }
 
 var getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
@@ -198,7 +222,7 @@ function createBaseCSSRule(result) {
                 '--textcolor1': '#fff',
                 '--textcolor2': '#ddd',
                 '--textcolor3': '#aaa',
-                '--textcolornew': '#e05050',
+                '--textcolornew': '#e05050',"
                 '--accent1': '#1e1e1e',
                 '--accent2': '#2a2a2a',
                 '--hover1': '#404040',
@@ -208,8 +232,13 @@ function createBaseCSSRule(result) {
                 '--linktext3': '#008acf',
             })
         }*/
-        addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
-        if ( location.hostname != "game.nicovideo.jp" ) { addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all_compressed.css"), true);}
+        if (result.darkmode == 'custom') {
+            pushCSSRule(`:root{--bgcolor1:${result.customcolorpalette.bgcolor1};--bgcolor2:${result.customcolorpalette.bgcolor2};--bgcolor3:${result.customcolorpalette.bgcolor3};--bgcolor4:${result.customcolorpalette.bgcolor4};--textcolor1:${result.customcolorpalette.textcolor1};--textcolor2:${result.customcolorpalette.textcolor2};--textcolor3:${result.customcolorpalette.textcolor3};--textcolornew:${result.customcolorpalette.textcolornew};--accent1:${result.customcolorpalette.accent1};--accent2:${result.customcolorpalette.accent2};--hover1:${result.customcolorpalette.hover1};--hover2:${result.customcolorpalette.hover2};--linktext1:${result.customcolorpalette.linktext1};--linktext2:${result.customcolorpalette.linktext2};--linktext3:${result.customcolorpalette.linktext3};--nicoru1:${result.customcolorpalette.nicoru1};--nicoru2:${result.customcolorpalette.nicoru2};--nicoru3:${result.customcolorpalette.nicoru3};--nicoru4:${result.customcolorpalette.nicoru4};}`)
+        } else {
+            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
+        }
+            
+        if ( location.hostname != "game.nicovideo.jp" ) { addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);}
         //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
     } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
     if (result.alignpagewidth == true) {

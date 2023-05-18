@@ -4,6 +4,24 @@
 	--destructive: #c50042;
 	--destructive-hover: #e22850;
 	--destructive-dark: #810220;
+    /* 基本背景色 */
+    --bgcolor1: #eee;
+    /* サブ背景色1 */
+    --bgcolor2: #ddd;
+    /* サブ背景色2 */
+    --bgcolor3: #ccc;
+    --bgcolor4: #bbb;
+    --textcolor1: #000;
+    --textcolor2: #333;
+    --textcolor3: #666;
+    --textcolornew: #e05050;
+    --accent1: #dadada;
+    --accent2: #c0c0c0;
+    --hover1: #fff;
+    --hover2: #aaa;
+    --linktext1: #008acf;
+    --linktext2: #008acf;
+    --linktext3: #008acf;
 }
 
 @keyframes fadeout {
@@ -51,6 +69,20 @@ h1 {
 	padding: 0 12px 12px;
 }
 
+.title>a {
+	font-size: 24px;
+	font-weight: bold;
+	text-decoration: none;
+	margin-right: 8px;
+	line-height: 24px;
+	color: unset;
+}
+
+.title-container {
+	display:flex;
+	justify-content: space-between;
+	padding: 15px 15px;
+}
 .title {
 	font-size: 24px;
 	padding: 15px 15px;
@@ -63,14 +95,25 @@ h1 {
 	line-height: 24px;
 	font-weight: lighter;
 }
-
-.title>a {
-	font-size: 24px;
-	font-weight: bold;
-	text-decoration: none;
-	margin-right: 8px;
+.toptitle {
+	padding: 0px;
+}
+.optlink {
+	font-weight: lighter !important;
+	color: inherit
+}
+.titlelink {
+	font-size: 18px;
+	border-bottom: 0px solid rgba(0, 0, 0, 0.5);
+	text-align: left;
+	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
+	letter-spacing: 1px;
+	/*background: #00796b;
+	box-shadow: 0px 0px 5px #000;*/
 	line-height: 24px;
-	color: unset;
+	font-weight: bold;
+	color: inherit;
+	margin-left: 8px;
 }
 
 #test-form>label {
@@ -91,6 +134,13 @@ h1 {
 	font-size: 10px;
 	font-style: italic;
 	margin-bottom: 2px;
+}
+
+.flavortext {
+	font-size: 10px;
+	font-style: italic;
+	margin-bottom: 2px;
+	text-align: center;
 }
 
 #save-form>button {
@@ -251,6 +301,62 @@ tr td:nth-child(7) {
 	max-width: 8rem;
 }
 
+.stockedserieswindow-container {
+    background: var(--bgcolor2);
+    width: 360px;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+    max-height: calc(100vh - 128px);
+    overflow-y: scroll;
+}
+.stockedseries-row {
+	margin: 5px 0;
+	border-bottom: 2px solid var(--bgcolor4);
+	border-radius: 5px;
+	background: var(--bgcolor1);
+	padding: 5px 8px;
+}
+.serieslink-container {
+	display: flex;
+}
+.stockedseries-row-link {
+	color: var(--linktext2);
+	text-overflow: ellipsis;
+	max-height: 24px;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	max-width: 100%;
+	line-height: 1;
+	margin: 8px 0px;
+	padding: 0;
+}
+
+.serieslink-container .stockedseries-row-link {
+	font-weight: bold;
+	font-size: 15px;
+	margin: 5px 0;
+	color: var(--textcolor1);
+}
+
+.serieslink-container .stockedseries-row-link:hover {
+	color: var(--linktext2);
+}
+#removeseries {
+	color: var(--textcolor1);
+	background-color: var(--accent2);
+	border-radius: 5px;
+	margin: auto 0 auto auto;
+}
+.togglelock {
+	color: var(--textcolor1);
+	background-color: var(--accent2);
+	border-radius: 5px;
+	margin: auto 0 auto auto;
+}
+
 @media (prefers-color-scheme: dark) {
 
 	html,
@@ -258,12 +364,36 @@ tr td:nth-child(7) {
 		background-color: #1c1b22;
 		color: #fff;
 	}
+	:root {
+	    /* 基本背景色 */
+		--bgcolor1: #252525;
+		/* サブ背景色1 */
+		--bgcolor2: #333;
+		/* サブ背景色2 */
+		--bgcolor3: #666;
+		--bgcolor4: #aaa;
+		--textcolor1: #fff;
+		--textcolor2: #ddd;
+		--textcolor3: #aaa;
+		--textcolornew: #e05050;
+		--accent1: #444;
+		--accent2: #888;
+		--hover1: #666;
+		--hover2: #aaa;
+		--linktext1: #8fb9df;
+		--linktext2: #8ed9ff;
+		--linktext3: #008acf;
+		--nicoru1: rgba(201, 168, 62, 0.1);
+		--nicoru2: rgba(201, 168, 62, 0.2);
+		--nicoru3: rgba(201, 168, 62, 0.35);
+		--nicoru4: rgba(201, 168, 62, 0.5);
+	}
 }
 
 @media (width:632px) {
 
 	html,
-	body {
+	body,.width-big {
 		width: 632px;
 		margin: 0;
 	}
@@ -285,13 +415,13 @@ tr td:nth-child(7) {
 @media (min-width:1280px) {
 
 	html,
-	body {
+	body,.width-big {
 		width: 100%;
 		margin: 0;
 		font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
 	}
 
-	body {
+	.container {
 		padding: 64px;
 	}
 
@@ -315,7 +445,7 @@ tr td:nth-child(7) {
 		font-family: "SF Pro Text", "Yu Gothic UI", "Meiryo UI", sans-serif;
 	}
 
-	.settings-row>label>input {
+	.settings-row>label>input[type="checkbox"] {
 		width: 16px;
 		height: 16px;
 	}

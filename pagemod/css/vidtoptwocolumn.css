@@ -60,6 +60,9 @@
 	flex-wrap: wrap;
 	height: unset;
 }
+.RecommendVideoContainer-videos {
+	justify-content: space-around;
+}
 .NicoadVideoItem + .NicoadVideoItem {
 	margin-left: 0px
 }

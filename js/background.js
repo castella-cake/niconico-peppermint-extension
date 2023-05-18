@@ -9,6 +9,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
         title: 'ニコニコ大百科で %s を検索',
         contexts: ["selection"]
     });
+    //chrome.alarms.create('seriesStock_Refresh', {delayInMinutes:60, PeriodInMinutes: 360})
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -70,3 +71,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     //sendResponse({'status': false,'reason': 'Invalid error'});
 
 });
+/*
+chrome.alarms.onAlerm.addListener(function(e) {
+    if (e.name == 'seriesStock_Refresh') {
+        let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+        getStorageData.then(function (result) {
+            if (result.enableseriesstock) {
+                fetch('https://nvapi.nicovideo.jp/v1/series/360103?_frontendId=6&_frontendVersion=0')
+            }
+        })
+    }
+})*/

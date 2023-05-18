@@ -8,10 +8,10 @@
 }
 /* メタデータ */
 .VideoUploadDateMeta-title,.VideoViewCountMeta-title,.CommentCountMeta-title,.MylistCountMeta-title,.VideoGenreMeta-title,.GenreRankMeta-genreName {
-    color: #dadada;
+    color: var(--textcolor2);
 }
 .VideoUploadDateMeta-dateTimeLabel,.VideoViewCountMeta-counter,.CommentCountMeta-counter,.MylistCountMeta-counter,.VideoGenreMeta-genreName,.VideoGenreMeta-link,.GenreRankMeta-yesterdayRank {
-    color: #cfcfcf;
+    color: var(--textcolor2);
 }
 .VideoMetaContainer > *, .VideoMetaOverflowMenuContainer {
     border-left: 1px solid var(--accent1);
@@ -38,13 +38,13 @@
     background-color: var(--bgcolor1);
 }
 .VideoMenuContainer-areaLeft .VideoMenuContainer-button,.SharePanelVisibleActionButton svg {
-    fill: #f0f0f0;
+    fill: var(--textcolor2);
 }
 .VideoMenuContainer .UadButtonBalloon {
-    background-color: #3f3f3f;
+    background-color: var(--accent1);
 }
 .PlayerPanelContainer {
-    background-color: #282828;
+    background-color: var(--bgcolor1);
 }
 .WatchRecommendation-heading {
     color: var(--textcolor3);
@@ -60,7 +60,7 @@
 }
 /* コメント表示 */
 .CommentPanelContainer {
-    background-color: #303030;
+    background-color: var(--bgcolor1);
 }
 .CommentPanelContainer .CommentPanelDataGrid {
     color: var(--textcolor1);
@@ -72,16 +72,16 @@
     background-color: var(--bgcolor3);
 }
 .CommentPanelContainer [data-row-nicoru-rank="1"] {
-    background:#454339;
+    background:var(--nicoru1);
 }
 .CommentPanelContainer [data-row-nicoru-rank="2"] {
-    background:#504b36;
+    background:var(--nicoru2);
 }
 .CommentPanelContainer [data-row-nicoru-rank="3"] {
-    background:#635d3c;
+    background:var(--nicoru3);
 }
 .CommentPanelContainer [data-row-nicoru-rank="4"] {
-    background:#715d0d;
+    background:var(--nicoru4);
 }
 /* タグ */
 .TagItem {
@@ -232,6 +232,13 @@
 }
 .VideoDescriptionExpander .VideoDescriptionExpander-switchExpand {
     background: linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%);
+}
+
+.VideoDescriptionSeriesContainer-seriesTitle {
+    color: var(--linktext1)
+}
+.VideoDescriptionSeriesContainer-itemTitle,.VideoDescriptionExpander .VideoDescriptionExpander-switch {
+    color: var(--linktext2)
 }
 
 /* ダークなコメントエリア */

@@ -5,9 +5,6 @@
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/ranking.css"));
         }
         if ( result.hiderankpagead == true ) {
-            $('.RankingMatrixNicoadsRow,.NC-NicoadMediaObject,.RankingMainNicoad').css('display', 'none');
-            $(function() {
-                $('.ContinuousPlayButtonTeaching,.NC-Balloon-arrowWrap').remove()
-            })
+            pushCSSRule('.RankingMatrixNicoadsRow,.NC-NicoadMediaObject,.RankingMainNicoad,.ContinuousPlayButtonTeaching,.NC-Balloon-arrowWrap{display: none};')
         }
     }

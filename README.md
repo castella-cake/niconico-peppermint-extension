@@ -1,9 +1,13 @@
 # Niconico-PepperMint+
 
-<img src="https://user-images.githubusercontent.com/65476384/227467934-a8654224-6a33-46b0-ba2d-fecd5071519d.png" width="50%"/>
+<img src="https://user-images.githubusercontent.com/65476384/227467934-a8654224-6a33-46b0-ba2d-fecd5071519d.png" width="40%"/>
+
+ニコニコ動画を、ちょっとクールに。  
+
 
 Niconico-PepperMint+は、「ニコニコ動画をちょっとクールに」を目標に開発している、   
-UserCSS版Niconico-PepperMintの後継として開発されている拡張機能です。   
+主にニコニコ動画向けの視覚的変更やシリーズストックなどの機能を提供する拡張機能です。   
+プロジェクトはMITライセンスで提供され、背後の面倒な規約などはありません。   
 Chrome Webstore: https://chrome.google.com/webstore/detail/niconico-peppermint+/oeadnodbjplclhibppgkkijomgcgochf   
 Firefox Add-ONS: https://addons.mozilla.org/ja/firefox/addon/niconico-peppermint/
 
@@ -57,11 +61,9 @@ Firefoxでは、新しいバージョンがある場合自動的にアップデ�
 5. ダウンロードしたzipファイルを読み込みます
 6. おわり
 
-# About ``create.bat``
-``create.bat``は、拡張機能をリリースするための作業を短縮するためのものです。  
-batを実行して、バージョン名を入力するだけで、buildフォルダー内に作成されます。  
-buildとは名ばかりで、Niconico-PepperMintはjavascriptとcssとhtmlで開発されているため、行っている作業はコピーと圧縮とリネームと削除のみです。  
-そのため、通常のテストにこのバッチファイルを使用する必要はありません。  
+# About create.bat
+``create.bat``を使用すると、FirefoxとChromium向けのリリース用フォルダーを簡単に作成できます。
+Chromium向けのデバッグにはこれを使用する必要がありますが、Firefoxでのデバッグにこのバッチファイルを使用する必要はありません。  
 
 # Feature
 実装済みの機能/実装予定の機能。
@@ -79,6 +81,7 @@ buildとは名ばかりで、Niconico-PepperMintはjavascriptとcssとhtmlで開
     - [x] 原宿風
     - [x] RC1風
     - [x] Mint
+- [ ] プレイヤースタイルのオーバーライド
 - [x] コメント入力欄行
 - [x] マーキーテキストをロゴに置き換え
 - [x] ロック中のタグをハイライト
@@ -133,6 +136,9 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 - [x] Google Chrome 110
 - [x] Vivaldi 5.6.2867.62
 - [x] Microsoft Edge 110
+
+# Donate
+今のところBuy me a coffeeやKo-fi,Pateron
 
 # License
 Niconico-PepperMint+のライセンスは``MIT License``です。  

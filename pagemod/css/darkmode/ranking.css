@@ -9,7 +9,7 @@
     background-color: var(--hove2);
 }
 .CustomButton > span {
-    color: #f0f0f0
+    color: var(--textcolor2)
 }
 .RankingFilterTag,.BaseRankingContentContainer.TrendyTagContainer .TrendyTagContainer-link {
     background: var(--accent1);
@@ -18,7 +18,7 @@
 .RankingFilterTag_active {
     background: #007cff;
     border-color: transparent;
-    color: #fff;
+    color: var(--textcolor1);
 }
 .RankingVideoListContainer > * {
     border-bottom: 2px solid var(--accent1);

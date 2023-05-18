@@ -3,8 +3,8 @@
     "name": "Niconico-PepperMint+",
     "short_name": "PepperMint+",
     "description": "ニコニコ動画をちょっとクールにする拡張機能",
-    "version": "1.4.0",
-    "version_name": "1.4.0",
+    "version": "1.5.0",
+    "version_name": "1.5.0",
     "developer": {
         "name": "CYakigasi"
     },
@@ -92,7 +92,7 @@
 
     "browser_action": {
         "browser_style": true,
-        "default_popup": "pages/option.html",
+        "default_popup": "pages/quickpanel.html",
         "default_icon": {
             "32": "icons/peppermint-logo-32.png",
             "64": "icons/peppermint-logo-64.png",

@@ -161,8 +161,11 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 .nico-CommonHeaderRoot .common-header-m6vxd,.nico-CommonHeaderRoot .common-header-1ke4cb6, .nico-CommonHeaderRoot .common-header-1xzs4ko,.nico-CommonHeaderRoot .common-header-o214xd,.nico-CommonHeaderRoot .common-header-15czeyj {
     background-color: var(--accent1) !important;
 }
-.nico-CommonHeaderRoot .common-header-8xay8a,.nico-CommonHeaderRoot .common-header-o214xd:hover,.nico-CommonHeaderRoot .common-header-1xzs4ko:hover,.nico-CommonHeaderRoot .common-header-z5pyn9:hover,.nico-CommonHeaderRoot .common-header-8g5w98:hover {
+.nico-CommonHeaderRoot .common-header-8xay8a {
     background-color: var(--accent2) !important;
+}
+.nico-CommonHeaderRoot .common-header-8g5w98:hover, .nico-CommonHeaderRoot .common-header-o214xd:hover,.nico-CommonHeaderRoot .common-header-1xzs4ko:hover,.nico-CommonHeaderRoot .common-header-z5pyn9:hover {
+    background-color: var(--hover2) !important;
 }
 .nico-CommonHeaderRoot .common-header-yxm7eu,.nico-CommonHeaderRoot .common-header-1xmxna8 {
     background-color: var(--bgcolor2) !important;

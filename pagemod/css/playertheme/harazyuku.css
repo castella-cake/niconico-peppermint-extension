@@ -34,16 +34,12 @@
     position: absolute !important;
     right: 317px;
 }
-.PlaybackRateButton {
-    padding-top:0px
-}
 .ControllerButton {
     margin-right: 3px;
 }
 .PlayerPlayTime {
     position:absolute;
     right:345px;
-    line-height:24px;
 }
 .SeekBarContainer {
     padding-left: 100px;
@@ -95,11 +91,4 @@
 }
 .ControllerBoxCommentAreaContainer .ControllerBoxCommentAreaContainer-commentPostAndLikeArea .CommentPostContainer {
     margin-right:0px
-}
-
-.PlayerRepeatOnButton,.PlayerRepeatOffButton,.CommentOnOffButton,.EnableFullScreenButton,.DisableFullScreenButton,.PlayerOptionButton {
-    background:transparent;
-    outline: 0px;
-    border:0px;
-    padding:2px;
 }

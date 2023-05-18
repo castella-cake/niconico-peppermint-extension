@@ -151,15 +151,18 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 .nico-CommonHeaderRoot .common-header-m6vxd,.nico-CommonHeaderRoot .common-header-1ke4cb6, .nico-CommonHeaderRoot .common-header-1xzs4ko,.nico-CommonHeaderRoot .common-header-o214xd,.nico-CommonHeaderRoot .common-header-15czeyj {
     background-color: var(--accent1) !important;
 }
-.nico-CommonHeaderRoot .common-header-8xay8a,.nico-CommonHeaderRoot .common-header-o214xd:hover,.nico-CommonHeaderRoot .common-header-1xzs4ko:hover,.nico-CommonHeaderRoot .common-header-z5pyn9:hover,.nico-CommonHeaderRoot .common-header-8g5w98:hover {
+.nico-CommonHeaderRoot .common-header-8xay8a {
     background-color: var(--accent2) !important;
+}
+.nico-CommonHeaderRoot .common-header-8g5w98:hover, .nico-CommonHeaderRoot .common-header-o214xd:hover,.nico-CommonHeaderRoot .common-header-1xzs4ko:hover,.nico-CommonHeaderRoot .common-header-z5pyn9:hover {
+    background-color: var(--hover2) !important;
 }
 .nico-CommonHeaderRoot .common-header-yxm7eu,.nico-CommonHeaderRoot .common-header-1xmxna8, .nico-CommonHeaderRoot .common-header-1q7xmj5 {
     background-color: var(--bgcolor2) !important;
-    color: #f0f0f0 !important;
+    color: var(--textcolor2) !important;
 }
 .nico-CommonHeaderRoot .common-header-jmhvxm,.nico-CommonHeaderRoot .common-header-n0qa7l,.nico-CommonHeaderRoot .common-header-ddpru6,.nico-CommonHeaderRoot .common-header-1yxywo9,.nico-CommonHeaderRoot .common-header-ndczso {
-    color: #f0f0f0 !important;
+    color: var(--textcolor2) !important;
 }
 .nico-CommonHeaderRoot .common-header-17kau2v svg path,.nico-CommonHeaderRoot .common-header-z0oejq svg path,.nico-CommonHeaderRoot .common-header-17qo8f1 path {
     fill: var(--textcolor1) !important;
@@ -179,7 +182,7 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 }
 .VideoTopGenreListContainer-item,.RankingGenreListContainer-item {
     background: var(--bgcolor2);
-    border: 1px solid #747474;
+    border: 1px solid var(--accent2);
 }
 .VideoTopGenreListContainer-item.is-current, .RankingGenreListContainer-item.is-current {
     background: var(--textcolor2);
@@ -188,7 +191,7 @@ a,.FrameTitleLink-titleText,.FrameTitle {
     color: var(--bgcolor1) !important;
 }
 .VideoTopGenreListContainer-item > a,.RankingGenreListContainer-item > a {
-    color: #f9f9f9;
+    color: var(--textcolor2);
 }
 /* 検索ボックス */
 .SearchBox-form {
@@ -199,15 +202,15 @@ a,.FrameTitleLink-titleText,.FrameTitle {
     color: var(--textcolor1)!important ;
 }
 .SearchBox-option {
-    background-color: var(--bgcolor3)!important ;
+    background-color: var(--bgcolor2)!important ;
     color: var(--textcolor1)!important ;
 }
 .SearchBox-option[data-active="true"] {
-    background-color: #1f1f1f!important ;
+    background-color: var(--bgcolor4)!important ;
 }
 /* 動画カードなど */
 .NC-Card .NC-CardTitle,.NewsNotificationList-item,.LiveWindowContainer-metaTitle {
-    color: #f5f5f5!important ;
+    color: var(--textcolor2)!important ;
 }
 
 /* フッターフィードバック */
@@ -475,4 +478,13 @@ a,.FrameTitleLink-titleText,.FrameTitle {
 }
 .___counter___Xdjcm > .score {
     color: var(--textcolor2)
+}
+
+.ExpandableDescription .ExpandBox_is-expanded,
+.BlankState-title {
+    color: var(--textcolor1)
+}
+
+.NC-SeriesMediaObject .NC-MediaObject-contents {
+    background-color: var(--bgcolor2)
 }
