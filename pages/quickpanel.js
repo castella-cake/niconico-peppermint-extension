@@ -103,6 +103,39 @@ function makeElem() {
                 // push to stockedseries container
                 document.getElementById('content-area').appendChild(elem)
             })
+        } else {
+            if (result.quickpanelisclosed != true) {
+                let elem_nothing_head = document.createElement('div')
+                elem_nothing_head.textContent = ":o"
+                elem_nothing_head.classList.add('nothing-here-head')
+                // Push Elem
+                document.getElementById('content-area').appendChild(elem_nothing_head)
+                let elem_nothing = document.createElement('div')
+                elem_nothing.innerHTML = "ここはPepperMint+のクイックパネルです。<br>「クイック設定を開く」もしくはタイトルをクリックして、設定に移動しましょう。<br>シリーズストックを有効化していると、ここにストック中のシリーズが表示されます。"
+                elem_nothing.classList.add('nothing-here')
+                // Push Elem
+                document.getElementById('content-area').appendChild(elem_nothing)
+                let elem_nothing_discard_container = document.createElement('div')
+                elem_nothing_discard_container.classList.add('nothing-here-discard-container')
+                let elem_nothing_discard = document.createElement('a')
+                elem_nothing_discard.innerHTML = "今後表示しない"
+                elem_nothing_discard.classList.add('nothing-here')
+                elem_nothing_discard.classList.add('nothing-here-discard')
+                elem_nothing_discard.id = 'nothing-here-discard'
+                // Push Elem
+                elem_nothing_discard_container.appendChild(elem_nothing_discard)
+                elem_nothing_discard.addEventListener('click', function(){
+                    elem_nothing.remove()
+                    elem_nothing_head.remove()
+                    elem_nothing_discard.remove()
+                    chrome.storage.sync.set(
+                        {
+                            "quickpanelisclosed": true
+                        }
+                    );
+                })
+                document.getElementById('content-area').appendChild(elem_nothing_discard_container)
+            }
         }
     }, onError);
 }

@@ -356,6 +356,29 @@ tr td:nth-child(7) {
 	border-radius: 5px;
 	margin: auto 0 auto auto;
 }
+.nothing-here-head {
+	margin: 8px 0px;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	color: #aaa;
+}
+.nothing-here {
+	margin: 2px 0px;
+	font-size: 12px;
+	text-align: center;
+	color: #aaa;
+}
+.nothing-here-discard {
+	background: none;
+	border: none;
+	cursor: pointer;
+	text-decoration: underline;
+}
+.nothing-here-discard-container {
+	display: flex;
+	justify-content: center;
+}
 
 @media (prefers-color-scheme: dark) {
 
