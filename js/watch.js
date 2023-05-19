@@ -307,7 +307,12 @@ function createCSSRule(result) {
     if (result.usenicoboxui != true && result.usetheaterui != true) {
         if (result.playertheme != "") {
             console.log(`CSS Loaded!`);
-            addCSS(chrome.runtime.getURL("pagemod/css/playertheme/" + result.playertheme + ".css"));
+            if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
+                addCSS(chrome.runtime.getURL("pagemod/css/playertheme/rc1.css"));
+            } else {
+                addCSS(chrome.runtime.getURL("pagemod/css/playertheme/" + result.playertheme + ".css"));
+            }
+            
             if (result.playertheme == "harazyuku") {
                 let lastbuttonwidth = (($(".ControllerContainer-area:last-child").length - 1) * 32) + 64
                 if (lastbuttonwidth - 172 != 0) {
@@ -330,10 +335,46 @@ function createCSSRule(result) {
                     pushCSSRule('.PlayerPauseButton,.PlayerPlayButton{left: 5px}.SeekToHeadButton{left: 10px}.PlayerSeekBackwardButton{left: 15px}.MuteVideoButton,.UnMuteVideoButton {right: 95px;}')
                 }
                 if (result.playertheme == "harazyuku" && result.playerstyleoverride != "harazyuku") {
-                    pushCSSRule('.ControllerContainer-inner { top:-3px; }.SeekBarContainer {padding-left: 120px;padding-right: 455px;}.PlayerPlayTime { right:350px; } .VolumeBarContainer { top:4px; }')
+                    pushCSSRule('.ControllerContainer-inner { top:-3px; }.SeekBarContainer {padding-left: 120px;padding-right: 455px;}.PlayerPlayTime { right:350px; } .VolumeBarContainer { top:4px; } .PlayerRepeatOnButton,.PlayerRepeatOffButton {padding: 8px 6px !important;}')
+                }
+                if (result.playertheme == "harazyuku" && result.playerstyleoverride == "mint") {
+                    pushCSSRule('.ControllerContainer-inner { top:-1px; } .VolumeBarContainer { top:2px; } .PlaybackRateButton,.PlayerPlayTime { top: -2px; } .PlayerRepeatOffButton {padding: 6px 4px !important;}')
+                }
+                if (result.playertheme == "harazyuku" && result.playerstyleoverride == "rc1") {
+                    pushCSSRule('.PlayerRepeatOffButton,.PlayerRepeatOnButton {padding: 2px 2px !important;} .SeekBarContainer {padding-left: 105px;padding-right: 455px;}')
                 }
                 if (result.playertheme == "harazyuku" && result.playerstyleoverride == "harazyuku") {
                     pushCSSRule('.PlayerRepeatOnButton,.PlayerRepeatOffButton,.CommentOnOffButton,.EnableFullScreenButton,.DisableFullScreenButton,.PlayerOptionButton {background:transparent;outline: 0px;border:0px;padding:2px;} .PlaybackRateButton { padding-top: 0px; } .PlayerPlayTime { line-height: 24px; }')
+                }
+                if (result.playertheme == "ginza" && result.playerstyleoverride == "harazyuku") {
+                    pushCSSRule(`.PlayerPlayButton,.PlayerPauseButton {
+                        left: 2px
+                    }
+                    .MuteVideoButton, .UnMuteVideoButton {
+                        right: 255px
+                    }
+                    .VolumeBarContainer {
+                        right: 155px
+                    }
+                    .SeekToHeadButton {
+                        left: 6px;
+                    }
+                    .PlayerSeekBackwardButton {
+                        left: 10px;
+                    }
+                    .PlayerSeekForwardButton {
+                        left: 14px;
+                    }
+                    .PlayerSkipNextButton {
+                        left: 18px;
+                    }
+                    .PlayerPlayTime {
+                        left: 155px;
+                    }
+                    .ControllerButton {
+                        top: 6px;
+                    }
+                    `)
                 }
                 if (result.playertheme == "mint" && ( result.playerstyleoverride == "rc1" || result.playerstyleoverride == "rc1dark")) {
                     pushCSSRule(`.PlayerPlayButton,.PlayerPauseButton {
@@ -370,13 +411,96 @@ function createCSSRule(result) {
                     }`)
                 }   
             } else {
-                addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playertheme + ".css"));
+                if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
+                    addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/rc1.css"));
+                } else {
+                    addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playertheme + ".css"));
+                }
                 if (result.playertheme == "mint") {
                     pushCSSRule('.PlayerPauseButton,.PlayerPlayButton {background-image: linear-gradient(#232323,#171717);outline: 1px solid #1c1c1c;outline-offset: -1px;height: 34px;}.PlayerPauseButton:hover,.PlayerPlayButton:hover {background-image: linear-gradient(#2a2a2a,#1b1b1b);}.ControllerButton svg {filter: drop-shadow(0px 0px 2px rgba(0,0,0 50%)) ;}.ControllerButton:hover svg {fill:#ffffff;filter: drop-shadow(0px 0px 2px rgba(128,128,128 100%));transition:all .1s ease .1s}')
                 }
                 if (result.playertheme == "harazyuku") {
                     pushCSSRule('.PlayerRepeatOnButton,.PlayerRepeatOffButton,.CommentOnOffButton,.EnableFullScreenButton,.DisableFullScreenButton,.PlayerOptionButton {background:transparent;outline: 0px;border:0px;padding:2px;} .PlaybackRateButton { padding-top: 0px; } .PlayerPlayTime { line-height: 24px; }')
                 }
+            }
+            if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
+                let centeroffset = 0
+                let volumeoffset = 0
+                if (result.playertheme == "rc1") {
+                    centeroffset = -20
+                    volumeoffset = 15
+                    pushCSSRule(`.PlayerRepeatOnButton,.PlayerRepeatOffButton,.CommentOnOffButton,.EnableFullScreenButton,.DisableFullScreenButton,.PlayerOptionButton {
+                        background:transparent;
+                        border: 0px;
+                    }
+                    .ControllerButton.PlayerRepeatOnButton svg path,.CommentOnOffButton svg,.EnableFullScreenButton svg,.DisableFullScreenButton svg,.PlayerOptionButton svg,.PlaybackRateButton svg  {
+                        fill: #494949 !important;
+                    }
+                    .PlayerSkipNextButton {
+                        display:none;
+                    }
+                    .VolumeBarContainer {
+                        width: 66px;
+                    }
+                    .VolumeBarContainer {
+                        position: absolute;
+                        right: ${195 + volumeoffset}px;
+                    }
+                    .PlayerRepeatOnButton,.PlayerRepeatOffButton,.CommentOnOffButton,.EnableFullScreenButton,.PlayerOptionButton {
+                        margin-right: 8px;
+                        height:30px;
+                        width:30px;
+                    }
+                    .PlayerRepeatOnButton,.PlayerRepeatOffButton,.CommentOnOffButton,.EnableFullScreenButton,.DisableFullScreenButton,.PlayerOptionButton {
+                        top:3px;
+                        padding:3px !important;
+                    }
+                    `)
+
+                }
+                pushCSSRule(`
+                .VolumeBarContainer {
+                    position: absolute;
+                    right: ${185 + volumeoffset}px;
+                }
+                .MuteVideoButton,.UnMuteVideoButton {
+                    position: absolute !important;
+                    right: ${275 + volumeoffset}px;
+                }
+                .PlayerSkipNextButton {
+                    position: absolute !important;
+                    right: ${310 + centeroffset}px;
+                }
+                .PlayerSeekForwardButton {
+                    position: absolute !important;
+                    right: ${343 + centeroffset}px;
+                }
+                .PlayerPlayTime {
+                    position:absolute;
+                    right: ${380 + centeroffset}px;
+                }
+                .SeekBarContainer {
+                    padding-left: 113px;
+                    padding-right: ${486 + centeroffset}px;
+                    padding-top: 0px;
+                    position: relative;
+                    height:1px
+                }
+                `)
+            }
+            if (result.playertheme == "rc1" && result.playerstyleoverride == "rc1dark" ) {
+                pushCSSRule(`.ControllerButton.PlayerRepeatOnButton svg path,.CommentOnOffButton svg,.EnableFullScreenButton svg,.DisableFullScreenButton svg,.PlayerOptionButton svg,.PlaybackRateButton svg  {
+                    fill: #aaa !important;
+                }`)
+            }
+            if (result.playertheme == "rc1" && result.playerstyleoverride == "harazyuku" ) {
+                pushCSSRule(`.ControllerButton.PlayerRepeatOnButton svg path,.CommentOnOffButton svg,.EnableFullScreenButton svg,.DisableFullScreenButton svg,.PlayerOptionButton svg,.PlaybackRateButton svg  {
+                    fill: #fff !important;
+                }
+                .PlayerRepeatOnButton,.PlayerRepeatOffButton,.CommentOnOffButton,.EnableFullScreenButton,.DisableFullScreenButton,.PlayerOptionButton {
+                    outline: none;
+                }
+                `)
             }
         }
         if (result.hidepopup == true) {

@@ -69,6 +69,8 @@ function makeElem() {
                 let link = document.createElement('a')
                 link.classList.add('stockedseries-row-link')
                 link.setAttribute('href',seriesHref)
+                link.target = "_blank"
+                link.rel = "noopener noreferrer"
                 link.textContent = object.seriesName
                 linkcontainer.appendChild(link)
                 // create remove button
@@ -82,6 +84,8 @@ function makeElem() {
                 // create nextvid/lastvid link
                 let lastvidlink = document.createElement('a')
                 lastvidlink.classList.add('stockedseries-row-link')
+                lastvidlink.target = "_blank"
+                lastvidlink.rel = "noopener noreferrer"
                 if (object.lastVidID != undefined && object.lastVidName != undefined) {
                     lastvidlink.textContent = `最後に見た動画: ${object.lastVidName}`
                     lastvidlink.setAttribute('href',`https://www.nicovideo.jp/watch/${object.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}`)
@@ -91,6 +95,8 @@ function makeElem() {
                 }
                 elem.appendChild(lastvidlink)
                 let nextvidlink = document.createElement('a')
+                nextvidlink.target = "_blank"
+                nextvidlink.rel = "noopener noreferrer"
                 nextvidlink.classList.add('stockedseries-row-link')
                 if (object.nextVidID != undefined && object.nextVidID != undefined) {
                     nextvidlink.textContent = `次の動画: ${object.nextVidName}`

@@ -247,7 +247,7 @@ function createCSSRule(result) {
                     childList: true
                 })
             }
-            if (result.playertheme == "rc1") {
+            if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
                 function updateOffset() {
                     //alert('Offset Changed!')
                     let lastareawidth = $(".ControllerContainer-area:last-child").width()
@@ -256,7 +256,12 @@ function createCSSRule(result) {
                     console.log(rightoffset)
                     if (rightoffset > 0) {
                         volwidth = 80 - rightoffset
-                        rightoffset += 185
+                        if (result.playertheme == "rc1") {
+                            rightoffset += 192
+                        } else {
+                            rightoffset += 185
+                        }
+                        
                         rightoffset = rightoffset + 'px'
                         console.log(rightoffset)
                         $('.VolumeBarContainer').css({

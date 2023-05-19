@@ -93,7 +93,7 @@
 
     "action": {
         "browser_style": true,
-        "default_popup": "pages/option.html",
+        "default_popup": "pages/quickpanel.html",
         "default_icon": {
             "32": "icons/peppermint-logo-32.png",
             "64": "icons/peppermint-logo-64.png",

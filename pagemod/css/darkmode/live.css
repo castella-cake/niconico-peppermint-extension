@@ -11,13 +11,13 @@
 .___toggle-button___LnwPF {
     background-color: var(--bgcolor3);
 }
-.___heading___lUv79,.___base-page___fYQlz,.___program-summary___SCX6j,.___heading___CJvYF,.___item___M8hMc,.___heading___F1uwm {
+.___heading___lUv79,.___base-page___fYQlz,.___program-summary___SCX6j,.___heading___CJvYF,.___item___M8hMc,.___heading___F1uwm,.___program-title___oYC8J {
     color: var(--textcolor1)
 }
-.___description___ggUkb,.___duration___JYN2p, .___start-at___lS5DV,.___content___nFXTd,.___name-label___nYx6H,.___related-anchor___YsMqK,.___more-anchor___d6ACJ,.___description___JRoJu,.___konomi-tag-match-counter___Fp4ev {
+.___description___ggUkb,.___duration___JYN2p, .___start-at___lS5DV,.___content___nFXTd,.___name-label___nYx6H,.___related-anchor___YsMqK,.___more-anchor___d6ACJ,.___description___JRoJu,.___konomi-tag-match-counter___Fp4ev,.___airtime___1huhR, .___onair-time___1L6el,.___channel-name___1YhCa {
     color: var(--textcolor2)
 }
-.___item___tKsP4,.___card___YL9vY > .program-summary {
+.___item___tKsP4,.___card___YL9vY > .program-summary,.___channel-supplier-name___1Hkev {
     color: var(--textcolor3);
 }
 .___symbol-mark___ZVkDe > path,.___heading___imORq > svg {

@@ -5,11 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [UnReleased] - 2023/05
+## [1.5.0] - 2023/05
 
 ### Added
 - `プレイヤースタイルのオーバーライド` を追加しました
-- `ジャンルと投稿日時以外のメタデータを隠す` を追加しました   
+- `ジャンルと投稿日時以外のメタデータを隠す` を追加しました
+- プレイヤーテーマに`GINZA`を追加しました   
+- プレイヤーテーマの`RC1`をPepperMintと同じものにし、`RC1Plus`を追加しました
 ついにPepperMintの主要機能が全て戻ってきました！   
 自分の好きなプレイヤーテーマとプレイヤースタイルをミックスしましょう。
 - `カスタムカラーパレット`を追加しました   
@@ -20,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 設定トップにGithubリポジトリへのリンクを設置しました
 - `動画記事ボタンを表示`を追加しました
 - クイックパネルを追加しました   
-これは、ツールバーからポップアップを開いたときの設定ページに代わって、クイックパネルが開くようになります。   
+今後はツールバーからポップアップを開いたときの設定ページに代わって、クイックパネルが開くようになります。   
 シリーズストックにいつでもアクセスできる新しい方法です。
 - 設定ページから新しいタブで設定ページを開けるようになりました
 - 設定ページにフレーバーテキストを追加しました
@@ -37,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - PeppermintUIは動画がフルスクリーンの場合に表示されないようになりました
 - 動画トップ2カラムのおすすめの動画表示を修正しました
+- ダークモード時のニコニコ生放送チャンネル視聴ページを修正しました
 
 ### Removed
 - ロゴポリシーに準拠するために、`マーキーエリアコンテンツの置き換え`から`ロゴに置き換え`を削除しました   
@@ -301,6 +304,7 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
+[1.4.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.4.0..v1.5.0
 [1.4.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.3.0..v1.4.0
 [1.3.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.2.0..v1.3.0
 [1.2.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.1.0..v1.2.0
