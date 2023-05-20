@@ -138,7 +138,8 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 - [x] Microsoft Edge 110
 
 # Donate
-今のところBuy me a coffeeやKo-fi,Pateron
+今のところBuy me a coffeeやKo-fi,Patreonは受けれないので、
+Github sponsorsで受け付けています。
 
 # License
 Niconico-PepperMint+のライセンスは``MIT License``です。  
