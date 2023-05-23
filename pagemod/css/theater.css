@@ -1,53 +1,271 @@
-.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
+.ControllerButton svg,
+.ControllerButton.PlayerRepeatOnButton svg path,
+.PlaybackRateButton svg {
     fill: #fff
 }
+
 .ControllerContainer-inner {
-    top:4px
+    top: 4px
 }
-.PlayerPauseButton, .PlayerPlayButton {
-	left: 50%;
-	right: 50%;
-	position: absolute !important;
-	transform: translate(-50%);
+
+.PlayerPauseButton,
+.PlayerPlayButton {
+    left: 50%;
+    right: 50%;
+    position: absolute !important;
+    transform: translate(-50%);
     padding: 2px;
 }
-.ControllerContainer-centerArea > .ControllerButton {
+
+.ControllerContainer-centerArea>.ControllerButton {
     padding: 5px
 }
+
 .PlayerOptionContainer {
     max-height: 330px;
 }
-.common-header-1v0m9lc,.common-header-1nvgp3g,.common-header-h0l8yl,.common-header-cdesjj,.common-header-171vphh,.common-header-wb7b82,.common-header-1ufbzdh,.common-header-654o26,.common-header-11u4gc2,.common-header-1pxv7y0,.commonHeaderArea,#CommonHeader {
+
+.common-header-1v0m9lc,
+.common-header-1nvgp3g,
+.common-header-h0l8yl,
+.common-header-cdesjj,
+.common-header-171vphh,
+.common-header-wb7b82,
+.common-header-1ufbzdh,
+.common-header-654o26,
+.common-header-11u4gc2,
+.common-header-1pxv7y0,
+.commonHeaderArea,
+#CommonHeader {
     background-color: #000 !important;
 }
-.HeaderContainer, .BottomSideContainer, .BottomMainContainer, .TagItem, .PlayerContainer, .ControllerBoxContainer {
+
+.HeaderContainer,
+.BottomSideContainer,
+.BottomMainContainer,
+.TagItem,
+.PlayerContainer,
+.ControllerBoxContainer {
     background-color: transparent !important;
 }
+
 .PlayerPanelContainer {
     border-top-left-radius: 16px;
 }
+
 .EasyCommentContainer-caption {
     display: none;
 }
-.VideoMenuContainer, .BottomContainer, .VideoMenuContainer-areaLeft, .VideoMenuContainer-areaRight {
+
+.VideoMenuContainer,
+.BottomContainer,
+.VideoMenuContainer-areaLeft,
+.VideoMenuContainer-areaRight {
     background-color: transparent;
 }
+
 .SearchBox-optionMenu {
     bottom: 32px
 }
 
-.VideoMenuContainer-areaLeft .VideoMenuContainer-button,.SharePanelVisibleActionButton svg {
+.VideoMenuContainer-areaLeft .VideoMenuContainer-button,
+.SharePanelVisibleActionButton svg {
     fill: #f0f0f0;
 }
 
 .VideoMenuContainer::after {
     border-bottom: none;
 }
-.CommentRenderer > canvas, .CommentRenderer, .VideoSymbolContainer {
+
+.CommentRenderer>canvas,
+.CommentRenderer,
+.VideoSymbolContainer {
     width: 100% !important;
     height: 100% !important;
 }
 
 .ControllerBoxContainer.is-fullscreen.is-fixedFullscreenController {
     background: transparent
+}
+
+.WatchAppContainer {
+    display: flex;
+}
+
+.MainContainer {
+    padding-top: 16px;
+    box-shadow: 0px 0px 0px #000;
+    width: 100%;
+    background: #000;
+    margin-bottom: 0px;
+}
+
+.MainContainer-player {
+    width: 100%
+}
+
+.WatchAppContainer-main {
+    width: calc(100vw - 384px) !important;
+    left: 0;
+    right: auto;
+    margin: 0 !important;
+    padding: 0px 0px;
+}
+
+.MainContainer-playerPanel {
+    position: fixed;
+    top: 36px;
+    height: calc(100% - 72px);
+    background: transparent;
+}
+
+.VideoContainer {
+    background: transparent;
+    margin: auto;
+    overflow: visible
+}
+
+.PlayerPanelContainer {
+    border-top-left-radius: 16px
+}
+
+.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand {
+    background: linear-gradient(90deg, hsla(0, 0%, 96%, 0), #fefefe 16%)
+}
+
+.HeaderContainer-searchBox {
+    position: fixed;
+    bottom: 0;
+    right: 0
+}
+
+.SearchBox-input {
+    width: 335px
+}
+
+.SearchBox {
+    width: 382px
+}
+
+.HeaderContainer {
+    width: 100%;
+    padding: 0px 8px 0;
+    margin: 0 0 0
+}
+
+.HeaderContainer-topArea {
+    text-align: center
+}
+
+.HeaderContainer-row .GridCell:last-child {
+    width: fit-content;
+    display: flex
+}
+
+.HeaderContainer-row {
+    width: fit-content;
+    display: flex;
+    margin: auto auto 12px
+}
+
+.VideoOwnerInfo {
+    position: absolute;
+    right: 0
+}
+
+.VideoDescriptionContainer {
+    margin: 0 auto;
+    margin-bottom: 16px
+}
+
+.SeekBar {
+    margin: auto 0
+}
+
+.PlayerPlayTime-playtime,
+.PlayerPlayTime-duration {
+    margin: auto 10px
+}
+
+.ControllerBoxContainer {
+    margin-top: 8px;
+    padding: 0 128px
+}
+
+.ControllerContainer {
+    height: 48px
+}
+
+.EasyCommentContainer {
+    height: auto
+}
+
+.EasyCommentButton {
+    background: transparent;
+    color: #fff;
+    border: 1px solid #aaa
+}
+
+.CommentPostContainer-commandInput,
+.CommentPostContainer-commentInput {
+    background: transparent
+}
+
+.CommentCommandInput,
+.CommentInput-textarea {
+    color: #fff
+}
+
+.CommentPostContainer-commentInput {
+    border-bottom: 2px solid #aaa;
+    border-top: 2px solid #aaa
+}
+
+.CommentPostContainer-commandInput {
+    border: 2px solid #aaa
+}
+
+.SeekBarContainer {
+    padding: 8px 16px 0;
+    display: flex
+}
+
+.SeekBar-buffered {
+    background-color: #666
+}
+
+.ControllerBoxCommentAreaContainer,
+.EasyCommentContainer {
+    background: transparent
+}
+
+.ControllerContainer {
+    z-index: 3
+}
+.PlayerPlayTime,.PlayTimeFormatter { 
+    color: #fff;
+    width: 40px;
+}
+.BaseLayout-main, .BaseLayout { background-color: #000 !important }
+.BottomContainer { background-color: transparent }
+.HeaderContainer { 
+    background: #000
+}
+.VideoDescriptionContainer { 
+    padding: 16px;
+    box-shadow: 0px 0px 5px rgba(255,255,255,0.3);
+    border-radius: 8px;
+    color: #fff
+}
+.VideoDescriptionExpander .VideoDescriptionExpander-switch { 
+    bottom: 8px;
+    text-align: center;
+    width: 100%;
+    background: linear-gradient(180deg,hsla(0,0%,96%,0),#000 25%)
+}
+.TagItem-name { color: #fff }
+.VideoMenuContainer { background: #000 }
+.ControllerBoxCommentAreaContainer { border-right: none }
+.TagContainer {
+    justify-content: center;
 }

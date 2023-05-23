@@ -165,7 +165,7 @@
 .GiftSubEffectGivenGift-giftPoint,.GiftSubEffectGivenGift-name,.GiftSubEffectRanker-rankerName,.GiftSubEffectRanker-honorificTitle,.GiftSubEffectGivenGift-honorificTitle {
     color:var(--textcolor3);
 }
-.GiftSubEffectGivenGift-giftName,.GiftSubEffectGivenGift-text {
+.GiftSubEffectGivenGift-giftName,.GiftSubEffectGivenGift-text, .GiftSubEffectDefault {
     color:var(--textcolor2);
 }
 .GiftSubEffectConductor {

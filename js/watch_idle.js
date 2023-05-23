@@ -70,6 +70,23 @@ function createCSSRule(result) {
         addCSS(chrome.runtime.getURL("pagemod/css/header/black.css"))
     }
     if (result.usenicoboxui == true || result.usetheaterui == true) {
+        let headercontainer = document.querySelector('.HeaderContainer')
+        let maincontainer = document.querySelector('.MainContainer')
+        let watchappcontainer = document.querySelector('.WatchAppContainer-main')
+        let playerpanelcontainer = document.querySelector('.MainContainer-playerPanel')
+        console.log(headercontainer)
+        console.log(maincontainer)
+
+        //headercontainer.insertBefore(maincontainer)
+        watchappcontainer.insertBefore(maincontainer,headercontainer)
+        //$('.HeaderContainer').before($('.MainContainer'));
+        watchappcontainer.after(playerpanelcontainer)
+        if (document.querySelector('.WakutkoolNoticeContainer') != null) {
+            watchappcontainer.insertBefore(document.querySelector('.WakutkoolNoticeContainer'),maincontainer)
+        }
+        if (document.querySelector('.EditorMenuContainer') != null) {
+            watchappcontainer.insertBefore(document.querySelector('.EditorMenuContainer'),maincontainer)
+        }
         $('.VideoLiveTimeshiftContainer').css('text-align', 'center')
         $(function () {
             function ContainerResize(e) {
@@ -94,7 +111,7 @@ function createCSSRule(result) {
             if (document.querySelector('.VideoContainer') != null) {
                 // theater and Nicobox UI
                 ContainerResize(document.querySelector('.MainVideoPlayer video'))
-                document.querySelector('.MainVideoPlayer video').addEventListener('canplay propertychange', ContainerResize)
+                //document.querySelector('.MainVideoPlayer video').addEventListener('canplay propertychange', ContainerResize)
             }
             function changeNoPanelUI(control) {
                 if (control) {
@@ -210,9 +227,9 @@ function createCSSRule(result) {
             observer.observe(playerpanel, {
                 attributeFilter: ['style']
             })
-            observer.observe(supporterview, {
-                attributeFilter: ['style']
-            })
+            //observer.observe(supporterview, {
+                //attributeFilter: ['style']
+            //})
         })
     }
 

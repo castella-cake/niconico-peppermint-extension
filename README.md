@@ -72,7 +72,7 @@ Chromium向けのデバッグにはこれを使用する必要がありますが
 - [x] 視聴ページ上のイベント告知バナーを隠す
 - [x] フォロー/サポーター/プレミアム会員勧誘を隠す
 - [x] サポーターボタンを隠す(視聴ページ,全ページ)
-- [ ] 投稿日時,ジャンル以外のメタデータを隠す
+- [x] 投稿日時,ジャンル以外のメタデータを隠す
 #### WatchPage
 - [x] 視聴ページテーマ
     - [x] Mint
@@ -80,8 +80,9 @@ Chromium向けのデバッグにはこれを使用する必要がありますが
 - [x] プレイヤーテーマ
     - [x] 原宿風
     - [x] RC1風
+    - [x] GINZA風
     - [x] Mint
-- [ ] プレイヤースタイルのオーバーライド
+- [x] プレイヤースタイルのオーバーライド
 - [x] コメント入力欄行
 - [x] マーキーテキストをロゴに置き換え
 - [x] ロック中のタグをハイライト
@@ -106,6 +107,10 @@ Chromium向けのデバッグにはこれを使用する必要がありますが
 - [x] ビジュアルパッチ
 - [x] spwatchリダイレクト
 - [x] シリーズストック
+    - [x] 追加機能
+    - [x] 最後に見た動画/次の動画記録
+    - [ ] リスト取得機能
+    - [ ] 新規エピソード通知機能
 - [x] カスタム動画トップ
 
 # Progress
@@ -138,8 +143,9 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 - [x] Microsoft Edge 110
 
 # Donate
-今のところBuy me a coffeeやKo-fi,Patreonは受けれないので、
-Github sponsorsで受け付けています。
+Github sponsorsで受け付けています。   
+https://github.com/sponsors/castella-cake   
+*- 「Ko-fi？Patreon？BuyMeACoffee？そんなもんないよ。できるならそうしたかったけど。」*
 
 # License
 Niconico-PepperMint+のライセンスは``MIT License``です。  

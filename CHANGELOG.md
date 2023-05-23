@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PeppermintUIは動画がフルスクリーンの場合に表示されないようになりました
 - 動画トップ2カラムのおすすめの動画表示を修正しました
 - ダークモード時のニコニコ生放送チャンネル視聴ページを修正しました
+- Firefox系環境で、遅いネットワークを使用している場合にシアターUI/Nicobox風UIが大幅に壊れる問題を修正しました
 
 ### Removed
 - ロゴポリシーに準拠するために、`マーキーエリアコンテンツの置き換え`から`ロゴに置き換え`を削除しました   

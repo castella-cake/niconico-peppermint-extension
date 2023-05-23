@@ -538,21 +538,6 @@ function createCSSRule(result) {
         addCSS(chrome.runtime.getURL("pagemod/css/nicobox-new.css"));
         $('body').css('background-color', '#fefefe')
         // 基本レイアウト変更
-        $('.WatchAppContainer').css('display', 'flex')
-        $('.HeaderContainer').before($('.MainContainer'));
-        $('.WatchAppContainer-main').after($('.MainContainer-playerPanel'));
-        $('.MainContainer').css({
-            'padding-top': '200px',
-            'box-shadow': '0px 0px 0px #000',
-            'width': '100%'
-        })
-
-        $('.WatchAppContainer-main').css({
-            'width': 'calc( 100% - 384px )',
-            'right': '384px',
-            'margin': '0 0 0 auto',
-            'padding': '0px 0px'
-        })
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}')
 
         $(function () {
@@ -581,6 +566,7 @@ function createCSSRule(result) {
             });
             $('.SeekBar').before($('.PlayerPlayTime-playtime'));
             $('.SeekBar').after($('.PlayerPlayTime-duration'));
+            /*
             $('.MainContainer-player').css({
                 'width': '100%'
             })
@@ -594,16 +580,10 @@ function createCSSRule(result) {
                 'background': 'transparent',
                 'margin': 'auto',
                 'overflow': 'visible'
-            })
-            if (document.querySelector('.WakutkoolNoticeContainer') != null) {
-                $('.MainContainer').before($('.WakutkoolNoticeContainer'))
-            }
-            if (document.querySelector('.EditorMenuContainer') != null) {
-                $('.MainContainer').before($('.EditorMenuContainer'))
-            }
+            })*/
             // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
             // かつてヘッダーだったもの(動画情報)
-            $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')
+            $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')/*
             $('.VideoTitle').css('color', '#10101f')
             $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background', 'linear-gradient(90deg,hsla(0,0%,96%,0),#f6f6f6 16%)')
             $('.HeaderContainer-searchBox').css({
@@ -612,9 +592,9 @@ function createCSSRule(result) {
                 'right': '0'
             })
             $('.SearchBox-input').css('width', '335px')
-            $('.SearchBox').css('width', '382px')
+            $('.SearchBox').css('width', '382px')*/
             $('.SearchBox-optionDown').text('▲')
-            $('.HeaderContainer').css({
+            /*$('.HeaderContainer').css({
                 'width': '100%',
                 'padding': '16px 64px 128px',
             })
@@ -670,23 +650,31 @@ function createCSSRule(result) {
             $('.ControllerBoxCommentAreaContainer, .EasyCommentContainer').css('background', 'transparent')
             $('.CommentOnOffButton').css('display', 'none')
             $('.SeekBar-buffered').css('background-color', '#666')
-            $('.ControllerContainer').css('z-index', '3')
+            $('.ControllerContainer').css('z-index', '3')*/
             // 不要な要素の削除
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer,.EasyCommentContainer-buttonBox').remove();
             window.scroll({ top: 0, behavior: 'smooth' });
             if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-                $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background', 'linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%)')
-                $('.SeekBar-played, .SeekBarHandle-handle, .VolumeBar-progress').css('background-color', '#fff')
-                $('.VideoTitle').css('color', 'var(--textcolor1)')
+                pushCSSRule(`
+                    .VideoDescriptionExpander .VideoDescriptionExpander-switchExpand {background: linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%)}
+                    .SeekBar-played, .SeekBarHandle-handle, .VolumeBar-progress { background-color: #fff}
+                    .VideoTitle {color: var(--textcolor1)}
+                `)
             } else {
-                $('.HeaderContainer').css({
-                    'background': '#f6f6f6'
-                })
-                $('.PlayerPlayTime').css({
-                    'color': '#1d2128',
-                })
-                $('.SeekBar-played, .SeekBarHandle-handle, .VolumeBar-progress').css('background-color', '#22f5dc')
-                $('.VideoTitle').css('color', '#10101f')
+                pushCSSRule(`
+                .HeaderContainer {
+                    background: #f6f6f6
+                }
+                .PlayerPlayTime {
+                    color: #1d2128
+                }
+                .SeekBar-played, .SeekBarHandle-handle, .VolumeBar-progress {
+                    background-color: #22f5dc
+                }
+                .VideoTitle {
+                    color: #10101f
+                }
+                `)
             }
         });
     } else if (result.usenicoboxui == true && result.useoldnicoboxstyle == true) {
@@ -698,49 +686,17 @@ function createCSSRule(result) {
         addCSS(chrome.runtime.getURL("pagemod/css/nicobox.css"));
         $('body').css('background-color', '#fefefe')
         // 基本レイアウト変更
-        $('.WatchAppContainer').css('display', 'flex')
-        $('.HeaderContainer').before($('.MainContainer'));
-        $('.WatchAppContainer-main').after($('.MainContainer-playerPanel'));
-        $('.MainContainer').css({
-            'padding-top': '200px',
-            'box-shadow': '0px 0px 0px #000',
-            'width': '100%'
-        })
-
-        $('.WatchAppContainer-main').css({
-            'width': 'calc( 100% - 384px )',
-            'right': '384px',
-            'margin': '0 0 0 auto',
-            'padding': '0px'
-        })
+        //nicobox.cssに移動
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}')
 
         $(function () {
             $('.SeekBar').before($('.PlayerPlayTime-playtime'));
             $('.SeekBar').after($('.PlayerPlayTime-duration'));
-            $('.MainContainer-player').css({
-                'width': '100%'
-            })
-            $('.MainContainer-playerPanel').css({
-                'position': 'fixed',
-                'top': '36px',
-                'height': 'calc( 100% - 72px )',
-                'background': 'transparent',
-            })
-            $('.VideoContainer').css({
-                'background': 'transparent',
-                'margin': 'auto',
-                'overflow': 'visible'
-            })
-            if (document.querySelector('.WakutkoolNoticeContainer') != null) {
-                $('.MainContainer').before($('.WakutkoolNoticeContainer'))
-            }
-            if (document.querySelector('.EditorMenuContainer') != null) {
-                $('.MainContainer').before($('.EditorMenuContainer'))
-            }
             // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
             // かつてヘッダーだったもの(動画情報)
             $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')
+            $('.SearchBox-optionDown').text('▲')
+            /*
             $('.VideoTitle').css('color', '#d85353')
             $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background', 'linear-gradient(90deg,hsla(0,0%,96%,0),#fefefe 16%)')
             $('.HeaderContainer-searchBox').css({
@@ -750,7 +706,7 @@ function createCSSRule(result) {
             })
             $('.SearchBox-input').css('width', '335px')
             $('.SearchBox').css('width', '382px')
-            $('.SearchBox-optionDown').text('▲')
+            
             $('.HeaderContainer').css({
                 'width': '100%',
                 'padding': '16px 64px 128px',
@@ -810,69 +766,30 @@ function createCSSRule(result) {
             $('.SeekBar-played, .SeekBarHandle-handle').css('background-color', '#d85353')
             $('.SeekBar-buffered').css('background-color', '#666')
             $('.ControllerContainer').css('z-index', '3')
+            */
             // 不要な要素の削除
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer,.EasyCommentContainer-buttonBox').remove();
             window.scroll({ top: 0, behavior: 'smooth' });
             if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-                $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background', 'linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%)')
+                pushCSSRule('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand {background: linear-gradient(90deg,hsla(0,0%,96%,0),var(--bgcolor1) 16%);}')
             } else {
-                $('.HeaderContainer').css({
-                    'background': '#fefefe'
-                })
-                $('.PlayerPlayTime').css({
-                    'color': '#1d2128',
-                })
+                pushCSSRule('.HeaderContainer {background: #fefefe;} .PlayerPlayTime { color: #1d2128; }')
             }
         });
     } else {
         // theater UI
+        $('body').css('background-color', '#000')
         $('body').removeClass('is-large')
         $('body').removeClass('is-medium')
         $('body').addClass('is-autoResize')
-        $('body').css('background-color', '#000')
+
         // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
         // video関連は早めにスタイルシートで書かないとコメントコンテナーやシンボルが動画サイズの変更を反映してくれない
         //addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
         // 基本レイアウト変更
-        $('.WatchAppContainer').css('display', 'flex')
-        $('.HeaderContainer').before($('.MainContainer'));
-        $('.WatchAppContainer-main').after($('.MainContainer-playerPanel'));
-        $('.MainContainer').css({
-            'padding-top': '16px',
-            'box-shadow': '0px 0px 0px #000',
-            'width': '100%',
-            'background': '#000',
-            'margin-bottom': '0px'
-        })
-        $('.MainContainer-player').css({
-            'width': '100%'
-        })
-        $('.WatchAppContainer-main').css({
-            'width': 'calc( 100vw - 384px )',
-            'left': '0',
-            'right': 'auto',
-            'margin': '0',
-            'padding': '0px 0px'
-        })
-        $('.MainContainer-playerPanel').css({
-            'position': 'fixed',
-            'top': '36px',
-            'height': 'calc( 100% - 72px )',
-            'background': 'transparent',
-        })
-        $('.VideoContainer').css({
-            'background': 'transparent',
-            'margin': 'auto',
-            'overflow': 'visible'
-        })
+        // theater.cssに移動
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}')
         $(function () {
-            if (document.querySelector('.WakutkoolNoticeContainer') != null) {
-                $('.MainContainer').before($('.WakutkoolNoticeContainer'))
-            }
-            if (document.querySelector('.EditorMenuContainer') != null) {
-                $('.MainContainer').before($('.EditorMenuContainer'))
-            }
             addCSS(chrome.runtime.getURL("pagemod/css/theater.css"));
             $('.SeekBar').before($('.PlayerPlayTime-playtime'));
             $('.SeekBar').after($('.PlayerPlayTime-duration'));
@@ -955,7 +872,7 @@ function createCSSRule(result) {
             if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
             }
-            $('.PlayerPlayTime,.PlayTimeFormatter').css({
+            /*$('.PlayerPlayTime,.PlayTimeFormatter').css({
                 'color': '#fff',
                 'width': '40px',
             })
@@ -981,7 +898,7 @@ function createCSSRule(result) {
             })
             $('.TagItem-name').css('color', '#fff')
             $('.VideoMenuContainer').css('background', '#000')
-            $('.ControllerBoxCommentAreaContainer').css('border-right','none')
+            $('.ControllerBoxCommentAreaContainer').css('border-right','none')*/
         });
 
     }
