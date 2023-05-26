@@ -2,10 +2,10 @@
 
 <img src="https://user-images.githubusercontent.com/65476384/227467934-a8654224-6a33-46b0-ba2d-fecd5071519d.png" width="40%"/>
 
-ニコニコ動画を、ちょっとクールに。  
+ニコニコ動画を、さらにクールに。  
 
 
-Niconico-PepperMint+は、「ニコニコ動画をちょっとクールに」を目標に開発している、   
+Niconico-PepperMint+は、「ニコニコ動画をさらにクールに」を目標に開発している、   
 主にニコニコ動画向けの視覚的変更やシリーズストックなどの機能を提供する拡張機能です。   
 プロジェクトはMITライセンスで提供され、背後の面倒な規約などはありません。   
 Chrome Webstore: https://chrome.google.com/webstore/detail/niconico-peppermint+/oeadnodbjplclhibppgkkijomgcgochf   
@@ -101,6 +101,8 @@ Chromium向けのデバッグにはこれを使用する必要がありますが
 - [x] ニコニコホームの最大幅を動画ホームに合わせる
 - [x] 新着通知に赤丸を表示
 - [x] 動画トップを2カラムで表示
+    - [x] 2カラム表示
+    - [ ] 画面幅が小さい場合に1カラムに戻す
 #### Global
 - [x] ダークモード
 - [x] ヘッダー背景色の変更
@@ -119,7 +121,7 @@ Chromium向けのデバッグにはこれを使用する必要がありますが
 - [x] メジャー機能をUserStyle版から移植する
 - [x] ダークモードをUserStyle版から移植する
 - [x] Chromium系との相性を確認する
-- [ ] マイナー機能をUserStyle版から移植する
+- [x] マイナー機能をUserStyle版から移植する
 
 # Support
 ## サービス
@@ -143,17 +145,16 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 - [x] Microsoft Edge 110
 
 # Donate
-Github sponsorsで受け付けています。   
-https://github.com/sponsors/castella-cake   
-*- 「Ko-fi？Patreon？BuyMeACoffee？そんなもんないよ。できるならそうしたかったけど。」*
+開発者への寄付に関しては、Github sponsorsで受け付けています。   
+https://github.com/sponsors/castella-cake
 
 # License
 Niconico-PepperMint+のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  
 
-Niconico-PepperMint内には、Material Iconsを使用している箇所があります。    
+Niconico-PepperMint内には、外部リソースとしてMaterial Iconsを使用している箇所があります。    
 Material Iconsは``Apache License 2.0`` のもとで配布されています。  
 Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
 
 Niconico-PepperMint内には、JQuery, JQuery UI, Nord が含まれています。
-JQuery, JQuery UI, Nordは``MIT License``のもとで配布されています。
+これらは``MIT License``のもとで配布されています。

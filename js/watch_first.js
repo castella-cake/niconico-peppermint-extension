@@ -67,4 +67,10 @@ function createCSSRule(result) {
         },300)
         chrome.storage.sync.set({"nicoboxuichanged": false});
     }
+    if (result.usenicoboxui != true && result.usetheaterui != true && result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+        if (result.watchpagetheme != "") {
+            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"));
+        }
+    }
 }

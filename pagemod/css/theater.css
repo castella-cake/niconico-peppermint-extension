@@ -129,9 +129,9 @@
     border-top-left-radius: 16px
 }
 
-.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand {
-    background: linear-gradient(90deg, hsla(0, 0%, 96%, 0), #fefefe 16%)
-}
+/*.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand {
+    background: linear-gradient(90deg, hsla(0, 0%, 96%, 0), #fefefe 16%) !important;
+}*/
 
 .HeaderContainer-searchBox {
     position: fixed;
@@ -261,7 +261,7 @@
     bottom: 8px;
     text-align: center;
     width: 100%;
-    background: linear-gradient(180deg,hsla(0,0%,96%,0),#000 25%)
+    background: linear-gradient(180deg,hsla(0,0%,96%,0),#000 25%) !important
 }
 .TagItem-name { color: #fff }
 .VideoMenuContainer { background: #000 }
