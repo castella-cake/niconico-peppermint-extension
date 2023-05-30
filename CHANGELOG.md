@@ -305,7 +305,7 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[1.4.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.4.0..v1.5.0
+[1.5.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.4.0..v1.5.0
 [1.4.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.3.0..v1.4.0
 [1.3.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.2.0..v1.3.0
 [1.2.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.1.0..v1.2.0
