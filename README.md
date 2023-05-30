@@ -2,10 +2,10 @@
 
 <img src="https://user-images.githubusercontent.com/65476384/227467934-a8654224-6a33-46b0-ba2d-fecd5071519d.png" width="40%"/>
 
-ニコニコ動画を、さらにクールに。  
+ニコニコ動画を、もっとクールに。  
 
 
-Niconico-PepperMint+は、「ニコニコ動画をさらにクールに」を目標に開発している、   
+Niconico-PepperMint+は、「ニコニコ動画をもっとクールに」を目標に開発している、   
 主にニコニコ動画向けの視覚的変更やシリーズストックなどの機能を提供する拡張機能です。   
 プロジェクトはMITライセンスで提供され、背後の面倒な規約などはありません。   
 Chrome Webstore: https://chrome.google.com/webstore/detail/niconico-peppermint+/oeadnodbjplclhibppgkkijomgcgochf   
@@ -143,6 +143,7 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 - [x] Google Chrome 110
 - [x] Vivaldi 5.6.2867.62
 - [x] Microsoft Edge 110
+- [x] Arc
 
 # Donate
 開発者への寄付に関しては、Github sponsorsで受け付けています。   

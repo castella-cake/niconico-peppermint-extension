@@ -305,6 +305,12 @@ function createCSSRule(result) {
         window.cursorY = e.pageY;
     });*/
     if (result.usenicoboxui != true && result.usetheaterui != true) {
+        if (result.usenicoboxui != true && result.usetheaterui != true && result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            if (result.watchpagetheme != "") {
+                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"));
+            }
+        }
         if (result.playertheme != "") {
             console.log(`CSS Loaded!`);
             if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
