@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.3] - 2023/05/31
+
+### Fixed
+- Chromium環境の場合、シリーズストックを一度も使用したことがない場合に、シリーズを保存できないバグを修正しました(3rd)
+- Chromium環境の場合、ダークモードをカスタムに設定し、カスタムカラーパレットを何も設定せずにページを開くと発生するバグを修正しました
+- クイックパネルと設定ページでダークモードのカスタム設定の名称が違う問題を修正しました
+
 ## [1.5.2] - 2023/05/31
 
 ### Fixed

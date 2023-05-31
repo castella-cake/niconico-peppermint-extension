@@ -23,6 +23,17 @@ function addToStock(newresult) {
             })
             $("#addtostock-text").text("ストックから削除")
         }
+    } else {
+            var currentstock = []
+            currentstock.push({ seriesID: location.pathname.slice(8), seriesName: $('.SeriesDetailContainer-bodyTitle').text() });
+            chrome.storage.sync.set({
+                "stockedseries": currentstock
+            })
+            $('#addtostock').text("remove")
+            $('#addtostock').css({
+                'background': '#d32f2f'
+            })
+            $("#addtostock-text").text("ストックから削除")
     }
 }
 
