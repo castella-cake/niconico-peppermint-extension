@@ -9,7 +9,7 @@ $('a').on('click', function(e) {
     }, 100)
 })
 
-console.log('hello!')
+//console.log('hello!')
 
 function appendTableRow(dispstat, contentname, contentclass) {
     /*if (dispstat == true) { 
@@ -17,7 +17,7 @@ function appendTableRow(dispstat, contentname, contentclass) {
     } else {
         var addTable = `<tr><td><input type="checkbox" id="disp"></td><td id="contentname">${contentname}</td><td id="contentclass">${contentclass}</td><td><button id="up" type="button">↑</button></td><td><button id="down" type="button">↓</button></td></tr>`
     }
-        console.log(`added row: ${addTable}`)
+        //console.log(`added row: ${addTable}`)
     $('#videotopcontentlist tbody').append(addTable);*/
     let tableelem = document.createElement('tr')
     function addTDtoElem(id,text,elem) {
@@ -55,7 +55,7 @@ function appendTableRow(dispstat, contentname, contentclass) {
     document.querySelector('#videotopcontentlist tbody').appendChild(tableelem)
 }
 function saveOptions() {
-    console.log('save!!!')
+    //console.log('save!!!')
     // 配列を作る
     var VideoTopArray = [];
 
@@ -67,7 +67,7 @@ function saveOptions() {
             VideoTopArray.push( { dispstat : $(elem).children('td:first-child').children('input').prop('checked'), dispname : $(elem).children('#contentname').text(), classname : $(elem).children('#contentclass').text() } );
         }
     });
-    console.log(VideoTopArray)
+    //console.log(VideoTopArray)
     // ストレージに突っ込む
     chrome.storage.sync.set({
         "customvideotop": VideoTopArray
@@ -88,10 +88,10 @@ function restoreOptions() {
         } else {
             VideoTopArray = result.customvideotop
         }
-        console.log(result.customvideotop)
+        //console.log(result.customvideotop)
         // ストレージからオブジェクト入り配列を引っ張ってきてeachで一個ずつ処理する
         $.each(VideoTopArray, function(i,object) {
-            console.log(object)
+            //console.log(object)
             appendTableRow(object.dispstat, object.dispname, object.classname)
         })
     }
@@ -102,7 +102,7 @@ function restoreOptions() {
 
 $('#videotopcontentlist').on('click', '#up', function() {
     //一番最初の要素ではupは使えないようにする
-    console.log(`never gonna give you up! ${$(this).parents('tr').index()}`)
+    //console.log(`never gonna give you up! ${$(this).parents('tr').index()}`)
     if ($(this).parents('tr').index() > 0) {
         $(this).parents('tr').after($(this).parents('tr').prev('tr'))
     }
@@ -110,7 +110,7 @@ $('#videotopcontentlist').on('click', '#up', function() {
 });
 $('#videotopcontentlist').on('click', '#down', function() {
     //一番最初の要素ではupは使えないようにする
-    console.log(`never gonna let you down! ${$(this).parents('tr').index()} ${$(this).parents('tr').next('tr').html()}`)
+    //console.log(`never gonna let you down! ${$(this).parents('tr').index()} ${$(this).parents('tr').next('tr').html()}`)
     if ($(this).parents('tr').next('tr').html() != undefined) {
         $(this).parents('tr').before($(this).parents('tr').next('tr'))
     }

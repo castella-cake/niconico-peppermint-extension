@@ -82,7 +82,7 @@ function saveOptions() {
             seriesArray.push(seriesobj);
         }
     });
-    console.log(seriesArray)
+    //console.log(seriesArray)
     // ストレージに突っ込む
     chrome.storage.sync.set({
         "stockedseries": seriesArray
@@ -99,7 +99,7 @@ function restoreOptions() {
     function setCurrentChoice(result) {
         // ストレージからオブジェクト入り配列を引っ張ってきてeachで一個ずつ処理する
         $.each(result.stockedseries, function(i,object) {
-            console.log(object)
+            //console.log(object)
             appendTableRow(object)
         })
     }

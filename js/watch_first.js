@@ -33,7 +33,7 @@ function addCSS(cssfile, var1 = true, var2 = 'head', var3 = 'after') {
             mode = 'after(fallback)'
             targetelem.after(link)
         }
-        console.log(`CSS added( ${mode}: ${elementvar}, safeappend = ${safeappend} ): ${cssfile}`);
+        //console.log(`CSS added( ${mode}: ${elementvar}, safeappend = ${safeappend} ): ${cssfile}`);
     }
 }
 var getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
@@ -46,7 +46,7 @@ function createCSSRule(result) {
         addCSS(chrome.runtime.getURL("pagemod/css/header/black.css"))
     }
     if (result.nicoboxuichanged == true) {
-        console.log('changed!')
+        //console.log('changed!')
         $('#CommonHeader')
         .css({
             'transform': 'translate(0, -100%)',

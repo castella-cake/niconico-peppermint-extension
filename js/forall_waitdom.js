@@ -38,14 +38,14 @@ function createBaseCSSRule(result) {
         if ( result.alignpagewidth == true ) {
             addCSS(chrome.runtime.getURL("pagemod/css/other/alignpagewidth.css"), true);
         } else {
-            console.log(result.alignpagewidth)
+            //console.log(result.alignpagewidth)
         }
         if (result.headerbg == "gradient") {
             addCSS(chrome.runtime.getURL("pagemod/css/header/gradient.css"), true);
         } else if (result.headerbg == "custom") {
             addCSS(chrome.runtime.getURL("pagemod/css/header/custom.css"), true);
             $('body').css('--headercolor', result.headercolor);
-            console.log(`HeaderBG changed to ${result.headercolor}`);
+            //console.log(`HeaderBG changed to ${result.headercolor}`);
         }
         if ( result.enableseriesstock == true && location.pathname == "/" && location.hostname == "www.nicovideo.jp" ){
             $('.pmbutton-container').append('<div class="openstock-container"><button id="openstock" class="material-icons mainaction-button" style="background: #00796b">folder</button></div>')
@@ -64,7 +64,7 @@ function createBaseCSSRule(result) {
                 $('#openstock-text').remove()
             })
             $('#openstock').on('click', function () {
-                console.log(document.querySelector('.stockedserieswindow-container') != null)
+                //console.log(document.querySelector('.stockedserieswindow-container') != null)
                 if (document.querySelector('.stockedserieswindow-container') != null) {
                     $('.stockedserieswindow-container').remove()
                 } else {
@@ -133,18 +133,18 @@ function createBaseCSSRule(result) {
                 this.closest('.stockedseries-row').remove()
             })
             $(document).on('click', '#togglelock', function () {
-                console.log($(this).text())
+                //console.log($(this).text())
                 if ($(this).text() == 'ロック解除') {
                     $(".stockedserieslist-container").sortable({
                         "axis": "y",
                         "update": function(event,ui) {
-                            console.log()
+                            //console.log()
                             let sortlist = $('.stockedserieslist-container').sortable("toArray")
                             var getNewStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
                             getNewStorageData.then(function (newresult) {
                                 let currentstock = newresult.stockedseries
                                 currentstock.sort((a,b) => sortlist.indexOf(a.seriesID) - sortlist.indexOf(b.seriesID))
-                                console.log(currentstock)
+                                //console.log(currentstock)
                                 chrome.storage.sync.set({
                                     "stockedseries": currentstock
                                 })
@@ -167,7 +167,7 @@ function createBaseCSSRule(result) {
         pushCSSRule('.NC-VideoCard-metaCount,.NC-NicoadFrame_gold::after,.NC-NicoadFrame::after,.NC-VideoCard-metaCount,.itemData,.NC-VideoMediaObject-metaCount{display:none !important;}.NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary{min-height:20px;}.NC-MutedVideoCard,.NC-SensitiveVideoCard,.VideoItem.NC-Card,.RankingMatrixVideosRow{height:200px}')
     }
     $(document).on('click',function(e) {
-        console.log(e.target.closest('.pmbutton-container'))
+        //console.log(e.target.closest('.pmbutton-container'))
         if(e.target.closest('.pmbutton-container') == null && e.target.id != 'removeseries') {
             $('.stockedserieswindow-container, .quickcommander-container').remove()
         }

@@ -16,7 +16,7 @@ function onError(error) {
 document.addEventListener("DOMContentLoaded", function () {
     function showStorageData(result) {
         let storageText = JSON.stringify(result)
-        console.log(storageText)
+        //console.log(storageText)
         document.querySelector('#storage-data').textContent = storageText
         $('#storagetoclipboard').on('click', function() {
             navigator.clipboard.writeText(storageText);

@@ -1,6 +1,6 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
-    console.log(result)
+    //console.log(result)
     // TODO: 将来的にbuttonに置き換える
     if (result.quickvidarticle == true) {
         $('.pmbutton-container').append('<div class="vidarticle-container subaction-container"><a id="openvidarticle" class="subaction-button">百</a></div>')
@@ -35,7 +35,7 @@ function createCSSRule(result) {
                             //console.log(`current series! ${smID}`)
                             object.lastVidID = smID
                             object.lastVidName = $('.VideoTitle').text()
-                            console.log($('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href'))
+                            //console.log($('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href'))
                             // 概要欄が開かれていない場合、.VideoDescriptionExpander-switch という要素に VideoDescriptionExpander-switchExpand というクラスが着く = nullではなくなる
                             if (document.querySelector('.VideoDescriptionExpander-switchExpand') != null) {
                                 // 概要欄から読み取るので、概要欄が開かれてないときは一瞬開いて読み取る
@@ -53,7 +53,7 @@ function createCSSRule(result) {
                                     object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
                                 }
                             }
-                            console.log(object)
+                            //console.log(object)
                         }
                     })
                     chrome.storage.sync.set({
@@ -64,7 +64,7 @@ function createCSSRule(result) {
             updateSeriesNextVid()
             // ニコニコは動画リンクを踏んだ時実際にはページを移動していないので、視聴回数の変更で動画の変更を検知する
             $('.VideoMetaContainer .VideoViewCountMeta').on('DOMSubtreeModified propertychange', function () {
-                console.log(`Video changed!!`)
+                //console.log(`Video changed!!`)
                 updateSeriesNextVid()
             });
 
@@ -80,9 +80,9 @@ function createCSSRule(result) {
                                 $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックに追加</span>')
                             }
                         }
-                        console.log(result)
+                        //console.log(result)
                     }).catch(error => {
-                        console.log(error);
+                        //console.log(error);
                     });
             })
             $('#addtostock').on('mouseleave', function () {
@@ -93,14 +93,14 @@ function createCSSRule(result) {
                     if (result) {
                         $('#addtostock').text("remove")
                     }
-                    console.log(result)
+                    //console.log(result)
                 }).catch(error => {
-                    console.log(error);
+                    //console.log(error);
                 });
             $('#addtostock').on('click', function () {
                 manageSeriesStock($('.SeriesBreadcrumbs-title').prop('href').slice(32), $('.SeriesBreadcrumbs-title').text())
                     .then(result => {
-                        console.log(result)
+                        //console.log(result)
                         if (result) {
                             $('#addtostock').text("remove")
                             $("#addtostock-text").text("シリーズをストックから削除")
@@ -110,7 +110,7 @@ function createCSSRule(result) {
                             $("#addtostock-text").text("シリーズをストックに追加")
                         }
                     }).catch(error => {
-                        console.log(error);
+                        //console.log(error);
                     });
             })
         } else {
@@ -224,7 +224,7 @@ function createCSSRule(result) {
         })
         $('#togglenicobox').on('click', ToggleNicobox);
         function ToggleNicobox() {
-            console.log(`Nicobox Toggled!!! ${result.usenicoboxui}`)
+            //console.log(`Nicobox Toggled!!! ${result.usenicoboxui}`)
             chrome.storage.sync.set({ "usenicoboxui": !result.usenicoboxui, "nicoboxuichanged": true });
             $('.togglenicobox-container').css('height', '52px')
             $('#togglenicobox').css({
@@ -312,7 +312,7 @@ function createCSSRule(result) {
             }
         }
         if (result.playertheme != "") {
-            console.log(`CSS Loaded!`);
+            //console.log(`CSS Loaded!`);
             if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
                 addCSS(chrome.runtime.getURL("pagemod/css/playertheme/rc1.css"));
             } else {
@@ -525,7 +525,7 @@ function createCSSRule(result) {
             }
         }
         if (result.watchpagetheme != "") {
-            console.log(`CSS Loaded!`);
+            //console.log(`CSS Loaded!`);
             addCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
         }
     } else if (result.usenicoboxui == true && result.useoldnicoboxstyle != true) {
@@ -549,10 +549,10 @@ function createCSSRule(result) {
         $(function () {
             chrome.runtime.sendMessage({ "type": "getThumbUrl", "smID": location.pathname.slice(7) }).then(res => {
                 // why chrome can't use domparser in service worker...
-                console.log(res)
+                //console.log(res)
                 let domparser = new DOMParser()
                 let parsedxml = domparser.parseFromString( res, "text/xml" );
-                console.log(parsedxml)
+                //console.log(parsedxml)
                 let thumburl = parsedxml.querySelector("thumbnail_url").textContent
                 $('html').css({
                     '--thumburl': "url(" + thumburl + ")",
@@ -560,10 +560,10 @@ function createCSSRule(result) {
             })
             $('.VideoMetaContainer .VideoViewCountMeta').on('DOMSubtreeModified propertychange', function() {
                 chrome.runtime.sendMessage({ "type": "getThumbUrl", "smID": location.pathname.slice(7) }).then(res => {
-                console.log(res)
+                //console.log(res)
                 let domparser = new DOMParser()
                 let parsedxml = domparser.parseFromString( res, "text/xml" );
-                console.log(parsedxml)
+                //console.log(parsedxml)
                 let thumburl = parsedxml.querySelector("thumbnail_url").textContent
                 $('html').css({
                     '--thumburl': "url(" + thumburl + ")",
@@ -908,5 +908,5 @@ function createCSSRule(result) {
         });
 
     }
-    console.log(`createCSSRule Finished!`)
+    //console.log(`createCSSRule Finished!`)
 }

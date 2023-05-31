@@ -5,12 +5,12 @@ function createCSSRule(result) {
             $('.Marquee-itemArea,.Marquee-buttonArea').remove()
             chrome.runtime.sendMessage({ "type": "getRankingXml" }).then(res => {
                 // why chrome can't use domparser in service worker...
-                console.log(res)
+                //console.log(res)
                 let domparser = new DOMParser()
                 let parsedxml = domparser.parseFromString( res, "text/xml" );
-                console.log(parsedxml)
+                //console.log(parsedxml)
                 let xmlcontent = parsedxml.querySelectorAll("channel item")
-                console.log(xmlcontent[0].querySelector('title').textContent)
+                //console.log(xmlcontent[0].querySelector('title').textContent)
                 if (document.querySelector('.Marquee-itemArea,.Marquee-buttonArea') != null) {
                     $('.Marquee-itemArea,.Marquee-buttonArea').remove()
                 }
@@ -23,7 +23,7 @@ function createCSSRule(result) {
                 } else {
                     $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-next">${xmlloop + 2}</div>`)
                 }
-                console.log(xmlcontent.length)
+                //console.log(xmlcontent.length)
                 setTimeout(function() {
                     $('#pm-marqueerankingbg-current').css('animation', 'marqueebganim_1 0.5s linear forwards')
                     $('#pm-marqueerankingbg-next').css('animation', 'marqueebganim_2 0.8s linear forwards')
@@ -74,8 +74,8 @@ function createCSSRule(result) {
         let maincontainer = document.querySelector('.MainContainer')
         let watchappcontainer = document.querySelector('.WatchAppContainer-main')
         let playerpanelcontainer = document.querySelector('.MainContainer-playerPanel')
-        console.log(headercontainer)
-        console.log(maincontainer)
+        //console.log(headercontainer)
+        //console.log(maincontainer)
 
         //headercontainer.insertBefore(maincontainer)
         watchappcontainer.insertBefore(maincontainer,headercontainer)
@@ -90,7 +90,7 @@ function createCSSRule(result) {
         $('.VideoLiveTimeshiftContainer').css('text-align', 'center')
         $(function () {
             function ContainerResize(e) {
-                console.log('VideoSymbolContainer resized!')
+                //console.log('VideoSymbolContainer resized!')
                 $('.CommentRenderer').css({
                     'width': $('.VideoContainer').width() + "px",
                     'height': $('.VideoContainer').height() + "px",
@@ -241,14 +241,14 @@ function createCSSRule(result) {
                 function updateOffset() {
                     //alert('Offset Changed!')
                     let lastareawidth = $(".ControllerContainer-area:last-child").width()
-                    console.log($(".ControllerContainer-area:last-child").width())
+                    //console.log($(".ControllerContainer-area:last-child").width())
                     let rightoffset = lastareawidth - 172
-                    console.log(rightoffset)
+                    //console.log(rightoffset)
                     if (rightoffset > 0) {
                         volwidth = 80 - rightoffset
                         rightoffset += 165
                         rightoffset = rightoffset + 'px'
-                        console.log(rightoffset)
+                        //console.log(rightoffset)
                         $('.VolumeBarContainer').css({
                             'right': rightoffset,
                             'width': volwidth
@@ -268,9 +268,9 @@ function createCSSRule(result) {
                 function updateOffset() {
                     //alert('Offset Changed!')
                     let lastareawidth = $(".ControllerContainer-area:last-child").width()
-                    console.log($(".ControllerContainer-area:last-child").width())
+                    //console.log($(".ControllerContainer-area:last-child").width())
                     let rightoffset = lastareawidth - 192
-                    console.log(rightoffset)
+                    //console.log(rightoffset)
                     if (rightoffset > 0) {
                         volwidth = 80 - rightoffset
                         if (result.playertheme == "rc1") {
@@ -280,7 +280,7 @@ function createCSSRule(result) {
                         }
                         
                         rightoffset = rightoffset + 'px'
-                        console.log(rightoffset)
+                        //console.log(rightoffset)
                         $('.VolumeBarContainer').css({
                             'right': rightoffset,
                             'width': volwidth
@@ -301,14 +301,14 @@ function createCSSRule(result) {
                 function updateOffset() {
                     //alert('Offset Changed!')
                     let lastareawidth = $(".ControllerContainer-area:last-child").width()
-                    console.log( $(".ControllerContainer-area:last-child").width() )
+                    //console.log( $(".ControllerContainer-area:last-child").width() )
                     let rightoffset = lastareawidth - 172
-                    console.log( rightoffset )
+                    //console.log( rightoffset )
                     if ( rightoffset > 0 ) {
                         volwidth = 80 - rightoffset
                         rightoffset += 165
                         rightoffset = rightoffset + 'px'
-                        console.log( rightoffset )
+                        //console.log( rightoffset )
                         $('.VolumeBarContainer').css({
                             'right': rightoffset,
                             'width': volwidth

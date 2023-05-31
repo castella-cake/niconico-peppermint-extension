@@ -19,7 +19,7 @@ function onError(error) {
 }
 
 function saveOptions() {
-    console.log(`submit!`)
+    //console.log(`submit!`)
     // storageに変更を書き込む。
     chrome.storage.sync.set(
         {

@@ -50,7 +50,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             fetch("https://www.nicovideo.jp/ranking/genre/all?rss=2.0", {method: 'GET'}).then((res) => {
                 if( res.ok ) {
                     res.text().then((data) => {
-                        console.log(data)
+                        //console.log(data)
                         sendResponse(data)
                     })
                 } else {

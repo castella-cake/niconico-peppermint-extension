@@ -16,9 +16,9 @@ $('a').on('click', function (e) {
 
 // button がclickされたときに発火！！！！(前はsubmitだったけど必要ないと思ったのでclickへ)
 function saveOptions() {
-    console.log(`submit!`)
+    //console.log(`submit!`)
     // storageに変更を書き込む。
-    console.log($("#input-alignpagewidth").prop('checked'))
+    //console.log($("#input-alignpagewidth").prop('checked'))
     chrome.storage.sync.set(
         {
             //"test_var": $("#test-form-input").val,
@@ -73,7 +73,7 @@ function saveOptions() {
     );
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(restoreOptions, onError)
-    console.log(`Saved!`)
+    //console.log(`Saved!`)
 }
 
 
@@ -144,7 +144,7 @@ function restoreOptions() {
         } else {
             $('#input-dicforcefullwidth').prop('disabled', false);
         }
-        console.log(result.alignpagewidth)
+        //console.log(result.alignpagewidth)
     }
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(setCurrentChoice, onError)

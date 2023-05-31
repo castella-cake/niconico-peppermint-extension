@@ -38,8 +38,10 @@ function createCSSRule(result) {
             $('.addtostock-container').append('<span id="addtostock-text" style="background: #ddd;padding: 5px;border-radius: 5px;margin-left: 5px;box-shadow: 0px 0px 5px rgba(0,0,0,40%); color: #000;">ストックに追加</span>')
             var getNewStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
             getNewStorageData.then(function (newresult) {
-                if (newresult.stockedseries.findIndex(series => series.seriesID === location.pathname.slice(8)) != -1) {
-                    $('#addtostock-text').text("ストックから削除")
+                if (newresult.stockedseries != undefined) {
+                    if (newresult.stockedseries.findIndex(series => series.seriesID === location.pathname.slice(8)) != -1) {
+                        $('#addtostock-text').text("ストックから削除")
+                    }
                 }
             }, onError);
         })

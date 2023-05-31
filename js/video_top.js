@@ -9,7 +9,7 @@ function createCSSRule(result) {
     if (result.hidevidtopad) {
         $('.VideoIntroductionAreaContainer').remove();
     }
-    console.log(location.pathname)
+    //console.log(location.pathname)
     if (result.enablecustomvideotop && result.customvideotop != undefined && (location.pathname == "/video_top" || location.pathname == "/video_top/")) {
         $('.BaseLayout-main').append('<div class="BaseLayout-main-custom" style="margin-top: 16px"></div>')
         $.each(result.customvideotop, function (i, object) {
@@ -26,8 +26,8 @@ function createCSSRule(result) {
     if (result.vidtoptwocolumn) {
         $('.BaseLayout-main').append('<div class="Baselayout-main-twocolumn BaseLayout-main-left" style="margin-top: 16px"></div><div class="Baselayout-main-twocolumn BaseLayout-main-right" style="margin-top: 16px"></div>');
         $('.BaseLayout-main .BaseLayout-block').each(function (i, elem) {
-            console.log(`${i + 1} ${(i + 1) % 2 === 0}`)
-            console.log(elem)
+            //console.log(`${i + 1} ${(i + 1) % 2 === 0}`)
+            //console.log(elem)
             if ((i + 1) % 2 === 0) {
                 $('.BaseLayout-main-right').append(elem)
             } else {
@@ -57,7 +57,7 @@ function createCSSRule(result) {
             $('#openstock-text').remove()
         })
         $('#openstock').on('click', function () {
-            console.log(document.querySelector('.stockedserieswindow-container') != null)
+            //console.log(document.querySelector('.stockedserieswindow-container') != null)
             if (document.querySelector('.stockedserieswindow-container') != null) {
                 $('.stockedserieswindow-container').remove()
             } else {
@@ -126,18 +126,18 @@ function createCSSRule(result) {
             this.closest('.stockedseries-row').remove()
         })
         $(document).on('click', '#togglelock', function () {
-            console.log($(this).text())
+            //console.log($(this).text())
             if ($(this).text() == 'ロック解除') {
                 $(".stockedserieslist-container").sortable({
                     "axis": "y",
                     "update": function(event,ui) {
-                        console.log()
+                        //console.log()
                         let sortlist = $('.stockedserieslist-container').sortable("toArray")
                         var getNewStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
                         getNewStorageData.then(function (newresult) {
                             let currentstock = newresult.stockedseries
                             currentstock.sort((a,b) => sortlist.indexOf(a.seriesID) - sortlist.indexOf(b.seriesID))
-                            console.log(currentstock)
+                            //console.log(currentstock)
                             chrome.storage.sync.set({
                                 "stockedseries": currentstock
                             })

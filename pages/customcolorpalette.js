@@ -16,7 +16,7 @@ $('a').on('click', function (e) {
 
 // button がclickされたときに発火！！！！(前はsubmitだったけど必要ないと思ったのでclickへ)
 function saveOptions() {
-    console.log(`submit!`)
+    //console.log(`submit!`)
     // storageに変更を書き込む。
     chrome.storage.sync.set({customcolorpalette:
         {
@@ -45,7 +45,7 @@ function saveOptions() {
     });
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(restoreOptions, onError)
-    console.log(`Saved!`)
+    //console.log(`Saved!`)
 }
 
 

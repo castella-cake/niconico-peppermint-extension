@@ -41,7 +41,7 @@ function addCSS(cssfile, var1 = true, var2 = 'head', var3 = 'after') {
             mode = 'after(fallback)'
             targetelem.after(link)
         }
-        console.log(`CSS added( ${mode}: ${elementvar}, safeappend = ${safeappend} ): ${cssfile}`);
+        //console.log(`CSS added( ${mode}: ${elementvar}, safeappend = ${safeappend} ): ${cssfile}`);
     } else {
         if (!(document.querySelector(`link[href="${cssfile}"]`) == null || safeappend == false)) {
             console.warn(`addCSS() skipped because safeappend is enabled but already added`)
@@ -55,7 +55,7 @@ function removeCSS(cssfile) {
     // 同じlinkを2回書かないように対策されてるやつ
     if (document.querySelector(`link[href="${cssfile}"]`) != null) {
         $(`link[href="${cssfile}"]`).remove();
-        console.log(`CSS removed: ${cssfile}`);
+        //console.log(`CSS removed: ${cssfile}`);
     } else {
         onError(`link element ${cssfile} is not found!`)
     }
@@ -74,7 +74,7 @@ function manageSeriesStock(seriesid, seriesname = '名称未設定') {
                     chrome.storage.sync.set({
                         "stockedseries": newstock
                     }).then(() => {
-                        console.log(`Removed series from stock: id = ${seriesid}, name = ${seriesname}`)
+                        //console.log(`Removed series from stock: id = ${seriesid}, name = ${seriesname}`)
                         resolve(false)
                     })
                 } else {
@@ -83,7 +83,7 @@ function manageSeriesStock(seriesid, seriesname = '名称未設定') {
                     chrome.storage.sync.set({
                         "stockedseries": currentstock
                     }).then(() => {
-                        console.log(`Added series to stock: id = ${seriesid}, name = ${seriesname}`)
+                        //console.log(`Added series to stock: id = ${seriesid}, name = ${seriesname}`)
                         resolve(true)
                     })
                 }
@@ -112,7 +112,7 @@ function keypress_event(e) {
     if((e.key === 'q' || e.key === 'Q') && !$(e.target).closest("input, textarea").length ){
         $('img,span,a,svg,li,div > div > div').each(function(i, elem) {
             setTimeout( function () {
-                console.log('hello!')
+                //console.log('hello!')
                 $(elem).css({
                     'transition': 'transform 1s ease-in',
                     'transform': 'translate(0,800px)'
@@ -127,10 +127,10 @@ async function seriesIsStocked(seriesid) {
     return new Promise((resolve, reject) => {
         try {
             chrome.storage.sync.get(["stockedseries"], function (stockdata) {
-                console.log(seriesid)
+                //console.log(seriesid)
                 let currentstock = stockdata.stockedseries || [];
-                console.log(stockdata)
-                console.log(currentstock.findIndex(series => series.seriesID === seriesid) != -1)
+                //console.log(stockdata)
+                //console.log(currentstock.findIndex(series => series.seriesID === seriesid) != -1)
                 resolve(currentstock.findIndex(series => series.seriesID === seriesid) != -1);
             });
         } catch (error) {
@@ -170,6 +170,6 @@ function createBaseCSSRule(result) {
     if (result.alignpagewidth == true) {
         addCSS(chrome.runtime.getURL("pagemod/css/other/alignpagewidth.css"));
     } else {
-        console.log(result.alignpagewidth)
+        //console.log(result.alignpagewidth)
     }
 }
