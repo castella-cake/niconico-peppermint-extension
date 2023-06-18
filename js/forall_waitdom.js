@@ -166,6 +166,9 @@ function createBaseCSSRule(result) {
     if (result.hidemetadata == "searchandhome" || result.hidemetadata == "all") {
         pushCSSRule('.NC-VideoCard-metaCount,.NC-NicoadFrame_gold::after,.NC-NicoadFrame::after,.NC-VideoCard-metaCount,.itemData,.NC-VideoMediaObject-metaCount{display:none !important;}.NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary{min-height:20px;}.NC-MutedVideoCard,.NC-SensitiveVideoCard,.VideoItem.NC-Card,.RankingMatrixVideosRow{height:200px}')
     }
+    if (result.enablevisualpatch == true) {
+        addCSS(chrome.runtime.getURL("pagemod/css/visualpatch.css"))
+    }
     $(document).on('click',function(e) {
         //console.log(e.target.closest('.pmbutton-container'))
         if(e.target.closest('.pmbutton-container') == null && e.target.id != 'removeseries') {

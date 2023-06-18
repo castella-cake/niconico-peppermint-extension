@@ -97,7 +97,8 @@
     padding:5px 0px;
     color: #222;
     background: #ccc;
-    font-size: 22px;
+    font-size: 24px;
+    line-height: 24px;
     text-align: center;
     text-decoration: none !important;
     display: inline-block;
@@ -106,7 +107,7 @@
     background: #eaeaea;
 }
 .subaction-button:hover {
-    font-size:24px;
+    font-size:25px;
     transition:all .1s
 }
 

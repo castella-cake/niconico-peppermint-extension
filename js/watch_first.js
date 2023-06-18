@@ -1,40 +1,72 @@
 function onError(error) {
     console.log(`Error: ${error}`);
 }
-function addCSS(cssfile, var1 = true, var2 = 'head', var3 = 'after') {
+function addCSS(cssfile, safeAppend = true, var2 = 'head', var3 = 'root') {
     // headの後にstylesheetとしてlinkをくっつけるやつ
     // 書き方: cssfile(必須), 二重書き防止(任意), after/before/appendに使う要素(任意), モード(after,before,append 任意)
     // 二重書き防止と要素は反転して使うことができる(a.css,body,falseのように)
-    if (var1 == true || var1 == false) {
-        var safeappend = var1;
+    if (safeAppend == true || safeAppend == false) {
+        var isSafeAppend = safeAppend;
         var elementvar = var2;
         var mode = var3;
     } else {
-        var elementvar = var1;
+        var elementvar = safeAppend;
         if (var2 == true || var2 == false) {
-            var safeappend = var2;
+            var isSafeAppend = var2;
         } else {
-            var safeappend = true;
+            var isSafeAppend = true;
         }
         var mode = var3;
     }
-    if (document.querySelector(`link[href="${cssfile}"]`) == null || safeappend == false) {
+    if (mode == 'root') {
+        let targetelem = document.querySelector('head')
+        let link = document.createElement('link')
+        if ((document.querySelector(`link[href="${cssfile}"]`) == null || isSafeAppend == false) && targetelem != null) {
+            link.setAttribute('rel', 'stylesheet')
+            link.setAttribute('href', cssfile)
+            const headlinkarray = document.querySelectorAll('head link[rel="stylesheet"]')
+            if (headlinkarray.length == 0 || headlinkarray == null) {
+                targetelem.after(link)
+                console.log('ALT MODE')
+            } else {
+                targetelem.appendChild(link)
+                console.log('NORMAL MODE')
+            }
+        } else {
+            if (!(document.querySelector(`link[href="${cssfile}"]`) == null || isSafeAppend == false)) {
+                console.log(`addCSS() skipped because safeappend is enabled but already added`)
+            } else {
+                console.log(`addCSS() skipped because targetelem is null`)
+            }
+
+        }
+    } else {
         let targetelem = document.querySelector(elementvar)
         let link = document.createElement('link')
-        link.setAttribute('rel','stylesheet')
-        link.setAttribute('href',cssfile)
-        if (mode == 'after') {
-            targetelem.after(link)
-        } else if (mode == 'before') {
-            targetelem.before(link)
-        } else if (mode == 'append') {
-            targetelem.append(link)
+        if ((document.querySelector(`link[href="${cssfile}"]`) == null || isSafeAppend == false) && targetelem != null) {
+            link.setAttribute('rel', 'stylesheet')
+            link.setAttribute('href', cssfile)
+            if (mode == 'after') {
+                targetelem.after(link)
+            } else if (mode == 'before') {
+                targetelem.before(link)
+            } else if (mode == 'append') {
+                targetelem.appendChild(link)
+            } else {
+                mode = 'after(fallback)'
+                targetelem.after(link)
+            }
+            //console.log(`CSS added( ${mode}: ${elementvar}, safeappend = ${safeappend} ): ${cssfile}`);
         } else {
-            mode = 'after(fallback)'
-            targetelem.after(link)
+            if (!(document.querySelector(`link[href="${cssfile}"]`) == null || isSafeAppend == false)) {
+                console.log(`addCSS() skipped because safeappend is enabled but already added`)
+            } else {
+                console.log(`addCSS() skipped because targetelem is null`)
+            }
+
         }
-        //console.log(`CSS added( ${mode}: ${elementvar}, safeappend = ${safeappend} ): ${cssfile}`);
     }
+
 }
 var getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
 getStorageData.then(createCSSRule, onError);

@@ -5,6 +5,9 @@
 a,.FrameTitleLink-titleText,.FrameTitle {
     color: var(--textcolor1)
 }
+body {
+    background-color: var(--bgcolor1);
+}
 
 /* あなたへのおすすめの色変更 */
 .PersonalFrameContainer {

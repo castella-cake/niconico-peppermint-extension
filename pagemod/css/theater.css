@@ -269,3 +269,7 @@
 .TagContainer {
     justify-content: center;
 }
+.VideoTitle {
+    color: #fff;
+    padding-top: 6px;
+}

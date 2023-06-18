@@ -2,6 +2,9 @@ getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     if (result.replacemarqueecontent == "ranking") {
         $(function () {
+            if (!(result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches))) {
+                pushCSSRule(`#pm-marqueerankinglink {color: #fafafa}`)
+            }
             $('.Marquee-itemArea,.Marquee-buttonArea').remove()
             chrome.runtime.sendMessage({ "type": "getRankingXml" }).then(res => {
                 // why chrome can't use domparser in service worker...
@@ -65,7 +68,7 @@ function createCSSRule(result) {
         pushCSSRule('.Marquee-itemArea,.Marquee-buttonArea {display:none;}')
     }
     if (result.usenicoboxui != true && result.usetheaterui == true) {
-        // theater UI fallback
+        // theater UI fallback and wait load without jquery
         addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
         addCSS(chrome.runtime.getURL("pagemod/css/header/black.css"))
     }

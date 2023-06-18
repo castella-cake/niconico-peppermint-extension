@@ -106,6 +106,11 @@ function makeElem() {
                     nextvidlink.textContent = `次の動画が保存されていません`
                 }
                 elem.appendChild(nextvidlink)
+                // list expand button
+                let expandeplistbutton = document.createElement('button')
+                expandeplistbutton.id = 'expandeplist'
+                expandeplistbutton.textContent = 'リストを展開'
+                elem.appendChild(expandeplistbutton)
                 // push to stockedseries container
                 document.getElementById('content-area').appendChild(elem)
             })
