@@ -4,9 +4,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
             url: chrome.runtime.getURL("pages/welcome.html")
         });
     } else if (details.reason == "update") {
-        chrome.tabs.create({
-            url: chrome.runtime.getURL("pages/update.html")
-        });
+        //chrome.tabs.create({url: chrome.runtime.getURL("pages/update.html")});
     }
     chrome.contextMenus.create({
         id: "dicsearch",
