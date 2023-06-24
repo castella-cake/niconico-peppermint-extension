@@ -1,5 +1,139 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
+    if (result.enableseriesstock == true) {
+        let seriesBC = document.querySelector('.SeriesBreadcrumbs')
+        let seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+        $('.pmbutton-container').prepend('<div class="addtostock-container subaction-container"><a id="addtostock" class="material-icons-outlined subaction-button">add</a></div>')
+        function updateStockUI() {
+            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            // タイトルの下にあるシリーズを表示するやつがあるか。動画にシリーズがないなら、これは存在しない
+            console.log(seriesBCTitle)
+            if (seriesBCTitle != null) {
+                $('#addtostock').removeClass('disabled')
+                seriesIsStocked(seriesBCTitle.href.slice(32))
+                    .then(result => {
+                        if (result) {
+                            $('#addtostock').text("remove")
+                        } else {
+                            $('#addtostock').text("add")
+                        }
+                        //console.log(result)
+                    }).catch(error => {
+                        //console.log(error);
+                    });
+                document.getElementById('addtostock').addEventListener('click', addCurrentSeriesToStock)
+            } else {
+                document.getElementById('addtostock').removeEventListener('click', addCurrentSeriesToStock)
+                $('#addtostock').addClass('disabled')
+            }
+        }
+        function updateStockVidInfo() {
+            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            if (seriesBCTitle != null) {
+                let currentVidSeriesID = seriesBCTitle.href.slice(32)
+                let currentVidSeriesName = seriesBCTitle.textContent
+                // シリーズにあるかどうかを見るために、ストック中のシリーズを取得する
+                chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
+                    // pathnameで /watch/sm.... が取得できるので、7文字切ってsm...だけ取得する
+                    let smID = location.pathname.slice(7)
+                    let stockedseriesarray = stockdata.stockedseries
+                    // シリーズ要素のhrefで https://www.nicovideo.jp/series/1234... を取得できるので、32文字切ってシリーズIDを取得する
+                    $.each(stockedseriesarray, function (i, object) {
+                        if (object.seriesID == currentVidSeriesID) {
+                            //console.log(`current series! ${smID}`)
+                            object.lastVidID = smID
+                            object.lastVidName = document.querySelector('.VideoTitle').textContent
+                            //console.log($('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href'))
+                            // 概要欄が開かれていない場合、.VideoDescriptionExpander-switch という要素に VideoDescriptionExpander-switchExpand というクラスが着く = nullではなくなる
+                            if (document.querySelector('.VideoDescriptionExpander-switchExpand') != null) {
+                                // 概要欄から読み取るので、概要欄が開かれてないときは一瞬開いて読み取る
+                                $('.VideoDescriptionExpander-switch').trigger('click');
+                                if (document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null) {
+                                    // 概要欄のシリーズ表示にある、「次の動画」のhrefを31文字切る。hrefはこういう形式(https://www.nicovideo.jp/watch/sm123456?ref=pc_watch_description_series)
+                                    // なので、31文字切って不要なゴミトラッキング情報を消し飛ばす
+                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
+                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
+                                }
+                                $('.VideoDescriptionExpander-switch').trigger('click');
+                            } else {
+                                if (document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null) {
+                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
+                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
+                                }
+                            }
+                            //console.log(object)
+                        }
+                    })
+                    chrome.storage.sync.set({
+                        "stockedseries": stockedseriesarray
+                    })
+                })
+            }
+        }
+        function addCurrentSeriesToStock() {
+            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            manageSeriesStock(seriesBCTitle.href.slice(32), seriesBCTitle.textContent)
+            .then(result => {
+                //console.log(result)
+                if (result) {
+                    $('#addtostock').text("remove")
+                    $("#addtostock-text").text("シリーズをストックから削除")
+                    updateStockVidInfo()
+                } else {
+                    $('#addtostock').text("add")
+                    $("#addtostock-text").text("シリーズをストックに追加")
+                }
+            }).catch(error => {
+                onError(error);
+            });
+        }
+        updateStockUI()
+        // ニコニコは動画リンクを踏んだ時実際にはページを移動していないので、メタの変更で検知する
+        $('.VideoMetaContainer').on('DOMSubtreeModified propertychange', function () {
+            console.log(`Video changed!!`)
+            updateStockUI()
+            updateStockVidInfo()
+        });
+        console.log(document.querySelector('.HeaderContainer-topAreaLeft'))
+        const titleContainer = document.querySelector('.HeaderContainer-topAreaLeft')
+        const titleContainerObserver = new MutationObserver(records => {
+            updateStockUI()
+        })
+        titleContainerObserver.observe(titleContainer, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+            attributes: true
+        })
+        document.getElementById('addtostock').addEventListener('mouseenter', function () {
+            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            if (seriesBCTitle != null) {
+                seriesIsStocked(seriesBCTitle.href.slice(32))
+                .then(result => {
+                    if (document.querySelector('#addtostock-text') == null) {
+                        if (result) {
+                            $('#addtostock').text("remove")
+                            $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックから削除</span>')
+                        } else {
+                            $('#addtostock').text("add")
+                            $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックに追加</span>')
+                        }
+                    }
+                    //console.log(result)
+                }).catch(error => {
+                    //console.log(error);
+                });
+            } else {
+                $('#addtostock').text("add")
+                $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">この動画にはシリーズがありません</span>')
+            }
+        })
+        document.getElementById('addtostock').addEventListener('mouseleave', function () {
+            if (document.getElementById('addtostock-text') != null) {
+                document.getElementById('addtostock-text').remove()
+            }
+        })
+    }
     if (result.replacemarqueecontent == "ranking") {
         $(function () {
             if (!(result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches))) {

@@ -31,7 +31,8 @@
 	width: 220px;
 }
 .NicoadVideoItem {
-    width: 210px;
+	width: 210px;
+	margin-bottom: 12px;
 }
 .NicoadVideoItem-thumbnail {
 	height: 115px;
@@ -69,4 +70,38 @@
 /* この広告は消さないとはみ出してしまうので、残念ながらボッシュートとなります！(ﾃﾞﾃﾞｯﾃﾞﾃﾞｯﾃﾞｯﾃﾞｰﾝ) */
 .RankingVideosContainer-columnRight > .Ads300x250WebPcMiddle {
 	display: none;
+}
+.HotTagsContainer-list > * + * {
+	margin-left: 0px;
+}
+.HotTagsContainer-list {
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.FollowingVideosContainer-list {
+	flex-wrap: wrap
+}
+.FollowingVideosContainer-list > .NC-VideoCardWrapper, .ViewHistoriesContainer-list > .NC-VideoCardWrapper {
+	margin-bottom: 12px;
+}
+.BaseLayout-main {
+	flex-direction: row;
+	padding: 0px 32px;
+}
+@media (max-width: 1024px) {
+	.Baselayout-main-twocolumn.BaseLayout-main-left {
+		padding-right: 0px;
+		width: 100%
+	}
+	.Baselayout-main-twocolumn.BaseLayout-main-right {
+		padding-left: 0px;
+		width: 100%
+	}
+	.BaseLayout-main {
+		flex-direction: column;
+		padding: 0px 4px;
+	}
+	.Baselayout-main-twocolumn > .BaseLayout-block:first-child > .Separator {
+		display: block;
+	}
 }

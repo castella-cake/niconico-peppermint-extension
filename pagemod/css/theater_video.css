@@ -11,3 +11,6 @@
     margin: 0 auto;
     max-width: calc(100vw - 384px);
 }
+body.is-fullscreen .VideoContainer {
+	height: inherit !important;
+}

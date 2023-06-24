@@ -273,3 +273,104 @@
     color: #fff;
     padding-top: 6px;
 }
+
+.SearchBox {
+    border-right: none;
+}
+body:not(.is-fullscreen) .VideoOverlayContainer {
+    z-index: 50;
+}
+body:not(.is-fullscreen) .PlayerOptionContainer {
+    position:fixed;
+    bottom:0;
+    right:0;
+    max-height: calc(100vh - 40px);
+    backdrop-filter: blur(20px);
+    animation: slidetoleft 0.25s ease forwards 1
+}
+.PlayerOptionMenu::after {
+	content: "Thank you for using PepperMint+ theater mode!";
+	display: block;
+	text-align: center;
+	margin: 16px 0px;
+	color: #f0f0f0;
+}
+body.is-fullscreen .WatchAppContainer > :not(.WatchAppContainer-main):not(.ContextMenu-wrapper):not(.ErrorContainer):not(.NicoruNoticeContainer) {
+    display: block !important;
+    animation: sidebartofsc 0.25s ease forwards 1 !important;
+}
+body:not(.is-fullscreen) .MainContainer-playerPanel {
+    animation: sidebartowind 0.25s ease forwards 1;
+}
+.HeaderContainer-searchBox {
+    position: fixed;
+    bottom: 0;
+    right: 0
+}
+body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) {
+	display: inherit !important;
+}
+body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > :not(.HeaderContainer-topArea), body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > .HeaderContainer-topArea > :not(.HeaderContainer-searchBox) {
+    display: none !important;
+}
+body:not(.is-fullscreen) .HeaderContainer-searchBox {
+    animation: searchboxtowind 0.25s ease forwards 1;
+}
+body.is-fullscreen .HeaderContainer-searchBox {
+    animation: searchboxtofsc 0.25s ease forwards 1;
+}
+@keyframes slidetoleft {
+    from {
+        opacity: 0;
+        right: -384px;
+    }
+    to {
+        opacity: 1;
+        right: 0px;
+    }
+}
+@keyframes sidebartofsc {
+    0% {
+        right: 0px;
+        opacity: 1;
+
+    }
+    100% {
+        right: -384px;
+        opacity: 0;
+    }
+}
+@keyframes sidebartowind {
+    0% {
+        display: block;
+        right: -384px;
+        opacity: 0;
+    }
+    100% {
+        right: 0px;
+        opacity: 1;
+    }
+}
+
+@keyframes searchboxtofsc {
+    0% {
+        bottom: 0;
+        opacity: 1;
+
+    }
+    100% {
+        bottom: -36px;
+        opacity: 0;
+    }
+}
+@keyframes searchboxtowind {
+    0% {
+        bottom: -36px;
+        opacity: 0;
+
+    }
+    100% {
+        bottom: 0px;
+        opacity: 1;
+    }
+}

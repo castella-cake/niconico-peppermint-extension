@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2023/0
+
+### Added
+- ``ショートカットアシスト`` にいいね！のショートカットを追加しました(Hキー)
+- ``ExCommander` を追加しました(Backspaceキーで開く)
+- フルスクリーン時でもシアターUIの21:9プレイヤーが適用されるようになりました
+- シアターUIの「21:9で拡大」がフルスクリーン時でも機能するようになりました
+- シアターUIのフルスクリーン切り替えにアニメーションを追加しました
+- シアターUIのプレイヤー設定がサイドバーのように表示されるようになりました
+
+### Changed
+- ダークモードCSSの適用方法を可能な限り早くするようにしました
+- 原宿視聴テーマのタグ表示を変更しました
+- PepperMintUIのアイコン関連を微調整しました
+- ダークモードで適用する市場のスタイルはファイルに含めないようになりました
+- ダークモード時に視聴ページ内検索バーの色がパレットに揃えられるようになりました
+
+### Fixed
+- ビジュアルパッチのフォールバックが欠けている問題を修正しました
+- シリーズストックの動画移動関連を修正しました
+
 ## [1.5.3] - 2023/05/31
 
 ### Fixed

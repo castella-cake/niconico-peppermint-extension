@@ -124,11 +124,11 @@
     border: 1px solid var(--bgcolor4);
 }
 .SearchBox-input {
-    box-shadow: inset 0 0 8px 0 #333;
+    box-shadow: inset 0 0 8px 0 var(--bgcolor2);
 }
 .TagSuggestionInput-input {
-    background: #696969;
-    color: #f0f0f0;
+    background: var(--bgcolor3);
+    color: var(--textcolor1);
 }
 .SearchBox-submitIcon {
     fill: var(--textcolor2);

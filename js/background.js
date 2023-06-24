@@ -3,13 +3,17 @@ chrome.runtime.onInstalled.addListener(function (details) {
         chrome.tabs.create({
             url: chrome.runtime.getURL("pages/welcome.html")
         });
+    } else if (details.reason == "update") {
+        chrome.tabs.create({
+            url: chrome.runtime.getURL("pages/update.html")
+        });
     }
     chrome.contextMenus.create({
         id: "dicsearch",
         title: 'ニコニコ大百科で %s を検索',
         contexts: ["selection"]
     });
-    //chrome.alarms.create('seriesStock_Refresh', {delayInMinutes:60, PeriodInMinutes: 360})
+    //chrome.alarms.create('seriesStock_Refresh', {delayInMinutes:10, PeriodInMinutes: 120})
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -30,16 +34,68 @@ function generateActionTrackId() {
             let ati_firststr = ""
             let ati_laststr = ""
             let ati_str = ""
-            for (var i = 0; i < 10; i++) {
+            for (let i = 0; i < 10; i++) {
                 console.log(i)
                 ati_firststr += atc_first[Math.floor(Math.random() * atc_first.length)]
             }
-            for (var i = 0; i < 24; i++) {
+            for (let i = 0; i < 24; i++) {
                 console.log(i)
                 ati_laststr += atc_last[Math.floor(Math.random() * atc_last.length)]
             }
             ati_str = ati_firststr + "_" + ati_laststr
             resolve(ati_str)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+function getSeriesInfo(seriesid, usecache = true) {
+    // シリーズ情報を取得してキャッシュします。あくまでこいつは新規取得に特化しています。
+    // なので、キャッシュがある場合はそっちから読むとかそんな動作はしません。
+    return new Promise((resolve,reject) => {
+        try {
+            let getStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
+            getStorageData.then((storage) => {
+                // ストレージにあるseriesidのキャッシュがnullでもundefinedでもなくて極めつけにusecacheがtrueならストレージのものを返す
+                if ( storage.seriesdatacache[seriesid] != null && storage.seriesdatacache[seriesid] != undefined && usecache == true) {
+                    resolve(storage.seriesdatacache[seriesid])
+                } else {
+                    // そうじゃなければATI作ってfetchする
+                    generateActionTrackId().then((id) => {
+                        fetch(`https://nvapi.nicovideo.jp/v1/series/${seriesid}?_frontendId=6&_frontendVersion=0&actionTrackId=${id}`, { 'method': 'GET' }).then((res) => {
+                            if (res.ok) {
+                                // okだったらtextを取る
+                                res.text().then((data) => {
+                                    // objにパースして200かどうか確認する
+                                    let dataobj = JSON.parse(data)
+                                    dataobj[fetchdate] = new Date()
+                                    if (dataobj.meta.status == 200) {
+                                        // **ローカル**のストレージを呼ぶ
+                                            // nullかundefinedだったら直接突っ込む
+                                            if (storage.seriesdatacache == null || storage.seriesdatacache == undefined) {
+                                                chrome.storage.local.set({"seriesdatacache":{[seriesid]: dataobj}})
+                                                resolve(dataobj)
+                                            } else {
+                                                // そうじゃなければ、ストレージの内容をvarにコピーして、変更したcacheを付け足して、ストレージに突っ込む
+                                                let seriescache = JSON.parse(JSON.stringify(storage.seriesdatacache))
+                                                seriescache[seriesid] = dataobj
+                                                chrome.storage.local.set({"seriesdatacache":seriescache})
+                                                resolve(dataobj)
+                                            }
+                                    } else {
+                                        // 200じゃなかったらrejectしてステータス返す
+                                        reject(dataobj.meta.status)
+                                    }
+                                })
+                            } else {
+                                // そもそも呼べなかったらrejectしてステータス返す
+                                reject(res.status)
+                            }
+                        })
+                    })
+                }
+            })
+            
         } catch (err) {
             reject(err)
         }
@@ -84,27 +140,23 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
         })
         return true;
-    } else if (message.type == "getVideoInfo") {
-        if (message.smID != null || message.smID != undefined) {
-            generateActionTrackId().then((id) => {
-                fetch("https://www.nicovideo.jp/api/watch/v3_guest/" + message.smID + "?_frontendId=6&_frontendVersion=0&actionTrackId=" + id, { 'method': 'GET' }).then((res) => {
-                    if (res.ok) {
-                        res.text().then((data) => {
-                            sendResponse(data)
-                        })
-                    } else {
-                        sendResponse({
-                            'status': false,
-                            'reason': 'API fetch failed'
-                        });
-                    }
-                })
+    } else if (message.type == "getSeriesInfo") {
+        if (message.seriesID != null || message.seriesID != undefined) {
+            getSeriesInfo(message.seriesID)
+            .then((data) => {
+                sendResponse(data)
+            })
+            .catch((reason) => {
+                sendResponse({
+                    'status': false,
+                    'reason': `getSeriesInfo() failed: ${reason}`
+                });
             })
             return true;
         } else {
             sendResponse({
                 'status': false,
-                'reason': 'smID is not defined'
+                'reason': 'seriesID is not defined'
             });
             return true;
         }

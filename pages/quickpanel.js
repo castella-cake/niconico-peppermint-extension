@@ -77,6 +77,7 @@ function makeElem() {
                 let removebutton = document.createElement('button')
                 removebutton.id = 'removeseries'
                 removebutton.textContent = '削除'
+                removebutton.type = 'button'
                 linkcontainer.appendChild(removebutton)
                 // push to row container
                 elem.appendChild(linkcontainer)
@@ -110,6 +111,7 @@ function makeElem() {
                 let expandeplistbutton = document.createElement('button')
                 expandeplistbutton.id = 'expandeplist'
                 expandeplistbutton.textContent = 'リストを展開'
+                expandeplistbutton.type = 'button'
                 elem.appendChild(expandeplistbutton)
                 // push to stockedseries container
                 document.getElementById('content-area').appendChild(elem)

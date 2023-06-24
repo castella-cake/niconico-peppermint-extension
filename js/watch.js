@@ -1,6 +1,7 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     //console.log(result)
+
     // TODO: 将来的にbuttonに置き換える
     if (result.quickvidarticle == true) {
         $('.pmbutton-container').append('<div class="vidarticle-container subaction-container"><a id="openvidarticle" class="subaction-button">百</a></div>')
@@ -15,116 +16,6 @@ function createCSSRule(result) {
                 href: "https://dic.nicovideo.jp/v/" + location.pathname.slice(7)
             })
         });
-
-    }
-    if (result.enableseriesstock == true) {
-        $('.pmbutton-container').append('<div class="addtostock-container subaction-container"><a id="addtostock" class="material-icons-outlined subaction-button">add</a></div>')
-        updateSeriesStock()
-        // ニコニコは動画リンクを踏んだ時実際にはページを移動していないので、視聴回数の変更で動画の変更を検知する
-        $('.VideoMetaContainer .VideoViewCountMeta').on('DOMSubtreeModified propertychange', function () {
-            //console.log(`Video changed!!`)
-            updateSeriesStock()
-        });
-        function updateSeriesStock() {
-            // タイトルの下にあるシリーズを表示するやつがあるか。動画にシリーズがないなら、これは存在しない
-            let seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
-            if (seriesBCTitle != null) {
-                $('#addtostock').removeClass('disabled')
-                let currentVidSeriesID = seriesBCTitle.href.slice(32)
-                let currentVidSeriesName = seriesBCTitle.textContent
-                // シリーズにあるかどうかを見るために、ストック中のシリーズを取得する
-                chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
-                    // pathnameで /watch/sm.... が取得できるので、7文字切ってsm...だけ取得する
-                    let smID = location.pathname.slice(7)
-                    let stockedseriesarray = stockdata.stockedseries
-                    // シリーズ要素のhrefで https://www.nicovideo.jp/series/1234... を取得できるので、32文字切ってシリーズIDを取得する
-                    $.each(stockedseriesarray, function (i, object) {
-                        if (object.seriesID == currentVidSeriesID) {
-                            //console.log(`current series! ${smID}`)
-                            object.lastVidID = smID
-                            object.lastVidName = document.querySelector('.VideoTitle').textContent
-                            //console.log($('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href'))
-                            // 概要欄が開かれていない場合、.VideoDescriptionExpander-switch という要素に VideoDescriptionExpander-switchExpand というクラスが着く = nullではなくなる
-                            if (document.querySelector('.VideoDescriptionExpander-switchExpand') != null) {
-                                // 概要欄から読み取るので、概要欄が開かれてないときは一瞬開いて読み取る
-                                $('.VideoDescriptionExpander-switch').trigger('click');
-                                if (document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null) {
-                                    // 概要欄のシリーズ表示にある、「次の動画」のhrefを31文字切る。hrefはこういう形式(https://www.nicovideo.jp/watch/sm123456?ref=pc_watch_description_series)
-                                    // なので、31文字切って不要なゴミトラッキング情報を消し飛ばす
-                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
-                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
-                                }
-                                $('.VideoDescriptionExpander-switch').trigger('click');
-                            } else {
-                                if (document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null) {
-                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
-                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
-                                }
-                            }
-                            //console.log(object)
-                        }
-                    })
-                    chrome.storage.sync.set({
-                        "stockedseries": stockedseriesarray
-                    })
-                })
-
-                document.getElementById('addtostock').addEventListener('mouseenter', function () {
-                    seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32))
-                        .then(result => {
-                            if (document.querySelector('#addtostock-text') == null) {
-                                if (result) {
-                                    $('#addtostock').text("remove")
-                                    $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックから削除</span>')
-                                } else {
-                                    $('#addtostock').text("add")
-                                    $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックに追加</span>')
-                                }
-                            }
-                            //console.log(result)
-                        }).catch(error => {
-                            //console.log(error);
-                        });
-                })
-                document.getElementById('addtostock').addEventListener('mouseleave', function () {
-                    $('#addtostock-text').remove()
-                })
-                seriesIsStocked($('.SeriesBreadcrumbs-title').prop('href').slice(32))
-                    .then(result => {
-                        if (result) {
-                            $('#addtostock').text("remove")
-                        }
-                        //console.log(result)
-                    }).catch(error => {
-                        //console.log(error);
-                    });
-                document.getElementById('addtostock').addEventListener('click', function () {
-                    manageSeriesStock($('.SeriesBreadcrumbs-title').prop('href').slice(32), $('.SeriesBreadcrumbs-title').text())
-                        .then(result => {
-                            //console.log(result)
-                            if (result) {
-                                $('#addtostock').text("remove")
-                                $("#addtostock-text").text("シリーズをストックから削除")
-                                updateSeriesStock()
-                            } else {
-                                $('#addtostock').text("add")
-                                $("#addtostock-text").text("シリーズをストックに追加")
-                            }
-                        }).catch(error => {
-                            //console.log(error);
-                        });
-                })
-            } else {
-                //document.getElementById('addtostock').removeEventListener()
-                $('#addtostock').addClass('disabled')
-                $('#addtostock').on('mouseenter', function () {
-                    $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">この動画にはシリーズがありません</span>')
-                })
-                document.getElementById('addtostock').addEventListener('mouseleave', function () {
-                    $('#addtostock-text').remove()
-                })
-            }
-        }
 
     }
 
@@ -285,6 +176,114 @@ function createCSSRule(result) {
     }
 
     if (result.shortcutassist) {
+        async function cmdACT(cmdstr) {
+            // return -1 = ERROR | 0 = SUCCESS | 1 = SUCCESS with external flag | 2 = SUCCESS with external output
+            const commandstr = cmdstr
+            let runresult = 0
+            let runresultstr = ``
+            if (commandstr.startsWith('fw/')) {
+                location.href = "https://www.nicovideo.jp/search/" + commandstr.slice(2)
+            } else if (commandstr.startsWith('ft/')) {
+                location.href = "https://www.nicovideo.jp/tag/" + commandstr.slice(3)
+            } else if (commandstr.startsWith('w/')) {
+                location.href = "https://www.nicovideo.jp/watch/" + commandstr.slice(2)
+            } else if (commandstr == ":p") {
+                document.querySelector('.PlayerPauseButton, .PlayerPlayButton').click();
+                document.querySelector(':focus-visible').blur();
+            } else if (commandstr == ":>") {
+                document.querySelector('.PlayerSkipNextButton').click();
+                document.querySelector(':focus-visible').blur();
+            } else if (commandstr == ":<") {
+                document.querySelector('.SeekToHeadButton').click();
+                document.querySelector(':focus-visible').blur();
+            } else if (commandstr == ":l") {
+                document.querySelector('.LikeActionButton').click();
+                document.querySelector(':focus-visible').blur();
+            } else if (commandstr == ":r") {
+                document.querySelector('.PlayerRepeatOnButton, .PlayerRepeatOffButton').click();
+                document.querySelector(':focus-visible').blur();
+            } else if (commandstr == ":oc") {
+                document.querySelector('.PlayerPanelContainer-tabItem:first-child').click();
+                document.querySelector(':focus-visible').blur();
+            } else if (commandstr == ":op") {
+                document.querySelector('.PlayerPanelContainer-tabItem:last-child').click();
+                document.querySelector('.PlayerPanelContainer-content').focus()
+            } else if (commandstr == ":top") {
+                location.href = "https://www.nicovideo.jp/video_top"
+            } else if (commandstr == "-nbu") {
+                chrome.storage.sync.set({ "usenicoboxui": !result.usenicoboxui, "nicoboxuichanged": true });
+                location.reload()
+            } else if (commandstr == "-tar") {
+                chrome.storage.sync.set({ "usetheaterui": !result.usetheaterui});
+                location.reload()
+            } else if (commandstr == "-cts") {
+                runresult = -1
+                if (result.enableseriesstock == true && document.querySelector('.SeriesBreadcrumbs-title') != null) {
+                    if ( await manageSeriesStock(document.querySelector('.SeriesBreadcrumbs-title').href.slice(32), document.querySelector('.SeriesBreadcrumbs-title').textContent) ) {
+                        runresult = 2
+                        runresultstr = `SUCCESS(ADDED)`
+                    } else {
+                        runresult = 2
+                        runresultstr = `SUCCESS(REMOVED)`
+                    }
+                }
+            } else if (commandstr == "help" || commandstr == "HELP" || commandstr == "Help") {
+                runresult = 2
+                runresultstr = `PEPPERMINT EXSHORTCUT COMMANDER v0.1<br>
+                PepperMint ExShortcut Commanderは、マウス無しで視聴ページの操作を行うコマンダーです。BackSpaceキーを押して開きます。<br>
+                fw/<検索ワード> = キーワード検索を行います。<br>
+                ft/<検索ワード> = タグ検索を行います。<br>
+                w/<動画ID> = 指定された動画IDに移動します。<br>
+                :p = 動画の再生/一時停止をトグルします。<br>
+                :> = 次の動画に移動します。<br>
+                :< = 先頭にシークします。<br>
+                :l = "いいね！"をトグルします。<br>
+                :r = リピート再生をトグルします。<br>
+                :oc = "コメントリスト"タブを開きます。<br>
+                :op = "動画リスト"タブを開きます。<br>
+                :top = 動画トップに戻ります。<br>
+                -nbu = Nicobox風UIをトグルします。<br>
+                -tar = シアターUIをトグルします。<br>
+                -cts = シリーズストックが有効化されている場合に、ストックへの追加をトグルします。`
+
+            } else {
+                runresult = -1
+            }
+            return {"result": runresult,"resultstr": runresultstr}
+        }
+        function commanderKeyEvent(e) {
+            if (e.key === 'Enter') {
+                cmdACT(document.getElementById('pm-vicommander').value).then(actresult => {
+                    if ( actresult.result == 2) {
+                        $('.pmbutton-container').append(`<div class="pm-viCommanderOutput">${actresult.resultstr}</div>`)
+                        setTimeout(function() {
+                            document.querySelector('.pm-viCommanderOutput').remove()
+                        },4000)
+                    } else if ( actresult.result == 1 || actresult.result == 0) {
+                        $('.pmbutton-container').append(`<div class="pm-viCommanderOutput">SUCCESS(${actresult.result})</div>`)
+                        setTimeout(function() {
+                            document.querySelector('.pm-viCommanderOutput').remove()
+                        },4000)
+                    } else {
+                        $('.pmbutton-container').append('<div class="pm-viCommanderError">ERROR: Unknown Command.</div>')
+                        setTimeout(function() {
+                            document.querySelector('.pm-viCommanderError').remove()
+                        },4000)
+                    }
+                })
+                document.querySelector('.pm-viCommanderContainer').remove()
+            }
+        }
+        function openViCommander() {
+            if (document.querySelector('.pm-viCommanderContainer') != null) {
+                document.querySelector('.pm-viCommanderContainer').remove()
+            } else {
+                $('.pmbutton-container').append(`<div class="pm-viCommanderContainer"><input id="pm-vicommander" placeholder="exCommander(Press ENTER to submit, type 'HELP' to help)"></input></div>`)
+                document.getElementById('pm-vicommander').focus()
+                document.getElementById('pm-vicommander').addEventListener('keypress', commanderKeyEvent);
+            }
+            
+        }
         $(document).on('keydown', shortCutAction);
 
         function shortCutAction(e) {
@@ -303,7 +302,14 @@ function createCSSRule(result) {
             } else if ((e.key === 'c' || e.key === 'C') && !$(e.target).closest("input, textarea").length) {
                 document.querySelector('.CommentInput-textarea').focus();
                 return false;
-            }
+            } else if ((e.key === 'h' || e.key === 'H') && !$(e.target).closest("input, textarea").length) {
+                document.querySelector('.LikeActionButton').click();
+                document.querySelector(':focus-visible').blur();
+                return false;
+            } else if ((e.key === 'Backspace') && !$(e.target).closest("input, textarea").length) {
+                openViCommander()
+                return false;
+            } 
         }
     }
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
@@ -559,7 +565,9 @@ function createCSSRule(result) {
         // New Nicobox UI
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/nicobox.css"), `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/watch.css")}"]`, 'after');
+            pushCSSRule(`.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
+                fill: #fff
+            }`)
             $('html').css({
                 '--nb-bgcolor': 'var(--bgcolor1)'
             })
@@ -714,7 +722,9 @@ function createCSSRule(result) {
         // Nicobox UI
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/nicobox.css"), `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/watch.css")}"]`, 'after');
+            pushCSSRule(`.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
+                fill: #fff
+            }`)
         }
         addCSS(chrome.runtime.getURL("pagemod/css/nicobox.css"));
         $('body').css('background-color', '#fefefe')
@@ -821,7 +831,7 @@ function createCSSRule(result) {
         //addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
         // 基本レイアウト変更
         // theater.cssに移動
-        pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}')
+        pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}.common-header-1v0m9lc, .common-header-1nvgp3g, .common-header-h0l8yl, .common-header-cdesjj, .common-header-171vphh, .common-header-wb7b82, .common-header-1ufbzdh, .common-header-654o26, .common-header-11u4gc2, .common-header-1pxv7y0, .commonHeaderArea, #CommonHeader {background-color: #000 !important;}')
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
         }
@@ -835,7 +845,7 @@ function createCSSRule(result) {
             $('.SearchBox-optionDown').text('▲')
             $('.PlayerPanelContainer').css('border-top-left-radius', '16px')
             // かつてヘッダーだったもの(動画情報)
-
+            /*
             $('.VideoTitle').css({ 'color': '#fff', 'padding-top': '6px' })
             $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background', 'linear-gradient(90deg,hsla(0,0%,96%,0),#fefefe 16%)')
             $('.HeaderContainer-searchBox').css({
@@ -904,7 +914,7 @@ function createCSSRule(result) {
             })
             $('.SeekBar-buffered').css('background-color', '#666')
             $('.ControllerBoxCommentAreaContainer, .EasyCommentContainer').css('background', 'transparent')
-            $('.ControllerContainer').css('z-index', '3')
+            $('.ControllerContainer').css('z-index', '3')*/
             // 不要な要素の削除
             $('.MainContainer-marquee, .PlayerPlayTime-separator, .EasyCommentContainer-buttonBox').remove();
             window.scroll({ top: 0, behavior: 'smooth' });

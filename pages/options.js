@@ -14,7 +14,6 @@ $('a').on('click', function (e) {
     }
 })
 
-// button がclickされたときに発火！！！！(前はsubmitだったけど必要ないと思ったのでclickへ)
 function saveOptions() {
     //console.log(`submit!`)
     // storageに変更を書き込む。

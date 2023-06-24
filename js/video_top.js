@@ -34,10 +34,6 @@ function createCSSRule(result) {
                 $('.BaseLayout-main-left').append(elem)
             }
         });
-        $('.BaseLayout-main').css({
-            'flex-direction': 'row',
-            'padding': '0 32px'
-        })
         addCSS(chrome.runtime.getURL("pagemod/css/vidtoptwocolumn.css"))
     }
 }

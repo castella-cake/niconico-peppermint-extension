@@ -219,7 +219,7 @@ function createBaseCSSRule(result) {
                     }
                 } else if (location.pathname.indexOf('/ranking') != -1) {
                     addCSS(chrome.runtime.getURL("pagemod/css/darkmode/ranking.css"), true);
-                } else if (location.pathname.indexOf('/watch') != -1) {
+                } else if (location.pathname.indexOf('/watch') != -1 && result.usetheaterui != true && result.usenicoboxui != true) {
                     addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"), true);
                 }
             }

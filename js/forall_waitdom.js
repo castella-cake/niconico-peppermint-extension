@@ -172,7 +172,7 @@ function createBaseCSSRule(result) {
     $(document).on('click',function(e) {
         //console.log(e.target.closest('.pmbutton-container'))
         if(e.target.closest('.pmbutton-container') == null && e.target.id != 'removeseries') {
-            $('.stockedserieswindow-container, .quickcommander-container').remove()
+            $('.stockedserieswindow-container, .pm-viCommanderContainer').remove()
         }
     });
     if (result.hidepopup == true) {
