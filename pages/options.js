@@ -38,6 +38,7 @@ function saveOptions() {
             "highlightlockedtag": $("#input-highlightlockedtag").prop('checked'),
             "watchpagetheme": $("#select-watchpagetheme").val(),
             "shortcutassist": $("#input-shortcutassist").prop('checked'),
+            "excommander": $("#input-excommander").prop('checked'),
             "usetheaterui": $("#input-usetheaterui").prop('checked'),
             //"theateruialwaysdark": $("#input-theateruialwaysdark").prop('checked'),
             "enablenicoboxui": $("#input-enablenicoboxui").prop('checked'),
@@ -104,6 +105,7 @@ function restoreOptions() {
         $("#input-commentrow").val(result.commentrow || 1);
         $("#select-watchpagetheme").val(result.watchpagetheme || "");
         $("#input-shortcutassist").prop('checked', result.shortcutassist);
+        $("#input-excommander").prop('checked', result.excommander);
         $("#input-usetheaterui").prop('checked', result.usetheaterui);
         //$("#input-theateruialwaysdark").prop('checked', result.theateruialwaysdark);
         $("#input-enablenicoboxui").prop('checked', result.enablenicoboxui);

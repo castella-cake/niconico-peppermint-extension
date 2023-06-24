@@ -108,11 +108,11 @@ function makeElem() {
                 }
                 elem.appendChild(nextvidlink)
                 // list expand button
-                let expandeplistbutton = document.createElement('button')
+                /*let expandeplistbutton = document.createElement('button')
                 expandeplistbutton.id = 'expandeplist'
                 expandeplistbutton.textContent = 'リストを展開'
                 expandeplistbutton.type = 'button'
-                elem.appendChild(expandeplistbutton)
+                elem.appendChild(expandeplistbutton)*/
                 // push to stockedseries container
                 document.getElementById('content-area').appendChild(elem)
             })

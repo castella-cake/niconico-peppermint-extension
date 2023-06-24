@@ -307,8 +307,11 @@ function createCSSRule(result) {
                 document.querySelector(':focus-visible').blur();
                 return false;
             } else if ((e.key === 'Backspace') && !$(e.target).closest("input, textarea").length) {
-                openViCommander()
-                return false;
+                if (result.excommander == true) {
+                    openViCommander()
+                    return false;
+                }
+                
             } 
         }
     }
@@ -345,10 +348,14 @@ function createCSSRule(result) {
         window.cursorY = e.pageY;
     });*/
     if (result.usenicoboxui != true && result.usetheaterui != true) {
+        if (result.watchpagetheme != "") {
+            //console.log(`CSS Loaded!`);
+            addCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
+        }
         if (result.usenicoboxui != true && result.usetheaterui != true && result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
             if (result.watchpagetheme != "") {
-                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/watch.css")}"]`, 'after');
+                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css")}"]`, 'after');
             }
         }
         if (result.playertheme != "") {
@@ -557,10 +564,6 @@ function createCSSRule(result) {
         /*if (result.replacemarqueecontent == "logo") {
             addCSS(chrome.runtime.getURL("pagemod/css/hide/replacemarqueetext.css"));
         }*/
-        if (result.watchpagetheme != "") {
-            //console.log(`CSS Loaded!`);
-            addCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
-        }
     } else if (result.usenicoboxui == true && result.useoldnicoboxstyle != true) {
         // New Nicobox UI
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
@@ -576,6 +579,7 @@ function createCSSRule(result) {
                 '--nb-bgcolor': '#f6f6f6'
             })
         }
+        $('body').addClass('is-PMNewNicoboxUI')
         addCSS(chrome.runtime.getURL("pagemod/css/nicobox-new.css"));
         $('body').css('background-color', '#fefefe')
         // 基本レイアウト変更
@@ -720,6 +724,7 @@ function createCSSRule(result) {
         });
     } else if (result.usenicoboxui == true && result.useoldnicoboxstyle == true) {
         // Nicobox UI
+        $('body').addClass('is-PMNicoboxUI')
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
             pushCSSRule(`.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
@@ -822,10 +827,7 @@ function createCSSRule(result) {
     } else {
         // theater UI
         $('body').css('background-color', '#000')
-        $('body').removeClass('is-large')
-        $('body').removeClass('is-medium')
-        $('body').addClass('is-autoResize')
-
+        $('body').addClass('is-PMTheaterUI')
         // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
         // video関連は早めにスタイルシートで書かないとコメントコンテナーやシンボルが動画サイズの変更を反映してくれない
         //addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
@@ -834,8 +836,24 @@ function createCSSRule(result) {
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}.common-header-1v0m9lc, .common-header-1nvgp3g, .common-header-h0l8yl, .common-header-cdesjj, .common-header-171vphh, .common-header-wb7b82, .common-header-1ufbzdh, .common-header-654o26, .common-header-11u4gc2, .common-header-1pxv7y0, .commonHeaderArea, #CommonHeader {background-color: #000 !important;}')
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            addCSS(chrome.runtime.getURL("pagemod/css/theater.css"), `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/watch.css")}"]`, 'after');
+        } else {
+            addCSS(chrome.runtime.getURL("pagemod/css/theater.css"));
+            pushCSSRule(`.VideoUploadDateMeta-title,.VideoViewCountMeta-title,.CommentCountMeta-title,.MylistCountMeta-title,.VideoGenreMeta-title,.GenreRankMeta-genreName {
+                color: #eaeaea;
+            }
+            .VideoUploadDateMeta-dateTimeLabel,.VideoViewCountMeta-counter,.CommentCountMeta-counter,.MylistCountMeta-counter,.VideoGenreMeta-genreName,.VideoGenreMeta-link,.GenreRankMeta-yesterdayRank {
+                color: #f0f0f0;
+            }
+            .VideoMetaContainer > *, .VideoMetaOverflowMenuContainer {
+                border-left: 1px solid #efefef;
+                box-shadow: -1px 0 0 0 #0a0a0a;
+            }
+            .VideoDescriptionSeriesContainer-label {
+                color: #f0f0f0
+            }`)
         }
-        addCSS(chrome.runtime.getURL("pagemod/css/theater.css"), `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/watch.css")}"]`, 'after');
+        
         $(function () {
             $('.SeekBar').before($('.PlayerPlayTime-playtime'));
             $('.SeekBar').after($('.PlayerPlayTime-duration'));

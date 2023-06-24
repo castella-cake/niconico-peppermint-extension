@@ -374,3 +374,21 @@ body.is-fullscreen .HeaderContainer-searchBox {
         opacity: 1;
     }
 }
+
+/* コメント増量 暫定競合回避 */
+.CustomVideoContainer {
+	aspect-ratio: 21 / 9;
+	width: 100% !important;
+	height: inherit !important;
+}
+.CustomVideoContainer.CommentRenderer {
+	width: 100% !important;
+}
+.CustomVideoContainer .CommentRenderer > canvas {
+	inset: 0px;
+	margin: 0px auto;
+}
+.CustomVideoContainer .CommentRenderer > canvas{
+	width: auto !important;
+	height: 100% !important;
+}

@@ -204,7 +204,20 @@ function createCSSRule(result) {
     if (result.usenicoboxui != true && result.usetheaterui == true) {
         // theater UI fallback and wait load without jquery
         addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
-        addCSS(chrome.runtime.getURL("pagemod/css/header/black.css"))
+        addCSS(chrome.runtime.getURL("pagemod/css/header/black.css"));
+        // TODO: シリーズストックのものと統合する
+        const metaContainer = document.querySelector('.VideoMetaContainer')
+        const metaContainerObserver = new MutationObserver(records => {
+            if (document.querySelector('.SeriesBreadcrumbs') != null) {
+                document.querySelector('.VideoTitle').after(document.querySelector('.SeriesBreadcrumbs'));
+            }
+        })
+        metaContainerObserver.observe(metaContainer, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+            attributes: true
+        })
     }
     if (result.usenicoboxui == true || result.usetheaterui == true) {
         let headercontainer = document.querySelector('.HeaderContainer')
