@@ -77,10 +77,15 @@ function makeElem() {
     getStorageData.then(function (result) {
         restoreOptions(result)
         if (result.enableseriesstock) {
-            let elem = document.createElement('h2')
-            elem.textContent = "シリーズストック (" + result.stockedseries.length + ")"
+            let titleelem = document.createElement('h2')
+            titleelem.id = 'seriesstocktitle'
+            if (result.stockedseries == undefined || result.stockedseries == null) {
+                titleelem.textContent = "シリーズストック (0)"
+            } else {
+                titleelem.textContent = "シリーズストック (" + result.stockedseries.length + ")"
+            }
             // Push Elem
-            document.getElementById('content-area').appendChild(elem)
+            document.getElementById('content-area').appendChild(titleelem)
             
             $.each(result.stockedseries, function (i, object) {
                 let seriesHref = `https://www.nicovideo.jp/series/${object.seriesID}`
@@ -150,6 +155,7 @@ function makeElem() {
             $(document).on('click', '#removeseries', function () {
                 manageSeriesStock(this.closest('.stockedseries-row').id)
                 this.closest('.stockedseries-row').remove()
+                location.reload()
             })
         } else {
             if (result.quickpanelisclosed != true) {
