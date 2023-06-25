@@ -33,6 +33,7 @@ function createBaseCSSRule(result) {
                 $('.NiconicoLogo_black').removeClass('NiconicoLogo_black')
                 $('.NicovideoLogo[data-color="black"]').attr('data-color',"white")
             }
+            document.body.classList.add('is-PMDarkPalette')
             //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
         } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
         if ( result.alignpagewidth == true ) {
@@ -47,7 +48,7 @@ function createBaseCSSRule(result) {
             $('body').css('--headercolor', result.headercolor);
             //console.log(`HeaderBG changed to ${result.headercolor}`);
         }
-        if ( result.enableseriesstock == true && location.pathname == "/" && location.hostname == "www.nicovideo.jp" ){
+        if ( result.enableseriesstock == true && ( (location.pathname == "/" && location.hostname == "www.nicovideo.jp") || (location.pathname.indexOf('/video_top') != -1 && location.hostname == "www.nicovideo.jp") ) ){
             $('.pmbutton-container').append('<div class="openstock-container"><button id="openstock" class="material-icons mainaction-button" style="background: #00796b">folder</button></div>')
             $('#openstock').on('mouseenter', function() {
                 $('#openstock').css({

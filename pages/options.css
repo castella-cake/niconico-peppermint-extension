@@ -380,6 +380,11 @@ tr td:nth-child(7) {
 	justify-content: center;
 }
 
+#removeseries {
+	border: none;
+	cursor: pointer;
+}
+
 @media (prefers-color-scheme: dark) {
 
 	html,

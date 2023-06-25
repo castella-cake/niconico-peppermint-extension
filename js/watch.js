@@ -229,7 +229,7 @@ function createCSSRule(result) {
                 }
             } else if (commandstr == "help" || commandstr == "HELP" || commandstr == "Help") {
                 runresult = 2
-                runresultstr = `PEPPERMINT EXSHORTCUT COMMANDER v0.1<br>
+                runresultstr = `PEPPERMINT EXCOMMANDER<br>
                 PepperMint ExShortcut Commanderは、マウス無しで視聴ページの操作を行うコマンダーです。BackSpaceキーを押して開きます。<br>
                 fw/<検索ワード> = キーワード検索を行います。<br>
                 ft/<検索ワード> = タグ検索を行います。<br>

@@ -12,6 +12,37 @@ $('a').on('click', function(e) {
     }, 100)
 })
 
+function manageSeriesStock(seriesid, seriesname = '名称未設定') {
+    return new Promise((resolve, reject) => {
+        try {
+            // シリーズストックの管理を行う非同期Function。存在しない場合はストックに追加し、すでに存在する場合はストックから削除します。
+            // 追加した場合はtrueを、削除した場合はfalseをresolveします。
+            // このため、.thenを使って追加された後に行う処理/削除された後に行う処理をIsSeriesStockedを使用せず簡潔に書くことができます。
+            let getStorageData = new Promise((resolve) => chrome.storage.sync.get(["stockedseries"], resolve));
+            getStorageData.then((stockdata) => {
+                if (stockdata.stockedseries != undefined && stockdata.stockedseries.findIndex(series => series.seriesID === seriesid) != -1) {
+                    let currentstock = stockdata.stockedseries
+                    let newstock = currentstock.filter(obj => obj.seriesID !== seriesid);
+                    chrome.storage.sync.set({
+                        "stockedseries": newstock
+                    })
+                        //console.log(`Removed series from stock: id = ${seriesid}, name = ${seriesname}`)
+                        resolve(false)
+                } else {
+                    let currentstock = stockdata.stockedseries || []
+                    currentstock.push({ seriesID: seriesid, seriesName: seriesname });
+                    chrome.storage.sync.set({
+                        "stockedseries": currentstock
+                    })
+                        //console.log(`Added series to stock: id = ${seriesid}, name = ${seriesname}`)
+                        resolve(true)
+                }
+            }, onError)
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
 
 // エラー！！！！！
 function onError(error) {
@@ -115,6 +146,10 @@ function makeElem() {
                 elem.appendChild(expandeplistbutton)*/
                 // push to stockedseries container
                 document.getElementById('content-area').appendChild(elem)
+            })
+            $(document).on('click', '#removeseries', function () {
+                manageSeriesStock(this.closest('.stockedseries-row').id)
+                this.closest('.stockedseries-row').remove()
             })
         } else {
             if (result.quickpanelisclosed != true) {
