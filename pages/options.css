@@ -384,6 +384,9 @@ tr td:nth-child(7) {
 	border: none;
 	cursor: pointer;
 }
+.seriesstock-titlecontainer {
+	display: flex;
+}
 
 @media (prefers-color-scheme: dark) {
 

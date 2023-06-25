@@ -77,6 +77,8 @@ function makeElem() {
     getStorageData.then(function (result) {
         restoreOptions(result)
         if (result.enableseriesstock) {
+            let titlecontainer = document.createElement('div')
+            titlecontainer.classList.add('seriesstock-titlecontainer')
             let titleelem = document.createElement('h2')
             titleelem.id = 'seriesstocktitle'
             if (result.stockedseries == undefined || result.stockedseries == null) {
@@ -84,9 +86,15 @@ function makeElem() {
             } else {
                 titleelem.textContent = "シリーズストック (" + result.stockedseries.length + ")"
             }
-            // Push Elem
-            document.getElementById('content-area').appendChild(titleelem)
-            
+            // Push Elem to container
+            titlecontainer.appendChild(titleelem)
+            /*let locktogglebutton = document.createElement('button')
+            locktogglebutton.id = 'locktoggle'
+            locktogglebutton.textContent = 'ロック解除'
+            locktogglebutton.type = 'button'
+            titlecontainer.appendChild(locktogglebutton)*/
+            // Push Container to contentarea
+            document.getElementById('content-area').appendChild(titlecontainer)
             $.each(result.stockedseries, function (i, object) {
                 let seriesHref = `https://www.nicovideo.jp/series/${object.seriesID}`
                 // ニコニコ動画は、watchページのリンクにクエリパラメータ playlist を渡すことで連続再生できるようになります
