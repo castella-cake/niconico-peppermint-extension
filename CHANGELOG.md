@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.6.0] - 2023/06
+## [1.6.0] - 2023/06/25 (Pre1)
 
 ### Added
 - ``ショートカットアシスト`` にいいね！のショートカットを追加しました(Hキー)
-- ``ExCommander` を追加しました(Backspaceキーで開く)
+- ``ExCommander`` を追加しました(Backspaceキーで開く)
 - フルスクリーン時でもシアターUIの21:9プレイヤーが適用されるようになりました
 - シアターUIの「21:9で拡大」がフルスクリーン時でも機能するようになりました
 - シアターUIのフルスクリーン切り替えにアニメーションを追加しました
@@ -18,6 +18,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - シアターUIやNicoboxUIを使用している場合に、bodyにクラスを付与するようにしました   
 シアターUI: ``.is-PMTheaterUI`` 旧Nicobox風UI: ``.is-PMNicoboxUI`` 新Nicobox風UI: ``.is-PMNewNicoboxUI``
 - ダークモードを使用している場合に、bodyに``is-PMDarkPalette``クラスを付与するようにしました
+- ``シリーズストック`` を使用してストックしているシリーズのエピソードリスト/オーナーがクイックパネルで見られるようになりました   
+シリーズストック内のシリーズリストは2時間毎に更新されます。
+- ``シリーズストック`` を使用してストックしているシリーズに新しいエピソードがある場合、ツールバーにバッジが表示されるようになりました
 
 ### Changed
 - ダークモードCSSの適用方法を可能な限り早くするようにしました

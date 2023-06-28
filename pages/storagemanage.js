@@ -65,4 +65,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(showStorageData, onError)
+    let getLocalStorageData = new Promise((resolve) => chrome.storage.local.get(null,resolve))
+    getLocalStorageData.then(function(result){
+        let localStorageText = JSON.stringify(result)
+        //document.querySelector('#local-storage-data').textContent = localStorageText
+        $('#localstoragetoclipboard').on('click', function() {
+            navigator.clipboard.writeText(localStorageText);
+            $(this).text('コピーしました')
+        })
+    },onError)
 });

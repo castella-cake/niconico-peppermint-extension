@@ -11,7 +11,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
         title: 'ニコニコ大百科で %s を検索',
         contexts: ["selection"]
     });
-    //chrome.alarms.create('seriesStock_Refresh', {delayInMinutes:10, PeriodInMinutes: 120})
+    chrome.alarms.create('seriesStock_Refresh', {delayInMinutes:0, periodInMinutes: 120})
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -33,11 +33,11 @@ function generateActionTrackId() {
             let ati_laststr = ""
             let ati_str = ""
             for (let i = 0; i < 10; i++) {
-                console.log(i)
+                //console.log(i)
                 ati_firststr += atc_first[Math.floor(Math.random() * atc_first.length)]
             }
             for (let i = 0; i < 24; i++) {
-                console.log(i)
+                //console.log(i)
                 ati_laststr += atc_last[Math.floor(Math.random() * atc_last.length)]
             }
             ati_str = ati_firststr + "_" + ati_laststr
@@ -47,15 +47,16 @@ function generateActionTrackId() {
         }
     })
 }
-function getSeriesInfo(seriesid, usecache = true) {
+function getSeriesInfo(seriesid, cachemode = 0) {
     // シリーズ情報を取得してキャッシュします。あくまでこいつは新規取得に特化しています。
-    // なので、キャッシュがある場合はそっちから読むとかそんな動作はしません。
+    // なので、キャッシュがある場合はそっちから読むとかそんな動作はしません。→するようになりました
+    // cachemode 0 => use cache 1 => no cache 2 => no cache and badge update
     return new Promise((resolve,reject) => {
         try {
             let getStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
             getStorageData.then((storage) => {
                 // ストレージにあるseriesidのキャッシュがnullでもundefinedでもなくて極めつけにusecacheがtrueならストレージのものを返す
-                if ( storage.seriesdatacache[seriesid] != null && storage.seriesdatacache[seriesid] != undefined && usecache == true) {
+                if ( storage.seriesdatacache != undefined && ( storage.seriesdatacache[seriesid] != null && storage.seriesdatacache[seriesid] != undefined && cachemode == 0)) {
                     resolve(storage.seriesdatacache[seriesid])
                 } else {
                     // そうじゃなければATI作ってfetchする
@@ -66,7 +67,8 @@ function getSeriesInfo(seriesid, usecache = true) {
                                 res.text().then((data) => {
                                     // objにパースして200かどうか確認する
                                     let dataobj = JSON.parse(data)
-                                    dataobj[fetchdate] = new Date()
+                                    let currentdate = new Date()
+                                    dataobj["fetchdate"] = currentdate.toString()
                                     if (dataobj.meta.status == 200) {
                                         // **ローカル**のストレージを呼ぶ
                                             // nullかundefinedだったら直接突っ込む
@@ -78,11 +80,23 @@ function getSeriesInfo(seriesid, usecache = true) {
                                                 let seriescache = JSON.parse(JSON.stringify(storage.seriesdatacache))
                                                 seriescache[seriesid] = dataobj
                                                 chrome.storage.local.set({"seriesdatacache":seriescache})
-                                                resolve(dataobj)
+                                                if (cachemode == 2) {
+                                                    // キャッシュがundefinedじゃなくてシリーズIDのキャッシュも過去にされててdataが今持ってるものと違うなら+を表示
+                                                    if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != undefined && dataobj.data.totalCount != storage.seriesdatacache[seriesid].data.totalCount )) {
+                                                        if (chrome.browserAction != undefined) {
+                                                            chrome.browserAction.setBadgeText({ text: "+" })
+                                                        } else if (chrome.action != undefined) {
+                                                            chrome.action.setBadgeText({ text: "+" })
+                                                        }
+                                                    }
+                                                    resolve(dataobj)
+                                                } else {
+                                                    resolve(dataobj)
+                                                }
                                             }
                                     } else {
-                                        // 200じゃなかったらrejectしてステータス返す
-                                        reject(dataobj.meta.status)
+                                        // 200じゃなかったらreject
+                                        reject(dataobj)
                                     }
                                 })
                             } else {
@@ -191,14 +205,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         よく考えたらそもそも100以上のシリーズを15s毎に呼ぶのはあまりよろしくないのでは？それなら30sで200以上になったら止める仕様の方が優しいよな
         遅延を2分とかあまりにも長くするとServiceWorkerはせっかちなので蹴っ飛ばしてしまう
 */
-/*
-chrome.alarms.onAlerm.addListener(function(e) {
+
+chrome.alarms.onAlarm.addListener(function(e) {
     if (e.name == 'seriesStock_Refresh') {
+        //console.log('seriesstock refresh')
+        // ストレージ取得
         let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
         getStorageData.then(function (result) {
-            if (result.enableseriesstock) {
-                fetch('https://nvapi.nicovideo.jp/v1/series/360103?_frontendId=6&_frontendVersion=0')
+            // 有効でかつストック中がundefinedじゃない
+            if (result.enableseriesstock && result.stockedseries != undefined) {
+                // lengthが300以下なら
+                if (result.stockedseries.length < 300) {
+                    // forEachで一個ずつ処理
+                    result.stockedseries.forEach((element,i) => {
+                        setTimeout(() => {
+                            console.log(element.seriesID)
+                            // キャッシュなしで取得(これでキャッシュされる)
+                            getSeriesInfo(element.seriesID,2)
+                        }, i * 10000);
+                        // i * 15000msで10sおきに実行
+                    });
+                }
             }
         })
     }
-})*/
+})

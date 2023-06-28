@@ -4,7 +4,7 @@
     "short_name": "PepperMint+",
     "description": "ニコニコ動画をもっとクールにする拡張機能",
     "version": "1.6.0",
-    "version_name": "1.6.0-PRE1",
+    "version_name": "1.6.0-PRE2",
     "developer": {
         "name": "CYakigasi"
     },
@@ -108,8 +108,11 @@
     "permissions": [
         "storage",
         "contextMenus",
-        "*://ext.nicovideo.jp/api/getthumbinfo/*",
-        "https://www.nicovideo.jp/ranking/*"
+        "https://ext.nicovideo.jp/api/getthumbinfo/*",
+        "https://www.nicovideo.jp/ranking/*",
+        "https://nvapi.nicovideo.jp/v1/series/*",
+        "https://fonts.googleapis.com/icon",
+        "alarms"
     ],
     "browser_specific_settings": {
         "gecko": {

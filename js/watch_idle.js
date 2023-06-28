@@ -88,6 +88,7 @@ function createCSSRule(result) {
             });
         }
         updateStockUI()
+        updateStockVidInfo()
         // ニコニコは動画リンクを踏んだ時実際にはページを移動していないので、メタの変更で検知する
         $('.VideoMetaContainer').on('DOMSubtreeModified propertychange', function () {
             console.log(`Video changed!!`)

@@ -25,8 +25,13 @@
                 これにはストックされたシリーズなどのデリケートな情報が含まれているので、誰かに共有する際は十分注意してください。<br>
                 コピーした設定を保存する際は、json形式で保存することをおすすめします。
             </div>
-            <button type="button" id="storagetoclipboard" style="margin: 8px 0;">設定をコピー</button><button type="button" id="showstorage" style="margin: 8px 0;">表示</button>
+            <button type="button" id="storagetoclipboard" style="margin: 8px 0;">コピー</button><button type="button" id="showstorage" style="margin: 8px 0;">表示</button>
             <div id="storage-data" style="font-family: monospace;overflow: scroll; background-color: #000; color: #000">ストレージがありません。</div>
+            <h1>Local storage</h1>
+            <div style="margin-bottom: 8px;">
+                現在のローカルストレージを表示/クリア/コピーします。シリーズストックのキャッシュに使用されます。
+            </div>
+            <button type="button" id="localstoragetoclipboard" style="margin: 8px 0;">コピー</button>
         </div>
         </div>
         <script src="../lib/jquery-3.6.3.min.js"></script>
