@@ -198,15 +198,14 @@ function createCSSRule(result) {
                 document.querySelector(':focus-visible').blur();
             } else if (commandstr == ":l") {
                 document.querySelector('.LikeActionButton').click();
-                document.querySelector(':focus-visible').blur();
             } else if (commandstr == ":r") {
                 document.querySelector('.PlayerRepeatOnButton, .PlayerRepeatOffButton').click();
                 document.querySelector(':focus-visible').blur();
             } else if (commandstr == ":oc") {
-                document.querySelector('.PlayerPanelContainer-tabItem:first-child').click();
-                document.querySelector(':focus-visible').blur();
+                document.querySelectorAll('.PlayerPanelContainer-tabItem')[0].click();
+                //document.querySelector(':focus-visible').blur();
             } else if (commandstr == ":op") {
-                document.querySelector('.PlayerPanelContainer-tabItem:last-child').click();
+                document.querySelectorAll('.PlayerPanelContainer-tabItem')[1].click();
                 document.querySelector('.PlayerPanelContainer-content').focus()
             } else if (commandstr == ":top") {
                 location.href = "https://www.nicovideo.jp/video_top"
@@ -271,7 +270,9 @@ function createCSSRule(result) {
                         },4000)
                     }
                 })
-                document.querySelector('.pm-viCommanderContainer').remove()
+                if (document.querySelector('.pm-viCommanderContainer') != undefined && document.querySelector('.pm-viCommanderContainer') != null ) {
+                    document.querySelector('.pm-viCommanderContainer').remove()
+                }
             }
         }
         function openViCommander() {
