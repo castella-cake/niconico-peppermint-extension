@@ -108,7 +108,8 @@
     "permissions": [
         "storage",
         "contextMenus",
-        "alarms"
+        "alarms",
+        "tabs"
     ],
     "host_permissions": ["*://ext.nicovideo.jp/api/getthumbinfo/*","https://nvapi.nicovideo.jp/v1/series/*","https://fonts.googleapis.com/icon"]
 }

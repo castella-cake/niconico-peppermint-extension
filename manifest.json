@@ -112,7 +112,8 @@
         "https://www.nicovideo.jp/ranking/*",
         "https://nvapi.nicovideo.jp/v1/series/*",
         "https://fonts.googleapis.com/icon",
-        "alarms"
+        "alarms",
+        "tabs"
     ],
     "browser_specific_settings": {
         "gecko": {
