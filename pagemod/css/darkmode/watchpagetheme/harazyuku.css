@@ -21,3 +21,12 @@
 .HeaderContainer, .BottomSideContainer, .BottomMainContainer {
 	background-color: var(--bgcolor1);
 }
+.TagItem {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #999;
+    border-radius: 0px;
+}
+.MainContainer-playerPanel,.VideoMenuContainer,.VideoMenuContainer, .BottomContainer, .VideoMenuContainer-areaLeft, .VideoMenuContainer-areaRight {
+    background-color: var(--bgcolor1);
+}

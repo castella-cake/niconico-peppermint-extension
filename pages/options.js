@@ -66,6 +66,7 @@ function saveOptions() {
             "enablespredirect": $("#input-enablespredirect").prop('checked'),
             //"enablefocusheader": $("#input-enablefocusheader").prop('checked'),
             "enableseriesstock": $("#input-enableseriesstock").prop('checked'),
+            "showseriesstockinpage": $("#input-showseriesstockinpage").prop('checked'),
             "enablecustomvideotop": $("#input-enablecustomvideotop").prop('checked'),
             // Unstable
             "quickvidarticle": $("#input-quickvidarticle").prop('checked')
@@ -132,6 +133,7 @@ function restoreOptions() {
         $("#input-enablespredirect").prop('checked', result.enablespredirect)
         //$("#input-enablefocusheader").prop('checked',result.enablefocusheader)
         $("#input-enableseriesstock").prop('checked', result.enableseriesstock)
+        $("#input-showseriesstockinpage").prop('checked', result.showseriesstockinpage)
         $("#input-enablecustomvideotop").prop('checked', result.enablecustomvideotop)
         // Unstable
         $("#input-quickvidarticle").prop('checked', result.quickvidarticle);

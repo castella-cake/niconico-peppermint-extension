@@ -208,7 +208,7 @@ function createBaseCSSRule(result) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
         }
 
-        if (location.hostname != "game.nicovideo.jp") {
+        if (location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp") {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
             if (location.hostname == "www.nicovideo.jp") {
                 if (location.pathname.indexOf('/video_top') != -1) {

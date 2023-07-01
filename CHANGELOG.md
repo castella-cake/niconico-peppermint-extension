@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.6.0] - 2023/06/25 (Pre1)
+## [1.6.0] - 2023/07/01
 
 ### Added
 - ``ショートカットアシスト`` にいいね！のショートカットを追加しました(Hキー)
@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ``シリーズストック`` を使用してストックしているシリーズのエピソードリスト/オーナーがクイックパネルで見られるようになりました   
 シリーズストック内のシリーズリストは2時間毎に更新されます。
 - ``シリーズストック`` を使用してストックしているシリーズに新しいエピソードがある場合、ツールバーにバッジが表示されるようになりました
+- クイックパネルから動画を開く場合、現在のタブがニコニコ動画の場合はそのまま移動、そうでない場合は新しいタブを開くようになりました
 
 ### Changed
 - ダークモードCSSの適用方法を可能な限り早くするようにしました
@@ -28,6 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PepperMintUIのアイコン関連を微調整しました
 - ダークモードで適用する市場のスタイルはファイルに含めないようになりました
 - ダークモード時に視聴ページ内検索バーの色がパレットに揃えられるようになりました
+- マーキーランキング表示のグラデーションは削除されました
+- ``シリーズストック`` の動画トップ、ニコニコホームへの表示はオプション扱いになり、デフォルトで無効化されました
 
 ### Fixed
 - ビジュアルパッチのフォールバックが欠けている問題を修正しました
@@ -35,6 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - コメント増量とシアターUIの競合を簡易的に解消しました
 - 原宿視聴ページテーマのダークモードサポートを修正しました
 - シアターUIのシリーズリンクの順番を更新するようにしました
+- マーキーランキング表示のプレイヤースタイル互換性を向上しました
+- 視聴ページテーマのダークモード互換性を向上しました
+- 設定ページのフォントサイズを固定するようにしました
 
 ## [1.5.3] - 2023/05/31
 

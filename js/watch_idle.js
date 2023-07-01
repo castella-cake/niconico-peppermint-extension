@@ -140,6 +140,12 @@ function createCSSRule(result) {
             if (!(result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches))) {
                 pushCSSRule(`#pm-marqueerankinglink {color: #fafafa}`)
             }
+            if ((result.playertheme == "rc1" && result.playerstyleoverride != "rc1dark") || result.playerthemeoverride == "rc1") {
+                pushCSSRule(`#pm-marqueerankinglink {color: #000}`)
+            }
+            if (result.playerstyleoverride == "rc1dark") {
+                pushCSSRule('#pm-marqueerankinglink {color: #fafafa} #pm-marqueerankingbg {color: #aaa}')
+            }
             $('.Marquee-itemArea,.Marquee-buttonArea').remove()
             chrome.runtime.sendMessage({ "type": "getRankingXml" }).then(res => {
                 // why chrome can't use domparser in service worker...

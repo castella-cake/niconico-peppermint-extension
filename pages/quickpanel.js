@@ -20,7 +20,21 @@ $('a').on('click', function (e) {
 function linkAction(e) {
     // 現在のタブがニコニコ動画ならそのタブで開き、そうじゃないなら新しいタブで開く...をやりたい
     // そのためにはbackground.jsにメッセージを送る必要があるんだってヴぁ
-    // あと今ページ移動のときにやってるアニメーションもこっちに統合してJQueryなしで書き直したい
+
+    // 一旦イベントを中止
+    e.preventDefault()
+    // メッセージ送信
+    let openLinkMsg = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "openThisNCLink", "href": this.href }, resolve))
+    openLinkMsg.then(res => {
+        if (res.status != true) {
+            // NGだったらwindow.openにフォールバック
+            window.open(this.href)
+            window.close()
+        } else {
+            // OKだったらclose
+            window.close()
+        }
+    })
 }
 
 function manageSeriesStock(seriesid, seriesname = '名称未設定') {
@@ -155,6 +169,7 @@ function makeElem() {
                 if (object.lastVidID != undefined && object.lastVidName != undefined) {
                     lastvidlink.textContent = `最後に見た動画: ${object.lastVidName}`
                     lastvidlink.setAttribute('href', `https://www.nicovideo.jp/watch/${object.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}`)
+                    lastvidlink.addEventListener('click',linkAction)
                 } else {
                     lastvidlink.setAttribute('style', 'color: var(--textcolor3)')
                     lastvidlink.textContent = `最後に見た動画が保存されていません`
@@ -167,6 +182,7 @@ function makeElem() {
                 if (object.nextVidID != undefined && object.nextVidID != undefined) {
                     nextvidlink.textContent = `次の動画: ${object.nextVidName}`
                     nextvidlink.setAttribute('href', `https://www.nicovideo.jp/watch/${object.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}`)
+                    nextvidlink.addEventListener('click',linkAction)
                 } else {
                     nextvidlink.setAttribute('style', 'color: var(--textcolor3)')
                     nextvidlink.textContent = `次の動画が保存されていません`
@@ -309,6 +325,8 @@ function makeElem() {
                                 episoderowelem.appendChild(episoderowlink)
                                 // 行コンテナをコンテナーに追加
                                 episodecontainer.appendChild(episoderowelem)
+                                // リンクにイベントをサブスクライブ
+                                episoderowlink.addEventListener('click',linkAction)
                             });
                         } else {
                             // オーナーコンテナーを用意

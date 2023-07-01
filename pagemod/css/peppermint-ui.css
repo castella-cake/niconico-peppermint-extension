@@ -148,7 +148,7 @@
 #pm-marqueerankingbg {
 	padding: 0px 8px 0px 32px;
 	display: flex;
-}
+}/*
 #pm-marqueerankingbg::before {
     position:absolute;
     left: 0;
@@ -170,7 +170,7 @@
 	display: block;
 	height: 44px;
 	z-index: 3;
-}
+}*/
 #pm-marqueerankingbg-current, #pm-marqueerankingbg-next {
     line-height: 44px;
     font-weight: bold;

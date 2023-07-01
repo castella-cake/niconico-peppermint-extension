@@ -353,10 +353,57 @@ function createCSSRule(result) {
             addCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
         }
         if (result.usenicoboxui != true && result.usetheaterui != true && result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
-            if (result.watchpagetheme != "") {
-                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watchpagetheme/" + result.watchpagetheme + ".css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css")}"]`, 'after');
+            if (result.watchpagetheme == "harazyuku") {
+                pushCSSRule(`.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand, .VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse {
+                    fill: var(--textcolor1);
+                    color: var(--textcolor1);
+                }
+                .VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse::before {
+                    border-color: transparent transparent var(--textcolor1) !important;
+                }
+                .VideoDescriptionExpander .VideoDescriptionExpander-switchExpand::before {
+                    border-color: var(--textcolor1) transparent transparent !important;
+                }
+                .VideoDescriptionContainer {
+                    background-color: var(--bgcolor1);
+                }
+                .VideoDescriptionExpander .VideoDescriptionExpander-switchExpand,.VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse {
+                    background-image: linear-gradient(#3b3b3b,var(--bgcolor1)) !important;
+                }
+                .HeaderContainer .VideoOwnerInfo-gridCell {
+                    background: transparent;
+                    outline: 2px solid var(--accent2);
+                }
+                .HeaderContainer, .BottomSideContainer, .BottomMainContainer {
+                    background-color: var(--bgcolor1);
+                }
+                .TagItem {
+                    background-color: transparent;
+                    border: none;
+                    border-bottom: 2px solid #999;
+                    border-radius: 0px;
+                }
+                .MainContainer-playerPanel,.VideoMenuContainer,.VideoMenuContainer, .BottomContainer, .VideoMenuContainer-areaLeft, .VideoMenuContainer-areaRight {
+                    background-color: var(--bgcolor1);
+                }`)
+            } else if (result.watchpagetheme == "mint") {
+                pushCSSRule(`.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand, .VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse {
+                    fill: var(--textcolor1);
+                    color: var(--textcolor1);
+                }
+                .VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse::before {
+                    border-color: transparent transparent var(--textcolor1) !important
+                }
+                .VideoDescriptionExpander .VideoDescriptionExpander-switchExpand::before {
+                    border-color: var(--textcolor1) transparent transparent !important
+                }
+                .VideoDescriptionExpander .VideoDescriptionExpander-switchExpand,.VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse {
+                    background-color: transparent;
+                    background: transparent;
+                    color: var(--textcolor1);
+                }`)
             }
+            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
         }
         if (result.playertheme != "") {
             //console.log(`CSS Loaded!`);
@@ -393,7 +440,7 @@ function createCSSRule(result) {
                 if (result.playertheme == "harazyuku" && result.playerstyleoverride == "mint") {
                     pushCSSRule('.ControllerContainer-inner { top:-1px; } .VolumeBarContainer { top:2px; } .PlaybackRateButton,.PlayerPlayTime { top: -2px; } .PlayerRepeatOffButton {padding: 6px 4px !important;}')
                 }
-                if (result.playertheme == "harazyuku" && result.playerstyleoverride == "rc1") {
+                if (result.playertheme == "harazyuku" && (result.playerstyleoverride == "rc1" || result.playerstyleoverride == "rc1dark")) {
                     pushCSSRule('.PlayerRepeatOffButton,.PlayerRepeatOnButton {padding: 2px 2px !important;} .SeekBarContainer {padding-left: 105px;padding-right: 455px;}')
                 }
                 if (result.playertheme == "harazyuku" && result.playerstyleoverride == "harazyuku") {

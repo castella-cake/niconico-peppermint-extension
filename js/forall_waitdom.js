@@ -27,7 +27,7 @@ function createBaseCSSRule(result) {
             } else {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
             }
-            if ( location.hostname != "game.nicovideo.jp" ) { addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);}
+            if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" ) { addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);}
             if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
                 $('.NiconicoLogo_black').addClass('NiconicoLogo_white')
                 $('.NiconicoLogo_black').removeClass('NiconicoLogo_black')
@@ -48,7 +48,7 @@ function createBaseCSSRule(result) {
             $('body').css('--headercolor', result.headercolor);
             //console.log(`HeaderBG changed to ${result.headercolor}`);
         }
-        if ( result.enableseriesstock == true && ( (location.pathname == "/" && location.hostname == "www.nicovideo.jp") || (location.pathname.indexOf('/video_top') != -1 && location.hostname == "www.nicovideo.jp") ) ){
+        if ( result.enableseriesstock == true && result.showseriesstockinpage == true && ( (location.pathname == "/" && location.hostname == "www.nicovideo.jp") || (location.pathname.indexOf('/video_top') != -1 && location.hostname == "www.nicovideo.jp") ) ){
             $('.pmbutton-container').append('<div class="openstock-container"><button id="openstock" class="material-icons mainaction-button" style="background: #00796b">folder</button></div>')
             $('#openstock').on('mouseenter', function() {
                 $('#openstock').css({

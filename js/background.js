@@ -172,6 +172,26 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             });
             return true;
         }
+    } else if ( message.type == "openThisNCLink") {
+        if (message.href != null || message.href != undefined) {
+            chrome.tabs.query({'active': true, 'lastFocusedWindow': true, 'currentWindow': true},tabarray => {
+                console.log(tabarray)
+                const activeURL = tabarray[0].url
+                if (activeURL != undefined && activeURL.indexOf('www.nicovideo.jp') != -1) {
+                    chrome.tabs.update(tabarray[0].id, {url: message.href})
+                } else {
+                    chrome.tabs.create({url: message.href});
+                }
+                sendResponse({'status': true});
+            })
+            return true;
+        } else {
+            sendResponse({
+                'status': false,
+                'reason': 'href is not defined'
+            });
+            return true;
+        }
     } else {
         sendResponse({
             'status': false,
