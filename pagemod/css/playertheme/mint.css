@@ -29,9 +29,6 @@
     position: absolute !important;
     right: 90px;
 }
-.ActionButton.MylistButton.ControllerButton.ignore-out-of-click-event {
-    display:none;
-}
 .SeekBarContainer {
     padding-left: 0px;
     padding-right: 0px;
@@ -47,12 +44,15 @@
     padding: 4px;
     position: relative;
     width: 28px;
-    top: 3px;
+}
+.ControllerContainer-area > button, .ControllerContainer-area > div > button {
+	top: 1px;
 }
 .ActionButton.ControllerButton.PlayerRepeatOnButton,.ActionButton.ControllerButton.PlayerRepeatOffButton {
     height: 28px;
     padding: 4px;
     width: 28px;
+    top: 3px;
 }
 .ActionButton.PlaybackRateButton {
     height: 32px;
@@ -71,6 +71,7 @@
 .ControllerContainer-area:last-child:hover {
     width: 172px;
     transition: width 0.3s ease;
+    z-index: 2;
 }
 .VolumeBarContainer {
     width: 60px;

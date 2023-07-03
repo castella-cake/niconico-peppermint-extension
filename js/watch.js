@@ -445,7 +445,7 @@ function createCSSRule(result) {
                     pushCSSRule('.PlayerRepeatOffButton,.PlayerRepeatOnButton {padding: 2px 2px !important;} .SeekBarContainer {padding-left: 105px;padding-right: 455px;}')
                 }
                 if (result.playertheme == "harazyuku" && result.playerstyleoverride == "harazyuku") {
-                    pushCSSRule('.PlayerRepeatOnButton,.PlayerRepeatOffButton,.CommentOnOffButton,.EnableFullScreenButton,.DisableFullScreenButton,.PlayerOptionButton {background:transparent;outline: 0px;border:0px;padding:2px;} .PlaybackRateButton { padding-top: 0px; } .PlayerPlayTime { line-height: 24px; }')
+                    pushCSSRule('.ControllerContainer-area.ControllerContainer-area-right > button,div {background:transparent;outline: 0px;border:0px;padding:2px;} .PlaybackRateButton { padding-top: 0px; } .PlayerPlayTime { line-height: 24px; }')
                 }
                 if (result.playertheme == "ginza" && result.playerstyleoverride == "harazyuku") {
                     pushCSSRule(`.PlayerPlayButton,.PlayerPauseButton {
@@ -521,7 +521,7 @@ function createCSSRule(result) {
                     pushCSSRule('.PlayerPauseButton,.PlayerPlayButton {background-image: linear-gradient(#232323,#171717);outline: 1px solid #1c1c1c;outline-offset: -1px;height: 34px;}.PlayerPauseButton:hover,.PlayerPlayButton:hover {background-image: linear-gradient(#2a2a2a,#1b1b1b);}.ControllerButton svg {filter: drop-shadow(0px 0px 2px rgba(0,0,0 50%)) ;}.ControllerButton:hover svg {fill:#ffffff;filter: drop-shadow(0px 0px 2px rgba(128,128,128 100%));transition:all .1s ease .1s}')
                 }
                 if (result.playertheme == "harazyuku") {
-                    pushCSSRule('.PlayerRepeatOnButton,.PlayerRepeatOffButton,.CommentOnOffButton,.EnableFullScreenButton,.DisableFullScreenButton,.PlayerOptionButton {background:transparent;outline: 0px;border:0px;padding:2px;} .PlaybackRateButton { padding-top: 0px; } .PlayerPlayTime { line-height: 24px; }')
+                    pushCSSRule('.ControllerContainer-area:last-child > button, .ControllerContainer-area:last-child > .ControllerContainer-playerOptionContainer > button {background:transparent;outline: 0px;border:0px;} .PlaybackRateButton { padding-top: 0px; } .PlayerPlayTime { line-height: 24px; }')
                 }
             }
             if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {

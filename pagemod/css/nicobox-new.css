@@ -25,6 +25,11 @@
 .PlayerOptionContainer {
     max-height: 330px;
 }
+.SupporterView {
+	height: 360px;
+	width: auto;
+	aspect-ratio: 16 / 9;
+}
 .PlayerSizeMenuItem, .FullscreenModeMenuItem, .PlayerOptionMenuGroup:nth-child(2), .PlayerOptionMenuGroup:nth-child(3)  {
     display:none;
 }

@@ -65,7 +65,7 @@
 	justify-content: space-around;
 }
 .NicoadVideoItem + .NicoadVideoItem {
-	margin-left: 0px
+	margin-left: 0px;
 }
 /* この広告は消さないとはみ出してしまうので、残念ながらボッシュートとなります！(ﾃﾞﾃﾞｯﾃﾞﾃﾞｯﾃﾞｯﾃﾞｰﾝ) */
 .RankingVideosContainer-columnRight > .Ads300x250WebPcMiddle {

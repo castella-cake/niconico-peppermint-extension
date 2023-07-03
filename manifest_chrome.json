@@ -4,7 +4,7 @@
     "short_name": "PepperMint+",
     "description": "ニコニコ動画をもっとクールにする拡張機能",
     "version": "1.6.0",
-    "version_name": "1.6.0",
+    "version_name": "1.6.0-PRE2",
     "author": "CYakigasi",
     "homepage_url": "https://github.com/castella-cake/niconico-peppermint-extension",
     "icons": {
@@ -111,5 +111,5 @@
         "alarms",
         "tabs"
     ],
-    "host_permissions": ["*://ext.nicovideo.jp/api/getthumbinfo/*","https://nvapi.nicovideo.jp/v1/series/*","https://fonts.googleapis.com/icon"]
+    "host_permissions": ["*://ext.nicovideo.jp/api/getthumbinfo/*","https://nvapi.nicovideo.jp/v1/series/*","https://fonts.googleapis.com/icon","https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/*"]
 }

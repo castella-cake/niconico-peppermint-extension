@@ -52,7 +52,8 @@
     top: 14px;
 }
 .ActionButton.MylistButton.ControllerButton.ignore-out-of-click-event {
-    display:none;
+    position: relative;
+    left: 7px;
 }
 .ControllerContainer {
     height: 31px;

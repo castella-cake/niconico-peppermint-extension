@@ -5,15 +5,17 @@
 	--destructive-hover: #e22850;
 	--destructive-dark: #810220;
     /* 基本背景色 */
-    --bgcolor1: #eee;
+    --bgcolor1: #fff;
     /* サブ背景色1 */
-    --bgcolor2: #ddd;
+    --bgcolor2: #fff;
     /* サブ背景色2 */
-    --bgcolor3: #ccc;
-    --bgcolor4: #bbb;
+    --bgcolor3: #eaeaea;
+    --bgcolor4: #e0e0e0;
     --textcolor1: #000;
     --textcolor2: #333;
     --textcolor3: #666;
+	--shadow1: rgba(64,64,64,0.5);
+	--shadow2: rgba(0,0,0,0.5);
     --textcolornew: #e05050;
     --accent1: #dadada;
     --accent2: #c0c0c0;
@@ -64,6 +66,11 @@ h1 {
 	bottom: 0;
 	right: 0;
 	font-size: 10px;
+	z-index: 255;
+}
+
+.disabled {
+	display: none;
 }
 
 #info-area {
@@ -314,11 +321,12 @@ tr td:nth-child(7) {
 }
 .stockedseries-row {
 	margin: 5px 0;
-	border-bottom: 2px solid var(--bgcolor4);
+	/*border-bottom: 2px solid var(--bgcolor4);*/
 	border-radius: 5px;
 	background: var(--bgcolor1);
 	padding: 5px 8px;
 	margin-bottom: 10px;
+	box-shadow: 0px 0px 2px var(--shadow2);
 }
 .serieslink-container {
 	display: flex;
@@ -462,6 +470,46 @@ tr td:nth-child(7) {
 	color: #aaa;
 }
 
+.quickpanel-tabcontainer {
+	display: flex;
+	margin-bottom: 0px;
+	padding-left: 6px;
+	align-items: end;
+}
+.quickpanel-tabcontainer button {
+	border-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	border-bottom: none;
+	margin: 0px;
+	box-shadow: 0px 4px 1px var(--bgcolor2), 0px -1px 4px var(--shadow1);
+	border: none;
+	padding: 4px 6px;
+	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
+	z-index: 1;
+	margin-right: 0px;
+	background: var(--bgcolor3);
+	font-size: 12px;
+	height: 24px;
+}
+.quickpanel-tabcontainer button:hover {
+	background: var(--bgcolor2)
+}
+.quickpanel-tabcontainer button.current-tab {
+	background: var(--bgcolor2);
+	font-weight: bolder;
+	z-index: 3;
+	height: 28px;
+	font-size: 14px;
+}
+.quickpanel-mainpanel {
+	background: var(--bgcolor2);
+	padding-top: 8px;
+	z-index: 2;
+	position: relative;
+	box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
+}
+
 .noyugothic {
 	font-family: "Lato",sans-serif
 }
@@ -474,12 +522,12 @@ tr td:nth-child(7) {
 	}
 	:root {
 	    /* 基本背景色 */
-		--bgcolor1: #252525;
+		--bgcolor1: #1c1b22;
 		/* サブ背景色1 */
-		--bgcolor2: #333;
+		--bgcolor2: #23222b;
 		/* サブ背景色2 */
-		--bgcolor3: #666;
-		--bgcolor4: #aaa;
+		--bgcolor3: #43424d;
+		--bgcolor4: #53525e;
 		--textcolor1: #fff;
 		--textcolor2: #ddd;
 		--textcolor3: #aaa;
@@ -488,6 +536,8 @@ tr td:nth-child(7) {
 		--accent2: #888;
 		--hover1: #666;
 		--hover2: #aaa;
+		--shadow1: rgba(0,0,0,0.5);
+		--shadow2: rgba(255,255,255,0.5);
 		--linktext1: #8fb9df;
 		--linktext2: #8ed9ff;
 		--linktext3: #008acf;

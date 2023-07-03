@@ -122,11 +122,11 @@ function makeElem() {
             togglelockbutton.type = 'button'
             titlecontainer.appendChild(togglelockbutton)
             // Push Container to contentarea
-            document.getElementById('content-area').appendChild(titlecontainer)
+            document.getElementById('seriesstock').appendChild(titlecontainer)
             // create list container
             let listcontainer = document.createElement('div')
             listcontainer.classList.add('stockedserieslist-container')
-            document.getElementById('content-area').appendChild(listcontainer)
+            document.getElementById('seriesstock').appendChild(listcontainer)
             $.each(result.stockedseries, function (i, object) {
                 let seriesHref = `https://www.nicovideo.jp/series/${object.seriesID}`
                 // ニコニコ動画は、watchページのリンクにクエリパラメータ playlist を渡すことで連続再生できるようになります
@@ -365,12 +365,12 @@ function makeElem() {
                 elem_nothing_head.textContent = ":o"
                 elem_nothing_head.classList.add('nothing-here-head')
                 // Push Elem
-                document.getElementById('content-area').appendChild(elem_nothing_head)
+                document.getElementById('dashboard').appendChild(elem_nothing_head)
                 let elem_nothing = document.createElement('div')
                 elem_nothing.innerHTML = "ここはPepperMint+のクイックパネルです。<br>「クイック設定を開く」もしくはタイトルをクリックして、設定に移動しましょう。<br>シリーズストックを有効化していると、ここにストック中のシリーズが表示されます。"
                 elem_nothing.classList.add('nothing-here')
                 // Push Elem
-                document.getElementById('content-area').appendChild(elem_nothing)
+                document.getElementById('dashboard').appendChild(elem_nothing)
                 let elem_nothing_discard_container = document.createElement('div')
                 elem_nothing_discard_container.classList.add('nothing-here-discard-container')
                 let elem_nothing_discard = document.createElement('a')
@@ -390,8 +390,18 @@ function makeElem() {
                         }
                     );
                 })
-                document.getElementById('content-area').appendChild(elem_nothing_discard_container)
+                document.getElementById('dashboard').appendChild(elem_nothing_discard_container)
             }
+        }
+        if (result.enablenicorepotab == true) {
+            document.getElementById('tabbutton-nicorepo').classList.remove('disabled')
+            let callGRN = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo" }, resolve))
+            callGRN.then(res => {
+                console.log(res)
+                let lastfetchdateelem = document.createElement('div')
+                lastfetchdateelem.textContent = `最終更新: ${res.fetchdate}`
+                document.getElementById('nicorepo').appendChild(lastfetchdateelem)
+            })
         }
     }, onError);
 }

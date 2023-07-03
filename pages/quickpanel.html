@@ -21,36 +21,43 @@
                     rel="noopener noreferrer" class="titlelink">Github</a>
             </div>
         </div>
-        <form id="settings-form">
-            <div class="settings-row browser-style">
-                <label>ダークモード/カラーパレット
-                    <select id="select-darkmode">
-                        <option value="">Disable</option>
-                        <option value="pmcolor">PMDark</option>
-                        <option value="spcolor">SPDark</option>
-                        <option value="nordcolor">NordNight</option>
-                        <option value="black">SolidBlack</option>
-                        <option value="cybernight">CyberNight</option>
-                        <option value="custom">カスタム設定</option>
-                    </select>
-                </label>
-                <label><input type="checkbox" id="input-darkmodedynamic">ブラウザーに追従</label>
+        <div class="quickpanel-tabcontainer"><button type="button" id="tabbutton-dashboard" class="current-tab">ダッシュボード</button> <button type="button" id="tabbutton-nicorepo" class="disabled">ニコレポ</button></div>
+        <form id="settings-form" class="quickpanel-mainpanel">
+            <div id="dashboard" class="current-tabpanel">
+                <div class="settings-row browser-style">
+                    <label>ダークモード/カラーパレット
+                        <select id="select-darkmode">
+                            <option value="">Disable</option>
+                            <option value="pmcolor">PMDark</option>
+                            <option value="spcolor">SPDark</option>
+                            <option value="nordcolor">NordNight</option>
+                            <option value="black">SolidBlack</option>
+                            <option value="cybernight">CyberNight</option>
+                            <option value="custom">カスタム設定</option>
+                        </select>
+                    </label>
+                    <label><input type="checkbox" id="input-darkmodedynamic">ブラウザーに追従</label>
+                </div>
+                <div class="settings-row browser-style">
+                    <label>プレイヤーテーマ
+                        <select id="select-playertheme">
+                            <option value="">Disable</option>
+                            <option value="harazyuku">原宿</option>
+                            <option value="rc1">RC1</option>
+                            <option value="rc1plus">RC1+</option>
+                            <option value="ginza">GINZA</option>
+                            <option value="mint">Mint</option>
+                        </select>
+                    </label>
+                    <label><input type="checkbox" id="input-usetheaterui">シアターUIを使用</label>
+                </div>
+                <a href="option.html" target="_self" class="settinglink">クイック設定を開く</a>
+                <div id="seriesstock">
+                </div>
             </div>
-            <div class="settings-row browser-style">
-                <label>プレイヤーテーマ
-                    <select id="select-playertheme">
-                        <option value="">Disable</option>
-                        <option value="harazyuku">原宿</option>
-                        <option value="rc1">RC1</option>
-                        <option value="rc1plus">RC1+</option>
-                        <option value="ginza">GINZA</option>
-                        <option value="mint">Mint</option>
-                    </select>
-                </label>
-                <label><input type="checkbox" id="input-usetheaterui">シアターUIを使用</label>
-            </div>
-            <a href="option.html" target="_self" class="settinglink">クイック設定を開く</a>
-            <div id="content-area">
+            <div id="nicorepopanel">
+                <div id="nicorepo">
+                </div>
             </div>
         </form>
         <div id="current-version"></div>

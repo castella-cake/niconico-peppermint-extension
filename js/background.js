@@ -11,7 +11,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
         title: 'ニコニコ大百科で %s を検索',
         contexts: ["selection"]
     });
-    chrome.alarms.create('seriesStock_Refresh', {delayInMinutes:0, periodInMinutes: 120})
+    chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 0, periodInMinutes: 120 })
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -51,12 +51,12 @@ function getSeriesInfo(seriesid, cachemode = 0) {
     // シリーズ情報を取得してキャッシュします。あくまでこいつは新規取得に特化しています。
     // なので、キャッシュがある場合はそっちから読むとかそんな動作はしません。→するようになりました
     // cachemode 0 => use cache 1 => no cache 2 => no cache and badge update
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
         try {
             let getStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
             getStorageData.then((storage) => {
                 // ストレージにあるseriesidのキャッシュがnullでもundefinedでもなくて極めつけにusecacheがtrueならストレージのものを返す
-                if ( storage.seriesdatacache != undefined && ( storage.seriesdatacache[seriesid] != null && storage.seriesdatacache[seriesid] != undefined && cachemode == 0)) {
+                if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != null && storage.seriesdatacache[seriesid] != undefined && cachemode == 0)) {
                     resolve(storage.seriesdatacache[seriesid])
                 } else {
                     // そうじゃなければATI作ってfetchする
@@ -71,29 +71,29 @@ function getSeriesInfo(seriesid, cachemode = 0) {
                                     dataobj["fetchdate"] = currentdate.toString()
                                     if (dataobj.meta.status == 200) {
                                         // **ローカル**のストレージを呼ぶ
-                                            // nullかundefinedだったら直接突っ込む
-                                            if (storage.seriesdatacache == null || storage.seriesdatacache == undefined) {
-                                                chrome.storage.local.set({"seriesdatacache":{[seriesid]: dataobj}})
+                                        // nullかundefinedだったら直接突っ込む
+                                        if (storage.seriesdatacache == null || storage.seriesdatacache == undefined) {
+                                            chrome.storage.local.set({ "seriesdatacache": { [seriesid]: dataobj } })
+                                            resolve(dataobj)
+                                        } else {
+                                            // そうじゃなければ、ストレージの内容をvarにコピーして、変更したcacheを付け足して、ストレージに突っ込む
+                                            let seriescache = JSON.parse(JSON.stringify(storage.seriesdatacache))
+                                            seriescache[seriesid] = dataobj
+                                            chrome.storage.local.set({ "seriesdatacache": seriescache })
+                                            if (cachemode == 2) {
+                                                // キャッシュがundefinedじゃなくてシリーズIDのキャッシュも過去にされててdataが今持ってるものと違うなら+を表示
+                                                if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != undefined && dataobj.data.totalCount != storage.seriesdatacache[seriesid].data.totalCount)) {
+                                                    if (chrome.browserAction != undefined) {
+                                                        chrome.browserAction.setBadgeText({ text: "+" })
+                                                    } else if (chrome.action != undefined) {
+                                                        chrome.action.setBadgeText({ text: "+" })
+                                                    }
+                                                }
                                                 resolve(dataobj)
                                             } else {
-                                                // そうじゃなければ、ストレージの内容をvarにコピーして、変更したcacheを付け足して、ストレージに突っ込む
-                                                let seriescache = JSON.parse(JSON.stringify(storage.seriesdatacache))
-                                                seriescache[seriesid] = dataobj
-                                                chrome.storage.local.set({"seriesdatacache":seriescache})
-                                                if (cachemode == 2) {
-                                                    // キャッシュがundefinedじゃなくてシリーズIDのキャッシュも過去にされててdataが今持ってるものと違うなら+を表示
-                                                    if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != undefined && dataobj.data.totalCount != storage.seriesdatacache[seriesid].data.totalCount )) {
-                                                        if (chrome.browserAction != undefined) {
-                                                            chrome.browserAction.setBadgeText({ text: "+" })
-                                                        } else if (chrome.action != undefined) {
-                                                            chrome.action.setBadgeText({ text: "+" })
-                                                        }
-                                                    }
-                                                    resolve(dataobj)
-                                                } else {
-                                                    resolve(dataobj)
-                                                }
+                                                resolve(dataobj)
                                             }
+                                        }
                                     } else {
                                         // 200じゃなかったらreject
                                         reject(dataobj)
@@ -101,13 +101,77 @@ function getSeriesInfo(seriesid, cachemode = 0) {
                                 })
                             } else {
                                 // そもそも呼べなかったらrejectしてステータス返す
-                                reject(res.status)
+                                reject({ "meta": { "status": res.status, "reason": "APIの呼び出しに失敗しました" } })
                             }
                         })
                     })
                 }
             })
-            
+
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+function getRecentNicorepo(cachemode = 0) {
+    // ニコレポを取得してキャッシュします。
+    // cachemode 0 => use cache 1 => no cache 2 => no cache and badge update
+    return new Promise((resolve, reject) => {
+        try {
+            let getStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
+            getStorageData.then((storage) => {
+                // キャッシュが使用可能なら使用する
+                if (storage.nicorepocache != undefined && (storage.nicorepocache != null && storage.nicorepocache != undefined && cachemode == 0)) {
+                    resolve(storage.nicorepocache)
+                } else {
+                    // そうじゃなければfetch
+                    fetch(`https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/last-1-month/my/pc/entries.json`, { 'method': 'GET' }).then((res) => {
+                        if (res.ok) {
+                            // okだったらtextを取る
+                            res.text().then((data) => {
+                                // objにパースして200かどうか確認する
+                                let dataobj = JSON.parse(data)
+                                let currentdate = new Date()
+                                dataobj["fetchdate"] = currentdate.toString()
+                                if (dataobj.meta.status == 200) {
+                                    chrome.storage.local.set({ "nicorepocache": dataobj })
+                                    resolve(dataobj)
+                                    /*// **ローカル**のストレージを呼ぶ
+                                    // nullかundefinedだったら直接突っ込む
+                                    if (storage.seriesdatacache == null || storage.seriesdatacache == undefined) {
+                                        chrome.storage.local.set({ "nicorepo": dataobj })
+                                        resolve(dataobj)
+                                    } else {
+                                        // そうじゃなければ、ストレージの内容をvarにコピーして、変更したcacheを付け足して、ストレージに突っ込む
+                                        let seriescache = JSON.parse(JSON.stringify(storage.seriesdatacache))
+                                        seriescache[seriesid] = dataobj
+                                        chrome.storage.local.set({ "nicorepo": seriescache })
+                                        if (cachemode == 2) {
+                                            // キャッシュがundefinedじゃなくてシリーズIDのキャッシュも過去にされててdataが今持ってるものと違うなら+を表示
+                                            if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != undefined && dataobj.data.totalCount != storage.seriesdatacache[seriesid].data.totalCount)) {
+                                                if (chrome.browserAction != undefined) {
+                                                    chrome.browserAction.setBadgeText({ text: "+" })
+                                                } else if (chrome.action != undefined) {
+                                                    chrome.action.setBadgeText({ text: "+" })
+                                                }
+                                            }
+                                            resolve(dataobj)
+                                        } else {
+                                            resolve(dataobj)
+                                        }
+                                    }*/
+                                } else {
+                                    // 200じゃなかったらreject
+                                    reject(dataobj)
+                                }
+                            })
+                        } else {
+                            // そもそも呼べなかったらrejectしてステータス返す
+                            reject({ "meta": { "status": res.status, "reason": "APIの呼び出しに失敗しました" } })
+                        }
+                    })
+                }
+            })
         } catch (err) {
             reject(err)
         }
@@ -155,6 +219,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     } else if (message.type == "getSeriesInfo") {
         if (message.seriesID != null || message.seriesID != undefined) {
             getSeriesInfo(message.seriesID)
+                .then((data) => {
+                    sendResponse(data)
+                })
+                .catch((reason) => {
+                    sendResponse({
+                        'status': false,
+                        'reason': `getSeriesInfo() failed: ${reason}`
+                    });
+                })
+            return true;
+        } else {
+            sendResponse({
+                'status': false,
+                'reason': 'seriesID is not defined'
+            });
+            return true;
+        }
+    } else if (message.type == "getRecentNicorepo") {
+        getRecentNicorepo()
             .then((data) => {
                 sendResponse(data)
             })
@@ -164,29 +247,22 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     'reason': `getSeriesInfo() failed: ${reason}`
                 });
             })
-            return true;
-        } else {
-            sendResponse({
-                'status': false,
-                'reason': 'seriesID is not defined'
-            });
-            return true;
-        }
-    } else if ( message.type == "openThisNCLink") {
+        return true;
+    } else if (message.type == "openThisNCLink") {
         if (message.href != null || message.href != undefined) {
             try {
-                chrome.tabs.query({'active': true, 'currentWindow': true},tabarray => {
+                chrome.tabs.query({ 'active': true, 'currentWindow': true }, tabarray => {
                     console.log(tabarray)
                     const activeURL = tabarray[0].url
                     if (activeURL != undefined && activeURL.indexOf('www.nicovideo.jp') != -1) {
-                        chrome.tabs.update(tabarray[0].id, {url: message.href})
+                        chrome.tabs.update(tabarray[0].id, { url: message.href })
                     } else {
-                        chrome.tabs.create({url: message.href});
+                        chrome.tabs.create({ url: message.href });
                     }
-                    sendResponse({'status': true});
+                    sendResponse({ 'status': true });
                 })
                 return true;
-            } catch(err) {
+            } catch (err) {
                 sendResponse({
                     'status': false,
                     'reason': `Unexpected error:${err}`
@@ -234,7 +310,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         遅延を2分とかあまりにも長くするとServiceWorkerはせっかちなので蹴っ飛ばしてしまう
 */
 
-chrome.alarms.onAlarm.addListener(function(e) {
+chrome.alarms.onAlarm.addListener(function (e) {
     if (e.name == 'seriesStock_Refresh') {
         //console.log('seriesstock refresh')
         // ストレージ取得
@@ -245,11 +321,11 @@ chrome.alarms.onAlarm.addListener(function(e) {
                 // lengthが300以下なら
                 if (result.stockedseries.length < 300) {
                     // forEachで一個ずつ処理
-                    result.stockedseries.forEach((element,i) => {
+                    result.stockedseries.forEach((element, i) => {
                         setTimeout(() => {
                             console.log(element.seriesID)
                             // キャッシュなしで取得(これでキャッシュされる)
-                            getSeriesInfo(element.seriesID,2)
+                            getSeriesInfo(element.seriesID, 2)
                         }, i * 10000);
                         // i * 15000msで10sおきに実行
                     });

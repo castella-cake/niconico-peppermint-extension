@@ -17,10 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
         $('#confirmreset').on('click', function() {
             // HACK: chrome.storage.sync.clear() はFirefoxで動作しないため、UAで判定する。bug?
             let storageclear = chrome.storage.sync.clear()
+            let localstorageclear = chrome.storage.local.clear()
             if (window.navigator.userAgent.toLowerCase().indexOf("firefox") != -1) {
                 storageclear = browser.storage.sync.clear()
+                localstorageclear = browser.storage.local.clear()
             }
             storageclear.then(() => {
+                localstorageclear()
                 $('#result').text('リセットしました。5秒後にメイン設定に戻ります...')
                 $('button,a').remove()
                 setTimeout(function() {

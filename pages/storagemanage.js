@@ -68,10 +68,20 @@ document.addEventListener("DOMContentLoaded", function () {
     let getLocalStorageData = new Promise((resolve) => chrome.storage.local.get(null,resolve))
     getLocalStorageData.then(function(result){
         let localStorageText = JSON.stringify(result)
-        //document.querySelector('#local-storage-data').textContent = localStorageText
+        let localStorageBlob = new Blob([localStorageText])
+        document.querySelector('#localstoragesize').textContent = localStorageBlob.size
         $('#localstoragetoclipboard').on('click', function() {
             navigator.clipboard.writeText(localStorageText);
             $(this).text('コピーしました')
         })
     },onError)
+    document.getElementById('clearlocalstorage').addEventListener('click',function() {
+        let localstorageclear = chrome.storage.local.clear()
+        if (localstorageclear == undefined) {
+            localstorageclear = browser.storage.local.clear()
+        }
+        localstorageclear.then(() => {
+            location.reload()
+        })
+    })
 });
