@@ -12,7 +12,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
         contexts: ["selection"]
     });
     chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 0, periodInMinutes: 120 })
-    chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 0, periodInMinutes: 60 })
+    chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 0, periodInMinutes: 45 })
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
