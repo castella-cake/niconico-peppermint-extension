@@ -135,7 +135,7 @@ function createCSSRule(result) {
             }
         })
     }
-    if (result.replacemarqueecontent == "ranking") {
+    if (result.replacemarqueecontent == "ranking" && result.usenicoboxui != true && result.usetheaterui != true) {
         $(function () {
             if (!(result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches))) {
                 pushCSSRule(`#pm-marqueerankinglink {color: #fafafa}`)
