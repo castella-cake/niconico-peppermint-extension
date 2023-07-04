@@ -398,18 +398,29 @@ function makeElem() {
                 document.getElementById('dashboard').appendChild(elem_nothing_discard_container)
             }
         }
+        if (result.enablenicorepotab == true || result.enablenoticebox == true) {
+            document.getElementById('tabbutton-dashboard').addEventListener('click', function () {
+                document.querySelector('.current-tabpanel').classList.remove('current-tabpanel')
+                document.querySelector('.current-tab').classList.remove('current-tab')
+                this.classList.add('current-tab')
+                document.getElementById('dashboard').classList.add('current-tabpanel')
+            })
+        }
+        if (result.enablenoticebox == true) {
+            document.getElementById('tabbutton-noticebox').addEventListener('click', function () {
+                document.querySelector('.current-tabpanel').classList.remove('current-tabpanel')
+                document.querySelector('.current-tab').classList.remove('current-tab')
+                this.classList.add('current-tab')
+                document.getElementById('noticeboxpanel').classList.add('current-tabpanel')
+            })
+            document.getElementById('tabbutton-noticebox').classList.remove('disabled')
+        }
         if (result.enablenicorepotab == true) {
             document.getElementById('tabbutton-nicorepo').addEventListener('click', function () {
                 document.querySelector('.current-tabpanel').classList.remove('current-tabpanel')
                 document.querySelector('.current-tab').classList.remove('current-tab')
                 this.classList.add('current-tab')
                 document.getElementById('nicorepopanel').classList.add('current-tabpanel')
-            })
-            document.getElementById('tabbutton-dashboard').addEventListener('click', function () {
-                document.querySelector('.current-tabpanel').classList.remove('current-tabpanel')
-                document.querySelector('.current-tab').classList.remove('current-tab')
-                this.classList.add('current-tab')
-                document.getElementById('dashboard').classList.add('current-tabpanel')
             })
             document.getElementById('tabbutton-nicorepo').classList.remove('disabled')
             let callGRN = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo" }, resolve))
