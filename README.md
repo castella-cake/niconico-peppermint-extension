@@ -116,7 +116,8 @@ Chromium向けのデバッグにはこれを使用する必要がありますが
     - [x] リスト取得機能
     - [x] 新規エピソード通知機能
     - [ ] フォルダー分け機能
-- [ ] ニコレポ取得
+- [x] ニコレポ取得
+- [ ] お知らせ通知
 - [x] カスタム動画トップ
 
 # Progress
@@ -157,9 +158,13 @@ https://github.com/sponsors/castella-cake
 Niconico-PepperMint+のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  
 
-Niconico-PepperMint内には、外部リソースとしてMaterial Iconsを使用している箇所があります。    
+Niconico-PepperMint+内には、外部リソースとしてMaterial Iconsを使用している箇所があります。    
 Material Iconsは``Apache License 2.0`` のもとで配布されています。  
 Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
 
-Niconico-PepperMint内には、JQuery, JQuery UI, Nord が含まれています。
+Niconico-PepperMint+内には、JQuery, JQuery UI, Nord が含まれています。
 これらは``MIT License``のもとで配布されています。
+
+Niconico-PepperMint+内にはDOMPurifyが含まれています。
+DOMPurifyは``Apache License 2.0``、``Mozilla Public License Version 2.0``のデュアルライセンスで配布されています。
+(PepperMint+では``Apache License 2.0``に従います)

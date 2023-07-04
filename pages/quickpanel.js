@@ -5,17 +5,22 @@ if (chrome.browserAction != undefined) {
 } else if (chrome.action != undefined) {
     chrome.action.setBadgeText({ text: "" })
 }
+if (manifestData.version_name.indexOf('PRE') != -1) {
+    document.querySelector('.betafeedbacklink').classList.remove('disabled')
+}
 
 
 $('a').on('click', function (e) {
-    e.preventDefault();
-    $('body').css({
-        'animation': 'fadeout 0.1s ease forwards 0s',
-    })
-    let href = $(this).attr('href')
-    setTimeout(function () {
-        location.href = href
-    }, 100)
+    if (this.target != "_blank") {
+        e.preventDefault();
+        $('body').css({
+            'animation': 'fadeout 0.1s ease forwards 0s',
+        })
+        let href = $(this).attr('href')
+        setTimeout(function () {
+            location.href = href
+        }, 100)
+    }
 })
 function linkAction(e) {
     // 現在のタブがニコニコ動画ならそのタブで開き、そうじゃないなら新しいタブで開く...をやりたい
@@ -169,7 +174,7 @@ function makeElem() {
                 if (object.lastVidID != undefined && object.lastVidName != undefined) {
                     lastvidlink.textContent = `最後に見た動画: ${object.lastVidName}`
                     lastvidlink.setAttribute('href', `https://www.nicovideo.jp/watch/${object.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}`)
-                    lastvidlink.addEventListener('click',linkAction)
+                    lastvidlink.addEventListener('click', linkAction)
                 } else {
                     lastvidlink.setAttribute('style', 'color: var(--textcolor3)')
                     lastvidlink.textContent = `最後に見た動画が保存されていません`
@@ -182,7 +187,7 @@ function makeElem() {
                 if (object.nextVidID != undefined && object.nextVidID != undefined) {
                     nextvidlink.textContent = `次の動画: ${object.nextVidName}`
                     nextvidlink.setAttribute('href', `https://www.nicovideo.jp/watch/${object.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${object.seriesID}`)
-                    nextvidlink.addEventListener('click',linkAction)
+                    nextvidlink.addEventListener('click', linkAction)
                 } else {
                     nextvidlink.setAttribute('style', 'color: var(--textcolor3)')
                     nextvidlink.textContent = `次の動画が保存されていません`
@@ -326,7 +331,7 @@ function makeElem() {
                                 // 行コンテナをコンテナーに追加
                                 episodecontainer.appendChild(episoderowelem)
                                 // リンクにイベントをサブスクライブ
-                                episoderowlink.addEventListener('click',linkAction)
+                                episoderowlink.addEventListener('click', linkAction)
                             });
                         } else {
                             // オーナーコンテナーを用意
@@ -394,13 +399,88 @@ function makeElem() {
             }
         }
         if (result.enablenicorepotab == true) {
+            document.getElementById('tabbutton-nicorepo').addEventListener('click', function () {
+                document.querySelector('.current-tabpanel').classList.remove('current-tabpanel')
+                document.querySelector('.current-tab').classList.remove('current-tab')
+                this.classList.add('current-tab')
+                document.getElementById('nicorepopanel').classList.add('current-tabpanel')
+            })
+            document.getElementById('tabbutton-dashboard').addEventListener('click', function () {
+                document.querySelector('.current-tabpanel').classList.remove('current-tabpanel')
+                document.querySelector('.current-tab').classList.remove('current-tab')
+                this.classList.add('current-tab')
+                document.getElementById('dashboard').classList.add('current-tabpanel')
+            })
             document.getElementById('tabbutton-nicorepo').classList.remove('disabled')
             let callGRN = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo" }, resolve))
             callGRN.then(res => {
-                console.log(res)
-                let lastfetchdateelem = document.createElement('div')
-                lastfetchdateelem.textContent = `最終更新: ${res.fetchdate}`
-                document.getElementById('nicorepo').appendChild(lastfetchdateelem)
+                if (res.meta.status == "200") {
+                    let lastfetchdateelem = document.createElement('div')
+                    lastfetchdateelem.textContent = `最終更新: ${res.fetchdate}`
+                    lastfetchdateelem.classList.add('nicorepo-lastfetch')
+                    document.getElementById('nicorepo').appendChild(lastfetchdateelem)
+                    let rowlistcontainer = document.createElement('div')
+                    rowlistcontainer.classList.add('nicorepo-rowlistcontainer')
+                    res.data.forEach(element => {
+                        // actor.url = userURL actor.name = userNickname, object.url = main url,object.name = main name, title
+                        // 行コンテナ
+                        let rowcontainer = document.createElement('div')
+                        rowcontainer.classList.add('nicorepo-rowcontainer')
+                        // pfp
+                        let userimg = document.createElement('img')
+                        userimg.classList.add('nicorepo-userimg')
+                        userimg.src = element.actor.icon
+                        // 行コンテナに追加
+                        rowcontainer.appendChild(userimg)
+                        // repo img
+                        let repoimg = document.createElement('img')
+                        repoimg.classList.add('nicorepo-repoimg')
+                        repoimg.src = element.object.image
+                        // 行コンテナに追加
+                        rowcontainer.appendChild(repoimg)
+                        // リンクコンテナ
+                        let linkcontainer = document.createElement('div')
+                        linkcontainer.classList.add('nicorepo-rowlinkcontainer')
+
+                        // ユーザーリンク
+                        let userrowlink = document.createElement('a')
+                        userrowlink.classList.add('nicorepo-rowlink')
+                        userrowlink.textContent = element.actor.name
+                        // メインにhref追加
+                        userrowlink.href = element.actor.url
+                        // リンクコンテナに追加
+                        linkcontainer.appendChild(userrowlink)
+
+                        // タイトル
+                        let titlerowlink = document.createElement('div')
+                        titlerowlink.classList.add('nicorepo-rowlink')
+                        let sanitizedtitle = DOMPurify.sanitize(element.title)
+                        titlerowlink.innerHTML = sanitizedtitle
+                        // リンクコンテナに追加
+                        linkcontainer.appendChild(titlerowlink)
+
+                        // メインリンク
+                        let mainrowlink = document.createElement('a')
+                        mainrowlink.textContent = element.object.name
+                        mainrowlink.href = element.object.url
+                        // リンクコンテナに追加
+                        linkcontainer.appendChild(mainrowlink)
+
+                        // リンクコンテナを行コンテナに追加
+                        rowcontainer.appendChild(linkcontainer)
+                        // 行コンテナをコンテナーに追加
+                        rowlistcontainer.appendChild(rowcontainer)
+                        // リンクにイベントをサブスクライブ
+                        mainrowlink.addEventListener('click', linkAction)
+                    });
+                    document.getElementById('nicorepo').appendChild(rowlistcontainer)
+                } else {
+                    let errorelem = document.createElement('div')
+                    errorelem.textContent = `ニコレポ情報の取得に失敗しました: ${res.meta.status}`
+                    errorelem.classList.add('nicorepo-error')
+                    errorelem.style = "color: red"
+                    document.getElementById('nicorepo').appendChild(errorelem)
+                }
             })
         }
     }, onError);

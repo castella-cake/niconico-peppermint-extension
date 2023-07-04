@@ -4,7 +4,7 @@
     "short_name": "PepperMint+",
     "description": "ニコニコ動画をもっとクールにする拡張機能",
     "version": "1.6.0",
-    "version_name": "1.6.0-PRE2",
+    "version_name": "1.6.0-PRE3",
     "developer": {
         "name": "CYakigasi"
     },
@@ -113,6 +113,8 @@
         "https://nvapi.nicovideo.jp/v1/series/*",
         "https://fonts.googleapis.com/icon",
         "https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/*",
+        "https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*",
+        "https://nicovideo.cdn.nimg.jp/thumbnails/*",
         "alarms",
         "tabs"
     ],

@@ -13,7 +13,7 @@
     <div class="container">
         <div class="title-container">
             <div class="title toptitle"><a href="option.html" target="_blank" rel="noopener noreferrer"
-                    class="optlink">PepperMint+</a></div>
+                    class="optlink">PepperMint+</a><a class="betafeedbacklink disabled" href="https://github.com/castella-cake/niconico-peppermint-extension/issues" target="_blank">Feedback?</a></div>
             <div class="titlelink-container">
                 <a href="https://github.com/sponsors/castella-cake" target="_blank" rel="noopener noreferrer"
                     class="titlelink">Donate</a>
@@ -23,7 +23,7 @@
         </div>
         <div class="quickpanel-tabcontainer"><button type="button" id="tabbutton-dashboard" class="current-tab">ダッシュボード</button> <button type="button" id="tabbutton-nicorepo" class="disabled">ニコレポ</button></div>
         <form id="settings-form" class="quickpanel-mainpanel">
-            <div id="dashboard" class="current-tabpanel">
+            <div id="dashboard" class="current-tabpanel tabpanel">
                 <div class="settings-row browser-style">
                     <label>ダークモード/カラーパレット
                         <select id="select-darkmode">
@@ -55,7 +55,7 @@
                 <div id="seriesstock">
                 </div>
             </div>
-            <div id="nicorepopanel">
+            <div id="nicorepopanel" class="tabpanel">
                 <div id="nicorepo">
                 </div>
             </div>
@@ -64,6 +64,7 @@
     </div>
     <script src="../lib/jquery-3.6.3.min.js"></script>
     <script src="../lib/jquery-ui.min.js"></script>
+    <script src="../lib/purify.min.js"></script>
     <script src="quickpanel.js"></script>
 </body>
 

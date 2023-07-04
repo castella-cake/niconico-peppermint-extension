@@ -68,6 +68,7 @@ function saveOptions() {
             "enableseriesstock": $("#input-enableseriesstock").prop('checked'),
             "showseriesstockinpage": $("#input-showseriesstockinpage").prop('checked'),
             "enablecustomvideotop": $("#input-enablecustomvideotop").prop('checked'),
+            "enablenicorepotab": $("#input-enablenicorepotab").prop('checked'),
             // Unstable
             "quickvidarticle": $("#input-quickvidarticle").prop('checked')
         }
@@ -135,6 +136,7 @@ function restoreOptions() {
         $("#input-enableseriesstock").prop('checked', result.enableseriesstock)
         $("#input-showseriesstockinpage").prop('checked', result.showseriesstockinpage)
         $("#input-enablecustomvideotop").prop('checked', result.enablecustomvideotop)
+        $("#input-enablenicorepotab").prop('checked', result.enablenicorepotab)
         // Unstable
         $("#input-quickvidarticle").prop('checked', result.quickvidarticle);
         if (result.headerbg != "custom") {

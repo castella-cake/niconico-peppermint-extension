@@ -12,6 +12,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
         contexts: ["selection"]
     });
     chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 0, periodInMinutes: 120 })
+    chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 0, periodInMinutes: 60 })
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -84,9 +85,9 @@ function getSeriesInfo(seriesid, cachemode = 0) {
                                                 // キャッシュがundefinedじゃなくてシリーズIDのキャッシュも過去にされててdataが今持ってるものと違うなら+を表示
                                                 if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != undefined && dataobj.data.totalCount != storage.seriesdatacache[seriesid].data.totalCount)) {
                                                     if (chrome.browserAction != undefined) {
-                                                        chrome.browserAction.setBadgeText({ text: "+" })
+                                                        chrome.browserAction.setBadgeText({ text: "S" })
                                                     } else if (chrome.action != undefined) {
-                                                        chrome.action.setBadgeText({ text: "+" })
+                                                        chrome.action.setBadgeText({ text: "S" })
                                                     }
                                                 }
                                                 resolve(dataobj)
@@ -134,32 +135,23 @@ function getRecentNicorepo(cachemode = 0) {
                                 let currentdate = new Date()
                                 dataobj["fetchdate"] = currentdate.toString()
                                 if (dataobj.meta.status == 200) {
-                                    chrome.storage.local.set({ "nicorepocache": dataobj })
-                                    resolve(dataobj)
-                                    /*// **ローカル**のストレージを呼ぶ
-                                    // nullかundefinedだったら直接突っ込む
-                                    if (storage.seriesdatacache == null || storage.seriesdatacache == undefined) {
-                                        chrome.storage.local.set({ "nicorepo": dataobj })
-                                        resolve(dataobj)
-                                    } else {
-                                        // そうじゃなければ、ストレージの内容をvarにコピーして、変更したcacheを付け足して、ストレージに突っ込む
-                                        let seriescache = JSON.parse(JSON.stringify(storage.seriesdatacache))
-                                        seriescache[seriesid] = dataobj
-                                        chrome.storage.local.set({ "nicorepo": seriescache })
-                                        if (cachemode == 2) {
-                                            // キャッシュがundefinedじゃなくてシリーズIDのキャッシュも過去にされててdataが今持ってるものと違うなら+を表示
-                                            if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != undefined && dataobj.data.totalCount != storage.seriesdatacache[seriesid].data.totalCount)) {
+                                    if (cachemode == 2) {
+                                        // ニコレポキャッシュがundefinedじゃないなら
+                                        if ( storage.nicorepocache != undefined && storage.nicorepocache.data ) {
+                                            let oldidarray = storage.nicorepocache.data.map(elem => elem.id)
+                                            let newidarray = dataobj.data.map(elem => elem.id)
+                                            if (oldidarray != newidarray) {
                                                 if (chrome.browserAction != undefined) {
-                                                    chrome.browserAction.setBadgeText({ text: "+" })
+                                                    chrome.browserAction.setBadgeText({ text: "N" })
                                                 } else if (chrome.action != undefined) {
-                                                    chrome.action.setBadgeText({ text: "+" })
+                                                    chrome.action.setBadgeText({ text: "N" })
                                                 }
                                             }
-                                            resolve(dataobj)
-                                        } else {
-                                            resolve(dataobj)
+
                                         }
-                                    }*/
+                                    } 
+                                    chrome.storage.local.set({ "nicorepocache": dataobj })
+                                    resolve(dataobj)
                                 } else {
                                     // 200じゃなかったらreject
                                     reject(dataobj)
@@ -284,6 +276,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         return true;
     }
     //sendResponse({'status': false,'reason': 'Invalid error'});
+    /*
+    fetch("https://public.api.nicovideo.jp/v1/user/oshirasebox/box.json?offset=0&importantOnly=false", {
+    "credentials": "include",
+    "headers": {
+        "X-Request-With": "https://www.nicovideo.jp/",
+        "X-Frontend-Id": "6",
+    },
+    "method": "GET"
+});
+    */
 
 });
 /* シリーズストックのエピソードリスト取得
@@ -330,6 +332,14 @@ chrome.alarms.onAlarm.addListener(function (e) {
                         // i * 15000msで10sおきに実行
                     });
                 }
+            }
+        })
+    } else if (e.name == 'nicoRepo_Refresh') {
+        let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+        getStorageData.then(function (result) {
+            // 有効でかつストック中がundefinedじゃない
+            if (result.enablenicorepotab) {
+                getRecentNicorepo(2)
             }
         })
     }
