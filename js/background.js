@@ -142,9 +142,9 @@ function getRecentNicorepo(cachemode = 0) {
                                             let newidarray = dataobj.data.map(elem => elem.id)
                                             if (oldidarray != newidarray) {
                                                 if (chrome.browserAction != undefined) {
-                                                    chrome.browserAction.setBadgeText({ text: "N" })
+                                                    chrome.browserAction.setBadgeText({ text: "R" })
                                                 } else if (chrome.action != undefined) {
-                                                    chrome.action.setBadgeText({ text: "N" })
+                                                    chrome.action.setBadgeText({ text: "R" })
                                                 }
                                             }
 
