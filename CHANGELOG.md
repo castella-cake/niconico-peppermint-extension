@@ -55,6 +55,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Nicobox風UI,シアターUIを使用している場合にライブ公開タイムシフトへのリンクが中央寄せされない問題を修正しました
 - ``シアターUI``もしくは``NicoboxUI``を有効化した状態で、``マーキーエリアコンテンツの置き換え``を``ランキング表示``に設定すると発生するエラーを修正しました
 
+### Removed
+- HTTP視聴の終了により、``動画ダウンロードボタンを表示``を削除しました
+
 ## [1.5.3] - 2023/05/31
 
 ### Fixed
