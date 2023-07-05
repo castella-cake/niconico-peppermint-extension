@@ -267,6 +267,7 @@ function createCSSRule(result) {
             'position': 'relative',
             'top': '6px',
         })
+        pushCSSRule('.VideoOwnerInfo-links {position:relative;top:6px;} .VideoOwnerInfo .FollowButton,.VideoOwnerInfo-linkButtons {display:none;}')
     }
     if (result.hidemetadata == "watch" || result.hidemetadata == "all") {
         pushCSSRule('.VideoOwnerInfo-gridCell,.VideoViewCountMeta,.CommentCountMeta,.MylistCountMeta,.GenreRankMeta {display:none;}')
