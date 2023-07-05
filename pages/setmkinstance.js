@@ -89,6 +89,12 @@ $("#addinstance").on('click',function() {
     saveOptions();
 });
 
+$("#settings-form").on('submit', function() {
+    let instanceobj = { "domain": $('#input-addinstancedomain').val() }
+    appendTableRow(instanceobj);
+    saveOptions();
+})
+
 // 削除が押された時
 $('#instancelist').on('click', '#remove', function() {
     $(this).parents('tr').remove();

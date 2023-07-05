@@ -268,6 +268,26 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             });
             return true;
         }
+    } else if (message.type == "openThisLinkNewTab") {
+        if (message.href != null || message.href != undefined) {
+            try {
+                chrome.tabs.create({ url: message.href });
+                sendResponse({ 'status': true });
+                return true;
+            } catch (err) {
+                sendResponse({
+                    'status': false,
+                    'reason': `Unexpected error:${err}`
+                });
+                return true;
+            }
+        } else {
+            sendResponse({
+                'status': false,
+                'reason': 'href is not defined'
+            });
+            return true;
+        }
     } else {
         sendResponse({
             'status': false,

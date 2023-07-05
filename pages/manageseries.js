@@ -114,6 +114,12 @@ $("#addseries").on('click',function() {
     saveOptions();
 });
 
+$("#settings-form").on('submit', function() {
+    let seriesobj = { seriesID: $('#input-addseriesid').val(), seriesName: $('#input-addseriesname').val()}
+    appendTableRow(seriesobj);
+    saveOptions();
+})
+
 // 削除が押された時
 $('#serieslist').on('click', '#remove', function() {
     $(this).parents('tr').remove();

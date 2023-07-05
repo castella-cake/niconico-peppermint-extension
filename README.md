@@ -93,7 +93,7 @@ Chromium向けのデバッグにはこれを使用する必要がありますが
 - [x] Nicobox風UI
 - [ ] 動画ダウンロード機能
 - [x] 動画記事ボタンを表示
-- [ ] Misskeyで共有
+- [x] Misskeyで共有
 #### NicoPedia
 - [x] 評価数削除
 - [x] 最大幅開放

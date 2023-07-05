@@ -189,6 +189,12 @@
     margin-left: 5px;
     box-shadow: 0px 0px 5px rgba(0,0,0,40%);
 }
+.pmui-hinttext-modern {
+    display: none;
+}
+.subaction-container:hover > .pmui-hinttext-modern {
+    display: inline;
+}
 .subaction-container {
     padding-left: 10px;
     margin-bottom: 8px;
@@ -244,6 +250,60 @@
     color: #0f0;
     font-family: 'HackGen Console NF','Consolas','Meiryo',monospace
 }
+
+#misskeysharecontainer {
+	background-color: var(--bgcolor1);
+	color: var(--textcolor1);
+	margin: 8px;
+	padding: 16px;
+	border-radius: 8px;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	margin-bottom: 0px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	min-width: 360px;
+    animation: bottomslidein 0.3s ease forwards
+}
+#misskeysharebutton {
+    margin-top: 8px;
+    background: linear-gradient(45deg,rgb(66, 143, 14),rgb(94, 187, 32));
+	color: #f0f0f0;
+    font-weight: bold;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor:pointer
+}
+
+#misskeyshareclosebutton {
+    margin-top: 8px;
+    background: var(--bgcolor2);
+    color: var(--textcolor2);
+    margin-left: 8px;
+    padding: 8px 8px;
+    border: none;
+    border-radius: 4px;
+    cursor:pointer
+}
+
+.misskeyshare-selectinstancecontainer {
+	margin-top: 8px;
+}
+
+.misskeyshare-preview {
+	background-color: var(--bgcolor2);
+	color: var(--textcolor2);
+	padding: 2px 8px;
+}
+
+.misskeyshare-selectinstance {
+	padding: 2px 8px;
+	border: none;
+	border-radius: 4px;
+}
+
 @keyframes fadeout {
     0% {opacity: 100%;}
     100% {opacity: 0%;}
@@ -297,5 +357,13 @@
     }
     100% { 
         opacity: 0%;
+    }
+}
+@keyframes bottomslidein {
+    0% { 
+        bottom: -1000px;
+    }
+    100% { 
+        bottom: 0px;
     }
 }

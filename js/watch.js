@@ -2,6 +2,103 @@ getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     //console.log(result)
 
+    if (result.enablemisskeyshare == true) {
+        // make container
+        let sharebtncontainer = document.createElement('div')
+        sharebtncontainer.classList.add('misskeyshare-container')
+        sharebtncontainer.classList.add('subaction-container')
+        // make button elem
+        let sharebtnelem = document.createElement('button')
+        sharebtnelem.classList.add('subaction-button')
+        sharebtnelem.classList.add('material-icons')
+        sharebtnelem.classList.add('misskeyshare')
+        sharebtnelem.id = "misskeyshare"
+        sharebtnelem.textContent = "share"
+        sharebtncontainer.appendChild(sharebtnelem)
+        // make hint elem
+        let sharebtnhint = document.createElement('span')
+        sharebtnhint.classList.add('pmui-hinttext')
+        sharebtnhint.classList.add('pmui-hinttext-modern')
+        if (result.shareinstancelist == undefined || result.shareinstancelist.length < 1) {
+            sharebtnhint.textContent = "設定からインスタンスを設定してください"
+            sharebtnelem.classList.add('disabled')
+        } else {
+            sharebtnhint.textContent = "Misskeyで共有"
+        }
+
+        sharebtncontainer.appendChild(sharebtnhint)
+
+        sharebtnelem.addEventListener('click', function () {
+            if (document.getElementById('misskeysharecontainer') == undefined) {
+                let misskeysharecontainer = document.createElement('div')
+                misskeysharecontainer.id = "misskeysharecontainer"
+
+                let misskeysharetitle = document.createElement('div')
+                misskeysharetitle.classList.add('misskeyshare-title')
+                misskeysharetitle.textContent = "Misskeyで共有"
+                misskeysharecontainer.appendChild(misskeysharetitle)
+
+                let misskeysharepreviewtitle = document.createElement('div')
+                misskeysharepreviewtitle.classList.add('misskeyshare-preview')
+                misskeysharepreviewtitle.style = "margin-top: 8px;padding-top: 8px;"
+                misskeysharepreviewtitle.textContent = document.querySelector('.VideoTitle').textContent
+                misskeysharecontainer.appendChild(misskeysharepreviewtitle)
+
+                let misskeysharepreviewdesc = document.createElement('div')
+                misskeysharepreviewdesc.classList.add('misskeyshare-preview')
+                misskeysharepreviewdesc.textContent = "#" + location.pathname.slice(7) + " #ニコニコ動画 #PepperMintShare"
+                misskeysharecontainer.appendChild(misskeysharepreviewdesc)
+
+                let misskeysharepreviewlink = document.createElement('div')
+                misskeysharepreviewlink.classList.add('misskeyshare-preview')
+                misskeysharepreviewlink.style = "padding-bottom: 8px;"
+                misskeysharepreviewlink.textContent = "https://www.nicovideo.jp/watch/" + location.pathname.slice(7)
+                misskeysharecontainer.appendChild(misskeysharepreviewlink)
+
+                let misskeyshareselectcontainer = document.createElement('div')
+                misskeyshareselectcontainer.classList.add('misskeyshare-selectinstancecontainer')
+                misskeyshareselectcontainer.textContent = "共有先を選択: "
+                misskeysharecontainer.appendChild(misskeyshareselectcontainer)
+
+                let misskeyshareselect = document.createElement('select')
+                misskeyshareselect.classList.add('misskeyshare-selectinstance')
+                misskeyshareselectcontainer.appendChild(misskeyshareselect)
+                result.shareinstancelist.forEach((element,i) => {
+                    let option = document.createElement('option')
+                    option.textContent = element.domain
+                    option.value = i
+                    misskeyshareselect.appendChild(option)
+                });
+
+                let misskeysharebtn = document.createElement('button')
+                misskeysharebtn.id = "misskeysharebutton"
+                misskeysharebtn.textContent = "投稿画面に移動"
+                misskeysharecontainer.appendChild(misskeysharebtn)
+                misskeysharebtn.addEventListener('click', function() {
+                    let videotitle = document.querySelector('.VideoTitle').textContent
+                    let misskeysharelink = "https://" + result.shareinstancelist[misskeyshareselect.value].domain + "/share?title=" + encodeURIComponent(videotitle) + "&text=" + encodeURIComponent("#") + location.pathname.slice(7) + encodeURIComponent(" #ニコニコ動画 #PepperMintShare") + "&url=https://www.nicovideo.jp/watch/" + location.pathname.slice(7)
+                    console.log(misskeysharelink)
+                    chrome.runtime.sendMessage({"type":"openThisLinkNewTab", "href": misskeysharelink})
+                    document.getElementById('misskeysharecontainer').remove()
+                })
+
+                let misskeyshareclosebtn = document.createElement('button')
+                misskeyshareclosebtn.id = "misskeyshareclosebutton"
+                misskeyshareclosebtn.textContent = "キャンセル"
+                misskeysharecontainer.appendChild(misskeyshareclosebtn)
+                misskeyshareclosebtn.addEventListener('click', function() {
+                    document.getElementById('misskeysharecontainer').remove()
+                })
+
+                document.querySelector('.pmbutton-container').prepend(misskeysharecontainer)
+            } else {
+                document.getElementById('misskeysharecontainer').remove()
+            }
+
+        })
+        // push to dom
+        document.querySelector('.pmbutton-container').appendChild(sharebtncontainer)
+    }
     // TODO: 将来的にbuttonに置き換える
     if (result.quickvidarticle == true) {
         $('.pmbutton-container').append('<div class="vidarticle-container subaction-container"><a id="openvidarticle" class="subaction-button">百</a></div>')
@@ -213,12 +310,12 @@ function createCSSRule(result) {
                 chrome.storage.sync.set({ "usenicoboxui": !result.usenicoboxui, "nicoboxuichanged": true });
                 location.reload()
             } else if (commandstr == "-tar") {
-                chrome.storage.sync.set({ "usetheaterui": !result.usetheaterui});
+                chrome.storage.sync.set({ "usetheaterui": !result.usetheaterui });
                 location.reload()
             } else if (commandstr == "-cts") {
                 runresult = -1
                 if (result.enableseriesstock == true && document.querySelector('.SeriesBreadcrumbs-title') != null) {
-                    if ( await manageSeriesStock(document.querySelector('.SeriesBreadcrumbs-title').href.slice(32), document.querySelector('.SeriesBreadcrumbs-title').textContent) ) {
+                    if (await manageSeriesStock(document.querySelector('.SeriesBreadcrumbs-title').href.slice(32), document.querySelector('.SeriesBreadcrumbs-title').textContent)) {
                         runresult = 2
                         runresultstr = `SUCCESS(ADDED)`
                     } else {
@@ -248,29 +345,29 @@ function createCSSRule(result) {
             } else {
                 runresult = -1
             }
-            return {"result": runresult,"resultstr": runresultstr}
+            return { "result": runresult, "resultstr": runresultstr }
         }
         function commanderKeyEvent(e) {
             if (e.key === 'Enter') {
                 cmdACT(document.getElementById('pm-vicommander').value).then(actresult => {
-                    if ( actresult.result == 2) {
+                    if (actresult.result == 2) {
                         $('.pmbutton-container').append(`<div class="pm-viCommanderOutput">${actresult.resultstr}</div>`)
-                        setTimeout(function() {
+                        setTimeout(function () {
                             document.querySelector('.pm-viCommanderOutput').remove()
-                        },4000)
-                    } else if ( actresult.result == 1 || actresult.result == 0) {
+                        }, 4000)
+                    } else if (actresult.result == 1 || actresult.result == 0) {
                         $('.pmbutton-container').append(`<div class="pm-viCommanderOutput">SUCCESS(${actresult.result})</div>`)
-                        setTimeout(function() {
+                        setTimeout(function () {
                             document.querySelector('.pm-viCommanderOutput').remove()
-                        },4000)
+                        }, 4000)
                     } else {
                         $('.pmbutton-container').append('<div class="pm-viCommanderError">ERROR: Unknown Command.</div>')
-                        setTimeout(function() {
+                        setTimeout(function () {
                             document.querySelector('.pm-viCommanderError').remove()
-                        },4000)
+                        }, 4000)
                     }
                 })
-                if (document.querySelector('.pm-viCommanderContainer') != undefined && document.querySelector('.pm-viCommanderContainer') != null ) {
+                if (document.querySelector('.pm-viCommanderContainer') != undefined && document.querySelector('.pm-viCommanderContainer') != null) {
                     document.querySelector('.pm-viCommanderContainer').remove()
                 }
             }
@@ -283,7 +380,7 @@ function createCSSRule(result) {
                 document.getElementById('pm-vicommander').focus()
                 document.getElementById('pm-vicommander').addEventListener('keypress', commanderKeyEvent);
             }
-            
+
         }
         $(document).on('keydown', shortCutAction);
 
@@ -312,8 +409,8 @@ function createCSSRule(result) {
                     openViCommander()
                     return false;
                 }
-                
-            } 
+
+            }
         }
     }
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
@@ -901,7 +998,7 @@ function createCSSRule(result) {
                 color: #f0f0f0
             }`)
         }
-        
+
         $(function () {
             $('.SeekBar').before($('.PlayerPlayTime-playtime'));
             $('.SeekBar').after($('.PlayerPlayTime-duration'));
