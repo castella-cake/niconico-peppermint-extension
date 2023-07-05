@@ -140,6 +140,9 @@
 .SearchBox-optionMenuItem:hover {
     background-color: var(--hover1);
 }
+.TagSuggestionInput-input::placeholder {
+    color: var(--textcolor2)
+}
 /* いいねボタン */
 .LikeActionButton {
     background: var(--bgcolor3);

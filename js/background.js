@@ -171,7 +171,7 @@ function getRecentNicorepo(cachemode = 0) {
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type == "getThumbUrl") {
+    if (message.type == "getThumbXml") {
         if (message.smID != null || message.smID != undefined) {
             fetch("https://ext.nicovideo.jp/api/getthumbinfo/" + message.smID, { 'method': 'GET' }).then((res) => {
                 if (res.ok) {

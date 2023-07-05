@@ -426,6 +426,7 @@ tr td:nth-child(7) {
 	padding-bottom: 0px;
 	position: relative;
 	top: 2px;
+	cursor:pointer;
 }
 .stockedseries-episodecontainer {
 	margin-top: 0px;
@@ -501,6 +502,7 @@ tr td:nth-child(7) {
 	background: var(--bgcolor3);
 	font-size: 12px;
 	height: 24px;
+	cursor: pointer
 }
 .quickpanel-tabcontainer button:hover {
 	background: var(--bgcolor2)

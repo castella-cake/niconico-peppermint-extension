@@ -18,7 +18,7 @@ function createCSSRule(result) {
         });
 
     }
-
+    /*
     if (result.enabledlbutton == true) {
         $('.pmbutton-container').append('<div class="downloadvideo-container subaction-container"><a id="downloadvideo" class="material-icons subaction-button" target="_blank" rel="noopener noreferrer">download</a></div>')
         if (location.pathname.slice(7, 9) != "so") {
@@ -66,7 +66,7 @@ function createCSSRule(result) {
                 $('#downloadvideo-text').remove()
             })
         }
-    }
+    }*/
     if (result.usetheaterui == true && result.usenicoboxui != true) {
         let fullsize = false
         $('.pmbutton-container').append('<div class="togglefullsize-container subaction-container"><a id="togglefullsize" class="material-icons-outlined subaction-button">width_full</a></div>')
@@ -634,7 +634,7 @@ function createCSSRule(result) {
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}')
 
         $(function () {
-            chrome.runtime.sendMessage({ "type": "getThumbUrl", "smID": location.pathname.slice(7) }).then(res => {
+            chrome.runtime.sendMessage({ "type": "getThumbXml", "smID": location.pathname.slice(7) }).then(res => {
                 // why chrome can't use domparser in service worker...
                 //console.log(res)
                 let domparser = new DOMParser()
@@ -646,7 +646,7 @@ function createCSSRule(result) {
                 })
             })
             $('.VideoMetaContainer .VideoViewCountMeta').on('DOMSubtreeModified propertychange', function () {
-                chrome.runtime.sendMessage({ "type": "getThumbUrl", "smID": location.pathname.slice(7) }).then(res => {
+                chrome.runtime.sendMessage({ "type": "getThumbXml", "smID": location.pathname.slice(7) }).then(res => {
                     //console.log(res)
                     let domparser = new DOMParser()
                     let parsedxml = domparser.parseFromString(res, "text/xml");
