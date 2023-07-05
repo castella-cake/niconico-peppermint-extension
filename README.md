@@ -169,3 +169,5 @@ Niconico-PepperMint+内には、JQuery, JQuery UI, Nord が含まれています
 Niconico-PepperMint+内にはDOMPurifyが含まれています。
 DOMPurifyは``Apache License 2.0``、``Mozilla Public License Version 2.0``のデュアルライセンスで配布されています。
 (PepperMint+では``Apache License 2.0``に従います)
+
+外部リソースのライセンスについては、``NOTICE.txt``を参照してください。
