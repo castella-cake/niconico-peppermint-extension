@@ -7,7 +7,7 @@ function createCSSRule(result) {
         }
     }
     if (result.hidevidtopad) {
-        $('.VideoIntroductionAreaContainer').remove();
+        pushCSSRule('.VideoIntroductionAreaContainer {display:none}')
     }
     //console.log(location.pathname)
     if (result.enablecustomvideotop && result.customvideotop != undefined && (location.pathname == "/video_top" || location.pathname == "/video_top/")) {

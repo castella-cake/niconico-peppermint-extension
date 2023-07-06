@@ -250,7 +250,8 @@ function createCSSRule(result) {
 
     }
     if (result.hideeventbanner == true) {
-        $('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').remove()
+        //$('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').remove()
+        pushCSSRule('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image {display:none}')
     }
     if (result.commentrow != 1) {
         $('.CommentPostContainer').css('height', `${32 * result.commentrow}px`)
