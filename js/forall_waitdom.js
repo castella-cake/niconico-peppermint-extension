@@ -27,13 +27,16 @@ function createBaseCSSRule(result) {
             } else {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
             }
-            if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" ) { addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);}
+            if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" ) {
+                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
+                document.body.classList.add('is-PMDarkPalette')
+            }
             if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
                 $('.NiconicoLogo_black').addClass('NiconicoLogo_white')
                 $('.NiconicoLogo_black').removeClass('NiconicoLogo_black')
                 $('.NicovideoLogo[data-color="black"]').attr('data-color',"white")
             }
-            document.body.classList.add('is-PMDarkPalette')
+            document.documentElement.classList.remove('PMDM-Assist')
             //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
         } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
         if ( result.alignpagewidth == true ) {

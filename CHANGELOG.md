@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2023/07/
+
+### Changed
+- ダークモード/カラーパレットの適用が高速化しました   
+これにより、元のスタイルが一瞬表示される現象が抑制されるようになります。Chromium環境ではもう点滅を見なくなったはずです。
+
 ## [1.6.1] - 2023/07/06
 
 ### Added

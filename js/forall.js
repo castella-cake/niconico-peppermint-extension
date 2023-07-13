@@ -165,7 +165,7 @@ async function seriesIsStocked(seriesid) {
 }
 function pushCSSRule(string) {
     if (document.getElementById('peppermint-css') == null || document.getElementById('peppermint-css') == undefined) {
-        let html = document.querySelector('html');
+        let html = document.documentElement;
         let peppermintStyle = document.createElement('style')
         peppermintStyle.id = "peppermint-css"
         html.appendChild(peppermintStyle)
@@ -199,6 +199,29 @@ if (document.head == null) {
 }
 //console.log(document.documentElement.innerHTML)
 //console.log(document.querySelectorAll('head link'))
+getStorageData.then(createFastCSSRule, onError);
+
+function createFastCSSRule(result) {
+    if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+        document.documentElement.classList.add('PMDM-Assist')
+        if (result.darkmode == 'black') {
+            document.documentElement.style = "--pre-bgcolor: #000;"
+        } else if (result.darkmode == 'pmcolor') {
+            document.documentElement.style = "--pre-bgcolor: #252525;"
+        } else if (result.darkmode == 'spcolor') {
+            document.documentElement.style = "--pre-bgcolor: #191919;"
+        } else if (result.darkmode == 'nordcolor') {
+            document.documentElement.style = "--pre-bgcolor: #2e3440;"
+        } else if (result.darkmode == 'cybernight') {
+            document.documentElement.style = "--pre-bgcolor: #0b1721;"
+        } else if (result.darkmode == 'custom' && result.customcolorpalette != undefined && result.customcolorpalette.bgcolor1 != undefined) {
+            document.documentElement.style = `--pre-bgcolor: ${result.customcolorpalette.bgcolor1};`
+        } else {
+            document.documentElement.style = "--pre-bgcolor: #000;"
+        }
+        console.log(result.darkmode)
+    } 
+} 
 
 function createBaseCSSRule(result) {
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
