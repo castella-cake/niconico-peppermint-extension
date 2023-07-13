@@ -140,7 +140,10 @@ function getRecentNicorepo(cachemode = 0) {
                                         if ( storage.nicorepocache != undefined && storage.nicorepocache.data ) {
                                             let oldidarray = storage.nicorepocache.data.map(elem => elem.id)
                                             let newidarray = dataobj.data.map(elem => elem.id)
-                                            if (oldidarray != newidarray) {
+                                            //console.log(`OLD: ${JSON.stringify(oldidarray)}`)
+                                            //console.log(`NEW: ${JSON.stringify(newidarray)}`)
+                                            //console.log(JSON.stringify(oldidarray) != JSON.stringify(newidarray))
+                                            if (JSON.stringify(oldidarray) != JSON.stringify(newidarray)) {
                                                 if (chrome.browserAction != undefined) {
                                                     chrome.browserAction.setBadgeText({ text: "R" })
                                                 } else if (chrome.action != undefined) {
@@ -345,7 +348,7 @@ chrome.alarms.onAlarm.addListener(function (e) {
                     // forEachで一個ずつ処理
                     result.stockedseries.forEach((element, i) => {
                         setTimeout(() => {
-                            console.log(element.seriesID)
+                            //console.log(element.seriesID)
                             // キャッシュなしで取得(これでキャッシュされる)
                             getSeriesInfo(element.seriesID, 2)
                         }, i * 10000);

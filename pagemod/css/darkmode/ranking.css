@@ -56,3 +56,41 @@
 .RankingSettingRecommendations > ul > li + li {
     border-top: 1px solid var(--textcolor3)
 }
+/* ページボタン */
+.Paginator-item {
+    background-color: var(--bgcolor2);
+    border: 1px solid var(--accent2);
+}
+.Paginator-item_current {
+    background-color: var(--bgcolor3);
+    border: 1px solid var(--bgcolor3);
+}
+.Paginator-item_current>a:not(:hover) {
+    color: var(--textcolor3);
+}
+.Paginator-item_current>a:hover {
+    color: var(--linktext3);
+}
+/* 検索移動 */
+.RankingBottomSearchLink-button {
+    border: 1px solid var(--accent1);
+}
+.RankingBottomSearchLink-text {
+    color: var(--textcolor2)
+}
+.RankingBottomSearchLink-text {
+    color: var(--textcolor2)
+}
+.RankingBottomSearchLink-buttonText {
+    color: var(--textcolor3)
+}
+
+/* ヘッダー */ 
+.RankingHeader {
+	border-bottom: 1px solid var(--accent2);
+	border-top: 4px solid var(--bgcolor2);
+}
+
+a:hover {
+	color: var(--linktext2);
+}

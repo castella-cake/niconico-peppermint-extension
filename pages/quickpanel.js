@@ -427,7 +427,8 @@ function makeElem() {
             callGRN.then(res => {
                 if (res.meta.status == "200") {
                     let lastfetchdateelem = document.createElement('div')
-                    lastfetchdateelem.textContent = `最終更新: ${res.fetchdate}`
+                    let fetchdate = new Date(res.fetchdate)
+                    lastfetchdateelem.textContent = `最終取得:` + fetchdate.toLocaleString()
                     lastfetchdateelem.classList.add('nicorepo-lastfetch')
                     document.getElementById('nicorepo').appendChild(lastfetchdateelem)
                     let rowlistcontainer = document.createElement('div')
