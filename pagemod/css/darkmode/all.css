@@ -209,7 +209,8 @@ body {
     color: var(--textcolor1)!important ;
 }
 .SearchBox-option[data-active="true"] {
-    background-color: var(--bgcolor4)!important ;
+    background-color: var(--bgcolor4)!important;
+    color: var(--textcolor2)
 }
 /* 動画カードなど */
 .NC-Card .NC-CardTitle,.NewsNotificationList-item,.LiveWindowContainer-metaTitle {

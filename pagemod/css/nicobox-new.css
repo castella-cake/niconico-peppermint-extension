@@ -107,11 +107,9 @@
     border-left: 2px solid #e0e0e0;
     box-shadow: none;
 }
-.ControllerButton:hover svg {
+.ControllerButton:not(:disabled):hover svg {
     fill: #22f5dc
 }
-
-
 
 .MainContainer { 
     padding-top: calc(28vh - 36px);

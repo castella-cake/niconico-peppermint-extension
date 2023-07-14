@@ -400,15 +400,15 @@ function createCSSRule(result) {
                     let lastarea = document.querySelectorAll(".ControllerContainer-area")[2]
                     // (子要素数 - 1(再生速度ボタン)) * 24(通常ボタンwidth) + 64(再生速度ボタンwidth)
                     let lastareawidth = ((lastarea.childElementCount - 1) * 27) + 64
-                    console.log(lastareawidth)
-                    console.log(lastarea.childElementCount)
+                    //console.log(lastareawidth)
+                    //console.log(lastarea.childElementCount)
                     let rightoffset = lastareawidth - 172
-                    console.log(rightoffset)
+                    //console.log(rightoffset)
                     if (rightoffset > 0) {
                         volwidth = 80 - rightoffset
                         rightoffset += 165
-                        console.log(rightoffset)
-                        console.log(volwidth)
+                        //console.log(rightoffset)
+                        //console.log(volwidth)
                         document.querySelector('.VolumeBarContainer').style = `right: ${rightoffset}px; width: ${volwidth}px`
                     } else {
                         document.querySelector('.VolumeBarContainer').style = ``
