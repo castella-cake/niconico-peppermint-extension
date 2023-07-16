@@ -177,7 +177,7 @@ function createCSSRule(result) {
         function setFullsize(e) {
             fullsize = !fullsize
             if (fullsize == true) {
-                addCSS(chrome.runtime.getURL("pagemod/css/theater_21_9_full.css"), `link[href="${chrome.runtime.getURL("pagemod/css/theater_video.css")}"]`)
+                //addCSS(chrome.runtime.getURL("pagemod/css/theater_21_9_full.css"), `link[href="${chrome.runtime.getURL("pagemod/css/theater_video.css")}"]`)
                 document.body.classList.add('is-PMcinemaratio')
                 $('#togglefullsize').css({
                     'background': '#0288d1',

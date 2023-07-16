@@ -23,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - 一部のデバッグテキストを削除しました
 
-## [1.6.1] - 2023/07/06
+## 1.6.1 - 2023/07/06
 
 ### Added
 - ``PepperMint+について`` ページにNOTICE.txtへのリンクを追加しました
@@ -415,6 +415,7 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
+[1.6.2]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.0..v1.6.2
 [1.6.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.5.3..v1.6.0
 [1.5.3]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.5.2..v1.5.3
 [1.5.2]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.5.1..v1.5.2
