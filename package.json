@@ -18,5 +18,8 @@
     "dompurify": "^3.0.5",
     "jquery": "^3.7.0",
     "jquery-ui": "^1.13.2"
+  },
+  "scripts": {
+    "build": "gulp"
   }
 }
