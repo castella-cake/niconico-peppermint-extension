@@ -1,0 +1,12 @@
+{
+  "name": "niconico-peppermint-extension",
+  "version": "1.6.3",
+  "description": "ニコニコをもっとクールにする拡張機能",
+  "author": "CYakigasi",
+  "license": "MIT",
+  "homepage": "https://github.com/castella-cake/niconico-peppermint-extension#readme",
+  "private": "true",
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}
