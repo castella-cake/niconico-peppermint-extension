@@ -198,15 +198,15 @@ body {
 }
 /* 検索ボックス */
 .SearchBox-form {
-    background: var(--accent1)!important ;
-    box-shadow: inset 0 0 0 1px var(--accent2)!important ;
+    background: var(--accent1) !important;
+    box-shadow: inset 0 0 0 1px var(--accent2) !important;
 }
 .SearchBox-query {
-    color: var(--textcolor1)!important ;
+    color: var(--textcolor1) !important;
 }
 .SearchBox-option {
-    background-color: var(--bgcolor2)!important ;
-    color: var(--textcolor1)!important ;
+    background-color: var(--bgcolor2) !important;
+    color: var(--textcolor1) !important;
 }
 .SearchBox-option[data-active="true"] {
     background-color: var(--bgcolor4)!important;
@@ -214,202 +214,242 @@ body {
 }
 /* 動画カードなど */
 .NC-Card .NC-CardTitle,.NewsNotificationList-item,.LiveWindowContainer-metaTitle {
-    color: var(--textcolor2)!important ;
+    color: var(--textcolor2) !important;
 }
 
 /* フッターフィードバック */
 .FooterContainer-feedback {
-    background-color: var(--bgcolor2)!important ;
-    border: 1px solid var(--bgcolor2)!important ;
+    background-color: var(--bgcolor2) !important;
+    border: 1px solid var(--bgcolor2) !important;
 }
 .NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary::before,.NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary {
-    background-color: var(--bgcolor2)!important ;
+    background-color: var(--bgcolor2) !important;
 }
 
 /* ここからユーザーページ */
 
 .UserDetailsContainer::after, .UserPage-header, .UserDetailsHeader {
-    background-color: var(--bgcolor1)!important ;
+    background-color: var(--bgcolor1) !important;
 }
 .UserDetailsHeader-nickname {
-    color: var(--textcolor1)!important ;
+    color: var(--textcolor1) !important;
 }
 .MainMenuContainer-menu, .NC-Tabs {
-    background-color: var(--bgcolor2)!important ;
+    background-color: var(--bgcolor2) !important;
 }
 .NC-Tab {
-    color: var(--textcolor1)!important ;
+    color: var(--textcolor1) !important;
 }
 .Dropdown-button,.UserDetailsHeader-account,.UserDetailsStatusItem-linkLabel {
-    color: var(--textcolor2)!important ;
+    color: var(--textcolor2) !important;
 }
 .Dropdown-button:hover {
-    background-color: var(--hover1)!important ;
+    background-color: var(--hover1) !important;
 }
 .NiconicoPoint {
-    background-color: var(--bgcolor2)!important ;
-    color: var(--textcolor2)!important ;
+    background-color: var(--bgcolor2) !important;
+    color: var(--textcolor2) !important;
 }
 .NicorepoItem-item,.NC-MylistMediaObject,.ChannelItem-content,.CommunityItem-content {
-    background-color: var(--bgcolor2)!important ;
-    border: 1px solid var(--accent1)!important ;
+    background-color: var(--bgcolor2) !important;
+    border: 1px solid var(--accent1) !important;
 }
 .NicorepoItem-senderName,.ChannelItem-name,.CommunityItem-name {
-    color: var(--textcolor2)!important ;
+    color: var(--textcolor2) !important;
 }
 .NicorepoItem-senderName:visited {
-    color: var(--textcolor3)!important ;
+    color: var(--textcolor3) !important;
 }
 .NicorepoItem-activityDescription {
-    color: var(--textcolor3)!important ;
+    color: var(--textcolor3) !important;
 }
 .NicorepoItem-activityCreatedAt {
-    color: var(--textcolor2) !important ;
+    color: var(--textcolor2)  !important;
 }
 .NicorepoItem-activityCreatedAt_new {
-    color: var(--textcolornew)!important ;
+    color: var(--textcolornew) !important;
 }
 .UserDetailsHeader-icon .UserIcon {
-    background-color: var(--bgcolor3)!important ;
+    background-color: var(--bgcolor3) !important;
 }
 .OtherMypageLinks,.NC-ThreePointMenu-menu {
-    background-color: var(--bgcolor2)!important ;
+    background-color: var(--bgcolor2) !important;
 }
 .OtherMypageLinks-link,.NC-ThreePointMenu-menu > * {
-    color: var(--textcolor1)!important ;
+    color: var(--textcolor1) !important;
 }
 /* フォロー */
 .UserItem-content {
-    background-color: var(--bgcolor2)!important ;
-    border: 1px solid var(--accent1)!important ;
+    background-color: var(--bgcolor2) !important;
+    border: 1px solid var(--accent1) !important;
 }
 .UserItem-nickname {
-    color: var(--textcolor2)!important ;
+    color: var(--textcolor2) !important;
 }
 .UserItem-description {
-    color: var(--textcolor3)!important ;
+    color: var(--textcolor3) !important;
 }
 .c-body, .p-embed-supporter-supporting-creators {
-    background-color: #252525!important ;
+    background-color: #252525 !important;
 }
 /* マイリス/後で見る */
 .NC-MediaObject .NC-MediaObjectTitle {
-    color: var(--textcolor2)!important ;
+    color: var(--textcolor2) !important;
 }
 .NC-MylistMediaObject-thumbnails {
-    background-color: var(--bgcolor3)!important ;
-    border: 1px solid var(--accent1)!important ;
+    background-color: var(--bgcolor3) !important;
+    border: 1px solid var(--accent1) !important;
 }
 .WatchLaterHeader-metaValue,.MylistHeader-metaItemValue {
-    color: var(--textcolor2)!important ;
+    color: var(--textcolor2) !important;
 }
-/* マイリスボタン */
+.WatchLaterHeader-meta {
+    color: var(--textcolor3) !important;
+}
+.WatchLaterHeader-name {
+    color: var(--textcolor1) !important;
+}
+.WatchLaterHeader-advice {
+    color: var(--textcolor2) !important;
+}
+/* マイリス */
 .ModalActionButton {
-    background-color: var(--bgcolor2)!important ;
+    background-color: var(--bgcolor2) !important;
+    color: var(--textcolor2) !important;
 }
 .ContinuousPlayButton,.VideoListEditMenuButton,.PaginationItem,.Checkbox-check::before {
-    background-color: var(--bgcolor2)!important ;
-    color: var(--textcolor2)!important ;
-    border: 2px solid var(--accent2)!important ;
+    background-color: var(--bgcolor2) !important;
+    color: var(--textcolor2) !important;
+    border: 2px solid var(--accent2) !important;
 }
 .ContinuousPlayButton-icon {
-    fill: var(--textcolor2)!important ;
+    fill: var(--textcolor2) !important;
 }
 .Selectbox-button {
-    background-color: var(--bgcolor2)!important ;
-    border: 2px solid var(--accent2)!important ;
+    background-color: var(--bgcolor2) !important;
+    border: 2px solid var(--accent2) !important;
 }
 .Selectbox-label {
-    color: var(--textcolor2)!important ;
+    color: var(--textcolor2) !important;
 }
 .Selectbox {
-    background-color: var(--bgcolor2)!important ;
+    background-color: var(--bgcolor2) !important;
 }
-.VideoListEditMenu-delete.VideoListEditMenuButton:hover {
-    border: 2px solid #d0021b!important ;
-    color: #fff!important ;
-    background: #512828!important ;
+.VideoListEditMenu-delete.VideoListEditMenuButton:hover, .VideoWatchHistoryContainer-headerAllDeleteButton:hover {
+    border: 2px solid #d0021b !important;
+    color: #fff !important;
+    background: #512828 !important;
+}
+.NC-MylistMediaObject-itemCount {
+    color: var(--textcolor2) !important;
+}
+.NC-MylistMediaObject-thumbnail:nth-of-type(3)::before {
+    background: linear-gradient(90deg,hsla(0,0%,98%,0),var(--bgcolor1)) !important;
+}
+.VideoMediaObjectList > * + * {
+    border-top: 2px solid var(--accent1) !important;
 }
 /* 履歴 */
 .NC-MediaObject .NC-MediaObjectTitle {
-    color: var(--textcolor2)!important ;
+    color: var(--textcolor2) !important;
 }
 .VideoWatchHistoryContainer-headerAllDeleteButton {
-    background-color: var(--bgcolor2);
-    border: 2px solid var(--accent2);
-    color: var(--textcolor1);
+    background-color: var(--bgcolor2) !important;
+    border: 2px solid var(--accent2) !important;
+    color: var(--textcolor1) !important;
 }
 .NC-FollowButton[data-is-following="true"] {
-	background-color: var(--accent2);
-	color: var(--textcolor1);
+	background-color: var(--accent2) !important;
+	color: var(--textcolor1) !important;
 }
 .NC-VideoMediaObjectOwnerInfo-link {
-    color: var(--textcolor2);
+    color: var(--textcolor2) !important;
+}
+.VideoWatchHistoryContainer-headerAnnounce {
+    color: var(--textcolor2) !important;
+}
+.VideoWatchHistoryContainer-headerTotalCount {
+    color: var(--textcolor3) !important;
+}
+.VideoWatchHistoryContainer-headerTotalCountValue {
+    color: var(--textcolor2) !important;
+}
+.NC-VideoMediaObject-description, .VideoWatchHistoryItemAfter-meta {
+    color: var(--textcolor2) !important;
 }
 /* サイドバー */
 .SubMenuLink-label {
-    color:var(--textcolor2)!important ;
+    color:var(--textcolor2) !important;
 }
 .ExpandBoxButton-overlay {
-    background: linear-gradient(180deg,hsla(0,0%,100%,0) 0,var(--bgcolor1))!important ;
+    background: linear-gradient(180deg,hsla(0,0%,100%,0) 0,var(--bgcolor1)) !important;
 }
 .SubMenuLink-link_active {
-    background-color: #4e5358!important ;
+    background-color: var(--accent2) !important;
 }
 .SubMenuLink-link_active:hover {
-    background-color: #687d91!important ;
+    background-color: var(--hover2) !important;
 }
 .SubMenuLink-link:hover .SubMenuLink-label, .SubMenuLink-link_active .SubMenuLink-label {
-    color: var(--linktext2)!important ;
+    color: var(--linktext2) !important;
 }
 .SubMenuLink-link_internal:hover {
-    background-color: #45525e!important ;
+    background-color: var(--hover1) !important;
 }
 .MylistSideContainer-mylistList > *, .VideoSideContainer-seriesList > * {
-    background: var(--bgcolor2)
+    background: var(--bgcolor2) !important;
 }
 .MylistHeader-name {
-    color: var(--textcolor1)
+    color: var(--textcolor1) !important;
 }
 .VideoContainer-headerTotalCountValue,.FolloweeContainer-header {
-    color: var(--textcolor2)
+    color: var(--textcolor2) !important
+}
+.SubMenuHeader-title, .MylistPageSubMenuHeader-counter, .MylistPageSubMenuHeader-counterValue {
+    color: var(--textcolor2) !important;
+}
+.MylistSideContainer_hasMylistItem .MylistSideContainer-categoryList > :last-child {
+    border-bottom: 1px solid var(--accent2) !important;
 }
 /* ニコる */
 .NicoruHistoryPassiveItem, .NicoruHistoryActiveItem {
-    background: var(--bgcolor2)!important ;
+    background: var(--bgcolor2) !important;
 }
 .NicoruHistoryPassiveItem-video, .NicoruHistoryActiveItem-video {
-    background: var(--accent1)!important ;
+    background: var(--accent1) !important;
 }
 .NicoruHistoryPassiveItem-videoTitleArea > a:visited, .NicoruHistoryActiveItem-videoTitleArea > a:visited {
-    color: var(--textcolor3)!important ;
+    color: var(--textcolor3) !important;
 }
-.NicoruHistoryPassiveItem-videoTitleArea > a, .NicoruHistoryActiveItem-videoTitleArea > a {
-    color: var(--textcolor2)!important ;
+.NicoruHistoryPassiveItem-videoTitleArea > a, .NicoruHistoryActiveItem-videoTitleArea > a, .NicoruHistoryPassiveItem-date  {
+    color: var(--textcolor2) !important;
 }
 .NicoruHistoryPassiveItem-videoOwner {
-    background: #998221!important ;
+    background: #998221 !important;
+}
+.NicoruHistoryPassiveItem-videoCommentVposArea a {
+    color: var(--linktext1) !important;
 }
 /* あなたへのおすすめ */
 .PersonalFrame {
-    background-color: var(--bgcolor2)!important ;
+    background-color: var(--bgcolor2) !important;
 }
 .PersonalFrame-body {
-    border: 2px solid var(--accent1)!important ;
+    border: 2px solid var(--accent1) !important;
 }
 .PersonalFrame-header {
-    background-color: #07576c!important ;
+    background-color: #07576c !important;
 }
 .PersonalFrame-text {
-    color: var(--textcolor1)!important ;
+    color: var(--textcolor1) !important;
 }
 /* その他 */
 .nico-CommonHeaderRoot .common-header-eyo3v5 {
-    background-color: var(--bgcolor3)!important ;
+    background-color: var(--bgcolor3) !important;
 }
 .nico-CommonHeaderRoot .common-header-10t70iy {
-    background-color: var(--bgcolor3)!important ;
-    color: var(--textcolor1)!important ;
+    background-color: var(--bgcolor3) !important;
+    color: var(--textcolor1) !important;
 }
 
 /* シリーズ */
@@ -440,14 +480,17 @@ body {
 }
 /* いいね！ */
 .LikeItemAfter-thanksMessage {
-    background: var(--accent1);
-    border: 1px solid var(--accent2);
+    background: var(--accent1) !important;
+    border: 1px solid var(--accent2) !important;
 }
 .LikeItemAfter-thanksMessage::after, .LikeItemAfter-thanksMessage::before {
-    border-bottom: 8px solid var(--accent2);
+    border-bottom: 8px solid var(--accent2) !important;
 }
 .LikeItemAfter-thanksMessage::after {
-    border-bottom-color: var(--accent1);
+    border-bottom-color: var(--accent1) !important;
+}
+.LikeItemAfter-thanksMessage > h1 {
+    color: var(--textcolor3) !important;
 }
 
 /* iframe */
@@ -482,6 +525,53 @@ body {
 }
 .___counter___Xdjcm > .score {
     color: var(--textcolor2)
+}
+.___program-card___ciI29 > .content-area > .program-summary > .program-title {
+    color: var(--textcolor1) !important;
+}
+.___program-card___ciI29 > .content-area > .program-summary > .program-description {
+    color: var(--textcolor2) !important;
+}
+.___toggle-button___xC4rm, .___toggle-button___EVlU5 {
+    background-color: var(--bgcolor2) !important;
+    border: 2px solid var(--accent2) !important;
+    color: var(--textcolor2)
+}
+.___toggle-button___EVlU5 > span {
+    color: var(--textcolor2)
+}
+.___toggle-button___EVlU5:hover > span {
+    color: var(--linktext2)
+}
+.___toggle-button___EVlU5 > svg path {
+    fill: var(--textcolor2)
+}
+.___toggle-button___EVlU5:hover > svg path {
+    fill: var(--textcolor2)
+}
+.___toggle-button___xC4rm:hover {
+    border: 2px solid var(--hover2) !important;
+}
+.___toggle-button___EVlU5 {
+    border: 2px solid var(--linktext2)
+}
+.___description___l0xL4 {
+    color: var(--textcolor2)
+}
+.___local-anchor___Hapoe {
+    color: var(--textcolor1)
+}
+/* why-this-class-name-is-so-long */
+.c-pages-embed-supporter-supporting-creators-page-content {
+    color: var(--textcolor1);
+}
+/* why-this-class-name-is-very-very-long */
+.c-pages-embed-supporter-supporting-creators-empty-state__whats-support-link-text {
+    color: var(--textcolor2);
+}
+/* why-this-class-name-is-sooooooo-loooooooooong */
+.c-pages-embed-supporter-supporting-creators-empty-state__whats-support-link-right-icon > svg, .c-pages-embed-supporter-supporting-creators-empty-state__whats-support-link-left-icon > svg {
+    fill: var(--textcolor2);
 }
 
 .ExpandableDescription .ExpandBox_is-expanded,
