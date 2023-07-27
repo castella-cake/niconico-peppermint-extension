@@ -3,6 +3,7 @@ const zip = require('gulp-zip');
 const fs = require('fs');
 const path = require('path');
 const stylus = require('gulp-stylus');
+const fse = require('fs-extra'); // fs-extraパッケージをインポート
 
 const packageJson = require('./package.json'); // package.jsonを読み込む
 
@@ -26,8 +27,30 @@ gulp.task('compileStylus', function () {
         .pipe(gulp.dest('./src')); // コンパイルされたCSSファイルをsrcフォルダーに出力
 });
 
+gulp.task('cleanUp', function (done) {
+    const versionName = packageJson.version; // バージョン情報を取得
+    // バージョン名のフォルダーが存在する場合は削除する
+    const versionFolderPath = path.join(__dirname, `./builds/${versionName}`);
+    if (fs.existsSync(versionFolderPath)) {
+        fse.removeSync(versionFolderPath)
+    }
+    done()
+})
+
 gulp.task('copyFilesFirefox', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
+
+    gulp.src('./LICENSE.txt')
+        .pipe(gulp.dest(`./builds/${versionName}/firefox`));
+    
+    gulp.src('./NOTICE.txt')
+        .pipe(gulp.dest(`./builds/${versionName}/firefox`));
+
+    gulp.src('./README.md')
+        .pipe(gulp.dest(`./builds/${versionName}/firefox`));
+
+    gulp.src('./CHANGELOG.md')
+        .pipe(gulp.dest(`./builds/${versionName}/firefox`));
 
     // srcフォルダーの内容をfirefoxフォルダーにコピー
     gulp.src('./src/**/*')
@@ -43,6 +66,18 @@ gulp.task('copyFilesFirefox', function (done) {
 
 gulp.task('copyFilesChrome', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
+
+    gulp.src('./LICENSE.txt')
+        .pipe(gulp.dest(`./builds/${versionName}/chrome`));
+    
+    gulp.src('./NOTICE.txt')
+        .pipe(gulp.dest(`./builds/${versionName}/chrome`));
+
+    gulp.src('./README.md')
+        .pipe(gulp.dest(`./builds/${versionName}/chrome`));
+
+    gulp.src('./CHANGELOG.md')
+        .pipe(gulp.dest(`./builds/${versionName}/chrome`));
 
     // srcフォルダーの内容をchromeフォルダーにコピー
     gulp.src('./src/**/*')
@@ -90,8 +125,31 @@ gulp.task('compress', function (done) {
     done()
 });
 
+gulp.task('devCleanUp', function (done) {
+    // フォルダーが存在する場合は削除する
+    const folderPath = path.join(__dirname, `./dev`);
+    fse.removeSync(folderPath)
+
+    // buildフォルダーを作成
+    fs.mkdirSync(`./dev`, { recursive: true });
+    done()
+})
+
 gulp.task('devCopyFilesFirefox', function (done) {
     // srcフォルダーの内容をfirefoxフォルダーにコピー
+
+    gulp.src('./LICENSE.txt')
+        .pipe(gulp.dest(`./dev/firefox`));
+
+    gulp.src('./NOTICE.txt')
+        .pipe(gulp.dest(`./dev/firefox`));
+
+    gulp.src('./README.md')
+        .pipe(gulp.dest(`./dev/firefox`));
+
+    gulp.src('./CHANGELOG.md')
+        .pipe(gulp.dest(`./dev/firefox`));
+    
     gulp.src('./src/**/*')
         .pipe(gulp.dest(`./dev/firefox`))
         .on('end', function() {
@@ -105,6 +163,19 @@ gulp.task('devCopyFilesFirefox', function (done) {
 
 gulp.task('devCopyFilesChrome', function (done) {
     // srcフォルダーの内容をchromeフォルダーにコピー
+
+    gulp.src('./LICENSE.txt')
+    .pipe(gulp.dest(`./dev/chrome`));
+
+    gulp.src('./NOTICE.txt')
+        .pipe(gulp.dest(`./dev/chrome`));
+
+    gulp.src('./README.md')
+        .pipe(gulp.dest(`./dev/chrome`));
+
+    gulp.src('./CHANGELOG.md')
+        .pipe(gulp.dest(`./dev/chrome`));
+
     gulp.src('./src/**/*')
         .pipe(gulp.dest(`./dev/chrome`))
         .on('end', function() {
@@ -134,8 +205,8 @@ gulp.task('devRenameFiles', function (done) {
 
 gulp.task('watch', function () {
     gulp.watch('./src/**/*.styl', gulp.series('compileStylus'));
-    gulp.watch(['./src/**/*', '!./src/**/*.styl'], gulp.series('devCopyFilesFirefox', 'devCopyFilesChrome', 'devRenameFiles'));
+    gulp.watch(['./src/**/*', '!./src/**/*.styl'], gulp.series('devCleanUp', 'devCopyFilesFirefox', 'devCopyFilesChrome', 'devRenameFiles'));
 });
 
 // デフォルトタスク
-gulp.task('default', gulp.series('createVersionFolders', 'compileStylus', 'copyFilesChrome', 'copyFilesFirefox', 'renameFiles', 'compress'));
+gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'compileStylus', 'copyFilesChrome', 'copyFilesFirefox', 'renameFiles', 'compress'));
