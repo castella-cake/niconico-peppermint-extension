@@ -71,6 +71,9 @@ npm install
 ```
 npm run build
 ```
+ビルドが正常に終了すると、`builds` フォルダーにバージョン名のフォルダーと、ストア提出用のパッケージが作成されます。   
+`npm run watch` を使用して、Stylus-langと依存関係
+
 
 # Feature
 実装済みの機能/実装予定の機能。

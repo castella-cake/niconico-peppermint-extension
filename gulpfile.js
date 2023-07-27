@@ -9,6 +9,9 @@ const packageJson = require('./package.json'); // package.jsonを読み込む
 gulp.task('createVersionFolders', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
+    // buildフォルダーを作成
+    fs.mkdirSync(`./builds/`, { recursive: true });
+
     // バージョン名でフォルダーを作成
     fs.mkdirSync(`./builds/${versionName}/chrome`, { recursive: true });
     fs.mkdirSync(`./builds/${versionName}/firefox`, { recursive: true });
@@ -29,7 +32,13 @@ gulp.task('copyFilesFirefox', function (done) {
     // srcフォルダーの内容をfirefoxフォルダーにコピー
     gulp.src('./src/**/*')
         .pipe(gulp.dest(`./builds/${versionName}/firefox`))
-        .on('end', done); // copyFilesが完了したらdone()を呼ぶ
+        .on('end', function() {
+            const gulp = require('gulp');
+            const dependencies = require('gulp-package-dependencies');
+            return dependencies()
+                .pipe(gulp.dest(`./builds/${versionName}/firefox/dist`))
+                .on('end', done);
+        });
 });
 
 gulp.task('copyFilesChrome', function (done) {
@@ -38,8 +47,13 @@ gulp.task('copyFilesChrome', function (done) {
     // srcフォルダーの内容をchromeフォルダーにコピー
     gulp.src('./src/**/*')
         .pipe(gulp.dest(`./builds/${versionName}/chrome`))
-        .on('end', done); // copyFilesが完了したらdone()を呼ぶ
-
+        .on('end', function() {
+            const gulp = require('gulp');
+            const dependencies = require('gulp-package-dependencies');
+            return dependencies()
+                .pipe(gulp.dest(`./builds/${versionName}/chrome/dist`))
+                .on('end', done);
+        });
 });
 
 gulp.task('renameFiles', function (done) {
@@ -74,6 +88,53 @@ gulp.task('compress', function (done) {
         .pipe(gulp.dest('./builds'));
 
     done()
+});
+
+gulp.task('devCopyFilesFirefox', function (done) {
+    // srcフォルダーの内容をfirefoxフォルダーにコピー
+    gulp.src('./src/**/*')
+        .pipe(gulp.dest(`./dev/firefox`))
+        .on('end', function() {
+            const gulp = require('gulp');
+            const dependencies = require('gulp-package-dependencies');
+            return dependencies()
+                .pipe(gulp.dest(`./dev/firefox/dist`))
+                .on('end', done);
+        });
+});
+
+gulp.task('devCopyFilesChrome', function (done) {
+    // srcフォルダーの内容をchromeフォルダーにコピー
+    gulp.src('./src/**/*')
+        .pipe(gulp.dest(`./dev/chrome`))
+        .on('end', function() {
+            const gulp = require('gulp');
+            const dependencies = require('gulp-package-dependencies');
+            return dependencies()
+                .pipe(gulp.dest(`./dev/chrome/dist`))
+                .on('end', done);
+        });
+});
+
+gulp.task('devRenameFiles', function (done) {
+    // chromeフォルダー内のmanifest.jsonを削除してからコピーを行う
+    fs.unlinkSync(`./dev/chrome/manifest.json`);
+    // manifest_chrome.jsonをchromeフォルダー内にコピーし、同時にリネームする
+    fs.copyFileSync('./src/manifest_chrome.json', `./dev/chrome/manifest.json`);
+    // chromeフォルダー内のmanifest_chrome.jsonを削除
+    fs.unlinkSync(`./dev/chrome/manifest_chrome.json`);
+
+    // manifest.jsonをfirefoxフォルダー内に配置
+    fs.copyFileSync('./src/manifest.json', `./dev/firefox/manifest.json`);
+    // firefoxフォルダー内のmanifest_chrome.jsonを削除
+    fs.unlinkSync(`./dev/firefox/manifest_chrome.json`);
+
+    done();
+});
+
+gulp.task('watch', function () {
+    gulp.watch('./src/**/*.styl', gulp.series('compileStylus'));
+    gulp.watch(['./src/**/*', '!./src/**/*.styl'], gulp.series('devCopyFilesFirefox', 'devCopyFilesChrome', 'devRenameFiles'));
 });
 
 // デフォルトタスク

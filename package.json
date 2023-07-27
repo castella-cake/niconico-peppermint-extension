@@ -20,6 +20,7 @@
     "jquery-ui": "^1.13.2"
   },
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "watch": "gulp watch"
   }
 }
