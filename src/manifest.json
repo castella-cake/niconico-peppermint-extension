@@ -15,13 +15,13 @@
     },
 
     "background": {
-        "scripts": ["lib/jquery-3.6.3.min.js","js/background.js"],
+        "scripts": ["dist/jquery/dist/jquery.min.js","js/background.js"],
         "persistent": false
     },
     "content_scripts": [
         {
             "matches": ["*://*.nicovideo.jp/*"],
-            "js": ["lib/jquery-3.6.3.min.js","lib/jquery-ui.min.js","js/forall.js"],
+            "js": ["dist/jquery/dist/jquery.min.js","dist/jquery-ui/dist/jquery-ui.min.js","js/forall.js"],
             "css": ["pagemod/css/darkmode/darkmode.css"],
             "run_at": "document_start",
             "all_frames" : true
