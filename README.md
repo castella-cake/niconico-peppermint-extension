@@ -61,9 +61,16 @@ Firefoxでは、新しいバージョンがある場合自動的にアップデ�
 5. ダウンロードしたzipファイルを読み込みます
 6. おわり
 
-# About create.bat
-``create.bat``を使用すると、FirefoxとChromium向けのリリース用フォルダーを簡単に作成できます。   
-Chromium向けのデバッグにはこれを使用する必要がありますが、Firefoxでのデバッグにこのバッチファイルを使用する必要はありません。  
+# Build
+PepperMint+ v1.6.3以降のソースコードはビルドが必要です。
+Node.jsとnpmをインストールしたら、以下のコマンドで依存関係をインストールします:
+```
+npm install
+```
+その後、以下のコマンドでgulpを実行します:
+```
+npm run build
+```
 
 # Feature
 実装済みの機能/実装予定の機能。
@@ -159,14 +166,14 @@ https://github.com/sponsors/castella-cake
 Niconico-PepperMint+のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  
 
-Niconico-PepperMint+内には、外部リソースとしてMaterial Iconsを使用している箇所があります。    
+Niconico-PepperMint+には、外部リソースとしてMaterial Iconsを使用している箇所があります。    
 Material Iconsは``Apache License 2.0`` のもとで配布されています。  
 Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
 
-Niconico-PepperMint+内には、JQuery, JQuery UI, Nord が含まれています。
+Niconico-PepperMint+のリリースファイルには、JQuery, JQuery UI, Nord が含まれています。
 これらは``MIT License``のもとで配布されています。
 
-Niconico-PepperMint+内にはDOMPurifyが含まれています。
+Niconico-PepperMint+のリリースファイルにはDOMPurifyが含まれています。
 DOMPurifyは``Apache License 2.0``、``Mozilla Public License Version 2.0``のデュアルライセンスで配布されています。
 (PepperMint+では``Apache License 2.0``に従います)
 
