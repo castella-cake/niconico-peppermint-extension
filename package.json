@@ -10,6 +10,7 @@
     "fs": "^0.0.1-security",
     "gulp": "^4.0.2",
     "gulp-package-dependencies": "^0.0.2",
+    "gulp-stylus": "^3.0.1",
     "gulp-zip": "^5.1.0",
     "path": "^0.12.7"
   },

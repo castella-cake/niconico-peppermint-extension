@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const zip = require('gulp-zip');
 const fs = require('fs');
 const path = require('path');
+const stylus = require('gulp-stylus');
 
 const packageJson = require('./package.json'); // package.jsonを読み込む
 
@@ -13,6 +14,13 @@ gulp.task('createVersionFolders', function (done) {
     fs.mkdirSync(`./builds/${versionName}/firefox`, { recursive: true });
 
     done();
+});
+
+gulp.task('compileStylus', function () {
+    // Stylusファイルのコンパイル処理
+    return gulp.src('./src/**/*.styl')
+        .pipe(stylus())
+        .pipe(gulp.dest('./src')); // コンパイルされたCSSファイルをsrcフォルダーに出力
 });
 
 gulp.task('copyFilesFirefox', function (done) {
@@ -69,4 +77,4 @@ gulp.task('compress', function (done) {
 });
 
 // デフォルトタスク
-gulp.task('default', gulp.series('createVersionFolders', 'copyFilesChrome', 'copyFilesFirefox', 'renameFiles', 'compress'));
+gulp.task('default', gulp.series('createVersionFolders', 'compileStylus', 'copyFilesChrome', 'copyFilesFirefox', 'renameFiles', 'compress'));
