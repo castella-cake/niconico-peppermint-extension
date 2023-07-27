@@ -278,6 +278,14 @@ body {
 .OtherMypageLinks-link,.NC-ThreePointMenu-menu > * {
     color: var(--textcolor1) !important;
 }
+.NC-ThreePointMenu-menu > :hover, .OtherMypageLinks-link:hover {
+    background-color: var(--hover1) !important;
+}
+.UserDescription .ExpandBox_is-expanded a {
+    color: var(--linktext1);
+}
+
+
 /* フォロー */
 .UserItem-content {
     background-color: var(--bgcolor2) !important;
@@ -292,6 +300,10 @@ body {
 .c-body, .p-embed-supporter-supporting-creators {
     background-color: #252525 !important;
 }
+.LiveLink {
+    color: var(--textcolor1) !important;
+}
+
 /* マイリス/後で見る */
 .NC-MediaObject .NC-MediaObjectTitle {
     color: var(--textcolor2) !important;
