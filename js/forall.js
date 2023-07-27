@@ -220,6 +220,9 @@ function createFastCSSRule(result) {
             document.documentElement.style = "--pre-bgcolor: #000;"
         }
         //console.log(result.darkmode)
+        if (location.hostname == "blog.nicovideo.jp" && location.pathname.startsWith("/niconews")) {
+            document.documentElement.classList.add('PMDM-NicoInfo')
+        }
     } 
 } 
 

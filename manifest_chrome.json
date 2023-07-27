@@ -3,8 +3,8 @@
     "name": "Niconico-PepperMint+",
     "short_name": "PepperMint+",
     "description": "ニコニコ動画をもっとクールにする拡張機能",
-    "version": "1.6.2",
-    "version_name": "1.6.2",
+    "version": "1.6.3",
+    "version_name": "1.6.3-DEV",
     "author": "CYakigasi",
     "homepage_url": "https://github.com/castella-cake/niconico-peppermint-extension",
     "icons": {
@@ -18,7 +18,7 @@
         {
             "matches": ["*://*.nicovideo.jp/*"],
             "js": ["js/jquery-3.6.3.min.js","js/jquery-ui.min.js","js/forall.js"],
-            "css": ["pagemod/css/darkmode/dm_assist.css"],
+            "css": ["pagemod/css/darkmode/darkmode.css"],
             "run_at": "document_start",
             "all_frames" : true
         },
