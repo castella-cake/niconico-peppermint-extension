@@ -1,28 +1,24 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Niconico-PepperMint+",
     "short_name": "PepperMint+",
     "description": "ニコニコ動画をもっとクールにする拡張機能",
-    "version": "1.6.2",
-    "version_name": "1.6.2",
-    "developer": {
-        "name": "CYakigasi"
-    },
-
+    "version": "1.6.3",
+    "version_name": "1.6.3-DEV",
+    "author": "CYakigasi",
     "homepage_url": "https://github.com/castella-cake/niconico-peppermint-extension",
     "icons": {
         "64": "icons/peppermint-logo-64.png"
     },
 
     "background": {
-        "scripts": ["lib/jquery-3.6.3.min.js","js/background.js"],
-        "persistent": false
+        "service_worker": "js/background.js"
     },
     "content_scripts": [
         {
             "matches": ["*://*.nicovideo.jp/*"],
-            "js": ["lib/jquery-3.6.3.min.js","lib/jquery-ui.min.js","js/forall.js"],
-            "css": ["pagemod/css/darkmode/dm_assist.css"],
+            "js": ["js/jquery-3.6.3.min.js","js/jquery-ui.min.js","js/forall.js"],
+            "css": ["pagemod/css/darkmode/darkmode.css"],
             "run_at": "document_start",
             "all_frames" : true
         },
@@ -87,17 +83,22 @@
             "run_at": "document_end"
         }
     ],
-    "web_accessible_resources": [
-        "pagemod/*"
-    ],
+    "web_accessible_resources": [{
+        "resources": [
+            "pagemod/*"
+        ],
+        "matches": [
+            "*://*.nicovideo.jp/*"
+        ]
+    }],
 
-    "browser_action": {
+    "action": {
         "browser_style": true,
         "default_popup": "pages/quickpanel.html",
         "default_icon": {
             "32": "icons/peppermint-logo-32.png",
             "64": "icons/peppermint-logo-64.png",
-            "128": "icons/peppermint-logo-128.png"
+            "128": "icons/peppermint-logo-128.png" 
         },
         "default_title": "Niconico-PepperMint"
     },
@@ -105,23 +106,11 @@
         "page": "pages/option.html",
         "browser_style": true
     },
-    
     "permissions": [
         "storage",
         "contextMenus",
-        "https://ext.nicovideo.jp/api/getthumbinfo/*",
-        "https://www.nicovideo.jp/ranking/*",
-        "https://nvapi.nicovideo.jp/v1/series/*",
-        "https://fonts.googleapis.com/icon",
-        "https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/*",
-        "https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*",
-        "https://nicovideo.cdn.nimg.jp/thumbnails/*",
         "alarms",
         "tabs"
     ],
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "niconico-peppermint@cyakigasi.net"
-        }
-    }
+    "host_permissions": ["*://ext.nicovideo.jp/api/getthumbinfo/*","https://nvapi.nicovideo.jp/v1/series/*","https://fonts.googleapis.com/icon","https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/*","https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*","https://nicovideo.cdn.nimg.jp/thumbnails/*"]
 }

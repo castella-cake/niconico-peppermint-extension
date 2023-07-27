@@ -1,2 +1,5 @@
 node_modules/
 build/
+src/pagemod/css/darkmode/darkmode.css
+builds/
+dev/

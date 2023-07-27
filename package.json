@@ -1,0 +1,26 @@
+{
+  "name": "niconico-peppermint-extension",
+  "version": "1.6.3",
+  "description": "ニコニコをもっとクールにする拡張機能",
+  "author": "CYakigasi",
+  "license": "MIT",
+  "homepage": "https://github.com/castella-cake/niconico-peppermint-extension#readme",
+  "private": "true",
+  "devDependencies": {
+    "fs": "^0.0.1-security",
+    "gulp": "^4.0.2",
+    "gulp-package-dependencies": "^0.0.2",
+    "gulp-stylus": "^3.0.1",
+    "gulp-zip": "^5.1.0",
+    "path": "^0.12.7"
+  },
+  "dependencies": {
+    "dompurify": "^3.0.5",
+    "jquery": "^3.7.0",
+    "jquery-ui": "^1.13.2"
+  },
+  "scripts": {
+    "build": "gulp",
+    "watch": "gulp watch"
+  }
+}
