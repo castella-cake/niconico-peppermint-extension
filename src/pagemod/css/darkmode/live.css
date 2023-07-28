@@ -76,6 +76,40 @@
 .___menu___33KGv {
     border: 1px solid var(--accent2);
 }
+/* サイドパネルの修正 */
+.___comment-data-grid___KL0cC > .body > .table > .table-row[data-comment-type="normal"] > .table-cell {
+	--local-comment-text-color: var(--textcolor1);
+}
+.___comment-data-grid___KL0cC > .body > .table > .table-row[data-comment-type="gift"] > .table-cell {
+    --local-comment-text-color: var(--textcolor3);
+}
+.___comment-data-grid___KL0cC > .body > .table > .table-row[data-comment-type="nicoad"] > .table-cell, .___comment-data-grid___KL0cC > .body > .table > .table-row[data-comment-type="transparent"] > .table-cell {
+    --local-comment-text-color: var(--textcolor3);
+}
+.___comment-data-grid___KL0cC > .body > .table > .table-row:hover, .___comment-data-grid___KL0cC > .body > .table > .table-row[aria-selected="true"] {
+    background-color: var(--hover1)
+}
+.___profile___ua8TP {
+    color: var(--textcolor2)
+}
+.___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card > .content-area > .program-summary > .program-title {
+    color: var(--textcolor1)
+}
+.___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card:hover {
+    background-color: var(--hover1)
+}
+.___loading-form___35Hib > .loading-target > .program-card-list > .item {
+	border-bottom: 1px solid var(--accent1);
+}
+.___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card > .content-area > .status-bar > .duration, .___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card > .content-area > .status-bar > .start-at,
+.___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card > .content-area > .status-bar > .program-statistics > .program-statistics-list > .comment-count, .___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card > .content-area > .status-bar > .program-statistics > .program-statistics-list > .timeshift-reserved-count, .___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card > .content-area > .status-bar > .program-statistics > .program-statistics-list > .watch-count
+{
+	color: var(--textcolor2);
+}
+.___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card > .content-area > .status-bar > .program-statistics > .program-statistics-list > .comment-count, .___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card > .content-area > .status-bar > .program-statistics > .program-statistics-list > .timeshift-reserved-count, .___loading-form___35Hib > .loading-target > .program-card-list > .item > .program-card > .content-area > .status-bar > .program-statistics > .program-statistics-list > .watch-count {
+    --local-color: var(--textcolor2);
+    --local-icon-color: var(--textcolor3);
+}
 
 /* プレイヤー */
 .___broadcast-participation-area___3csnv {

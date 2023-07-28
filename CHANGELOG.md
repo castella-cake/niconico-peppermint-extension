@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - ユーザーページのダークモードサポートを改善しました
+- ニコニコ生放送ページのダークモードサポートを修正しました
 
 ## [1.6.2] - 2023/07/16
 
