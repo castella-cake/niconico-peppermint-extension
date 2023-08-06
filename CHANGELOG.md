@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ニコニコ生放送ページのダークモードサポートを修正しました
 - 再び変更されたサポーターボタンのダークモードサポートを修正しました
 - 視聴ページテーマのメタデータ表示が、新しいサポーターボタンによって壊れている問題を修正しました
+- 視聴ページでPepperMintUIの要素が存在しないために、壊れる問題を修正しました
 
 ### Removed
 - 古いCSSをクリーンアップしました

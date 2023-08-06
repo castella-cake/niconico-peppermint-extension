@@ -1,6 +1,11 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     //console.log(result)
+    if ( document.querySelector('.pmbutton-container') == undefined || document.querySelector('.pmbutton-container') == null ) {
+        let pmbuttoncontainer = document.createElement('pmbutton-container')
+        pmbuttoncontainer.classList.add('pmbutton-container')
+        document.body.appendChild(pmbuttoncontainer)
+    }
 
     if (result.enablemisskeyshare == true) {
         // make container

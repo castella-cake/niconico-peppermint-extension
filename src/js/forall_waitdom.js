@@ -1,6 +1,10 @@
 // www.nicovideo.jpの全てで実行
 
-$('body').append('<div class="pmbutton-container"></div>');
+if ( document.querySelector('.pmbutton-container') == undefined || document.querySelector('.pmbutton-container') == null ) {
+    let pmbuttoncontainer = document.createElement('pmbutton-container')
+    pmbuttoncontainer.classList.add('pmbutton-container')
+    document.body.appendChild(pmbuttoncontainer)
+}
 //$('body').append('<div class="version-watermark" style="position: sticky; left:0; bottom:0px;color:#aaa;font-size:8px">Niconico-PepperMint Preview</div>');
 addCSS("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined")
 addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui.css"));
