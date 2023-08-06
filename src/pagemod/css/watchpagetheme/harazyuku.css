@@ -1,4 +1,4 @@
-.HeaderContainer-row .GridCell:first-child {
+.HeaderContainer-row .VideoOwnerInfo-gridCell {
     position:absolute;
     right:0;
     z-index:1000;
@@ -96,22 +96,21 @@ body,.HeaderContainer {
     display: none;
 }
 .NC-CreatorSupportAccepting {
-    top: -20px !important;
-    width:100%
+	top: -64px !important;
+	right: 0 !important;
+	left: inherit !important;
 }
 .NC-CreatorSupportAccepting-content {
-    background-image: linear-gradient(#262626,#151515);
-    display: inline-block;
-    height: 20px;
-    border-radius: 50px;
-    border: 1px solid #000;
-    text-align: center;
-    font-size: 12px;
-    padding: 0px 4px 4px;
-    margin: 6px 6px 0 0;
-    font-weight:bold;
-    color: #fff;
-    width:100%;
+	background-image: linear-gradient(#262626,#151515);
+	/* display: inline-block; */
+	border-radius: 10px;
+	border: 1px solid #000;
+	text-align: center;
+	font-size: 12px;
+	/* padding: 4px; */
+	margin: 6px 0 0 0;
+	font-weight: bold;
+	color: #fff;
 }
 .NC-CreatorSupportAccepting_floating .NC-CreatorSupportAccepting-content {
     filter: drop-shadow(0 0 2px rgba(0,0,0,.15));

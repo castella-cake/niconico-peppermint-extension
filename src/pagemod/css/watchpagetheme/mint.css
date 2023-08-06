@@ -1,5 +1,5 @@
 /* オーナーを右に */
-.HeaderContainer-row .GridCell:first-child {
+.HeaderContainer-row .VideoOwnerInfo-gridCell {
     position:absolute;
     right:0;
     z-index:1000;
@@ -84,24 +84,14 @@
     display: none;
 }
 .NC-CreatorSupportAccepting {
-    top: 72px !important;
-    width:100%
+	top: -48px !important;
+	right: 0px !important;
+	left: inherit !important;
 }
 .NC-CreatorSupportAccepting-content {
-    display: inline-block;
-    height: 20px;
-    line-height: 20px;
-    border-radius: 5px;
-    border: 0px solid #000;
-    text-align: center;
-    font-size: 12px;
-    padding: 0px 4px 4px;
-    margin: 6px 6px 0 0;
-    font-weight: inherit;
-    color: inherit;
-    width:100%;
-    box-shadow: 0px 0px 3px rgba(0,0,0,0.5);
-    background: transparent
+	border: 0px solid #000 !important;
+	box-shadow: 0px 0px 3px rgba(0,0,0,0.5) inset;
+	background: transparent;
 }
 .NC-CreatorSupportAccepting_floating .NC-CreatorSupportAccepting-content {
     filter: drop-shadow(0 0 2px rgba(0,0,0,.15));
