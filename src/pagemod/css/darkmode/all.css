@@ -463,6 +463,9 @@ body {
     background-color: var(--bgcolor3) !important;
     color: var(--textcolor1) !important;
 }
+.BlankState-title {
+    color: var(--textcolor1) !important;
+}
 
 /* シリーズ */
 .SeriesAdditionalContainer, .SeriesMenuContainer-seriesList {
@@ -594,7 +597,31 @@ body {
 .NC-SeriesMediaObject .NC-MediaObject-contents {
     background-color: var(--bgcolor2)
 }
-
+/* サポーターになる ボタン */
+.NC-CreatorSupportAccepting-content {
+    background: var(--bgcolor2);
+    color: var(--textcolor1);
+    border: 1px solid var(--accent1) !important;
+}
+.NC-CreatorSupportAccepting_outlined:hover .NC-CreatorSupportAccepting-content {
+	background-color: var(--hover1);
+	border: 1px solid var(--hover2);
+	color: #fff;
+}
+.NC-CreatorSupportAccepting_outlined.NC-CreatorSupportAccepting_bottom .NC-CreatorSupportAccepting-arrow {
+	border-left: 1px solid var(--bgcolor2);
+	border-top: 1px solid var(--bgcolor2);
+}
+.NC-CreatorSupportAccepting_outlined:hover.NC-CreatorSupportAccepting_bottom .NC-CreatorSupportAccepting-arrow {
+	border-left: 1px solid var(--hover2);
+	border-top: 1px solid var(--hover2);
+}
+.NC-CreatorSupportAccepting-arrow {
+    background: var(--bgcolor2);
+}
+.NC-CreatorSupportAccepting_outlined:hover .NC-CreatorSupportAccepting-arrow {
+	background-color: var(--hover2);
+}
 
 
 #article-title-box:has(#pm-pediadynamicpalette-div), .a-contents:has(#pm-pediadynamicpalette-div) {

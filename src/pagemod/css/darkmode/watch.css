@@ -263,6 +263,22 @@
     background: var(--bgcolor2);
     color: var(--linktext1);
 }
+.NC-CreatorSupportAccepting_appeal .NC-CreatorSupportAccepting-label {
+    color: var(--linktext1);
+}
+.NC-CreatorSupportAccepting-register {
+    border: 1px solid var(--linktext1);
+    color: var(--linktext1);
+}
+.NC-CreatorSupportAccepting_appeal .NC-CreatorSupportAccepting-content:hover .NC-CreatorSupportAccepting-arrow, .NC-CreatorSupportAccepting_appeal .NC-CreatorSupportAccepting-content:hover .NC-CreatorSupportAccepting-label, .NC-CreatorSupportAccepting_appeal .NC-CreatorSupportAccepting-content:hover .NC-CreatorSupportAccepting-register {
+	background-color: var(--hover1);
+	border-color: var(--accent2);
+	color: var(--textcolor1);
+	text-decoration: none;
+}
+.NC-CreatorSupportAccepting_appeal .NC-CreatorSupportAccepting-content:hover {
+    background-color: var(--hover1);
+}
 
 /* フローティングパネル */
 .AddVideoListPanel-content {
