@@ -18,9 +18,6 @@ if (document.getElementById('peppermint-css') == null || document.getElementById
 getStorageData.then(createBaseCSSRule, onError);
 function createBaseCSSRule(result) {
     $(function() {
-        if ( result.highlightnewnotice == true ) {
-            addCSS(chrome.runtime.getURL("pagemod/css/other/highlightnewnotice.css"), true);
-        }
         if ( result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ) {
             if (result.darkmode == 'custom' && result.customcolorpalette != undefined) {
                 pushCSSRule(`:root{--bgcolor1:${result.customcolorpalette.bgcolor1};--bgcolor2:${result.customcolorpalette.bgcolor2};--bgcolor3:${result.customcolorpalette.bgcolor3};--bgcolor4:${result.customcolorpalette.bgcolor4};--textcolor1:${result.customcolorpalette.textcolor1};--textcolor2:${result.customcolorpalette.textcolor2};--textcolor3:${result.customcolorpalette.textcolor3};--textcolornew:${result.customcolorpalette.textcolornew};--accent1:${result.customcolorpalette.accent1};--accent2:${result.customcolorpalette.accent2};--hover1:${result.customcolorpalette.hover1};--hover2:${result.customcolorpalette.hover2};--linktext1:${result.customcolorpalette.linktext1};--linktext2:${result.customcolorpalette.linktext2};--linktext3:${result.customcolorpalette.linktext3};--nicoru1:${result.customcolorpalette.nicoru1};--nicoru2:${result.customcolorpalette.nicoru2};--nicoru3:${result.customcolorpalette.nicoru3};--nicoru4:${result.customcolorpalette.nicoru4};}`)
@@ -39,11 +36,6 @@ function createBaseCSSRule(result) {
             document.documentElement.classList.remove('PMDM-Assist')
             //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
         } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
-        if ( result.alignpagewidth == true ) {
-            addCSS(chrome.runtime.getURL("pagemod/css/other/alignpagewidth.css"), true);
-        } else {
-            //console.log(result.alignpagewidth)
-        }
         if (result.headerbg == "gradient") {
             addCSS(chrome.runtime.getURL("pagemod/css/header/gradient.css"), true);
         } else if (result.headerbg == "custom") {
@@ -164,9 +156,6 @@ function createBaseCSSRule(result) {
             })
         }
     });
-    if ( result.hidesupporterbutton == "all" && !location.pathname.indexOf('/user') ) {
-        addCSS(chrome.runtime.getURL("pagemod/css/other/hidesupporter.css"))
-    }
     if (result.hidemetadata == "searchandhome" || result.hidemetadata == "all") {
         pushCSSRule('.NC-VideoCard-metaCount,.NC-NicoadFrame_gold::after,.NC-NicoadFrame::after,.NC-VideoCard-metaCount,.itemData,.NC-VideoMediaObject-metaCount{display:none !important;}.NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary{min-height:20px;}.NC-MutedVideoCard,.NC-SensitiveVideoCard,.VideoItem.NC-Card,.RankingMatrixVideosRow{height:200px}')
     }

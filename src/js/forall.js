@@ -223,6 +223,15 @@ function createFastCSSRule(result) {
         if (location.hostname == "blog.nicovideo.jp" && location.pathname.startsWith("/niconews")) {
             document.documentElement.classList.add('PMDM-NicoInfo')
         }
+        if ( result.highlightnewnotice == true ) {
+            document.documentElement.classList.add('PM-HighlightNewNotice')
+        }
+        if ( result.hidesupporterbutton == "all" || (result.hidesupporterbutton == "watch" && location.pathname.indexOf('/watch') != -1) ) {
+            document.documentElement.classList.add('PM-HideSupporter')
+        }
+        if ( result.alignpagewidth == true ) {
+            document.documentElement.classList.add('PM-AlignPageWidth')
+        }
     } 
 } 
 

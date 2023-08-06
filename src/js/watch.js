@@ -260,10 +260,6 @@ function createCSSRule(result) {
         $('.CommentPostContainer-commandInput .CommentCommandInput, .CommentPostContainer-commentInput .CommentInput, .CommentPostButton.ActionButton').css('height', `${28 * result.commentrow}px`)
     }
 
-    if (result.hidesupporterbutton == "watch" || result.hidesupporterbutton == "all") {
-        addCSS(chrome.runtime.getURL("pagemod/css/other/hidesupporter.css"))
-    }
-
     if (result.cleanvidowner) {
         $('.VideoOwnerInfo .FollowButton,.VideoOwnerInfo-linkButtons').remove()
         $('.VideoOwnerInfo-links').css({

@@ -22,7 +22,7 @@
         {
             "matches": ["*://*.nicovideo.jp/*"],
             "js": ["dist/jquery/dist/jquery.min.js","dist/jquery-ui/dist/jquery-ui.min.js","js/forall.js"],
-            "css": ["pagemod/css/darkmode/darkmode.css"],
+            "css": ["pagemod/css/darkmode/darkmode.css","pagemod/css/index.css"],
             "run_at": "document_start",
             "all_frames" : true
         },
