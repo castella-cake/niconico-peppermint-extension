@@ -13,13 +13,10 @@
     "gulp-package-dependencies": "^0.0.2",
     "gulp-stylus": "^3.0.1",
     "gulp-zip": "^5.1.0",
-    "jquery-ui-dist": "^1.13.2",
     "path": "^0.12.7"
   },
   "dependencies": {
-    "dompurify": "^3.0.5",
-    "jquery": "^3.7.0",
-    "jquery-ui-dist": "^1.13.2"
+    "dompurify": "^3.0.5"
   },
   "scripts": {
     "build": "gulp",
