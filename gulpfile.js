@@ -3,7 +3,7 @@ const zip = require('gulp-zip');
 const fs = require('fs');
 const path = require('path');
 const stylus = require('gulp-stylus');
-const fse = require('fs-extra'); // fs-extraパッケージをインポート
+const fse = require('fs-extra');
 
 const packageJson = require('./package.json'); // package.jsonを読み込む
 

@@ -291,6 +291,19 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             });
             return true;
         }
+    } else if (message.type == "updateContextMenuState") {
+        let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+        getStorageData.then((storage) => {
+            if (storage.pediacontextsearch == true || storage.pediacontextsearch == false) {
+                chrome.contextMenus.update( "dicsearch", {visible: storage.pediacontextsearch});
+            } else {
+                chrome.contextMenus.update( "dicsearch", {visible: false});
+            }
+            sendResponse({
+                'status': false,
+            });
+            return true;
+        })
     } else {
         sendResponse({
             'status': false,

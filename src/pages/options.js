@@ -54,6 +54,7 @@ function saveOptions() {
             "dicforcewidthmode": $("#select-dicforcewidthmode").val(),
             "sidebartoleft": $("#input-sidebartoleft").prop('checked'),
             "dicbettereditor": $("#input-dicbettereditor").prop('checked'),
+            "pediacontextsearch": $("#input-pediacontextsearch").prop('checked'),
             // Other
             "alignpagewidth": $("#input-alignpagewidth").prop('checked'),
             "highlightnewnotice": $("#input-highlightnewnotice").prop('checked'),
@@ -74,6 +75,7 @@ function saveOptions() {
             "quickvidarticle": $("#input-quickvidarticle").prop('checked')
         }
     );
+    chrome.runtime.sendMessage({ "type": "updateContextMenuState" })
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(restoreOptions, onError)
     //console.log(`Saved!`)
@@ -123,6 +125,7 @@ function restoreOptions() {
         $("#select-dicforcewidthmode").val(result.dicforcewidthmode || "");
         $("#input-sidebartoleft").prop('checked', result.sidebartoleft);
         $("#input-dicbettereditor").prop('checked', result.dicbettereditor);
+        $("#input-pediacontextsearch").prop('checked', result.pediacontextsearch);
         // Other
         $("#input-alignpagewidth").prop('checked', result.alignpagewidth);
         $("#input-highlightnewnotice").prop('checked', result.highlightnewnotice);
