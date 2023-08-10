@@ -711,9 +711,6 @@ function createCSSRule(result) {
             //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none')
             addCSS(chrome.runtime.getURL("pagemod/css/hide/hidepopup.css"));
         }
-        /*if (result.replacemarqueecontent == "logo") {
-            addCSS(chrome.runtime.getURL("pagemod/css/hide/replacemarqueetext.css"));
-        }*/
     } else if (result.usenicoboxui == true && result.useoldnicoboxstyle != true) {
         // New Nicobox UI
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
@@ -761,91 +758,6 @@ function createCSSRule(result) {
             });
             $('.SeekBar').before($('.PlayerPlayTime-playtime'));
             $('.SeekBar').after($('.PlayerPlayTime-duration'));
-            /*
-            $('.MainContainer-player').css({
-                'width': '100%'
-            })
-            $('.MainContainer-playerPanel').css({
-                'position': 'fixed',
-                'top': '36px',
-                'height': 'calc( 100% - 72px )',
-                'background': 'transparent',
-            })
-            $('.VideoContainer').css({
-                'background': 'transparent',
-                'margin': 'auto',
-                'overflow': 'visible'
-            })*/
-            // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
-            // かつてヘッダーだったもの(動画情報)
-            $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')/*
-            $('.VideoTitle').css('color', '#10101f')
-            $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background', 'linear-gradient(90deg,hsla(0,0%,96%,0),#f6f6f6 16%)')
-            $('.HeaderContainer-searchBox').css({
-                'position': 'fixed',
-                'bottom': '0',
-                'right': '0'
-            })
-            $('.SearchBox-input').css('width', '335px')
-            $('.SearchBox').css('width', '382px')*/
-            $('.SearchBox-optionDown').text('▲')
-            /*$('.HeaderContainer').css({
-                'width': '100%',
-                'padding': '16px 64px 128px',
-            })
-            $('.HeaderContainer-topArea').css('text-align', 'center')
-            $('.HeaderContainer-row .GridCell:last-child').css({
-                'width': 'fit-content',
-                'display': 'flex'
-            })
-            $('.HeaderContainer-row').css({
-                'width': 'fit-content',
-                'display': 'flex',
-                'margin': '12px auto'
-            })
-            $('.VideoOwnerInfo').css({
-                'position': 'absolute',
-                'right': '0'
-            })
-            // vid
-            $('.MainVideoPlayer video').css({
-                'width': 'auto',
-                'margin': 'auto',
-                'box-shadow': '0px 0px 10px rgba(0,0,0,0.8)'
-            })
-            // プレイヤー
-            //$('.PlayerContainer,.ControllerBoxContainer').css('background-color','transparent')
-            $('.VideoDescriptionContainer').css({
-                'margin': '0 auto'
-            })
-            $('.SeekBar').css({
-                'margin': 'auto 0'
-            })
-            $('.PlayerPlayTime-playtime, .PlayerPlayTime-duration').css({
-                'margin': 'auto 10px'
-            })
-            $('.ControllerBoxContainer').css({
-                'margin-top': '8px',
-                'padding': '0 128px'
-            })
-            $('.ControllerContainer').css({
-                'height': '48px'
-            })
-            $('.EasyCommentContainer').css(
-                'height', 'auto'
-            )
-            $('.SeekBarContainer').css({
-                'padding': '8px 16px 0',
-                'display': 'flex'
-            })
-            $('.PlayerPlayTime').css({
-                'width': '40px',
-            })
-            $('.SeekBar-buffered').css('background-color', '#666')
-            $('.ControllerBoxCommentAreaContainer, .EasyCommentContainer').css('background', 'transparent')
-            $('.CommentOnOffButton').css('display', 'none')
-            $('.SeekBar-buffered').css('background-color', '#666')
-            $('.ControllerContainer').css('z-index', '3')*/
             // 不要な要素の削除
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer,.EasyCommentContainer-buttonBox').remove();
             window.scroll({ top: 0, behavior: 'smooth' });
@@ -894,77 +806,6 @@ function createCSSRule(result) {
             // かつてヘッダーだったもの(動画情報)
             $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')
             $('.SearchBox-optionDown').text('▲')
-            /*
-            $('.VideoTitle').css('color', '#d85353')
-            $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background', 'linear-gradient(90deg,hsla(0,0%,96%,0),#fefefe 16%)')
-            $('.HeaderContainer-searchBox').css({
-                'position': 'fixed',
-                'bottom': '0',
-                'right': '0'
-            })
-            $('.SearchBox-input').css('width', '335px')
-            $('.SearchBox').css('width', '382px')
-            
-            $('.HeaderContainer').css({
-                'width': '100%',
-                'padding': '16px 64px 128px',
-                'margin': '0 0 240px'
-            })
-            $('.HeaderContainer-topArea').css('text-align', 'center')
-            $('.HeaderContainer-row .GridCell:last-child').css({
-                'width': 'fit-content',
-                'display': 'flex'
-            })
-            $('.HeaderContainer-row').css({
-                'width': 'fit-content',
-                'display': 'flex',
-                'margin': 'auto auto 12px'
-            })
-            $('.VideoOwnerInfo').css({
-                'position': 'absolute',
-                'right': '0'
-            })
-            // vid
-            $('.MainVideoPlayer video').css({
-                'width': 'auto',
-                'margin': 'auto',
-                'box-shadow': '0px 0px 10px rgba(0,0,0,0.8)'
-            })
-            // プレイヤー
-            //$('.PlayerContainer,.ControllerBoxContainer').css('background-color','transparent')
-            $('.VideoDescriptionContainer').css({
-                'margin': '0 auto'
-            })
-            $('.SeekBar').css({
-                'margin': 'auto 0'
-            })
-            $('.PlayerPlayTime-playtime, .PlayerPlayTime-duration').css({
-                'margin': 'auto 10px'
-            })
-            $('.ControllerBoxContainer').css({
-                'margin-top': '8px',
-                'padding': '0 128px'
-            })
-            $('.ControllerContainer').css({
-                'height': '48px'
-            })
-            $('.EasyCommentContainer').css(
-                'height', 'auto'
-            )
-            $('.SeekBarContainer').css({
-                'padding': '8px 16px 0',
-                'display': 'flex'
-            })
-            $('.PlayerPlayTime').css({
-                'width': '40px',
-            })
-            $('.SeekBar-buffered').css('background-color', '#666')
-            $('.ControllerBoxCommentAreaContainer, .EasyCommentContainer').css('background', 'transparent')
-            $('.CommentOnOffButton').css('display', 'none')
-            $('.SeekBar-played, .SeekBarHandle-handle').css('background-color', '#d85353')
-            $('.SeekBar-buffered').css('background-color', '#666')
-            $('.ControllerContainer').css('z-index', '3')
-            */
             // 不要な要素の削除
             $('.MainContainer-marquee, .ControllerBoxCommentAreaContainer, .CommentRenderer, .PlayerPlayTime-separator,.BottomContainer,.EasyCommentContainer-buttonBox').remove();
             window.scroll({ top: 0, behavior: 'smooth' });
@@ -1012,107 +853,9 @@ function createCSSRule(result) {
             $('.HeaderContainer-row > .GridCell.col-full').removeClass('col-full')
             $('.SearchBox-optionDown').text('▲')
             $('.PlayerPanelContainer').css('border-top-left-radius', '16px')
-            // かつてヘッダーだったもの(動画情報)
-            /*
-            $('.VideoTitle').css({ 'color': '#fff', 'padding-top': '6px' })
-            $('.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand').css('background', 'linear-gradient(90deg,hsla(0,0%,96%,0),#fefefe 16%)')
-            $('.HeaderContainer-searchBox').css({
-                'position': 'fixed',
-                'bottom': '0',
-                'right': '0'
-            })
-            $('.SearchBox-input').css('width', '335px')
-            $('.SearchBox').css('width', '382px')
-
-            $('.HeaderContainer').css({
-                'width': '100%',
-                'padding': '0px 8px 0',
-                'margin': '0 0 0'
-            })
-            $('.HeaderContainer-topArea').css('text-align', 'center')
-            $('.HeaderContainer-row .GridCell:last-child').css({
-                'width': 'fit-content',
-                'display': 'flex'
-            })
-            $('.HeaderContainer-row').css({
-                'width': 'fit-content',
-                'display': 'flex',
-                'margin': 'auto auto 12px'
-            })
-            $('.VideoOwnerInfo').css({
-                'position': 'absolute',
-                'right': '0'
-            })
-            $('.VideoDescriptionContainer').css({
-                'margin': '0 auto',
-                'margin-bottom': '16px'
-            })
-            // プレイヤー
-            $('.SeekBar').css({
-                'margin': 'auto 0'
-            })
-            $('.PlayerPlayTime-playtime, .PlayerPlayTime-duration').css({
-                'margin': 'auto 10px'
-            })
-            $('.ControllerBoxContainer').css({
-                'margin-top': '8px',
-                'padding': '0 128px'
-            })
-            $('.ControllerContainer').css({
-                'height': '48px'
-            })
-            $('.EasyCommentContainer').css(
-                'height', 'auto'
-            )
-            $('.EasyCommentButton').css({
-                'background': 'transparent',
-                'color': '#fff',
-                'border': '1px solid #aaa'
-            })
-            $('.CommentPostContainer-commandInput,.CommentPostContainer-commentInput').css('background', 'transparent')
-            $('.CommentCommandInput,.CommentInput-textarea').css('color', '#fff')
-            $('.CommentPostContainer-commentInput').css({
-                'border-bottom': '2px solid #aaa',
-                'border-top': '2px solid #aaa'
-            })
-            $('.CommentPostContainer-commandInput').css('border', '2px solid #aaa')
-            $('.SeekBarContainer').css({
-                'padding': '8px 16px 0',
-                'display': 'flex'
-            })
-            $('.SeekBar-buffered').css('background-color', '#666')
-            $('.ControllerBoxCommentAreaContainer, .EasyCommentContainer').css('background', 'transparent')
-            $('.ControllerContainer').css('z-index', '3')*/
             // 不要な要素の削除
             $('.MainContainer-marquee, .PlayerPlayTime-separator, .EasyCommentContainer-buttonBox').remove();
             window.scroll({ top: 0, behavior: 'smooth' });
-            /*$('.PlayerPlayTime,.PlayTimeFormatter').css({
-                'color': '#fff',
-                'width': '40px',
-            })
-            // ダークモードオーバーライド
-            $('.BaseLayout-main, .BaseLayout').css('background-color', '#000')
-            $('.BottomContainer').css('background-color', 'transparent')
-            // 下側
-            $('.HeaderContainer').css({
-                'background': '#000'
-            })
-            $('.VideoDescriptionContainer').css({
-                'padding': '16px',
-                'background': 'rgba(255,255,255,0.3);',
-                'box-shadow': '0px 0px 5px rgba(255,255,255,0.3)',
-                'border-radius': '8px',
-                'color': '#fff'
-            })
-            $('.VideoDescriptionExpander .VideoDescriptionExpander-switch').css({
-                'bottom': '8px',
-                'text-align': 'center',
-                'width': '100%',
-                'background': 'linear-gradient(180deg,hsla(0,0%,96%,0),#000 25%)'
-            })
-            $('.TagItem-name').css('color', '#fff')
-            $('.VideoMenuContainer').css('background', '#000')
-            $('.ControllerBoxCommentAreaContainer').css('border-right','none')*/
         });
 
     }
