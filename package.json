@@ -16,9 +16,7 @@
     "path": "^0.12.7"
   },
   "dependencies": {
-    "dompurify": "^3.0.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "dompurify": "^3.0.5"
   },
   "scripts": {
     "build": "gulp",
