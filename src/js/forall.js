@@ -263,9 +263,6 @@ function createBaseCSSRule(result) {
         //document.documentElement.classList.add('PMDM-Assist')
         //document.documentElement.style = "--pre-bgcolor: #000"
     } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
-    if (result.highlightnewnotice == true) {
-        addCSS(chrome.runtime.getURL("pagemod/css/other/highlightnewnotice.css"))
-    }
     if (result.enablevisualpatch == true) {
         addCSS(chrome.runtime.getURL("pagemod/css/visualpatch.css"))
     }
