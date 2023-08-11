@@ -2,7 +2,7 @@ getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     //console.log(result)
     if ( document.querySelector('.pmbutton-container') == undefined || document.querySelector('.pmbutton-container') == null ) {
-        let pmbuttoncontainer = document.createElement('pmbutton-container')
+        let pmbuttoncontainer = document.createElement('div')
         pmbuttoncontainer.classList.add('pmbutton-container')
         document.body.appendChild(pmbuttoncontainer)
     }
