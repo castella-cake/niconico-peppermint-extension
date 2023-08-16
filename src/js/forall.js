@@ -223,6 +223,9 @@ function createFastCSSRule(result) {
         if (location.hostname == "blog.nicovideo.jp" && location.pathname.startsWith("/niconews")) {
             document.documentElement.classList.add('PMDM-NicoInfo')
         }
+        if (location.hostname == "anime.nicovideo.jp") {
+            document.documentElement.classList.add('PMDM-NAnime')
+        }
         if ( result.highlightnewnotice == true ) {
             document.documentElement.classList.add('PM-HighlightNewNotice')
         }
@@ -265,10 +268,5 @@ function createBaseCSSRule(result) {
     } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
     if (result.enablevisualpatch == true) {
         addCSS(chrome.runtime.getURL("pagemod/css/visualpatch.css"))
-    }
-    if (result.alignpagewidth == true) {
-        addCSS(chrome.runtime.getURL("pagemod/css/other/alignpagewidth.css"));
-    } else {
-        //console.log(result.alignpagewidth)
     }
 }
