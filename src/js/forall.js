@@ -35,10 +35,10 @@ function addCSS(cssfile, safeAppend = true, var2 = 'head', var3 = 'root') {
             const headlinkarray = document.querySelectorAll('head link[rel="stylesheet"]')
             if (headlinkarray.length == 0 || headlinkarray == null) {
                 targetelem.after(link)
-                console.log('ALT MODE')
+                //console.log('ALT MODE')
             } else {
                 targetelem.appendChild(link)
-                console.log('NORMAL MODE')
+                //console.log('NORMAL MODE')
             }
         } else {
             if (!(document.querySelector(`link[href="${cssfile}"]`) == null || isSafeAppend == false)) {
