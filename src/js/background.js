@@ -9,7 +9,8 @@ chrome.runtime.onInstalled.addListener(function (details) {
     chrome.contextMenus.create({
         id: "dicsearch",
         title: 'ニコニコ大百科で %s を検索',
-        contexts: ["selection"]
+        contexts: ["selection"],
+        visible: false
     });
     chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 0, periodInMinutes: 120 })
     chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 0, periodInMinutes: 45 })
