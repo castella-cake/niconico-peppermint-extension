@@ -8,7 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.7.0] - 2023/08/
 
 ### Added
-- 「ニコニコ大百科で検索」がオプション扱いになりました ( #4 )
+- 「ニコニコ大百科で検索」がオプション扱いになりました ( [#4](https://github.com/castella-cake/niconico-peppermint-extension/issues/4) )
+- Nアニメのダークモードサポートを追加しました ( [#13](https://github.com/castella-cake/niconico-peppermint-extension/issues/13) を含む )
+
+### Changed
+- ウェルカムページの外観が変更されました
+
+### Removed
+- 一部のデバッグテキストを削除しました
 
 ## [1.6.3] - 2023/08/07
 
