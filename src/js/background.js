@@ -13,6 +13,7 @@ chrome.runtime.onInstalled.addListener(function (details) {
     });
     chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 0, periodInMinutes: 120 })
     chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 0, periodInMinutes: 45 })
+    //chrome.alarms.create('dynamicPatch_Refresh', { delayInMinutes: 0, periodInMinutes: 360 })
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
@@ -163,6 +164,46 @@ function getRecentNicorepo(cachemode = 0) {
                         } else {
                             // そもそも呼べなかったらrejectしてステータス返す
                             reject({ "meta": { "status": res.status, "reason": "APIの呼び出しに失敗しました" } })
+                        }
+                    })
+                }
+            })
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
+function getDynamicPatch(cachemode = 0) {
+    // ダイナミックパッチを取得してキャッシュします。
+    // cachemode 0 => use cache 1 => no cache
+    return new Promise((resolve, reject) => {
+        try {
+            let getStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
+            getStorageData.then((storage) => {
+                // キャッシュが使用可能なら使用する
+                if (storage.dynamicpatchcache != undefined && (storage.dynamicpatchcache != null && storage.dynamicpatchcache != undefined && cachemode == 0)) {
+                    resolve(storage.dynamicpatchcache)
+                } else {
+                    // そうじゃなければfetch
+                    fetch(`https://raw.githubusercontent.com/castella-cake/niconico-peppermint-extension/master/dynamicpatch/updates.json`, { 'method': 'GET' }).then((res) => {
+                        if (res.ok) {
+                            // okだったらtextを取る
+                            res.text().then((data) => {
+                                // objにパースして200かどうか確認する
+                                let dataobj = JSON.parse(data)
+                                let currentdate = new Date()
+                                dataobj["fetchdate"] = currentdate.toString()
+                                if (dataobj.meta.status == 200) {
+                                    chrome.storage.local.set({ "dynamicpatchcache": dataobj })
+                                    resolve(dataobj)
+                                } else {
+                                    // 200じゃなかったらreject
+                                    reject(dataobj)
+                                }
+                            })
+                        } else {
+                            // そもそも呼べなかったらrejectしてステータス返す
+                            reject({ "meta": { "status": res.status, "reason": "Fetch failed" } })
                         }
                     })
                 }
@@ -324,29 +365,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     */
 
 });
-/* シリーズストックのエピソードリスト取得
-    目的: 見たいエピソードが明示的にある場合に、現状だとシリーズページに移動して開かないといけない
-        また、現状最後のエピソードまで見てから新しいエピソードがある場合でも次の動画に表示されない
-        そのため、やはりシリーズを定期取得してキャッシュする仕組みが必要だと感じた
-    - 2時間おきに新しいリストを取得する
-        - 新しいエピソードがある(キャッシュ済みのリストと違う)なら、NEW扱いにしてツールバーに通知バッジを表示する
-            ツールバーボタンでクイックパネルが開く仕様はこのためにそうした、そもそもvideo_topとホームだけってのはあまりに不便だし
-            このおかげでふと見たくなった時にシリーズストックのリストや動画に円滑にアクセスできるようになっている
-        - リストをストレージ(ローカル)にキャッシュする
-    - キャッシュのないままクイックパネルなどからリストの表示がされたなら、取得してストレージにキャッシュする
-        - これをスムーズに行うために、メッセージでbackgroundにgetSeriesListを送ってあとはbackgroundサイドで取得やキャッシュを行い、ページ側に渡すことにする
-    - actionTrackIdは結局どうすれば？呼ぶ度にランダムにするように言われているが、それなら運営側はどのようにアクションをトラックしているのか疑問
-        少なくともレートリミットをこれで避けられるようなザル仕様ではないはず ...ないよな？
-        仮に固定にしたほうが良いのであれば、ストレージに保存してないときは生成あるならそれを使うようにする
-        だけど呼ぶたびにランダムにしてもそんなデメリットはないはず
-    - レートリミットを避けるため、10シリーズを超える場合は残りを次に回すべきかもしれない
-        しかしどうやってそれを実現するかは要検討 serieslistupdatequeueに残りを突っ込む？
-        アラームで2時間おきに発火するものと、10分おきに発火するものを用意するってそれじゃ偶然アラームがあと5秒で発火します！！みたいな状況で意味がない！！
-        setTimeoutでforとかに30s程度の遅延付きで実行すべきかもしれない、ただし約250~のシリーズストックが有る場合、全てが台無しになる可能性がある
-        15sでもレートリミットは避けられるかもしれない、それでも480~くらいに上がるだけだが、さすがに450以上になったら自動更新自体を止めてユーザーに警告を出すことにする
-        よく考えたらそもそも100以上のシリーズを15s毎に呼ぶのはあまりよろしくないのでは？それなら30sで200以上になったら止める仕様の方が優しいよな
-        遅延を2分とかあまりにも長くするとServiceWorkerはせっかちなので蹴っ飛ばしてしまう
-*/
 
 chrome.alarms.onAlarm.addListener(function (e) {
     if (e.name == 'seriesStock_Refresh') {
