@@ -258,7 +258,7 @@ function createCSSRule(result) {
     }
     if (result.hideeventbanner == true) {
         //$('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').remove()
-        pushCSSRule('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image {display:none}')
+        document.documentElement.classList.add('PM-HideEventBanner')
     }
     if (result.commentrow != 1) {
         $('.CommentPostContainer').css('height', `${32 * result.commentrow}px`)
@@ -274,7 +274,7 @@ function createCSSRule(result) {
         pushCSSRule('.VideoOwnerInfo-links {position:relative;top:6px;} .VideoOwnerInfo .FollowButton,.VideoOwnerInfo-linkButtons {display:none;}')
     }
     if (result.hidemetadata == "watch" || result.hidemetadata == "all") {
-        pushCSSRule('.VideoOwnerInfo-gridCell,.VideoViewCountMeta,.CommentCountMeta,.MylistCountMeta,.GenreRankMeta {display:none;}')
+        document.documentElement.classList.add('PM-HideMetaData')
     }
 
     if (result.shortcutassist) {
@@ -857,7 +857,6 @@ function createCSSRule(result) {
             $('.MainContainer-marquee, .PlayerPlayTime-separator, .EasyCommentContainer-buttonBox').remove();
             window.scroll({ top: 0, behavior: 'smooth' });
         });
-
     }
     //console.log(`createCSSRule Finished!`)
 }

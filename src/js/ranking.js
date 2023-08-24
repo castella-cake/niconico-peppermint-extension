@@ -5,6 +5,6 @@
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/ranking.css"));
         }
         if ( result.hiderankpagead == true ) {
-            pushCSSRule('.RankingMatrixNicoadsRow,.NC-NicoadMediaObject,.RankingMainNicoad,.ContinuousPlayButtonTeaching,.NC-Balloon-arrowWrap,.NC-NicoadMediaObjectWrapper{display: none};')
+            document.documentElement.classList.add('PM-HideRankingPageNiconiAdRow')
         }
     }

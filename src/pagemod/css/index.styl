@@ -33,3 +33,30 @@ html.PM-HideAppeal {
         display:none;
     }
 }
+// ランキングページのニコニ広告を隠す
+html.PM-HideRankingPageNiconiAdRow {
+    .RankingMatrixNicoadsRow,.NC-NicoadMediaObject,.RankingMainNicoad,.ContinuousPlayButtonTeaching,.NC-Balloon-arrowWrap,.NC-NicoadMediaObjectWrapper{
+        display: none
+    }
+}
+// イベントバナーを隠す
+html.PM-HideEventBanner {
+    .WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image {
+        display:none
+    }
+}
+// メタデータを隠す
+html.PM-HideMetaData {
+    .VideoOwnerInfo-gridCell,.VideoViewCountMeta,.CommentCountMeta,.MylistCountMeta,.GenreRankMeta {
+        display:none
+    }
+    .NC-VideoCard-metaCount,.NC-NicoadFrame_gold::after,.NC-NicoadFrame::after,.NC-VideoCard-metaCount,.itemData,.NC-VideoMediaObject-metaCount {
+        display:none !important
+    }
+    .NC-VideoCard_onHoverMeta .NC-Card-main:hover .NC-VideoCard-secondary {
+        min-height:20px
+    }
+    .NC-MutedVideoCard,.NC-SensitiveVideoCard,.VideoItem.NC-Card,.RankingMatrixVideosRow {
+        height:200px
+    }
+}
