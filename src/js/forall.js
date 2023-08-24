@@ -235,6 +235,9 @@ function createFastCSSRule(result) {
         if ( result.alignpagewidth == true ) {
             document.documentElement.classList.add('PM-AlignPageWidth')
         }
+        if (result.hidepopup == true) {
+            document.documentElement.classList.add('PM-HideAppeal')
+        }
     } 
 } 
 

@@ -172,7 +172,4 @@ function createBaseCSSRule(result) {
             $('.stockedserieswindow-container, .pm-viCommanderContainer, #misskeysharecontainer').remove()
         }
     });
-    if (result.hidepopup == true) {
-        pushCSSRule('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer,.CreatorSupportAppealContainer {display:none;}')
-    }
 }
