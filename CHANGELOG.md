@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - シアターUIのフルスクリーンが正しい幅で再生されない問題を修正しました
+- ユーザーページのダークモードサポートを改善しました
 
 ### Removed
 - 一部のデバッグテキストを削除しました

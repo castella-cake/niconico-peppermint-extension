@@ -281,6 +281,18 @@ body {
 .NC-ThreePointMenu-menu > :hover, .OtherMypageLinks-link:hover {
     background-color: var(--hover1) !important;
 }
+.NicorepoItem-content:visited .NicorepoItem-contentDetailTitle {
+    color: var(--linktext2) !important;
+}
+.UserDescription .ExpandBox_is-collapsed, .UserDescription .ExpandBox_is-collapsed a{
+    color: var(--textcolor2) !important;
+}
+.ExpandBoxButton {
+    color: var(--textcolor2) !important;
+}
+.ExpandBoxButton-icon {
+    fill: var(--textcolor2) !important;
+}
 .UserDescription .ExpandBox_is-expanded a {
     color: var(--linktext1);
 }
@@ -575,6 +587,12 @@ body {
 }
 .___local-anchor___Hapoe {
     color: var(--textcolor1)
+}
+.___program-card___ciI29>.content-area>.program-summary>.program-title>a:visited {
+    color: var(--linktext2);
+}
+.___item___BjP9K:not(:first-child){
+    border-top: 2px solid var(--accent1);
 }
 /* why-this-class-name-is-so-long */
 .c-pages-embed-supporter-supporting-creators-page-content {
