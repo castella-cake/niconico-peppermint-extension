@@ -293,6 +293,43 @@ function createCSSRule(result) {
                 location.href = "https://www.nicovideo.jp/tag/" + commandstr.slice(3)
             } else if (commandstr.startsWith('w/')) {
                 location.href = "https://www.nicovideo.jp/watch/" + commandstr.slice(2)
+            } else if (commandstr.startsWith('skt/')) {
+                let cmdsec = commandstr.slice(4)
+                let videodurationarray = document.querySelector('.PlayerPlayTime-duration').textContent.split(":")
+                let videoduration = ( parseInt(videodurationarray[0]) * 60 ) + parseInt(videodurationarray[1])
+                // クリックイベントを発火する関数
+                function simulateClickAtPosition(element, percentage) {
+                    const rect = element.getBoundingClientRect();
+                    const clickX = rect.left + (rect.width * percentage);
+                    const clickY = rect.top
+                    //console.log(`${clickX} ${clickY}`)
+                    const mousedownEvent = new MouseEvent("mousedown", {
+                        cancelable: true,
+                        clientX: clickX,
+                        clientY: clickY
+                    });
+                    const mouseupEvent = new MouseEvent("mouseup", {
+                        bubbles: true,
+                        cancelable: true,
+                        clientX: clickX,
+                        clientY: clickY
+                    });
+                    
+                    element.dispatchEvent(mousedownEvent);
+                    element.dispatchEvent(mouseupEvent);
+                }
+                // 発火
+                if (cmdsec >= videoduration) {
+                    let xSliderElement = document.querySelector(".XSlider");
+                    if (xSliderElement) {
+                        simulateClickAtPosition(xSliderElement, 1.0);
+                    }
+                } else {
+                    let xSliderElement = document.querySelector(".XSlider");
+                    if (xSliderElement) {
+                        simulateClickAtPosition(xSliderElement, (cmdsec / videoduration));
+                    }
+                }
             } else if (commandstr == ":p") {
                 document.querySelector('.PlayerPauseButton, .PlayerPlayButton').click();
                 document.querySelector(':focus-visible').blur();
@@ -349,8 +386,8 @@ function createCSSRule(result) {
                 :top = 動画トップに戻ります。<br>
                 -nbu = Nicobox風UIをトグルします。<br>
                 -tar = シアターUIをトグルします。<br>
-                -cts = シリーズストックが有効化されている場合に、ストックへの追加をトグルします。`
-
+                -cts = シリーズストックが有効化されている場合に、ストックへの追加をトグルします。<br>
+                skt/<秒> = 指定された秒数にシークします。`
             } else {
                 runresult = -1
             }
