@@ -10,9 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - 「ニコニコ大百科で検索」がオプション扱いになりました ( [#4](https://github.com/castella-cake/niconico-peppermint-extension/issues/4) )
 - Nアニメのダークモードサポートを追加しました ( [#13](https://github.com/castella-cake/niconico-peppermint-extension/issues/13) を含む )
+- 動画概要欄に`PM-ForceCinemaRatio`を含む場合に、シアターモードの21:9で拡大を強制できるようになりました
 
 ### Changed
 - ウェルカムページの外観が変更されました
+- Hide系のスタイルルールを`index.styl`に移動しました
+- Nicobox風UIのトグルボタンをホバーした際のヒントは `Nicoboxへ切り替え`から`boxUIへ切り替え` に変更されました
 
 ### Removed
 - 一部のデバッグテキストを削除しました

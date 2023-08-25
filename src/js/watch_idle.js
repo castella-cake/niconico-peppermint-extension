@@ -225,6 +225,28 @@ function createCSSRule(result) {
             characterData: true,
             attributes: true
         })
+        // 21:9の強制を検出
+        function detectCinemaIsForced() {
+            let descelem = document.querySelector('.VideoDescription-html') ?? document.querySelector('.VideoDescription-plain')
+            if (descelem.textContent.indexOf("PM-ForceCinemaRatio") !== -1) {
+                document.body.classList.add('is-PMcinemaratio')
+                document.getElementById("togglefullsize").classList.add('disabled')
+            } else if ( document.getElementById("togglefullsize").classList.contains("disabled")) {
+                document.body.classList.remove('is-PMcinemaratio')
+                document.getElementById("togglefullsize").classList.remove('disabled')
+            }
+        }
+        const descContainer = document.querySelector('.VideoDescriptionContainer')
+        const descContainerObserver = new MutationObserver(records => {
+            detectCinemaIsForced()
+        })
+        descContainerObserver.observe(descContainer, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+            attributes: true
+        })
+        detectCinemaIsForced()
     }
     if (result.usenicoboxui == true || result.usetheaterui == true) {
         let headercontainer = document.querySelector('.HeaderContainer')

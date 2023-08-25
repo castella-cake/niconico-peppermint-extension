@@ -170,33 +170,37 @@ function createCSSRule(result) {
         }
     }*/
     if (result.usetheaterui == true && result.usenicoboxui != true) {
-        let fullsize = false
         $('.pmbutton-container').append('<div class="togglefullsize-container subaction-container"><a id="togglefullsize" class="material-icons-outlined subaction-button">width_full</a></div>')
+        let togglefullsizeelem = document.getElementById("togglefullsize")
         $('#togglefullsize').on('mouseenter', function () {
-            $('.togglefullsize-container').append('<span id="togglefullsize-text" class="pmui-hinttext">21:9で拡大</span>')
+            if (togglefullsizeelem.classList.contains("disabled")) {
+                $('.togglefullsize-container').append('<span id="togglefullsize-text" class="pmui-hinttext">投稿者によって21:9が強制されています</span>')
+            } else {
+                $('.togglefullsize-container').append('<span id="togglefullsize-text" class="pmui-hinttext">21:9で拡大</span>')
+            }
         })
         $('#togglefullsize').on('mouseleave', function () {
             $('#togglefullsize-text').remove()
         })
         $('#togglefullsize').on('click', setFullsize);
         function setFullsize(e) {
-            fullsize = !fullsize
-            if (fullsize == true) {
-                //addCSS(chrome.runtime.getURL("pagemod/css/theater_21_9_full.css"), `link[href="${chrome.runtime.getURL("pagemod/css/theater_video.css")}"]`)
-                document.body.classList.add('is-PMcinemaratio')
-                $('#togglefullsize').css({
-                    'background': '#0288d1',
-                    'color': '#fff',
-                    'transition': 'all .1s'
-                })
-            } else {
-                removeCSS(chrome.runtime.getURL("pagemod/css/theater_21_9_full.css"))
-                document.body.classList.remove('is-PMcinemaratio')
-                $('#togglefullsize').css({
-                    'background': '#ccc',
-                    'color': '#222',
-                    'transition': 'all .1s'
-                })
+            if (togglefullsizeelem.classList.contains("disabled") != true) {
+                if (!document.body.classList.contains("is-PMcinemaratio")) {
+                    //addCSS(chrome.runtime.getURL("pagemod/css/theater_21_9_full.css"), `link[href="${chrome.runtime.getURL("pagemod/css/theater_video.css")}"]`)
+                    document.body.classList.add('is-PMcinemaratio')
+                    $('#togglefullsize').css({
+                        'background': '#0288d1',
+                        'color': '#fff',
+                        'transition': 'all .1s'
+                    })
+                } else {
+                    document.body.classList.remove('is-PMcinemaratio')
+                    $('#togglefullsize').css({
+                        'background': '#ccc',
+                        'color': '#222',
+                        'transition': 'all .1s'
+                    })
+                }
             }
         }
     }
@@ -213,7 +217,7 @@ function createCSSRule(result) {
             $('#togglenicobox').text('video_library')
         }
         $('#togglenicobox').on('mouseenter', function () {
-            $('.togglenicobox-container').append('<span id="togglenicobox-text" class="pmui-hinttext">Nicoboxへ切り替え</span>')
+            $('.togglenicobox-container').append('<span id="togglenicobox-text" class="pmui-hinttext">boxUIへ切り替え</span>')
             if (result.usenicoboxui == true) {
                 $('#togglenicobox-text').text('通常プレイヤーへ戻る')
             }
