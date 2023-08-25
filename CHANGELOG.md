@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.7.0] - 2023/08/
+## [1.7.0] - 2023/08/26
 
 ### Added
 - 「ニコニコ大百科で検索」がオプション扱いになりました ( [#4](https://github.com/castella-cake/niconico-peppermint-extension/issues/4) )
@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ウェルカムページの外観が変更されました
 - Hide系のスタイルルールを`index.styl`に移動しました
 - Nicobox風UIのトグルボタンをホバーした際のヒントは `Nicoboxへ切り替え`から`boxUIへ切り替え` に変更されました
+
+### Fixed
+- シアターUIのフルスクリーンが正しい幅で再生されない問題を修正しました
 
 ### Removed
 - 一部のデバッグテキストを削除しました
@@ -449,6 +452,7 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
+[1.7.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.3..v1.7.0
 [1.6.3]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.2..v1.6.3
 [1.6.2]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.0..v1.6.2
 [1.6.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.5.3..v1.6.0
