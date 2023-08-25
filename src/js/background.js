@@ -15,6 +15,14 @@ chrome.runtime.onInstalled.addListener(function (details) {
     chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 0, periodInMinutes: 120 })
     chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 0, periodInMinutes: 45 })
     //chrome.alarms.create('dynamicPatch_Refresh', { delayInMinutes: 0, periodInMinutes: 360 })
+    let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+    getStorageData.then((storage) => {
+        if (storage.pediacontextsearch == true || storage.pediacontextsearch == false) {
+            chrome.contextMenus.update( "dicsearch", {visible: storage.pediacontextsearch});
+        } else {
+            chrome.contextMenus.update( "dicsearch", {visible: false});
+        }
+    })
 });
 
 chrome.contextMenus.onClicked.addListener(function (info, tab) {
