@@ -500,8 +500,122 @@ function createCSSRule(result) {
                 })
             }
         })
-    }
+    }/*
     if (result.enableexvideodata) {
-        
-    }
+        // クリックイベントを発火する関数
+        function simulateClickAtPosition(element, percentage) {
+            const rect = element.getBoundingClientRect();
+            const clickX = rect.left + (rect.width * percentage);
+            const clickY = rect.top
+            //console.log(`${clickX} ${clickY}`)
+            const mousedownEvent = new MouseEvent("mousedown", {
+                cancelable: true,
+                clientX: clickX,
+                clientY: clickY
+            });
+            const mouseupEvent = new MouseEvent("mouseup", {
+                bubbles: true,
+                cancelable: true,
+                clientX: clickX,
+                clientY: clickY
+            });
+            
+            element.dispatchEvent(mousedownEvent);
+            element.dispatchEvent(mouseupEvent);
+        }
+        function seekToThisSec(sec) {
+            let xSliderElement = document.querySelector(".XSlider");
+            if (xSliderElement) {
+                simulateClickAtPosition(xSliderElement, 1.0);
+                setTimeout(function() {
+                    let videodurationarray = document.querySelector('.PlayerPlayTime-playtime').textContent.split(":")
+                    let videoduration = ( parseInt(videodurationarray[0]) * 60 ) + parseInt(videodurationarray[1])
+                    if (sec < videoduration) {
+                        simulateClickAtPosition(xSliderElement, (sec / videoduration));
+                    }
+                }, 500)
+            }
+        }
+        // make container
+        let openevdcontainer = document.createElement('div')
+        openevdcontainer.classList.add('openevd-container')
+        openevdcontainer.classList.add('subaction-container')
+        // make button elem
+        let openevdelem = document.createElement('button')
+        openevdelem.classList.add('subaction-button')
+        openevdelem.classList.add('material-icons')
+        openevdelem.classList.add('openevd')
+        openevdelem.id = "openevd"
+        openevdelem.textContent = "format_list_bulleted"
+        openevdcontainer.appendChild(openevdelem)
+        // make hint elem
+        let evdbtnhint = document.createElement('span')
+        evdbtnhint.classList.add('pmui-hinttext')
+        evdbtnhint.classList.add('pmui-hinttext-modern')
+        evdbtnhint.textContent = "ExVideoDataを開く"
+
+        openevdcontainer.appendChild(evdbtnhint)
+
+        openevdelem.addEventListener('click', function () {
+            if (document.getElementById('evdcontainer') == undefined) {
+                let evdcontainer = document.createElement('div')
+                evdcontainer.id = "evdcontainer"
+
+                let evdtitle = document.createElement('div')
+                evdtitle.classList.add('evd-title')
+                evdtitle.textContent = "ExVideoData"
+                evdcontainer.appendChild(evdtitle)
+
+                let evdrowcontainer = document.createElement('div')
+                evdrowcontainer.classList.add('evdrowcontainer')
+                evdcontainer.appendChild(evdrowcontainer)
+                let data = {"chapters": [
+                    {
+                        "name": "第1部",
+                        "startsAt": 60
+                    },
+                    {
+                        "name": "第2部",
+                        "startsAt": 120
+                    }
+                ]}
+                data.chapters.forEach(element => {
+                    let rowelem = document.createElement('button')
+                    rowelem.classList.add('evdchapterrow')
+                    
+                    let rowtitle = document.createElement('div')
+                    rowtitle.classList.add('evdrowtitle')
+                    rowtitle.textContent = element.name
+                    evdrowcontainer.appendChild(rowtitle)
+
+                    let rowtime = document.createElement('div')
+                    rowtime.classList.add('evdrowtime')
+                    rowtime.textContent = ( element.startsAt / 60 ) + ":" ( element.startsAt % 60 )
+                    evdrowcontainer.appendChild(rowtime)
+                    
+                    evdrowcontainer.appendChild(rowelem)
+                    rowelem.addEventListener('click', function() {
+                        seekToThisSec(element.startsAt)
+                    })
+                });
+                evdcontainer.appendChild(evdrowcontainer)
+
+                let evdclosebtn = document.createElement('button')
+                evdclosebtn.id = "evdclosebutton"
+                evdclosebtn.classList.add('windowclosebutton')
+                evdclosebtn.textContent = "キャンセル"
+                evdclosebtn.addEventListener('click', function() {
+                    document.getElementById('evdcontainer').remove()
+                })
+                evdcontainer.appendChild(evdclosebtn)
+
+                document.querySelector('.pmbutton-container').prepend(evdcontainer)
+            } else {
+                document.getElementById('evdcontainer').remove()
+            }
+
+        })
+        // push to dom
+        document.querySelector('.pmbutton-container').prepend(openevdcontainer)
+    }*/
 }

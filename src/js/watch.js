@@ -88,6 +88,7 @@ function createCSSRule(result) {
                 })
 
                 let misskeyshareclosebtn = document.createElement('button')
+                misskeyshareclosebtn.classList.add('windowclosebutton')
                 misskeyshareclosebtn.id = "misskeyshareclosebutton"
                 misskeyshareclosebtn.textContent = "キャンセル"
                 misskeysharecontainer.appendChild(misskeyshareclosebtn)
@@ -386,8 +387,7 @@ function createCSSRule(result) {
                 :top = 動画トップに戻ります。<br>
                 -nbu = Nicobox風UIをトグルします。<br>
                 -tar = シアターUIをトグルします。<br>
-                -cts = シリーズストックが有効化されている場合に、ストックへの追加をトグルします。<br>
-                skt/<秒> = 指定された秒数にシークします。`
+                -cts = シリーズストックが有効化されている場合に、ストックへの追加をトグルします。<br>`
             } else {
                 runresult = -1
             }
