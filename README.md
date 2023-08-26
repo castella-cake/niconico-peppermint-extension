@@ -27,7 +27,7 @@ Firefox Add-ONS: https://addons.mozilla.org/ja/firefox/addon/niconico-peppermint
 **通常使用には自動更新のある安定版を強く推奨します。**
 ### Chrome
 1. リリースページに行きます
-2. ``-chrome``で終わるzipファイルをダウンロードします
+2. ``chrome-<バージョン名>``のzipファイルをダウンロードします
 3. zipを解凍します
 4. ``chrome://extensions``を開きます
 5. 右上のデベロッパーモードを有効化します
