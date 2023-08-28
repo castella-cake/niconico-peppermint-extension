@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.1] - 2023/08/28
+
+### Changed
+- ウェルカムページの一部ハイパーリンクと文章が変更されました
+- 設定ページのフレーバーテキストは再構成されました
+- 設定ページのドロップダウンメニューを調整しました
+
+### Fixed
+- 誤ったネストにより、ダークモードを使用していない場合にHTMLクラスが正しく追加されない問題を修正しました
+- 低解像度のウィンドウでウェルカムページを表示した場合に発生する問題を修正しました
+- シアターUI,Nicobox風UIのメタデータ表示の中央揃えがより正しくなりました
+- シアターUI,Nicobox風UIのサポーターアピール表示のズレを修正しました
+- PepperMintUIの`z-index`を調整して、サポーターアピールより前に表示するようにしました
+
 ## [1.7.0] - 2023/08/26
 
 ### Added
@@ -453,6 +467,7 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
+[1.7.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.7.0..v1.7.1
 [1.7.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.3..v1.7.0
 [1.6.3]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.2..v1.6.3
 [1.6.2]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.0..v1.6.2
