@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.7.1] - 2023/08/28
 
+### Added
+- シアターUIで動画の上でマウスを動かさなかった場合に、カーソルを非表示にするようにしました(完全な機能には`:has`のサポートが必要)
+
 ### Changed
 - ウェルカムページの一部ハイパーリンクと文章が変更されました
 - 設定ページのフレーバーテキストは再構成されました
