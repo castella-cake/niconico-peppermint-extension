@@ -110,10 +110,6 @@
     display: flex;
     margin: auto auto 12px
 }
-.VideoOwnerInfo { 
-    position: absolute;
-    right: 0
-}
 .MainVideoPlayer video { 
     width: auto;
     margin: auto;
@@ -151,3 +147,11 @@
 .SeekBar-played, .SeekBarHandle-handle { background-color: #d85353 }
 .SeekBar-buffered { background-color: #666 }
 .ControllerContainer { z-index: 3 }
+
+.NC-CreatorSupportAccepting {
+    display: none;
+}
+
+.GridCell.VideoOwnerInfo-gridCell {
+	width: inherit;
+}

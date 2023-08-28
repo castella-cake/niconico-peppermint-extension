@@ -160,10 +160,6 @@
     display: flex;
     margin: 12px auto
 }
-.VideoOwnerInfo { 
-    position: absolute;
-    right: 0
-}
 .MainVideoPlayer video { 
     width: auto;
     margin: auto;
@@ -200,3 +196,11 @@
 .CommentOnOffButton { display: none}
 .SeekBar-buffered { background-color: #666 }
 .ControllerContainer { z-index: 3 } 
+
+.NC-CreatorSupportAccepting {
+    display: none;
+}
+
+.GridCell.VideoOwnerInfo-gridCell {
+	width: inherit;
+}

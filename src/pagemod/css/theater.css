@@ -168,11 +168,6 @@
     margin: auto auto 12px
 }
 
-.VideoOwnerInfo {
-    position: absolute;
-    right: 0
-}
-
 .VideoDescriptionContainer {
     margin: 0 auto;
     margin-bottom: 16px
@@ -264,7 +259,9 @@
     background: linear-gradient(180deg,hsla(0,0%,96%,0),#000 25%) !important
 }
 .TagItem-name { color: #fff }
-.VideoMenuContainer { background: #000 }
+.VideoMenuContainer {
+	background: transparent;
+}
 .ControllerBoxCommentAreaContainer { border-right: none }
 .TagContainer {
     justify-content: center;
@@ -319,6 +316,34 @@ body:not(.is-fullscreen) .HeaderContainer-searchBox {
 body.is-fullscreen .HeaderContainer-searchBox {
     animation: searchboxtofsc 0.25s ease forwards 1;
 }
+a {
+	color: rgb(0, 146, 219);
+	text-decoration: none;
+}
+.EasyCommentButton:hover {
+	background-color: #cce6ff66;
+}
+
+.GridCell.VideoOwnerInfo-gridCell {
+	width: inherit;
+}
+
+.SharePanelVisibleActionButton:hover {
+	background: #eee3;
+}
+
+.PlayerContainer:not(.is-mouseMoving) .VideoContainer * {
+	cursor: none;
+}
+.PlayerContainer .ControllerContainer {
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+.PlayerContainer:not(.is-mouseMoving):has(.VideoContainer:hover) .ControllerContainer {
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
 @keyframes slidetoleft {
     from {
         opacity: 0;
