@@ -159,7 +159,7 @@ function restoreOptions() {
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(setCurrentChoice, onError)
 }
-    let flavortext = ['PepperMint+の開発コードネームは"Mentha"でした。','PepperMint+は、どこかの世界線ではPepperMintExとなっていたかもしれません。<br>しかし、これはExtensionと混同される可能性があるので、この世界線ではPlusになっています。','PepperMintはハッカを指します。ニコニコのハッカとの繋がりや、"ニコニコをハックする"、<br>"ハッカでニコニコをクールにする"の複数の意味を込めて、Niconico-PepperMintという名前になっています。超クールですよね？','- 「くれぐれも粘膜には塗らないように。たとえそれが薄めた状態であっても。」','- 「ちくわ大明神？誰ですかそれは？」','- 「リアルタイムでコメントを流す機構には絶対に触れないでください。それはあなたの家が燃える原因になります。」','- 「今のところ、ここを連打しても何も起きません。実績が欲しいのですか？」','- 「PepperMint+のGitログは見ないでください。開発者がこまめにコミットしていないことがバレてしまいます。」','- 「これがランダムに変わることは知っていますか？」','- 「JQueryは薬物です。プロジェクトが大規模になる前にいち早くやめておくことをおすすめします。私はやめられなくなりましたが。」','設定ページやクイックパネルでは、上の"PepperMint+の設定"や"PepperMint+"と書かれているタイトルをクリックすることで新しいタブで設定ページを開けることを知っていましたか？','カラーパレット"CyberNight"は、カスタムカラーパレットの開発中に生まれたものでした。']
+    let flavortext = ['PepperMint+の開発コードネームは"Mentha"でした。<br>計画されていた製品名は「PepperMintEx」でしたが、これはExtensionのExと混同される可能性があるため中止されました。','設定ページやクイックパネルでは、上の"PepperMint+の設定"や"PepperMint+"と書かれているタイトルをクリックすることで新しいタブで設定ページを開けることを知っていましたか？','カラーパレット"CyberNight"は、カスタムカラーパレットの開発中に生まれたものでした。今でもデバッグ用途として使用され続けています。','Niconico-PepperMintは、元々はランキングページのニコニ広告を非表示にする"HideNiconiAd"と"NicoPlayer-Gradient"を一つにまとめたものでした。','PepperMintはミントやハッカを指します。ハッカ油との繋がりや、<br>「クールにする」という意味合いをもって、このプロジェクトには「Niconico-PepperMint」という名称が付けられました。']
     document.getElementById('flavortext').innerHTML = flavortext[Math.floor(Math.random() * (flavortext.length))]
 
 $("#settings-form").on('change', saveOptions);
