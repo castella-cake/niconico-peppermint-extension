@@ -226,19 +226,19 @@ function createFastCSSRule(result) {
         if (location.hostname == "anime.nicovideo.jp") {
             document.documentElement.classList.add('PMDM-NAnime')
         }
-        if ( result.highlightnewnotice == true ) {
-            document.documentElement.classList.add('PM-HighlightNewNotice')
-        }
-        if ( result.hidesupporterbutton == "all" || (result.hidesupporterbutton == "watch" && location.pathname.indexOf('/watch') != -1) ) {
-            document.documentElement.classList.add('PM-HideSupporter')
-        }
-        if ( result.alignpagewidth == true ) {
-            document.documentElement.classList.add('PM-AlignPageWidth')
-        }
-        if (result.hidepopup == true) {
-            document.documentElement.classList.add('PM-HideAppeal')
-        }
     } 
+    if ( result.highlightnewnotice == true ) {
+        document.documentElement.classList.add('PM-HighlightNewNotice')
+    }
+    if ( result.hidesupporterbutton == "all" || (result.hidesupporterbutton == "watch" && location.pathname.indexOf('/watch') != -1) ) {
+        document.documentElement.classList.add('PM-HideSupporter')
+    }
+    if ( result.alignpagewidth == true ) {
+        document.documentElement.classList.add('PM-AlignPageWidth')
+    }
+    if (result.hidepopup == true) {
+        document.documentElement.classList.add('PM-HideAppeal')
+    }
 } 
 
 function createBaseCSSRule(result) {
