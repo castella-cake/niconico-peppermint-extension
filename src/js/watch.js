@@ -431,26 +431,28 @@ function createCSSRule(result) {
         $(document).on('keydown', shortCutAction);
 
         function shortCutAction(e) {
-            if ((e.key === ' ' || e.key === '　') && !$(e.target).closest("input, textarea").length) {
+            if (e.ctrlKey || $(e.target).closest("input, textarea").length) {
+                return true;
+            } else if (e.key === ' ' || e.key === '　') {
                 document.querySelector('.PlayerPauseButton, .PlayerPlayButton').click();
                 document.querySelector(':focus-visible').blur();
                 return false;
-            } else if ((e.key === 'ArrowLeft') && !$(e.target).closest("input, textarea").length) {
+            } else if (e.key === 'ArrowLeft') {
                 document.querySelector('.PlayerSeekBackwardButton').click();
                 document.querySelector(':focus-visible').blur();
                 return false;
-            } else if ((e.key === 'ArrowRight') && !$(e.target).closest("input, textarea").length) {
+            } else if (e.key === 'ArrowRight') {
                 document.querySelector('.PlayerSeekForwardButton').click();
                 document.querySelector(':focus-visible').blur();
                 return false;
-            } else if ((e.key === 'c' || e.key === 'C') && !$(e.target).closest("input, textarea").length) {
+            } else if (e.key === 'c' || e.key === 'C') {
                 document.querySelector('.CommentInput-textarea').focus();
                 return false;
-            } else if ((e.key === 'h' || e.key === 'H') && !$(e.target).closest("input, textarea").length) {
+            } else if (e.key === 'h' || e.key === 'H') {
                 document.querySelector('.LikeActionButton').click();
                 document.querySelector(':focus-visible').blur();
                 return false;
-            } else if ((e.key === 'Backspace') && !$(e.target).closest("input, textarea").length) {
+            } else if (e.key === 'Backspace') {
                 if (result.excommander == true) {
                     openViCommander()
                     return false;
