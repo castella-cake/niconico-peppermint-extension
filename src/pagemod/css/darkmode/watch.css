@@ -92,7 +92,11 @@
     color: var(--textcolor1);
 }
 .TagContainer-editButton {
-    background-color: #4c4f53;
+    background-color: var(--bgcolor2);
+    color: var(--textcolor1)
+}
+.TagContainer.is-editing {
+    background-color: var(--accent1);
 }
 /* 下側 */
 .Card {
