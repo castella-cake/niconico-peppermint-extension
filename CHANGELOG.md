@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.7.2] - 2023/09/
 
+### Changed
+- ダークモードパレットはStylus-lang形式で保存され、`darkmode.styl`のコンパイル時に統合されるようになりました
+- NordはStylus-lang形式のものを使用し、Stylus変数を用いてコンパイル時に書き込まれるようになりました
+
 ### Fixed
 - ショートカットアシスト有効時にCtrl+Cでのコピーができない問題の修正 ( [#16](https://github.com/castella-cake/niconico-peppermint-extension/pull/16) )
 - ニコニコ生放送ダークモードサポートのセレクターが部分一致になりました

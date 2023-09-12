@@ -204,20 +204,29 @@ getStorageData.then(createFastCSSRule, onError);
 function createFastCSSRule(result) {
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) && location.hostname != "ext.nicovideo.jp") {
         document.documentElement.classList.add('PMDM-Assist')
-        if (result.darkmode == 'black') {
-            document.documentElement.style = "--pre-bgcolor: #000;"
-        } else if (result.darkmode == 'pmcolor') {
-            document.documentElement.style = "--pre-bgcolor: #252525;"
-        } else if (result.darkmode == 'spcolor') {
-            document.documentElement.style = "--pre-bgcolor: #191919;"
-        } else if (result.darkmode == 'nordcolor') {
-            document.documentElement.style = "--pre-bgcolor: #2e3440;"
-        } else if (result.darkmode == 'cybernight') {
-            document.documentElement.style = "--pre-bgcolor: #0b1721;"
-        } else if (result.darkmode == 'custom' && result.customcolorpalette != undefined && result.customcolorpalette.bgcolor1 != undefined) {
-            document.documentElement.style = `--pre-bgcolor: ${result.customcolorpalette.bgcolor1};`
+        if (result.darkmode == 'custom' && result.customcolorpalette != undefined) {
+            document.documentElement.style = `${document.documentElement.style}
+            --bgcolor1:${result.customcolorpalette.bgcolor1};
+            --bgcolor2:${result.customcolorpalette.bgcolor2};
+            --bgcolor3:${result.customcolorpalette.bgcolor3};
+            --bgcolor4:${result.customcolorpalette.bgcolor4};
+            --textcolor1:${result.customcolorpalette.textcolor1};
+            --textcolor2:${result.customcolorpalette.textcolor2};
+            --textcolor3:${result.customcolorpalette.textcolor3};
+            --textcolornew:${result.customcolorpalette.textcolornew};
+            --accent1:${result.customcolorpalette.accent1};
+            --accent2:${result.customcolorpalette.accent2};
+            --hover1:${result.customcolorpalette.hover1};
+            --hover2:${result.customcolorpalette.hover2};
+            --linktext1:${result.customcolorpalette.linktext1};
+            --linktext2:${result.customcolorpalette.linktext2};
+            --linktext3:${result.customcolorpalette.linktext3};
+            --nicoru1:${result.customcolorpalette.nicoru1};
+            --nicoru2:${result.customcolorpalette.nicoru2};
+            --nicoru3:${result.customcolorpalette.nicoru3};
+            --nicoru4:${result.customcolorpalette.nicoru4};`
         } else {
-            document.documentElement.style = "--pre-bgcolor: #000;"
+            document.documentElement.classList.add(`PMDMP-${result.darkmode}`)
         }
         //console.log(result.darkmode)
         if (location.hostname == "blog.nicovideo.jp" && location.pathname.startsWith("/niconews")) {
@@ -225,6 +234,12 @@ function createFastCSSRule(result) {
         }
         if (location.hostname == "anime.nicovideo.jp") {
             document.documentElement.classList.add('PMDM-NAnime')
+        }
+        if (location.hostname == "live.nicovideo.jp" && location.pathname == "/") {
+            document.documentElement.classList.add('PMDM-NicoLiveHome')
+        }
+        if (location.hostname == "live.nicovideo.jp" && location.pathname.startsWith("/watch")) {
+            document.documentElement.classList.add('PMDM-NicoLiveWatch')
         }
     } 
     if ( result.highlightnewnotice == true ) {
@@ -243,11 +258,6 @@ function createFastCSSRule(result) {
 
 function createBaseCSSRule(result) {
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        if (result.darkmode == 'custom' && result.customcolorpalette != undefined) {
-            pushCSSRule(`:root{--bgcolor1:${result.customcolorpalette.bgcolor1};--bgcolor2:${result.customcolorpalette.bgcolor2};--bgcolor3:${result.customcolorpalette.bgcolor3};--bgcolor4:${result.customcolorpalette.bgcolor4};--textcolor1:${result.customcolorpalette.textcolor1};--textcolor2:${result.customcolorpalette.textcolor2};--textcolor3:${result.customcolorpalette.textcolor3};--textcolornew:${result.customcolorpalette.textcolornew};--accent1:${result.customcolorpalette.accent1};--accent2:${result.customcolorpalette.accent2};--hover1:${result.customcolorpalette.hover1};--hover2:${result.customcolorpalette.hover2};--linktext1:${result.customcolorpalette.linktext1};--linktext2:${result.customcolorpalette.linktext2};--linktext3:${result.customcolorpalette.linktext3};--nicoru1:${result.customcolorpalette.nicoru1};--nicoru2:${result.customcolorpalette.nicoru2};--nicoru3:${result.customcolorpalette.nicoru3};--nicoru4:${result.customcolorpalette.nicoru4};}`)
-        } else {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
-        }
 
         if (location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp") {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
