@@ -67,21 +67,12 @@ gulp.task('copyFilesFirefox', function (done) {
 gulp.task('copyFilesSource', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
-    gulp.src('./LICENSE.txt')
-        .pipe(gulp.dest(`./builds/${versionName}/source`));
-    
-    gulp.src('./NOTICE.txt')
-        .pipe(gulp.dest(`./builds/${versionName}/source`));
-
-    gulp.src('./README.md')
-        .pipe(gulp.dest(`./builds/${versionName}/source`));
-
-    gulp.src('./CHANGELOG.md')
+    gulp.src([ './*.md', './*.js', './*.txt', './*.json' ])
         .pipe(gulp.dest(`./builds/${versionName}/source`));
 
     // srcフォルダーの内容をfirefoxフォルダーにコピー
     gulp.src([ './src/**/*', '!./src/pagemod/css/darkmode/darkmode.css', '!./src/pagemod/css/index.css' ])
-        .pipe(gulp.dest(`./builds/${versionName}/source`))
+        .pipe(gulp.dest(`./builds/${versionName}/source/src`))
         .on('end', done);
 });
 
