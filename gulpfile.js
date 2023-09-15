@@ -64,6 +64,27 @@ gulp.task('copyFilesFirefox', function (done) {
         });
 });
 
+gulp.task('copyFilesSource', function (done) {
+    const versionName = packageJson.version; // バージョン情報を取得
+
+    gulp.src('./LICENSE.txt')
+        .pipe(gulp.dest(`./builds/${versionName}/source`));
+    
+    gulp.src('./NOTICE.txt')
+        .pipe(gulp.dest(`./builds/${versionName}/source`));
+
+    gulp.src('./README.md')
+        .pipe(gulp.dest(`./builds/${versionName}/source`));
+
+    gulp.src('./CHANGELOG.md')
+        .pipe(gulp.dest(`./builds/${versionName}/source`));
+
+    // srcフォルダーの内容をfirefoxフォルダーにコピー
+    gulp.src([ './src/**/*', '!./src/pagemod/css/darkmode/darkmode.css', '!./src/pagemod/css/index.css' ])
+        .pipe(gulp.dest(`./builds/${versionName}/source`))
+        .on('end', done);
+});
+
 gulp.task('copyFilesChrome', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
@@ -121,6 +142,11 @@ gulp.task('compress', function (done) {
     gulp.src(`./builds/${versionName}/firefox/**/*`)
         .pipe(zip(`firefox_${versionName}.zip`))
         .pipe(gulp.dest('./builds'));
+    
+    // sourceフォルダーを圧縮
+    gulp.src(`./builds/${versionName}/source/**/*`)
+    .pipe(zip(`source_${versionName}.zip`))
+    .pipe(gulp.dest('./builds'));
 
     done()
 });
@@ -209,4 +235,4 @@ gulp.task('watch', function () {
 });
 
 // デフォルトタスク
-gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'compileStylus', 'copyFilesChrome', 'copyFilesFirefox', 'renameFiles', 'compress'));
+gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'compileStylus', 'copyFilesChrome', 'copyFilesFirefox', 'copyFilesSource', 'renameFiles', 'compress'));
