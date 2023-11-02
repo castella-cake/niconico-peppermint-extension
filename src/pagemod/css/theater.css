@@ -436,6 +436,6 @@ a {
 .css-1q3tz1l .css-10yxuc8 svg path {
     fill: #fff !important;
 }
-html:has(.PlayerContainer:has(.VideoContainer:hover):not(.is-mouseMoving)) .css-1q3tz1l .css-fdpmya {
+html:has(.PlayerContainer:not(.is-mouseMoving) .VideoContainer:hover) .css-1q3tz1l .css-fdpmya {
     opacity: 0;
 }
