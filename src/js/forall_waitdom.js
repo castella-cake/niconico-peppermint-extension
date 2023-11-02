@@ -28,7 +28,7 @@ function createBaseCSSRule(result) {
             } else {
                 //addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
             }
-            if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" ) {
+            if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp" ) {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
                 document.body.classList.add('is-PMDarkPalette')
             }

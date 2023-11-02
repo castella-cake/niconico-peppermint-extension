@@ -427,15 +427,15 @@ a {
 	top: 36px;
 	z-index: 6000001;
 }
-.css-1q3tz1l .css-fdpmya {
+#VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-fdpmya {
 	background: #222a;
     border-radius: 50%;
     opacity: 1;
     transition: opacity 0.5s ease;
 }
-.css-1q3tz1l .css-10yxuc8 svg path {
+#VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-10yxuc8 svg path {
     fill: #fff !important;
 }
-html:has(.PlayerContainer:not(.is-mouseMoving) .VideoContainer:hover) .css-1q3tz1l .css-fdpmya {
+html:has(.PlayerContainer:not(.is-mouseMoving) .VideoContainer:hover) #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-fdpmya {
     opacity: 0;
 }

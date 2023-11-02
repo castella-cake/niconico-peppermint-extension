@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - サイドバーのハンバーガーボタンは、動画にカーソルがホバーされている場合に表示されないようになりました
+- ニコレポの再読み込みボタンを追加しました
 - 「ヘッダー幅を固定」オプションを追加しました
 
 ### Changed
@@ -25,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ヘッダーのお知らせの「重要なお知らせ」のダークモードサポートを追加しました
 - サイドバーのダークモードサポートを追加しました
 - マーキーエリアのランキング置き換えが正常に動作しない問題を修正しました
+- ギフト利用不可のダークモードサポートを追加しました
 
 ## [1.7.2] - 2023/09/16
 

@@ -191,6 +191,9 @@
     color: var(--textcolor2);
     fill: var(--textcolor2);
 }
+.GiftSubEffectDisallowed {
+    color: var(--textcolor3)
+}
 /* 右側タブ */
 .PlayerPanelContainer-tabItem {
     border-bottom: 3px solid var(--bgcolor3);
