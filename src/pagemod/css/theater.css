@@ -292,19 +292,21 @@ body:not(.is-fullscreen) .PlayerOptionContainer {
 	margin: 16px 0px;
 	color: #f0f0f0;
 }
-body.is-fullscreen .WatchAppContainer > :not(.WatchAppContainer-main):not(.ContextMenu-wrapper):not(.ErrorContainer):not(.NicoruNoticeContainer) {
-    display: block !important;
-    animation: sidebartofsc 0.25s ease forwards 1 !important;
-}
-body:not(.is-fullscreen) .MainContainer-playerPanel {
-    animation: sidebartowind 0.25s ease forwards 1;
-}
 .HeaderContainer-searchBox {
     position: fixed;
     bottom: 0;
     right: 0
 }
-body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) {
+body:not(.is-fullscreen) .MainContainer-playerPanel {
+    animation: sidebartowind 0.25s ease forwards 1;
+}
+
+body.is-fullscreen .WatchAppContainer > .BaseLayout-container > .BaseLayout-contents > :not(.WatchAppContainer-main):not(.ContextMenu-wrapper):not(.ErrorContainer):not(.NicoruNoticeContainer) {
+    display: block !important;
+    animation: sidebartofsc 0.25s ease forwards 1 !important;
+}
+
+body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer):not(.WakutkoolNoticeContainer) {
 	display: inherit !important;
 }
 body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > :not(.HeaderContainer-topArea), body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > .HeaderContainer-topArea > :not(.HeaderContainer-searchBox) {
@@ -416,4 +418,24 @@ a {
 .CustomVideoContainer .CommentRenderer > canvas{
 	width: auto !important;
 	height: 100% !important;
+}
+
+/* sidebar */
+#VideoMenuDrawer-app {
+	position: fixed;
+	left: 0;
+	top: 36px;
+	z-index: 6000001;
+}
+.css-1q3tz1l .css-fdpmya {
+	background: #222a;
+    border-radius: 50%;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+.css-1q3tz1l .css-10yxuc8 svg path {
+    fill: #fff !important;
+}
+html:has(.PlayerContainer:has(.VideoContainer:hover):not(.is-mouseMoving)) .css-1q3tz1l .css-fdpmya {
+    opacity: 0;
 }
