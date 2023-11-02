@@ -26,7 +26,7 @@ function createBaseCSSRule(result) {
             if (result.darkmode == 'custom' && result.customcolorpalette != undefined) {
                 pushCSSRule(`:root{--bgcolor1:${result.customcolorpalette.bgcolor1};--bgcolor2:${result.customcolorpalette.bgcolor2};--bgcolor3:${result.customcolorpalette.bgcolor3};--bgcolor4:${result.customcolorpalette.bgcolor4};--textcolor1:${result.customcolorpalette.textcolor1};--textcolor2:${result.customcolorpalette.textcolor2};--textcolor3:${result.customcolorpalette.textcolor3};--textcolornew:${result.customcolorpalette.textcolornew};--accent1:${result.customcolorpalette.accent1};--accent2:${result.customcolorpalette.accent2};--hover1:${result.customcolorpalette.hover1};--hover2:${result.customcolorpalette.hover2};--linktext1:${result.customcolorpalette.linktext1};--linktext2:${result.customcolorpalette.linktext2};--linktext3:${result.customcolorpalette.linktext3};--nicoru1:${result.customcolorpalette.nicoru1};--nicoru2:${result.customcolorpalette.nicoru2};--nicoru3:${result.customcolorpalette.nicoru3};--nicoru4:${result.customcolorpalette.nicoru4};}`)
             } else {
-                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
+                //addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
             }
             if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" ) {
                 addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
@@ -40,6 +40,8 @@ function createBaseCSSRule(result) {
             document.documentElement.classList.remove('PMDM-Assist')
             //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
         } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
+
+
         if (result.headerbg == "gradient") {
             document.documentElement.classList.add('PM-HeaderBG-Custom')
             $('html').css('--headercolor', "linear-gradient(#2d2d2d, #000000)");
@@ -48,6 +50,8 @@ function createBaseCSSRule(result) {
             $('html').css('--headercolor', result.headercolor);
             //console.log(`HeaderBG changed to ${result.headercolor}`);
         }
+
+
         if ( result.enableseriesstock == true && result.showseriesstockinpage == true && ( (location.pathname == "/" && location.hostname == "www.nicovideo.jp") || (location.pathname.indexOf('/video_top') != -1 && location.hostname == "www.nicovideo.jp") ) ){
             $('.pmbutton-container').append('<div class="openstock-container"><button id="openstock" class="material-icons mainaction-button" style="background: #00796b">folder</button></div>')
             $('#openstock').on('mouseenter', function() {
@@ -161,6 +165,8 @@ function createBaseCSSRule(result) {
             })
         }
     });
+
+    
     if (result.hidemetadata == "searchandhome" || result.hidemetadata == "all") {
         document.documentElement.classList.add('PM-HideMetaData')
     }

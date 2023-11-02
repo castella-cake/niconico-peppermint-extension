@@ -248,6 +248,18 @@
     color: var(--linktext2)
 }
 
+/* 二次創作 */
+.VideoCommonsLicense {
+    color: var(--textcolor1)
+}
+.VideoCommonsLicense-annotation {
+    color: var(--textcolor2)
+}
+.VideoCommonsLicense-description {
+    color: var(--textcolor1);
+    background: var(--bgcolor2)
+}
+
 /* ダークなコメントエリア */
 .ControllerBoxCommentAreaContainer, .EasyCommentContainer {
     background-color: var(--bgcolor2);
