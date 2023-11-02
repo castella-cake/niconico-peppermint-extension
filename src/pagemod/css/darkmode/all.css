@@ -138,10 +138,15 @@ body {
 }
 .nico-CommonHeaderRoot .common-header-2cl2ey,.nico-CommonHeaderRoot .common-header-uruoug {
     background-color: var(--bgcolor3) !important;
-
 }
 .nico-CommonHeaderRoot .common-header-ey0i79 {
     color: var(--textcolor1) !important;
+}
+.nico-CommonHeaderRoot .common-header-1tmi0yd {
+	color: var(--textcolor1) !important;
+}
+.nico-CommonHeaderRoot .common-header-o6dvje {
+    border-bottom: 1px solid var(--accent2) !important;
 }
 
 /* ユーザーをホバーした時に出るやつ */
