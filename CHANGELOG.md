@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2023/11/
+
+### Added
+- サイドバーのハンバーガーボタンは、動画にカーソルがホバーされている場合に表示されないようになりました
+
+### Fixed
+- ヘッダーのお知らせ表示のダークモードサポートを改善しました
+- シアターモードのフルスクリーンが何も表示されない問題を修正しました
+- 動画トップ2カラムは残りの幅に応じてより柔軟にサイズを変えるようになりました
+- PepperMintコントロールがサイドバーによりクリックできない問題を修正しました
+- ヘッダーの背景が一部変更されていない問題を修正しました
+- ヘッダーのお知らせの「重要なお知らせ」のダークモードサポートを追加しました
+- サイドバーのダークモードサポートを追加しました
+
 ## [1.7.2] - 2023/09/16
 
 ### Changed
@@ -480,23 +494,23 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.7.1...HEAD
-[1.7.2]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.7.1...v1.7.2
-[1.7.1]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.7.0...v1.7.1
-[1.7.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.3...v1.7.0
-[1.6.3]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.2...v1.6.3
-[1.6.2]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.6.0...v1.6.2
-[1.6.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.5.3...v1.6.0
-[1.5.3]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.5.2...v1.5.3
-[1.5.2]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.5.1...v1.5.2
-[1.5.1]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.5.0...v1.5.1
-[1.5.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.4.0...v1.5.0
-[1.4.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.3.0...v1.4.0
-[1.3.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.2.0...v1.3.0
-[1.2.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v0.8.0...v1.0.0
-[0.8.0]: https://github.com/astella-cake/niconico-peppermint-extension/compare/v0.7.0...v0.8.0
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.7.2...HEAD
+[1.7.2]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.7.1...v1.7.2
+[1.7.1]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.7.0...v1.7.1
+[1.7.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.6.3...v1.7.0
+[1.6.3]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.6.2...v1.6.3
+[1.6.2]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.6.0...v1.6.2
+[1.6.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.5.3...v1.6.0
+[1.5.3]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.5.2...v1.5.3
+[1.5.2]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.5.1...v1.5.2
+[1.5.1]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.5.0...v1.5.1
+[1.5.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.4.0...v1.5.0
+[1.4.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.3.0...v1.4.0
+[1.3.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.2.0...v1.3.0
+[1.2.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.8.0...v1.0.0
+[0.8.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.6.0...v0.7.0
 [0.6.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v0.4.0...v0.5.0

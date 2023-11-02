@@ -22,7 +22,7 @@ gulp.task('createVersionFolders', function (done) {
 
 gulp.task('compileStylus', function () {
     // Stylusファイルのコンパイル処理
-    return gulp.src([ './src/**/*.styl', '!./src/pagemod/css/darkmode/palette/*.styl', '!./src/pagemod/css/darkmode/pages/**' ])
+    return gulp.src([ './src/**/*.styl', '!./src/pagemod/css/darkmode/palette/*.styl', '!./src/pagemod/css/darkmode/pages/**/*styl' ])
         .pipe(stylus())
         .pipe(gulp.dest('./src')); // コンパイルされたCSSファイルをsrcフォルダーに出力
 });
@@ -221,7 +221,7 @@ gulp.task('devRenameFiles', function (done) {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('./src/**/*.styl', gulp.series('compileStylus'));
+    gulp.watch('./src/**/*styl', gulp.series('compileStylus'));
     gulp.watch(['./src/**/*', '!./src/**/*.styl'], gulp.series('devCleanUp', 'devCopyFilesFirefox', 'devCopyFilesChrome', 'devRenameFiles'));
 });
 
