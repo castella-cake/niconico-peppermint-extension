@@ -282,7 +282,8 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             return true;
         }
     } else if (message.type == "getRecentNicorepo") {
-        getRecentNicorepo()
+        const updateType = message.updateType ?? 0
+        getRecentNicorepo(updateType)
             .then((data) => {
                 sendResponse(data)
             })

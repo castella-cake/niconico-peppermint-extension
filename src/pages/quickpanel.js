@@ -5,7 +5,7 @@ if (chrome.browserAction != undefined) {
 } else if (chrome.action != undefined) {
     chrome.action.setBadgeText({ text: "" })
 }
-if (manifestData.version_name.indexOf('PRE') != -1) {
+if (manifestData.version_name.indexOf('PRE') != -1 || manifestData.version_name.indexOf('DEV') != -1) {
     document.querySelector('.betafeedbacklink').classList.remove('disabled')
 }
 
@@ -424,12 +424,26 @@ function makeElem() {
             })
             document.getElementById('tabbutton-nicorepo').classList.remove('disabled')
             let callGRN = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo" }, resolve))
-            callGRN.then(res => {
+            callGRN.then(updateNicorepoDisp)
+            function updateNicorepoDisp(res) {
+                document.getElementById('nicorepo').innerHTML = ""
                 if (res.meta.status == "200") {
                     let lastfetchdateelem = document.createElement('div')
                     let fetchdate = new Date(res.fetchdate)
                     lastfetchdateelem.textContent = `最終取得:` + fetchdate.toLocaleString()
                     lastfetchdateelem.classList.add('nicorepo-lastfetch')
+
+                    let reloadbuttonelem = document.createElement('button')
+                    reloadbuttonelem.id = "reporeload"
+                    reloadbuttonelem.textContent = "refresh"
+                    reloadbuttonelem.classList.add('material-icons-outlined')
+                    reloadbuttonelem.addEventListener('click', function () {
+                        document.getElementById('nicorepo').innerHTML = "取得中…"
+                        let callGRN = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo", "updateType": 1 }, resolve))
+                        callGRN.then(updateNicorepoDisp)
+                    })
+                    lastfetchdateelem.appendChild(reloadbuttonelem)
+
                     document.getElementById('nicorepo').appendChild(lastfetchdateelem)
                     let rowlistcontainer = document.createElement('div')
                     rowlistcontainer.classList.add('nicorepo-rowlistcontainer')
@@ -493,7 +507,7 @@ function makeElem() {
                     errorelem.style = "color: red"
                     document.getElementById('nicorepo').appendChild(errorelem)
                 }
-            })
+            }
         }
     }, onError);
 }
