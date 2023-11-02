@@ -63,7 +63,7 @@ h1 {
 }
 
 .settings-area h1 {
-	margin: 0px 0px 8px 0px;
+	margin: 0px 0px 10px 0px;
 	border-bottom: none;
 }
 
@@ -120,7 +120,7 @@ h1 {
 .settings-area {
 	background: var(--bgcolor2);
 	border-radius: 4px;
-	padding: 8px;
+	padding: 10px;
 	margin-bottom: 8px;
 }
 
@@ -726,7 +726,7 @@ tr td:nth-child(7) {
 	.hint {
 		font-size: 12px;
 		font-style: normal;
-		margin-bottom: 2px;
+		margin-bottom: 0px;
 		line-height: 20px;
 	}
 
@@ -754,7 +754,7 @@ tr td:nth-child(7) {
 	}
 
 	.settings-area {
-		margin-top: 16px
+		margin-top: 16px;
 	}
 
 	textarea {
