@@ -37,7 +37,7 @@
 }
 
 body {
-	width: 560px;
+	width: 520px;
 	margin: 0;
 	background-color: Canvas;
 	color: CanvasText;
@@ -120,7 +120,7 @@ h1 {
 .settings-area {
 	background: var(--bgcolor2);
 	border-radius: 4px;
-	padding: 10px;
+	padding: 8px;
 	margin-bottom: 8px;
 }
 
@@ -202,7 +202,7 @@ h1 {
 form,
 .maincontainer {
 	margin-bottom: 2px;
-	padding: 0px 10px 10px;
+	padding: 0px 8px 8px;
 }
 
 select {
@@ -218,7 +218,7 @@ select:hover {
 }
 
 .settings-row {
-	margin-bottom: 8px;
+	/*! margin-bottom: 8px; */
 	padding-bottom: 4px;
 }
 .settings-area .settings-row {
