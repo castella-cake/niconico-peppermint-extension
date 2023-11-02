@@ -22,7 +22,7 @@ gulp.task('createVersionFolders', function (done) {
 
 gulp.task('compileStylus', function () {
     // Stylusファイルのコンパイル処理
-    return gulp.src([ './src/**/*.styl', '!./src/pagemod/css/darkmode/palette/*.styl' ])
+    return gulp.src([ './src/**/*.styl', '!./src/pagemod/css/darkmode/palette/*.styl', '!./src/pagemod/css/darkmode/pages/**' ])
         .pipe(stylus())
         .pipe(gulp.dest('./src')); // コンパイルされたCSSファイルをsrcフォルダーに出力
 });

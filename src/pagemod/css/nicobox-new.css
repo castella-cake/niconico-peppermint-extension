@@ -204,3 +204,18 @@
 .GridCell.VideoOwnerInfo-gridCell {
 	width: inherit;
 }
+
+/* sidebar */
+#VideoMenuDrawer-app {
+	position: fixed;
+	left: 0;
+	top: 36px;
+	z-index: 6000001;
+}
+.css-1q3tz1l .css-fdpmya {
+	background: var(--bgcolor2);
+    border-radius: 50%;
+}
+.css-1q3tz1l .css-10yxuc8 svg path {
+    fill: var(--textcolor1) !important;
+}

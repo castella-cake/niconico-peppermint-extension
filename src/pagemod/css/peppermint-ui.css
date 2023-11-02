@@ -5,7 +5,7 @@
     margin: 12px;
     width: fit-content;
     max-height: calc( 100vh - 36px );
-    z-index: 5500002;
+    z-index: 6000002;
     opacity: 100;
     transition: opacity .2s ease 
 }
