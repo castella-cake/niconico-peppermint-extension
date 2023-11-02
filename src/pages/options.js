@@ -57,6 +57,7 @@ function saveOptions() {
             "pediacontextsearch": $("#input-pediacontextsearch").prop('checked'),
             // Other
             "alignpagewidth": $("#input-alignpagewidth").prop('checked'),
+            "fixedheaderwidth": $("#input-fixedheaderwidth").prop('checked'),
             "highlightnewnotice": $("#input-highlightnewnotice").prop('checked'),
             "vidtoptwocolumn": $('#input-vidtoptwocolumn').prop('checked'),
             // Global
@@ -128,6 +129,7 @@ function restoreOptions() {
         $("#input-pediacontextsearch").prop('checked', result.pediacontextsearch);
         // Other
         $("#input-alignpagewidth").prop('checked', result.alignpagewidth);
+        $("#input-fixedheaderwidth").prop('checked', result.fixedheaderwidth);
         $("#input-highlightnewnotice").prop('checked', result.highlightnewnotice);
         $("#input-vidtoptwocolumn").prop('checked', result.vidtoptwocolumn);
         // Global

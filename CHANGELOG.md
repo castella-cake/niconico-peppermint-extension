@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - サイドバーのハンバーガーボタンは、動画にカーソルがホバーされている場合に表示されないようになりました
+- 「ヘッダー幅を固定」オプションを追加しました
 
 ### Changed
 - 設定ページの「ストレージの管理」は「ユーザーデータの管理」に変更されました

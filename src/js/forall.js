@@ -257,6 +257,9 @@ function createFastCSSRule(result) {
     if (result.hidepopup == true) {
         document.documentElement.classList.add('PM-HideAppeal')
     }
+    if (result.fixedheaderwidth == true) {
+        document.documentElement.classList.add('PM-FixedHeaderWidth')
+    }
 } 
 
 function createBaseCSSRule(result) {
