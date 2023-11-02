@@ -241,6 +241,9 @@ function createFastCSSRule(result) {
         if (location.hostname == "live.nicovideo.jp" && location.pathname.startsWith("/watch")) {
             document.documentElement.classList.add('PMDM-NicoLiveWatch')
         }
+        if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" ) {
+            document.documentElement.classList.add('PMDM-Enabled')
+        }
     } 
     if ( result.highlightnewnotice == true ) {
         document.documentElement.classList.add('PM-HighlightNewNotice')
