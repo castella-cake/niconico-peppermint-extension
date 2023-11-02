@@ -41,10 +41,11 @@ function createBaseCSSRule(result) {
             //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
         } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
         if (result.headerbg == "gradient") {
-            addCSS(chrome.runtime.getURL("pagemod/css/header/gradient.css"), true);
+            document.documentElement.classList.add('PM-HeaderBG-Custom')
+            $('html').css('--headercolor', "linear-gradient(#2d2d2d, #000000)");
         } else if (result.headerbg == "custom") {
-            addCSS(chrome.runtime.getURL("pagemod/css/header/custom.css"), true);
-            $('body').css('--headercolor', result.headercolor);
+            document.documentElement.classList.add('PM-HeaderBG-Custom')
+            $('html').css('--headercolor', result.headercolor);
             //console.log(`HeaderBG changed to ${result.headercolor}`);
         }
         if ( result.enableseriesstock == true && result.showseriesstockinpage == true && ( (location.pathname == "/" && location.hostname == "www.nicovideo.jp") || (location.pathname.indexOf('/video_top') != -1 && location.hostname == "www.nicovideo.jp") ) ){
