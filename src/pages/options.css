@@ -269,6 +269,7 @@ label {
 	border: none;
 	margin-right: 8px;
 	font-family: "SF Pro Text", "Yu Gothic UI", "Meiryo UI", sans-serif;
+	font-size: 12px;
 }
 
 .action-button:hover {
