@@ -40,6 +40,7 @@ function saveOptions() {
             "shortcutassist": $("#input-shortcutassist").prop('checked'),
             "excommander": $("#input-excommander").prop('checked'),
             "usetheaterui": $("#input-usetheaterui").prop('checked'),
+            "disabletheaterpalette": $("#input-disabletheaterpalette").prop('checked'),
             //"theateruialwaysdark": $("#input-theateruialwaysdark").prop('checked'),
             "enablenicoboxui": $("#input-enablenicoboxui").prop('checked'),
             "usenicoboxui": $("#input-usenicoboxui").prop('checked'),
@@ -57,6 +58,7 @@ function saveOptions() {
             "pediacontextsearch": $("#input-pediacontextsearch").prop('checked'),
             // Other
             "alignpagewidth": $("#input-alignpagewidth").prop('checked'),
+            "fixedheaderwidth": $("#input-fixedheaderwidth").prop('checked'),
             "highlightnewnotice": $("#input-highlightnewnotice").prop('checked'),
             "vidtoptwocolumn": $('#input-vidtoptwocolumn').prop('checked'),
             // Global
@@ -71,6 +73,7 @@ function saveOptions() {
             "showseriesstockinpage": $("#input-showseriesstockinpage").prop('checked'),
             "enablecustomvideotop": $("#input-enablecustomvideotop").prop('checked'),
             "enablenicorepotab": $("#input-enablenicorepotab").prop('checked'),
+            "skipquickpanel": $("#input-skipquickpanel").prop('checked'),
             // Unstable
             "quickvidarticle": $("#input-quickvidarticle").prop('checked')
         }
@@ -112,6 +115,7 @@ function restoreOptions() {
         $("#input-shortcutassist").prop('checked', result.shortcutassist);
         $("#input-excommander").prop('checked', result.excommander);
         $("#input-usetheaterui").prop('checked', result.usetheaterui);
+        $("#input-disabletheaterpalette").prop('checked', result.disabletheaterpalette);
         //$("#input-theateruialwaysdark").prop('checked', result.theateruialwaysdark);
         $("#input-enablenicoboxui").prop('checked', result.enablenicoboxui);
         $("#input-useoldnicoboxstyle").prop('checked', result.useoldnicoboxstyle);
@@ -128,6 +132,7 @@ function restoreOptions() {
         $("#input-pediacontextsearch").prop('checked', result.pediacontextsearch);
         // Other
         $("#input-alignpagewidth").prop('checked', result.alignpagewidth);
+        $("#input-fixedheaderwidth").prop('checked', result.fixedheaderwidth);
         $("#input-highlightnewnotice").prop('checked', result.highlightnewnotice);
         $("#input-vidtoptwocolumn").prop('checked', result.vidtoptwocolumn);
         // Global
@@ -142,6 +147,7 @@ function restoreOptions() {
         $("#input-showseriesstockinpage").prop('checked', result.showseriesstockinpage)
         $("#input-enablecustomvideotop").prop('checked', result.enablecustomvideotop)
         $("#input-enablenicorepotab").prop('checked', result.enablenicorepotab)
+        $("#input-skipquickpanel").prop('checked', result.skipquickpanel)
         // Unstable
         $("#input-quickvidarticle").prop('checked', result.quickvidarticle);
         if (result.headerbg != "custom") {

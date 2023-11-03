@@ -191,6 +191,9 @@
     color: var(--textcolor2);
     fill: var(--textcolor2);
 }
+.GiftSubEffectDisallowed {
+    color: var(--textcolor3)
+}
 /* 右側タブ */
 .PlayerPanelContainer-tabItem {
     border-bottom: 3px solid var(--bgcolor3);
@@ -246,6 +249,18 @@
 }
 .VideoDescriptionSeriesContainer-itemTitle,.VideoDescriptionExpander .VideoDescriptionExpander-switch {
     color: var(--linktext2)
+}
+
+/* 二次創作 */
+.VideoCommonsLicense {
+    color: var(--textcolor1)
+}
+.VideoCommonsLicense-annotation {
+    color: var(--textcolor2)
+}
+.VideoCommonsLicense-description {
+    color: var(--textcolor1);
+    background: var(--bgcolor2)
 }
 
 /* ダークなコメントエリア */

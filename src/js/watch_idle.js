@@ -146,7 +146,7 @@ function createCSSRule(result) {
             if (result.playerstyleoverride == "rc1dark") {
                 pushCSSRule('#pm-marqueerankinglink {color: #fafafa} #pm-marqueerankingbg {color: #aaa}')
             }
-            $('.Marquee-itemArea,.Marquee-buttonArea').remove()
+            $('.Marquee-itemArea,.Marquee-buttonArea,.Marquee-topicArea').remove()
             chrome.runtime.sendMessage({ "type": "getRankingXml" }).then(res => {
                 // why chrome can't use domparser in service worker...
                 //console.log(res)
@@ -155,13 +155,13 @@ function createCSSRule(result) {
                 //console.log(parsedxml)
                 let xmlcontent = parsedxml.querySelectorAll("channel item")
                 //console.log(xmlcontent[0].querySelector('title').textContent)
-                if (document.querySelector('.Marquee-itemArea,.Marquee-buttonArea') != null) {
-                    $('.Marquee-itemArea,.Marquee-buttonArea').remove()
+                if (document.querySelector('.Marquee-itemArea,.Marquee-buttonArea,.Marquee-topicArea') != null) {
+                    $('.Marquee-itemArea,.Marquee-buttonArea,.Marquee-topicArea').remove()
                 }
                 let xmlloop = 0
-                $('.MarqueeContainer > div').append(`<div id="pm-marqueerankingbg"></div>`)
+                $('.MarqueeContainer > .Marquee').append(`<div id="pm-marqueerankingbg"></div>`)
                 $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-current">${xmlloop + 1}</div>`)
-                $('.MarqueeContainer > div').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
+                $('.MarqueeContainer > .Marquee').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
                 if (xmlloop + 1 >= xmlcontent.length) {
                     $('#pm-marqueerankingbg').append('<div id="pm-marqueerankingbg-next">1</div>')
                 } else {
@@ -184,7 +184,7 @@ function createCSSRule(result) {
                         $('#pm-marqueerankinglink').remove()
                     }
                     $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-current">${xmlloop + 1}</div>`)
-                    $('.MarqueeContainer > div').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
+                    $('.MarqueeContainer > .Marquee').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
                     if (xmlloop + 1 >= xmlcontent.length) {
                         $('#pm-marqueerankingbg').append('<div id="pm-marqueerankingbg-next">1</div>')
                     } else {
@@ -211,7 +211,7 @@ function createCSSRule(result) {
     if (result.usenicoboxui != true && result.usetheaterui == true) {
         // theater UI fallback and wait load without jquery
         addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
-        addCSS(chrome.runtime.getURL("pagemod/css/header/black.css"));
+        document.documentElement.classList.add('PM-HeaderBG-Theater')
         // TODO: シリーズストックのものと統合する
         const metaContainer = document.querySelector('.VideoMetaContainer')
         const metaContainerObserver = new MutationObserver(records => {

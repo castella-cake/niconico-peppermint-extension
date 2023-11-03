@@ -1,419 +1,612 @@
-.ControllerButton svg,
-.ControllerButton.PlayerRepeatOnButton svg path,
-.PlaybackRateButton svg {
-    fill: #fff
-}
-
-.ControllerContainer-inner {
-    top: 4px
-}
-
-.PlayerPauseButton,
-.PlayerPlayButton {
-    left: 50%;
-    right: 50%;
-    position: absolute !important;
-    transform: translate(-50%);
-    padding: 2px;
-}
-
-.ControllerContainer-centerArea>.ControllerButton {
-    padding: 5px
-}
-
-.PlayerOptionContainer {
-    max-height: 330px;
-}
-
-.common-header-1v0m9lc,
-.common-header-1nvgp3g,
-.common-header-h0l8yl,
-.common-header-cdesjj,
-.common-header-171vphh,
-.common-header-wb7b82,
-.common-header-1ufbzdh,
-.common-header-654o26,
-.common-header-11u4gc2,
-.common-header-1pxv7y0,
-.commonHeaderArea,
-#CommonHeader {
-    background-color: #000 !important;
-}
-
-.HeaderContainer,
-.BottomSideContainer,
-.BottomMainContainer,
-.TagItem,
-.PlayerContainer,
-.ControllerBoxContainer {
-    background-color: transparent !important;
-}
-
-.PlayerPanelContainer {
-    border-top-left-radius: 16px;
-}
-
-.EasyCommentContainer-caption {
-    display: none;
-}
-
-.VideoMenuContainer,
-.BottomContainer,
-.VideoMenuContainer-areaLeft,
-.VideoMenuContainer-areaRight {
-    background-color: transparent;
-}
-
-.SearchBox-optionMenu {
-    bottom: 32px
-}
-
-.VideoMenuContainer-areaLeft .VideoMenuContainer-button,
-.SharePanelVisibleActionButton svg {
-    fill: #f0f0f0;
-}
-
-.VideoMenuContainer::after {
-    border-bottom: none;
-}
-
-.CommentRenderer>canvas,
-.CommentRenderer,
-.VideoSymbolContainer {
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.ControllerBoxContainer.is-fullscreen.is-fixedFullscreenController {
-    background: transparent
-}
-
-.WatchAppContainer {
-    display: flex;
-}
-
-.MainContainer {
-    padding-top: 16px;
-    box-shadow: 0px 0px 0px #000;
-    width: 100%;
-    background: #000;
-    margin-bottom: 0px;
-}
-
-.MainContainer-player {
-    width: 100%
-}
-
-.WatchAppContainer-main {
-    width: calc(100vw - 384px) !important;
-    left: 0;
-    right: auto;
-    margin: 0 !important;
-    padding: 0px 0px;
-}
-
-.MainContainer-playerPanel {
-    position: fixed;
-    top: 36px;
-    height: calc(100% - 72px);
-    background: transparent;
-}
-
-.VideoContainer {
-    background: transparent;
-    margin: auto;
-    overflow: visible
-}
-
-.PlayerPanelContainer {
-    border-top-left-radius: 16px
-}
-
+html.PM-TheaterMode {
+  --theater-bg: var(--bgcolor1);
+  --theater-text: var(--textcolor1);
+  --theater-textd: var(--textcolor2);
+  --theater-accent1: var(--accent1);
+  --theater-accent2: var(--accent2);
+  --theater-sidebg: var(--bgcolor2);
+  --theater-linktext: var(--linktext1);
+  --theater-hoverlink: var(--hover1);
+  --theater-hover: var(--hover1);
+  --theater-headerbg: var(--bgcolor1);
 /*.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand {
-    background: linear-gradient(90deg, hsla(0, 0%, 96%, 0), #fefefe 16%) !important;
-}*/
-
-.HeaderContainer-searchBox {
-    position: fixed;
-    bottom: 0;
-    right: 0
+        background: linear-gradient(90deg, hsla(0, 0%, 96%, 0), #fefefe 16%) !important;
+    }*/
+/* コメント増量 暫定競合回避 */
+/* sidebar */
 }
-
-.SearchBox-input {
-    width: 335px
+html.PM-TheaterMode .ControllerButton svg,
+html.PM-TheaterMode .ControllerButton.PlayerRepeatOnButton svg path,
+html.PM-TheaterMode .PlaybackRateButton svg {
+  fill: var(--theater-text);
 }
-
-.SearchBox {
-    width: 382px
+html.PM-TheaterMode .ControllerContainer-inner {
+  top: 4px;
 }
-
-.HeaderContainer {
-    width: 100%;
-    padding: 0px 8px 0;
-    margin: 0 0 0
+html.PM-TheaterMode .PlayerPauseButton,
+html.PM-TheaterMode .PlayerPlayButton {
+  left: 50%;
+  right: 50%;
+  position: absolute !important;
+  transform: translate(-50%);
+  padding: 2px;
 }
-
-.HeaderContainer-topArea {
-    text-align: center
+html.PM-TheaterMode .ControllerContainer-centerArea>.ControllerButton {
+  padding: 5px;
 }
-
-.HeaderContainer-row .GridCell:last-child {
-    width: fit-content;
-    display: flex
+html.PM-TheaterMode .PlayerOptionContainer {
+  max-height: 330px;
 }
-
-.HeaderContainer-row {
-    width: fit-content;
-    display: flex;
-    margin: auto auto 12px
+html.PM-TheaterMode .common-header-1v0m9lc,
+html.PM-TheaterMode .common-header-1nvgp3g,
+html.PM-TheaterMode .common-header-h0l8yl,
+html.PM-TheaterMode .common-header-cdesjj,
+html.PM-TheaterMode .common-header-171vphh,
+html.PM-TheaterMode .common-header-wb7b82,
+html.PM-TheaterMode .common-header-1ufbzdh,
+html.PM-TheaterMode .common-header-654o26,
+html.PM-TheaterMode .common-header-11u4gc2,
+html.PM-TheaterMode .common-header-1pxv7y0,
+html.PM-TheaterMode .commonHeaderArea,
+html.PM-TheaterMode #CommonHeader {
+  background-color: var(--theater-headerbg) !important;
 }
-
-.VideoDescriptionContainer {
-    margin: 0 auto;
-    margin-bottom: 16px
+html.PM-TheaterMode .HeaderContainer,
+html.PM-TheaterMode .BottomSideContainer,
+html.PM-TheaterMode .BottomMainContainer,
+html.PM-TheaterMode .TagItem,
+html.PM-TheaterMode .PlayerContainer,
+html.PM-TheaterMode .ControllerBoxContainer {
+  background-color: transparent !important;
 }
-
-.SeekBar {
-    margin: auto 0
+html.PM-TheaterMode .PlayerPanelContainer {
+  border-top-left-radius: 16px;
 }
-
-.PlayerPlayTime-playtime,
-.PlayerPlayTime-duration {
-    margin: auto 10px
+html.PM-TheaterMode .EasyCommentContainer-caption {
+  display: none;
 }
-
-.ControllerBoxContainer {
-    margin-top: 8px;
-    padding: 0 128px
+html.PM-TheaterMode .VideoMenuContainer,
+html.PM-TheaterMode .BottomContainer,
+html.PM-TheaterMode .VideoMenuContainer-areaLeft,
+html.PM-TheaterMode .VideoMenuContainer-areaRight {
+  background-color: transparent;
 }
-
-.ControllerContainer {
-    height: 48px
+html.PM-TheaterMode .SearchBox-optionMenu {
+  bottom: 32px;
 }
-
-.EasyCommentContainer {
-    height: auto
+html.PM-TheaterMode .VideoMenuContainer-areaLeft .VideoMenuContainer-button,
+html.PM-TheaterMode .SharePanelVisibleActionButton svg {
+  fill: var(--theater-textd);
 }
-
-.EasyCommentButton {
-    background: transparent;
-    color: #fff;
-    border: 1px solid #aaa
+html.PM-TheaterMode .VideoMenuContainer::after {
+  border-bottom: none;
 }
-
-.CommentPostContainer-commandInput,
-.CommentPostContainer-commentInput {
-    background: transparent
+html.PM-TheaterMode .CommentRenderer>canvas,
+html.PM-TheaterMode .CommentRenderer,
+html.PM-TheaterMode .VideoSymbolContainer {
+  width: 100% !important;
+  height: 100% !important;
 }
-
-.CommentCommandInput,
-.CommentInput-textarea {
-    color: #fff
+html.PM-TheaterMode .ControllerBoxContainer.is-fullscreen.is-fixedFullscreenController {
+  background: transparent;
 }
-
-.CommentPostContainer-commentInput {
-    border-bottom: 2px solid #aaa;
-    border-top: 2px solid #aaa
+html.PM-TheaterMode .WatchAppContainer {
+  display: flex;
 }
-
-.CommentPostContainer-commandInput {
-    border: 2px solid #aaa
+html.PM-TheaterMode .MainContainer {
+  padding-top: 16px;
+  box-shadow: 0px 0px 0px var(--theater-bg);
+  width: 100%;
+  background: transparent;
+  margin-bottom: 0px;
 }
-
-.SeekBarContainer {
-    padding: 8px 16px 0;
-    display: flex
+html.PM-TheaterMode .MainContainer-player {
+  width: 100%;
 }
-
-.SeekBar-buffered {
-    background-color: #666
+html.PM-TheaterMode .WatchAppContainer-main {
+  width: calc(100vw - 384px) !important;
+  left: 0;
+  right: auto;
+  margin: 0 !important;
+  padding: 0px 0px;
 }
-
-.ControllerBoxCommentAreaContainer,
-.EasyCommentContainer {
-    background: transparent
+html.PM-TheaterMode .MainContainer-playerPanel {
+  position: fixed;
+  top: 36px;
+  height: calc(100% - 72px);
+  background: transparent;
 }
-
-.ControllerContainer {
-    z-index: 3
+html.PM-TheaterMode .VideoContainer {
+  background: transparent;
+  margin: auto;
+  overflow: visible;
 }
-.PlayerPlayTime,.PlayTimeFormatter { 
-    color: #fff;
-    width: 40px;
+html.PM-TheaterMode .PlayerPanelContainer {
+  border-top-left-radius: 16px;
 }
-.BaseLayout-main, .BaseLayout { background-color: #000 !important }
-.BottomContainer { background-color: transparent }
-.HeaderContainer { 
-    background: #000
+html.PM-TheaterMode .HeaderContainer-searchBox {
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
-.VideoDescriptionContainer { 
-    padding: 16px;
-    box-shadow: 0px 0px 5px rgba(255,255,255,0.3);
-    border-radius: 8px;
-    color: #fff
+html.PM-TheaterMode .SearchBox-input {
+  width: 335px;
 }
-.VideoDescriptionExpander .VideoDescriptionExpander-switch { 
-    bottom: 8px;
-    text-align: center;
-    width: 100%;
-    background: linear-gradient(180deg,hsla(0,0%,96%,0),#000 25%) !important
+html.PM-TheaterMode .SearchBox {
+  width: 382px;
 }
-.TagItem-name { color: #fff }
-.VideoMenuContainer {
-	background: transparent;
+html.PM-TheaterMode .HeaderContainer {
+  width: 100%;
+  padding: 0px 8px 0;
+  margin: 0 0 0;
 }
-.ControllerBoxCommentAreaContainer { border-right: none }
-.TagContainer {
-    justify-content: center;
+html.PM-TheaterMode .HeaderContainer-topArea {
+  text-align: center;
 }
-.VideoTitle {
-    color: #fff;
-    padding-top: 6px;
+html.PM-TheaterMode .HeaderContainer-row .GridCell:last-child {
+  width: fit-content;
+  display: flex;
 }
-
-.SearchBox {
-    border-right: none;
+html.PM-TheaterMode .HeaderContainer-row {
+  width: fit-content;
+  display: flex;
+  margin: auto auto 12px;
 }
-body:not(.is-fullscreen) .VideoOverlayContainer {
-    z-index: 50;
+html.PM-TheaterMode .VideoDescriptionContainer {
+  margin: 0 auto;
+  margin-bottom: 16px;
 }
-body:not(.is-fullscreen) .PlayerOptionContainer {
-    position:fixed;
-    bottom:0;
-    right:0;
-    max-height: calc(100vh - 40px);
-    backdrop-filter: blur(20px);
-    animation: slidetoleft 0.25s ease forwards 1
+html.PM-TheaterMode .SeekBar {
+  margin: auto 0;
 }
-.PlayerOptionMenu::after {
-	content: "Thank you for using PepperMint+ theater mode!";
-	display: block;
-	text-align: center;
-	margin: 16px 0px;
-	color: #f0f0f0;
+html.PM-TheaterMode .PlayerPlayTime-playtime,
+html.PM-TheaterMode .PlayerPlayTime-duration {
+  margin: auto 10px;
 }
-body.is-fullscreen .WatchAppContainer > :not(.WatchAppContainer-main):not(.ContextMenu-wrapper):not(.ErrorContainer):not(.NicoruNoticeContainer) {
-    display: block !important;
-    animation: sidebartofsc 0.25s ease forwards 1 !important;
+html.PM-TheaterMode .ControllerBoxContainer {
+  margin-top: 8px;
+  padding: 0 128px;
 }
-body:not(.is-fullscreen) .MainContainer-playerPanel {
-    animation: sidebartowind 0.25s ease forwards 1;
+html.PM-TheaterMode .ControllerContainer {
+  height: 48px;
 }
-.HeaderContainer-searchBox {
-    position: fixed;
-    bottom: 0;
-    right: 0
+html.PM-TheaterMode .EasyCommentContainer {
+  height: auto;
 }
-body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) {
-	display: inherit !important;
+html.PM-TheaterMode .EasyCommentButton {
+  background: transparent;
+  color: var(--theater-text);
+  border: 1px solid var(--theater-accent1);
 }
-body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > :not(.HeaderContainer-topArea), body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > .HeaderContainer-topArea > :not(.HeaderContainer-searchBox) {
-    display: none !important;
+html.PM-TheaterMode .CommentPostContainer-commandInput,
+html.PM-TheaterMode .CommentPostContainer-commentInput {
+  background: transparent;
 }
-body:not(.is-fullscreen) .HeaderContainer-searchBox {
-    animation: searchboxtowind 0.25s ease forwards 1;
+html.PM-TheaterMode .CommentCommandInput,
+html.PM-TheaterMode .CommentInput-textarea {
+  color: var(--theater-text);
 }
-body.is-fullscreen .HeaderContainer-searchBox {
-    animation: searchboxtofsc 0.25s ease forwards 1;
+html.PM-TheaterMode .CommentPostContainer-commentInput {
+  border-bottom: 2px solid var(--theater-accent1);
+  border-top: 2px solid var(--theater-accent1);
 }
-a {
-	color: rgb(0, 146, 219);
-	text-decoration: none;
+html.PM-TheaterMode .CommentPostContainer-commandInput {
+  border: 2px solid var(--theater-accent1);
 }
-.EasyCommentButton:hover {
-	background-color: #cce6ff66;
+html.PM-TheaterMode .SeekBarContainer {
+  padding: 8px 16px 0;
+  display: flex;
 }
-
-.GridCell.VideoOwnerInfo-gridCell {
-	width: inherit;
+html.PM-TheaterMode .SeekBar-buffered {
+  background-color: var(--theater-accent2);
 }
-
-.SharePanelVisibleActionButton:hover {
-	background: #eee3;
+html.PM-TheaterMode .ControllerBoxCommentAreaContainer,
+html.PM-TheaterMode .EasyCommentContainer {
+  background: transparent;
 }
-
-.PlayerContainer:not(.is-mouseMoving) .VideoContainer * {
-	cursor: none;
+html.PM-TheaterMode .ControllerContainer {
+  z-index: 3;
 }
-.PlayerContainer .ControllerContainer {
+html.PM-TheaterMode .PlayerPlayTime,
+html.PM-TheaterMode .PlayTimeFormatter {
+  color: var(--theater-text);
+  width: 40px;
+}
+html.PM-TheaterMode .BaseLayout-main,
+html.PM-TheaterMode .BaseLayout {
+  background-color: var(--theater-bg) !important;
+}
+html.PM-TheaterMode .BottomContainer {
+  background-color: transparent;
+}
+html.PM-TheaterMode .HeaderContainer {
+  background: var(--theater-bg);
+}
+html.PM-TheaterMode .VideoDescriptionContainer {
+  padding: 16px;
+  box-shadow: 0px 0px 5px rgba(255,255,255,0.3);
+  border-radius: 8px;
+  color: var(--theater-text);
+}
+html.PM-TheaterMode .VideoDescriptionExpander .VideoDescriptionExpander-switch {
+  bottom: 8px;
+  text-align: center;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(245,245,245,0), var(--theater-bg) 25%) !important;
+}
+html.PM-TheaterMode .TagItem-name {
+  color: var(--theater-text);
+}
+html.PM-TheaterMode .VideoMenuContainer {
+  background: transparent;
+}
+html.PM-TheaterMode .ControllerBoxCommentAreaContainer {
+  border-right: none;
+}
+html.PM-TheaterMode .TagContainer {
+  justify-content: center;
+}
+html.PM-TheaterMode .VideoTitle {
+  color: var(--theater-text);
+  padding-top: 6px;
+}
+html.PM-TheaterMode .SearchBox {
+  border-right: none;
+}
+html.PM-TheaterMode body:not(.is-fullscreen) .VideoOverlayContainer {
+  z-index: 50;
+}
+html.PM-TheaterMode body:not(.is-fullscreen) .PlayerOptionContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  max-height: calc(100vh - 40px);
+  backdrop-filter: blur(20px);
+  animation: slidetoleft 0.25s ease forwards 1;
+}
+html.PM-TheaterMode .PlayerOptionMenu::after {
+  content: "Thank you for using PepperMint+ theater mode!";
+  display: block;
+  text-align: center;
+  margin: 16px 0px;
+  color: var(--theater-textd);
+}
+html.PM-TheaterMode .HeaderContainer-searchBox {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+html.PM-TheaterMode body:not(.is-fullscreen) .MainContainer-playerPanel {
+  animation: sidebartowind 0.25s ease forwards 1;
+}
+html.PM-TheaterMode body.is-fullscreen .WatchAppContainer > .BaseLayout-container > .BaseLayout-contents > :not(.WatchAppContainer-main):not(.ContextMenu-wrapper):not(.ErrorContainer):not(.NicoruNoticeContainer) {
+  display: block !important;
+  animation: sidebartofsc 0.25s ease forwards 1 !important;
+}
+html.PM-TheaterMode body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer):not(.WakutkoolNoticeContainer) {
+  display: inherit !important;
+}
+html.PM-TheaterMode body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > :not(.HeaderContainer-topArea),
+html.PM-TheaterMode body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > .HeaderContainer-topArea > :not(.HeaderContainer-searchBox) {
+  display: none !important;
+}
+html.PM-TheaterMode body:not(.is-fullscreen) .HeaderContainer-searchBox {
+  animation: searchboxtowind 0.25s ease forwards 1;
+}
+html.PM-TheaterMode body.is-fullscreen .HeaderContainer-searchBox {
+  animation: searchboxtofsc 0.25s ease forwards 1;
+}
+html.PM-TheaterMode .EasyCommentButton:hover {
+  background-color: var(--theater-hoverlink);
+}
+html.PM-TheaterMode .GridCell.VideoOwnerInfo-gridCell {
+  width: inherit;
+}
+html.PM-TheaterMode .SharePanelVisibleActionButton:hover {
+  background: var(--theater-hover);
+}
+html.PM-TheaterMode .PlayerContainer:not(.is-mouseMoving) .VideoContainer * {
+  cursor: none;
+}
+html.PM-TheaterMode .PlayerContainer .ControllerContainer {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+html.PM-TheaterMode .PlayerContainer:not(.is-mouseMoving):has(.VideoContainer:hover) .ControllerContainer {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+html.PM-TheaterMode body.is-fullscreen .BaseLayout-main,
+html.PM-TheaterMode body.is-fullscreen .BaseLayout {
+  background: #000 !important;
+}
+html.PM-TheaterMode .CustomVideoContainer {
+  aspect-ratio: 21/9;
+  width: 100% !important;
+  height: inherit !important;
+}
+html.PM-TheaterMode .CustomVideoContainer.CommentRenderer {
+  width: 100% !important;
+}
+html.PM-TheaterMode .CustomVideoContainer .CommentRenderer > canvas {
+  inset: 0px;
+  margin: 0px auto;
+}
+html.PM-TheaterMode .CustomVideoContainer .CommentRenderer > canvas {
+  width: auto !important;
+  height: 100% !important;
+}
+html.PM-TheaterMode #VideoMenuDrawer-app {
+  position: fixed;
+  left: 0;
+  top: 36px;
+  z-index: 6000001;
+}
+html.PM-TheaterMode #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-fdpmya {
+  background: var(--theater-sidebg);
+  border-radius: 50%;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+html.PM-TheaterMode #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-10yxuc8 svg path {
+  fill: var(--theater-text) !important;
+}
+html.PM-TheaterMode .VideoUploadDateMeta-title,
+html.PM-TheaterMode .VideoViewCountMeta-title,
+html.PM-TheaterMode .CommentCountMeta-title,
+html.PM-TheaterMode .MylistCountMeta-title,
+html.PM-TheaterMode .VideoGenreMeta-title,
+html.PM-TheaterMode .GenreRankMeta-genreName {
+  color: var(--theater-text);
+}
+html.PM-TheaterMode .VideoUploadDateMeta-dateTimeLabel,
+html.PM-TheaterMode .VideoViewCountMeta-counter,
+html.PM-TheaterMode .CommentCountMeta-counter,
+html.PM-TheaterMode .MylistCountMeta-counter,
+html.PM-TheaterMode .VideoGenreMeta-genreName,
+html.PM-TheaterMode .VideoGenreMeta-link,
+html.PM-TheaterMode .GenreRankMeta-yesterdayRank {
+  color: var(--theater-textd);
+}
+html.PM-TheaterMode .VideoMetaContainer > *,
+html.PM-TheaterMode .VideoMetaOverflowMenuContainer {
+  border-left: 1px solid var(--theater-textd);
+  box-shadow: -1px 0 0 0 var(--theater-accent1);
+}
+html.PM-TheaterMode .VideoDescriptionSeriesContainer-label {
+  color: var(--theater-textd);
+}
+@-moz-keyframes slidetoleft {
+  from {
+    opacity: 0;
+    right: -384px;
+  }
+  to {
     opacity: 1;
-    transition: opacity 0.2s ease;
+    right: 0px;
+  }
 }
-.PlayerContainer:not(.is-mouseMoving):has(.VideoContainer:hover) .ControllerContainer {
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
+@-webkit-keyframes slidetoleft {
+  from {
+    opacity: 0;
+    right: -384px;
+  }
+  to {
+    opacity: 1;
+    right: 0px;
+  }
 }
-
+@-o-keyframes slidetoleft {
+  from {
+    opacity: 0;
+    right: -384px;
+  }
+  to {
+    opacity: 1;
+    right: 0px;
+  }
+}
 @keyframes slidetoleft {
-    from {
-        opacity: 0;
-        right: -384px;
-    }
-    to {
-        opacity: 1;
-        right: 0px;
-    }
+  from {
+    opacity: 0;
+    right: -384px;
+  }
+  to {
+    opacity: 1;
+    right: 0px;
+  }
+}
+@-moz-keyframes sidebartofsc {
+  0% {
+    right: 0px;
+    opacity: 1;
+  }
+  100% {
+    right: -384px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes sidebartofsc {
+  0% {
+    right: 0px;
+    opacity: 1;
+  }
+  100% {
+    right: -384px;
+    opacity: 0;
+  }
+}
+@-o-keyframes sidebartofsc {
+  0% {
+    right: 0px;
+    opacity: 1;
+  }
+  100% {
+    right: -384px;
+    opacity: 0;
+  }
 }
 @keyframes sidebartofsc {
-    0% {
-        right: 0px;
-        opacity: 1;
-
-    }
-    100% {
-        right: -384px;
-        opacity: 0;
-    }
+  0% {
+    right: 0px;
+    opacity: 1;
+  }
+  100% {
+    right: -384px;
+    opacity: 0;
+  }
+}
+@-moz-keyframes sidebartowind {
+  0% {
+    display: block;
+    right: -384px;
+    opacity: 0;
+  }
+  100% {
+    right: 0px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes sidebartowind {
+  0% {
+    display: block;
+    right: -384px;
+    opacity: 0;
+  }
+  100% {
+    right: 0px;
+    opacity: 1;
+  }
+}
+@-o-keyframes sidebartowind {
+  0% {
+    display: block;
+    right: -384px;
+    opacity: 0;
+  }
+  100% {
+    right: 0px;
+    opacity: 1;
+  }
 }
 @keyframes sidebartowind {
-    0% {
-        display: block;
-        right: -384px;
-        opacity: 0;
-    }
-    100% {
-        right: 0px;
-        opacity: 1;
-    }
+  0% {
+    display: block;
+    right: -384px;
+    opacity: 0;
+  }
+  100% {
+    right: 0px;
+    opacity: 1;
+  }
 }
-
+@-moz-keyframes searchboxtofsc {
+  0% {
+    bottom: 0;
+    opacity: 1;
+  }
+  100% {
+    bottom: -36px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes searchboxtofsc {
+  0% {
+    bottom: 0;
+    opacity: 1;
+  }
+  100% {
+    bottom: -36px;
+    opacity: 0;
+  }
+}
+@-o-keyframes searchboxtofsc {
+  0% {
+    bottom: 0;
+    opacity: 1;
+  }
+  100% {
+    bottom: -36px;
+    opacity: 0;
+  }
+}
 @keyframes searchboxtofsc {
-    0% {
-        bottom: 0;
-        opacity: 1;
-
-    }
-    100% {
-        bottom: -36px;
-        opacity: 0;
-    }
+  0% {
+    bottom: 0;
+    opacity: 1;
+  }
+  100% {
+    bottom: -36px;
+    opacity: 0;
+  }
+}
+@-moz-keyframes searchboxtowind {
+  0% {
+    bottom: -36px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+@-webkit-keyframes searchboxtowind {
+  0% {
+    bottom: -36px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 0px;
+    opacity: 1;
+  }
+}
+@-o-keyframes searchboxtowind {
+  0% {
+    bottom: -36px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 0px;
+    opacity: 1;
+  }
 }
 @keyframes searchboxtowind {
-    0% {
-        bottom: -36px;
-        opacity: 0;
-
-    }
-    100% {
-        bottom: 0px;
-        opacity: 1;
-    }
+  0% {
+    bottom: -36px;
+    opacity: 0;
+  }
+  100% {
+    bottom: 0px;
+    opacity: 1;
+  }
 }
-
-/* コメント増量 暫定競合回避 */
-.CustomVideoContainer {
-	aspect-ratio: 21 / 9;
-	width: 100% !important;
-	height: inherit !important;
+html.PM-TheaterMode:has(.PlayerContainer:not(.is-mouseMoving) .VideoContainer:hover) #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-fdpmya {
+  opacity: 0;
 }
-.CustomVideoContainer.CommentRenderer {
-	width: 100% !important;
+html.PM-TheaterMode:not(.PMDM-Enabled) {
+  --theater-bg: #f4f4f4;
+  --theater-text: #001835;
+  --theater-textd: #2a2a2a;
+  --theater-accent1: #e0e0e0;
+  --theater-accent2: #dadada;
+  --theater-sidebg: #f0f0f0;
+  --theater-linktext: #0092db;
+  --theater-hoverlink: #c0d7ec;
+  --theater-hover: rgba(238,238,238,0.2);
+  --theater-headerbg: #252525;
 }
-.CustomVideoContainer .CommentRenderer > canvas {
-	inset: 0px;
-	margin: 0px auto;
+html.PM-TheaterMode body.is-PMLightPalette {
+  --theater-headerbg: #252525;
 }
-.CustomVideoContainer .CommentRenderer > canvas{
-	width: auto !important;
-	height: 100% !important;
+html.PM-TheaterUseBlack {
+  --theater-bg: #000;
+  --theater-text: #fff;
+  --theater-textd: #f0f0f0;
+  --theater-accent1: #aaa;
+  --theater-accent2: #666;
+  --theater-sidebg: rgba(34,34,34,0.667);
+  --theater-linktext: #0092db;
+  --theater-hoverlink: rgba(204,230,255,0.4);
+  --theater-hover: rgba(238,238,238,0.2);
+  --theater-headerbg: #000;
 }

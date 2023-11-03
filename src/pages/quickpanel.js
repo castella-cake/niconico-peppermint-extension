@@ -1,11 +1,12 @@
 let manifestData = chrome.runtime.getManifest();
 $("#current-version").text("v" + manifestData.version_name + " MV" + manifestData.manifest_version)
+$("#version-disp").text("v" + manifestData.version_name)
 if (chrome.browserAction != undefined) {
     chrome.browserAction.setBadgeText({ text: "" })
 } else if (chrome.action != undefined) {
     chrome.action.setBadgeText({ text: "" })
 }
-if (manifestData.version_name.indexOf('PRE') != -1) {
+if (manifestData.version_name.indexOf('PRE') != -1 || manifestData.version_name.indexOf('DEV') != -1) {
     document.querySelector('.betafeedbacklink').classList.remove('disabled')
 }
 
@@ -105,6 +106,9 @@ function restoreOptions(storage) {
 function makeElem() {
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(function (result) {
+        if (result.skipquickpanel === true) {
+            location.href = "option.html"
+        }
         restoreOptions(result)
         if (result.enableseriesstock) {
             let titlecontainer = document.createElement('div')
@@ -283,6 +287,7 @@ function makeElem() {
                                 ownerrowlinkelem.classList.add('stockedseries-ownerrowlink')
                                 ownerrowlinkelem.textContent = `${res.data.detail.owner.channel.name}`
                                 ownerrowlinkelem.href = `https://ch.nicovideo.jp/${res.data.detail.owner.channel.id}`
+                                ownerrowlinkelem.target = "_blank"
                                 // spanをオーナーコンテナに入れる
                                 ownerrowelem.appendChild(ownerrownameelem)
                                 // リンクも入れる
@@ -297,6 +302,7 @@ function makeElem() {
                                 ownerrowlinkelem.classList.add('stockedseries-ownerrowlink')
                                 ownerrowlinkelem.textContent = `${res.data.detail.owner.user.nickname}`
                                 ownerrowlinkelem.href = `https://www.nicovideo.jp/user/${res.data.detail.owner.user.id}`
+                                ownerrowlinkelem.target = "_blank"
                                 if (res.data.detail.owner.user.isPremium) {
                                     // プレだったら色変更
                                     ownerrowlinkelem.style = "color: #fcb205"
@@ -424,12 +430,26 @@ function makeElem() {
             })
             document.getElementById('tabbutton-nicorepo').classList.remove('disabled')
             let callGRN = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo" }, resolve))
-            callGRN.then(res => {
+            callGRN.then(updateNicorepoDisp)
+            function updateNicorepoDisp(res) {
+                document.getElementById('nicorepo').innerHTML = ""
                 if (res.meta.status == "200") {
                     let lastfetchdateelem = document.createElement('div')
                     let fetchdate = new Date(res.fetchdate)
                     lastfetchdateelem.textContent = `最終取得:` + fetchdate.toLocaleString()
                     lastfetchdateelem.classList.add('nicorepo-lastfetch')
+
+                    let reloadbuttonelem = document.createElement('button')
+                    reloadbuttonelem.id = "reporeload"
+                    reloadbuttonelem.textContent = "refresh"
+                    reloadbuttonelem.classList.add('material-icons-outlined')
+                    reloadbuttonelem.addEventListener('click', function () {
+                        document.getElementById('nicorepo').innerHTML = "取得中…"
+                        let callGRN = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo", "updateType": 1 }, resolve))
+                        callGRN.then(updateNicorepoDisp)
+                    })
+                    lastfetchdateelem.appendChild(reloadbuttonelem)
+
                     document.getElementById('nicorepo').appendChild(lastfetchdateelem)
                     let rowlistcontainer = document.createElement('div')
                     rowlistcontainer.classList.add('nicorepo-rowlistcontainer')
@@ -493,10 +513,21 @@ function makeElem() {
                     errorelem.style = "color: red"
                     document.getElementById('nicorepo').appendChild(errorelem)
                 }
-            })
+            }
         }
     }, onError);
+    let getLocalStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
+    getLocalStorageData.then(function (result) {
+        if (result.versionupdated) {
+            document.getElementById("updatedinfo").style = ""
+        }
+    })
 }
+
+document.getElementById("closeupdateinfo").addEventListener('click', function() {
+    chrome.storage.local.set({ "versionupdated": false })
+    document.getElementById("updatedinfo").style = "display:none;"
+})
 
 $("#settings-form").on('change', saveOptions);
 document.addEventListener("DOMContentLoaded", makeElem);

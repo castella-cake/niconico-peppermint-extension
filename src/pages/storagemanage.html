@@ -3,12 +3,13 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <title>ユーザーデータの管理</title>
         <link rel="stylesheet" href="options.css"/>
     </head>
 
     <body>
         <div class="container">
-        <header class="title"><a href="credit.html" target="_self"><</a>ストレージの管理</header>
+        <header class="title"><a href="credit.html" target="_self"><</a>ユーザーデータの管理</header>
         <div class="maincontainer">
             <h1>Import</h1>
             <div style="margin-bottom: 8px;">
@@ -25,7 +26,7 @@
                 これにはストックされたシリーズなどのデリケートな情報が含まれているので、誰かに共有する際は十分注意してください。<br>
                 コピーした設定を保存する際は、json形式で保存することをおすすめします。
             </div>
-            <button type="button" id="storagetoclipboard" style="margin: 8px 0;">コピー</button><button type="button" id="showstorage" style="margin: 8px 0;">表示</button>
+            <button type="button" id="storagetoclipboard" class="action-button">コピー</button><button type="button" id="showstorage" class="action-button">表示</button>
             <div id="storage-data" style="font-family: monospace;overflow: scroll; background-color: #000; color: #000">ストレージがありません。</div>
             <h1>Local storage</h1>
             <div style="margin-bottom: 8px;">
@@ -33,7 +34,12 @@
                 消去機能は基本的にデバッグ用ですが、エピソードリストやニコレポの動作がおかしい場合に役立つ可能性が僅かにあります。(同期ストレージに保存されている設定は削除されません)
             </div>
             <div>現在のローカルストレージ使用容量: <span id="localstoragesize" style="font-weight: bold;">0</span> Byte</div>
-            <button type="button" id="localstoragetoclipboard" style="margin: 8px 0;">コピー</button><button type="button" class="dangerous-button" style="margin-left: 8px;" id="clearlocalstorage">ローカルストレージを消去</button>
+            <button type="button" id="localstoragetoclipboard" class="action-button">ストレージの内容をコピー</button><button type="button" class="dangerous-button" id="clearlocalstorage">ローカルストレージを消去</button>
+            <h1>Reset</h1>
+            <div style="margin-bottom: 8px;">
+                PepperMintの設定、シリーズストックなどのユーザーデータ、キャッシュを全て削除します。
+            </div>
+            <a href="confirmreset.html" target="_self" class="settinglink dangerouslink">PepperMintをリセット...</a>
         </div>
         </div>
         <script src="../lib/jquery.min.js"></script>

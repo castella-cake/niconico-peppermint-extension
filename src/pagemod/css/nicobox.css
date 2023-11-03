@@ -65,11 +65,11 @@
     width: 100%
 }
 
-.WatchAppContainer-main { 
-    width: calc( 100% - 384px ) !important;
-    right: 384px;
-    margin: 0 0 0 auto !important;
-    padding: 0px
+.WatchAppContainer-main {
+	width: calc(100vw - 384px) !important;
+	right: 0px;
+	margin: 0 0 0 auto !important;
+	padding: 0px;
 }
 
 .MainContainer-player { 
@@ -154,4 +154,19 @@
 
 .GridCell.VideoOwnerInfo-gridCell {
 	width: inherit;
+}
+
+/* sidebar */
+#VideoMenuDrawer-app {
+	position: fixed;
+	left: 0;
+	top: 36px;
+	z-index: 6000001;
+}
+.css-1q3tz1l .css-fdpmya {
+	background: var(--bgcolor2);
+    border-radius: 50%;
+}
+.css-1q3tz1l .css-10yxuc8 svg path {
+    fill: var(--textcolor1) !important;
 }

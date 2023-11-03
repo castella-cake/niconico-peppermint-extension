@@ -5,9 +5,9 @@
 	--destructive-hover: #e22850;
 	--destructive-dark: #810220;
     /* 基本背景色 */
-    --bgcolor1: #fff;
+    --bgcolor1: #fefefe;
     /* サブ背景色1 */
-    --bgcolor2: #fff;
+    --bgcolor2: #fcfcfc;
     /* サブ背景色2 */
     --bgcolor3: #eaeaea;
     --bgcolor4: #e0e0e0;
@@ -37,13 +37,14 @@
 }
 
 body {
-	width: 480px;
+	width: 520px;
 	margin: 0;
 	background-color: Canvas;
 	color: CanvasText;
 	opacity: 100;
 	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
 	font-size: 12px;
+	background: var(--bgcolor1);
 }
 
 .width-big {
@@ -59,6 +60,15 @@ h1 {
 	margin: 5px 0px;
 	border-bottom: 2px solid rgba(0, 0, 0, 0.5);
 	width: 100%;
+}
+
+.includelinks a:visited:not(.settinglink), .includelinks a:not(.settinglink) {
+	color: var(--linktext1);
+}
+
+.settings-area h1 {
+	margin: 0px 0px 10px 0px;
+	border-bottom: none;
 }
 
 #current-version {
@@ -102,7 +112,7 @@ h1 {
 .title {
 	font-size: 24px;
 	padding: 15px 15px;
-	border-bottom: 0px solid rgba(0, 0, 0, 0.5);
+	/*border-bottom: 0px solid rgba(0, 0, 0, 0.5);*/
 	text-align: left;
 	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
 	letter-spacing: 1px;
@@ -110,6 +120,12 @@ h1 {
 	box-shadow: 0px 0px 5px #000;*/
 	line-height: 24px;
 	font-weight: lighter;
+}
+.settings-area {
+	background: var(--bgcolor2);
+	border-radius: 4px;
+	padding: 8px;
+	margin-bottom: 8px;
 }
 
 .toptitle {
@@ -150,8 +166,8 @@ h1 {
 
 .hint {
 	font-size: 10px;
-	font-style: italic;
 	margin-bottom: 2px;
+	line-height: 16px;
 }
 
 .flavortext {
@@ -190,22 +206,31 @@ h1 {
 form,
 .maincontainer {
 	margin-bottom: 2px;
-	padding: 0px 10px 10px;
+	padding: 0px 8px 8px;
 }
 
 select {
 	margin-left: 5px;
 	border: 0px solid #fff;
 	border-radius: 2px;
-	padding: 3px 6px;
+	padding: 4px 6px;
+	font-family: Lato, Meiryo, sans-serif;
+	background: var(--bgcolor3);
+}
+select:hover {
+	background: var(--accent1);
 }
 
 .settings-row {
-	margin: 6px 0;
+	margin-bottom: 6px;
+	padding-bottom: 6px;
+}
+.settings-area .settings-row {
+	border-bottom: 1px solid var(--accent1);
 }
 
 label {
-	font-size: 12px;
+	font-size: 13px;
 }
 
 #input-headercolor {
@@ -229,6 +254,27 @@ label {
 .settinglink:hover {
 	color: #fff;
 	background: var(--primary-hover);
+}
+
+.action-button {
+	text-decoration: none;
+	color: var(--textcolor1);
+	padding: 5px;
+	background: var(--bgcolor4);
+	box-shadow: 0px 0px 1px var(--shadow1);
+	border-radius: 5px;
+	margin: 8px 0;
+	text-align: center;
+	width: fit-content;
+	border: none;
+	margin-right: 8px;
+	font-family: "SF Pro Text", "Yu Gothic UI", "Meiryo UI", sans-serif;
+	font-size: 12px;
+}
+
+.action-button:hover {
+	color: var(--textcolor1);
+	background: var(--hover2);
 }
 
 .page-desc {
@@ -296,7 +342,7 @@ th,
 td {
 	padding: 3px;
 	border: 5px;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: var(--bgcolor2);
 	border-radius: 3px;
 	overflow: hidden;
 	height: 16px;
@@ -352,7 +398,8 @@ tr td:nth-child(7) {
 	line-height: 1;
 	margin: 8px 1px;
 	padding: 0;
-	font-family: "Lato",sans-serif
+	font-family: "Lato",sans-serif;
+	text-decoration: none;
 }
 
 .serieslink-container .stockedseries-row-link {
@@ -516,7 +563,7 @@ tr td:nth-child(7) {
 }
 .quickpanel-mainpanel {
 	background: var(--bgcolor2);
-	padding-top: 8px;
+	padding-top: 12px;
 	z-index: 2;
 	position: relative;
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
@@ -559,6 +606,16 @@ tr td:nth-child(7) {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+#reporeload {
+	background: var(--accent1);
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 4px;
+	vertical-align: middle;
+	margin-left: 4px;
+	border-radius: 4px;
+}
 
 .quickpanel-mainpanel > .tabpanel {
 	display: none;
@@ -567,6 +624,13 @@ tr td:nth-child(7) {
 	display: inherit;
 }
 
+#updatedinfo {
+	background: var(--accent1);
+	padding: 8px;
+	margin: 8px 0px;
+	border-radius: 4px;
+	font-size: 13px;
+}
 
 .noyugothic {
 	font-family: "Lato",sans-serif
@@ -582,7 +646,7 @@ tr td:nth-child(7) {
 	    /* 基本背景色 */
 		--bgcolor1: #1c1b22;
 		/* サブ背景色1 */
-		--bgcolor2: #23222b;
+		--bgcolor2: #201f27;
 		/* サブ背景色2 */
 		--bgcolor3: #43424d;
 		--bgcolor4: #53525e;
@@ -639,6 +703,8 @@ tr td:nth-child(7) {
 
 	.container {
 		padding: 64px;
+		line-height: 20px;
+		font-size: 14px;
 	}
 
 	h1 {
@@ -649,12 +715,12 @@ tr td:nth-child(7) {
 
 		html,
 		body {
-			background-color: #23222b;
-			color: #fff;
+			background-color: var(--bgcolor1);
+			color: var(--textcolor1);
 		}
 	}
 
-	.settinglink {
+	.settinglink, .dangerous-button, .action-button {
 		font-weight: bold;
 		padding: 6px 10px;
 		font-size: 15px;
@@ -673,7 +739,8 @@ tr td:nth-child(7) {
 	.hint {
 		font-size: 12px;
 		font-style: normal;
-		margin-bottom: 2px;
+		margin-bottom: 0px;
+		line-height: 20px;
 	}
 
 	.settings-row>.hint {
@@ -681,8 +748,8 @@ tr td:nth-child(7) {
 	}
 
 	.settings-row {
-		margin: 4px 0;
-		padding: 3px;
+		margin-bottom: 8px;
+		padding-bottom: 8px;
 	}
 
 	th,
@@ -692,7 +759,15 @@ tr td:nth-child(7) {
 	}
 
 	h1 {
-		margin-top: 32px
+		margin-top: 24px
+	}
+
+	.settings-area h1 {
+		margin-top: 0px
+	}
+
+	.settings-area {
+		margin-top: 16px;
 	}
 
 	textarea {
