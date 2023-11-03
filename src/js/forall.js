@@ -244,7 +244,7 @@ function createFastCSSRule(result) {
         if (location.hostname == "inform.nicovideo.jp") {
             document.documentElement.classList.add('PMDM-Inform')
         }
-        if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp" ) {
+        if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp" && location.hostname != "site.nicovideo.jp" ) {
             document.documentElement.classList.add('PMDM-Enabled')
         }
     } 
@@ -268,7 +268,7 @@ function createFastCSSRule(result) {
 function createBaseCSSRule(result) {
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
 
-        if (location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp") {
+        if (location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp" && location.hostname != "site.nicovideo.jp") {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
             if (location.hostname == "www.nicovideo.jp") {
                 if (location.pathname.indexOf('/video_top') != -1) {
