@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ユーザーページのダークモードサポートが正しく適用されない問題を修正しました
 - `site.nicovideo.jp`ドメインはダークモード適用外になりました
 - クイックパネルでシリーズのオーナーページに移動できない場合がある問題を修正しました
+- 旧Nicobox風UIの幅が正しくない問題を暫定的に修正しました
 
 ## [1.7.2] - 2023/09/16
 
