@@ -62,7 +62,7 @@ h1 {
 	width: 100%;
 }
 
-a[href^="https://"]:visited:not(.titlelink):not(.betafeedbacklink):not(.title), a[href^="https://"]:not(.titlelink):not(.betafeedbacklink):not(.optlink) {
+.includelinks a:visited, .includelinks a {
 	color: var(--linktext1);
 }
 
@@ -397,7 +397,8 @@ tr td:nth-child(7) {
 	line-height: 1;
 	margin: 8px 1px;
 	padding: 0;
-	font-family: "Lato",sans-serif
+	font-family: "Lato",sans-serif;
+	text-decoration: none;
 }
 
 .serieslink-container .stockedseries-row-link {
