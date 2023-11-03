@@ -29,7 +29,7 @@ function createBaseCSSRule(result) {
                 //addCSS(chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css"));
             }
             if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp" ) {
-                addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
+                //addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
                 document.body.classList.add('is-PMDarkPalette')
             }
             if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
