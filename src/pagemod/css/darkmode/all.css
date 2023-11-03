@@ -123,15 +123,15 @@ body {
     border-bottom: 1px solid var(--accent2) !important;
 }
 .nico-CommonHeaderRoot .common-header-1swev0c:hover {
-    background-color: #555 !important;
+    background-color: var(--hover1) !important;
 }
 .nico-CommonHeaderRoot .common-header-kolmxm {
-    background: rgba(255,255,255,0.1) !important;
-    border-bottom: 1px solid var(--accent1) !important;
+	background: var(--accent1) !important;
+	border-bottom: 1px solid var(--accent2) !important;
 }
 .nico-CommonHeaderRoot .common-header-kolmxm:hover {
-    background: rgba(255,255,255,0.2) !important;
-    border-bottom: 1px solid var(--accent1) !important;
+	background: var(--hover1) !important;
+	border-bottom: 1px solid var(--accent2) !important;
 }
 .nico-CommonHeaderRoot .common-header-vv8zyj {
     color: var(--textcolor1) !important;
