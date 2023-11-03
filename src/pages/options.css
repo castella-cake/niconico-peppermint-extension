@@ -222,8 +222,8 @@ select:hover {
 }
 
 .settings-row {
-	margin-bottom: 4px;
-	padding-bottom: 4px;
+	margin-bottom: 6px;
+	padding-bottom: 6px;
 }
 .settings-area .settings-row {
 	border-bottom: 1px solid var(--accent1);
@@ -562,7 +562,7 @@ tr td:nth-child(7) {
 }
 .quickpanel-mainpanel {
 	background: var(--bgcolor2);
-	padding-top: 8px;
+	padding-top: 12px;
 	z-index: 2;
 	position: relative;
 	box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
