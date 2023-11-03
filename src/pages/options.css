@@ -62,7 +62,7 @@ h1 {
 	width: 100%;
 }
 
-.includelinks a:visited, .includelinks a {
+.includelinks a:visited:not(.settinglink), .includelinks a:not(.settinglink) {
 	color: var(--linktext1);
 }
 
