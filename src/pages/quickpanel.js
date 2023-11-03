@@ -1,5 +1,6 @@
 let manifestData = chrome.runtime.getManifest();
 $("#current-version").text("v" + manifestData.version_name + " MV" + manifestData.manifest_version)
+$("#version-disp").text("v" + manifestData.version_name)
 if (chrome.browserAction != undefined) {
     chrome.browserAction.setBadgeText({ text: "" })
 } else if (chrome.action != undefined) {
@@ -105,6 +106,9 @@ function restoreOptions(storage) {
 function makeElem() {
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(function (result) {
+        if (result.skipquickpanel === true) {
+            location.href = "option.html"
+        }
         restoreOptions(result)
         if (result.enableseriesstock) {
             let titlecontainer = document.createElement('div')
@@ -510,7 +514,18 @@ function makeElem() {
             }
         }
     }, onError);
+    let getLocalStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
+    getLocalStorageData.then(function (result) {
+        if (result.versionupdated) {
+            document.getElementById("updatedinfo").style = ""
+        }
+    })
 }
+
+document.getElementById("closeupdateinfo").addEventListener('click', function() {
+    chrome.storage.local.set({ "versionupdated": false })
+    document.getElementById("updatedinfo").style = "display:none;"
+})
 
 $("#settings-form").on('change', saveOptions);
 document.addEventListener("DOMContentLoaded", makeElem);

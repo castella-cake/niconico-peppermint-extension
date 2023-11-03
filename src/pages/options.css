@@ -62,6 +62,10 @@ h1 {
 	width: 100%;
 }
 
+a[href^="https://"]:visited:not(.titlelink):not(.betafeedbacklink):not(.title), a[href^="https://"]:not(.titlelink):not(.betafeedbacklink):not(.optlink) {
+	color: var(--linktext1);
+}
+
 .settings-area h1 {
 	margin: 0px 0px 10px 0px;
 	border-bottom: none;
@@ -618,6 +622,13 @@ tr td:nth-child(7) {
 	display: inherit;
 }
 
+#updatedinfo {
+	background: var(--accent1);
+	padding: 8px;
+	margin: 8px 0px;
+	border-radius: 4px;
+	font-size: 13px;
+}
 
 .noyugothic {
 	font-family: "Lato",sans-serif

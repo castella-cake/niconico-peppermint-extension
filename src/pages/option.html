@@ -129,8 +129,12 @@
                     <div class="hint">プレイヤーにフォーカスされていない場合でも、再生/一時停止,シーク送り/戻し,コメントフォーカスのショートカットを使用可能にします。<br>また、「いいね！」のショートカット(Hキー)を追加します。ExCommanderを有効化すると、Backspaceでコマンダーが開けるようになります。</div>
                 </div>
                 <div class="settings-row browser-style">
-                    <label><input type="checkbox" id="input-usetheaterui">シアターUIを使用</label>
-                    <div class="hint">動画を大きく表示しつつ、プレイヤーパネルを表示するシアターページを使用します。「Nicobox風UIを使用」が優先されます。</div>
+                    <label><input type="checkbox" id="input-usetheaterui">シアターUIを使用</label><label><input type="checkbox" id="input-disabletheaterpalette">カラーパレットを使用</label>
+                    <div class="hint">
+                        動画を大きく表示しつつ、プレイヤーパネルを表示するシアターページを使用します。「Nicobox風UIを使用」が優先されます。<br>
+                        「カラーパレットを使用」を有効化すると、動画エリアのパレットに現在のテーマパレットを使用します。<br>
+                        「カラーパレットを使用」を無効化すると、動画エリアのパレットにSolidBlackベースの黒いパレットを使用します。
+                    </div>
                 </div>
                 <div class="settings-row browser-style">
                     <label><input type="checkbox" id="input-enablenicoboxui">Nicobox風UIのトグルボタンを表示</label>
@@ -277,7 +281,15 @@
                     <div class="hint">
                         クイックパネルに「ニコレポ」タブが表示されるようになり、ニコレポを確認できるようになります。<br>45分おきに新着を確認し、新着ニコレポがある場合はツールバーバッジで通知します。この機能が動作するには、ブラウザ内でニコニコにログインしている必要があります。
                     </div>
-                </div><!--
+                </div>
+                <div class="settings-row browser-style">
+                    <label><input type="checkbox" id="input-skipquickpanel">クイックパネルをスキップ</label>
+                    <div class="hint">
+                        ツールバーボタンをクリックした場合に、クイックパネルを表示せずそのまま設定へ移動します。<br>
+                        ニコレポリーダーやシリーズストックを使用しない場合に適しています。
+                    </div>
+                </div>
+                <!--
                 <div class="settings-row browser-style">
                     <label><input type="checkbox" id="input-enableexvideodata">ExVideoDataサービスの使用</label>
                     <div class="hint">

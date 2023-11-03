@@ -24,6 +24,13 @@
         <div class="quickpanel-tabcontainer"><button type="button" id="tabbutton-dashboard" class="current-tab">ダッシュボード</button> <button type="button" id="tabbutton-nicorepo" class="disabled">ニコレポ</button> <button type="button" id="tabbutton-noticebox" class="disabled">お知らせ</button></div>
         <form id="settings-form" class="quickpanel-mainpanel">
             <div id="dashboard" class="current-tabpanel tabpanel">
+                <div style="display: none;" id="updatedinfo">
+                    Niconico-PepperMint+ が <span id="version-disp"></span> にアップデートされました！<br>
+                    変更や追加機能は<a href="https://github.com/castella-cake/niconico-peppermint-extension/releases/latest" target="_blank" rel="noopener noreferrer">Releases</a>から確認できます。<br>
+                    PepperMintを使用していただきありがとうございます！<br>
+                    よければ、開発者を<a href="https://github.com/sponsors/castella-cake" target="_blank" rel="noopener noreferrer">支援</a>することも検討してください。<br>
+                    <button id="closeupdateinfo" class="action-button" style="margin-bottom: 0px">× 閉じる</button>
+                </div>
                 <div class="settings-row browser-style">
                     <label>ダークモード/カラーパレット
                         <select id="select-darkmode">

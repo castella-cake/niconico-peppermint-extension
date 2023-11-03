@@ -1,10 +1,18 @@
+const manifestData = chrome.runtime.getManifest();
 chrome.runtime.onInstalled.addListener(function (details) {
     if (details.reason == "install") {
         chrome.tabs.create({
             url: chrome.runtime.getURL("pages/welcome.html")
         });
-    } else if (details.reason == "update") {
-        //chrome.tabs.create({url: chrome.runtime.getURL("pages/update.html")});
+    } else if (details.reason == "update" && details.previousVersion !== manifestData.version) {
+        if (chrome.browserAction != undefined) {
+            chrome.browserAction.setBadgeText({ text: "▲" })
+            chrome.browserAction.setBadgeBackgroundColor({ color: "#169cf0"});
+        } else if (chrome.action != undefined) {
+            chrome.action.setBadgeText({ text: "▲" })
+            chrome.action.setBadgeBackgroundColor({ color: "#169cf0"});
+        }
+        chrome.storage.local.set({ "versionupdated": true })
     }
     chrome.contextMenus.create({
         id: "dicsearch",

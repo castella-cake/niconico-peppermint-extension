@@ -269,7 +269,7 @@ function createBaseCSSRule(result) {
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
 
         if (location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp") {
-            //addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
+            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
             if (location.hostname == "www.nicovideo.jp") {
                 if (location.pathname.indexOf('/video_top') != -1) {
                     //console.log('vidtop')

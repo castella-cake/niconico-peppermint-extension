@@ -1,0 +1,3 @@
+a,.FrameTitleLink-titleText,.FrameTitle {
+    color: var(--theater-linktext, var(--textcolor1))
+}

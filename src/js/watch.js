@@ -870,22 +870,12 @@ function createCSSRule(result) {
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}.common-header-1v0m9lc, .common-header-1nvgp3g, .common-header-h0l8yl, .common-header-cdesjj, .common-header-171vphh, .common-header-wb7b82, .common-header-1ufbzdh, .common-header-654o26, .common-header-11u4gc2, .common-header-1pxv7y0, .commonHeaderArea, #CommonHeader {background-color: #000 !important;}')
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
-            addCSS(chrome.runtime.getURL("pagemod/css/theater.css"), `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/watch.css")}"]`, 'after');
+            document.documentElement.classList.add('PM-TheaterMode')
         } else {
-            addCSS(chrome.runtime.getURL("pagemod/css/theater.css"));
-            pushCSSRule(`.VideoUploadDateMeta-title,.VideoViewCountMeta-title,.CommentCountMeta-title,.MylistCountMeta-title,.VideoGenreMeta-title,.GenreRankMeta-genreName {
-                color: #eaeaea;
-            }
-            .VideoUploadDateMeta-dateTimeLabel,.VideoViewCountMeta-counter,.CommentCountMeta-counter,.MylistCountMeta-counter,.VideoGenreMeta-genreName,.VideoGenreMeta-link,.GenreRankMeta-yesterdayRank {
-                color: #f0f0f0;
-            }
-            .VideoMetaContainer > *, .VideoMetaOverflowMenuContainer {
-                border-left: 1px solid #efefef;
-                box-shadow: -1px 0 0 0 #0a0a0a;
-            }
-            .VideoDescriptionSeriesContainer-label {
-                color: #f0f0f0
-            }`)
+            document.documentElement.classList.add('PM-TheaterMode')
+        }
+        if ( !result.disabletheaterpalette ) {
+            document.documentElement.classList.add('PM-TheaterUseBlack')
         }
 
         $(function () {
