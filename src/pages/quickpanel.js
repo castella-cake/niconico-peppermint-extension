@@ -287,6 +287,7 @@ function makeElem() {
                                 ownerrowlinkelem.classList.add('stockedseries-ownerrowlink')
                                 ownerrowlinkelem.textContent = `${res.data.detail.owner.channel.name}`
                                 ownerrowlinkelem.href = `https://ch.nicovideo.jp/${res.data.detail.owner.channel.id}`
+                                ownerrowlinkelem.target = "_blank"
                                 // spanをオーナーコンテナに入れる
                                 ownerrowelem.appendChild(ownerrownameelem)
                                 // リンクも入れる
@@ -301,6 +302,7 @@ function makeElem() {
                                 ownerrowlinkelem.classList.add('stockedseries-ownerrowlink')
                                 ownerrowlinkelem.textContent = `${res.data.detail.owner.user.nickname}`
                                 ownerrowlinkelem.href = `https://www.nicovideo.jp/user/${res.data.detail.owner.user.id}`
+                                ownerrowlinkelem.target = "_blank"
                                 if (res.data.detail.owner.user.isPremium) {
                                     // プレだったら色変更
                                     ownerrowlinkelem.style = "color: #fcb205"
