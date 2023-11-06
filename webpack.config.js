@@ -1,10 +1,12 @@
 const path = require('path');
 
 module.exports = {
-    entry: ['./src/js/index.js'],
+    entry: {
+        index: './src/js/index.js'
+    },
     output: {
         filename: '[name].bundle.js', // 出力ファイル名
     },
-    watch: true,
-    mode: 'none'
+    watch: false,
+    mode: 'production'
 }

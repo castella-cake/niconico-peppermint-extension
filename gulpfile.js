@@ -273,4 +273,4 @@ gulp.task('watch', function () {
 // デフォルトタスク
 gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'compileStylus', 'compileWebpack', 'copyFilesChrome', 'copyFilesFirefox', 'copyFilesSource', 'renameFiles', 'compress'));
 
-gulp.task('prep', gulp.series('copyFilesForPrepare', 'compileStylus'));
+gulp.task('prep', gulp.series('copyFilesForPrepare', 'compileStylus', 'compileWebpack'));
