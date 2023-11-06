@@ -1,0 +1,22 @@
+html.PMDM-Enabled {
+    /* pedia dynamicpalette */
+    #article-title-box:has(#pm-pediadynamicpalette-div), .a-contents:has(#pm-pediadynamicpalette-div) {
+        background-color: var(--bgcolor1);
+        color: var(--textcolor1)
+    }
+    body#basebody:has(#pm-pediadynamicpalette-div) #right-column {
+        color: var(--textcolor1);
+    }
+    body#basebody:has(#pm-pediadynamicpalette-div) {
+        background-color: var(--bgcolor1);
+    }
+    body#basebody:has(#pm-pediadynamicpalette-div) .st-box_side {
+        background-color: var(--bgcolor2);
+    }
+    div:has(> p > #pm-pediabackblurtoparentdiv-w) {
+        backdrop-filter: blur(10px);
+        background: rgba(255,255,255,0.4);
+        position:relative;
+        bottom: 60px;
+    }
+}

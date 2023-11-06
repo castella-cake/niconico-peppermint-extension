@@ -269,26 +269,26 @@ function createBaseCSSRule(result) {
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
 
         if (location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp" && location.hostname != "site.nicovideo.jp") {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/all.css"), true);
+            addCSS(chrome.runtime.getURL("style/css/darkmode/all.css"), true);
             if (location.hostname == "www.nicovideo.jp") {
                 if (location.pathname.indexOf('/video_top') != -1) {
                     //console.log('vidtop')
-                    addCSS(chrome.runtime.getURL("pagemod/css/darkmode/video_top.css"), true);
+                    addCSS(chrome.runtime.getURL("style/css/darkmode/video_top.css"), true);
                     if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
                         pushCSSRule('.RankingVideosContainer .ColumnTitle-icon,.ViewHistoriesContainer .ColumnTitle-icon,.NicoadVideosContainer .ColumnTitle-icon,.HotTagsContainer .ColumnTitle-icon,.NewArrivalVideosContainer .ColumnTitle-icon,.NewsNotificationContainer-column[data-sub-column="maintenance"] .ColumnTitle-icon {filter: brightness(5.0)}')
                     }
                 } else if (location.pathname.indexOf('/ranking') != -1) {
-                    addCSS(chrome.runtime.getURL("pagemod/css/darkmode/ranking.css"), true);
+                    addCSS(chrome.runtime.getURL("style/css/darkmode/ranking.css"), true);
                 } else if (location.pathname.indexOf('/watch') != -1 && result.usetheaterui != true && result.usenicoboxui != true) {
-                    addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"), true);
+                    addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"), true);
                 }
             }
         }
-        //addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("pagemod/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
+        //addCSS(chrome.runtime.getURL("style/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("style/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
         //document.documentElement.classList.add('PMDM-Assist')
         //document.documentElement.style = "--pre-bgcolor: #000"
-    } else { addCSS(chrome.runtime.getURL("pagemod/css/peppermint-ui-var.css"), true) }
+    } else { addCSS(chrome.runtime.getURL("style/css/peppermint-ui-var.css"), true) }
     if (result.enablevisualpatch == true) {
-        addCSS(chrome.runtime.getURL("pagemod/css/visualpatch.css"))
+        addCSS(chrome.runtime.getURL("style/css/visualpatch.css"))
     }
 }

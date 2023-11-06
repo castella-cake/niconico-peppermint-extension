@@ -1,0 +1,84 @@
+html.PMDM-Inform {
+    .notice > ul > li > .inner .text {
+        color: var(--textcolor1);
+    }
+    .notice > ul > li > .inner {
+        background: var(--bgcolor2);
+        border-color: transparent transparent var(--accent1);
+        
+    }
+    .notice > ul > li > .inner:hover {
+        border-color: var(--hover1);
+        box-shadow: var(--accent1) 0px 1px 2px 0px;
+    }
+    .notice > ul > li > .inner .date {
+        color: var(--textcolor2)
+    }
+    .notice > ul > li > .inner span {
+        background: var(--accent1)
+    }
+    li.item a {
+        color: var(--textcolor2);
+    }
+    li.item .settings:hover {
+        background: var(--hover1);
+        color: var(--textcolor1);
+    }
+    section.notice ul {
+        border-top: 1px solid var(--accent1);
+    }
+    footer .info-text {
+        color: var(--textcolor2)
+    }
+
+    /* desc */
+    section:has(.subject) {
+        background: var(--bgcolor2)
+        color: var(--textcolor1)
+        .text {
+            color: var(--textcolor1)
+        }
+        header {
+            border-bottom: 1px solid var(--accent1);
+            .date {
+                color: var(--textcolor2)
+            }
+        }
+        footer {
+            border-top: 1px solid var(--accent1);
+            a {
+                color: var(--linktext1);
+            }
+        }
+    }
+
+    /* back */
+    .eULOtJ svg g polygon{
+        fill: var(--linktext1)
+    }
+    .hBhGMm {
+        color: var(--linktext1)
+    }
+
+    // settings head
+    #root > header {
+        color: var(--textcolor1)
+        border-bottom: 2px solid var(--accent1);
+        h1 {
+            color: var(--textcolor2)
+        }
+        .totop::before {
+            border-color: transparent transparent transparent var(--textcolor1);
+        }
+    }
+    .setting-item {
+        background: var(--bgcolor2);
+        border: 1px solid var(--accent1);
+        .text .main {
+            color: var(--textcolor1)
+        }
+        .text .sub {
+            color: var(--textcolor2)
+        }
+    }
+}

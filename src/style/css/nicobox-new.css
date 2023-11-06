@@ -174,9 +174,12 @@
 .PlayerPlayTime-playtime, .PlayerPlayTime-duration { 
     margin: auto 10px
 }
-.ControllerBoxContainer { 
-    margin-top: 8px;
-    padding: 0 128px
+.ControllerBoxContainer {
+	margin: 16px 150px;
+	border-radius: 8px;
+	padding: 4px 8px;
+	margin-bottom: 0px;
+    background: #0005 !important;
 }
 .ControllerContainer { 
     height: 48px

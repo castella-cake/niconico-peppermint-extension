@@ -210,7 +210,7 @@ function createCSSRule(result) {
     }
     if (result.usenicoboxui != true && result.usetheaterui == true) {
         // theater UI fallback and wait load without jquery
-        addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
+        addCSS(chrome.runtime.getURL("style/css/theater_video.css"));
         document.documentElement.classList.add('PM-HeaderBG-Theater')
         // TODO: シリーズストックのものと統合する
         const metaContainer = document.querySelector('.VideoMetaContainer')

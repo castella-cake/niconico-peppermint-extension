@@ -1,6 +1,7 @@
 node_modules/
 build/
-src/pagemod/css/index.css
-src/pagemod/css/darkmode/darkmode.css
+src/style/css/index.css
+src/style/css/darkmode/darkmode.css
 builds/
 dev/
+dist/

@@ -1,0 +1,96 @@
+// container
+.pmbutton-container {
+    position: fixed;
+    left:0;
+    bottom:0;
+    margin: 12px;
+    width: fit-content;
+    max-height: calc( 100vh - 36px );
+    z-index: 6000002;
+    opacity: 100;
+    transition: opacity .2s ease 
+}
+.is-fullscreen > .pmbutton-container {
+    opacity: 0
+}
+.is-fullscreen > .pmbutton-container:hover {
+    opacity: 0.5
+}
+// mainaction
+.mainaction-button {
+    cursor: pointer;
+    width: 52px;
+    height:52px;
+    border:none;
+    border-radius: 100%;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    padding:0px;
+    color: #fff;
+    font-size: 24px;
+}
+
+// subaction
+.subaction-button {
+    cursor: pointer;
+    width: 32px;
+    height:32px;
+    border:none;
+    border-radius: 128px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    padding:5px 0px;
+    color: #222;
+    background: #ccc;
+    font-size: 24px;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none !important;
+    display: inline-block;
+}
+.subaction-button:hover {
+    background: #eaeaea;
+}
+.subaction-button:hover {
+    font-size:25px;
+    transition:all .1s
+}
+.subaction-button.disabled {
+    color: #aaa;
+    background: #444;
+}
+
+// hint
+.pmui-hinttext {
+    background: #ddd;
+    padding: 5px;
+    border-radius: 5px;
+    margin-left: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,40%);
+}
+.pmui-hinttext-modern {
+    display: none;
+}
+
+// subaction-container
+.subaction-container:hover > .pmui-hinttext-modern {
+    display: inline;
+}
+.subaction-container {
+    padding-left: 10px;
+    margin-bottom: 8px;
+}
+
+// pedia
+#openvidarticle {
+	font-size: 16px;
+	font-weight: bold;
+	background-color: #b20000;
+	color: #fff;
+	line-height: 20px;
+}
+
+// d&d
+.ui-draggable-dragging {
+    opacity: 50%
+}
+
+

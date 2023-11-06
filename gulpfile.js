@@ -4,8 +4,13 @@ const fs = require('fs');
 const path = require('path');
 const stylus = require('gulp-stylus');
 const fse = require('fs-extra');
+const webpack = require('webpack-stream');
 
 const packageJson = require('./package.json'); // package.jsonを読み込む
+const webpackConfig = require('./webpack.config');
+
+const bundleJSList = ["./src/js/index.js"]
+
 
 gulp.task('createVersionFolders', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
@@ -22,9 +27,15 @@ gulp.task('createVersionFolders', function (done) {
 
 gulp.task('compileStylus', function () {
     // Stylusファイルのコンパイル処理
-    return gulp.src([ './src/**/*.styl', '!./src/pagemod/css/darkmode/palette/*.styl', '!./src/pagemod/css/darkmode/pages/**/*styl' ])
+    return gulp.src(['./src/style/index.styl'])
         .pipe(stylus())
-        .pipe(gulp.dest('./src')); // コンパイルされたCSSファイルをsrcフォルダーに出力
+        .pipe(gulp.dest('./dist/style/')); // コンパイルされたCSSファイルをsrcフォルダーに出力
+});
+
+gulp.task('compileWebpack', function () {
+    // Stylusファイルのコンパイル処理
+    return webpack(webpackConfig)
+        .pipe(gulp.dest('./dist/js'))
 });
 
 gulp.task('cleanUp', function (done) {
@@ -37,12 +48,45 @@ gulp.task('cleanUp', function (done) {
     done()
 })
 
+gulp.task('copyFilesForPrepare', function (done) {
+    const versionName = packageJson.version; // バージョン情報を取得
+    const destpath = `./dist`
+    const distFolderPath = path.join(__dirname, `./dist`);
+    if (fs.existsSync(distFolderPath)) {
+        fse.removeSync(distFolderPath)
+    }
+    gulp.src(['./LICENSE.txt','./CHANGELOG.md','./NOTICE.txt','./README.md','./src/manifest.json','./src/manifest_chrome.json'])
+        .pipe(gulp.dest(destpath));
+
+    gulp.src(['./src/icons/*'])
+        .pipe(gulp.dest(destpath + "/icons"))
+
+    gulp.src(['./src/lib/*'])
+        .pipe(gulp.dest(destpath + "/lib"))
+
+    gulp.src(['./src/pages/*'])
+        .pipe(gulp.dest(destpath + "/pages"))
+
+    gulp.src(['./src/style/css/**/*.css'])
+        .pipe(gulp.dest(destpath + "/style/css"))
+
+    gulp.src(['./src/js/*'])
+        .pipe(gulp.dest(destpath + "/js"))
+        .on('end', function () {
+            const gulp = require('gulp');
+            const dependencies = require('gulp-package-dependencies');
+            return dependencies()
+                .pipe(gulp.dest(`./dist/dist`))
+                .on('end', done);
+        });
+});
+
 gulp.task('copyFilesFirefox', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
     gulp.src('./LICENSE.txt')
         .pipe(gulp.dest(`./builds/${versionName}/firefox`));
-    
+
     gulp.src('./NOTICE.txt')
         .pipe(gulp.dest(`./builds/${versionName}/firefox`));
 
@@ -55,7 +99,7 @@ gulp.task('copyFilesFirefox', function (done) {
     // srcフォルダーの内容をfirefoxフォルダーにコピー
     gulp.src('./src/**/*')
         .pipe(gulp.dest(`./builds/${versionName}/firefox`))
-        .on('end', function() {
+        .on('end', function () {
             const gulp = require('gulp');
             const dependencies = require('gulp-package-dependencies');
             return dependencies()
@@ -67,11 +111,11 @@ gulp.task('copyFilesFirefox', function (done) {
 gulp.task('copyFilesSource', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
-    gulp.src([ './*.md', './*.js', './*.txt', './*.json' ])
+    gulp.src(['./*.md', './*.js', './*.txt', './*.json'])
         .pipe(gulp.dest(`./builds/${versionName}/source`));
 
     // srcフォルダーの内容をfirefoxフォルダーにコピー
-    gulp.src([ './src/**/*', '!./src/pagemod/css/darkmode/darkmode.css', '!./src/pagemod/css/index.css' ])
+    gulp.src(['./src/**/*', '!./src/style/css/darkmode/darkmode.css', '!./src/style/css/index.css'])
         .pipe(gulp.dest(`./builds/${versionName}/source/src`))
         .on('end', done);
 });
@@ -81,7 +125,7 @@ gulp.task('copyFilesChrome', function (done) {
 
     gulp.src('./LICENSE.txt')
         .pipe(gulp.dest(`./builds/${versionName}/chrome`));
-    
+
     gulp.src('./NOTICE.txt')
         .pipe(gulp.dest(`./builds/${versionName}/chrome`));
 
@@ -94,7 +138,7 @@ gulp.task('copyFilesChrome', function (done) {
     // srcフォルダーの内容をchromeフォルダーにコピー
     gulp.src('./src/**/*')
         .pipe(gulp.dest(`./builds/${versionName}/chrome`))
-        .on('end', function() {
+        .on('end', function () {
             const gulp = require('gulp');
             const dependencies = require('gulp-package-dependencies');
             return dependencies()
@@ -133,11 +177,11 @@ gulp.task('compress', function (done) {
     gulp.src(`./builds/${versionName}/firefox/**/*`)
         .pipe(zip(`firefox_${versionName}.zip`))
         .pipe(gulp.dest('./builds'));
-    
+
     // sourceフォルダーを圧縮
     gulp.src(`./builds/${versionName}/source/**/*`)
-    .pipe(zip(`source_${versionName}.zip`))
-    .pipe(gulp.dest('./builds'));
+        .pipe(zip(`source_${versionName}.zip`))
+        .pipe(gulp.dest('./builds'));
 
     done()
 });
@@ -166,10 +210,10 @@ gulp.task('devCopyFilesFirefox', function (done) {
 
     gulp.src('./CHANGELOG.md')
         .pipe(gulp.dest(`./dev/firefox`));
-    
+
     gulp.src('./src/**/*')
         .pipe(gulp.dest(`./dev/firefox`))
-        .on('end', function() {
+        .on('end', function () {
             const gulp = require('gulp');
             const dependencies = require('gulp-package-dependencies');
             return dependencies()
@@ -182,7 +226,7 @@ gulp.task('devCopyFilesChrome', function (done) {
     // srcフォルダーの内容をchromeフォルダーにコピー
 
     gulp.src('./LICENSE.txt')
-    .pipe(gulp.dest(`./dev/chrome`));
+        .pipe(gulp.dest(`./dev/chrome`));
 
     gulp.src('./NOTICE.txt')
         .pipe(gulp.dest(`./dev/chrome`));
@@ -195,7 +239,7 @@ gulp.task('devCopyFilesChrome', function (done) {
 
     gulp.src('./src/**/*')
         .pipe(gulp.dest(`./dev/chrome`))
-        .on('end', function() {
+        .on('end', function () {
             const gulp = require('gulp');
             const dependencies = require('gulp-package-dependencies');
             return dependencies()
@@ -222,8 +266,11 @@ gulp.task('devRenameFiles', function (done) {
 
 gulp.task('watch', function () {
     gulp.watch('./src/**/*styl', gulp.series('compileStylus'));
+    gulp.watch(bundleJSList, gulp.series('compileWebpack'));
     gulp.watch(['./src/**/*', '!./src/**/*.styl'], gulp.series('devCleanUp', 'devCopyFilesFirefox', 'devCopyFilesChrome', 'devRenameFiles'));
 });
 
 // デフォルトタスク
-gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'compileStylus', 'copyFilesChrome', 'copyFilesFirefox', 'copyFilesSource', 'renameFiles', 'compress'));
+gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'compileStylus', 'compileWebpack', 'copyFilesChrome', 'copyFilesFirefox', 'copyFilesSource', 'renameFiles', 'compress'));
+
+gulp.task('prep', gulp.series('copyFilesForPrepare', 'compileStylus'));

@@ -187,7 +187,7 @@ function createCSSRule(result) {
         function setFullsize(e) {
             if (togglefullsizeelem.classList.contains("disabled") != true) {
                 if (!document.body.classList.contains("is-PMcinemaratio")) {
-                    //addCSS(chrome.runtime.getURL("pagemod/css/theater_21_9_full.css"), `link[href="${chrome.runtime.getURL("pagemod/css/theater_video.css")}"]`)
+                    //addCSS(chrome.runtime.getURL("style/css/theater_21_9_full.css"), `link[href="${chrome.runtime.getURL("style/css/theater_video.css")}"]`)
                     document.body.classList.add('is-PMcinemaratio')
                     $('#togglefullsize').css({
                         'background': '#0288d1',
@@ -496,7 +496,7 @@ function createCSSRule(result) {
     if (result.usenicoboxui != true && result.usetheaterui != true) {
         if (result.watchpagetheme != "") {
             //console.log(`CSS Loaded!`);
-            addCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
+            addCSS(chrome.runtime.getURL("style/css/watchpagetheme/" + result.watchpagetheme + ".css"));
         }
         if (result.usenicoboxui != true && result.usetheaterui != true && result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             if (result.watchpagetheme == "harazyuku") {
@@ -549,14 +549,14 @@ function createCSSRule(result) {
                     color: var(--textcolor1);
                 }`)
             }
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
         }
         if (result.playertheme != "") {
             //console.log(`CSS Loaded!`);
             if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
-                addCSS(chrome.runtime.getURL("pagemod/css/playertheme/rc1.css"));
+                addCSS(chrome.runtime.getURL("style/css/playertheme/rc1.css"));
             } else {
-                addCSS(chrome.runtime.getURL("pagemod/css/playertheme/" + result.playertheme + ".css"));
+                addCSS(chrome.runtime.getURL("style/css/playertheme/" + result.playertheme + ".css"));
             }
 
             if (result.playertheme == "harazyuku") {
@@ -569,7 +569,7 @@ function createCSSRule(result) {
             }
             if (result.playerstyleoverride != "") {
                 if (result.playerstyleoverride != "none") {
-                    addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playerstyleoverride + ".css"))
+                    addCSS(chrome.runtime.getURL("style/css/playerstyle/" + result.playerstyleoverride + ".css"))
                 }
                 if (result.playertheme == "mint" && result.playerstyleoverride == "mint") {
                     pushCSSRule('.PlayerPauseButton,.PlayerPlayButton {background-image: linear-gradient(#232323,#171717);outline: 1px solid #1c1c1c;outline-offset: -1px;height: 34px;}.PlayerPauseButton:hover,.PlayerPlayButton:hover {background-image: linear-gradient(#2a2a2a,#1b1b1b);}.ControllerButton svg {filter: drop-shadow(0px 0px 2px rgba(0,0,0 50%)) ;}.ControllerButton:hover svg {fill:#ffffff;filter: drop-shadow(0px 0px 2px rgba(128,128,128 100%));transition:all .1s ease .1s}')
@@ -658,9 +658,9 @@ function createCSSRule(result) {
                 }
             } else {
                 if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
-                    addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/rc1.css"));
+                    addCSS(chrome.runtime.getURL("style/css/playerstyle/rc1.css"));
                 } else {
-                    addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playertheme + ".css"));
+                    addCSS(chrome.runtime.getURL("style/css/playerstyle/" + result.playertheme + ".css"));
                 }
                 if (result.playertheme == "mint") {
                     pushCSSRule('.PlayerPauseButton,.PlayerPlayButton {background-image: linear-gradient(#232323,#171717);outline: 1px solid #1c1c1c;outline-offset: -1px;height: 34px;}.PlayerPauseButton:hover,.PlayerPlayButton:hover {background-image: linear-gradient(#2a2a2a,#1b1b1b);}.ControllerButton svg {filter: drop-shadow(0px 0px 2px rgba(0,0,0 50%)) ;}.ControllerButton:hover svg {fill:#ffffff;filter: drop-shadow(0px 0px 2px rgba(128,128,128 100%));transition:all .1s ease .1s}')
@@ -752,12 +752,12 @@ function createCSSRule(result) {
         if (result.hidepopup == true) {
             // cssじゃないとロードの都合で反映されなかった
             //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none')
-            addCSS(chrome.runtime.getURL("pagemod/css/hide/hidepopup.css"));
+            addCSS(chrome.runtime.getURL("style/css/hide/hidepopup.css"));
         }
     } else if (result.usenicoboxui == true && result.useoldnicoboxstyle != true) {
         // New Nicobox UI
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
             pushCSSRule(`.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
                 fill: #fff
             }`)
@@ -770,7 +770,7 @@ function createCSSRule(result) {
             })
         }
         $('body').addClass('is-PMNewNicoboxUI')
-        addCSS(chrome.runtime.getURL("pagemod/css/nicobox-new.css"));
+        addCSS(chrome.runtime.getURL("style/css/nicobox-new.css"));
         $('body').css('background-color', '#fefefe')
         // 基本レイアウト変更
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}')
@@ -831,12 +831,12 @@ function createCSSRule(result) {
         // Nicobox UI
         $('body').addClass('is-PMNicoboxUI')
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
             pushCSSRule(`.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
                 fill: #fff
             }`)
         }
-        addCSS(chrome.runtime.getURL("pagemod/css/nicobox.css"));
+        addCSS(chrome.runtime.getURL("style/css/nicobox.css"));
         $('body').css('background-color', '#fefefe')
         // 基本レイアウト変更
         //nicobox.cssに移動
@@ -864,12 +864,12 @@ function createCSSRule(result) {
         $('body').addClass('is-PMTheaterUI')
         // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
         // video関連は早めにスタイルシートで書かないとコメントコンテナーやシンボルが動画サイズの変更を反映してくれない
-        //addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
+        //addCSS(chrome.runtime.getURL("style/css/theater_video.css"));
         // 基本レイアウト変更
         // theater.cssに移動
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}.common-header-1v0m9lc, .common-header-1nvgp3g, .common-header-h0l8yl, .common-header-cdesjj, .common-header-171vphh, .common-header-wb7b82, .common-header-1ufbzdh, .common-header-654o26, .common-header-11u4gc2, .common-header-1pxv7y0, .commonHeaderArea, #CommonHeader {background-color: #000 !important;}')
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
             document.documentElement.classList.add('PM-TheaterMode')
         } else {
             document.documentElement.classList.add('PM-TheaterMode')

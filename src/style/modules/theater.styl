@@ -1,0 +1,512 @@
+$theaterbg = var(--theater-bg)
+$theatertext = var(--theater-text)
+$theatertextd = var(--theater-textd)
+$theatericonfill = var(--theater-iconfill)
+$theateraccent1 = var(--theater-accent1)
+$theateraccent2 = var(--theater-accent2)
+$theaterhoverlink = var(--theater-hoverlink)
+$theaterhover = var(--theater-hover)
+$theaterlinktext = var(--theater-linktext)
+$theatersidebg = var(--theater-sidebg)
+$theaterheaderbg = var(--theater-headerbg)
+
+
+html.PM-TheaterMode {
+    --theater-bg: var(--bgcolor1)
+    --theater-text: var(--textcolor1)
+    --theater-textd: var(--textcolor2)
+    --theater-accent1: var(--accent1)
+    --theater-accent2: var(--accent2)
+    --theater-sidebg: var(--bgcolor2)
+    --theater-linktext: var(--linktext1)
+    --theater-hoverlink: var(--hover1)
+    --theater-hover: var(--hover1)
+    --theater-headerbg: var(--bgcolor1)
+    .ControllerButton svg,
+    .ControllerButton.PlayerRepeatOnButton svg path,
+    .PlaybackRateButton svg {
+        fill: $theatertext
+    }
+
+    .ControllerContainer-inner {
+        top: 4px
+    }
+
+    .PlayerPauseButton,
+    .PlayerPlayButton {
+        left: 50%;
+        right: 50%;
+        position: absolute !important;
+        transform: translate(-50%);
+        padding: 2px;
+    }
+
+    .ControllerContainer-centerArea>.ControllerButton {
+        padding: 5px
+    }
+
+    .PlayerOptionContainer {
+        max-height: 330px;
+    }
+
+    .common-header-1v0m9lc,
+    .common-header-1nvgp3g,
+    .common-header-h0l8yl,
+    .common-header-cdesjj,
+    .common-header-171vphh,
+    .common-header-wb7b82,
+    .common-header-1ufbzdh,
+    .common-header-654o26,
+    .common-header-11u4gc2,
+    .common-header-1pxv7y0,
+    .commonHeaderArea,
+    #CommonHeader {
+        background-color: $theaterheaderbg !important;
+    }
+
+    .HeaderContainer,
+    .BottomSideContainer,
+    .BottomMainContainer,
+    .TagItem,
+    .PlayerContainer,
+    .ControllerBoxContainer {
+        background-color: transparent !important;
+    }
+
+    .PlayerPanelContainer {
+        border-top-left-radius: 16px;
+    }
+
+    .EasyCommentContainer-caption {
+        display: none;
+    }
+
+    .VideoMenuContainer,
+    .BottomContainer,
+    .VideoMenuContainer-areaLeft,
+    .VideoMenuContainer-areaRight {
+        background-color: transparent;
+    }
+
+    .SearchBox-optionMenu {
+        bottom: 32px
+    }
+
+    .VideoMenuContainer-areaLeft .VideoMenuContainer-button,
+    .SharePanelVisibleActionButton svg {
+        fill: $theatertextd;
+    }
+
+    .VideoMenuContainer::after {
+        border-bottom: none;
+    }
+
+    .CommentRenderer>canvas,
+    .CommentRenderer,
+    .VideoSymbolContainer {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .ControllerBoxContainer.is-fullscreen.is-fixedFullscreenController {
+        background: transparent
+    }
+
+    .WatchAppContainer {
+        display: flex;
+    }
+
+    .MainContainer {
+        padding-top: 16px;
+        box-shadow: 0px 0px 0px $theaterbg;
+        width: 100%;
+        background: transparent;
+        margin-bottom: 0px;
+    }
+    .MainContainer-player {
+        width: 100%
+    }
+
+    .WatchAppContainer-main {
+        width: calc(100vw - 384px) !important;
+        left: 0;
+        right: auto;
+        margin: 0 !important;
+        padding: 0px 0px;
+    }
+
+    .MainContainer-playerPanel {
+        position: fixed;
+        top: 36px;
+        height: calc(100% - 72px);
+        background: transparent;
+    }
+
+    .VideoContainer {
+        background: transparent;
+        margin: auto;
+        overflow: visible
+    }
+
+    .PlayerPanelContainer {
+        border-top-left-radius: 16px
+    }
+
+    /*.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand {
+        background: linear-gradient(90deg, hsla(0, 0%, 96%, 0), #fefefe 16%) !important;
+    }*/
+
+    .HeaderContainer-searchBox {
+        position: fixed;
+        bottom: 0;
+        right: 0
+    }
+
+    .SearchBox-input {
+        width: 335px
+    }
+
+    .SearchBox {
+        width: 382px
+    }
+
+    .HeaderContainer {
+        width: 100%;
+        padding: 0px 8px 0;
+        margin: 0 0 0
+    }
+
+    .HeaderContainer-topArea {
+        text-align: center
+    }
+
+    .HeaderContainer-row .GridCell:last-child {
+        width: fit-content;
+        display: flex
+    }
+
+    .HeaderContainer-row {
+        width: fit-content;
+        display: flex;
+        margin: auto auto 12px
+    }
+
+    .VideoDescriptionContainer {
+        margin: 0 auto;
+        margin-bottom: 16px
+    }
+
+    .SeekBar {
+        margin: auto 0
+    }
+
+    .PlayerPlayTime-playtime,
+    .PlayerPlayTime-duration {
+        margin: auto 10px
+    }
+
+    .ControllerBoxContainer {
+        margin-top: 8px;
+        padding: 0 128px
+    }
+
+    .ControllerContainer {
+        height: 48px
+    }
+
+    .EasyCommentContainer {
+        height: auto
+    }
+
+    .EasyCommentButton {
+        background: transparent;
+        color: $theatertext;
+        border: 1px solid $theateraccent1
+    }
+
+    .CommentPostContainer-commandInput,
+    .CommentPostContainer-commentInput {
+        background: transparent
+    }
+
+    .CommentCommandInput,
+    .CommentInput-textarea {
+        color: $theatertext
+    }
+
+    .CommentPostContainer-commentInput {
+        border-bottom: 2px solid $theateraccent1;
+        border-top: 2px solid $theateraccent1
+    }
+
+    .CommentPostContainer-commandInput {
+        border: 2px solid $theateraccent1
+    }
+
+    .SeekBarContainer {
+        padding: 8px 16px 0;
+        display: flex
+    }
+
+    .SeekBar-buffered {
+        background-color: $theateraccent2
+    }
+
+    .ControllerBoxCommentAreaContainer,
+    .EasyCommentContainer {
+        background: transparent
+    }
+
+    .ControllerContainer {
+        z-index: 3
+    }
+    .PlayerPlayTime,.PlayTimeFormatter { 
+        color: $theatertext;
+        width: 40px;
+    }
+    .BaseLayout-main, .BaseLayout {
+        background-color: $theaterbg !important
+    }
+    .BottomContainer { background-color: transparent }
+    .HeaderContainer { 
+        background: $theaterbg
+    }
+    .VideoDescriptionContainer { 
+        padding: 16px;
+        box-shadow: 0px 0px 5px rgba(255,255,255,0.3);
+        border-radius: 8px;
+        color: $theatertext
+    }
+    .VideoDescriptionExpander .VideoDescriptionExpander-switch { 
+        bottom: 8px;
+        text-align: center;
+        width: 100%;
+        background: linear-gradient(180deg,hsla(0,0%,96%,0),$theaterbg 25%) !important
+    }
+    .TagItem-name { color: $theatertext }
+    .VideoMenuContainer {
+        background: transparent;
+    }
+    .ControllerBoxCommentAreaContainer { border-right: none }
+    .TagContainer {
+        justify-content: center;
+    }
+    .VideoTitle {
+        color: $theatertext;
+        padding-top: 6px;
+    }
+
+    .SearchBox {
+        border-right: none;
+    }
+    body:not(.is-fullscreen) .VideoOverlayContainer {
+        z-index: 50;
+    }
+    body:not(.is-fullscreen) .PlayerOptionContainer {
+        position:fixed;
+        bottom:0;
+        right:0;
+        max-height: calc(100vh - 40px);
+        backdrop-filter: blur(20px);
+        animation: slidetoleft 0.25s ease forwards 1
+    }
+    .PlayerOptionMenu::after {
+        content: "Thank you for using PepperMint+ theater mode!";
+        display: block;
+        text-align: center;
+        margin: 16px 0px;
+        color: $theatertextd;
+    }
+    .HeaderContainer-searchBox {
+        position: fixed;
+        bottom: 0;
+        right: 0
+    }
+    body:not(.is-fullscreen) .MainContainer-playerPanel {
+        animation: sidebartowind 0.25s ease forwards 1;
+    }
+
+    body.is-fullscreen .WatchAppContainer > .BaseLayout-container > .BaseLayout-contents > :not(.WatchAppContainer-main):not(.ContextMenu-wrapper):not(.ErrorContainer):not(.NicoruNoticeContainer) {
+        display: block !important;
+        animation: sidebartofsc 0.25s ease forwards 1 !important;
+    }
+
+    body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer):not(.WakutkoolNoticeContainer) {
+        display: inherit !important;
+    }
+    body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > :not(.HeaderContainer-topArea), body.is-fullscreen .WatchAppContainer-main > :not(.MainContainer) > .HeaderContainer-topArea > :not(.HeaderContainer-searchBox) {
+        display: none !important;
+    }
+    body:not(.is-fullscreen) .HeaderContainer-searchBox {
+        animation: searchboxtowind 0.25s ease forwards 1;
+    }
+    body.is-fullscreen .HeaderContainer-searchBox {
+        animation: searchboxtofsc 0.25s ease forwards 1;
+    }
+    .EasyCommentButton:hover {
+        background-color: $theaterhoverlink;
+    }
+
+    .GridCell.VideoOwnerInfo-gridCell {
+        width: inherit;
+    }
+
+    .SharePanelVisibleActionButton:hover {
+        background: $theaterhover;
+    }
+
+    .PlayerContainer:not(.is-mouseMoving) .VideoContainer * {
+        cursor: none;
+    }
+    .PlayerContainer .ControllerContainer {
+        opacity: 1;
+        transition: opacity 0.2s ease;
+    }
+    .PlayerContainer:not(.is-mouseMoving):has(.VideoContainer:hover) .ControllerContainer {
+        opacity: 0.6;
+        transition: opacity 0.2s ease;
+    }
+
+    body.is-fullscreen .BaseLayout-main, body.is-fullscreen .BaseLayout {
+        background: #000 !important;
+    }
+
+    @keyframes slidetoleft {
+        from {
+            opacity: 0;
+            right: -384px;
+        }
+        to {
+            opacity: 1;
+            right: 0px;
+        }
+    }
+    @keyframes sidebartofsc {
+        0% {
+            right: 0px;
+            opacity: 1;
+
+        }
+        100% {
+            right: -384px;
+            opacity: 0;
+        }
+    }
+    @keyframes sidebartowind {
+        0% {
+            display: block;
+            right: -384px;
+            opacity: 0;
+        }
+        100% {
+            right: 0px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes searchboxtofsc {
+        0% {
+            bottom: 0;
+            opacity: 1;
+
+        }
+        100% {
+            bottom: -36px;
+            opacity: 0;
+        }
+    }
+    @keyframes searchboxtowind {
+        0% {
+            bottom: -36px;
+            opacity: 0;
+
+        }
+        100% {
+            bottom: 0px;
+            opacity: 1;
+        }
+    }
+
+    /* コメント増量 暫定競合回避 */
+    .CustomVideoContainer {
+        aspect-ratio: 21 / 9;
+        width: 100% !important;
+        height: inherit !important;
+    }
+    .CustomVideoContainer.CommentRenderer {
+        width: 100% !important;
+    }
+    .CustomVideoContainer .CommentRenderer > canvas {
+        inset: 0px;
+        margin: 0px auto;
+    }
+    .CustomVideoContainer .CommentRenderer > canvas{
+        width: auto !important;
+        height: 100% !important;
+    }
+
+    /* sidebar */
+    #VideoMenuDrawer-app {
+        position: fixed;
+        left: 0;
+        top: 36px;
+        z-index: 6000001;
+    }
+    #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-fdpmya {
+        background: $theatersidebg;
+        border-radius: 50%;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+    #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-10yxuc8 svg path {
+        fill: $theatertext !important;
+    }
+    .VideoUploadDateMeta-title,.VideoViewCountMeta-title,.CommentCountMeta-title,.MylistCountMeta-title,.VideoGenreMeta-title,.GenreRankMeta-genreName {
+        color: $theatertext;
+    }
+    .VideoUploadDateMeta-dateTimeLabel,.VideoViewCountMeta-counter,.CommentCountMeta-counter,.MylistCountMeta-counter,.VideoGenreMeta-genreName,.VideoGenreMeta-link,.GenreRankMeta-yesterdayRank {
+        color: $theatertextd;
+    }
+    .VideoMetaContainer > *, .VideoMetaOverflowMenuContainer {
+        border-left: 1px solid $theatertextd;
+        box-shadow: -1px 0 0 0 $theateraccent1;
+    }
+    .VideoDescriptionSeriesContainer-label {
+        color: $theatertextd
+    }
+}
+
+html.PM-TheaterMode:has(.PlayerContainer:not(.is-mouseMoving) .VideoContainer:hover) #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-fdpmya {
+    opacity: 0;
+}
+
+html.PM-TheaterMode:not(.PMDM-Enabled) {
+    --theater-bg: #f4f4f4
+    --theater-text: #001835
+    --theater-textd: #2a2a2a
+    --theater-accent1: #e0e0e0
+    --theater-accent2: #dadada
+    --theater-sidebg: #f0f0f0
+    --theater-linktext: rgb(0, 146, 219)
+    --theater-hoverlink: rgb(192, 215, 236)
+    --theater-hover: #eee3
+    --theater-headerbg: #252525
+}
+
+html.PM-TheaterMode body.is-PMLightPalette {
+    --theater-headerbg: #252525
+}
+
+html.PM-TheaterUseBlack {
+    --theater-bg: #000
+    --theater-text: #fff
+    --theater-textd: #f0f0f0
+    --theater-accent1: #aaa
+    --theater-accent2: #666
+    --theater-sidebg: #222a
+    --theater-linktext: rgb(0, 146, 219)
+    --theater-hoverlink: #cce6ff66
+    --theater-hover: #eee3
+    --theater-headerbg: #000
+}
+

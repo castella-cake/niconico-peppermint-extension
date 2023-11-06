@@ -74,8 +74,8 @@ function createCSSRule(result) {
     if (result.usenicoboxui != true && result.usetheaterui == true ) {
         // theater UI
         // video関連は早めにスタイルシートで書かないとコメントコンテナーやシンボルが動画サイズの変更を反映してくれない
-        addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
-        addCSS(chrome.runtime.getURL("pagemod/css/header/black.css"))
+        addCSS(chrome.runtime.getURL("style/css/theater_video.css"));
+        addCSS(chrome.runtime.getURL("style/css/header/black.css"))
     }
     if (result.nicoboxuichanged == true) {
         //console.log('changed!')
