@@ -8,7 +8,6 @@ const webpack = require('webpack-stream');
 
 const packageJson = require('./package.json'); // package.jsonを読み込む
 const webpackConfig = require('./webpack.config');
-
 const bundleJSList = ["./src/js/index.js"]
 
 
@@ -70,7 +69,10 @@ gulp.task('copyFilesForPrepare', function (done) {
     gulp.src(['./src/style/css/**/*.css'])
         .pipe(gulp.dest(destpath + "/style/css"))
 
-    gulp.src(['./src/js/*'])
+    gulp.src(['./src/lang/*.json'])
+        .pipe(gulp.dest(destpath + "/lang"))
+
+    gulp.src(['./src/js/**/*.js'])
         .pipe(gulp.dest(destpath + "/js"))
         .on('end', function () {
             const gulp = require('gulp');
@@ -268,6 +270,10 @@ gulp.task('watch', function () {
     gulp.watch('./src/**/*styl', gulp.series('compileStylus'));
     gulp.watch(bundleJSList, gulp.series('compileWebpack'));
     gulp.watch(['./src/**/*', '!./src/**/*.styl'], gulp.series('devCleanUp', 'devCopyFilesFirefox', 'devCopyFilesChrome', 'devRenameFiles'));
+});
+
+gulp.task('newwatch', function () {
+    gulp.watch(['./src/**/*'], gulp.series('copyFilesForPrepare', 'compileStylus', 'compileWebpack'));
 });
 
 // デフォルトタスク

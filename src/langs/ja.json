@@ -1,0 +1,32 @@
+{
+    "SETTINGS_TITLE": {
+        "HIDE": "Hide",
+        "WATCHPAGE": "WatchPage",
+        "NICOPEDIA": "Nicopedia",
+        "GLOBAL": "Global"
+    },
+    "SETTINGS_ITEMS": {
+        "hiderankpagead": {
+            "name": "ランキングページのニコニ広告行を隠す",
+            "hint": ""
+        },
+        "hideeventbanner": {
+            "name": "視聴ページ上のイベント告知バナーを隠す",
+            "hint": ""
+        },
+        "hidepopup": {
+            "name": "フォロー/サポーター/プレミアム会員勧誘を隠す",
+            "hint": ""
+        },
+        "hidesupporterbutton": {
+            "name": "サポーターボタンを隠す",
+            "hint": "",
+            "select": ["デフォルト", "視聴ページで隠す", "全て隠す"]
+        },
+        "hidemetadata": {
+            "name": "ジャンルと投稿日時以外のメタデータを隠す",
+            "hint": "",
+            "select": ["デフォルト", "視聴ページで隠す", "検索とホームで隠す", "全て隠す"]
+        }
+    }
+}
