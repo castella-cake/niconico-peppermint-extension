@@ -204,7 +204,6 @@ h1 {
 	transition: all 0.1s;
 }
 
-form,
 .maincontainer {
 	margin-bottom: 2px;
 	padding: 0px 8px 8px;
@@ -636,10 +635,6 @@ tr td:nth-child(7) {
 
 .noyugothic {
 	font-family: "Lato",sans-serif
-}
-
-.container {
-	padding: 0px 8px;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -29,7 +29,9 @@ createRoot(document.getElementById("root")).render(
         </div>
         <div className="settings-page-desc">{lang.SETTINGS_DESC}</div>
         { /* <StorageTest/> */ }
-        <CreateSettingsList/>
+        <div className="maincontainer">
+            <CreateSettingsList/>
+        </div>
         <div id="info-area" className="includelinks">
             <div className="hint">
                 設定は自動保存されます。保存した設定を反映させるには、リロードする必要があります。<br/>
