@@ -39,7 +39,7 @@ createRoot(document.getElementById("root")).render(
             Created by CYakigasi <a href="https://www.cyakigasi.net" target="_blank"
                 rel="noopener noreferrer">Website</a> <a href="https://twitter.com/CYaki_xcf" target="_blank"
                 rel="noopener noreferrer">@CYaki_xcf(更新情報もここから)</a>
-            <a href="credit.html" target="_blank" className="settinglink">PepperMintについて・データの管理...</a>    
+            <a href="credit.html" target="_self" className="settinglink">PepperMintについて・データの管理...</a>    
         </div>
     </div>
     </React.StrictMode>,
