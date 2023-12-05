@@ -1,7 +1,8 @@
 module.exports = {
     entry: {
         index: './src/js/index.js',
-        settings: './src/js/settings.jsx'
+        settings: './src/js/settings.jsx',
+        quickpanel: './src/js/quickpanel.jsx',
     },
     output: {
         filename: '[name].bundle.js', // 出力ファイル名
