@@ -18,17 +18,17 @@ function CreateSettingsList() {
     function createSettingsControl(settings) {
         //console.log(lang.SETTINGS_ITEMS[settings.name].name)
         if ( settings.type == "checkbox" ) {
-            return <label index={settings.name}><input type="checkbox" checked={syncStorage[settings.name]} onChange={(e) => {setSyncStorageValue(settings.name, e.target.checked)}} />{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}</label>
+            return <label key={settings.name}><input type="checkbox" checked={syncStorage[settings.name] ?? settings.default} onChange={(e) => {setSyncStorageValue(settings.name, e.target.checked)}} />{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}</label>
         } else if ( settings.type == "select" ){
-            const settingsOption = settings.values.map((elem, index) => { return <option value={elem} selected={elem == ( syncStorage[settings.name] ?? settings.default )}>{lang.SETTINGS_ITEMS[settings.name].select[index] ?? elem}</option> })
-            return <label index={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<select onChange={(e) => {setSyncStorageValue(settings.name, e.target.value)}}>{ settingsOption }</select></label>
+            const settingsOption = settings.values.map((elem, index) => { return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[settings.name].select[index] ?? elem}</option> })
+            return <label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<select onChange={(e) => {setSyncStorageValue(settings.name, e.target.value)}} value={syncStorage[settings.name] ?? settings.default}>{ settingsOption }</select></label>
         } else if ( settings.type == "inputNumber" ) {
-            return <label index={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<input type="number" min={settings.min} max={settings.max} value={(syncStorage[settings.name] ?? settings.default)} onChange={(e) => {setSyncStorageValue(settings.name, e.target.value)}}/></label>
+            return <label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<input type="number" min={settings.min} max={settings.max} value={(syncStorage[settings.name] ?? settings.default)} onChange={(e) => {setSyncStorageValue(settings.name, e.target.value)}}/></label>
         } else if ( settings.type == "inputString" ) {
             //console.log(syncStorage[settings.name])
-            return <label index={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<input type="text" value={(syncStorage[settings.name] ?? settings.default)} placeholder={lang.SETTINGS_ITEMS[settings.name].placeholder ?? (settings.placeholder ?? null)} onChange={(e) => {setSyncStorageValue(settings.name, e.target.value)}}/></label>
+            return <label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<input type="text" value={(syncStorage[settings.name] ?? settings.default)} placeholder={lang.SETTINGS_ITEMS[settings.name].placeholder ?? (settings.placeholder ?? null)} onChange={(e) => {setSyncStorageValue(settings.name, e.target.value)}}/></label>
         } else {
-            return <label index={settings.name}>Unknown settings type</label>
+            return <label key={settings.name}>Unknown settings type</label>
         }
     }
     function createSettingsRow(settings) {
@@ -43,15 +43,22 @@ function CreateSettingsList() {
             console.log(childrenSettingsElemList)
             elemList = elemList.concat(childrenSettingsElemList)
         }
-        let linkElem
-        if ( settings.settingLink ) {
-            linkElem = <a target="_self" className="settinglink" href={settings.settingLink.href}>{lang[settings.settingLink.name] ?? settings.settingLink.name}</a>
+        function LinkElem() {
+            if ( settings.settingLink ) {
+                return <a target="_self" className="settinglink" href={settings.settingLink.href}>{lang[settings.settingLink.name] ?? settings.settingLink.name}</a>
+            } else {
+                return <></>
+            }
         }
-        let hintElem
-        if ( lang.SETTINGS_ITEMS[settings.name].hint && lang.SETTINGS_ITEMS[settings.name].hint !== "" ) {
-            hintElem = <div className="hint">{lang.SETTINGS_ITEMS[settings.name].hint ?? ""}</div>
+
+        function HintElem() {
+            if ( lang.SETTINGS_ITEMS[settings.name].hint && lang.SETTINGS_ITEMS[settings.name].hint !== "" ) {
+                return <div className="hint">{lang.SETTINGS_ITEMS[settings.name].hint ?? ""}</div>
+            } else {
+                return <></>
+            }
         }
-        return <div className="settings-row" index={`${settings.name}-row`}>{ elemList }{ hintElem }{ linkElem }</div>
+        return <div className="settings-row" key={`${settings.name}-row`}>{ elemList }<HintElem/><LinkElem/></div>
     }
     useEffect(() => {
         console.log("useEffect called")
@@ -65,7 +72,7 @@ function CreateSettingsList() {
             console.log(settingsElem)
             return createSettingsRow(settingsElem)
         })
-        return <div className="settings-area" index={elem}><h1>{lang.SETTINGS_AREATITLE[elem] ?? elem}</h1>{settingsAreaElems}</div>
+        return <div className="settings-area" key={elem}><h1>{lang.SETTINGS_AREATITLE[elem] ?? elem}</h1>{settingsAreaElems}</div>
     })
     console.log(elemArray)
     return <>{ elemArray }</>
