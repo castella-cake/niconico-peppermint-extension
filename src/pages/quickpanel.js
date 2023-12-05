@@ -107,7 +107,7 @@ function makeElem() {
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then(function (result) {
         if (result.skipquickpanel === true) {
-            location.href = "option.html"
+            location.href = "settings.html"
         }
         restoreOptions(result)
         if (result.enableseriesstock) {

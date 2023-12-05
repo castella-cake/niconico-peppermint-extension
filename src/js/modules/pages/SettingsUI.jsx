@@ -32,15 +32,15 @@ function CreateSettingsList() {
         }
     }
     function createSettingsRow(settings) {
-        console.log(syncStorage[settings.name])
+        //console.log(syncStorage[settings.name])
         let elemList = []
         elemList.push(createSettingsControl(settings))
         if ( settings.children ) {
-            console.log(settings.children)
+            //console.log(settings.children)
             const childrenSettingsElemList = settings.children.map((elem) => {
                 return createSettingsControl(elem)
             })
-            console.log(childrenSettingsElemList)
+            //console.log(childrenSettingsElemList)
             elemList = elemList.concat(childrenSettingsElemList)
         }
         function LinkElem() {
@@ -69,12 +69,12 @@ function CreateSettingsList() {
     }, [])
     const elemArray = Object.keys(settings).map((elem) => {
         const settingsAreaElems = settings[elem].map((settingsElem) => {
-            console.log(settingsElem)
+            //console.log(settingsElem)
             return createSettingsRow(settingsElem)
         })
         return <div className="settings-area" key={elem}><h1>{lang.SETTINGS_AREATITLE[elem] ?? elem}</h1>{settingsAreaElems}</div>
     })
-    console.log(elemArray)
+    //console.log(elemArray)
     return <>{ elemArray }</>
 }
 

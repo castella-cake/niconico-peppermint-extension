@@ -102,7 +102,7 @@
         "default_title": "Niconico-PepperMint"
     },
     "options_ui": {
-        "page": "pages/option.html",
+        "page": "pages/settings.html",
         "browser_style": true
     },
     

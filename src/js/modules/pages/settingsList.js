@@ -187,6 +187,11 @@ const settings = {
                 name: "DARKMODE_CUSTOMPALETTE_LINK",
                 href: "customcolorpalette.html"
             },
+            children: [{
+                type: "checkbox",
+                name: "darkmodedynamic",
+                default: false,
+            }],
         },
         {
             type: "select",
@@ -219,6 +224,11 @@ const settings = {
                 name: "SERIESSTOCK_MANAGESERIES_LINK",
                 href: "manageseries.html"
             },
+            children: [{
+                type: "checkbox",
+                name: "showseriesstockinpage",
+                default: false,
+            }],
         },
         {
             type: "checkbox",
