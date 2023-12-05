@@ -7,9 +7,10 @@ module.exports = {
         filename: '[name].bundle.js', // 出力ファイル名
     },
     watch: false,
-    mode: 'production',
+    devtool: "source-map",
+    mode: 'development',
     resolve: {
-        extensions: [".js", ".jsx"]
+        extensions: [".js", ".jsx", ".json"]
     },
     module: {
         rules: [
