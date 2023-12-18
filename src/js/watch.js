@@ -770,7 +770,11 @@ function createCSSRule(result) {
             })
         }
         $('body').addClass('is-PMNewNicoboxUI')
-        addCSS(chrome.runtime.getURL("style/css/nicobox-new.css"));
+        if ( result.usejukeboxconcept == true ) {
+            addCSS(chrome.runtime.getURL("style/css/nicobox-jukebox.css"));
+        } else {
+            addCSS(chrome.runtime.getURL("style/css/nicobox-new.css"));
+        }
         $('body').css('background-color', '#fefefe')
         // 基本レイアウト変更
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}')
