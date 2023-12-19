@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
+import CreateSeriesStockBlock from "./modules/pages/seriesStock";
 
 createRoot(document.getElementById("root")).render(
     <React.StrictMode>
@@ -11,6 +12,15 @@ createRoot(document.getElementById("root")).render(
                 <a href="https://github.com/castella-cake/niconico-peppermint-extension" target="_blank" rel="noopener noreferrer" className="titlelink">Github</a>
             </div>
         </div>
+        <div className="tabcontainer">
+            <button type="button" className="current-tab tabbutton">ダッシュボード</button>
+        </div>
+        <div className="quickpanel-mainpanel maincontainer">
+            <div className="tabpanel current-tabpanel">
+                <CreateSeriesStockBlock/>
+            </div>
+        </div>
+        
     </div>
     </React.StrictMode>,
 );

@@ -75,11 +75,12 @@ gulp.task('copyFilesForPrepare', function (done) {
     gulp.src(['./src/js/**/*.js'])
         .pipe(gulp.dest(destpath + "/js"))
         .on('end', function () {
-            const gulp = require('gulp');
+            /*const gulp = require('gulp');
             const dependencies = require('gulp-package-dependencies');
             return dependencies()
                 .pipe(gulp.dest(`./dist/dist`))
-                .on('end', done);
+                .on('end', done);*/
+            done()
         });
 });
 
