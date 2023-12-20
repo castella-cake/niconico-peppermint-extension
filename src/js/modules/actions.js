@@ -1,21 +1,27 @@
-function linkAction(e) {
-    // 現在のタブがニコニコ動画の場合はそのタブで開き、そうでない場合は新しいタブで開きます。
-    // aのonClickに引数も含めてそのまま渡すことで動作します。
-    // イベントを中止してこっちで代行する
-    e.preventDefault()
-    // メッセージ送信
-    let openLinkMsg = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "openThisNCLink", "href": this.href }, resolve))
+function openLink(href) {
+    let openLinkMsg = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "openThisNCLink", "href": href }, resolve))
     openLinkMsg.then(res => {
         // これはとにかく開けるようにするためのフォールバック用
         if (res.status != true) {
             // NGだったらwindow.openにフォールバック
-            window.open(this.href)
+            window.open(href)
             window.close()
         } else {
             // OKだったらclose
             window.close()
         }
     })
+} 
+
+function linkAction(e) {
+    // 現在のタブがニコニコ動画の場合はそのタブで開き、そうでない場合は新しいタブで開きます。
+    // aのonClickに引数も含めてそのまま渡すことで動作します。
+    console.log(e)
+    // イベントを中止してこっちで代行する
+    const href = this.href ?? e.currentTarget.href
+    openLink(href)
+    e.preventDefault()
+    
 }
 
-module.exports = { linkAction }
+module.exports = { linkAction, openLink }

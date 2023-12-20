@@ -175,6 +175,16 @@ a {
 	margin-bottom: 10px;
 	box-shadow: 0px 0px 2px var(--shadow2);
 }
+.seriesinfo-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	flex-grow: 1;
+	row-gap: 4px;
+}
+.stockedseries-row-owner {
+	display: none;
+}
 
 .stockedseries-desc-container {
 	padding: 5px 8px;
@@ -187,12 +197,13 @@ a {
 	background: transparent;
 	border: transparent;
 	color: var(--textcolor3);
+	display: inherit;
 }
 
 .serieslink-container {
 	display: flex;
 	align-items: center;
-	padding: 4px 0;
+	padding: 8px 2px;
 }
 
 .stockedseries-vidlink-container {
@@ -218,9 +229,10 @@ a {
 	font-size: 15px;
 	line-height: 15px;
 	height: 15px;
-	margin: 4px 1px;
+	margin: 0;
 	color: var(--textcolor1);
-	font-family: inherit
+	font-family: inherit;
+	flex-grow: 1;
 }
 
 .serieslink-container .stockedseries-row-link:hover {
@@ -292,10 +304,105 @@ a {
 	color: var(--textcolor1);
 }
 
-
 .stockedseries-row-link.stockedseries-row-vidlink.vidlinkdisabled {
 	background: var(--bgcolor2);
 }
+
+.stockedseries-row-thumbnail {
+	flex: 0;
+	border-radius: 4px;
+	max-width: 0px;
+	transition: max-width .2s ease;
+}
+
+/* seriesstock detailed */
+
+.expanddetailedview {
+	width: 100%;
+	border: none;
+	background: transparent;
+	text-align: center;
+	color: var(--textcolor1);
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	margin-top: 4px;
+	cursor: pointer;
+}
+.expanddetailedview svg {
+	color: var(--textcolor2);
+	font-size: 20px;
+}
+.expanddetailedview:hover {
+	background: var(--bgcolor2)
+}
+.detailedviewexpanded .stockedseries-row-thumbnail {
+	max-height: 48px;
+	margin-right: 8px;
+	max-width: 100px;
+}
+
+.detailedview-episoderow {
+	display: flex;
+	font-size: 13px;
+	align-items: center;
+	text-decoration: none;
+	color: var(--textcolor1);
+	margin: 0px 4px 6px;
+	border-bottom: 1px solid var(--accent1);
+	align-items: center;
+	padding-bottom: 2px;
+}
+.detailedview-episoderow:hover {
+	text-decoration: underline;
+}
+.episoderow-thumbnail {
+	margin-right: 8px;
+	object-fit: cover;
+	width: auto;
+	max-height: 3em;
+	border-radius: 4px;
+}
+.episoderow-infocontainer {
+	display: flex;
+	flex-direction: column;
+}
+.episoderow-infocontainer {
+	overflow: hidden;
+	white-space: nowrap;
+}
+.episoderow-info-title {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.episoderow-infocontainer > span.episoderow-info-date {
+	font-size: 12px;
+	color: var(--textcolor2);
+}
+
+.episodelist-container {
+	max-height: none;
+	margin-top: 4px;
+	overflow: hidden;
+	transition: max-height .15s ease;
+	max-height: 0em;
+}
+.detailedviewexpanded .episodelist-container {
+	max-height: var(--maxheight);
+}
+
+.detailedviewexpanded .stockedseries-row-owner {
+	display: inherit;
+	flex-basis: 100%;
+	font-family: "Lato", "Meiryo", sans-serif;
+	font-size: 12px;
+	color: var(--textcolor2);
+}
+
+/* seriesstock unlock */
 
 .stocklist-unlocked .expandeplist, .stocklist-unlocked .stockedseries-episodecontainer, .stocklist-unlocked .stockedseries-row-vidlink {
 	display: none;
