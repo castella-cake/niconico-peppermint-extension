@@ -221,6 +221,35 @@ select:hover {
 	background: var(--accent1);
 }
 
+.select-button-container {
+	display: inline-block;
+	background: var(--accent1);
+	border-radius: 4px;
+}
+.select-button {
+	background: var(--accent1);
+	border: none;
+	border-radius: 4px;
+	height: 24px;
+	font-family: unset;
+}
+.select-button + .select-button {
+	border-left: 1px solid var(--textcolor3);
+	border-bottom-left-radius: 0px;
+	border-top-left-radius: 0px;
+}
+.select-button:hover {
+	background: var(--hover1);
+}
+.select-button.select-button-current {
+	background: var(--primary);
+	font-weight: bold;
+}
+.select-button:not(:last-child) {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
 .settings-row {
 	margin-bottom: 6px;
 	padding-bottom: 6px;
@@ -230,6 +259,7 @@ select:hover {
 }
 
 label {
+	margin-right: 8px;
 	font-size: 13px;
 }
 
