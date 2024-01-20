@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from "react";
+import React, { useEffect, useState, memo, Suspense } from "react";
 import { getSyncStorageData } from "../storageControl";
 import { linkAction } from "../actions";
 import lang from "../../../langs/ja.json";
@@ -15,6 +15,7 @@ function CreateSeriesStockBlock() {
     const [ syncStorage, setSyncStorageVar ] = useState({})
     const [ seriesInfo, setSeriesInfoVar ] = useState({})
     const [ isUnlocked, setIsUnlockedVar ] = useState(false)
+    const [ isLoaded, setIsLoaded ] = useState(false)
     const StockRowMemo = memo((props) => <SeriesStockRow storage={props.storage} seriesinfo={props.seriesinfo}/>)
     useEffect(() => {
         console.log("useEffect called")
@@ -45,6 +46,7 @@ function CreateSeriesStockBlock() {
                 })
             }
             setSeriesInfoVar(seriesInfoObj)
+            setIsLoaded(true)
         }
         getData()
     }, [])
@@ -76,11 +78,11 @@ function CreateSeriesStockBlock() {
                 rowList.push(<div className="stockedseries-row" key={elem.seriesID}>
                     <div className={ isDetailedViewExpanded ? "stockedseries-desc-container detailedviewexpanded" : "stockedseries-desc-container"}>
                         <div className="serieslink-container">
-                            { (seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.thumbnailUrl) && <img src={seriesInfo[elem.seriesID].data.detail.thumbnailUrl} title={seriesInfo[elem.seriesID].data.detail.title + "のサムネイル"} className="stockedseries-row-thumbnail"/>}
+                            { ( isLoaded && seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.thumbnailUrl) && <img src={seriesInfo[elem.seriesID].data.detail.thumbnailUrl} title={seriesInfo[elem.seriesID].data.detail.title + "のサムネイル"} className="stockedseries-row-thumbnail"/>}
                             <div className="seriesinfo-container">
                                 <a className="stockedseries-row-link" href={seriesHref} target="_blank">{elem.seriesName}</a>
                                 <button className="removeseries"><DeleteOutlined/></button>
-                                { (seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.owner) && 
+                                { ( isLoaded && seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.owner) && 
                                     (seriesInfo[elem.seriesID].data.detail.owner.type == "channel" ? 
                                         <div className="stockedseries-row-owner">
                                             チャンネル: 
@@ -98,8 +100,8 @@ function CreateSeriesStockBlock() {
                             { elem.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => {linkAction(e)}} href={`https://www.nicovideo.jp/watch/${elem.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><PlayArrowOutlinedIcon/>最後に見た動画<span>{elem.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{color: "var(--textcolor3)"}} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><PlayArrowOutlinedIcon/>最後に見た動画<span>まだ保存されていません</span></a> }
                             { elem.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => {linkAction(e)}} href={`https://www.nicovideo.jp/watch/${elem.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><SkipNextOutlinedIcon/>次の動画<span>{elem.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{color: "var(--textcolor3)"}} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><SkipNextOutlinedIcon/>次の動画<span>まだ保存されていません</span></a> }
                         </div>
-                        { seriesInfo[elem.seriesID] && (seriesInfo[elem.seriesID].data.items ? <div className="episodelist-container" style={{"--maxheight": `${seriesInfo[elem.seriesID].data.items.length * 4.0}em`}}><EpisodeListElemMemo episodeItems={seriesInfo[elem.seriesID].data.items}/></div> : <div className="episodelist-container" style={{"--maxheight": `4em`}}>シリーズにエピソード情報がありません。</div>)}
-                        { seriesInfo[elem.seriesID] && <button type="button" className="expanddetailedview" onClick={() => { setDetailedViewExpanded(!isDetailedViewExpanded)}}>{ isDetailedViewExpanded ? <><ExpandLessOutlinedIcon/>詳細を隠す<ExpandLessOutlinedIcon/></> : <><ExpandMoreOutlinedIcon/>詳細を表示<ExpandMoreOutlinedIcon/></> }</button>}
+                        { ( isLoaded && seriesInfo[elem.seriesID]) && (seriesInfo[elem.seriesID].data.items ? <div className="episodelist-container" style={{"--maxheight": `${seriesInfo[elem.seriesID].data.items.length * 4.0}em`}}><span fallback={<div>ロード中...</div>}><EpisodeListElemMemo episodeItems={seriesInfo[elem.seriesID].data.items}/></span></div> : <div className="episodelist-container" style={{"--maxheight": `4em`}}>シリーズにエピソード情報がありません。</div>)}
+                        { ( isLoaded && seriesInfo[elem.seriesID]) && <button type="button" className="expanddetailedview" onClick={() => { setDetailedViewExpanded(!isDetailedViewExpanded)}}>{ isDetailedViewExpanded ? <><ExpandLessOutlinedIcon/>詳細を隠す<ExpandLessOutlinedIcon/></> : <><ExpandMoreOutlinedIcon/>詳細を表示<ExpandMoreOutlinedIcon/></> }</button>}
                     </div>
                 </div>)
             }

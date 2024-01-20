@@ -17,6 +17,7 @@ createRoot(document.getElementById("root")).render(
         </div>
         <div className="quickpanel-mainpanel maincontainer">
             <div className="tabpanel current-tabpanel">
+                <a href="settings.html" target="_self" className="settinglink">クイック設定を開く</a>
                 <CreateSeriesStockBlock/>
             </div>
         </div>
