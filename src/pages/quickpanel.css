@@ -385,12 +385,13 @@ a {
 
 .episodelist-container {
 	max-height: none;
-	margin-top: 4px;
+	margin-top: 0px;
 	overflow: hidden;
 	transition: max-height .15s ease;
 	max-height: 0em;
 }
 .detailedviewexpanded .episodelist-container {
+	margin-top: 4px;
 	max-height: var(--maxheight);
 }
 

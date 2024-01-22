@@ -5,7 +5,6 @@ import lang from "../../../langs/ja.json";
 
 function CreateSettingsList() {
     const [ syncStorage, setSyncStorageVar ] = useState({})
-    const [ settingsElem, setSettingsElemVar ] = useState({})
     function setSyncStorageValue(name, value) {
         setSyncStorageVar(current => {
             return {
@@ -52,7 +51,6 @@ function CreateSettingsList() {
                 return <></>
             }
         }
-
         function HintElem() {
             if ( lang.SETTINGS_ITEMS[settings.name].hint && lang.SETTINGS_ITEMS[settings.name].hint !== "" ) {
                 return <div className="hint">{lang.SETTINGS_ITEMS[settings.name].hint ?? ""}</div>

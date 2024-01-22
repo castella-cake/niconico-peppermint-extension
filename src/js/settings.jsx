@@ -4,18 +4,6 @@ import { getSyncStorageData } from "./modules/storageControl";
 import CreateSettingsList from "./modules/pages/SettingsUI";
 import lang from "../langs/ja.json";
 
-function StorageTest() {
-    const [ syncStorage, setSyncStorageVar ] = useState({})
-    useEffect(() => {
-        console.log("useEffect called")
-        async function setStorage() {
-            setSyncStorageVar(await getSyncStorageData)
-        } 
-        setStorage()
-    }, [])
-    return <div>{ JSON.stringify(syncStorage) }</div>
-}
-
 
 createRoot(document.getElementById("root")).render(
     <React.StrictMode>
@@ -28,7 +16,6 @@ createRoot(document.getElementById("root")).render(
             </div>
         </div>
         <div className="settings-page-desc">{lang.SETTINGS_DESC}</div>
-        { /* <StorageTest/> */ }
         <div className="maincontainer">
             <CreateSettingsList/>
         </div>
