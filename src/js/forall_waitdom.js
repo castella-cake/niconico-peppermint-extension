@@ -19,6 +19,8 @@ if (document.getElementById('peppermint-css') == null || document.getElementById
     html.appendChild(peppermintStyle)
 }
 
+let locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp"];
+
 getStorageData.then(createBaseCSSRule, onError);
 function createBaseCSSRule(result) {
     $(function() {
@@ -28,16 +30,16 @@ function createBaseCSSRule(result) {
             } else {
                 //addCSS(chrome.runtime.getURL("style/css/darkmode/" + result.darkmode + ".css"));
             }
-            if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp" && location.hostname != "site.nicovideo.jp" ) {
+            if ( locationWhiteList.includes(location.hostname) ) {
                 addCSS(chrome.runtime.getURL("style/css/darkmode/all.css"), true);
-            }
-            if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
-                $('.NiconicoLogo_black').addClass('NiconicoLogo_white')
-                $('.NiconicoLogo_black').removeClass('NiconicoLogo_black')
-                $('.NicovideoLogo[data-color="black"]').attr('data-color',"white")
-                document.body.classList.add('is-PMDarkPalette')
-            } else {
-                document.body.classList.add('is-PMLightPalette')
+                if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
+                    $('.NiconicoLogo_black').addClass('NiconicoLogo_white')
+                    $('.NiconicoLogo_black').removeClass('NiconicoLogo_black')
+                    $('.NicovideoLogo[data-color="black"]').attr('data-color',"white")
+                    document.body.classList.add('is-PMDarkPalette')
+                } else {
+                    document.body.classList.add('is-PMLightPalette')
+                }
             }
             document.documentElement.classList.remove('PMDM-Assist')
             //addCSS(chrome.runtime.getURL("style/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("style/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')

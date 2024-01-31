@@ -6,9 +6,11 @@ function onError(error) {
     console.log(`Error: ${error}`);
 }
 
+let locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp"];
+
 function createFastCSSRule(result) {
     console.log(result)
-    if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) && location.hostname != "ext.nicovideo.jp") {
+    if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) && locationWhiteList.includes(location.hostname)) {
         document.documentElement.classList.add('PMDM-Assist')
         if (result.darkmode == 'custom' && result.customcolorpalette != undefined) {
             document.documentElement.style = `${document.documentElement.style}
@@ -50,7 +52,7 @@ function createFastCSSRule(result) {
         if (location.hostname == "inform.nicovideo.jp") {
             document.documentElement.classList.add('PMDM-Inform')
         }
-        if ( location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp" && location.hostname != "site.nicovideo.jp" ) {
+        if ( locationWhiteList.includes(location.hostname) ) {
             document.documentElement.classList.add('PMDM-Enabled')
         }
     } 
@@ -71,9 +73,9 @@ function createFastCSSRule(result) {
     }
 }
 
-function createBaseCSSRule(result) {
+function onHeadPreparedCSS(result) {
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        if (location.hostname != "game.nicovideo.jp" && location.hostname != "qa.nicovideo.jp" && location.hostname != "www.upload.nicovideo.jp" && location.hostname != "site.nicovideo.jp") {
+        if (locationWhiteList.includes(location.hostname)) {
             addCSS(chrome.runtime.getURL("style/css/darkmode/all.css"), true);
             if (location.hostname == "www.nicovideo.jp") {
                 if (location.pathname.indexOf('/video_top') != -1) {
@@ -89,9 +91,6 @@ function createBaseCSSRule(result) {
                 }
             }
         }
-        //addCSS(chrome.runtime.getURL("style/css/peppermint-ui-var.css"), true, `link[href="${chrome.runtime.getURL("style/css/darkmode/" + result.darkmode + ".css")}"]`, 'before')
-        //document.documentElement.classList.add('PMDM-Assist')
-        //document.documentElement.style = "--pre-bgcolor: #000"
     } else { addCSS(chrome.runtime.getURL("style/css/peppermint-ui-var.css"), true) }
     if (result.enablevisualpatch == true) {
         addCSS(chrome.runtime.getURL("style/css/visualpatch.css"))
@@ -100,6 +99,7 @@ function createBaseCSSRule(result) {
 
 getSyncStorageData.then(createFastCSSRule, onError)
 
+// <head>が増えた時に一度だけbaseCSSRuleを呼ぶ。
 const observehtml = document.documentElement
 const observer = new MutationObserver(records => {
     records.forEach(function (record) {
@@ -107,7 +107,7 @@ const observer = new MutationObserver(records => {
         for (var i = 0; i < addedNodes.length; i++) {
             var node = addedNodes[i];
             if (node.tagName === 'HEAD') {
-                getStorageData.then(createBaseCSSRule, onError);
+                getStorageData.then(onHeadPreparedCSS, onError);
                 observer.disconnect();
                 break;
             }
@@ -120,7 +120,7 @@ if (document.head == null) {
         childList: true
     })
 } else {
-    getSyncStorageData.then(createBaseCSSRule, onError);
+    getSyncStorageData.then(onHeadPreparedCSS, onError);
 }
 
 if (document.getElementById('peppermint-css') == null || document.getElementById('peppermint-css') == undefined) {
