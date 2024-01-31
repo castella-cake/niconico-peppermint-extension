@@ -1,6 +1,5 @@
-const { getSyncStorageData } = require("./modules/storageControl.js")
-const { addCSS, removeCSS, pushCSSRule } = require("./modules/styleControl.js")
-const { manageSeriesStock, seriesIsStocked } = require("./modules/seriesStock.js")
+const { getSyncStorageData } = require("./modules/storageControl.js");
+const { addCSS, removeCSS, pushCSSRule } = require("./modules/styleControl.js");
 
 function onError(error) {
     console.log(`Error: ${error}`);
@@ -9,7 +8,7 @@ function onError(error) {
 let locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp"];
 
 function createFastCSSRule(result) {
-    console.log(result)
+    // #region HTML要素用のパレット設定
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) && locationWhiteList.includes(location.hostname)) {
         document.documentElement.classList.add('PMDM-Assist')
         if (result.darkmode == 'custom' && result.customcolorpalette != undefined) {
@@ -56,6 +55,8 @@ function createFastCSSRule(result) {
             document.documentElement.classList.add('PMDM-Enabled')
         }
     } 
+    // #endregion
+    // #region その他QoL機能のアクティベート
     if ( result.highlightnewnotice == true ) {
         document.documentElement.classList.add('PM-HighlightNewNotice')
     }
@@ -71,6 +72,7 @@ function createFastCSSRule(result) {
     if (result.fixedheaderwidth == true) {
         document.documentElement.classList.add('PM-FixedHeaderWidth')
     }
+    // #endregion
 }
 
 function onHeadPreparedCSS(result) {
@@ -96,7 +98,6 @@ function onHeadPreparedCSS(result) {
         addCSS(chrome.runtime.getURL("style/css/visualpatch.css"))
     }
 }
-
 getSyncStorageData.then(createFastCSSRule, onError)
 
 // <head>が増えた時に一度だけbaseCSSRuleを呼ぶ。
@@ -115,34 +116,9 @@ const observer = new MutationObserver(records => {
     });
 })
 if (document.head == null) {
-    console.log('alternative mode')
     observer.observe(observehtml, {
         childList: true
     })
 } else {
     getSyncStorageData.then(onHeadPreparedCSS, onError);
 }
-
-if (document.getElementById('peppermint-css') == null || document.getElementById('peppermint-css') == undefined) {
-    let html = document.querySelector('html');
-    let peppermintStyle = document.createElement('style')
-    peppermintStyle.id = "peppermint-css"
-    html.appendChild(peppermintStyle)
-}
-
-/*
-$(document).on('keypress', keypress_event);
-
-function keypress_event(e) {
-    if((e.key === 'q' || e.key === 'Q') && !$(e.target).closest("input, textarea").length ){
-        $('img,span,a,svg,li,div > div > div').each(function(i, elem) {
-            setTimeout( function () {
-                //console.log('hello!')
-                $(elem).css({
-                    'transition': 'transform 1s ease-in',
-                    'transform': 'translate(0,800px)'
-                })
-            }, (Math.floor(Math.random() * 80) * i)) //
-        })
-    }
-}*/

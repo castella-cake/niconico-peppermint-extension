@@ -1,13 +1,7 @@
-// www.nicovideo.jpの全てで実行
+// www.nicovideo.jpの全てで実行。publicのfunction置き場です。
+// TODO: すべてのモジュール化が完了次第、これは削除する
 function onError(error) {
     console.log(`Error: ${error}`);
-}
-
-if (document.getElementById('peppermint-css') == null || document.getElementById('peppermint-css') == undefined) {
-    let html = document.querySelector('html');
-    let peppermintStyle = document.createElement('style')
-    peppermintStyle.id = "peppermint-css"
-    html.appendChild(peppermintStyle)
 }
 function addCSS(cssfile, safeAppend = true, var2 = 'head', var3 = 'root') {
     // headの後にstylesheetとしてlinkをくっつけるやつ

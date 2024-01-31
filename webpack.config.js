@@ -1,6 +1,7 @@
 module.exports = {
     entry: {
         index: './src/js/index.js',
+        index_end: './src/js/index_end.js',
         settings: './src/js/settings.jsx',
         quickpanel: './src/js/quickpanel.jsx',
     },

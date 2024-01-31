@@ -75,14 +75,22 @@ function removeCSS(cssfile) {
     }
 }
 
+function addPMStyleElem() {
+    if (document.getElementById('peppermint-css')) {
+        return false;
+    }
+    const html = document.documentElement;
+    let peppermintStyle = document.createElement('style');
+    peppermintStyle.id = "peppermint-css";
+    html.appendChild(peppermintStyle);
+    return true;
+}
+
 function pushCSSRule(string) {
-    if (document.getElementById('peppermint-css') == null || document.getElementById('peppermint-css') == undefined) {
-        let html = document.documentElement;
-        let peppermintStyle = document.createElement('style')
-        peppermintStyle.id = "peppermint-css"
-        html.appendChild(peppermintStyle)
+    if (!document.getElementById('peppermint-css')) {
+        addPMStyleElem()
     }
     document.getElementById('peppermint-css').textContent = document.getElementById('peppermint-css').textContent + string
 }
 
-module.exports = { addCSS, removeCSS, pushCSSRule }
+module.exports = { addCSS, removeCSS, pushCSSRule, addPMStyleElem }
