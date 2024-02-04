@@ -47,3 +47,6 @@
 .FollowingVideosContainer-ownerName {
     color: var(--textcolor1);
 }
+.HotTagsContainer-list {
+	color: var(--textcolor2);
+}

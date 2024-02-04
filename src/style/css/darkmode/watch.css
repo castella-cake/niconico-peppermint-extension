@@ -198,6 +198,21 @@
 .PlayerPanelContainer-tabItem {
     border-bottom: 3px solid var(--bgcolor3);
 }
+.VideoCountMeta.VideoCountMeta-iconWrapper > svg path:last-child {
+	fill: var(--textcolor3);
+}
+.VideoMediaObject-postedDate {
+	color: var(--textcolor2);
+}
+.VideoMediaObject-meta{
+	color: var(--textcolor3);
+}
+.SeriesMediaObject-bodyMetaLabel {
+    color: var(--textcolor2);
+}
+.NextPlayVideoContainer-controls {
+    color: var(--textcolor2)
+}
 /* 右下イベントカード */
 .TagRelatedBanner-title .Link {
     color: var(--linktext1);
