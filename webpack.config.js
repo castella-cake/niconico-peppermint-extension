@@ -12,13 +12,17 @@ module.exports = {
     devtool: "source-map",
     mode: 'development',
     resolve: {
-        extensions: [".js", ".jsx", ".json"]
+        extensions: [".js", ".jsx", ".json", ".styl"]
     },
     module: {
         rules: [
             { test: /\.jsx$/, loader: "babel-loader", exclude: /node_modules/, options: {
                 presets: ["@babel/preset-react"]
             } },
+            {
+                test: /\.styl$/,
+                use: ['style-loader', 'css-loader', 'stylus-native-loader'],
+            },
         ],
     },
 }

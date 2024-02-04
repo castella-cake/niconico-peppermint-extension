@@ -1,0 +1,41 @@
+import React, { useState } from "react";
+import CreateSeriesStockBlock from "./seriesStock";
+import CreateSettingsList from "./SettingsUI";
+import lang from "../../../langs/ja.json";
+
+// #region Enum
+const tabType = Object.freeze({
+    dashboard: 0,
+    settings: 1,
+    nicorepo: 2,
+    notification: 3,
+})
+// #endregion
+
+function createTabUI() {
+    const [currentTab, setCurrentTab] = useState(tabType.dashboard)
+
+    let currentTabElem = <div>Invalid tab type.</div>;
+    if ( currentTab == tabType.dashboard ) {
+        currentTabElem = <>
+            <CreateSeriesStockBlock />
+        </>
+    } else if ( currentTab == tabType.settings ) {
+        currentTabElem = <>
+            <CreateSettingsList />
+        </>
+    } 
+    return <>
+        <div className="tabcontainer">
+            <button type="button" className={currentTab == tabType.dashboard ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.dashboard) }}>ダッシュボード</button>
+            <button type="button" className={currentTab == tabType.settings ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.settings) }}>クイック設定</button>
+        </div>
+        <div className="quickpanel-mainpanel maincontainer">
+            <div className="tabpanel current-tabpanel">
+                { currentTabElem }
+            </div>
+        </div>
+    </>
+}
+
+export default createTabUI;

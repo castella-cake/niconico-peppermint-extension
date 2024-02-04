@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getSyncStorageData } from "../storageControl";
 import settings from "./settingsList";
 import lang from "../../../langs/ja.json";
+import "../../../style/pages/settingsUI.styl"
 
 function CreateSettingsList() {
     const [ syncStorage, setSyncStorageVar ] = useState({})

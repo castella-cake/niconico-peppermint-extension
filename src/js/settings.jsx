@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { getSyncStorageData } from "./modules/storageControl";
 import CreateSettingsList from "./modules/pages/SettingsUI";
 import lang from "../langs/ja.json";
 
