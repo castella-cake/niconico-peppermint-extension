@@ -1,3 +1,4 @@
+// #region フォールバック関数
 function onError(error) {
     console.log(`Error: ${error}`);
 }
@@ -66,17 +67,13 @@ function addCSS(cssfile, safeAppend = true, var2 = 'head', var3 = 'root') {
 
         }
     }
-
 }
+// #endregion
+
+// #region boxUIトランジション
 var getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
-    if (result.usenicoboxui != true && result.usetheaterui == true ) {
-        // theater UI
-        // video関連は早めにスタイルシートで書かないとコメントコンテナーやシンボルが動画サイズの変更を反映してくれない
-        addCSS(chrome.runtime.getURL("style/css/theater_video.css"));
-        addCSS(chrome.runtime.getURL("style/css/header/black.css"))
-    }
     if (result.nicoboxuichanged == true) {
         //console.log('changed!')
         $('#CommonHeader')
@@ -100,3 +97,4 @@ function createCSSRule(result) {
         chrome.storage.sync.set({"nicoboxuichanged": false});
     }
 }
+// #endregion

@@ -2,6 +2,7 @@ node_modules/
 build/
 src/style/css/index.css
 src/style/css/darkmode/darkmode.css
+src/js/modules/feature_test.js
 builds/
 dev/
 dist/

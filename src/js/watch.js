@@ -1,12 +1,14 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
-    //console.log(result)
+    // #region ボタンコンテナの追加
     if ( document.querySelector('.pmbutton-container') == undefined || document.querySelector('.pmbutton-container') == null ) {
         let pmbuttoncontainer = document.createElement('div')
         pmbuttoncontainer.classList.add('pmbutton-container')
         document.body.appendChild(pmbuttoncontainer)
     }
+    // #endregion
 
+    // #region Misskey共有
     if (result.enablemisskeyshare == true) {
         // make container
         let sharebtncontainer = document.createElement('div')
@@ -105,7 +107,10 @@ function createCSSRule(result) {
         // push to dom
         document.querySelector('.pmbutton-container').appendChild(sharebtncontainer)
     }
+    // #endregion
+
     // TODO: 将来的にbuttonに置き換える
+    // #region クイック動画記事
     if (result.quickvidarticle == true) {
         $('.pmbutton-container').append('<div class="vidarticle-container subaction-container"><a id="openvidarticle" class="subaction-button">百</a></div>')
         $('#openvidarticle').on('mouseenter', function () {
@@ -119,57 +124,10 @@ function createCSSRule(result) {
                 href: "https://dic.nicovideo.jp/v/" + location.pathname.slice(7)
             })
         });
-
     }
-    /*
-    if (result.enabledlbutton == true) {
-        $('.pmbutton-container').append('<div class="downloadvideo-container subaction-container"><a id="downloadvideo" class="material-icons subaction-button" target="_blank" rel="noopener noreferrer">download</a></div>')
-        if (location.pathname.slice(7, 9) != "so") {
-            $('#downloadvideo').on('mouseenter', function () {
-                $('.downloadvideo-container').append('<span id="downloadvideo-text" class="pmui-hinttext">動画をダウンロード</span>')
-            })
-            $('#downloadvideo').on('mouseleave', function () {
-                $('#downloadvideo-text').remove()
-            })
-            $('#downloadvideo').on('click', setDownloadButton);
-            function setDownloadButton(e) {
-                // 誤爆防止のために、一回目は行われたクリック操作をなかったことにする
-                if ($(e.target).attr('href') == undefined) {
-                    e.preventDefault();
-                }
-                // videoのsrcを取得する
-                let videourl = $('.MainVideoPlayer video').attr('src');
-                // ロード前にクリックされるかもしれないので、undefinedだったら蹴る
-                if (videourl == undefined || videourl == "" || videourl == null) {
-                    $('#downloadvideo-text').text('ダウンロードリンクの設定に失敗しました')
-                } else if (videourl.startsWith('blob:')) {
-                    $('#downloadvideo-text').text('視聴方式をHTTPに変更してください')
-                } else {
-                    $('#downloadvideo-text').text('もう一度クリックしてダウンロード')
-                    $('#downloadvideo').css({
-                        'background': '#4caf50',
-                        'color': '#fff',
-                        'transition': 'all .1s'
-                    })
-                    // hrefを設定
-                    // Downloadは書いてるけどクロスオリジン関係で動かないっぽい
-                    $(e.target).attr({
-                        download: location.pathname.slice(7) + ".mp4",
-                        href: videourl
-                    })
-                }
-            }
-        } else {
-            $('#downloadvideo').addClass('disabled')
-            $('#downloadvideo').text('file_download_off')
-            $('#downloadvideo').on('mouseenter', function () {
-                $('.downloadvideo-container').append('<span id="downloadvideo-text" class="pmui-hinttext">この動画はダウンロードできません</span>')
-            })
-            $('#downloadvideo').on('mouseleave', function () {
-                $('#downloadvideo-text').remove()
-            })
-        }
-    }*/
+    // #endregion
+
+    // #region シアターUI拡大ボタン
     if (result.usetheaterui == true && result.usenicoboxui != true) {
         $('.pmbutton-container').append('<div class="togglefullsize-container subaction-container"><a id="togglefullsize" class="material-icons-outlined subaction-button">width_full</a></div>')
         let togglefullsizeelem = document.getElementById("togglefullsize")
@@ -205,6 +163,9 @@ function createCSSRule(result) {
             }
         }
     }
+    // #endregion
+
+    // #region boxUIトグルボタン
     if (result.enablenicoboxui == true) {
         $('.pmbutton-container').append('<div class="togglenicobox-container"><button id="togglenicobox" class="material-icons mainaction-button">headphones</button></div>')
         if (result.usenicoboxui != true) {
@@ -252,15 +213,19 @@ function createCSSRule(result) {
             }, 250)
         }
     }
+    // #endregion
 
+    // #region ロックタグハイライト
     if (result.highlightlockedtag == true) {
         if (result.watchpagetheme == "harazyuku" && result.usenicoboxui != true && result.usetheaterui != true) {
             pushCSSRule('.TagItem.is-locked{border-bottom: 2px solid #ffd794;}')
         } else {
             pushCSSRule('.TagItem.is-locked{border: 1px solid #ffd794;}')
         }
-
     }
+    // #endregion
+
+    // #region QoL機能
     if (result.hideeventbanner == true) {
         //$('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').remove()
         document.documentElement.classList.add('PM-HideEventBanner')
@@ -269,7 +234,6 @@ function createCSSRule(result) {
         $('.CommentPostContainer').css('height', `${32 * result.commentrow}px`)
         $('.CommentPostContainer-commandInput .CommentCommandInput, .CommentPostContainer-commentInput .CommentInput, .CommentPostButton.ActionButton').css('height', `${28 * result.commentrow}px`)
     }
-
     if (result.cleanvidowner) {
         $('.VideoOwnerInfo .FollowButton,.VideoOwnerInfo-linkButtons').remove()
         $('.VideoOwnerInfo-links').css({
@@ -281,8 +245,11 @@ function createCSSRule(result) {
     if (result.hidemetadata == "watch" || result.hidemetadata == "all") {
         document.documentElement.classList.add('PM-HideMetaData')
     }
+    // #endregion
 
+    // #region ショートカットアシスト/ExCommander
     if (result.shortcutassist) {
+        // #region ExCommander
         async function cmdACT(cmdstr) {
             // return -1 = ERROR | 0 = SUCCESS | 1 = SUCCESS with external flag | 2 = SUCCESS with external output
             const commandstr = cmdstr
@@ -426,10 +393,9 @@ function createCSSRule(result) {
                 document.getElementById('pm-vicommander').focus()
                 document.getElementById('pm-vicommander').addEventListener('keypress', commanderKeyEvent);
             }
-
         }
-        $(document).on('keydown', shortCutAction);
-
+        // #endregion
+        // #region ショートカットアシスト
         function shortCutAction(e) {
             if (e.ctrlKey || $(e.target).closest("input, textarea").length) {
                 return true;
@@ -457,42 +423,14 @@ function createCSSRule(result) {
                     openViCommander()
                     return false;
                 }
-
             }
         }
+        $(document).on('keydown', shortCutAction);
+        // #endregion
     }
-    if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        pushCSSRule(`.IchibaForWatch {
-        background: var(--bgcolor2) !important;
-    }
-    .IchibaMain_Container .IchibaBalloon {
-        background: var(--bgcolor3);
-    }
-    .IchibaMain_Container .IchibaBalloon::after {
-        border-top: 16px solid #555;
-    }
-    .IchibaForWatch_Title_Body,.IchibaSuggest_Title {
-        color: #fafafa;
-    }
-    .IchibaMainItem_Info,.IchibaSuggestItem_Info_Shop {
-        color: var(--textcolor2);
-    }
-    .IchibaMainItem_Price_Number,.IchibaSuggestItem_Price_Number {
-        color: var(--textcolor3);
-    }
-    .IchibaMainItem_Name,.IchibaSuggestItem_Name {
-        color: #8fb9df;
-    }
-    .IchibaSuggestItem {    
-        border: 1px solid var(--accent2);
-    }`)
-    }
+    // #endregion
 
-    /*
-    $(document).on('mousemove', function(e) {
-        window.cursorX = e.pageX;
-        window.cursorY = e.pageY;
-    });*/
+    // #region boxUI/シアターUI未使用時アクション
     if (result.usenicoboxui != true && result.usetheaterui != true) {
         if (result.watchpagetheme != "") {
             //console.log(`CSS Loaded!`);
@@ -754,7 +692,11 @@ function createCSSRule(result) {
             //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none')
             addCSS(chrome.runtime.getURL("style/css/hide/hidepopup.css"));
         }
-    } else if (result.usenicoboxui == true && result.useoldnicoboxstyle != true) {
+    }
+    // #endregion
+
+    // #region 新boxUI
+    if (result.usenicoboxui == true && result.useoldnicoboxstyle != true) {
         // New Nicobox UI
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
@@ -831,6 +773,8 @@ function createCSSRule(result) {
                 `)
             }
         });
+    // #endregion
+    // #region 旧boxUI
     } else if (result.usenicoboxui == true && result.useoldnicoboxstyle == true) {
         // Nicobox UI
         $('body').addClass('is-PMNicoboxUI')
@@ -863,6 +807,8 @@ function createCSSRule(result) {
             }
         });
     } else {
+    // #endregion
+    // #region シアターUI
         // theater UI
         $('body').css('background-color', '#000')
         $('body').addClass('is-PMTheaterUI')
@@ -895,5 +841,5 @@ function createCSSRule(result) {
             window.scroll({ top: 0, behavior: 'smooth' });
         });
     }
-    //console.log(`createCSSRule Finished!`)
+    // #endregion
 }
