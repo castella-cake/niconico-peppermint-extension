@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { getSyncStorageData } from "../storageControl";
 import CreateSeriesStockBlock from "./seriesStock";
 import CreateSettingsList from "./SettingsUI";
 import CreateNicorepoUI from "./nicorepoUI";
@@ -14,6 +15,15 @@ const tabType = Object.freeze({
 // #endregion
 
 function createTabUI() {
+    const [ syncStorage, setSyncStorageVar ] = useState({})
+    useEffect(() => {
+        console.log("useEffect called")
+        async function setStorage() {
+            setSyncStorageVar(await getSyncStorageData)
+        } 
+        setStorage()
+    }, [])
+
     const [currentTab, setCurrentTab] = useState(tabType.dashboard)
 
     let currentTabElem = <div>Invalid tab type.</div>;
@@ -33,8 +43,8 @@ function createTabUI() {
     return <>
         <div className="tabcontainer">
             <button type="button" className={currentTab == tabType.dashboard ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.dashboard) }}>{lang.DASHBOARD}</button>
-            <button type="button" className={currentTab == tabType.settings ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.settings) }}>{lang.QUICK_SETTINGS}</button>
-            <button type="button" className={currentTab == tabType.nicorepo ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.nicorepo) }}>{lang.NICOREPO}</button>
+            { syncStorage.enablequicksettingstab && <button type="button" className={currentTab == tabType.settings ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.settings) }}>{lang.QUICK_SETTINGS}</button> }
+            { syncStorage.enablenicorepotab && <button type="button" className={currentTab == tabType.nicorepo ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.nicorepo) }}>{lang.NICOREPO}</button> }
         </div>
         <div className="quickpanel-mainpanel maincontainer">
             <div className="tabpanel current-tabpanel">
