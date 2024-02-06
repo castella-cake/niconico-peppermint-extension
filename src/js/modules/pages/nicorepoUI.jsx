@@ -11,11 +11,19 @@ const getRecentNicorepo = new Promise((resolve) => chrome.runtime.sendMessage({ 
 
 function CreateNicorepoUI() {
     const [ nicorepoInfo, setNicorepoInfoVar ] = useState({})
+    const [ reloadRenderVar, setReloadRenderVar ] = useState(false)
     useEffect(() => {
         getRecentNicorepo.then((res) => {
             setNicorepoInfoVar(res)
         })
-    })
+    }, [])
+    function reloadNicorepo() {
+        const getUpdatedNicorepo = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo", "updateType": 1 }, resolve))
+        getUpdatedNicorepo.then((res) => {
+            setNicorepoInfoVar(res)
+            setReloadRenderVar(!reloadRenderVar)
+        })
+    }
     if ( nicorepoInfo != undefined && nicorepoInfo.meta != undefined && nicorepoInfo.meta.status == 200 && nicorepoInfo.data ) {
         const fetchdate = new Date(nicorepoInfo.fetchdate)
         const itemDispArray = nicorepoInfo.data.map(elem => {
@@ -29,8 +37,9 @@ function CreateNicorepoUI() {
                 </div>
             </div>
         })
+
         return <>
-            <div className="nicorepo-lastfetch">最終取得: {fetchdate.toLocaleString()}<button className="nicorepo-reload"><RefreshIcon/></button></div>
+            <div className="nicorepo-lastfetch">最終取得: {fetchdate.toLocaleString()}<button className="nicorepo-reload" onClick={() => {reloadNicorepo()}} type="button"><RefreshIcon style={{ fontSize: 18 }}/></button></div>
             <div className="nicorepo-rowlistcontainer">
                 { itemDispArray }
             </div>
@@ -40,7 +49,7 @@ function CreateNicorepoUI() {
     } else {
         return <>
             <div>ニコレポ情報の取得に失敗しました{(nicorepoInfo.meta != undefined && nicorepoInfo.meta.status != undefined ) ?? ": " + nicorepoInfo.meta.status}</div>
-            <button className="nicorepo-reload"><RefreshIcon/></button>
+            <button className="nicorepo-reload" onClick={() => {reloadNicorepo()}} type="button"><RefreshIcon/></button>
         </>
     }
     

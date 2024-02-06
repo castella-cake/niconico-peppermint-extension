@@ -37,12 +37,17 @@
 	text-overflow: ellipsis;
 }
 .nicorepo-reload {
-	background: var(--accent1);
+	background: transparent;
 	border: none;
-	font-size: 16px;
 	cursor: pointer;
 	padding: 4px;
 	vertical-align: middle;
 	margin-left: 4px;
-	border-radius: 4px;
+	border-radius: 100%;
+	width: 25px;
+	height: 25px;
+}
+
+.nicorepo-reload:hover {
+	background: var(--hover1);
 }
