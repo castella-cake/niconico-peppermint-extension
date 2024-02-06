@@ -213,6 +213,51 @@
 .NextPlayVideoContainer-controls {
     color: var(--textcolor2)
 }
+/* 右側タブ-動画リスト */
+.PlaylistHeader, .PlaylistControl, .NextPlayVideoContainer.is-playlist {
+    background: var(--bgcolor2);
+    color: var(--textcolor1)
+}
+.PlaylistItemList {
+    background: var(--bgcolor2);
+}
+.VideoListPanelContainer-playlistControl {
+    box-shadow: 0 1px 2px var(--bgcolor1);
+}
+
+.VideoListPanelContainer.is-playlistOpened.is-playlistOpened .VideoListPanelContainer-playlistHeader {
+    border-bottom: 2px solid var(--accent1);
+}
+
+.PlaylistShuffleButton > .PlaylistShuffleButton-icon path {
+    fill: var(--textcolor3);
+}
+.PlaylistShuffleButton_isShuffled > .PlaylistShuffleButton-icon path {
+    fill: var(--linktext1);
+}
+
+.PlaylistItemList-item.currentItem {
+	background: var(--accent1);
+}
+.PlaylistItem .RouterLink, .NextPlayVideoContainer.is-playlist a {
+	color: var(--textcolor1);
+}
+.PlaylistControl-continuousLabel, .PlaylistControl-playlistLoopLabel, .NextPlayVideoContainer-continuous, .PlaylistHeader-toggle {
+	color: var(--textcolor2);
+}
+.Toggle-inner::after {
+    background: var(--bgcolor2);
+}
+.Toggle-inner::before {
+    background: var(--textcolor2);
+}
+.Toggle.is-checked .Toggle-inner::before {
+	background: var(--linktext1);
+}
+
+.VideoListPanelContainer.is-playlistPlaying .VideoListPanelContainer-playlistHeader {
+    border-bottom: 2px solid var(--accent2);
+}
 /* 右下イベントカード */
 .TagRelatedBanner-title .Link {
     color: var(--linktext1);
