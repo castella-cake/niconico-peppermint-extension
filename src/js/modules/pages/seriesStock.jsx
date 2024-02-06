@@ -94,25 +94,25 @@ function CreateSeriesStockBlock() {
                 let playlist = btoa(`{"type":"series","context":{"seriesId":${elem.seriesID}}}`)
                 const titleRegexp = new RegExp(`^${elem.seriesName}( |　)*`)
                 const [isDetailedViewExpanded, setDetailedViewExpanded] = useState(false)
-                // elem.idはstringである必要があるため、`で変換する
+                // elem.idはstringである必要があるため、toStringで変換する
                 const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: elem.seriesID.toString(), disabled: !isUnlocked })
                 const dndStyle = { transform: CSS.Transform.toString(transform), transition, }
 
                 return <div className="stockedseries-row" key={elem.seriesID} ref={setNodeRef} style={dndStyle} {...attributes} {...listeners}>
                     <div className={isDetailedViewExpanded ? "stockedseries-desc-container detailedviewexpanded" : "stockedseries-desc-container"}>
                         <div className="serieslink-container">
-                            {(seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.thumbnailUrl) && <img src={seriesInfo[elem.seriesID].data.detail.thumbnailUrl} title={seriesInfo[elem.seriesID].data.detail.title + "のサムネイル"} className="stockedseries-row-thumbnail" />}
+                            {(seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.thumbnailUrl) && <img src={seriesInfo[elem.seriesID].data.detail.thumbnailUrl} title={seriesInfo[elem.seriesID].data.detail.title + lang.THUMB_ALT_TEXT} className="stockedseries-row-thumbnail" />}
                             <div className="seriesinfo-container">
                                 <a className="stockedseries-row-link" href={seriesHref} target="_blank">{elem.seriesName}</a>
                                 <button className="removeseries"><DeleteOutlined /></button>
                                 {(seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.owner) &&
                                     (seriesInfo[elem.seriesID].data.detail.owner.type == "channel" ?
                                         <div className="stockedseries-row-owner">
-                                            チャンネル:
+                                            {lang.CHANNEL}:
                                             <a href={"https://nico.ms/" + seriesInfo[elem.seriesID].data.detail.owner.channel.id} className="stockedseries-row-ownerlink">{seriesInfo[elem.seriesID].data.detail.owner.channel.name}</a>
                                         </div>
                                         : <div className="stockedseries-row-owner">
-                                            ユーザー:
+                                            {lang.USER}:
                                             <a href={"https://nico.ms/user/" + seriesInfo[elem.seriesID].data.detail.owner.user.id} className="stockedseries-row-ownerlink" style={seriesInfo[elem.seriesID].data.detail.owner.user.isPremium && { color: "#d9a300" }}>{seriesInfo[elem.seriesID].data.detail.owner.user.nickname}</a>
                                         </div>
                                     )
@@ -120,12 +120,12 @@ function CreateSeriesStockBlock() {
                             </div>
                         </div>
                         <div className="stockedseries-vidlink-container">
-                            {elem.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><PlayArrowOutlinedIcon />最後に見た動画<span>{elem.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><PlayArrowOutlinedIcon />最後に見た動画<span>まだ保存されていません</span></a>}
-                            {elem.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><SkipNextOutlinedIcon />次の動画<span>{elem.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><SkipNextOutlinedIcon />次の動画<span>まだ保存されていません</span></a>}
+                            {elem.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><PlayArrowOutlinedIcon />{lang.LASTVID_TITLE}<span>{elem.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><PlayArrowOutlinedIcon />{lang.LASTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
+                            {elem.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><SkipNextOutlinedIcon />{lang.NEXTVID_TITLE}<span>{elem.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><SkipNextOutlinedIcon />{lang.NEXTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
                         </div>
-                        {(seriesInfo[elem.seriesID]) && (seriesInfo[elem.seriesID].data.items ? <div className="episodelist-container" style={{ "--maxheight": `${seriesInfo[elem.seriesID].data.items.length * 4.0}em` }}>{seriesStockVar.episodeLists[elem.seriesID]}</div> : <div className="episodelist-container" style={{ "--maxheight": `4em` }}>シリーズにエピソード情報がありません。</div>)}
+                        {(seriesInfo[elem.seriesID]) && (seriesInfo[elem.seriesID].data.items ? <div className="episodelist-container" style={{ "--maxheight": `${seriesInfo[elem.seriesID].data.items.length * 4.0}em` }}>{seriesStockVar.episodeLists[elem.seriesID]}</div> : <div className="episodelist-container" style={{ "--maxheight": `4em` }}>{lang.NO_EPISODE_INFO}</div>)}
                         <button type="button" className="expanddetailedview" onClick={() => { setDetailedViewExpanded(!isDetailedViewExpanded) }}>
-                            {(seriesInfo[elem.seriesID]) ? (isDetailedViewExpanded ? <><ExpandLessOutlinedIcon />詳細を隠す<ExpandLessOutlinedIcon /></> : <><ExpandMoreOutlinedIcon />詳細を表示<ExpandMoreOutlinedIcon /></>) : <><ExpandMoreOutlinedIcon /><span style={{ color: "var(--textcolor2)" }}>ロード中...</span><ExpandMoreOutlinedIcon /></>}
+                            {(seriesInfo[elem.seriesID]) ? (isDetailedViewExpanded ? <><ExpandLessOutlinedIcon />{lang.HIDE_DETAILS}<ExpandLessOutlinedIcon /></> : <><ExpandMoreOutlinedIcon />{lang.SEE_DETAILS}<ExpandMoreOutlinedIcon /></>) : <><ExpandMoreOutlinedIcon /><span style={{ color: "var(--textcolor2)" }}>{lang.LOADING}</span><ExpandMoreOutlinedIcon /></>}
                         </button>
                     </div>
                 </div>

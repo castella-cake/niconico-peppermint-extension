@@ -32,9 +32,9 @@ function createTabUI() {
     } 
     return <>
         <div className="tabcontainer">
-            <button type="button" className={currentTab == tabType.dashboard ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.dashboard) }}>ダッシュボード</button>
-            <button type="button" className={currentTab == tabType.settings ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.settings) }}>クイック設定</button>
-            <button type="button" className={currentTab == tabType.nicorepo ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.nicorepo) }}>ニコレポ</button>
+            <button type="button" className={currentTab == tabType.dashboard ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.dashboard) }}>{lang.DASHBOARD}</button>
+            <button type="button" className={currentTab == tabType.settings ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.settings) }}>{lang.QUICK_SETTINGS}</button>
+            <button type="button" className={currentTab == tabType.nicorepo ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.nicorepo) }}>{lang.NICOREPO}</button>
         </div>
         <div className="quickpanel-mainpanel maincontainer">
             <div className="tabpanel current-tabpanel">

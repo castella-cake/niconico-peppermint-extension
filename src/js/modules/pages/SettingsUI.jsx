@@ -20,9 +20,10 @@ function CreateSettingsList() {
         if ( settings.type == "checkbox" ) {
             return <label key={settings.name}><input type="checkbox" checked={syncStorage[settings.name] ?? settings.default} onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.checked)}} />{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}</label>
         } else if ( settings.type == "select" ){
-            //const settingsOption = settings.values.map((elem, index) => { return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[settings.name].select[index] ?? elem}</option> })
+            const settingsOption = settings.values.map((elem, index) => { return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[settings.name].select[index] ?? elem}</option> })
+            return <label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<select onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.value)}} value={syncStorage[settings.name] ?? settings.default}>{ settingsOption }</select></label>
+        } else if ( settings.type == "selectButtons" ){
             const settingsOption = settings.values.map((elem, index) => { return <button type="button" key={elem} onClick={() => {setSyncStorageValue(settings.name, elem)}} className={"select-button" + ((syncStorage[settings.name] ?? settings.default) == elem ? " select-button-current" : "")}>{lang.SETTINGS_ITEMS[settings.name].select[index] ?? elem}</button> })
-            //return <label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<select onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.value)}} value={syncStorage[settings.name] ?? settings.default}>{ settingsOption }</select></label>
             return <><label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}</label><div className="select-button-container" key={`${settings.name}-selectbutton`}>{ settingsOption }</div></>
         } else if ( settings.type == "inputNumber" ) {
             return <label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<input type="number" min={settings.min} max={settings.max} value={(syncStorage[settings.name] ?? settings.default)} onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.value)}}/></label>

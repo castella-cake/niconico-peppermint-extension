@@ -193,5 +193,27 @@
     "MISSKEYSHARE_CONFIGURE_LINK": "共有先インスタンスを設定...",
     "DARKMODE_CUSTOMPALETTE_LINK": "カスタムカラーパレットを設定...",
     "SERIESSTOCK_MANAGESERIES_LINK": "ストック中のシリーズを管理...",
-    "CUSTOMVIDTOP_CONFIGURE_LINK": "カスタム動画トップを設定..."
+    "CUSTOMVIDTOP_CONFIGURE_LINK": "カスタム動画トップを設定...",
+    "CHANNEL": "チャンネル",
+    "USER": "ユーザー",
+    "LOADING": "ロード中...",
+
+    "DASHBOARD": "ダッシュボード",
+    "QUICK_SETTINGS": "クイック設定",
+    "NICOREPO": "ニコレポ",
+
+    "LAST_FETCHED_DATE": "最終取得",
+    "NICOREPO_FETCH_FAILED": "ニコレポ情報の取得に失敗しました",
+
+    "LASTVID_TITLE": "最後に見た動画",
+    "NEXTVID_TITLE": "次の動画",
+    "NO_TRACKED_VIDEO": "まだ保存されていません",
+    "SEE_DETAILS": "詳細を表示",
+    "HIDE_DETAILS": "詳細を隠す",
+    "NO_EPISODE_INFO": "シリーズにエピソード情報がありません。",
+    "NO_STOCKED_SERIES": "ストック中のシリーズが一つもありません。",
+    "SERIES_STOCK_TITLE": "シリーズストック",
+    "TO_LOCK": "ロック状態に変更",
+    "TO_UNLOCK": "ロック解除",
+    "THUMB_ALT_TEXT": "のサムネイル"
 }
