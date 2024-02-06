@@ -26,6 +26,7 @@ import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import SkipNextOutlinedIcon from '@mui/icons-material/SkipNextOutlined';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 
 function CreateSeriesStockBlock() {
     const [syncStorage, setSyncStorageVar] = useState({})
@@ -165,6 +166,7 @@ function CreateSeriesStockBlock() {
                 sensors={sensors}
                 collisionDetection={closestCenter}
                 onDragEnd={handleDragEnd}
+                modifiers={[restrictToVerticalAxis]}
             >
                 <SortableContext
                     items={syncStorage.stockedseries ? syncStorage.stockedseries.map(elem => { return elem.seriesID.toString() }) : []}

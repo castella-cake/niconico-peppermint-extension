@@ -1,0 +1,24 @@
+diff --git a/node_modules/@dnd-kit/core/dist/core.esm.js b/node_modules/@dnd-kit/core/dist/core.esm.js
+index c2f7003..5480fa5 100644
+--- a/node_modules/@dnd-kit/core/dist/core.esm.js
++++ b/node_modules/@dnd-kit/core/dist/core.esm.js
+@@ -1152,7 +1152,8 @@ class KeyboardSensor {
+ 
+   attach() {
+     this.handleStart();
+-    this.windowListeners.add(EventName.Resize, this.handleCancel);
++    // https://github.com/clauderic/dnd-kit/issues/1043 のために削除する
++    //this.windowListeners.add(EventName.Resize, this.handleCancel);
+     this.windowListeners.add(EventName.VisibilityChange, this.handleCancel);
+     setTimeout(() => this.listeners.add(EventName.Keydown, this.handleKeyDown));
+   }
+@@ -1435,7 +1436,8 @@ class AbstractPointerSensor {
+       passive: false
+     });
+     this.listeners.add(events.end.name, this.handleEnd);
+-    this.windowListeners.add(EventName.Resize, this.handleCancel);
++    // https://github.com/clauderic/dnd-kit/issues/1043 のために削除する
++    //this.windowListeners.add(EventName.Resize, this.handleCancel);
+     this.windowListeners.add(EventName.DragStart, preventDefault);
+     this.windowListeners.add(EventName.VisibilityChange, this.handleCancel);
+     this.windowListeners.add(EventName.ContextMenu, preventDefault);
