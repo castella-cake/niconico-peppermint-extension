@@ -338,6 +338,10 @@ a {
 .expanddetailedview:hover {
 	background: var(--bgcolor2)
 }
+.stocklist-unlocked .expanddetailedview {
+	display: none;
+}
+
 .detailedviewexpanded .stockedseries-row-thumbnail {
 	max-height: 48px;
 	margin-right: 8px;
