@@ -6,3 +6,4 @@ src/js/modules/feature_test.js
 builds/
 dev/
 dist/
+.vscode/
