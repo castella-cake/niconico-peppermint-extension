@@ -1,0 +1,48 @@
+.nicorepo-rowcontainer {
+	display: flex;
+	margin: 8px 0;
+	/*border-bottom: 2px solid var(--bgcolor4);*/
+	border-radius: 5px;
+	background: var(--bgcolor1);
+	padding: 6px;
+	box-shadow: 0px 0px 2px var(--shadow2);
+}
+.nicorepo-userimg {
+	width: 32px;
+	height:32px;
+	align-self: flex-start;
+	border-radius: 8px;
+}
+.nicorepo-itemimg {
+	width: auto;
+	height: 48px;
+	margin-left: 4px;
+	border-radius: 2px;
+	align-self: center;
+    aspect-ratio: 16 / 9;
+}
+.nicorepo-rowlinkcontainer {
+	margin-left:2px;
+	overflow: hidden;
+	white-space: nowrap;
+	font-family: "Lato",sans-serif
+}
+
+.nicorepo-rowlinkcontainer > a {
+	color: var(--linktext1);
+	display: block;
+}
+.nicorepo-rowlinkcontainer > div, .nicorepo-rowlinkcontainer > a {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.nicorepo-reload {
+	background: var(--accent1);
+	border: none;
+	font-size: 16px;
+	cursor: pointer;
+	padding: 4px;
+	vertical-align: middle;
+	margin-left: 4px;
+	border-radius: 4px;
+}

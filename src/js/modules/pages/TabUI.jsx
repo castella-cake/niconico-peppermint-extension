@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import CreateSeriesStockBlock from "./seriesStock";
 import CreateSettingsList from "./SettingsUI";
+import CreateNicorepoUI from "./nicorepoUI";
 import lang from "../../../langs/ja.json";
 
 // #region Enum
@@ -24,11 +25,16 @@ function createTabUI() {
         currentTabElem = <>
             <CreateSettingsList />
         </>
+    } else if ( currentTab == tabType.nicorepo) {
+        currentTabElem = <>
+            <CreateNicorepoUI />
+        </>
     } 
     return <>
         <div className="tabcontainer">
             <button type="button" className={currentTab == tabType.dashboard ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.dashboard) }}>ダッシュボード</button>
             <button type="button" className={currentTab == tabType.settings ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.settings) }}>クイック設定</button>
+            <button type="button" className={currentTab == tabType.nicorepo ? "tabbutton current-tab" : "tabbutton"} onClick={() => { setCurrentTab(tabType.nicorepo) }}>ニコレポ</button>
         </div>
         <div className="quickpanel-mainpanel maincontainer">
             <div className="tabpanel current-tabpanel">
