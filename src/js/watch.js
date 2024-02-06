@@ -811,7 +811,6 @@ function createCSSRule(result) {
     // #region シアターUI
         // theater UI
         $('body').css('background-color', '#000')
-        $('body').addClass('is-PMTheaterUI')
         // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
         // video関連は早めにスタイルシートで書かないとコメントコンテナーやシンボルが動画サイズの変更を反映してくれない
         //addCSS(chrome.runtime.getURL("style/css/theater_video.css"));
@@ -820,9 +819,7 @@ function createCSSRule(result) {
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}.common-header-1v0m9lc, .common-header-1nvgp3g, .common-header-h0l8yl, .common-header-cdesjj, .common-header-171vphh, .common-header-wb7b82, .common-header-1ufbzdh, .common-header-654o26, .common-header-11u4gc2, .common-header-1pxv7y0, .commonHeaderArea, #CommonHeader {background-color: #000 !important;}')
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
-            document.documentElement.classList.add('PM-TheaterMode')
         } else {
-            document.documentElement.classList.add('PM-TheaterMode')
         }
         if ( !result.disabletheaterpalette ) {
             document.documentElement.classList.add('PM-TheaterUseBlack')

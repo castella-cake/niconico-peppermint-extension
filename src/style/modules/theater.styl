@@ -474,6 +474,48 @@ html.PM-TheaterMode {
     .VideoDescriptionSeriesContainer-label {
         color: $theatertextd
     }
+    
+
+    // video
+        .VideoContainer {
+        height: inherit !important;
+        /*width: calc(100vw - 384px);*/
+        aspect-ratio: 21 / 9;
+        width: 100% !important;
+        background: transparent !important;
+    }
+    .MainVideoPlayer video {
+        box-shadow: 0px 0px 24px rgba(255,255,255,0.25);
+        width: auto !important;
+        margin: 0 auto;
+        max-width: calc(100vw - 384px);
+    }
+
+    body.is-fullscreen .VideoContainer {
+        height: 100% !important;
+        aspect-ratio: inherit;
+    }
+    body.is-fullscreen .PlayerContainer video {
+        max-width: 100vw !important;
+    }
+
+    .is-PMcinemaratio .MainVideoPlayer video {
+        box-shadow: 0px 0px 24px rgba(255,255,255,0.25);
+        width: 100% !important; 
+        object-fit: cover;
+        margin: 0 auto;
+        max-width: calc(100vw - 384px);
+    }
+    body.is-fullscreen.is-PMcinemaratio .VideoContainer {
+        max-width: 100vw;
+    }
+    body.is-fullscreen.is-PMcinemaratio .MainVideoPlayer video {
+        box-shadow: 0px 0px 24px rgba(255,255,255,0.25);
+        width: 100% !important;
+        object-fit: cover;
+        margin: 0 auto;
+        max-width: 100vw !important;
+    }
 }
 
 html.PM-TheaterMode:has(.PlayerContainer:not(.is-mouseMoving) .VideoContainer:hover) #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-fdpmya {

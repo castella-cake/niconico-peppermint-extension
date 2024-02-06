@@ -73,6 +73,10 @@ function createFastCSSRule(result) {
         document.documentElement.classList.add('PM-FixedHeaderWidth')
     }
     // #endregion
+    if (result.usetheaterui == true && result.usenicoboxui != true && location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/watch")) {
+        document.documentElement.classList.add('is-PMTheaterUI')
+        document.documentElement.classList.add('PM-TheaterMode')
+    }
 }
 
 function onHeadPreparedCSS(result) {
