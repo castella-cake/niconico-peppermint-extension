@@ -59,7 +59,7 @@ function CreateQuickOption() {
     })
     //console.log(elemArray)
     return <div className="block-container">
-    <h2 className="block-title">クイック設定</h2>
+    <h2 className="block-title">クイック設定<a href="settings.html" target="_self" style={{ "marginLeft": "1rem" }}>設定ページを開く</a></h2>
     { elemArray }
     </div>
 }

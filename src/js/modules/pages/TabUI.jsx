@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getSyncStorageData } from "../storageControl";
-import CreateSeriesStockBlock from "./seriesStock";
 import CreateSettingsList from "./SettingsUI";
 import CreateNicorepoUI from "./nicorepoUI";
 import lang from "../../../langs/ja.json";

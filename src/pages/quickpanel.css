@@ -248,6 +248,33 @@ a {
 	font-size: 18px;
 	margin: 0 0 8px 0;
 }
+.block-title a {
+	line-height: 18px;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--textcolor2);
+}
+
+.dashboard-editbutton {
+	width: 100%;
+	border: none;
+	background: transparent;
+	text-align: center;
+	color: var(--textcolor1);
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 4px;
+	cursor: pointer;
+}
+.dashboard-editbutton:hover {
+	background: var(--hover1);
+}
+
+.db-unlocked .block-container :not(.block-title) {
+	display: none;
+}
 
 .togglelock {
 	background: transparent;
