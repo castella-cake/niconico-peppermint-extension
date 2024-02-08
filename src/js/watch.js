@@ -806,7 +806,7 @@ function createCSSRule(result) {
                 pushCSSRule('.HeaderContainer {background: #fefefe;} .PlayerPlayTime { color: #1d2128; }')
             }
         });
-    } else {
+    } else if (result.usetheaterui == true) {
     // #endregion
     // #region シアターUI
         // theater UI

@@ -54,23 +54,28 @@ function createFastCSSRule(result) {
         if ( locationWhiteList.includes(location.hostname) ) {
             document.documentElement.classList.add('PMDM-Enabled')
         }
+        if (location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/watch")) {
+            document.documentElement.classList.add('PMDM-VidWatch')
+        }
     } 
     // #endregion
     // #region その他QoL機能のアクティベート
     if ( result.highlightnewnotice == true ) {
         document.documentElement.classList.add('PM-HighlightNewNotice')
     }
-    if ( result.hidesupporterbutton == "all" || (result.hidesupporterbutton == "watch" && location.pathname.indexOf('/watch') != -1) ) {
-        document.documentElement.classList.add('PM-HideSupporter')
-    }
-    if ( result.alignpagewidth == true ) {
-        document.documentElement.classList.add('PM-AlignPageWidth')
-    }
-    if (result.hidepopup == true) {
-        document.documentElement.classList.add('PM-HideAppeal')
-    }
-    if (result.fixedheaderwidth == true) {
-        document.documentElement.classList.add('PM-FixedHeaderWidth')
+    if ( location.hostname == "www.nicovideo.jp" ) {
+        if ( result.hidesupporterbutton == "all" || (result.hidesupporterbutton == "watch" && location.pathname.indexOf('/watch') != -1) ) {
+            document.documentElement.classList.add('PM-HideSupporter')
+        }
+        if ( result.alignpagewidth == true && location.pathname == "/") {
+            document.documentElement.classList.add('PM-AlignPageWidth')
+        }
+        if (result.hidepopup == true) {
+            document.documentElement.classList.add('PM-HideAppeal')
+        }
+        if (result.fixedheaderwidth == true) {
+            document.documentElement.classList.add('PM-FixedHeaderWidth')
+        }
     }
     // #endregion
     if (result.usetheaterui == true && result.usenicoboxui != true && location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/watch")) {
