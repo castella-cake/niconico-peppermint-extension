@@ -31,6 +31,12 @@ const settings = {
     watchpage: [
         {
             type: "select",
+            name: "watchpagetheme",
+            values: ["","mint","harazyuku"],
+            default: ""
+        },
+        {
+            type: "select",
             name: "playertheme",
             values: ["", "harazyuku", "rc1", "rc1plus", "ginza", "mint"],
             default: "",
