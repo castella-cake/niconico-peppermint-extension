@@ -2,7 +2,10 @@
     display:none
 }
 .ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
-    fill: #1d2128
+    fill: #fdfdfd
+}
+.ControllerButton:disabled svg {
+	fill: #d0d0d0;
 }
 
 .ControllerContainer-inner {
@@ -172,14 +175,15 @@
     margin: auto 0
 }
 .PlayerPlayTime-playtime, .PlayerPlayTime-duration { 
-    margin: auto 10px
+    margin: auto 10px;
+    color: #fff
 }
 .ControllerBoxContainer {
 	margin: 16px 150px;
 	border-radius: 8px;
 	padding: 4px 8px;
 	margin-bottom: 0px;
-    background: #0005 !important;
+    background: #0008 !important;
 }
 .ControllerContainer { 
     height: 48px
@@ -221,4 +225,24 @@
 }
 .css-1q3tz1l .css-10yxuc8 svg path {
     fill: var(--textcolor1) !important;
+}
+
+/* container width control */
+.ControllerContainer {
+    container: ctrlcontainer / inline-size;
+}
+@container ctrlcontainer (max-width: 700px) {
+    .PlayerPauseButton, .PlayerPlayButton {
+        left: inherit;
+        right: inherit;
+        position: inherit !important;
+        transform: translate(0%);
+        padding: 4px;
+    }
+    html.PM-TheaterMode .ControllerBoxContainer {
+        padding: 0 64px;
+    }
+    .PlayerPlayTime {
+        width: 20px;
+    }
 }

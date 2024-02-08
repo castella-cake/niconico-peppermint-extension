@@ -170,3 +170,24 @@
 .css-1q3tz1l .css-10yxuc8 svg path {
     fill: var(--textcolor1) !important;
 }
+
+/* container width control */
+.ControllerContainer {
+    container: ctrlcontainer / inline-size;
+    overflow-x: scroll;
+}
+@container ctrlcontainer (max-width: 700px) {
+    .PlayerPauseButton, .PlayerPlayButton {
+        left: inherit;
+        right: inherit;
+        position: inherit !important;
+        transform: translate(0%);
+        padding: 4px;
+    }
+    html.PM-TheaterMode .ControllerBoxContainer {
+        padding: 0 64px;
+    }
+    .PlayerPlayTime {
+        width: 20px;
+    }
+}
