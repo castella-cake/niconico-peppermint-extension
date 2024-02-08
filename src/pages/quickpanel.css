@@ -244,9 +244,9 @@ a {
 	vertical-align: middle;
 }
 
-.seriesstocktitle {
-	font-size: 20px;
-	margin: 0;
+.block-title {
+	font-size: 18px;
+	margin: 0 0 8px 0;
 }
 
 .togglelock {
@@ -259,10 +259,11 @@ a {
 	color: #fff;
 }
 
-.seriesstock-block {
+.block-container {
 	background: var(--bgcolor1);
 	padding: 8px;
 	border-radius: 8px;
+	margin-bottom: 8px;
 }
 
 .stockedseries-row-link.stockedseries-row-vidlink {

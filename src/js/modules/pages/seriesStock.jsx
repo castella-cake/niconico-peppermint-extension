@@ -159,8 +159,8 @@ function CreateSeriesStockBlock() {
         }
     }
 
-    return <div className="seriesstock-block">
-        <h2 className="seriesstocktitle">{`シリーズストック (${(syncStorage.stockedseries ?? []).length})`}<button className="togglelock" title={isUnlocked ? "ロック状態に変更" : "ロック解除"} type="button" onClick={() => { setIsUnlockedVar(!isUnlocked) }}>{isUnlocked ? <LockOpenOutlined style={{ fontSize: 22 }} /> : <LockOutlinedIcon style={{ fontSize: 22 }} />}</button></h2>
+    return <div className="block-container">
+        <h2 className="block-title">{`シリーズストック (${(syncStorage.stockedseries ?? []).length})`}<button className="togglelock" title={isUnlocked ? "ロック状態に変更" : "ロック解除"} type="button" onClick={() => { setIsUnlockedVar(!isUnlocked) }}>{isUnlocked ? <LockOpenOutlined style={{ fontSize: 22 }} /> : <LockOutlinedIcon style={{ fontSize: 22 }} />}</button></h2>
         <div className={"stockedserieslist-container" + " " + (isUnlocked ? "stocklist-unlocked" : "")}>
             <DndContext
                 sensors={sensors}

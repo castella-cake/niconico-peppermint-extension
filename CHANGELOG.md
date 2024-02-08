@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased] - 2024/02(ETA)
+
+### Changed
+- クイックパネルとメイン設定ページは完全にJSXで書き直されました
+- クイックパネルのシリーズストック表示デザインが変更されました
+    - 詳細を表示した時に、各エピソードとシリーズのサムネイルを表示するようになりました
+    - エピソードに投稿時間表示が追加されました
+- forallの処理をindexに移動し、主要関数のモジュール化を行いました
+- boxUIのコントローラーの色が調整されました
+- シアターUIでは画面幅が非常に大きい場合に動画情報エリアと下部エリアを並べて表示するようになりました
+
+### Fixed
+- [#3](https://github.com/castella-cake/niconico-peppermint-extension/issues/3) の問題を修正するために、boxUIとシアターUIでコントローラーコンテナ幅が700pxを下回る場合に元のレイアウトに戻すようになりました
+- [#25](https://github.com/castella-cake/niconico-peppermint-extension/issues/25) を修正しました
+- サイドバーのダークモードサポートが環境によっては適用されない問題を改善しました
+
 ## [1.8.0] - 2023/11/03
 
 ### Added

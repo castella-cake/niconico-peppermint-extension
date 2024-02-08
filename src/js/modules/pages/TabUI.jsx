@@ -4,6 +4,7 @@ import CreateSeriesStockBlock from "./seriesStock";
 import CreateSettingsList from "./SettingsUI";
 import CreateNicorepoUI from "./nicorepoUI";
 import lang from "../../../langs/ja.json";
+import CreateDashboardUI from "./dashboardUI";
 
 // #region Enum
 const tabType = Object.freeze({
@@ -29,7 +30,7 @@ function createTabUI() {
     let currentTabElem = <div>Invalid tab type.</div>;
     if ( currentTab == tabType.dashboard ) {
         currentTabElem = <>
-            <CreateSeriesStockBlock />
+            <CreateDashboardUI />
         </>
     } else if ( currentTab == tabType.settings ) {
         currentTabElem = <>
