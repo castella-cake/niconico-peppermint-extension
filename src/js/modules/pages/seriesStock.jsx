@@ -17,6 +17,8 @@ import {
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from "@dnd-kit/utilities";
+import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+
 import lang from "../../../langs/ja.json";
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -26,7 +28,6 @@ import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import SkipNextOutlinedIcon from '@mui/icons-material/SkipNextOutlined';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 
 function CreateSeriesStockBlock() {
     const [syncStorage, setSyncStorageVar] = useState({})
@@ -160,7 +161,7 @@ function CreateSeriesStockBlock() {
     }
 
     return <div className="block-container">
-        <h2 className="block-title">{`シリーズストック (${(syncStorage.stockedseries ?? []).length})`}<button className="togglelock" title={isUnlocked ? "ロック状態に変更" : "ロック解除"} type="button" onClick={() => { setIsUnlockedVar(!isUnlocked) }}>{isUnlocked ? <LockOpenOutlined style={{ fontSize: 22 }} /> : <LockOutlinedIcon style={{ fontSize: 22 }} />}</button></h2>
+        <h2 className="block-title">{`シリーズストック (${(syncStorage.stockedseries ?? []).length})`}<button className="block-title-actionbutton" title={isUnlocked ? "ロック状態に変更" : "ロック解除"} type="button" onClick={() => { setIsUnlockedVar(!isUnlocked) }}>{isUnlocked ? <LockOpenOutlined style={{ fontSize: 22 }} /> : <LockOutlinedIcon style={{ fontSize: 22 }} />}</button></h2>
         <div className={"stockedserieslist-container" + " " + (isUnlocked ? "stocklist-unlocked" : "")}>
             <DndContext
                 sensors={sensors}
