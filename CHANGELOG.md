@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2024/02(ETA)
 
+### Added
+- クイックパネルのダッシュボードアイテムを並び替えたり非表示にしたりできるようになりました
+- ダッシュボードの「クイックオプション」ブロックがカスタマイズ可能になりました
+- 視聴ページの動画リストにダークモードサポートを追加しました
+
 ### Changed
 - クイックパネルとメイン設定ページは完全にJSXで書き直されました
 - クイックパネルのシリーズストック表示デザインが変更されました
@@ -20,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [#3](https://github.com/castella-cake/niconico-peppermint-extension/issues/3) の問題を修正するために、boxUIとシアターUIでコントローラーコンテナ幅が700pxを下回る場合に元のレイアウトに戻すようになりました
 - [#25](https://github.com/castella-cake/niconico-peppermint-extension/issues/25) を修正しました
 - サイドバーのダークモードサポートが環境によっては適用されない問題を改善しました
+- ダークモードサポートの欠落しているパレットを軽減しました
 
 ## [1.8.0] - 2023/11/03
 
