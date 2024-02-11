@@ -26,6 +26,10 @@
 	--linktext3: #008acf;
 }
 
+.current-version {
+	font-size: 12px;
+}
+
 body {
 	width: 520px;
 	margin: 0;
