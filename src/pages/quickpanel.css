@@ -421,10 +421,12 @@ a {
 	overflow: hidden;
 	transition: max-height .15s ease;
 	max-height: 0em;
+	display: none;
 }
 .detailedviewexpanded .episodelist-container {
 	margin-top: 4px;
 	max-height: var(--maxheight);
+	display: inherit;
 }
 
 .detailedviewexpanded .stockedseries-row-owner {
