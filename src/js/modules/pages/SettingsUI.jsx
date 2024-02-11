@@ -63,7 +63,6 @@ function CreateSettingsList() {
         return <div className="settings-row" key={`${settings.name}-row`}>{ elemList }<HintElem/><LinkElem/></div>
     }
     useEffect(() => {
-        console.log("useEffect called")
         async function setStorage() {
             setSyncStorageVar(await getSyncStorageData)
         } 

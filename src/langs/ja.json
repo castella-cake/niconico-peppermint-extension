@@ -215,5 +215,10 @@
     "SERIES_STOCK_TITLE": "シリーズストック",
     "TO_LOCK": "ロック状態に変更",
     "TO_UNLOCK": "ロック解除",
-    "THUMB_ALT_TEXT": "のサムネイル"
+    "THUMB_ALT_TEXT": "のサムネイル",
+
+    "DASHBOARD_TITLES": {
+        "quickoption": "クイックオプション",
+        "seriesstock": "シリーズストック"
+    }
 }

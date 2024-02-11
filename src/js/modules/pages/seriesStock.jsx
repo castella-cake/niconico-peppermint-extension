@@ -35,7 +35,6 @@ function CreateSeriesStockBlock() {
     const [seriesStockVar, setSeriesStockVar] = useState({ seriesInfo: {}, episodeLists: {} })
     const StockRowMemo = memo((props) => <SeriesStockRow storage={props.storage} seriesinfo={props.seriesinfo} />)
     useEffect(() => {
-        console.log("useEffect called")
         function getSeriesInfo(id) {
             return new Promise((resolve, reject) => {
                 try {

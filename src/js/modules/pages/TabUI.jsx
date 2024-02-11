@@ -17,7 +17,6 @@ const tabType = Object.freeze({
 function createTabUI() {
     const [ syncStorage, setSyncStorageVar ] = useState({})
     useEffect(() => {
-        console.log("useEffect called")
         async function setStorage() {
             setSyncStorageVar(await getSyncStorageData)
         } 

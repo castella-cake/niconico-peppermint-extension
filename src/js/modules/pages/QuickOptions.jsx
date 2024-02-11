@@ -14,15 +14,12 @@ import {
 } from '@dnd-kit/core';
 import {
     arrayMove,
-    horizontalListSortingStrategy,
     rectSortingStrategy,
     SortableContext,
     sortableKeyboardCoordinates,
     useSortable,
-    verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from "@dnd-kit/utilities";
-import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 
 import Edit from "@mui/icons-material/Edit";
 import EditOff from "@mui/icons-material/EditOff";
