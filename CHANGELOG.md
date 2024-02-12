@@ -8,12 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased] - 2024/02(ETA)
 
 ### Added
-- クイックパネルのダッシュボードアイテムを並び替えたり非表示にしたりできるようになりました
+- クイックパネルのダッシュボードアイテムを並び替えたり非表示にしたりできるようになりました [#29](https://github.com/castella-cake/niconico-peppermint-extension/issues/29)
+- クイックパネルに`クイック設定`と`シリーズストック`タブを追加しました [#29](https://github.com/castella-cake/niconico-peppermint-extension/issues/29)
+- クイックパネルのタブを個別に非表示にできるようになりました [#29](https://github.com/castella-cake/niconico-peppermint-extension/issues/29)
 - ダッシュボードの「クイックオプション」ブロックがカスタマイズ可能になりました
 - 視聴ページの動画リストにダークモードサポートを追加しました
+- ニコニ貢献ページにダークモードサポートを追加しました [#32](https://github.com/castella-cake/niconico-peppermint-extension/issues/32) [#31](https://github.com/castella-cake/niconico-peppermint-extension/issues/31)
 
 ### Changed
-- クイックパネルとメイン設定ページは完全にJSXで書き直されました
+- クイックパネルとメイン設定ページは完全にReact+JSXで書き直されました
 - クイックパネルのシリーズストック表示デザインが変更されました
     - 詳細を表示した時に、各エピソードとシリーズのサムネイルを表示するようになりました
     - エピソードに投稿時間表示が追加されました
@@ -23,9 +26,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - [#3](https://github.com/castella-cake/niconico-peppermint-extension/issues/3) の問題を修正するために、boxUIとシアターUIでコントローラーコンテナ幅が700pxを下回る場合に元のレイアウトに戻すようになりました
-- [#25](https://github.com/castella-cake/niconico-peppermint-extension/issues/25) を修正しました
+- ダークモードの判定がホワイトリスト式になりました [#25](https://github.com/castella-cake/niconico-peppermint-extension/issues/25)
 - サイドバーのダークモードサポートが環境によっては適用されない問題を改善しました
 - ダークモードサポートの欠落しているパレットを軽減しました
+- ランキングページのダークモードサポートを修正しました [#31](https://github.com/castella-cake/niconico-peppermint-extension/issues/31)
 
 ## [1.8.0] - 2023/11/03
 
