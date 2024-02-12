@@ -1,0 +1,73 @@
+html.PMDM-Koken {
+    --vc-clr-primary: var(--textcolor1);
+    --vc-clr-secondary: var(--textcolor2);
+    --vc-clr-white: var(--bgcolor1);
+
+	--color-grey-0: var(--bgcolor2);
+	--color-grey-1: var(--bgcolor2);
+	--color-grey-2: var(--bgcolor3);
+	--color-grey-3: var(--textcolor3);
+	--color-grey-4: var(--textcolor3);
+	--color-grey-5: var(--textcolor2);
+	--color-link: var(--linktext1);
+	--color-warn: #ff001f;
+	--color-input-value: #f90;
+	--color-koken-creator-light: #00d9ff;
+
+	--color-nico-black: var(--textcolor1);
+	--color-nico-grey: var(--textcolor2);
+	--color-koken-supporter: #ff6678;
+	--color-koken-creator: #305fda;
+	--color-nicoad-main: #ffe500;
+	--color-gift-main: #d2f73d;
+	--color-lottery-main: #ca0f26;
+
+    --color-accent-light: var(--bgcolor2);
+    body {
+        background: var(--bgcolor1)
+    }
+    // supporter
+    .giftionary-icon path {
+        fill: var(--textcolor1);
+    }
+    .content-body > .performance > .wrapper > .block {
+        background: var(--bgcolor1)
+        .progress > .wrapper > .rank-name {
+            background: var(--bgcolor1)
+        }
+    }
+    .multi-column-l .wrapper > .name {
+        text-shadow: 0px 0px 4px var(--bgcolor1), 0px 0px 4px var(--bgcolor1), 0px 0px 4px var(--bgcolor1), 0px 0px 4px var(--bgcolor1), 0px 0px 4px var(--bgcolor1);
+    }
+    // creator
+    .multi-column-c > article > .sticky-navigation {
+        background-image: linear-gradient(to bottom,var(--bgcolor1),var(--bgcolor2));
+    }
+    .content-body > ul > li.item > .detail > .wrapper > ul.detail-list > li.detail-list-item > .detail-button {
+        background: var(--bgcolor1)
+    }
+    // nicoad/gift bg
+    .label[data-type="nicoad"], .label[data-type="gift"], a[data-type="nicoad"], a[data-type="button"], a[data-type="gift"], a[data-type="gift"] {
+        color: #000
+    }
+    // landing page
+    .forward-gradient > .wrapper > ul.list > li.list-item > div > .wrapper {
+        background: var(--bgcolor2)
+    }
+    footer > .wrapper > nav.navigation > ul.navigation-list > li.item a.anchor, footer > .wrapper > nav.navigation > .copyright {
+        color: var(--bgcolor1)
+    }
+    // ticket center
+    .conductor {
+        background-image: linear-gradient(var(--bgcolor2) 50%,var(--color-grey-0)) !important;
+    }
+    .conductor-carousel[data-v-53081ce2] {
+        --conductor-carousel-pagination-default-color: var(--accent1);
+        --conductor-carousel-pagination-active-color: var(--textcolor1);
+    }
+    @media (hover: hover) {
+        .anchor[data-tab-mode="false"] {
+            background: var(--bgcolor1)
+        }
+    }
+}

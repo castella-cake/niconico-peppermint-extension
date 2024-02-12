@@ -5,7 +5,7 @@ function onError(error) {
     console.log(`Error: ${error}`);
 }
 
-let locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp"];
+let locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp"];
 
 function createFastCSSRule(result) {
     // #region HTML要素用のパレット設定
@@ -42,7 +42,7 @@ function createFastCSSRule(result) {
         if (location.hostname == "anime.nicovideo.jp") {
             document.documentElement.classList.add('PMDM-NAnime')
         }
-        if (location.hostname == "live.nicovideo.jp" && location.pathname == "/") {
+        if (location.hostname == "live.nicovideo.jp" && ( location.pathname == "/" || location.pathname == "" )) {
             document.documentElement.classList.add('PMDM-NicoLiveHome')
         }
         if (location.hostname == "live.nicovideo.jp" && location.pathname.startsWith("/watch")) {
@@ -50,6 +50,9 @@ function createFastCSSRule(result) {
         }
         if (location.hostname == "inform.nicovideo.jp") {
             document.documentElement.classList.add('PMDM-Inform')
+        }
+        if (location.hostname == "koken.nicovideo.jp") {
+            document.documentElement.classList.add('PMDM-Koken')
         }
         if ( locationWhiteList.includes(location.hostname) ) {
             document.documentElement.classList.add('PMDM-Enabled')
@@ -67,7 +70,7 @@ function createFastCSSRule(result) {
         if ( result.hidesupporterbutton == "all" || (result.hidesupporterbutton == "watch" && location.pathname.indexOf('/watch') != -1) ) {
             document.documentElement.classList.add('PM-HideSupporter')
         }
-        if ( result.alignpagewidth == true && location.pathname == "/") {
+        if ( result.alignpagewidth == true && ( location.pathname == "/" || location.pathname == "" )) {
             document.documentElement.classList.add('PM-AlignPageWidth')
         }
         if (result.hidepopup == true) {
