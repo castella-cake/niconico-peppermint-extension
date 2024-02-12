@@ -56,6 +56,16 @@
 .RankingSettingRecommendations > ul > li + li {
     border-top: 1px solid var(--textcolor3)
 }
+
+.RankingMatrixVideosRow-rank, .RankingHeader-prefix {
+    color: var(--textcolor2)
+}
+.RankingMainVideo.NC-MutedVideoMediaObject .RankingRowRank, .RankingMainVideo.NC-SensitiveMediaObject .RankingRowRank, .RankingMainVideo.NC-VideoMediaObject .RankingRowRank {
+    color: var(--textcolor3);
+    /* fix #31 */
+    z-index: 1;
+}
+
 /* ページボタン */
 .Paginator-item {
     background-color: var(--bgcolor2);
@@ -93,4 +103,11 @@
 
 a:hover {
 	color: var(--linktext2);
+}
+
+/* 右ジャンル別 */
+.BaseRankingContentContainer.SpecifiedGenreRankingVideosContainer .SpecifiedGenreRankingVideosContainer-genreTitle a,
+.BaseRankingContentContainer.SpecifiedGenreRankingVideosContainer .SpecifiedGenreRankingVideosContainer-subVideo > .RankingSubVideo-rank,
+.BaseRankingContentContainer.SpecifiedGenreRankingVideosContainer .SpecifiedGenreRankingVideosContainer-titleLink {
+    color: var(--textcolor2)
 }
