@@ -247,15 +247,27 @@ const settings = {
         },
         {
             type: "checkbox",
+            name: "skipquickpanel",
+            default: false,
+        },
+    ],
+    quickpanel: [
+        {
+            type: "checkbox",
+            name: "enableseriesstocktab",
+            default: false,
+        },
+        {
+            type: "checkbox",
             name: "enablenicorepotab",
             default: false,
         },
         {
             type: "checkbox",
-            name: "skipquickpanel",
+            name: "enablequicksettingstab",
             default: false,
         },
-    ]
+    ],
 }
 
 export default settings

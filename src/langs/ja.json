@@ -2,10 +2,11 @@
     "SETTINGS_DESC": "PepperMint+ の設定を変更します。\nこの設定は、ツールバーボタン、もしくは拡張機能管理ページの設定から再度アクセスできます。",
     "SETTINGS_AREATITLE": {
         "hide": "Hide",
-        "watchpage": "WatchPage",
+        "watchpage": "Watchpage",
         "nicopedia": "Nicopedia",
         "other": "Other",
-        "global": "Global"
+        "global": "Global",
+        "quickpanel": "Quickpanel"
     },
     "SETTINGS_ITEMS": {
         "hiderankpagead": {
@@ -184,6 +185,14 @@
         "enablenicorepotab": {
             "name": "ニコレポリーダーを有効化",
             "hint": "クイックパネルに「ニコレポ」タブが表示されるようになり、ニコレポを確認できるようになります。\n45分おきに新着を確認し、新着ニコレポがある場合はツールバーバッジで通知します。この機能が動作するには、ブラウザ内でニコニコにログインしている必要があります。"
+        },
+        "enablequicksettingstab": {
+            "name": "クイック設定タブを有効化",
+            "hint": "クイックパネルに「クイック設定」タブが表示されるようになります。"
+        },
+        "enableseriesstocktab": {
+            "name": "シリーズストックタブを有効化",
+            "hint": "クイックパネルに「シリーズストック」タブが表示されるようになります。"
         },
         "skipquickpanel": {
             "name": "クイックパネルをスキップ",

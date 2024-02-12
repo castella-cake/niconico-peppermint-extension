@@ -31,7 +31,8 @@
 }
 
 body {
-	width: 520px;
+	width: 600px;
+	min-height: 600px;
 	margin: 0;
 	background-color: Canvas;
 	color: CanvasText;
@@ -39,6 +40,11 @@ body {
 	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
 	font-size: 14px;
 	background: var(--bgcolor1);
+}
+#root {
+	min-height: 600px;
+	display: flex;
+	flex-direction: column;
 }
 
 a {
@@ -122,6 +128,12 @@ a {
 }
 
 /* tabs */
+.quickpanel-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
 .tabcontainer {
 	display: flex;
 	margin-bottom: 0px;
@@ -164,9 +176,27 @@ a {
 	z-index: 2;
 	position: relative;
 	box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
+	flex-grow: 1;
 }
 .tabpanel {
 	padding: 8px;
+}
+
+.tab-editbutton {
+	background: transparent;
+	border: none;
+	font-size: 16px;
+	line-height: 16px;
+	cursor: pointer;
+	vertical-align: middle;
+	color: var(--textcolor2);
+	margin-left: auto;
+	margin-right: 12px;
+	display: inline-block;
+	height: 32px;
+}
+.tab-editbutton:hover {
+	color: var(--textcolor1)
 }
 
 /* series stock */
@@ -276,10 +306,6 @@ a {
 	background: var(--hover1);
 }
 
-.db-unlocked .block-container :not(.block-title) {
-	display: none;
-}
-
 .block-title-actionbutton {
 	background: transparent;
 	border: none;
@@ -291,10 +317,13 @@ a {
 }
 
 .block-container {
-	background: var(--bgcolor1);
+	background: transparent;
 	padding: 8px;
 	border-radius: 8px;
 	margin-bottom: 8px;
+}
+.dashboard-container .block-container {
+	background: var(--bgcolor1);
 }
 
 .stockedseries-row-link.stockedseries-row-vidlink {
@@ -453,6 +482,7 @@ a {
 	font-size: 18px;
 	color: #aaa;
 }
+
 
 @media (prefers-color-scheme: dark) {
 

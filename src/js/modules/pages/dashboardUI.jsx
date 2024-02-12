@@ -85,7 +85,7 @@ function CreateDashboardUI() {
             const dndStyle = { transform: CSS.Translate.toString(transform), transition, }
             if ( Object.keys(dashboardBlocks).includes(elem.name) ) {
                 return <div key={elem.name} className="dashboard-draggablecontainer" ref={setNodeRef} style={dndStyle} {...attributes} {...listeners}>
-                    { isEditMode ? <h2 className="block-title">{lang.DASHBOARD_TITLES[elem.name]}<label><input type="checkbox" checked={elem.isHidden} onChange={(e) => {setHiddenState(e.currentTarget.attributes.getNamedItem("blockname").nodeValue, e.currentTarget.checked)}} blockname={elem.name}/>非表示</label></h2> : ( !elem.isHidden && dashboardBlocks[elem.name] ) }
+                    { isEditMode ? <div className="block-container"><h2 className="block-title">{lang.DASHBOARD_TITLES[elem.name]}<label><input type="checkbox" checked={elem.isHidden} onChange={(e) => {setHiddenState(e.currentTarget.attributes.getNamedItem("blockname").nodeValue, e.currentTarget.checked)}} blockname={elem.name}/>非表示</label></h2></div> : ( !elem.isHidden && dashboardBlocks[elem.name] ) }
                 </div>
             }
         })
