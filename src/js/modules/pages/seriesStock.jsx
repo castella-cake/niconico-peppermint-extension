@@ -32,59 +32,67 @@ import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 function CreateSeriesStockBlock() {
     const [syncStorage, setSyncStorageVar] = useState({})
     const [isUnlocked, setIsUnlockedVar] = useState(false)
-    const [seriesStockVar, setSeriesStockVar] = useState({ seriesInfo: {}, episodeLists: {} })
-    const StockRowMemo = memo((props) => <SeriesStockRow storage={props.storage} seriesinfo={props.seriesinfo} />)
+    //const StockRowMemo = memo((props) => <SeriesStockRow storage={props.storage} seriesinfo={props.seriesinfo} />)
     useEffect(() => {
-        function getSeriesInfo(id) {
-            return new Promise((resolve, reject) => {
-                try {
-                    chrome.runtime.sendMessage({ "type": "getSeriesInfo", "seriesID": id }, resolve)
-                } catch (err) {
-                    reject(err)
-                }
-            })
-        }
         async function getData() {
             let storage = await getSyncStorageData
             setSyncStorageVar(storage)
-            const seriesInfoObj = {}
-            const episodeListObj = {}
-            if (storage.stockedseries) {
-                const infoArray = await Promise.allSettled(storage.stockedseries.map(async elem => {
-                    return await getSeriesInfo(elem.seriesID)
-                }))
-                infoArray.map(elem => {
-                    if (elem.status == "fulfilled" && elem.value) {
-                        const res = elem.value
-                        if (res.meta && res.meta.status == 200 && res.data && res.data.detail && res.data.detail.id) {
-                            seriesInfoObj[res.data.detail.id] = res
-                            const playlist = btoa(`{"type":"series","context":{"seriesId":${res.data.detail.id}}}`)
-                            episodeListObj[res.data.detail.id] = res.data.items.map(thisEp => {
-                                return <a key={thisEp.video.id} className="detailedview-episoderow" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisEp.video.id}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${res.data.detail.id}`}>
-                                    {thisEp.video.thumbnail.middleUrl && <img src={thisEp.video.thumbnail.middleUrl} className="episoderow-thumbnail" />}
-                                    <div className="episoderow-infocontainer">
-                                        <span className="episoderow-info-title">{thisEp.video.title}</span>
-                                        <span className="episoderow-info-date">{new Date(thisEp.video.registeredAt).toLocaleString()}</span>
-                                    </div>
-                                </a>
-                            })
-                        }
-                    }
-                })
-            }
-            setSeriesStockVar({ seriesInfo: seriesInfoObj, episodeLists: episodeListObj })
         }
         getData()
     }, [])
+    function getSeriesInfo(id) {
+        return new Promise((resolve, reject) => {
+            try {
+                chrome.runtime.sendMessage({ "type": "getSeriesInfo", "seriesID": id }, resolve)
+            } catch (err) {
+                reject(err)
+            }
+        })
+    }
+
     const sensors = useSensors(
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
         })
     );
+
     function SeriesStockRow(props) {
         const storage = props.storage
-        const seriesInfo = props.seriesinfo
+        const [seriesStockVar, setSeriesStockVar] = useState({ seriesInfo: {}, episodeLists: {} })
+        useEffect(() => {
+            async function getData() {
+                const seriesInfoObj = {}
+                const episodeListObj = {}
+                if (storage.stockedseries) {
+                    const infoArray = await Promise.allSettled(storage.stockedseries.map(async elem => {
+                        return await getSeriesInfo(elem.seriesID)
+                    }))
+                    infoArray.map(elem => {
+                        if (elem.status == "fulfilled" && elem.value) {
+                            const res = elem.value
+                            if (res.meta && res.meta.status == 200 && res.data && res.data.detail && res.data.detail.id) {
+                                seriesInfoObj[res.data.detail.id] = res
+                                const playlist = btoa(`{"type":"series","context":{"seriesId":${res.data.detail.id}}}`)
+                                episodeListObj[res.data.detail.id] = res.data.items.map(thisEp => {
+                                    return <a key={thisEp.video.id} className="detailedview-episoderow" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisEp.video.id}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${res.data.detail.id}`}>
+                                        {thisEp.video.thumbnail.middleUrl && <img src={thisEp.video.thumbnail.middleUrl} className="episoderow-thumbnail" />}
+                                        <div className="episoderow-infocontainer">
+                                            <span className="episoderow-info-title">{thisEp.video.title}</span>
+                                            <span className="episoderow-info-date">{new Date(thisEp.video.registeredAt).toLocaleString()}</span>
+                                        </div>
+                                    </a>
+                                })
+                            }
+                        }
+                    })
+                }
+                setSeriesStockVar({ seriesInfo: seriesInfoObj, episodeLists: episodeListObj })
+            }
+            getData()
+        }, [])
+
+        const seriesInfo = seriesStockVar.seriesInfo
         console.log("Render called")
         if (storage.stockedseries) {
             const rowList = storage.stockedseries.map(elem => {
@@ -123,7 +131,7 @@ function CreateSeriesStockBlock() {
                             {elem.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><PlayArrowOutlinedIcon />{lang.LASTVID_TITLE}<span>{elem.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><PlayArrowOutlinedIcon />{lang.LASTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
                             {elem.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><SkipNextOutlinedIcon />{lang.NEXTVID_TITLE}<span>{elem.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><SkipNextOutlinedIcon />{lang.NEXTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
                         </div>
-                        {(seriesInfo[elem.seriesID]) && (seriesInfo[elem.seriesID].data.items ? <div className="episodelist-container" style={{ "--maxheight": `${seriesInfo[elem.seriesID].data.items.length * 4.0}em` }}>{seriesStockVar.episodeLists[elem.seriesID]}</div> : <div className="episodelist-container" style={{ "--maxheight": `4em` }}>{lang.NO_EPISODE_INFO}</div>)}
+                        {(seriesInfo[elem.seriesID]) && (seriesInfo[elem.seriesID].data.items && isDetailedViewExpanded ? <div className="episodelist-container" style={{ "--maxheight": `${seriesInfo[elem.seriesID].data.items.length * 4.0}em` }}>{seriesStockVar.episodeLists[elem.seriesID]}</div> : <div className="episodelist-container" style={{ "--maxheight": `4em` }}>{lang.NO_EPISODE_INFO}</div>)}
                         <button type="button" className="expanddetailedview" onClick={() => { setDetailedViewExpanded(!isDetailedViewExpanded) }}>
                             {(seriesInfo[elem.seriesID]) ? (isDetailedViewExpanded ? <><ExpandLessOutlinedIcon />{lang.HIDE_DETAILS}<ExpandLessOutlinedIcon /></> : <><ExpandMoreOutlinedIcon />{lang.SEE_DETAILS}<ExpandMoreOutlinedIcon /></>) : <><ExpandMoreOutlinedIcon /><span style={{ color: "var(--textcolor2)" }}>{lang.LOADING}</span><ExpandMoreOutlinedIcon /></>}
                         </button>
@@ -172,7 +180,7 @@ function CreateSeriesStockBlock() {
                     items={syncStorage.stockedseries ? syncStorage.stockedseries.map(elem => { return elem.seriesID.toString() }) : []}
                     strategy={verticalListSortingStrategy}
                 >
-                    <SeriesStockRow storage={syncStorage} seriesinfo={seriesStockVar.seriesInfo} />
+                    <SeriesStockRow storage={syncStorage}/>
                 </SortableContext>
             </DndContext>
         </div>
