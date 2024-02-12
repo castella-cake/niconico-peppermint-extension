@@ -118,7 +118,7 @@ function CreateQuickOption() {
 
     //console.log(elemArray)
     return <div className="block-container">
-        <h2 className="block-title">クイックオプション<button title={isEditMode ? "クイック設定の編集を終了" : "クイック設定の項目を編集"} className="block-title-actionbutton" type="button" onClick={() => {setIsEditMode(!isEditMode)}}>{ isEditMode ? <EditOff style={{fontSize: 22}}/> : <Edit style={{fontSize: 22}}/>}</button><a href="settings.html" target="_self" style={{ "marginLeft": "1rem" }}>設定ページを開く</a></h2>
+        <h2 className="block-title">クイックオプション<button title={isEditMode ? "クイック設定の編集を終了" : "クイック設定の項目を編集"} className="block-title-actionbutton" type="button" onClick={() => {setIsEditMode(!isEditMode)}}>{ isEditMode ? <EditOff style={{fontSize: 20}}/> : <Edit style={{fontSize: 20}}/>}</button><a href="settings.html" target="_self" style={{ "marginLeft": "1rem" }}>設定ページを開く</a></h2>
         <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}

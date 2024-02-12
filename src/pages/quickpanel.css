@@ -7,20 +7,20 @@
 	/* 基本背景色 */
 	--bgcolor1: #fefefe;
 	/* サブ背景色1 */
-	--bgcolor2: #fcfcfc;
+	--bgcolor2: #dedede;
 	/* サブ背景色2 */
-	--bgcolor3: #eeeeee;
-	--bgcolor4: #e0e0e0;
-	--textcolor1: #000;
+	--bgcolor3: #d0d0d0;
+	--bgcolor4: #d0d0d0;
+	--textcolor1: #050505;
 	--textcolor2: #333;
 	--textcolor3: #666;
 	--shadow1: rgba(64, 64, 64, 0.5);
 	--shadow2: rgba(0, 0, 0, 0.5);
 	--textcolornew: #e05050;
-	--accent1: #dadada;
+	--accent1: #efefef;
 	--accent2: #c0c0c0;
-	--hover1: #fff;
-	--hover2: #aaa;
+	--hover1: #eaeaea;
+	--hover2: #ddd;
 	--linktext1: #008acf;
 	--linktext2: #008acf;
 	--linktext3: #008acf;
@@ -313,7 +313,7 @@ a {
 	line-height: 16px;
 	cursor: pointer;
 	vertical-align: middle;
-	color: #fff;
+	color: var(--textcolor1);
 }
 
 .block-container {
