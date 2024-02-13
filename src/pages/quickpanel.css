@@ -220,7 +220,7 @@ a {
 	display: none;
 }
 
-.stockedseries-desc-container {
+.stockedseries-row {
 	padding: 5px 8px;
 }
 
@@ -258,7 +258,7 @@ a {
 	margin: 4px 1px;
 }
 
-.serieslink-container .stockedseries-row-link {
+.serieslink-container .stockedseries-row-link, .stockedseries-folder-title {
 	font-weight: bold;
 	font-size: 15px;
 	line-height: 15px;
@@ -267,6 +267,9 @@ a {
 	color: var(--textcolor1);
 	font-family: inherit;
 	flex-grow: 1;
+}
+.stockedseries-folder-title svg {
+	color: var(--textcolor2)
 }
 
 .serieslink-container .stockedseries-row-link:hover {
@@ -367,6 +370,14 @@ a {
 
 .stockedseries-row-link.stockedseries-row-vidlink.vidlinkdisabled {
 	background: var(--bgcolor2);
+}
+
+/* seriesstock folder */
+.stockedseries-row .stockedseries-folder-details {
+	padding: 0 2px;
+}
+.stockedseries-row details {
+	margin-top: 8px;
 }
 
 .stockedseries-row-thumbnail {
