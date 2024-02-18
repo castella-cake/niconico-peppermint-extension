@@ -363,19 +363,9 @@ html.PM-TheaterMode {
     body.is-fullscreen .BaseLayout-main, body.is-fullscreen .BaseLayout {
         background: #000 !important;
     }
-
     // container width control
     .ControllerContainer {
         container: ctrlcontainer / inline-size;
-    }
-    .WatchAppContainer-main {
-        container: watchappcontainer / inline-size;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    .MainContainer {
-        flex-shrink: 0;
     }
 
     @keyframes slidetoleft {
@@ -558,7 +548,6 @@ html.PM-TheaterUseBlack {
     --theater-hover: #eee3
     --theater-headerbg: #000
 }
-
 @container ctrlcontainer (max-width: 700px) {
     html.PM-TheaterMode .PlayerPauseButton, html.PM-TheaterMode .PlayerPlayButton {
         left: inherit;
@@ -594,15 +583,4 @@ html.PM-TheaterUseBlack {
     html.PM-TheaterMode .PlayerPlayTime {
         width: 20px;
     }
-}
-@container watchappcontainer (min-width: 3200px) {
-    html.PM-TheaterMode .HeaderContainer {
-        width: 50%;
-        padding: 0px 32px;
-    }
-    .BottomContainer {
-        width: 50%;
-        padding: 0 32px 0 16px;
-    }
-
 }
