@@ -150,7 +150,7 @@ a {
 	border: none;
 	padding: 6px 10px;
 	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
-	z-index: 1;
+	z-index: 0;
 	margin-right: 0px;
 	background: var(--bgcolor3);
 	font-size: 12px;
@@ -167,13 +167,12 @@ a {
 .tabcontainer .tabbutton.current-tab {
 	background: var(--bgcolor2);
 	font-weight: bolder;
-	z-index: 3;
+	z-index: 1;
 	height: 32px;
 	font-size: 14px;
 }
 .quickpanel-mainpanel {
 	background: var(--bgcolor2);
-	z-index: 2;
 	position: relative;
 	box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
 	flex-grow: 1;
@@ -208,6 +207,7 @@ a {
 	background: var(--bgcolor1);
 	margin-bottom: 10px;
 	box-shadow: 0px 0px 2px var(--shadow2);
+	padding: 4px 8px;
 }
 .seriesinfo-container {
 	display: flex;
@@ -220,24 +220,31 @@ a {
 	display: none;
 }
 
-.stockedseries-row {
-	padding: 5px 8px;
+.stockedseries-desc-container {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	margin-top: 4px;
 }
 
-.removeseries {
+.stockedseries-row-actionbutton {
 	display: none;
 }
-.stocklist-unlocked .removeseries {
+.stocklist-unlocked .stockedseries-row-actionbutton {
 	background: transparent;
 	border: transparent;
 	color: var(--textcolor3);
 	display: inherit;
+	cursor: pointer;
+}
+.stocklist-unlocked .stockedseries-row-actionbutton:hover {
+	color: var(--textcolor1);
 }
 
 .serieslink-container {
 	display: flex;
 	align-items: center;
-	padding: 8px 2px;
+	padding: 2px 2px;
 }
 
 .stockedseries-vidlink-container {
@@ -267,6 +274,8 @@ a {
 	color: var(--textcolor1);
 	font-family: inherit;
 	flex-grow: 1;
+	display: flex;
+	align-items: center;
 }
 .stockedseries-folder-title svg {
 	color: var(--textcolor2)
@@ -276,7 +285,7 @@ a {
 	color: var(--linktext2);
 }
 
-.removeseries svg {
+.stockedseries-row-actionbutton svg {
 	font-size: 20px;
 	vertical-align: middle;
 }
@@ -373,11 +382,56 @@ a {
 }
 
 /* seriesstock folder */
+.stockedseries-row.stockedseries-row-folder > .serieslink-container {
+	padding: 2px 2px;
+}
 .stockedseries-row .stockedseries-folder-details {
 	padding: 0 2px;
 }
 .stockedseries-row details {
-	margin-top: 8px;
+	margin-top: 4px;
+}
+.stockedseries-folder-openbutton {
+	border: none;
+	background: transparent;
+	text-align: center;
+	color: var(--textcolor1);
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	cursor: pointer;
+	padding: 4px;
+}
+.stockedseries-folder-openbutton:hover {
+	background: var(--bgcolor2)
+}
+.stockedseries-folder-openbutton svg {
+	color: var(--textcolor2);
+	font-size: 20px;
+}
+
+/* seriesstock move */
+.folderselector-container {
+	vertical-align: middle;
+	font-size: 13px;
+}
+.stockedseries-movecontainer .buttons-container {
+	margin-top: 4px;
+}
+.stockedseries-movecontainer .buttons-container button {
+	margin-left: 8px;
+	border: none;
+	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
+	background: var(--bgcolor3);
+	color: var(--textcolor1);
+	cursor: pointer;
+	padding: 4px;
+	border-radius: 4px;
+}
+.stockedseries-movecontainer .buttons-container button:hover {
+	background: var(--hover3);
 }
 
 .stockedseries-row-thumbnail {
@@ -400,7 +454,6 @@ a {
 	align-items: center;
 	justify-content: center;
 	gap: 4px;
-	margin-top: 4px;
 	cursor: pointer;
 }
 .expanddetailedview svg {
@@ -470,7 +523,8 @@ a {
 .detailedviewexpanded .episodelist-container {
 	margin-top: 4px;
 	max-height: var(--maxheight);
-	display: inherit;
+	display: flex;
+	flex-direction: column;
 }
 
 .detailedviewexpanded .stockedseries-row-owner {
@@ -491,7 +545,116 @@ a {
 	width: 4px;
 	margin-right: 10px;
 	font-size: 18px;
-	color: #aaa;
+	color: var(--textcolor3);
+}
+
+/* window */
+.quickpanel-window-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #222a;
+	width: 100vw;
+	height: 100vh;
+	padding: 4vh 4vw;
+	z-index: 5;
+	display: flex;
+	overflow-y: scroll;
+}
+.quickpanel-window {
+	background: var(--bgcolor1);
+	box-shadow: 0px 0px 8px #000;
+	height: 100%;
+	width: 100%;
+	padding: 8px;
+	border-radius: 8px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	overscroll-behavior: contain;
+}
+.window-title {
+	text-align: center;
+	margin-bottom: 16px;
+	border-bottom: none;
+}
+.window-body {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	font-size: 13px;
+	flex-grow: 1;
+}
+.window-section-title {
+	margin: 4px 0px;
+}
+
+.window-button-container {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	gap: 4px;
+	flex-grow: 1;
+	align-items: center;
+}
+.window-button {
+	cursor: pointer;
+	background: var(--bgcolor2);
+	flex-grow: 1;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 32px;
+	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
+	border-radius: 4px;
+	border: 2px solid var(--accent1);
+}
+.window-button-primary {
+	background: var(--primary);
+	border: 2px solid var(--primary-hover);
+	font-weight: bold;
+}
+
+.createfolder-selectcontainer {
+	padding: 4px;
+	background: var(--bgcolor2);
+	height: 320px;
+	margin: 4px 0px;
+	flex-grow: 1;
+	border-radius: 8px;
+	position: relative;
+	overflow: scroll;
+	border: 1px solid var(--accent1);
+}
+.createfolder-nameinput {
+	margin: 4px 4px;
+	padding: 4px;
+	border-radius: 4px;
+	border: 2px solid var(--accent1);
+}
+.createfolder-selectcontainer .stockedseries-row-owner {
+	display: inline;
+	opacity: 0.8;
+}
+
+/* context */
+.context-container {
+	border-radius: 4px;
+	background: var(--bgcolor2);
+	border: 1px solid var(--accent1);
+	z-index: 5;
+	display: flex;
+	flex-direction: column;
+}
+.context-button {
+	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
+	background: transparent;
+	border: none;
+	padding: 4px;
+}
+.context-button:hover {
+	background: var(--hover1);
 }
 
 

@@ -33,7 +33,12 @@ gulp.task('compileStylus', function () {
 
 gulp.task('compileWebpack', function () {
     // Stylusファイルのコンパイル処理
-    return webpack(webpackConfig)
+    return webpack({...webpackConfig, mode: "development"})
+        .pipe(gulp.dest('./dist/js'))
+});
+gulp.task('compileWebpackWithProd', function () {
+    // Stylusファイルのコンパイル処理
+    return webpack({...webpackConfig, mode: "production"})
         .pipe(gulp.dest('./dist/js'))
 });
 
@@ -154,6 +159,6 @@ gulp.task('watch', function () {
 });
 
 // デフォルトタスク
-gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'copyFilesForPrepare', 'compileStylus', 'compileWebpack', 'copyFilesChrome', 'copyFilesFirefox', 'copyFilesSource', 'renameFiles', 'compress'));
+gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'copyFilesForPrepare', 'compileStylus', 'compileWebpackWithProd', 'copyFilesChrome', 'copyFilesFirefox', 'copyFilesSource', 'renameFiles', 'compress'));
 
 gulp.task('prep', gulp.series('copyFilesForPrepare', 'compileStylus', 'compileWebpack'));
