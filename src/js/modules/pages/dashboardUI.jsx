@@ -4,8 +4,9 @@ import CreateSeriesStockBlock from "./seriesStock";
 import lang from "../../../langs/ja.json";
 import CreateQuickOption from "./QuickOptions";
 
-import EditIcon from '@mui/icons-material/Edit';
-import DoneIcon from '@mui/icons-material/Done';
+//import { EditOutlined, DoneOutlined } from '@mui/icons-material';
+//import DoneOutlined from '@mui/icons-material/DoneOutlined';
+import { MdOutlineEdit, MdOutlineDone } from "react-icons/md"
 
 import {
     DndContext,
@@ -107,7 +108,7 @@ function CreateDashboardUI() {
             </SortableContext>
         </DndContext>
 
-        <button type="button" className="dashboard-editbutton" onClick={() => {setIsEditMode(!isEditMode)}}>{isEditMode ? <><DoneIcon/> 編集を終了</> : <><EditIcon/> ダッシュボードを編集</>}</button>
+        <button type="button" className="dashboard-editbutton" onClick={() => {setIsEditMode(!isEditMode)}}>{isEditMode ? <><MdOutlineDone/> 編集を終了</> : <><MdOutlineEdit/> ダッシュボードを編集</>}</button>
     </div>
 }
 

@@ -7,9 +7,7 @@ import lang from "../../../langs/ja.json";
 import settings from "./settingsList";
 import CreateDashboardUI from "./dashboardUI";
 
-import Edit from "@mui/icons-material/Edit";
-import EditOff from "@mui/icons-material/EditOff";
-
+import { MdOutlineEdit, MdOutlineEditOff } from "react-icons/md"
 // #region Enum
 const tabType = Object.freeze({
     dashboard: 0,
@@ -76,7 +74,7 @@ function createTabUI() {
             { (syncStorage.enablenicorepotab || isEditMode) && <button type="button" className={currentTab == tabType.nicorepo || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.nicorepo) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[1]} label={lang.NICOREPO}/> : lang.NICOREPO }</button> }
             { ((syncStorage.enableseriesstocktab || isEditMode) && syncStorage.enableseriesstock) && <button type="button" className={currentTab == tabType.seriesstock || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.seriesstock) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[0]} label={lang.SERIES_STOCK_TITLE}/> : lang.SERIES_STOCK_TITLE }</button> }
             { (syncStorage.enablequicksettingstab || isEditMode) && <button type="button" className={currentTab == tabType.settings || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.settings) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[2]} label={lang.QUICK_SETTINGS}/> : lang.QUICK_SETTINGS }</button> }
-            <button type="button" className="tab-editbutton" title="クイックパネルタブをカスタマイズ" onClick={() => {setIsEditMode(!isEditMode); setCurrentTab(tabType.dashboard)}}>{ isEditMode ? <EditOff style={{fontSize: 18}}/> : <Edit style={{fontSize: 18}}/> }</button>
+            <button type="button" className="tab-editbutton" title="クイックパネルタブをカスタマイズ" onClick={() => {setIsEditMode(!isEditMode); setCurrentTab(tabType.dashboard)}}>{ isEditMode ? <MdOutlineEditOff style={{fontSize: 18}}/> : <MdOutlineEdit style={{fontSize: 18}}/> }</button>
         </div>
         <div className="quickpanel-mainpanel maincontainer">
             <div className="tabpanel current-tabpanel" style={isEditMode ? {background: "var(--bgcolor2)"} : {}}>

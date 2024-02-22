@@ -21,9 +21,8 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from "@dnd-kit/utilities";
 
-import Edit from "@mui/icons-material/Edit";
-import EditOff from "@mui/icons-material/EditOff";
-import Delete from "@mui/icons-material/Delete";
+//import { EditOutlined, EditOffOutlined, DeleteOutlined } from "@mui/icons-material";
+import { MdOutlineEdit, MdOutlineEditOff, MdDeleteOutline} from "react-icons/md"
 
 function CreateQuickOption() {
     const [ syncStorage, setSyncStorageVar ] = useState({})
@@ -80,15 +79,15 @@ function CreateQuickOption() {
         //console.log(lang.SETTINGS_ITEMS[settings.name].name)
         const settings = props.settings
         if ( isEditMode ) {
-            return <div className="quickoptions-editmode-row">{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<button className="quickoption-editmode-remove" type="button" onClick={() => {removeQuickOptionList(settings.name)}}><Delete style={{fontSize: 16}}/></button></div>
+            return <div className="quickoptions-editmode-row" key={settings.name + "-edit"}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<button className="quickoption-editmode-remove" type="button" onClick={() => {removeQuickOptionList(settings.name)}}><MdDeleteOutline style={{fontSize: 16}}/></button></div>
         }
         if ( settings.type == "checkbox" ) {
             return <label key={settings.name}><input type="checkbox" checked={syncStorage[settings.name] ?? settings.default} onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.checked)}} />{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}</label>
         } else if ( settings.type == "select" ){
-            const settingsOption = settings.values.map((elem, index) => { return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[settings.name].select[index] ?? elem}</option> })
+            const settingsOption = settings.values.map((elem, index) => { return <option value={elem} key={settings.name + "-option-" + elem}>{lang.SETTINGS_ITEMS[settings.name].select[index] ?? elem}</option> })
             return <label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<select onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.value)}} value={syncStorage[settings.name] ?? settings.default}>{ settingsOption }</select></label>
         } else if ( settings.type == "selectButtons" ){
-            const settingsOption = settings.values.map((elem, index) => { return <button type="button" key={elem} onClick={() => {setSyncStorageValue(settings.name, elem)}} className={"select-button" + ((syncStorage[settings.name] ?? settings.default) == elem ? " select-button-current" : "")}>{lang.SETTINGS_ITEMS[settings.name].select[index] ?? elem}</button> })
+            const settingsOption = settings.values.map((elem, index) => { return <button type="button" key={settings.name + "-optionbutton-" + elem} onClick={() => {setSyncStorageValue(settings.name, elem)}} className={"select-button" + ((syncStorage[settings.name] ?? settings.default) == elem ? " select-button-current" : "")}>{lang.SETTINGS_ITEMS[settings.name].select[index] ?? elem}</button> })
             return <><label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}</label><div className="select-button-container" key={`${settings.name}-selectbutton`}>{ settingsOption }</div></>
         } else if ( settings.type == "inputNumber" ) {
             return <label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<input type="number" min={settings.min} max={settings.max} value={(syncStorage[settings.name] ?? settings.default)} onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.value)}}/></label>
@@ -118,7 +117,7 @@ function CreateQuickOption() {
 
     //console.log(elemArray)
     return <div className="block-container">
-        <h2 className="block-title">クイックオプション<button title={isEditMode ? "クイック設定の編集を終了" : "クイック設定の項目を編集"} className="block-title-actionbutton" type="button" onClick={() => {setIsEditMode(!isEditMode)}}>{ isEditMode ? <EditOff style={{fontSize: 20}}/> : <Edit style={{fontSize: 20}}/>}</button><a href="settings.html" target="_self" style={{ "marginLeft": "1rem" }}>設定ページを開く</a></h2>
+        <h2 className="block-title">クイックオプション<button title={isEditMode ? "クイック設定の編集を終了" : "クイック設定の項目を編集"} className="block-title-actionbutton" type="button" onClick={() => {setIsEditMode(!isEditMode)}}>{ isEditMode ? <MdOutlineEditOff style={{fontSize: 20}}/> : <MdOutlineEdit style={{fontSize: 20}}/>}</button><a href="settings.html" target="_self" style={{ "marginLeft": "1rem" }}>設定ページを開く</a></h2>
         <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}

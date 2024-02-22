@@ -226,6 +226,11 @@
     "TO_UNLOCK": "ロック解除",
     "THUMB_ALT_TEXT": "のサムネイル",
 
+    "EDITBUTTON_TITLE_TOEDITMODE": "編集する",
+    "EDITBUTTON_TITLE_EDITOFF": "編集を終了",
+
+    "ADD_FOLDER": "フォルダーを追加",
+
     "DASHBOARD_TITLES": {
         "quickoption": "クイックオプション",
         "seriesstock": "シリーズストック"

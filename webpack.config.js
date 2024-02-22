@@ -1,3 +1,4 @@
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
     entry: {
         index: './src/js/index.js',
@@ -9,19 +10,22 @@ module.exports = {
         filename: '[name].bundle.js', // 出力ファイル名
     },
     watch: false,
-    devtool: "source-map",
     resolve: {
-        extensions: [".js", ".jsx", ".json", ".styl"]
+        extensions: ['.mjs', ".js", ".jsx", ".json", ".styl"]
     },
     module: {
         rules: [
             { test: /\.jsx$/, loader: "babel-loader", exclude: /node_modules/, options: {
-                presets: ["@babel/preset-react"]
+                presets: ["@babel/preset-react"],
             } },
             {
                 test: /\.styl$/,
                 use: ['style-loader', 'css-loader', 'stylus-native-loader'],
+                exclude: /node_modules/
             },
         ],
     },
+    plugins: [
+        new BundleAnalyzerPlugin({analyzerMode: "static", reportFilename: "./builds/latest_report.html"})
+    ]
 }

@@ -21,17 +21,7 @@ import FocusLock from 'react-focus-lock';
 
 import lang from "../../../langs/ja.json";
 
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import DeleteOutlined from "@mui/icons-material/DeleteOutlined";
-import LockOpenOutlined from "@mui/icons-material/LockOpenOutlined";
-import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
-import SkipNextOutlinedIcon from '@mui/icons-material/SkipNextOutlined';
-import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
-import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
-import CreateNewFolderOutlinedIcon from "@mui/icons-material/CreateNewFolderOutlined"
-import DriveFileMoveOutlinedIcon from "@mui/icons-material/DriveFileMoveOutlined"
-import FolderOutlinedIcon from "@mui/icons-material/FolderOutlined"
-import EditOutlined from "@mui/icons-material/EditOutlined";
+import { MdOutlineEdit, MdOutlineEditOff, MdDeleteOutline, MdOutlinePlayArrow, MdOutlineSkipNext, MdOutlineExpandLess, MdOutlineExpandMore, MdOutlineCreateNewFolder, MdOutlineDriveFileMove, MdOutlineFolder } from "react-icons/md"
 
 function CreateSeriesStockBlock() {
     const [syncStorage, setSyncStorageVar] = useState({})
@@ -180,10 +170,10 @@ function CreateSeriesStockBlock() {
                     // 後はリストをこの関数で作ってもらう
                     return <div className="stockedseries-row stockedseries-row-folder" key={elem.id} ref={setNodeRef} style={Style} {...attributes} {...listeners}>
                         <div className="serieslink-container">
-                            <div className="stockedseries-folder-title" style={!isUnlocked ? {flexGrow: 1} : {}}><FolderOutlinedIcon style={{ fontSize: 16 }}/>{elem.name}</div>
-                            {!isUnlocked && <button type="button" onClick={() => {setIsOpen(!isOpen)}} className="stockedseries-folder-openbutton">{isOpen ? <>フォルダーを閉じる<ExpandLessOutlinedIcon/></>: <>フォルダーを開く<ExpandMoreOutlinedIcon/></>}</button>}
-                            <button className="stockedseries-row-actionbutton" onClick={() => {setFCEditId(elem.id);setIsFolderCreateWindowVar(true)}}><EditOutlined /></button>
-                            <button className="stockedseries-row-actionbutton" onClick={() => {removeFolder(elem.id)}}><DeleteOutlined /></button>
+                            <div className="stockedseries-folder-title" style={!isUnlocked ? {flexGrow: 1} : {}}><MdOutlineFolder style={{ fontSize: 16 }}/>{elem.name}</div>
+                            {!isUnlocked && <button type="button" onClick={() => {setIsOpen(!isOpen)}} className="stockedseries-folder-openbutton">{isOpen ? <>フォルダーを閉じる<MdOutlineExpandLess/></>: <>フォルダーを開く<MdOutlineExpandMore/></>}</button>}
+                            <button className="stockedseries-row-actionbutton" onClick={() => {setFCEditId(elem.id);setIsFolderCreateWindowVar(true)}}><MdOutlineEdit /></button>
+                            <button className="stockedseries-row-actionbutton" onClick={() => {removeFolder(elem.id)}}><MdDeleteOutline /></button>
                         </div>
                         <div className="stockedseries-folder-details" style={(!isOpen && !isUnlocked) ? {display: "none"} : {}}>
                             <DndContext
@@ -222,8 +212,8 @@ function CreateSeriesStockBlock() {
                                     <a className="stockedseries-row-link" href={seriesHref} target="_blank">{elem.seriesName}</a>
                                     { !isMoveWindowOpen && 
                                         <>{props.isfolder ? <button className="stockedseries-row-actionbutton" onClick={() => {removeFromFolder(props.folderid, props.folderindex, elem.seriesID)}}>フォルダから除去</button> : 
-                                        <button className="stockedseries-row-actionbutton" onClick={() => {setMoveWindowOpen(!isMoveWindowOpen)}}><DriveFileMoveOutlinedIcon/></button>}
-                                        <button className="stockedseries-row-actionbutton" onClick={() => {removeSeriesStock(elem.seriesID)}}><DeleteOutlined /></button></>
+                                        <button className="stockedseries-row-actionbutton" onClick={() => {setMoveWindowOpen(!isMoveWindowOpen)}}><MdOutlineDriveFileMove/></button>}
+                                        <button className="stockedseries-row-actionbutton" onClick={() => {removeSeriesStock(elem.seriesID)}}><MdDeleteOutline /></button></>
                                     }
                                         {(seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.owner) &&
                                             (seriesInfo[elem.seriesID].data.detail.owner.type == "channel" ?
@@ -262,12 +252,12 @@ function CreateSeriesStockBlock() {
                                 </div>
                             </div> }
                             <div className="stockedseries-vidlink-container">
-                                {elem.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><PlayArrowOutlinedIcon />{lang.LASTVID_TITLE}<span>{elem.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><PlayArrowOutlinedIcon />{lang.LASTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
-                                {elem.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><SkipNextOutlinedIcon />{lang.NEXTVID_TITLE}<span>{elem.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><SkipNextOutlinedIcon />{lang.NEXTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
+                                {elem.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><MdOutlinePlayArrow />{lang.LASTVID_TITLE}<span>{elem.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><MdOutlinePlayArrow />{lang.LASTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
+                                {elem.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><MdOutlineSkipNext />{lang.NEXTVID_TITLE}<span>{elem.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><MdOutlineSkipNext />{lang.NEXTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
                             </div>
                             {(seriesInfo[elem.seriesID]) && (seriesInfo[elem.seriesID].data.items && isDetailedViewExpanded ? <div className="episodelist-container" style={{ "--maxheight": `${seriesInfo[elem.seriesID].data.items.length * 4.0}em` }}>{seriesStockVar.episodeLists[elem.seriesID]}</div> : <div className="episodelist-container" style={{ "--maxheight": `4em` }}>{lang.NO_EPISODE_INFO}</div>)}
                             <button type="button" className="expanddetailedview" onClick={() => { setDetailedViewExpanded(!isDetailedViewExpanded) }}>
-                                {(seriesInfo[elem.seriesID]) ? (isDetailedViewExpanded ? <><ExpandLessOutlinedIcon />{lang.HIDE_DETAILS}<ExpandLessOutlinedIcon /></> : <><ExpandMoreOutlinedIcon />{lang.SEE_DETAILS}<ExpandMoreOutlinedIcon /></>) : <><ExpandMoreOutlinedIcon /><span style={{ color: "var(--textcolor2)" }}>{lang.LOADING}</span><ExpandMoreOutlinedIcon /></>}
+                                {(seriesInfo[elem.seriesID]) ? (isDetailedViewExpanded ? <><MdOutlineExpandLess/>{lang.HIDE_DETAILS}<MdOutlineExpandLess/></> : <><MdOutlineExpandMore />{lang.SEE_DETAILS}<MdOutlineExpandMore /></>) : <><MdOutlineExpandMore /><span style={{ color: "var(--textcolor2)" }}>{lang.LOADING}</span><MdOutlineExpandMore /></>}
                             </button>
                         </div>
                     </div>
@@ -368,12 +358,12 @@ function CreateSeriesStockBlock() {
                                     {elem.seriesName}
                                     {(seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.owner) &&
                                         (seriesInfo[elem.seriesID].data.detail.owner.type == "channel" ?
-                                            <span className="stockedseries-row-owner" style={{ marginLeft: 16 }}>
-                                                {lang.CHANNEL}:
+                                            <span className="stockedseries-row-owner" style={{ fontSize: 12, marginLeft: ".5em" }}>
+                                                - {lang.CHANNEL}:
                                                 <a href={"https://nico.ms/" + seriesInfo[elem.seriesID].data.detail.owner.channel.id} className="stockedseries-row-ownerlink">{seriesInfo[elem.seriesID].data.detail.owner.channel.name}</a>
                                             </span>
-                                            : <span className="stockedseries-row-owner" style={{ marginLeft: 16 }}>
-                                                {lang.USER}:
+                                            : <span className="stockedseries-row-owner" style={{ fontSize: 12, marginLeft: ".5em" }}>
+                                                - {lang.USER}:
                                                 <a href={"https://nico.ms/user/" + seriesInfo[elem.seriesID].data.detail.owner.user.id} className="stockedseries-row-ownerlink" style={seriesInfo[elem.seriesID].data.detail.owner.user.isPremium && { color: "#d9a300" }}>{seriesInfo[elem.seriesID].data.detail.owner.user.nickname}</a>
                                             </span>
                                         )
@@ -406,9 +396,9 @@ function CreateSeriesStockBlock() {
     }
     return <div className="block-container">
         <h2 className="block-title">
-            {`シリーズストック (${(syncStorage.stockedseries ?? []).length})`}
-            <button className="block-title-actionbutton" title={isUnlocked ? "ロック状態に変更" : "ロック解除"} type="button" onClick={() => { setIsUnlockedVar(!isUnlocked) }}>{isUnlocked ? <LockOpenOutlined style={{ fontSize: 22 }} /> : <LockOutlinedIcon style={{ fontSize: 22 }} />}</button>
-            <button className="block-title-actionbutton" title="フォルダーを追加" type="button" onClick={() => { setIsFolderCreateWindowVar(!isFolderCreateWindow) }}><CreateNewFolderOutlinedIcon/></button>
+            {`${lang.SERIES_STOCK_TITLE} (${(syncStorage.stockedseries ?? []).length})`}
+            <button className="block-title-actionbutton" title={isUnlocked ? lang.EDITBUTTON_TITLE_EDITOFF : lang.EDITBUTTON_TITLE_TOEDITMODE} type="button" onClick={() => { setIsUnlockedVar(!isUnlocked) }}>{isUnlocked ? <MdOutlineEditOff style={{ fontSize: 22 }} /> : <MdOutlineEdit style={{ fontSize: 22 }} />}</button>
+            <button className="block-title-actionbutton" title={lang.ADD_FOLDER} type="button" onClick={() => { setIsFolderCreateWindowVar(!isFolderCreateWindow) }}><MdOutlineCreateNewFolder/></button>
         </h2>
         <div className={"stockedserieslist-container" + " " + (isUnlocked ? "stocklist-unlocked" : "")}>
             <DndContext

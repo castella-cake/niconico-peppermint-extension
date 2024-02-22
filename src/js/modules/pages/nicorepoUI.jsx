@@ -5,7 +5,7 @@ import { linkAction } from "../actions";
 import "../../../style/pages/nicorepoUI.styl"
 import lang from "../../../langs/ja.json";
 
-import RefreshIcon from '@mui/icons-material/Refresh';
+import { MdOutlineRefresh } from "react-icons/md";
 
 const getRecentNicorepo = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo" }, resolve))
 
@@ -39,7 +39,7 @@ function CreateNicorepoUI() {
         })
 
         return <>
-            <div className="nicorepo-lastfetch">{lang.LAST_FETCHED_DATE}: {fetchdate.toLocaleString()}<button className="nicorepo-reload" onClick={() => {reloadNicorepo()}} type="button"><RefreshIcon style={{ fontSize: 18 }}/></button></div>
+            <div className="nicorepo-lastfetch">{lang.LAST_FETCHED_DATE}: {fetchdate.toLocaleString()}<button className="nicorepo-reload" onClick={() => {reloadNicorepo()}} type="button"><MdOutlineRefresh style={{ fontSize: 18 }}/></button></div>
             <div className="nicorepo-rowlistcontainer">
                 { itemDispArray }
             </div>
@@ -49,7 +49,7 @@ function CreateNicorepoUI() {
     } else {
         return <>
             <div>{lang.NICOREPO_FETCH_FAILED}{(nicorepoInfo.meta != undefined && nicorepoInfo.meta.status != undefined ) ?? ": " + nicorepoInfo.meta.status}</div>
-            <button className="nicorepo-reload" onClick={() => {reloadNicorepo()}} type="button"><RefreshIcon/></button>
+            <button className="nicorepo-reload" onClick={() => {reloadNicorepo()}} type="button"><MdOutlineRefresh/></button>
         </>
     }
     

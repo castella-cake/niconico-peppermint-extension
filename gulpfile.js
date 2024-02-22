@@ -33,12 +33,12 @@ gulp.task('compileStylus', function () {
 
 gulp.task('compileWebpack', function () {
     // Stylusファイルのコンパイル処理
-    return webpack({...webpackConfig, mode: "development"})
+    return webpack({...webpackConfig, mode: "development", devtool: "source-map"})
         .pipe(gulp.dest('./dist/js'))
 });
 gulp.task('compileWebpackWithProd', function () {
     // Stylusファイルのコンパイル処理
-    return webpack({...webpackConfig, mode: "production"})
+    return webpack({...webpackConfig, mode: "production", devtool: false})
         .pipe(gulp.dest('./dist/js'))
 });
 
