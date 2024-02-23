@@ -151,8 +151,8 @@ https://github.com/sponsors/castella-cake
 Niconico-PepperMint+のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  
 
-Niconico-PepperMint+には、外部リソースとしてMaterial Iconsを使用している箇所があります。    
-Material Iconsは``Apache License 2.0`` のもとで配布されています。  
+Niconico-PepperMint+は、React Iconsからインポートもしくはまた外部リソースからインポートされたMaterial Iconsを使用している箇所があります。  
+Material Iconsは`Apache License 2.0` のもとで配布されています。  
 Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
 
 Niconico-PepperMint+のリリースファイルには、JQuery, JQuery UI, Nord が含まれています。
@@ -162,4 +162,5 @@ Niconico-PepperMint+のリリースファイルにはDOMPurifyが含まれてい
 DOMPurifyは``Apache License 2.0``、``Mozilla Public License Version 2.0``のデュアルライセンスで配布されています。
 (PepperMint+では``Apache License 2.0``に従います)
 
-外部リソースのライセンスについては、``NOTICE.txt``を参照してください。
+これら以外にも、Reactやそのライブラリなどが含まれています。
+完全な外部リソースのライセンスのコピーについては、`NOTICE.txt`を参照してください。

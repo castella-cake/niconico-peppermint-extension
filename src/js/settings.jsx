@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import StrictMode from "react";
 import { createRoot } from "react-dom/client";
 import CreateSettingsList from "./modules/pages/SettingsUI";
 import lang from "../langs/ja.json";
 
 
 createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
+    <StrictMode>
     <div className="container">
         <div className="title-container">
             <div className="title toptitle"><a href="settings.html" target="_blank" rel="noopener noreferrer" className="optlink">PepperMint+ の設定</a></div>
@@ -30,5 +30,5 @@ createRoot(document.getElementById("root")).render(
             <a href="credit.html" target="_self" className="settinglink">PepperMintについて・データの管理...</a>    
         </div>
     </div>
-    </React.StrictMode>,
+    </StrictMode>,
 );

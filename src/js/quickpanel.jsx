@@ -1,4 +1,4 @@
-import React from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import CreateTabUI from "./modules/pages/TabUI";
 
@@ -6,7 +6,7 @@ const manifestData = chrome.runtime.getManifest();
 const currentVersion = manifestData.version_name;
 
 createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
+    <StrictMode>
     <div className="container">
         <div className="title-container">
             <div className="title toptitle">
@@ -22,5 +22,5 @@ createRoot(document.getElementById("root")).render(
         </div>
     </div>
     <CreateTabUI/>
-    </React.StrictMode>,
+    </StrictMode>,
 );

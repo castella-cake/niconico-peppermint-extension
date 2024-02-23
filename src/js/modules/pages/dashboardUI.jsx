@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { getSyncStorageData } from "../storageControl";
 import CreateSeriesStockBlock from "./seriesStock";
 import lang from "../../../langs/ja.json";

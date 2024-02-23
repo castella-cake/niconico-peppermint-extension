@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import { useState,useEffect } from "react";
 import HTMLReactParser from "html-react-parser";
 import DOMPurify from "dompurify";
 import { linkAction } from "../actions";

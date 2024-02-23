@@ -1,3 +1,5 @@
+const { JsonAccessOptimizer } = require('webpack-json-access-optimizer');
+
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
     entry: {
@@ -15,9 +17,16 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /\.jsx$/, loader: "babel-loader", exclude: /node_modules/, options: {
-                presets: ["@babel/preset-react"],
-            } },
+            {
+                test: /\.json$/,
+                use: [
+                    'webpack-json-access-optimizer', 
+                ],
+                type: 'json'
+            },
+            {
+                test: /\.jsx$/, loader: "babel-loader", exclude: /node_modules/
+            },
             {
                 test: /\.styl$/,
                 use: ['style-loader', 'css-loader', 'stylus-native-loader'],
@@ -26,6 +35,10 @@ module.exports = {
         ],
     },
     plugins: [
-        new BundleAnalyzerPlugin({analyzerMode: "static", reportFilename: "./builds/latest_report.html"})
-    ]
+        new BundleAnalyzerPlugin({ analyzerMode: "static", reportFilename: "./builds/latest_report.html" }),
+        new JsonAccessOptimizer({ accessorFunctionName: '$t' })
+    ],
+    optimization: {
+        usedExports: true
+    },
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getSyncStorageData } from "../storageControl";
 import settings from "./settingsList";
 import lang from "../../../langs/ja.json";
