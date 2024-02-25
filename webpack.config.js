@@ -18,13 +18,6 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.json$/,
-                use: [
-                    'webpack-json-access-optimizer', 
-                ],
-                type: 'json'
-            },
-            {
                 test: /\.jsx$/, loader: "babel-loader", exclude: /node_modules/
             },
             {
@@ -36,9 +29,8 @@ module.exports = {
     },
     plugins: [
         new BundleAnalyzerPlugin({ analyzerMode: "static", reportFilename: "./builds/latest_report.html" }),
-        new JsonAccessOptimizer({ accessorFunctionName: '$t' })
     ],
     optimization: {
-        usedExports: true
-    },
+        usedExports: true,
+    }
 }

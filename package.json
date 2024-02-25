@@ -47,6 +47,7 @@
     "postinstall": "patch-package"
   },
   "sideEffects": [
-    "**/*.styl"
+    "**/*.styl",
+    "**/*.css"
   ]
 }

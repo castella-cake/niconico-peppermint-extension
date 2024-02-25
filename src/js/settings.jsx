@@ -1,4 +1,4 @@
-import StrictMode from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import CreateSettingsList from "./modules/pages/SettingsUI";
 import lang from "../langs/ja.json";
