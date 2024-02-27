@@ -5,8 +5,8 @@ function onError(error) {
     console.log(`Error: ${error}`);
 }
 
-let locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp"];
-
+const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp"];
+const livePathnameWhiteList = ["/focus", "/recent", "/timetable"]
 function createFastCSSRule(result) {
     // #region HTML要素用のパレット設定
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) && locationWhiteList.includes(location.hostname)) {
@@ -31,7 +31,8 @@ function createFastCSSRule(result) {
             --nicoru1:${result.customcolorpalette.nicoru1};
             --nicoru2:${result.customcolorpalette.nicoru2};
             --nicoru3:${result.customcolorpalette.nicoru3};
-            --nicoru4:${result.customcolorpalette.nicoru4};`
+            --nicoru4:${result.customcolorpalette.nicoru4};
+            --dangerous1:${result.customcolorpalette.dangerous1 ? result.customcolorpalette.dangerous1 : "#fff"};`
         } else {
             document.documentElement.classList.add(`PMDMP-${result.darkmode}`)
         }
@@ -42,7 +43,7 @@ function createFastCSSRule(result) {
         if (location.hostname == "anime.nicovideo.jp") {
             document.documentElement.classList.add('PMDM-NAnime')
         }
-        if (location.hostname == "live.nicovideo.jp" && ( location.pathname == "/" || location.pathname == "" )) {
+        if (location.hostname == "live.nicovideo.jp" && ( location.pathname == "/" || location.pathname == "" || livePathnameWhiteList.includes(location.pathname) )) {
             document.documentElement.classList.add('PMDM-NicoLiveHome')
         }
         if (location.hostname == "live.nicovideo.jp" && location.pathname.startsWith("/watch")) {

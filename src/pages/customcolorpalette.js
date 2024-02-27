@@ -41,6 +41,7 @@ function saveOptions() {
             nicoru2: $("#input-nicoru2").val(),
             nicoru3: $("#input-nicoru3").val(),
             nicoru4: $("#input-nicoru4").val(),
+            dangerous1: $("#input-dangerous1").val(),
         }
     });
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
@@ -79,6 +80,7 @@ function restoreOptions() {
             $("#input-nicoru2").val(result.customcolorpalette.nicoru2 || "");
             $("#input-nicoru3").val(result.customcolorpalette.nicoru3 || "");
             $("#input-nicoru4").val(result.customcolorpalette.nicoru4 || "");
+            $("#input-dangerous1").val(result.customcolorpalette.dangerous1 || "");
         }
     }
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
@@ -109,7 +111,8 @@ $("#reset").on('click',function() {
             "nicoru1": "rgba(201, 168, 62, 0.1)",
             "nicoru2": "rgba(201, 168, 62, 0.2)",
             "nicoru3": "rgba(201, 168, 62, 0.35)",
-            "nicoru4": "rgba(201, 168, 62, 0.5)"
+            "nicoru4": "rgba(201, 168, 62, 0.5)",
+            "dangerous1": "rgb(245, 71, 71)"
         }
     })
     location.reload()

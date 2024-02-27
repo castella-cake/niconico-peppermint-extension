@@ -1,9 +1,13 @@
 html.PMDM-NicoLiveHome {
-    [class^="___base-page___"] {
-        color: var(--textcolor1)
+    [class*="___base-page___"] {
+        background: var(--bgcolor1);
+        color: var(--textcolor1);
     }
-    [class^="___ad-billboard"],[class^="___ranking-contents-area"],[class^="___site-information-list-section"],[class^="___heading"],[class^="___item-list"] {
+    [class^="___ad-billboard"],[class^="___ranking-contents-area"],[class^="___site-information-list-section"],[class^="___item-list"] {
         background-color: var(--bgcolor1)
+    }
+    [class^="___heading"] {
+        background: transparent;
     }
     [class^="___top-page"] {
         background-color: var(--bgcolor1) !important
@@ -17,7 +21,7 @@ html.PMDM-NicoLiveHome {
     [class^="___description"],[class^="___duration"], [class^="___start-at"],[class^="___content"],[class^="___name-label"],[class^="___related-anchor"],[class^="___more-anchor"],[class^="___description"],[class^="___konomi-tag-match-counter"],[class^="___airtime"], [class^="___onair-time"],[class^="___channel-name"] {
         color: var(--textcolor2)
     }
-    [class^="___item"], [class*="___card___"] > .program-summary, [class^="___channel-supplier-name"], [class*="___card___"] > .content-area > .program-summary {
+    [class*="___card___"] > .program-summary, [class^="___channel-supplier-name"], [class*="___card___"] > .content-area > .program-summary {
         color: var(--textcolor3);
     }
     [class^="___heading"] > svg {
@@ -90,6 +94,38 @@ html.PMDM-NicoLiveHome {
         .description {
             color: var(--textcolor2)
         }
+    }
+
+    .program-tag-widget {
+        background: var(--bgcolor2)
+    }
+
+    .program-card > .content-area > .program-summary {
+        background: transparent
+        color: var(--textcolor1)
+    }
+
+    .program-card > .content-area > .program-summary:hover {
+        color: var(--linktext1)
+    }
+    [class^="___list-section-area"] {
+        background: var(--bgcolor1)
+    }
+    [class^="___feature-program-section"] {
+        background: var(--bgcolor2)
+    }
+    [class^="___focus-page"] {
+        background: var(--bgcolor1) !important;
+    }
+    [class*="___contents-card___"] {
+        background: var(--bgcolor2)
+        border: 1px solid var(--accent1)
+    }
+    [class^="___main-contents-search-area"] {
+        background: var(--bgcolor2);
+    }
+    [class^="___tag-widget"] > h2 {
+        color: var(--textcolor1)
     }
 }
 html.PMDM-NicoLiveWatch {
@@ -208,6 +244,10 @@ html.PMDM-NicoLiveWatch {
         background-color: var(--bgcolor2) !important;
         color: var(--textcolor1) !important;
     }
+    .program-watch-setting-panel section ul li [class^="___label"] {
+        color: var(--textcolor1);
+        z-index: 0;
+    }
 
     [class^="___tab"]::after {
         background-color: var(--accent1);
@@ -239,6 +279,9 @@ html.PMDM-NicoLiveWatch {
     }
     [class^="___count___"][type="button"]:enabled:not([aria-busy="true"]):hover, [data-input-mode="keyboard"] [class^="___count___"][type="button"]:enabled:not([aria-busy="true"]):focus {
         background-color: var(--hover2);
+    }
+    [class^="___contents-tab-panel"] {
+        background: var(--bgcolor2)
     }
 
     /* 関連コンテンツ */
@@ -299,5 +342,29 @@ html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
     /* Ads */
     [class^="___ad-billboard"] {
         background: transparent
+    }
+
+    /* search box */
+
+    [class^="___search-form___"] > .combo-box > .popup-area > .list-box > .item {
+        background: var(--bgcolor2);
+        color: var(--textcolor1)
+    }
+    [class^="___search-form___"] > .combo-box > .popup-area > .list-box > .item:hover {
+        background: var(--hover1);
+    }
+
+    [class^="___search-form___"] > .combo-box > .popup-area > .text-box {
+        background: var(--bgcolor3);
+        color: var(--textcolor1)
+    }
+    [class^="___search-form___"] > .combo-box > .popup-area > .text-box::placeholder {
+        color: var(--textcolor2)
+    }
+
+    [class^="___main-anchor-list"] {
+        [class^="___item"]:hover, [class^="___item"][aria-selected="true"] {
+            background: var(--bgcolor3)
+        }
     }
 }
