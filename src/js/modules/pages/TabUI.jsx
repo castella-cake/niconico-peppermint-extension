@@ -41,21 +41,13 @@ function createTabUI() {
 
     let currentTabElem = <div>Invalid tab type.</div>;
     if ( currentTab == tabType.dashboard ) {
-        currentTabElem = <>
-            <CreateDashboardUI />
-        </>
+        currentTabElem = <CreateDashboardUI />
     } else if ( currentTab == tabType.settings ) {
-        currentTabElem = <>
-            <CreateSettingsList />
-        </>
+        currentTabElem = <CreateSettingsList />
     } else if ( currentTab == tabType.nicorepo) {
-        currentTabElem = <>
-            <CreateNicorepoUI />
-        </>
+        currentTabElem =  <CreateNicorepoUI />
     } else if ( currentTab == tabType.seriesstock) {
-        currentTabElem = <>
-            <CreateSeriesStockBlock />
-        </>
+        currentTabElem = <CreateSeriesStockBlock />
     }
 
     function TabEditCheckbox(props) {

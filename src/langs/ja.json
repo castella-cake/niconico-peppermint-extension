@@ -233,6 +233,7 @@
 
     "DASHBOARD_TITLES": {
         "quickoption": "クイックオプション",
-        "seriesstock": "シリーズストック"
+        "seriesstock": "シリーズストック",
+        "nicorepo": "最近のニコレポ"
     }
 }

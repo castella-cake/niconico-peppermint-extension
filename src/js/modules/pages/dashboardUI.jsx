@@ -25,6 +25,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
+import CreateNicorepoUI from "./nicorepoUI";
 
 function CreateDashboardUI() {
     const [ syncStorage, setSyncStorageVar ] = useState({})
@@ -36,17 +37,18 @@ function CreateDashboardUI() {
     }, [])
 
     function setSyncStorageValue(name, value) {
+        chrome.storage.sync.set({ [name]: value })
         setSyncStorageVar(current => {
             return {
                 ...current,
                 [name]: value
             }
         })
-        chrome.storage.sync.set({ [name]: value })
     }
 
-    const dashboardBlocks = { quickoption: <CreateQuickOption/>, seriesstock: <CreateSeriesStockBlock/> }
-    const dashboardSortList = ( syncStorage.dashboardsortlist ? syncStorage.dashboardsortlist : [{ name: "quickoption", isHidden: false }, { name: "seriesstock", isHidden: false }])
+    const dashboardBlocks = { quickoption: <CreateQuickOption/>, seriesstock: <CreateSeriesStockBlock/>, nicorepo: <CreateNicorepoUI isrecentblock={true} displaylimit={5}/> }
+    const [isChanged, setIsChanged] = useState(false);
+    const dashboardSortList = ( (syncStorage.dashboardsortlist && syncStorage.dashboardsortlist.length == Object.keys(dashboardBlocks).length) ? syncStorage.dashboardsortlist : [{ name: "quickoption", isHidden: false }, { name: "seriesstock", isHidden: false }, { name: "nicorepo", isHidden: true }])
     const dashboardDNDId = dashboardSortList.map(elem => { return elem.name })
     const [isEditMode, setIsEditMode] = useState(false)
 
@@ -64,6 +66,7 @@ function CreateDashboardUI() {
             const newIndex = dashboardDNDId.indexOf(over.id);
             const sortAfterList = arrayMove(dashboardSortList, oldIndex, newIndex);
             setSyncStorageValue("dashboardsortlist", sortAfterList)
+            setIsChanged(true)
         }
     }
     // #endregion
@@ -77,6 +80,7 @@ function CreateDashboardUI() {
             }
         })
         setSyncStorageValue("dashboardsortlist", afterList)
+        setIsChanged(true)
     }
 
     function DraggableList() {
@@ -85,7 +89,7 @@ function CreateDashboardUI() {
             const dndStyle = { transform: CSS.Translate.toString(transform), transition, }
             if ( Object.keys(dashboardBlocks).includes(elem.name) ) {
                 return <div key={elem.name} className="dashboard-draggablecontainer" ref={setNodeRef} style={dndStyle} {...attributes} {...listeners}>
-                    { isEditMode ? <div className="block-container"><h2 className="block-title">{lang.DASHBOARD_TITLES[elem.name]}<label><input type="checkbox" checked={elem.isHidden} onChange={(e) => {setHiddenState(e.currentTarget.attributes.getNamedItem("blockname").nodeValue, e.currentTarget.checked)}} blockname={elem.name}/>非表示</label></h2></div> : ( !elem.isHidden && dashboardBlocks[elem.name] ) }
+                    { isEditMode ? <div className="block-container"><h2 className="block-title"><span style={{ color: "var(--textcolor3)", fontSize: 20, marginRight: 4 }}>::</span>{lang.DASHBOARD_TITLES[elem.name]}<label><input type="checkbox" checked={elem.isHidden} onChange={(e) => {setHiddenState(e.currentTarget.attributes.getNamedItem("blockname").nodeValue, e.currentTarget.checked)}} blockname={elem.name}/>非表示</label></h2></div> : ( !elem.isHidden && dashboardBlocks[elem.name] ) }
                 </div>
             }
         })
@@ -107,7 +111,14 @@ function CreateDashboardUI() {
             </SortableContext>
         </DndContext>
 
-        <button type="button" className="dashboard-editbutton" onClick={() => {setIsEditMode(!isEditMode)}}>{isEditMode ? <><MdOutlineDone style={{fontSize: 14}}/> 編集を終了</> : <><MdOutlineEdit style={{fontSize: 14}}/> ダッシュボードを編集</>}</button>
+        <button type="button" className="dashboard-editbutton" onClick={() => {
+            // 編集が終了されたならリロードする
+            if (!isEditMode == false && isChanged) {
+                location.reload()
+            } else {
+                setIsEditMode(!isEditMode)
+            }
+        }}>{isEditMode ? <><MdOutlineDone style={{fontSize: 14}}/> 編集を終了{isChanged && "(リロードします)"}</> : <><MdOutlineEdit style={{fontSize: 14}}/> ダッシュボードを編集</>}</button>
     </div>
 }
 
