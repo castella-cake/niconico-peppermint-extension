@@ -366,6 +366,7 @@ a {
 .stockedseries-row-link.stockedseries-row-vidlink > svg {
 	color: var(--textcolor2);
 	font-size: 20px;
+	flex-shrink: 0;
 }
 
 .stockedseries-row-link.stockedseries-row-vidlink > span {

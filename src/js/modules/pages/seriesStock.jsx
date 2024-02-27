@@ -105,7 +105,6 @@ function CreateSeriesStockBlock() {
         useEffect(() => {
             async function getData() {
                 const seriesInfoObj = {}
-                const episodeListObj = {}
                 if (storage.stockedseries) {
                     const infoArray = await Promise.allSettled(storage.stockedseries.map(async elem => {
                         return await getSeriesInfo(elem.seriesID)
@@ -115,21 +114,11 @@ function CreateSeriesStockBlock() {
                             const res = elem.value
                             if (res.meta && res.meta.status == 200 && res.data && res.data.detail && res.data.detail.id) {
                                 seriesInfoObj[res.data.detail.id] = res
-                                const playlist = btoa(`{"type":"series","context":{"seriesId":${res.data.detail.id}}}`)
-                                episodeListObj[res.data.detail.id] = res.data.items.map(thisEp => {
-                                    return <a key={thisEp.video.id} className="detailedview-episoderow" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisEp.video.id}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${res.data.detail.id}`}>
-                                        {thisEp.video.thumbnail.middleUrl && <img src={thisEp.video.thumbnail.middleUrl} className="episoderow-thumbnail" />}
-                                        <div className="episoderow-infocontainer">
-                                            <span className="episoderow-info-title">{thisEp.video.title}</span>
-                                            <span className="episoderow-info-date">{new Date(thisEp.video.registeredAt).toLocaleString()}</span>
-                                        </div>
-                                    </a>
-                                })
                             }
                         }
                     })
                 }
-                setSeriesStockVar({ seriesInfo: seriesInfoObj, episodeLists: episodeListObj })
+                setSeriesStockVar({ seriesInfo: seriesInfoObj })
             }
             getData()
         }, [])
@@ -255,7 +244,17 @@ function CreateSeriesStockBlock() {
                                 {elem.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><MdOutlinePlayArrow />{lang.LASTVID_TITLE}<span>{elem.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><MdOutlinePlayArrow />{lang.LASTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
                                 {elem.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${elem.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${elem.seriesID}`}><MdOutlineSkipNext />{lang.NEXTVID_TITLE}<span>{elem.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><MdOutlineSkipNext />{lang.NEXTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
                             </div>
-                            {(seriesInfo[elem.seriesID]) && (seriesInfo[elem.seriesID].data.items && isDetailedViewExpanded ? <div className="episodelist-container" style={{ "--maxheight": `${seriesInfo[elem.seriesID].data.items.length * 4.0}em` }}>{seriesStockVar.episodeLists[elem.seriesID]}</div> : <div className="episodelist-container" style={{ "--maxheight": `4em` }}>{lang.NO_EPISODE_INFO}</div>)}
+                            {(seriesInfo[elem.seriesID]) && (seriesInfo[elem.seriesID].data.items && isDetailedViewExpanded ? <div className="episodelist-container" style={{ "--maxheight": `${seriesInfo[elem.seriesID].data.items.length * 4.0}em` }}>{
+                                seriesInfo[elem.seriesID].data.items.map(thisEp => {
+                                    return <a key={thisEp.video.id} className="detailedview-episoderow" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisEp.video.id}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${seriesInfo[elem.seriesID].data.detail.id}`}>
+                                        {thisEp.video.thumbnail.middleUrl && <img src={thisEp.video.thumbnail.middleUrl} className="episoderow-thumbnail" />}
+                                        <div className="episoderow-infocontainer">
+                                            <span className="episoderow-info-title">{thisEp.video.title}</span>
+                                            <span className="episoderow-info-date">{new Date(thisEp.video.registeredAt).toLocaleString()}</span>
+                                        </div>
+                                    </a>
+                                })
+                            }</div> : <div className="episodelist-container" style={{ "--maxheight": `4em` }}>{lang.NO_EPISODE_INFO}</div>)}
                             <button type="button" className="expanddetailedview" onClick={() => { setDetailedViewExpanded(!isDetailedViewExpanded) }}>
                                 {(seriesInfo[elem.seriesID]) ? (isDetailedViewExpanded ? <><MdOutlineExpandLess/>{lang.HIDE_DETAILS}<MdOutlineExpandLess/></> : <><MdOutlineExpandMore />{lang.SEE_DETAILS}<MdOutlineExpandMore /></>) : <><MdOutlineExpandMore /><span style={{ color: "var(--textcolor2)" }}>{lang.LOADING}</span><MdOutlineExpandMore /></>}
                             </button>
@@ -398,7 +397,7 @@ function CreateSeriesStockBlock() {
         <h2 className="block-title">
             {`${lang.SERIES_STOCK_TITLE} (${(syncStorage.stockedseries ?? []).length})`}
             <button className="block-title-actionbutton" title={isUnlocked ? lang.EDITBUTTON_TITLE_EDITOFF : lang.EDITBUTTON_TITLE_TOEDITMODE} type="button" onClick={() => { setIsUnlockedVar(!isUnlocked) }}>{isUnlocked ? <MdOutlineEditOff style={{ fontSize: 22 }} /> : <MdOutlineEdit style={{ fontSize: 22 }} />}</button>
-            <button className="block-title-actionbutton" title={lang.ADD_FOLDER} type="button" onClick={() => { setIsFolderCreateWindowVar(!isFolderCreateWindow) }}><MdOutlineCreateNewFolder/></button>
+            <button className="block-title-actionbutton" title={lang.ADD_FOLDER} type="button" onClick={() => { setIsFolderCreateWindowVar(!isFolderCreateWindow) }}><MdOutlineCreateNewFolder style={{ fontSize: 22 }}/></button>
         </h2>
         <div className={"stockedserieslist-container" + " " + (isUnlocked ? "stocklist-unlocked" : "")}>
             <DndContext

@@ -18,7 +18,6 @@ import {
 } from '@dnd-kit/core';
 import {
     arrayMove,
-    rectSortingStrategy,
     SortableContext,
     sortableKeyboardCoordinates,
     useSortable,
@@ -108,7 +107,7 @@ function CreateDashboardUI() {
             </SortableContext>
         </DndContext>
 
-        <button type="button" className="dashboard-editbutton" onClick={() => {setIsEditMode(!isEditMode)}}>{isEditMode ? <><MdOutlineDone/> 編集を終了</> : <><MdOutlineEdit/> ダッシュボードを編集</>}</button>
+        <button type="button" className="dashboard-editbutton" onClick={() => {setIsEditMode(!isEditMode)}}>{isEditMode ? <><MdOutlineDone style={{fontSize: 14}}/> 編集を終了</> : <><MdOutlineEdit style={{fontSize: 14}}/> ダッシュボードを編集</>}</button>
     </div>
 }
 

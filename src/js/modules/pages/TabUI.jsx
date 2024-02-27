@@ -78,7 +78,7 @@ function createTabUI() {
         </div>
         <div className="quickpanel-mainpanel maincontainer">
             <div className="tabpanel current-tabpanel" style={isEditMode ? {background: "var(--bgcolor2)"} : {}}>
-                { isEditMode ? <div style={{ fontSize: 14 }}>クイックパネル内タブを編集中です。<br/>表示するタブのチェックボックスをオンにして有効化します。</div> :  currentTabElem }
+                { isEditMode ? <div style={{ fontSize: 14, padding: 4 }}>クイックパネル内タブを編集中です。<br/>表示するタブのチェックボックスをオンにして有効化します。</div> :  currentTabElem }
             </div>
         </div>
     </div>

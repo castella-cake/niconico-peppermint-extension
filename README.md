@@ -158,7 +158,7 @@ Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
 Niconico-PepperMint+のリリースファイルには、JQuery, JQuery UI, Nord が含まれています。
 これらは``MIT License``のもとで配布されています。
 
-Niconico-PepperMint+のリリースファイルにはDOMPurifyが含まれています。
+Niconico-PepperMint+のリリースファイルにはDOMPurifyが含まれています。   
 DOMPurifyは``Apache License 2.0``、``Mozilla Public License Version 2.0``のデュアルライセンスで配布されています。
 (PepperMint+では``Apache License 2.0``に従います)
 

@@ -17,6 +17,16 @@ createRoot(document.getElementById("root")).render(
         <div className="settings-page-desc">{lang.SETTINGS_DESC}</div>
         <div className="maincontainer">
             <CreateSettingsList/>
+            <div className="settings-area">
+                <div className="settings-row">
+                    <h1>Dangerous Area</h1>
+                    <div>
+                        ここにあるものは、使い方次第で便利に使用できるものもあれば、使い方次第で全ての設定が削除される場合があります。<br />
+                        また、自分が何をしているか正しく理解せずに使用するとPepperMintの正常動作を妨げる可能性があるため、注意して取り扱ってください！  
+                    </div>
+                    <a href="storagemanage.html" target="_self" className="settinglink">ユーザーデータの管理...</a>
+                </div>
+            </div>
         </div>
         <div id="info-area" className="includelinks">
             <div className="hint">
@@ -24,10 +34,10 @@ createRoot(document.getElementById("root")).render(
                 PepperMintの更新後に表示が崩れた場合は、Ctrl+Shift+Rでハード再読み込みを試してみてください。
             </div>
             Niconico-PepperMint+ <a href="https://github.com/castella-cake/niconico-peppermint-extension"target="_blank" rel="noopener noreferrer">Github Repo</a><br/>
-            Created by CYakigasi <a href="https://www.cyakigasi.net" target="_blank"
-                rel="noopener noreferrer">Website</a> <a href="https://twitter.com/CYaki_xcf" target="_blank"
-                rel="noopener noreferrer">@CYaki_xcf(更新情報もここから)</a>
-            <a href="credit.html" target="_self" className="settinglink">PepperMintについて・データの管理...</a>    
+            Created by CYakigasi <a href="https://www.cyakigasi.net" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Website</a>
+            <a href="https://www.nicovideo.jp/user/92343354" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Niconico</a>
+            <a href="https://www.cyakigasi.net/links" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>SNS Links(Misskey,Bluesky,Twitter...)</a> <br/>
+            <a href="credit.html" target="_self" className="settinglink">PepperMintについて...</a>    
         </div>
     </div>
     </StrictMode>,
