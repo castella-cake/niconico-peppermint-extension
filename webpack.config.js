@@ -28,7 +28,7 @@ module.exports = {
         ],
     },
     plugins: [
-        new BundleAnalyzerPlugin({ analyzerMode: "static", reportFilename: "./builds/latest_report.html" }),
+        new BundleAnalyzerPlugin({ analyzerMode: "static", reportFilename: "./builds/latest_report.html", openAnalyzer: false }),
     ],
     optimization: {
         usedExports: true,

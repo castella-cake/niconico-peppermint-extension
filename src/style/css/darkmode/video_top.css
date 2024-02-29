@@ -50,3 +50,6 @@
 .HotTagsContainer-list {
 	color: var(--textcolor2);
 }
+.RankingVideosContainer .ColumnTitle-subTitle {
+    color: var(--textcolor2)
+}

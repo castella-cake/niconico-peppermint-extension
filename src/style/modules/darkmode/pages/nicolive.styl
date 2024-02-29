@@ -127,6 +127,82 @@ html.PMDM-NicoLiveHome {
     [class^="___tag-widget"] > h2 {
         color: var(--textcolor1)
     }
+    .program-card > .content-area {
+        .program-provider-card > .information > .name-label {
+            color: var(--textcolor1)
+        }
+        .program-provider-card > .information > .name-label:hover {
+            color: var(--linktext1)
+        }
+        .menu-area > .status-bar > .label {
+            color: var(--textcolor2)
+        }
+        .menu-area > .menu-popup-control > .toggle-button {
+            --icon-color: var(--textcolor2)
+        }
+    }
+    // konomi
+    [class^="___user-konomi-tag-list-section"] {
+        background: var(--bgcolor2)
+        header {
+            background: var(--bgcolor2);
+            border-bottom: 2px solid var(--accent2);
+            .registration-counter, .setting-button {
+                color: var(--textcolor2)
+            }
+            .setting-button:enabled:not([data-active="true"]):hover, [data-input-mode="keyboard"] .setting-button:not([data-active="true"]):focus {
+                background: var(--hover1);
+            }
+        }
+        
+        .tag-list > li {
+            border-bottom: 1px solid var(--accent2);
+            .konomi-tag-card {
+                background: var(--bgcolor2);
+                .information > .name-label {
+                    color: var(--textcolor1)
+                }
+                .statistics-information > .onair-program-counter > .number {
+                    color: var(--textcolornew)
+                }
+                .statistics-information > .onair-program-counter + .follower-counter::before, .statistics-information > .follower-counter > .number {
+                    color: var(--textcolor2)
+                }
+                
+            }
+        }
+    }
+
+    // tab
+    [class^="___tab-panel"] {
+        background: var(--bgcolor1)
+    }
+    [class*="___tab-panel___"] > [class*="___tab-area___"] > [class*="___tab-list___"] > [class*="___tab___"], [class*="___tab-panel___"] > [class*="___tab-list___"] > [class*="___tab___"]  {
+        background: var(--bgcolor1);
+        color: var(--textcolor1);
+    }
+    [class*="___tab-panel___"] > [class*="___tab-area___"] > [class*="___tab-list___"] > [class*="___tab___"] > [role="tab"]::before, [class*="___tab-panel___"] > [class*="___tab-list___"] > [class*="___tab___"][role="tab"]::before {
+        background-color: var(--border-bottom-color, var(--bgcolor2));
+    }
+    [class*="___tab-panel___"] > [class*="___tab-area___"] > [class*="___tab-list___"] > [class*="___tab___"] > [role="tab"], [class*="___tab-panel___"] > [class*="___tab-list___"] > [class*="___tab___"][role="tab"] {
+        --border-bottom-color: var(--bgcolor2)
+    }
+    [class*="___tab-panel___"] > [class*="___tab-area___"] > [class*="___tab-list___"] > [class*="___tab___"] > [role="tab"][aria-selected="true"], [class*="___tab-panel___"] > [class*="___tab-list___"] > [class*="___tab___"][role="tab"][aria-selected="true"] {
+        --border-bottom-color: var(--textcolor1)
+    }
+
+    [class*="___konomi-tag-search-box___"] > .popup-area > .list-box > .item, [class*="___konomi-tag-search-box___"] > .popup-area > .panel > .list-box > .item {
+        background: var(--bgcolor2)
+        color: var(--textcolor1)
+    }
+    [class*="___konomi-tag-search-box___"] > .popup-area > .list-box > .item:hover, [class*="___konomi-tag-search-box___"] > .popup-area > .panel > .list-box > .item:hover {
+        background: var(--hover1)
+    }
+    
+
+    [class^="___caption___"] {
+        color: var(--textcolor1)
+    }
 }
 html.PMDM-NicoLiveWatch {
     [class*="___base-page"] {

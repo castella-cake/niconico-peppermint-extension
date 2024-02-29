@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ダッシュボードの「クイックオプション」ブロックがカスタマイズ可能になりました
 - 視聴ページの動画リストにダークモードサポートを追加しました
 - ニコニ貢献ページにダークモードサポートを追加しました [#32](https://github.com/castella-cake/niconico-peppermint-extension/issues/32) [#31](https://github.com/castella-cake/niconico-peppermint-extension/issues/31)
+- ダッシュボードに`最近のニコレポ`ブロックを追加しました
+- カラーパレットに`危険テキスト色`が追加されました
+- ニコニコ生放送のダークモードサポートを改善しました
 
 ### Changed
 - クイックパネルとメイン設定ページは完全にReact+JSXで書き直されました
@@ -22,7 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - エピソードに投稿時間表示が追加されました
 - forallの処理をindexに移動し、主要関数のモジュール化を行いました
 - boxUIのコントローラーの色が調整されました
-- シアターUIでは画面幅が非常に大きい場合に動画情報エリアと下部エリアを並べて表示するようになりました
+- 設定ページの危険地帯がクレジットページから移動しました
+- クレジットページのデザインを変更しました(イースターエッグ付きです!)
 
 ### Fixed
 - [#3](https://github.com/castella-cake/niconico-peppermint-extension/issues/3) の問題を修正するために、boxUIとシアターUIでコントローラーコンテナ幅が700pxを下回る場合に元のレイアウトに戻すようになりました
