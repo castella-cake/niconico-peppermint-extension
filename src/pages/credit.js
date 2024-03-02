@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .settings-area a { color: #ff0; }
                 @keyframes star {
                     0% {
-                        transform: perspective(200px) rotateX(10deg) scale(0.7) translateY(90vh);
+                        transform: perspective(200px) rotateX(10deg) scale(0.7) translateY(130vh);
                         opacity: 1.0
                     }
                     97% {

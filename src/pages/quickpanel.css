@@ -549,6 +549,28 @@ a {
 	color: var(--textcolor3);
 }
 
+/* seriesstock add suggest */
+.stockedseries-add-row {
+	margin: 5px 0;
+	border-radius: 5px;
+	background: var(--bgcolor1);
+	margin-bottom: 10px;
+	padding: 4px 8px;
+	font-size: 14px;
+	font-weight: bold;
+	display: flex;
+	flex-wrap: nowrap;
+}
+.stockedseries-add-row > button {
+	font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
+	border: 1px solid var(--primary-hover);
+	background: var(--primary);
+	border-radius: 4px;
+}
+.stockedseries-add-row > button:hover {
+	background: var(--primary-hover);
+}
+
 /* window */
 .quickpanel-window-container {
 	position: fixed;

@@ -117,7 +117,8 @@
         "https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*",
         "https://nicovideo.cdn.nimg.jp/thumbnails/*",
         "alarms",
-        "tabs"
+        "tabs",
+        "scripting"
     ],
     "browser_specific_settings": {
         "gecko": {

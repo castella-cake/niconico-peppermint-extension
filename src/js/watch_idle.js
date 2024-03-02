@@ -8,7 +8,7 @@ function createCSSRule(result) {
         function updateStockUI() {
             seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
             // タイトルの下にあるシリーズを表示するやつがあるか。動画にシリーズがないなら、これは存在しない
-            console.log(seriesBCTitle)
+            //console.log(seriesBCTitle)
             if (seriesBCTitle != null) {
                 $('#addtostock').removeClass('disabled')
                 seriesIsStocked(seriesBCTitle.href.slice(32))
@@ -51,7 +51,7 @@ function createCSSRule(result) {
                                 $('.VideoDescriptionExpander-switch').trigger('click');
                                 if (document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null) {
                                     // 概要欄のシリーズ表示にある、「次の動画」のhrefを31文字切る。hrefはこういう形式(https://www.nicovideo.jp/watch/sm123456?ref=pc_watch_description_series)
-                                    // なので、31文字切って不要なゴミトラッキング情報を消し飛ばす
+                                    // なので、31文字切って最初のpathnameをなくしたうえで、不要なゴミトラッキング情報を消し飛ばす
                                     object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
                                     object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
                                 }

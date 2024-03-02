@@ -54,7 +54,7 @@ function CreateNicorepoUI(props) {
     } else {
         return <div className="block-container">
             { props.isrecentblock && <h2 className="block-title">{lang.DASHBOARD_TITLES.nicorepo}</h2> }
-            <div>{lang.NICOREPO_FETCH_FAILED}{(nicorepoInfo.meta != undefined && nicorepoInfo.meta.status != undefined ) ?? ": " + nicorepoInfo.meta.status}<button className="nicorepo-reload" onClick={() => {reloadNicorepo()}} type="button"><MdOutlineRefresh/></button></div>
+            <div>{lang.NICOREPO_FETCH_FAILED}{(nicorepoInfo != undefined && nicorepoInfo.meta != undefined && nicorepoInfo.meta.status != undefined ) && ": " + nicorepoInfo.meta.status}<button className="nicorepo-reload" onClick={() => {reloadNicorepo()}} type="button"><MdOutlineRefresh/></button></div>
         </div>
     }
     

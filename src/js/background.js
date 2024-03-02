@@ -231,6 +231,20 @@ function getDynamicPatch(cachemode = 0) {
     })
 }
 
+function getSeriesNameFromPage(targetId) {
+    const pathArray = location.pathname.split("/")
+    if ( pathArray[1] == "user" && pathArray[3] == "series" && pathArray[4].startsWith(targetId) ) {
+        const seriesNameElem = document.querySelector(".SeriesDetailHeader-bodyTitle")
+        if ( seriesNameElem ) {
+            return { status: true, name: seriesNameElem.textContent }
+        } else {
+            return { status: false }
+        }
+    } else {
+        return { status: false }
+    }
+}
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type == "getThumbXml") {
         if (message.smID != null || message.smID != undefined) {
@@ -363,6 +377,47 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             });
             return true;
         })
+    } else if (message.type == "getActiveNCState") {
+        if ( message.getType == "series" ) {
+            try {
+                chrome.tabs.query({ 'active': true, 'currentWindow': true }, tabarray => {
+                    console.log(tabarray)
+                    const activeURL = tabarray[0].url
+                    const pathArray = activeURL.replace("https://www.nicovideo.jp/", "").replace(/\?.*/, "").split("/")
+                    console.log(pathArray)
+                    if (activeURL && activeURL.indexOf('www.nicovideo.jp') != -1 && pathArray.length >= 4 && pathArray[0] == "user" && pathArray[2] == "series") {
+                        new Promise((resolve) => chrome.scripting.executeScript({
+                            target: { tabId: tabarray[0].id },
+                            func: getSeriesNameFromPage
+                        }, resolve)).then(res => {
+                            if ( res && res.status == true && res.name ) {
+                                sendResponse({ 'status': true, 'seriesId': pathArray[3], 'name': res.name });
+                                return true;
+                            } else {
+                                sendResponse({ 'status': true, 'seriesId': pathArray[3] });
+                                return true;
+                            }
+                        })
+                    } else {
+                        sendResponse({ 'status': false, 'reason': 'Current tab is not Nicovideo or not userpage.' });
+                        return true;
+                    }
+                })
+                return true;
+            } catch (err) {
+                sendResponse({
+                    'status': false,
+                    'reason': `Unexpected error:${err}`
+                });
+                return true;
+            }
+        } else {
+            sendResponse({
+                'status': false,
+                'reason': 'getType is not defined'
+            });
+            return true;
+        }
     } else {
         sendResponse({
             'status': false,

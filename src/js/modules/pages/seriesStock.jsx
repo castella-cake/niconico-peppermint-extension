@@ -82,6 +82,11 @@ function CreateSeriesStockBlock() {
             setSyncStorageValue("stockedseries", stockArrayCopy)
         }
     }
+    function addSeriesStock(seriesId, seriesName) {
+        if ( syncStorage.stockedseries ) {
+            setSyncStorageValue("stockedseries", [{ seriesID: seriesId, seriesName: seriesName }, ...syncStorage.stockedseries])
+        }
+    }
     function getSeriesInfo(id) {
         return new Promise((resolve, reject) => {
             try {
@@ -98,6 +103,37 @@ function CreateSeriesStockBlock() {
             coordinateGetter: sortableKeyboardCoordinates,
         })
     );
+
+    function AddSeriesStockRow() {
+        const [addAvailableSeriesId, setAddAvailableSeriesId] = useState(null)
+        const [addAvailableSeriesName, setAddAvailableSeriesName] = useState(null)
+        const seriesIdArray = ( syncStorage.stockedseries ? syncStorage.stockedseries.map(elem => elem.seriesID).filter(elem => elem != undefined) : [] )
+        console.log(seriesIdArray)
+        // .includes(ncStateResult.seriesId)
+        useEffect(() => {
+            async function getData() {
+                const ncStateResult = await new Promise((resolve) => chrome.runtime.sendMessage({ type: "getActiveNCState", getType: "series" }, resolve))
+                if (ncStateResult && ncStateResult.status == true && ncStateResult.seriesId && !seriesIdArray.includes(ncStateResult.seriesId)) {
+                    setAddAvailableSeriesId(ncStateResult.seriesId)
+                    if ( !ncStateResult.name ) {
+                        const thisSeriesInfo = await getSeriesInfo(ncStateResult.seriesId)
+                        if ( thisSeriesInfo.meta.status == 200 ) {
+                            setAddAvailableSeriesName(thisSeriesInfo.data.detail.title)
+                        }
+                    } else {
+                        setAddAvailableSeriesName(ncStateResult.name)
+                    }
+                } 
+            }
+            getData()
+        }, [])
+        return <>{( addAvailableSeriesId && addAvailableSeriesName ) && <div className="stockedseries-add-row">
+            <div style={{ flexGrow: 1 }}>現在のタブから追加可能: {addAvailableSeriesName}</div>
+            <button type="button" onClick={() => {
+                addSeriesStock(addAvailableSeriesId, addAvailableSeriesName)
+            }}>追加する</button>
+        </div>}</>
+    }
 
     function SeriesStockRow(props) {
         const storage = props.storage
@@ -399,6 +435,7 @@ function CreateSeriesStockBlock() {
             <button className="block-title-actionbutton" title={isUnlocked ? lang.EDITBUTTON_TITLE_EDITOFF : lang.EDITBUTTON_TITLE_TOEDITMODE} type="button" onClick={() => { setIsUnlockedVar(!isUnlocked) }}>{isUnlocked ? <MdOutlineEditOff style={{ fontSize: 22 }} /> : <MdOutlineEdit style={{ fontSize: 22 }} />}</button>
             <button className="block-title-actionbutton" title={lang.ADD_FOLDER} type="button" onClick={() => { setIsFolderCreateWindowVar(!isFolderCreateWindow) }}><MdOutlineCreateNewFolder style={{ fontSize: 22 }}/></button>
         </h2>
+        <AddSeriesStockRow/>
         <div className={"stockedserieslist-container" + " " + (isUnlocked ? "stocklist-unlocked" : "")}>
             <DndContext
                 sensors={sensors}

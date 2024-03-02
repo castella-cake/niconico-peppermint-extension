@@ -230,10 +230,12 @@
 }
 
 .PlaylistShuffleButton > .PlaylistShuffleButton-icon path {
-    fill: var(--textcolor3);
+	fill: var(--textcolor3);
+	opacity: 0.3;
 }
 .PlaylistShuffleButton_isShuffled > .PlaylistShuffleButton-icon path {
-    fill: var(--linktext1);
+	fill: var(--linktext1);
+	opacity: 1;
 }
 
 .PlaylistItemList-item.currentItem {
