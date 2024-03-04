@@ -46,7 +46,7 @@ function CreateDashboardUI() {
         })
     }
 
-    const dashboardBlocks = { quickoption: <CreateQuickOption/>, seriesstock: <CreateSeriesStockBlock/>, nicorepo: <CreateNicorepoUI isrecentblock={true} displaylimit={5}/> }
+    const dashboardBlocks = { quickoption: <CreateQuickOption/>, seriesstock: (syncStorage.enableseriesstock ? <CreateSeriesStockBlock/> : <></>), nicorepo: <CreateNicorepoUI isrecentblock={true} displaylimit={5}/> }
     const [isChanged, setIsChanged] = useState(false);
     const dashboardSortList = ( (syncStorage.dashboardsortlist && syncStorage.dashboardsortlist.length == Object.keys(dashboardBlocks).length) ? syncStorage.dashboardsortlist : [{ name: "quickoption", isHidden: false }, { name: "seriesstock", isHidden: false }, { name: "nicorepo", isHidden: true }])
     const dashboardDNDId = dashboardSortList.map(elem => { return elem.name })
@@ -97,6 +97,13 @@ function CreateDashboardUI() {
 
 
     return <div className={isEditMode ? "dashboard-container db-unlocked" : "dashboard-container"}>
+        { (!syncStorage.quickpaneltipisclosed) && <div className="nothing-here">
+            <div className="nothing-here-head">:o</div>
+            PepperMint+のクイックパネルへようこそ。<br/>
+            「設定ページを開く」もしくはタイトルをクリックすると、設定ページに移動できます。<br/>
+            右上の編集ボタンからタブを編集したり、下部の「ダッシュボードを編集」からブロックの表示を編集できます。<br/>
+            <button type="button" className="nothing-here-discard" onClick={() => {setSyncStorageValue("quickpaneltipisclosed", true)}}>{lang.CLOSE}</button>
+        </div>}
         <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
@@ -110,7 +117,6 @@ function CreateDashboardUI() {
                 <DraggableList/>
             </SortableContext>
         </DndContext>
-
         <button type="button" className="dashboard-editbutton" onClick={() => {
             // 編集が終了されたならリロードする
             if (!isEditMode == false && isChanged) {

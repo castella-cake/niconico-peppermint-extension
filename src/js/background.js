@@ -259,6 +259,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                         'reason': 'API fetch failed'
                     });
                 }
+            }).catch((err) => {
+                sendResponse({
+                    'status': false,
+                    'reason': 'API fetch failed: '  + err
+                });
             })
             return true;
         } else {
@@ -312,7 +317,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             .catch((reason) => {
                 sendResponse({
                     'status': false,
-                    'reason': `getSeriesInfo() failed: ${reason}`
+                    'reason': `getRecentNicorepo() failed: ${reason}`
                 });
             })
         return true;
@@ -320,7 +325,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (message.href != null || message.href != undefined) {
             try {
                 chrome.tabs.query({ 'active': true, 'currentWindow': true }, tabarray => {
-                    console.log(tabarray)
                     const activeURL = tabarray[0].url
                     if (activeURL != undefined && activeURL.indexOf('www.nicovideo.jp') != -1) {
                         chrome.tabs.update(tabarray[0].id, { url: message.href })
@@ -381,27 +385,32 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if ( message.getType == "series" ) {
             try {
                 chrome.tabs.query({ 'active': true, 'currentWindow': true }, tabarray => {
-                    console.log(tabarray)
-                    const activeURL = tabarray[0].url
-                    const pathArray = activeURL.replace("https://www.nicovideo.jp/", "").replace(/\?.*/, "").split("/")
-                    console.log(pathArray)
-                    if (activeURL && activeURL.indexOf('www.nicovideo.jp') != -1 && pathArray.length >= 4 && pathArray[0] == "user" && pathArray[2] == "series") {
-                        new Promise((resolve) => chrome.scripting.executeScript({
-                            target: { tabId: tabarray[0].id },
-                            func: getSeriesNameFromPage
-                        }, resolve)).then(res => {
-                            if ( res && res.status == true && res.name ) {
-                                sendResponse({ 'status': true, 'seriesId': pathArray[3], 'name': res.name });
-                                return true;
-                            } else {
-                                sendResponse({ 'status': true, 'seriesId': pathArray[3] });
-                                return true;
-                            }
-                        })
+                    if ( tabarray && tabarray[0] ) {
+                        const activeURL = tabarray[0].url
+                        const pathArray = activeURL.replace("https://www.nicovideo.jp/", "").replace(/\?.*/, "").split("/")
+                        console.log(pathArray)
+                        if (activeURL && activeURL.indexOf('www.nicovideo.jp') != -1 && pathArray.length >= 4 && pathArray[0] == "user" && pathArray[2] == "series") {
+                            new Promise((resolve) => chrome.scripting.executeScript({
+                                target: { tabId: tabarray[0].id },
+                                func: getSeriesNameFromPage
+                            }, resolve)).then(res => {
+                                if ( res && res.status == true && res.name ) {
+                                    sendResponse({ 'status': true, 'seriesId': pathArray[3], 'name': res.name });
+                                    return true;
+                                } else {
+                                    sendResponse({ 'status': true, 'seriesId': pathArray[3] });
+                                    return true;
+                                }
+                            })
+                        } else {
+                            sendResponse({ 'status': false, 'reason': 'Current tab is not Nicovideo or not userpage.' });
+                            return true;
+                        }
                     } else {
-                        sendResponse({ 'status': false, 'reason': 'Current tab is not Nicovideo or not userpage.' });
+                        sendResponse({ 'status': false, 'reason': 'Cannot get tab infomation.' });
                         return true;
                     }
+
                 })
                 return true;
             } catch (err) {
@@ -440,34 +449,38 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.alarms.onAlarm.addListener(function (e) {
-    if (e.name == 'seriesStock_Refresh') {
-        //console.log('seriesstock refresh')
-        // ストレージ取得
-        let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
-        getStorageData.then(function (result) {
-            // 有効でかつストック中がundefinedじゃない
-            if (result.enableseriesstock && result.stockedseries != undefined) {
-                // lengthが300以下なら
-                if (result.stockedseries.length < 300) {
-                    // forEachで一個ずつ処理
-                    result.stockedseries.forEach((element, i) => {
-                        setTimeout(() => {
-                            //console.log(element.seriesID)
-                            // キャッシュなしで取得(これでキャッシュされる)
-                            getSeriesInfo(element.seriesID, 2)
-                        }, i * 10000);
-                        // i * 15000msで10sおきに実行
-                    });
+    try {
+        if (e.name == 'seriesStock_Refresh') {
+            //console.log('seriesstock refresh')
+            // ストレージ取得
+            let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+            getStorageData.then(function (result) {
+                // 有効でかつストック中がundefinedじゃない
+                if (result.enableseriesstock && result.stockedseries != undefined) {
+                    // lengthが300以下なら
+                    if (result.stockedseries.length < 300) {
+                        // forEachで一個ずつ処理
+                        result.stockedseries.forEach((element, i) => {
+                            setTimeout(() => {
+                                //console.log(element.seriesID)
+                                // キャッシュなしで取得(これでキャッシュされる)
+                                getSeriesInfo(element.seriesID, 2)
+                            }, i * 10000);
+                            // i * 15000msで10sおきに実行
+                        });
+                    }
                 }
-            }
-        })
-    } else if (e.name == 'nicoRepo_Refresh') {
-        let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
-        getStorageData.then(function (result) {
-            // 有効でかつストック中がundefinedじゃない
-            if (result.enablenicorepotab) {
-                getRecentNicorepo(2)
-            }
-        })
+            })
+        } else if (e.name == 'nicoRepo_Refresh') {
+            let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+            getStorageData.then(function (result) {
+                // 有効でかつストック中がundefinedじゃない
+                if (result.enablenicorepotab) {
+                    getRecentNicorepo(2)
+                }
+            })
+        }
+    } catch (err) {
+        console.error("Error in alarm refresh: " + err)
     }
 })

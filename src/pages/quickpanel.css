@@ -32,7 +32,6 @@
 
 body {
 	width: 600px;
-	min-height: 600px;
 	margin: 0;
 	background-color: Canvas;
 	color: CanvasText;
@@ -42,7 +41,6 @@ body {
 	background: var(--bgcolor1);
 }
 #root {
-	min-height: 600px;
 	display: flex;
 	flex-direction: column;
 }
@@ -680,6 +678,53 @@ a {
 	background: var(--hover1);
 }
 
+/* updated */
+.updatedinfo-container {
+	background: var(--bgcolor2);
+	padding: 8px;
+	margin: 2px 8px;
+	margin-bottom: 8px;
+	border-radius: 4px;
+	font-size: 13px;
+	font-family: Lato, Meiryo, sans-serif;
+}
+.updatedinfo-close {
+	text-decoration: none;
+	color: #fff;
+	padding: 2px 8px;
+	background: var(--primary);
+	border: 1px solid var(--primary-hover);
+	border-radius: 4px;
+	margin-top: 4px;
+	display: block;
+	text-align: center;
+	cursor: pointer;
+}
+.updatedinfo-close:hover {
+	background: var(--primary-hover);
+}
+
+/* nothing-here */
+.nothing-here {
+	margin: 8px 0px;
+	font-size: 12px;
+	text-align: center;
+	color: var(--textcolor2);
+}
+.nothing-here-head {
+	margin: 4px 0px;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+}
+.nothing-here-discard {
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-weight: bold;
+	margin-top: 4px;
+	text-decoration: underline;
+}
 
 @media (prefers-color-scheme: dark) {
 

@@ -206,6 +206,7 @@
     "CHANNEL": "チャンネル",
     "USER": "ユーザー",
     "LOADING": "ロード中...",
+    "CLOSE": "閉じる",
 
     "DASHBOARD": "ダッシュボード",
     "QUICK_SETTINGS": "クイック設定",
@@ -235,5 +236,8 @@
         "quickoption": "クイックオプション",
         "seriesstock": "シリーズストック",
         "nicorepo": "最近のニコレポ"
-    }
+    },
+    "QUICKPANEL_TAB_EDIT": "クイックパネルタブを編集",
+    "QUICKPANEL_TAB_EDITOFF": "クイックパネルタブの編集を終了",
+    "QUICKPANEL_TAB_EDIT_DESC": "クイックパネルタブを編集中です。\n表示するタブのチェックボックスをオンにして有効化します。"
 }

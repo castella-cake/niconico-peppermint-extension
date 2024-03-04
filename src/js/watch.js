@@ -112,7 +112,7 @@ function createCSSRule(result) {
     // TODO: 将来的にbuttonに置き換える
     // #region クイック動画記事
     if (result.quickvidarticle == true) {
-        $('.pmbutton-container').append('<div class="vidarticle-container subaction-container"><a id="openvidarticle" class="subaction-button">百</a></div>')
+        $('.pmbutton-container').append('<div class="vidarticle-container subaction-container"><a id="openvidarticle" class="subaction-button" style="color: #fff">百</a></div>')
         $('#openvidarticle').on('mouseenter', function () {
             $('.vidarticle-container').append('<span id="vidarticle-text" class="pmui-hinttext">この動画の大百科記事を開く</span>')
         })
@@ -129,7 +129,7 @@ function createCSSRule(result) {
 
     // #region シアターUI拡大ボタン
     if (result.usetheaterui == true && result.usenicoboxui != true) {
-        $('.pmbutton-container').append('<div class="togglefullsize-container subaction-container"><a id="togglefullsize" class="material-icons-outlined subaction-button">width_full</a></div>')
+        $('.pmbutton-container').append('<div class="togglefullsize-container subaction-container"><button id="togglefullsize" class="material-icons-outlined subaction-button">width_full</button></div>')
         let togglefullsizeelem = document.getElementById("togglefullsize")
         $('#togglefullsize').on('mouseenter', function () {
             if (togglefullsizeelem.classList.contains("disabled")) {

@@ -88,7 +88,7 @@
         }
     ],
     "web_accessible_resources": [
-        "pagemod/*"
+        "style/*"
     ],
 
     "browser_action": {

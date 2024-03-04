@@ -1,10 +1,13 @@
+import NOTICE from '../../NOTICE.txt'
 function onError(error) {
     console.log(`Error: ${error}`);
 }
 
 document.addEventListener("DOMContentLoaded", function () { 
     let manifestData = chrome.runtime.getManifest();
-    $("#version").text("v" + manifestData.version_name + " Manifest V" + manifestData.manifest_version);
+    document.getElementById("version").textContent = "v" + manifestData.version_name + " Manifest V" + manifestData.manifest_version;
+
+    document.getElementById("notice").textContent = NOTICE
 
     // easter egg
     let eggArray = []
@@ -33,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
         eggArray.push("r")
         if (eggArray.join("") == "star") {
+            document.getElementById("details").open = true
             document.getElementById("ee_style").innerHTML = `
                 body { background: #000; color: #ff0; }
                 .maincontainer {
@@ -40,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 .maincontainer_inner {
                     transform-style: preserve-3d;
-                    animation: 10s linear 0s forwards star;
+                    animation: 30s linear 0s forwards star;
                     overflow: hidden;
                 }
                 .settings-area { background: transparent; text-align: center; }
@@ -49,18 +53,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 .settings-area a { color: #ff0; }
                 @keyframes star {
                     0% {
-                        transform: perspective(200px) rotateX(10deg) scale(0.7) translateY(130vh);
+                        transform: perspective(2000px) rotateX(5deg) scale(0.9) translateY(50px);
                         opacity: 1.0
                     }
-                    97% {
-                        transform: perspective(200px) rotateX(10deg) scale(0.7) translateY(-150vh);
+                    93% {
+                        transform: perspective(2000px) rotateX(5deg) scale(0.9) translateY(-2400vh);
                         opacity: 1.0
                     }
-                    98% {
-                        transform: perspective(200px) rotateX(10deg) scale(0.7) translateY(-150vh);
+                    94% {
+                        transform: perspective(2000px) rotateX(5deg) scale(0.9) translateY(-2400vh);
                         opacity: 0.0
                     }
-                    99% {
+                    95% {
                         transform: perspective(0px) rotateX(0deg) scale(1) translateY(0vh);
                         opacity: 0.0
                     }
