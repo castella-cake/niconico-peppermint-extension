@@ -74,19 +74,19 @@ function createCSSRule(result) {
         function addCurrentSeriesToStock() {
             seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
             manageSeriesStock(seriesBCTitle.href.slice(32), seriesBCTitle.textContent)
-            .then(result => {
-                //console.log(result)
-                if (result) {
-                    $('#addtostock').text("remove")
-                    $("#addtostock-text").text("シリーズをストックから削除")
-                    updateStockVidInfo()
-                } else {
-                    $('#addtostock').text("add")
-                    $("#addtostock-text").text("シリーズをストックに追加")
-                }
-            }).catch(error => {
-                onError(error);
-            });
+                .then(result => {
+                    //console.log(result)
+                    if (result) {
+                        $('#addtostock').text("remove")
+                        $("#addtostock-text").text("シリーズをストックから削除")
+                        updateStockVidInfo()
+                    } else {
+                        $('#addtostock').text("add")
+                        $("#addtostock-text").text("シリーズをストックに追加")
+                    }
+                }).catch(error => {
+                    onError(error);
+                });
         }
         updateStockUI()
         updateStockVidInfo()
@@ -111,20 +111,20 @@ function createCSSRule(result) {
             seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
             if (seriesBCTitle != null) {
                 seriesIsStocked(seriesBCTitle.href.slice(32))
-                .then(result => {
-                    if (document.querySelector('#addtostock-text') == null) {
-                        if (result) {
-                            $('#addtostock').text("remove")
-                            $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックから削除</span>')
-                        } else {
-                            $('#addtostock').text("add")
-                            $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックに追加</span>')
+                    .then(result => {
+                        if (document.querySelector('#addtostock-text') == null) {
+                            if (result) {
+                                $('#addtostock').text("remove")
+                                $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックから削除</span>')
+                            } else {
+                                $('#addtostock').text("add")
+                                $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックに追加</span>')
+                            }
                         }
-                    }
-                    //console.log(result)
-                }).catch(error => {
-                    //console.log(error);
-                });
+                        //console.log(result)
+                    }).catch(error => {
+                        //console.log(error);
+                    });
             } else {
                 $('#addtostock').text("add")
                 $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">この動画にはシリーズがありません</span>')
@@ -137,7 +137,7 @@ function createCSSRule(result) {
         })
     }
     // #endregion
-    
+
     // #region マーキーランキング
     if (result.replacemarqueecontent == "ranking" && result.usenicoboxui != true && result.usetheaterui != true) {
         $(function () {
@@ -155,7 +155,7 @@ function createCSSRule(result) {
                 // why chrome can't use domparser in service worker...
                 //console.log(res)
                 let domparser = new DOMParser()
-                let parsedxml = domparser.parseFromString( res, "text/xml" );
+                let parsedxml = domparser.parseFromString(res, "text/xml");
                 //console.log(parsedxml)
                 let xmlcontent = parsedxml.querySelectorAll("channel item")
                 //console.log(xmlcontent[0].querySelector('title').textContent)
@@ -172,38 +172,38 @@ function createCSSRule(result) {
                     $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-next">${xmlloop + 2}</div>`)
                 }
                 //console.log(xmlcontent.length)
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#pm-marqueerankingbg-current').css('animation', 'marqueebganim_1 0.5s linear forwards')
                     $('#pm-marqueerankingbg-next').css('animation', 'marqueebganim_2 0.8s linear forwards')
                 }, 4200)
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#pm-marqueerankinglink').css('animation', 'fadeout 0.2s linear forwards')
                 }, 4500)
                 xmlloop = 1
-                setInterval(function() {
-                    setTimeout(function() {
-                    if(document.querySelector('#pm-marqueerankinglink') != null) {
-                        $('#pm-marqueerankingbg-current').remove()
-                        $('#pm-marqueerankingbg-next').remove()
-                        $('#pm-marqueerankinglink').remove()
-                    }
-                    $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-current">${xmlloop + 1}</div>`)
-                    $('.MarqueeContainer > .Marquee').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
-                    if (xmlloop + 1 >= xmlcontent.length) {
-                        $('#pm-marqueerankingbg').append('<div id="pm-marqueerankingbg-next">1</div>')
-                    } else {
-                        $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-next">${xmlloop + 2}</div>`)
-                    }
-                    xmlloop++
-                    if (xmlloop >= xmlcontent.length) {
-                        xmlloop = 0
-                    }
+                setInterval(function () {
+                    setTimeout(function () {
+                        if (document.querySelector('#pm-marqueerankinglink') != null) {
+                            $('#pm-marqueerankingbg-current').remove()
+                            $('#pm-marqueerankingbg-next').remove()
+                            $('#pm-marqueerankinglink').remove()
+                        }
+                        $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-current">${xmlloop + 1}</div>`)
+                        $('.MarqueeContainer > .Marquee').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
+                        if (xmlloop + 1 >= xmlcontent.length) {
+                            $('#pm-marqueerankingbg').append('<div id="pm-marqueerankingbg-next">1</div>')
+                        } else {
+                            $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-next">${xmlloop + 2}</div>`)
+                        }
+                        xmlloop++
+                        if (xmlloop >= xmlcontent.length) {
+                            xmlloop = 0
+                        }
                     }, 100)
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#pm-marqueerankingbg-current').css('animation', 'marqueebganim_1 0.5s linear forwards')
                         $('#pm-marqueerankingbg-next').css('animation', 'marqueebganim_2 0.8s linear forwards')
                     }, 4200)
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#pm-marqueerankinglink').css('animation', 'fadeout 0.2s linear forwards')
                     }, 4500)
                 }, 5000);
@@ -236,7 +236,7 @@ function createCSSRule(result) {
             if (descelem.textContent.indexOf("PM-ForceCinemaRatio") !== -1) {
                 document.body.classList.add('is-PMcinemaratio')
                 document.getElementById("togglefullsize").classList.add('disabled')
-            } else if ( document.getElementById("togglefullsize").classList.contains("disabled")) {
+            } else if (document.getElementById("togglefullsize").classList.contains("disabled")) {
                 document.body.classList.remove('is-PMcinemaratio')
                 document.getElementById("togglefullsize").classList.remove('disabled')
             }
@@ -254,7 +254,7 @@ function createCSSRule(result) {
         detectCinemaIsForced()
     }
     //#endregion
-    
+
     // #region シアターUI/boxUIのコンテナリサイズなどの修正
     if (result.usenicoboxui == true || result.usetheaterui == true) {
         let headercontainer = document.querySelector('.HeaderContainer')
@@ -265,14 +265,14 @@ function createCSSRule(result) {
         //console.log(maincontainer)
 
         //headercontainer.insertBefore(maincontainer)
-        watchappcontainer.insertBefore(maincontainer,headercontainer)
+        watchappcontainer.insertBefore(maincontainer, headercontainer)
         //$('.HeaderContainer').before($('.MainContainer'));
         watchappcontainer.after(playerpanelcontainer)
         if (document.querySelector('.WakutkoolNoticeContainer') != null) {
-            watchappcontainer.insertBefore(document.querySelector('.WakutkoolNoticeContainer'),maincontainer)
+            watchappcontainer.insertBefore(document.querySelector('.WakutkoolNoticeContainer'), maincontainer)
         }
         if (document.querySelector('.EditorMenuContainer') != null) {
-            watchappcontainer.insertBefore(document.querySelector('.EditorMenuContainer'),maincontainer)
+            watchappcontainer.insertBefore(document.querySelector('.EditorMenuContainer'), maincontainer)
         }
         pushCSSRule('.VideoLiveTimeshiftContainer{text-align:center}')
         $(function () {
@@ -415,7 +415,7 @@ function createCSSRule(result) {
                 attributeFilter: ['style']
             })
             //observer.observe(supporterview, {
-                //attributeFilter: ['style']
+            //attributeFilter: ['style']
             //})
         })
     }
@@ -508,6 +508,45 @@ function createCSSRule(result) {
                     subtree: true
                 })
             }
+        })
+    }
+    // #endregion
+
+    // #region 貢献スキップ
+    if (result.skipkokenending == "always" || (result.skipkokenending == "onboxui" && result.usenicoboxui)) {
+        function seekToPercentage(element, percentage) {
+            const rect = element.getBoundingClientRect();
+            const clickX = rect.left + (rect.width * percentage);
+            const clickY = rect.top
+            const mousedownEvent = new MouseEvent("mousedown", {
+                cancelable: true,
+                clientX: clickX,
+                clientY: clickY
+            });
+            const mouseupEvent = new MouseEvent("mouseup", {
+                bubbles: true,
+                cancelable: true,
+                clientX: clickX,
+                clientY: clickY
+            });
+
+            element.dispatchEvent(mousedownEvent);
+            element.dispatchEvent(mouseupEvent);
+        }
+        const vidContainerElem = document.querySelector(".VideoContainer")
+        const observer = new MutationObserver(records => {
+            records.map(elem => {
+                if (elem.target.className == "SupporterView" && elem.target.style.visibility == "visible") {
+                    const xSliderElement = document.querySelector(".XSlider");
+                    if (xSliderElement) {
+                        seekToPercentage(xSliderElement, 100);
+                    }
+                }
+            })
+        })
+        observer.observe(vidContainerElem, {
+            attributeFilter: ['style'],
+            subtree: true
         })
     }
     // #endregion

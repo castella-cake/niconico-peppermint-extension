@@ -89,6 +89,11 @@
             "useoldnicoboxstyle": {
                 "name": "旧boxUIを使用"
             },
+        "skipkokenending": {
+            "name": "提供画面をスキップ",
+            "hint": "動画の最後に表示されるニコニ貢献の提供画面をスキップします。",
+            "select": ["デフォルト", "boxUIでスキップ", "常にスキップ"]
+        },
         "quickvidarticle": {
             "name": "動画記事ボタンを表示",
             "hint": "ニコニコ大百科の動画記事へ繋がるボタンを表示します。"

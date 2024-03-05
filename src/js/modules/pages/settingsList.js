@@ -106,6 +106,12 @@ const settings = {
             }]
         },
         {
+            "type": "select",
+            "name": "skipkokenending",
+            default: "",
+            values: ["", "onboxui", "always"],
+        },
+        {
             type: "checkbox",
             name: "quickvidarticle",
             default: false,
