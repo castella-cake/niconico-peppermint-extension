@@ -20,20 +20,14 @@ import {
     useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from "@dnd-kit/utilities";
+import { useSyncStorage } from "./storageHook";
 
 //import { EditOutlined, EditOffOutlined, DeleteOutlined } from "@mui/icons-material";
 import { MdOutlineEdit, MdOutlineEditOff, MdDeleteOutline} from "react-icons/md"
 
 function CreateQuickOption() {
-    const [ syncStorage, setSyncStorageVar ] = useState({})
+    const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
     const [ isEditMode, setIsEditMode ] = useState(false)
-
-    useEffect(() => {
-        async function setStorage() {
-            setSyncStorageVar(await getSyncStorageData)
-        } 
-        setStorage()
-    }, [])
     const settingsObj = {}
     Object.keys(settings).map((elem) => {
         settings[elem].map((settingsElem) => {
@@ -60,16 +54,6 @@ function CreateQuickOption() {
         }
     }
     // #endregion
-    
-    function setSyncStorageValue(name, value) {
-        setSyncStorageVar(current => {
-            return {
-                ...current,
-                [name]: value
-            }
-        })
-        chrome.storage.sync.set({ [name]: value })
-    }
 
     function removeQuickOptionList(name) {
         setSyncStorageValue("quickoptionlist", settingsFilter.filter(elem => { return elem != name }))

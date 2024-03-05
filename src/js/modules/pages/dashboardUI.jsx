@@ -26,25 +26,10 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import CreateNicorepoUI from "./nicorepoUI";
+import { useSyncStorage } from "./storageHook";
 
 function CreateDashboardUI() {
-    const [ syncStorage, setSyncStorageVar ] = useState({})
-    useEffect(() => {
-        async function setStorage() {
-            setSyncStorageVar(await getSyncStorageData)
-        } 
-        setStorage()
-    }, [])
-
-    function setSyncStorageValue(name, value) {
-        chrome.storage.sync.set({ [name]: value })
-        setSyncStorageVar(current => {
-            return {
-                ...current,
-                [name]: value
-            }
-        })
-    }
+    const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
 
     const dashboardBlocks = { quickoption: <CreateQuickOption/>, seriesstock: (syncStorage.enableseriesstock ? <CreateSeriesStockBlock/> : <></>), nicorepo: <CreateNicorepoUI isrecentblock={true} displaylimit={5}/> }
     const [isChanged, setIsChanged] = useState(false);

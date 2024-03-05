@@ -8,6 +8,7 @@ import settings from "./settingsList";
 import CreateDashboardUI from "./dashboardUI";
 
 import { MdOutlineEdit, MdOutlineEditOff } from "react-icons/md"
+import { useLocalStorage, useSyncStorage } from "./storageHook";
 // #region Enum
 const tabType = Object.freeze({
     dashboard: 0,
@@ -22,33 +23,8 @@ const manifestData = chrome.runtime.getManifest();
 const currentVersion = manifestData.version_name;
 
 function createTabUI() {
-    const [ syncStorage, setSyncStorageVar ] = useState({})
-    const [ localStorage, setLocalStorageVar ] = useState({})
-    function setSyncStorageValue(name, value) {
-        setSyncStorageVar(current => {
-            return {
-                ...current,
-                [name]: value
-            }
-        })
-        chrome.storage.sync.set({ [name]: value })
-    }
-    function setLocalStorageValue(name, value) {
-        setLocalStorageVar(current => {
-            return {
-                ...current,
-                [name]: value
-            }
-        })
-        chrome.storage.local.set({ [name]: value })
-    }
-    useEffect(() => {
-        async function setStorage() {
-            setSyncStorageVar(await getSyncStorageData)
-            setLocalStorageVar(await getLocalStorageData)
-        } 
-        setStorage()
-    }, [])
+    const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
+    const [ localStorage, setLocalStorageValue ] = useLocalStorage()
     if (syncStorage.skipquickpanel === true) {
         location.href = "settings.html"
     }

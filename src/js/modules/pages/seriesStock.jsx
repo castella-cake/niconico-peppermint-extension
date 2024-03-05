@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { getSyncStorageData } from "../storageControl";
+import { useSyncStorage } from "./storageHook"
 import { linkAction } from "../actions";
 import {
     DndContext,
@@ -24,28 +24,12 @@ import lang from "../../../langs/ja.json";
 import { MdOutlineEdit, MdOutlineEditOff, MdDeleteOutline, MdOutlinePlayArrow, MdOutlineSkipNext, MdOutlineExpandLess, MdOutlineExpandMore, MdOutlineCreateNewFolder, MdOutlineDriveFileMove, MdOutlineFolder } from "react-icons/md"
 
 function CreateSeriesStockBlock() {
-    const [syncStorage, setSyncStorageVar] = useState({})
+    const [syncStorage, setSyncStorageValue] = useSyncStorage()
     const [isUnlocked, setIsUnlockedVar] = useState(false)
     const [isFolderCreateWindow, setIsFolderCreateWindowVar] = useState(false)
     const [fcDefaultSelected, setFCDefaultSelected] = useState([]);
     const [fcEditId, setFCEditId] = useState(null)
     //const StockRowMemo = memo((props) => <SeriesStockRow storage={props.storage} seriesinfo={props.seriesinfo} />)
-    useEffect(() => {
-        async function getData() {
-            let storage = await getSyncStorageData
-            setSyncStorageVar(storage)
-        }
-        getData()
-    }, [])
-    function setSyncStorageValue(name, value) {
-        setSyncStorageVar(current => {
-            return {
-                ...current,
-                [name]: value
-            }
-        })
-        chrome.storage.sync.set({ [name]: value })
-    }
     function addToFolder(folderId, seriesId) {
         if (syncStorage.stockedseries != undefined && syncStorage.stockedseries.findIndex(elem => elem.id === folderId) != -1) {
             const index = syncStorage.stockedseries.findIndex(elem => elem.id === folderId)
@@ -309,15 +293,6 @@ function CreateSeriesStockBlock() {
         } else {
             return <span>ストック中のシリーズが一つもありません。</span>
         }
-    }
-    function setSyncStorageValue(name, value) {
-        setSyncStorageVar(current => {
-            return {
-                ...current,
-                [name]: value
-            }
-        })
-        chrome.storage.sync.set({ [name]: value })
     }
 
     function handleDragEnd(e) {

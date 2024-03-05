@@ -1,20 +1,10 @@
-import { useEffect, useState } from "react";
-import { getSyncStorageData } from "../storageControl";
 import settings from "./settingsList";
 import lang from "../../../langs/ja.json";
 import "../../../style/pages/settingsUI.styl"
+import { useSyncStorage } from "./storageHook";
 
 function CreateSettingsList() {
-    const [ syncStorage, setSyncStorageVar ] = useState({})
-    function setSyncStorageValue(name, value) {
-        setSyncStorageVar(current => {
-            return {
-                ...current,
-                [name]: value
-            }
-        })
-        chrome.storage.sync.set({ [name]: value })
-    }
+    const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
     function createSettingsControl(settings) {
         //console.log(lang.SETTINGS_ITEMS[settings.name].name)
         if ( settings.type == "checkbox" ) {
@@ -62,12 +52,6 @@ function CreateSettingsList() {
         }
         return <div className="settings-row" key={`${settings.name}-row`}>{ elemList }<HintElem/><LinkElem/></div>
     }
-    useEffect(() => {
-        async function setStorage() {
-            setSyncStorageVar(await getSyncStorageData)
-        } 
-        setStorage()
-    }, [])
     const elemArray = Object.keys(settings).map((elem) => {
         const settingsAreaElems = settings[elem].map((settingsElem) => {
             //console.log(settingsElem)
