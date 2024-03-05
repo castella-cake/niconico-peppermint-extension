@@ -456,7 +456,7 @@ chrome.alarms.onAlarm.addListener(function (e) {
             let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
             getStorageData.then(function (result) {
                 // 有効でかつストック中がundefinedじゃない
-                if (result.enableseriesstock && result.stockedseries != undefined) {
+                if (result.enableseriesstock && result.stockedseries) {
                     // lengthが300以下なら
                     if (result.stockedseries.length < 300) {
                         // forEachで一個ずつ処理
@@ -474,8 +474,8 @@ chrome.alarms.onAlarm.addListener(function (e) {
         } else if (e.name == 'nicoRepo_Refresh') {
             let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
             getStorageData.then(function (result) {
-                // 有効でかつストック中がundefinedじゃない
-                if (result.enablenicorepotab) {
+                // 有効であるか最近のニコレポタブが表示状態にある
+                if (result.enablenicorepotab || result.dashboardsortlist.some(elem => elem.name == "nicorepo" && elem.isHidden == false )) {
                     getRecentNicorepo(2)
                 }
             })
