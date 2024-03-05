@@ -6,10 +6,14 @@
 
 
 Niconico-PepperMint+は、「ニコニコ動画をもっとクールに」を目標に開発している、   
-主にニコニコ動画向けの視覚的変更やシリーズストックなどの機能を提供する拡張機能です。   
+主にニコニコ動画向けの視覚的変更やシリーズストックなどの機能を提供する非公式の拡張機能です。   
 プロジェクトはMITライセンスで提供され、背後の面倒な規約などはありません。   
 Chrome Webstore: https://chrome.google.com/webstore/detail/niconico-peppermint+/oeadnodbjplclhibppgkkijomgcgochf   
 Firefox Add-ONS: https://addons.mozilla.org/ja/firefox/addon/niconico-peppermint/
+
+**この拡張機能は非公式のプロジェクトであり、ニコニコやドワンゴとは一切提携していません。**   
+もしページレイアウトの崩れなどのバグが発生した場合、まずそれがPepperMint+やその他の拡張機能によって引き起こされたものでないか確認してください。   
+この拡張機能で発生した問題は、ニコニコ公式のサポートではなくこのリポジトリの[Issue](https://github.com/castella-cake/niconico-peppermint-extension/issues)に報告してください。
 
 # Install
 ## 安定版を入手
@@ -80,7 +84,6 @@ npm run build
 - [x] exCommander
 - [x] シアターUI
 - [x] Nicobox風UI
-- [ ] 動画ダウンロード機能
 - [x] 動画記事ボタンを表示
 - [x] Misskeyで共有
 #### NicoPedia
@@ -105,9 +108,8 @@ npm run build
     - [x] 最後に見た動画/次の動画記録
     - [x] リスト取得機能
     - [x] 新規エピソード通知機能
-    - [ ] フォルダー分け機能
+    - [x] フォルダー分け機能
 - [x] ニコレポ取得
-- [ ] お知らせ通知
 - [x] カスタム動画トップ
 
 # Progress
@@ -125,7 +127,7 @@ Niconico-PepperMintはメインにニコニコ動画の視聴、サブにニコ�
 機能要望などはissueにお願いします。  
 ## ブラウザー
 Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、そしてChromium系ブラウザをサポートします。  
-ただし、完全な動作には`:has()`のサポートが必要です。(ChromiumとFirefoxの最新バージョンではサポートされているはずです)   
+ただし、完全な動作には`:has()`のサポートが必要です。(最近のブラウザでは概ねサポートされているはずです)   
 ### 動作確認済みブラウザーの一覧
 開発者の意図的に動作することを確認したブラウザー。  
 チェックボックスの付いていないブラウザーは、テストしたが何らかの無視できない問題があることを示します。  
@@ -135,8 +137,7 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 - [x] Floorp 11 (それ以前のバージョンには表示に軽微な問題がありますが、使用には問題ありません)
 - [ ] MyPal 68.12.5b (Windows XP/10で動作確認、しかしニコニコ動画側がまともに動いてない模様  
 ``about:config``で``webextensions.storage.sync.enabled``をtrueに変更する必要があり、対応していないCSSルールがあるためシアターモードが動作せず)
-- [ ] Wolvic 1.5.2 (hasサポートの不足と軽微な視覚バグあり    
-デスクトップモードを使用せず、sp.nicovideo.jpの最下部にある「PC表示に切り替え」で閲覧することを推奨)
+- [x] Wolvic 1.6.0
 #### Chromium
 - [x] Google Chrome 110
 - [x] Vivaldi 5.6.2867.62
