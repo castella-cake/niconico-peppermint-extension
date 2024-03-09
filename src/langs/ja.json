@@ -151,7 +151,7 @@
 
         "darkmode": {
             "name": "ダークモード/カラーパレット",
-            "hint": "ダークモードを使用します。現在はニコニコ動画と生放送の一部ページにのみ対応しています。\n「ブラウザーに追従」を有効化した場合、ブラウザーがライトの場合はダークモードを使用しません。",
+            "hint": "ダークモードを使用します。現在はニコニコ動画と生放送の一部ページにのみ対応しています。\n「ブラウザーに追従」を有効化した場合、ブラウザーがライトモードの場合はダークモードを使用しません。",
             "select": ["デフォルト", "PMDark", "SPDark", "NordNight", "SolidBlack", "CyberNight", "カスタム設定"]
         },
             "darkmodedynamic": {
@@ -212,6 +212,8 @@
     "USER": "ユーザー",
     "LOADING": "ロード中...",
     "CLOSE": "閉じる",
+    "CANCEL": "キャンセル",
+    "ADD": "追加",
 
     "DASHBOARD": "ダッシュボード",
     "QUICK_SETTINGS": "クイック設定",
@@ -231,11 +233,30 @@
     "TO_LOCK": "ロック状態に変更",
     "TO_UNLOCK": "ロック解除",
     "THUMB_ALT_TEXT": "のサムネイル",
+    "MOVE_TO_FOLDER": "フォルダーへ移動",
+    "REMOVE_FROM_STOCK": "ストックから削除",
+    "ADD_AVAILABLE_FROM_CURRENT_TAB": "現在のタブから追加可能",
+    "OPEN_FOLDER": "フォルダーを開く",
+    "CLOSE_FOLDER": "フォルダーを閉じる",
+    "MOVE_TO_SELECTED_FOLDER": "指定フォルダーに移動",
+    "NEW_FOLDER_OPENMODAL": "新規フォルダー...",
+    "FOLDER_MOVE_TO_LABEL": "移動先フォルダー",
 
     "EDITBUTTON_TITLE_TOEDITMODE": "編集する",
     "EDITBUTTON_TITLE_EDITOFF": "編集を終了",
 
+    "SAVE_CHANGE": "変更を保存",
+
     "ADD_FOLDER": "フォルダーを追加",
+
+    "ADD_FOLDER_TITLE": "フォルダーの作成",
+    "EDIT_FOLDER_TITLE": "フォルダーの編集",
+
+    "ADD_FOLDER_DESC": "フォルダーを編集します。\n表示されているシリーズは、現在追加/削除可能なシリーズのリストです。\nチェックボックスを有効化すると、フォルダーに選択されたシリーズが移動されます。",
+    "EDIT_FOLDER_DESC": "現在のシリーズストック内に新しいフォルダーを作成します。\n表示されているシリーズは、現在移動可能なシリーズのリストです。\nチェックボックスを有効化すると、フォルダーに選択したシリーズが移動されます。",
+    "FOLDER_NAME": "フォルダーの名前",
+    "PLACEHOLDER_FOLDER_NAME": "フォルダー名を入力...",
+    "MOVE_SERIES_TO_FOLDER": "フォルダーにシリーズを移動",
 
     "DASHBOARD_TITLES": {
         "quickoption": "クイックオプション",
@@ -244,5 +265,15 @@
     },
     "QUICKPANEL_TAB_EDIT": "クイックパネルタブを編集",
     "QUICKPANEL_TAB_EDITOFF": "クイックパネルタブの編集を終了",
-    "QUICKPANEL_TAB_EDIT_DESC": "クイックパネルタブを編集中です。\n表示するタブのチェックボックスをオンにして有効化します。"
+    "QUICKPANEL_TAB_EDIT_DESC": "クイックパネルタブを編集中です。\n表示するタブのチェックボックスをオンにして有効化します。",
+
+    "QUICKOPTION_EDIT": "クイック設定を編集",
+    "QUICKOPTION_EDITOFF": "クイック設定の編集を終了",
+    "OPEN_SETTINGS_PAGE": "設定ページを開く",
+    "ADD_ITEM": "項目を追加",
+    
+    "DASHBOARD_EDIT": "ダッシュボードを編集",
+    "CLICK_TO_RELOAD": "(リロードします)",
+
+    "QUICKPANEL_FIRST_TIP": "PepperMint+のクイックパネルへようこそ。\n「設定ページを開く」もしくはタイトルをクリックすると、設定ページに移動できます。\n右上の編集ボタンからタブを編集したり、下部の「ダッシュボードを編集」からブロックの表示を編集できます。"
 }

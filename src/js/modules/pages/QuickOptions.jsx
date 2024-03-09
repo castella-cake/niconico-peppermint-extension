@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSyncStorageData } from "../storageControl";
 import settings from "./settingsList";
-import lang from "../../../langs/ja.json";
 import "../../../style/pages/settingsUI.styl"
 
 import {
@@ -24,8 +23,10 @@ import { useSyncStorage } from "./storageHook";
 
 //import { EditOutlined, EditOffOutlined, DeleteOutlined } from "@mui/icons-material";
 import { MdOutlineEdit, MdOutlineEditOff, MdDeleteOutline} from "react-icons/md"
+import { useLang } from "./localizeHook";
 
 function CreateQuickOption() {
+    const lang = useLang()
     const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
     const [ isEditMode, setIsEditMode ] = useState(false)
     const settingsObj = {}
@@ -101,7 +102,7 @@ function CreateQuickOption() {
 
     //console.log(elemArray)
     return <div className="block-container">
-        <h2 className="block-title">クイックオプション<button title={isEditMode ? "クイック設定の編集を終了" : "クイック設定の項目を編集"} className="block-title-actionbutton" type="button" onClick={() => {setIsEditMode(!isEditMode)}}>{ isEditMode ? <MdOutlineEditOff style={{fontSize: 20}}/> : <MdOutlineEdit style={{fontSize: 20}}/>}</button><a href="settings.html" target="_self" style={{ "marginLeft": "1rem" }}>設定ページを開く</a></h2>
+        <h2 className="block-title">{lang.DASHBOARD_TITLES.quickoption}<button title={isEditMode ? lang.QUICKOPTION_EDITOFF : lang.QUICKOPTION_EDIT} className="block-title-actionbutton" type="button" onClick={() => {setIsEditMode(!isEditMode)}}>{ isEditMode ? <MdOutlineEditOff style={{fontSize: 20}}/> : <MdOutlineEdit style={{fontSize: 20}}/>}</button><a href="settings.html" target="_self" className="block-title-primary-link">{lang.OPEN_SETTINGS_PAGE}</a></h2>
         <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
@@ -116,7 +117,7 @@ function CreateQuickOption() {
                 </div>
             </SortableContext>
         </DndContext>
-        {isEditMode && <div>項目を追加 <select onChange={onAddSelectChanged}>{Object.keys(settingsObj).filter(elem => {return !settingsFilter.includes(elem)}).map((elem) => { return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[elem].name ?? elem}</option> })}</select></div>}
+        {isEditMode && <div>{lang.ADD_ITEM} <select onChange={onAddSelectChanged}>{Object.keys(settingsObj).filter(elem => {return !settingsFilter.includes(elem)}).map((elem) => { return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[elem].name ?? elem}</option> })}</select></div>}
     </div>
 }
 

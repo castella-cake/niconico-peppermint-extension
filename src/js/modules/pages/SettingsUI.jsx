@@ -1,9 +1,10 @@
 import settings from "./settingsList";
-import lang from "../../../langs/ja.json";
 import "../../../style/pages/settingsUI.styl"
 import { useSyncStorage } from "./storageHook";
+import { useLang } from "./localizeHook";
 
 function CreateSettingsList() {
+    const lang = useLang()
     const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
     function createSettingsControl(settings) {
         //console.log(lang.SETTINGS_ITEMS[settings.name].name)

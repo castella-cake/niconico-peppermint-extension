@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getSyncStorageData } from "../storageControl";
 import CreateSeriesStockBlock from "./seriesStock";
-import lang from "../../../langs/ja.json";
 import CreateQuickOption from "./QuickOptions";
 
 //import { EditOutlined, DoneOutlined } from '@mui/icons-material';
@@ -27,8 +26,10 @@ import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import CreateNicorepoUI from "./nicorepoUI";
 import { useSyncStorage } from "./storageHook";
+import { useLang } from "./localizeHook";
 
 function CreateDashboardUI() {
+    const lang = useLang()
     const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
 
     const dashboardBlocks = { quickoption: <CreateQuickOption/>, seriesstock: (syncStorage.enableseriesstock ? <CreateSeriesStockBlock/> : <></>), nicorepo: <CreateNicorepoUI isrecentblock={true} displaylimit={5}/> }
@@ -84,9 +85,7 @@ function CreateDashboardUI() {
     return <div className={isEditMode ? "dashboard-container db-unlocked" : "dashboard-container"}>
         { (!syncStorage.quickpaneltipisclosed) && <div className="nothing-here">
             <div className="nothing-here-head">:o</div>
-            PepperMint+のクイックパネルへようこそ。<br/>
-            「設定ページを開く」もしくはタイトルをクリックすると、設定ページに移動できます。<br/>
-            右上の編集ボタンからタブを編集したり、下部の「ダッシュボードを編集」からブロックの表示を編集できます。<br/>
+            <div style={{whiteSpace: "pre-wrap"}}>{lang.QUICKPANEL_FIRST_TIP}</div>
             <button type="button" className="nothing-here-discard" onClick={() => {setSyncStorageValue("quickpaneltipisclosed", true)}}>{lang.CLOSE}</button>
         </div>}
         <DndContext
@@ -109,7 +108,7 @@ function CreateDashboardUI() {
             } else {
                 setIsEditMode(!isEditMode)
             }
-        }}>{isEditMode ? <><MdOutlineDone style={{fontSize: 14}}/> 編集を終了{isChanged && "(リロードします)"}</> : <><MdOutlineEdit style={{fontSize: 14}}/> ダッシュボードを編集</>}</button>
+        }}>{isEditMode ? <><MdOutlineDone style={{fontSize: 14}}/> {lang.EDITBUTTON_TITLE_EDITOFF}{isChanged && lang.CLICK_TO_RELOAD}</> : <><MdOutlineEdit style={{fontSize: 14}}/> {lang.DASHBOARD_EDIT}</>}</button>
     </div>
 }
 

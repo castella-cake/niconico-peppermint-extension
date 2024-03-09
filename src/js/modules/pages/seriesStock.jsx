@@ -19,11 +19,11 @@ import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import FocusLock from 'react-focus-lock';
 
-import lang from "../../../langs/ja.json";
-
 import { MdOutlineEdit, MdOutlineEditOff, MdDeleteOutline, MdOutlinePlayArrow, MdOutlineSkipNext, MdOutlineExpandLess, MdOutlineExpandMore, MdOutlineCreateNewFolder, MdOutlineDriveFileMove, MdOutlineFolder } from "react-icons/md"
+import { useLang } from "./localizeHook";
 
 function CreateSeriesStockBlock() {
+    const lang = useLang()
     const [syncStorage, setSyncStorageValue] = useSyncStorage()
     const [isUnlocked, setIsUnlockedVar] = useState(false)
     const [isFolderCreateWindow, setIsFolderCreateWindowVar] = useState(false)
@@ -112,10 +112,10 @@ function CreateSeriesStockBlock() {
             getData()
         }, [])
         return <>{( addAvailableSeriesId && addAvailableSeriesName ) && <div className="stockedseries-add-row">
-            <div style={{ flexGrow: 1 }}>現在のタブから追加可能: {addAvailableSeriesName}</div>
+            <div style={{ flexGrow: 1 }}>{lang.ADD_AVAILABLE_FROM_CURRENT_TAB}: {addAvailableSeriesName}</div>
             <button type="button" onClick={() => {
                 addSeriesStock(addAvailableSeriesId, addAvailableSeriesName)
-            }}>追加する</button>
+            }}>{lang.ADD}</button>
         </div>}</>
     }
 
@@ -180,7 +180,7 @@ function CreateSeriesStockBlock() {
                     return <div className="stockedseries-row stockedseries-row-folder" key={elem.id} ref={setNodeRef} style={Style} {...attributes} {...listeners}>
                         <div className="serieslink-container">
                             <div className="stockedseries-folder-title" style={!isUnlocked ? {flexGrow: 1} : {}}><MdOutlineFolder style={{ fontSize: 16 }}/>{elem.name}</div>
-                            {!isUnlocked && <button type="button" onClick={() => {setIsOpen(!isOpen)}} className="stockedseries-folder-openbutton">{isOpen ? <>フォルダーを閉じる<MdOutlineExpandLess/></>: <>フォルダーを開く<MdOutlineExpandMore/></>}</button>}
+                            {!isUnlocked && <button type="button" onClick={() => {setIsOpen(!isOpen)}} className="stockedseries-folder-openbutton">{isOpen ? <>{lang.CLOSE_FOLDER}<MdOutlineExpandLess/></>: <>{lang.OPEN_FOLDER}<MdOutlineExpandMore/></>}</button>}
                             <button className="stockedseries-row-actionbutton" onClick={() => {setFCEditId(elem.id);setIsFolderCreateWindowVar(true)}}><MdOutlineEdit /></button>
                             <button className="stockedseries-row-actionbutton" onClick={() => {removeFolder(elem.id)}}><MdDeleteOutline /></button>
                         </div>
@@ -221,8 +221,8 @@ function CreateSeriesStockBlock() {
                                     <a className="stockedseries-row-link" href={seriesHref} target="_blank">{elem.seriesName}</a>
                                     { !isMoveWindowOpen && 
                                         <>{props.isfolder ? <button className="stockedseries-row-actionbutton" onClick={() => {removeFromFolder(props.folderid, props.folderindex, elem.seriesID)}}>フォルダから除去</button> : 
-                                        <button className="stockedseries-row-actionbutton" onClick={() => {setMoveWindowOpen(!isMoveWindowOpen)}}><MdOutlineDriveFileMove/></button>}
-                                        <button className="stockedseries-row-actionbutton" onClick={() => {removeSeriesStock(elem.seriesID)}}><MdDeleteOutline /></button></>
+                                        <button className="stockedseries-row-actionbutton" onClick={() => {setMoveWindowOpen(!isMoveWindowOpen)}} title={lang.MOVE_TO_FOLDER}><MdOutlineDriveFileMove/></button>}
+                                        <button className="stockedseries-row-actionbutton" onClick={() => {removeSeriesStock(elem.seriesID)}} title={lang.REMOVE_FROM_STOCK}><MdDeleteOutline /></button></>
                                     }
                                         {(seriesInfo[elem.seriesID] && seriesInfo[elem.seriesID].data && seriesInfo[elem.seriesID].data.detail && seriesInfo[elem.seriesID].data.detail.owner) &&
                                             (seriesInfo[elem.seriesID].data.detail.owner.type == "channel" ?
@@ -240,7 +240,7 @@ function CreateSeriesStockBlock() {
                             </div>
                             { isMoveWindowOpen && <div style={{display: "flex", flexWrap: "wrap", justifyContent: "right"}} className="stockedseries-movecontainer">
                                 <div className="folderselector-container">
-                                    移動先フォルダー
+                                    {lang.FOLDER_MOVE_TO_LABEL}
                                     <select ref={folderSelectRef}>
                                         {array.filter(elem => elem.type == "folder").map(elem => {
                                             return <option type="button" className="context-button" value={elem.id}>{elem.name}</option>
@@ -251,13 +251,13 @@ function CreateSeriesStockBlock() {
                                     <button type="button" onClick={() => {
                                         addToFolder(folderSelectRef.current.value, elem.seriesID)
                                         setMoveWindowOpen(false)
-                                    }}>指定フォルダーに移動</button>
+                                    }}>{lang.MOVE_TO_SELECTED_FOLDER}</button>
                                     <button type="button" onClick={() => {
                                         setFCDefaultSelected([...fcDefaultSelected, elem.seriesID])
                                         setIsFolderCreateWindowVar(true)
                                         setMoveWindowOpen(false)
-                                    }}>新規フォルダー...</button>
-                                    <button type="button" onClick={() => {setMoveWindowOpen(false)}}>キャンセル</button>
+                                    }}>{lang.NEW_FOLDER_OPENMODAL}</button>
+                                    <button type="button" onClick={() => {setMoveWindowOpen(false)}}>{lang.CANCEL}</button>
                                 </div>
                             </div> }
                             <div className="stockedseries-vidlink-container">
@@ -291,7 +291,7 @@ function CreateSeriesStockBlock() {
             return <CreateRowList array={storage.stockedseries} />
 
         } else {
-            return <span>ストック中のシリーズが一つもありません。</span>
+            return <span>{lang.NO_STOCKED_SERIES}</span>
         }
     }
 
@@ -350,19 +350,17 @@ function CreateSeriesStockBlock() {
         return <div className="quickpanel-window-container">
             <FocusLock>
                 <div className="quickpanel-window">
-                    <h2 className="window-title">{editFolderObj ? "フォルダーの編集" : "フォルダーの作成"}</h2>
+                    <h2 className="window-title">{editFolderObj ? lang.EDIT_FOLDER_TITLE : lang.ADD_FOLDER_TITLE}</h2>
                     <div className="window-body">
-                        {editFolderObj ? `フォルダーを編集します。\n
-                        表示されているシリーズは、現在追加/削除可能なシリーズのリストです。\n
-                        チェックボックスを有効化すると、フォルダーに選択されたシリーズが移動されます。`
-                        : `現在のシリーズストック内に新しいフォルダーを作成します。\n
-                        表示されているシリーズは、現在移動可能なシリーズのリストです。\n
-                        チェックボックスを有効化すると、フォルダーに選択したシリーズが移動されます。`}
-                        <h3 className="window-section-title">フォルダーの名前</h3>
-                        <input placeholder="フォルダー名を入力..." ref={folderNameInputRef} className="createfolder-nameinput" defaultValue={editFolderObj && editFolderObj.name}></input>
-                        <h3 className="window-section-title">フォルダーにシリーズを移動</h3>
+                        <div style={{whiteSpace: "pre-wrap"}}>
+                            {editFolderObj ? lang.EDIT_FOLDER_DESC
+                            : lang.ADD_FOLDER_DESC}
+                        </div>
+                        <h3 className="window-section-title">{lang.FOLDER_NAME}</h3>
+                        <input placeholder={lang.PLACEHOLDER_FOLDER_NAME} ref={folderNameInputRef} className="createfolder-nameinput" defaultValue={editFolderObj && editFolderObj.name}></input>
+                        <h3 className="window-section-title">{lang.MOVE_SERIES_TO_FOLDER}</h3>
                         <div className="createfolder-selectcontainer">
-                            { syncStorage.stockedseries.filter(elem => elem.type != "folder").map(elem => {
+                            { syncStorage.stockedseries && syncStorage.stockedseries.filter(elem => elem.type != "folder").map(elem => {
                                 return <div className="stockedseries-row" key={elem.seriesID}>
                                     <input type="checkbox" value={elem.seriesID} onChange={(e) => onSeriesCheckboxChanged(e.currentTarget.checked, elem.seriesID)} checked={checkedIds.includes(elem.seriesID)}/>
                                     {elem.seriesName}
@@ -382,7 +380,7 @@ function CreateSeriesStockBlock() {
                             })}
                         </div>
                         <div className="window-button-container">
-                            <button type="button" onClick={() => {setIsFolderCreateWindowVar(false);setFCDefaultSelected([]);setFCEditId(null);}} className="window-button">× 閉じる</button>
+                            <button type="button" onClick={() => {setIsFolderCreateWindowVar(false);setFCDefaultSelected([]);setFCEditId(null);}} className="window-button">× {lang.CLOSE}</button>
                             <button type="button" onClick={() => {
                                 if ( editFolderObj ) {
                                     setFolder(editFolderObj.id, editFolderIndex, {...editFolderObj, name: folderNameInputRef.current.value, idList: checkedIds})
@@ -392,7 +390,7 @@ function CreateSeriesStockBlock() {
                                 setIsFolderCreateWindowVar(false);
                                 setFCDefaultSelected([]);
                                 setFCEditId(null)
-                            }} className="window-button window-button-primary">{editFolderObj ? "変更を保存" : "フォルダーを追加"}</button>
+                            }} className="window-button window-button-primary">{editFolderObj ? lang.SAVE_CHANGE : lang.ADD_FOLDER}</button>
                         </div>
                     </div>
                 </div>

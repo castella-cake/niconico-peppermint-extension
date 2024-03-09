@@ -3,12 +3,12 @@ import { getLocalStorageData, getSyncStorageData } from "../storageControl";
 import CreateSettingsList from "./SettingsUI";
 import CreateNicorepoUI from "./nicorepoUI";
 import CreateSeriesStockBlock from "./seriesStock";
-import lang from "../../../langs/ja.json";
 import settings from "./settingsList";
 import CreateDashboardUI from "./dashboardUI";
 
 import { MdOutlineEdit, MdOutlineEditOff } from "react-icons/md"
 import { useLocalStorage, useSyncStorage } from "./storageHook";
+import { useLang } from "./localizeHook";
 // #region Enum
 const tabType = Object.freeze({
     dashboard: 0,
@@ -23,6 +23,7 @@ const manifestData = chrome.runtime.getManifest();
 const currentVersion = manifestData.version_name;
 
 function createTabUI() {
+    const lang = useLang()
     const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
     const [ localStorage, setLocalStorageValue ] = useLocalStorage()
     if (syncStorage.skipquickpanel === true) {

@@ -3,9 +3,9 @@ import HTMLReactParser from "html-react-parser";
 import DOMPurify from "dompurify";
 import { linkAction } from "../actions";
 import "../../../style/pages/nicorepoUI.styl"
-import lang from "../../../langs/ja.json";
 
 import { MdOutlineRefresh } from "react-icons/md";
+import { useLang } from "./localizeHook";
 
 const getRecentNicorepo = new Promise((resolve) => chrome.runtime.sendMessage({ "type": "getRecentNicorepo" }, resolve))
 
@@ -13,6 +13,7 @@ function CreateNicorepoUI(props) {
     const displayLimit = (props.displaylimit ? props.displaylimit : 500)
     const [ nicorepoInfo, setNicorepoInfoVar ] = useState({})
     const [ reloadRenderVar, setReloadRenderVar ] = useState(false)
+    const lang = useLang()
     useEffect(() => {
         getRecentNicorepo.then((res) => {
             setNicorepoInfoVar(res)
