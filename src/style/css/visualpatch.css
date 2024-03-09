@@ -20,7 +20,7 @@
 .video .itemThumb,.video .itemThumbBox {
     border-radius: 4px
 }
-div:focus-visible, a:focus-visible, button:focus-visible, img:focus-visible {
+a:focus-visible, button:focus-visible {
     box-shadow: 0px 0px 5px #fff;
     outline: #fff 2px solid;
     /*caret-color: transparent;*/

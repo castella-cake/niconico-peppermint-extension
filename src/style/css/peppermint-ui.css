@@ -235,7 +235,6 @@
     line-height: 20px;
     font-size: 16px;
     color: #f00;
-    animation: blink 0.1s normal 3;
     font-family: 'HackGen Console NF','Consolas','Meiryo',monospace
 }
 .pm-viCommanderOutput {
@@ -377,20 +376,6 @@
     100% { 
         transform: translateX(-100%) translateY(0%) scale(1.0);
         opacity: 50%;
-    }
-}
-@keyframes blink {
-    0% { 
-        opacity: 100%
-    }
-    50% { 
-        opacity: 100%
-    }
-    51% { 
-        opacity: 0%
-    }
-    100% { 
-        opacity: 0%;
     }
 }
 @keyframes bottomslidein {
