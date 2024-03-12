@@ -348,14 +348,14 @@ html.PM-TheaterMode {
         background: $theaterhover;
     }
 
-    .PlayerContainer:not(.is-mouseMoving) .VideoContainer * {
+    .PlayerContainer:not(.is-mouseMoving):not(:has(.VideoEndScreenContainer)) .VideoContainer * {
         cursor: none;
     }
     .PlayerContainer .ControllerContainer {
         opacity: 1;
         transition: opacity 0.2s ease;
     }
-    .PlayerContainer:not(.is-mouseMoving):has(.VideoContainer:hover) .ControllerContainer {
+    .PlayerContainer:not(:has(.VideoEndScreenContainer)):not(.is-mouseMoving):has(.VideoContainer:hover) .ControllerContainer {
         opacity: 0.6;
         transition: opacity 0.2s ease;
     }
@@ -515,7 +515,7 @@ html.PM-TheaterMode {
     }
 }
 
-html.PM-TheaterMode:has(.PlayerContainer:not(.is-mouseMoving) .VideoContainer:hover) #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-fdpmya {
+html.PM-TheaterMode:has(.PlayerContainer:not(.is-mouseMoving):not(:has(.VideoEndScreenContainer)) .VideoContainer:hover) #VideoMenuDrawer-app:not(:has(.css-gzpr6t)) .css-fdpmya {
     opacity: 0;
 }
 
