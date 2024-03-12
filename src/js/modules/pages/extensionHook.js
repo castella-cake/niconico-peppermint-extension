@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import { getSyncStorageData, getLocalStorageData } from "../storageControl";
 
 export function useSyncStorage() {
@@ -39,4 +39,25 @@ export function useLocalStorage() {
         setStorage()
     }, [])
     return [localStorage, setLocalStorageValue]
+}
+
+export function useManifestData() {
+    const [ manifestData, _setManifestDataVar ] = useState(null)
+    useEffect(() => {
+        _setManifestDataVar(chrome.runtime.getManifest());
+    }, [])
+    return manifestData
+}
+
+const ISyncStorageContext = createContext()
+
+export function SyncStorageProvider({ children }) {
+    const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
+    return (<ISyncStorageContext.Provider value={{ syncStorage, setSyncStorageValue }}>
+        {children}
+    </ISyncStorageContext.Provider>)
+}
+
+export function useSyncStorageContext() {
+    return useContext(ISyncStorageContext)
 }

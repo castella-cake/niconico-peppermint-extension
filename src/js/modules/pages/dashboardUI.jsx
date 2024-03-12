@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { getSyncStorageData } from "../storageControl";
+import { useState } from "react";
 import CreateSeriesStockBlock from "./seriesStock";
 import CreateQuickOption from "./QuickOptions";
 
@@ -25,12 +24,12 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import CreateNicorepoUI from "./nicorepoUI";
-import { useSyncStorage } from "./storageHook";
+import { useSyncStorageContext } from "./extensionHook";
 import { useLang } from "./localizeHook";
 
 function CreateDashboardUI() {
     const lang = useLang()
-    const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
+    const { syncStorage, setSyncStorageValue } = useSyncStorageContext()
 
     const dashboardBlocks = { quickoption: <CreateQuickOption/>, seriesstock: (syncStorage.enableseriesstock ? <CreateSeriesStockBlock/> : <></>), nicorepo: <CreateNicorepoUI isrecentblock={true} displaylimit={5}/> }
     const [isChanged, setIsChanged] = useState(false);
