@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import CreateSettingsList from "./modules/pages/SettingsUI";
-import lang from "../langs/ja.json";
-import { SyncStorageProvider } from "./modules/pages/extensionHook";
+import CreateSettingsList from "./modules/SettingsUI";
+import lang from "../../langs/ja.json";
+import { SyncStorageProvider } from "./modules/extensionHook";
 
 
 createRoot(document.getElementById("root")).render(

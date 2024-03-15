@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import CreateTabUI from "./modules/pages/TabUI";
-import { SyncStorageProvider } from "./modules/pages/extensionHook";
+import CreateTabUI from "./modules/TabUI";
+import { SyncStorageProvider } from "./modules/extensionHook";
 
 const manifestData = chrome.runtime.getManifest();
 const currentVersion = manifestData.version_name;

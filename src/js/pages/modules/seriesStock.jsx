@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useSyncStorageContext } from "./extensionHook"
-import { linkAction } from "../actions";
+import { linkAction } from "../../modules/actions";
 import {
     DndContext,
     KeyboardSensor,

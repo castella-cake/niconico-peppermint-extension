@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react";
-import { getSyncStorageData, getLocalStorageData } from "../storageControl";
+import { getSyncStorageData, getLocalStorageData } from "../../modules/storageControl";
 
 export function useSyncStorage() {
     const [ syncStorage, _setSyncStorageVar ] = useState({})

@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import HTMLReactParser from "html-react-parser";
 import DOMPurify from "dompurify";
-import { linkAction } from "../actions";
+import { linkAction } from "../../modules/actions";
 import "../../../style/pages/nicorepoUI.styl"
 
 import { MdOutlineRefresh } from "react-icons/md";
