@@ -4,7 +4,7 @@ function createCSSRule(result) {
     if (result.enableseriesstock == true) {
         let seriesBC = document.querySelector('.SeriesBreadcrumbs')
         let seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
-        $('.pmbutton-container').prepend('<div class="addtostock-container subaction-container"><a id="addtostock" class="material-icons-outlined subaction-button">add</a></div>')
+        $('.pmbutton-container').prepend('<div class="addtostock-container subaction-container"><button id="addtostock" class="material-icons-outlined subaction-button">add</button></div>')
         function updateStockUI() {
             seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
             // タイトルの下にあるシリーズを表示するやつがあるか。動画にシリーズがないなら、これは存在しない

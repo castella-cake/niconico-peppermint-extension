@@ -108,8 +108,7 @@ function createCSSRule(result) {
         document.querySelector('.pmbutton-container').appendChild(sharebtncontainer)
     }
     // #endregion
-
-    // TODO: 将来的にbuttonに置き換える
+    
     // #region クイック動画記事
     if (result.quickvidarticle == true) {
         $('.pmbutton-container').append('<div class="vidarticle-container subaction-container"><a id="openvidarticle" class="subaction-button" style="color: #fff">百</a></div>')

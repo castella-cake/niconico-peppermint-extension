@@ -121,7 +121,7 @@ function CreateSeriesStockBlock() {
 
     function SeriesStockRow(props) {
         const storage = props.storage
-        const [seriesStockVar, setSeriesStockVar] = useState({ seriesInfo: {} })
+        const [seriesStockVar, setSeriesStockVar] = useState({ seriesInfo: {}, loaded: false })
         useEffect(() => {
             async function getData() {
                 const seriesInfoObj = {}
@@ -138,7 +138,7 @@ function CreateSeriesStockBlock() {
                         }
                     })
                 }
-                setSeriesStockVar({ seriesInfo: seriesInfoObj })
+                setSeriesStockVar({ seriesInfo: seriesInfoObj, loaded: true })
             }
             getData()
         }, [])
@@ -179,7 +179,7 @@ function CreateSeriesStockBlock() {
                     return <div className="stockedseries-row stockedseries-row-folder" key={elem.id} ref={setNodeRef} style={Style} {...attributes} {...listeners}>
                         <div className="serieslink-container">
                             <div className="stockedseries-folder-title" style={!isUnlocked ? {flexGrow: 1} : {}}><MdOutlineFolder style={{ fontSize: 16 }}/>{elem.name}</div>
-                            {!isUnlocked && <button type="button" onClick={() => {setIsOpen(!isOpen)}} className="stockedseries-folder-openbutton">{isOpen ? <>{lang.CLOSE_FOLDER}<MdOutlineExpandLess/></>: <>{lang.OPEN_FOLDER}<MdOutlineExpandMore/></>}</button>}
+                            {!isUnlocked && <button type="button" onClick={() => {if (seriesStockVar.loaded) { setIsOpen(!isOpen) }}} className="stockedseries-folder-openbutton">{seriesStockVar.loaded ? (isOpen ? <>{lang.CLOSE_FOLDER}<MdOutlineExpandLess/></>: <>{lang.OPEN_FOLDER}<MdOutlineExpandMore/></>) : <><span style={{ color: "var(--textcolor2)" }}>{lang.LOADING}</span><MdOutlineExpandMore/></>}</button>}
                             <button className="stockedseries-row-actionbutton" onClick={() => {setFCEditId(elem.id);setIsFolderCreateWindowVar(true)}}><MdOutlineEdit /></button>
                             <button className="stockedseries-row-actionbutton" onClick={() => {removeFolder(elem.id)}}><MdDeleteOutline /></button>
                         </div>

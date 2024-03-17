@@ -8,7 +8,7 @@ const webpack = require('webpack-stream');
 
 const packageJson = require('./package.json'); // package.jsonを読み込む
 const webpackConfig = require('./webpack.config');
-const bundleJSList = ["./src/js/index.js"]
+const stylusEndpoints = ['./src/style/index.styl', './src/style/dm_external.styl']
 
 
 gulp.task('createVersionFolders', function (done) {
@@ -26,7 +26,7 @@ gulp.task('createVersionFolders', function (done) {
 
 gulp.task('compileStylus', function () {
     // Stylusファイルのコンパイル処理
-    return gulp.src(['./src/style/index.styl'])
+    return gulp.src(stylusEndpoints)
         .pipe(stylus())
         .pipe(gulp.dest('./dist/style/')); // コンパイルされたCSSファイルをsrcフォルダーに出力
 });

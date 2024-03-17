@@ -81,6 +81,11 @@ function createFastCSSRule(result) {
             document.documentElement.classList.add('PM-FixedHeaderWidth')
         }
     }
+    if ( location.hostname == "sp.nicovideo.jp" && location.pathname.startsWith("/watch") ) {
+        if ( result.enablespredirect == true ) {
+            location.href = location.href.replace("sp.nicovideo.jp","www.nicovideo.jp");
+        }
+    }
     // #endregion
     if (result.usetheaterui == true && result.usenicoboxui != true && location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/watch")) {
         document.documentElement.classList.add('is-PMTheaterUI')
@@ -91,7 +96,6 @@ function createFastCSSRule(result) {
 function onHeadPreparedCSS(result) {
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
         if (locationWhiteList.includes(location.hostname)) {
-            addCSS(chrome.runtime.getURL("style/css/darkmode/all.css"), true);
             if (location.hostname == "www.nicovideo.jp") {
                 if (location.pathname.indexOf('/video_top') != -1) {
                     //console.log('vidtop')

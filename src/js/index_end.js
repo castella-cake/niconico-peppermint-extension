@@ -30,7 +30,6 @@ function createBaseCSSRule(result) {
             //addCSS(chrome.runtime.getURL("style/css/darkmode/" + result.darkmode + ".css"));
         }
         if ( locationWhiteList.includes(location.hostname) ) {
-            addCSS(chrome.runtime.getURL("style/css/darkmode/all.css"), true);
             if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
                 $('.NiconicoLogo_black').addClass('NiconicoLogo_white')
                 $('.NiconicoLogo_black').removeClass('NiconicoLogo_black')

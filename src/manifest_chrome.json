@@ -16,8 +16,14 @@
     },
     "content_scripts": [
         {
+            "matches": [ "*://live.nicovideo.jp/*", "*://blog.nicovideo.jp/*", "*://anime.nicovideo.jp/*", "*://inform.nicovideo.jp/*", "*://koken.nicovideo.jp/*"],
+            "css": ["style/dm_external.css"],
+            "run_at": "document_start",
+            "all_frames" : true
+        },
+        {
             "matches": ["*://*.nicovideo.jp/*"],
-            "js": ["lib/jquery.min.js","lib/jquery-ui.min.js","js/global_function.js","js/index.bundle.js"],
+            "js": ["lib/jquery.min.js", "lib/jquery-ui.min.js", "js/global_function.js", "js/index.bundle.js"],
             "css": ["style/index.css"],
             "run_at": "document_start",
             "all_frames" : true
@@ -71,16 +77,6 @@
             "matches": ["*://*.nicovideo.jp/series/*"],
             "js": ["js/series.js"],
             "run_at": "document_idle"
-        },
-        {
-            "matches": ["*://live.nicovideo.jp/*"],
-            "js": ["js/live.js"],
-            "run_at": "document_end"
-        },
-        {
-            "matches": ["*://sp.nicovideo.jp/watch/*"],
-            "js": ["js/spredirect.js"],
-            "run_at": "document_end"
         }
     ],
     "web_accessible_resources": [{
