@@ -67,67 +67,71 @@ function generateActionTrackId() {
     })
 }
 function getSeriesInfo(seriesid, cachemode = 0) {
-    // シリーズ情報を取得してキャッシュします。あくまでこいつは新規取得に特化しています。
-    // なので、キャッシュがある場合はそっちから読むとかそんな動作はしません。→するようになりました
+    // シリーズ情報を取得してキャッシュします。
+    // キャッシュモードが0の場合はキャッシュを返します。
     // cachemode 0 => use cache 1 => no cache 2 => no cache and badge update
     return new Promise((resolve, reject) => {
         try {
             let getStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
             getStorageData.then((storage) => {
+                console.log(storage)
                 // ストレージにあるseriesidのキャッシュがnullでもundefinedでもなくて極めつけにusecacheがtrueならストレージのものを返す
                 if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != null && storage.seriesdatacache[seriesid] != undefined && cachemode == 0)) {
                     resolve(storage.seriesdatacache[seriesid])
                 } else {
-                    // そうじゃなければATI作ってfetchする
-                    generateActionTrackId().then((id) => {
-                        fetch(`https://nvapi.nicovideo.jp/v1/series/${seriesid}?_frontendId=6&_frontendVersion=0&actionTrackId=${id}`, { 'method': 'GET' }).then((res) => {
-                            if (res.ok) {
-                                // okだったらtextを取る
-                                res.text().then((data) => {
-                                    // objにパースして200かどうか確認する
-                                    let dataobj = JSON.parse(data)
-                                    let currentdate = new Date()
-                                    dataobj["fetchdate"] = currentdate.toString()
-                                    if (dataobj.meta.status == 200) {
-                                        // **ローカル**のストレージを呼ぶ
-                                        // nullかundefinedだったら直接突っ込む
-                                        if (storage.seriesdatacache == null || storage.seriesdatacache == undefined) {
-                                            chrome.storage.local.set({ "seriesdatacache": { [seriesid]: dataobj } })
+                    fetch(`https://nvapi.nicovideo.jp/v2/series/${seriesid}`, {
+                        'method': 'GET',
+                        "headers": {
+                            "X-Frontend-Id": "6",
+                            "X-Frontend-Version": "0",
+                        },
+                    }).then((res) => {
+                        if (res.ok) {
+                            // okだったらtextを取る
+                            res.text().then((data) => {
+                                // objにパースして200かどうか確認する
+                                let dataobj = JSON.parse(data)
+                                let currentdate = new Date()
+                                console.log(dataobj)
+                                dataobj["fetchdate"] = currentdate.toString()
+                                if (dataobj.meta.status == 200) {
+                                    // **ローカル**のストレージを呼ぶ
+                                    // nullかundefinedだったら直接突っ込む
+                                    if (storage.seriesdatacache == null || storage.seriesdatacache == undefined) {
+                                        chrome.storage.local.set({ "seriesdatacache": { [seriesid]: dataobj } })
+                                        resolve(dataobj)
+                                    } else {
+                                        // そうじゃなければ、ストレージの内容をvarにコピーして、変更したcacheを付け足して、ストレージに突っ込む
+                                        const seriescache = {...storage.seriesdatacache, [seriesid]: dataobj};
+                                        chrome.storage.local.set({ "seriesdatacache": seriescache });
+                                        if (cachemode == 2) {
+                                            // キャッシュがundefinedじゃなくてシリーズIDのキャッシュも過去にされててdataが今持ってるものと違うなら+を表示
+                                            if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != undefined && dataobj.data.totalCount != storage.seriesdatacache[seriesid].data.totalCount)) {
+                                                if (chrome.browserAction != undefined) {
+                                                    chrome.browserAction.setBadgeText({ text: "S" })
+                                                } else if (chrome.action != undefined) {
+                                                    chrome.action.setBadgeText({ text: "S" })
+                                                }
+                                            }
                                             resolve(dataobj)
                                         } else {
-                                            // そうじゃなければ、ストレージの内容をvarにコピーして、変更したcacheを付け足して、ストレージに突っ込む
-                                            let seriescache = JSON.parse(JSON.stringify(storage.seriesdatacache))
-                                            seriescache[seriesid] = dataobj
-                                            chrome.storage.local.set({ "seriesdatacache": seriescache })
-                                            if (cachemode == 2) {
-                                                // キャッシュがundefinedじゃなくてシリーズIDのキャッシュも過去にされててdataが今持ってるものと違うなら+を表示
-                                                if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != undefined && dataobj.data.totalCount != storage.seriesdatacache[seriesid].data.totalCount)) {
-                                                    if (chrome.browserAction != undefined) {
-                                                        chrome.browserAction.setBadgeText({ text: "S" })
-                                                    } else if (chrome.action != undefined) {
-                                                        chrome.action.setBadgeText({ text: "S" })
-                                                    }
-                                                }
-                                                resolve(dataobj)
-                                            } else {
-                                                resolve(dataobj)
-                                            }
+                                            resolve(dataobj)
                                         }
-                                    } else {
-                                        // 200じゃなかったらreject
-                                        reject(dataobj)
                                     }
-                                })
-                            } else {
-                                // そもそも呼べなかったらrejectしてステータス返す
-                                reject({ "meta": { "status": res.status, "reason": "APIの呼び出しに失敗しました" } })
-                            }
-                        })
+                                } else {
+                                    // 200じゃなかったらreject
+                                    reject(dataobj)
+                                }
+                            })
+                        } else {
+                            // そもそも呼べなかったらrejectしてステータス返す
+                            reject({ "meta": { "status": res.status, "reason": "APIの呼び出しに失敗しました" } })
+                        }
                     })
                 }
             })
-
         } catch (err) {
+            console.error(err)
             reject(err)
         }
     })
@@ -387,7 +391,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                 chrome.tabs.query({ 'active': true, 'currentWindow': true }, tabarray => {
                     if ( tabarray && tabarray[0] ) {
                         const activeURL = tabarray[0].url
-                        const pathArray = activeURL.replace("https://www.nicovideo.jp/", "").replace(/\?.*/, "").split("/")
+                        const pathArray = activeURL.replace(/\?.*$/, "").replace("https://www.nicovideo.jp/", "").split("/");
                         console.log(pathArray)
                         if (activeURL && activeURL.indexOf('www.nicovideo.jp') != -1 && pathArray.length >= 4 && pathArray[0] == "user" && pathArray[2] == "series") {
                             new Promise((resolve) => chrome.scripting.executeScript({
