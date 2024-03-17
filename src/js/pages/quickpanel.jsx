@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import CreateTabUI from "./modules/TabUI";
-import { SyncStorageProvider } from "./modules/extensionHook";
+import { StorageProvider } from "./modules/extensionHook";
 
 const manifestData = chrome.runtime.getManifest();
 const currentVersion = manifestData.version_name;
@@ -14,7 +14,7 @@ if (chrome.browserAction != undefined) {
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-    <SyncStorageProvider>
+    <StorageProvider>
         <div className="container">
             <div className="title-container">
                 <div className="title toptitle">
@@ -30,6 +30,6 @@ createRoot(document.getElementById("root")).render(
             </div>
         </div>
         <CreateTabUI/>
-    </SyncStorageProvider>
+    </StorageProvider>
     </StrictMode>,
 );

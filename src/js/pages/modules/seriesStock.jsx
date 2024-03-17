@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useSyncStorageContext } from "./extensionHook"
+import { useStorageContext } from "./extensionHook"
 import { linkAction } from "../../modules/actions";
 import {
     DndContext,
@@ -24,7 +24,7 @@ import { useLang } from "./localizeHook";
 
 function CreateSeriesStockBlock() {
     const lang = useLang()
-    const { syncStorage, setSyncStorageValue } = useSyncStorageContext()
+    const { syncStorage, setSyncStorageValue } = useStorageContext()
     const [isUnlocked, setIsUnlockedVar] = useState(false)
     const [isFolderCreateWindow, setIsFolderCreateWindowVar] = useState(false)
     const [fcDefaultSelected, setFCDefaultSelected] = useState([]);
@@ -121,7 +121,7 @@ function CreateSeriesStockBlock() {
 
     function SeriesStockRow(props) {
         const storage = props.storage
-        const [seriesStockVar, setSeriesStockVar] = useState({ seriesInfo: {}, episodeLists: {} })
+        const [seriesStockVar, setSeriesStockVar] = useState({ seriesInfo: {} })
         useEffect(() => {
             async function getData() {
                 const seriesInfoObj = {}
@@ -142,7 +142,6 @@ function CreateSeriesStockBlock() {
             }
             getData()
         }, [])
-
         function CreateRowList(props) {
             const array = props.array
             // 個別表示するべきかしないべきかを判断するために、一旦シリーズストック内にあるフォルダーを見て、個別表示してはならないIDを列挙する

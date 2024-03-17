@@ -2,12 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import CreateSettingsList from "./modules/SettingsUI";
 import lang from "../../langs/ja.json";
-import { SyncStorageProvider } from "./modules/extensionHook";
+import { StorageProvider } from "./modules/extensionHook";
 
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
-        <SyncStorageProvider>
+        <StorageProvider>
             <div className="container">
                 <div className="title-container">
                     <div className="title toptitle"><a href="settings.html" target="_blank" rel="noopener noreferrer" className="optlink">PepperMint+ の設定</a></div>
@@ -42,6 +42,6 @@ createRoot(document.getElementById("root")).render(
                     <a href="credit.html" target="_self" className="settinglink">PepperMintについて...</a>    
                 </div>
             </div>
-        </SyncStorageProvider>
+        </StorageProvider>
     </StrictMode>,
 );

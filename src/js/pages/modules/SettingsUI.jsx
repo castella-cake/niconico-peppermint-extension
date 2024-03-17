@@ -1,11 +1,11 @@
 import settings from "./settingsList";
 import "../../../style/pages/settingsUI.styl"
-import { useSyncStorageContext } from "./extensionHook";
+import { useStorageContext } from "./extensionHook";
 import { useLang } from "./localizeHook";
 
 function CreateSettingsList() {
     const lang = useLang()
-    const { syncStorage, setSyncStorageValue } = useSyncStorageContext()
+    const { syncStorage, setSyncStorageValue } = useStorageContext()
     function createSettingsControl(settings) {
         //console.log(lang.SETTINGS_ITEMS[settings.name].name)
         if ( settings.type == "checkbox" ) {

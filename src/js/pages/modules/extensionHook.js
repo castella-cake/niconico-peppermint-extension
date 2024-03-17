@@ -15,6 +15,7 @@ export function useSyncStorage() {
     useEffect(() => {
         async function setStorage() {
             _setSyncStorageVar(await getSyncStorageData)
+            console.log("syncstorage get")
         } 
         setStorage()
     }, [])
@@ -35,6 +36,7 @@ export function useLocalStorage() {
     useEffect(() => {
         async function setStorage() {
             _setLocalStorageVar(await getLocalStorageData)
+            console.log("localstorage get")
         } 
         setStorage()
     }, [])
@@ -42,22 +44,55 @@ export function useLocalStorage() {
 }
 
 export function useManifestData() {
-    const [ manifestData, _setManifestDataVar ] = useState(null)
+    return chrome.runtime.getManifest()
+}
+
+export function useStorage() {
+    const [ storages, _setStorageVar ] = useState({ local: {}, sync: {} })
+    function setLocalStorageValue(name, value) {
+        _setStorageVar(current => {
+            return {
+                ...current,
+                local: {
+                    ...current.local,
+                    [name]: value 
+                }
+            }
+        })
+        chrome.storage.local.set({ [name]: value })
+    }
+    function setSyncStorageValue(name, value) {
+        _setStorageVar(current => {
+            return {
+                ...current,
+                sync: {
+                    ...current.sync,
+                    [name]: value 
+                }
+            }
+        })
+        chrome.storage.sync.set({ [name]: value })
+    }
     useEffect(() => {
-        _setManifestDataVar(chrome.runtime.getManifest());
+        async function setStorage() {
+            const localStorage = await getLocalStorageData
+            const syncStorage = await getSyncStorageData
+            _setStorageVar({ local: localStorage, sync: syncStorage })
+        } 
+        setStorage()
     }, [])
-    return manifestData
+    return [storages, setLocalStorageValue, setSyncStorageValue]
 }
 
-const ISyncStorageContext = createContext()
+const IStorageContext = createContext()
 
-export function SyncStorageProvider({ children }) {
-    const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
-    return (<ISyncStorageContext.Provider value={{ syncStorage, setSyncStorageValue }}>
+export function StorageProvider({ children }) {
+    const [storages, setLocalStorageValue, setSyncStorageValue] = useStorage()
+    return (<IStorageContext.Provider value={{ syncStorage: storages.sync, setSyncStorageValue, localStorage: storages.local, setLocalStorageValue }}>
         {children}
-    </ISyncStorageContext.Provider>)
+    </IStorageContext.Provider>)
 }
 
-export function useSyncStorageContext() {
-    return useContext(ISyncStorageContext)
+export function useStorageContext() {
+    return useContext(IStorageContext)
 }

@@ -6,7 +6,7 @@ import settings from "./settingsList";
 import CreateDashboardUI from "./dashboardUI";
 
 import { MdOutlineEdit, MdOutlineEditOff } from "react-icons/md"
-import { useLocalStorage, useManifestData, useSyncStorageContext } from "./extensionHook";
+import { useManifestData, useStorageContext } from "./extensionHook";
 import { useLang } from "./localizeHook";
 // #region Enum
 const tabType = Object.freeze({
@@ -21,8 +21,7 @@ const tabType = Object.freeze({
 function createTabUI() {
     const lang = useLang()
     const manifestData = useManifestData()
-    const { syncStorage, setSyncStorageValue } = useSyncStorageContext()
-    const [ localStorage, setLocalStorageValue ] = useLocalStorage()
+    const { syncStorage, setSyncStorageValue, localStorage, setLocalStorageValue } = useStorageContext()
     if (syncStorage.skipquickpanel === true) {
         location.href = "settings.html"
     }

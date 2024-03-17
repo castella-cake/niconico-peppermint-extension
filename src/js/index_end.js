@@ -79,10 +79,13 @@ function createBaseCSSRule(result) {
                 $('.stockedserieswindow-container').remove()
             } else {
                 // <button id="togglelock" class="togglelock">ロック解除</button>
-                $('.openstock-container').before('<div class="stockedserieswindow-container"><div>ストック中のシリーズ<button id="togglelock" class="togglelock">ロック解除</button></div><div class="stockedserieslist-container"></div></div>')
+                $('.openstock-container').before('<div class="stockedserieswindow-container"><div>ストック中のシリーズ<button id="togglelock" class="togglelock">ロック解除</button></div><div style="font-size: 12px;">シリーズストックの「ニコニコ内で表示」は非推奨になり、今後のアップデートで削除されます。<br>クイックパネルのシリーズストック表示を利用してください。</div><div class="stockedserieslist-container"></div></div>')
                 var getNewStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
                 getNewStorageData.then(function (newresult) {
-                    $.each(newresult.stockedseries, function (i, object) {
+                    newresult.stockedseries.forEach((object) => {
+                        if (object.type == "folder") {
+                            return
+                        }
                         let seriesHref = `https://www.nicovideo.jp/series/${object.seriesID}`
                         // ニコニコ動画は、watchページのリンクにクエリパラメータ playlist を渡すことで連続再生できるようになります
                         // 内容はJSONで、Base64でエンコードします

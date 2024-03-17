@@ -24,12 +24,12 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import CreateNicorepoUI from "./nicorepoUI";
-import { useSyncStorageContext } from "./extensionHook";
+import { useStorageContext } from "./extensionHook";
 import { useLang } from "./localizeHook";
 
 function CreateDashboardUI() {
     const lang = useLang()
-    const { syncStorage, setSyncStorageValue } = useSyncStorageContext()
+    const { syncStorage, setSyncStorageValue } = useStorageContext()
 
     const dashboardBlocks = { quickoption: <CreateQuickOption/>, seriesstock: (syncStorage.enableseriesstock ? <CreateSeriesStockBlock/> : <></>), nicorepo: <CreateNicorepoUI isrecentblock={true} displaylimit={5}/> }
     const [isChanged, setIsChanged] = useState(false);
