@@ -375,6 +375,9 @@ html.PMDM-NicoLiveWatch {
     [class^="___tag"] > li > .program-tag-card > .name-anchor {
         color: var(--textcolor1);
     }
+    .tag-list > li > .program-tag-card > .information > .name-label {
+        color: var(--textcolor1)
+    }
 
     /* フォローボタン */
     [class^="___toggle-button___"][aria-pressed="false"] {
@@ -403,6 +406,14 @@ html.PMDM-NicoLiveWatch {
     }
     [class^="___promotion-balloon"]::after {
         border-top: var(--tail-size) solid var(--bgcolor2);
+    }
+    
+    [class^="___contents-tree-anchor___"], [class^="___creator-promotion-program-anchor___"], [class^="___download-button___VwcdB"] {
+        background: var(--bgcolor2);
+        border: 1px solid var(--accent1)
+    }
+    [class^="___tree-graph-icon___"] > path {
+        fill: var(--textcolor1)
     }
 }
 html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {

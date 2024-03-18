@@ -67,6 +67,9 @@ function createFastCSSRule(result) {
     if ( result.highlightnewnotice == true ) {
         document.documentElement.classList.add('PM-HighlightNewNotice')
     }
+    if ( result.hideheaderbanner == true ) {
+        document.documentElement.classList.add('PM-HideHeaderBanner')
+    }
     if ( location.hostname == "www.nicovideo.jp" ) {
         if ( result.hidesupporterbutton == "all" || (result.hidesupporterbutton == "watch" && location.pathname.indexOf('/watch') != -1) ) {
             document.documentElement.classList.add('PM-HideSupporter')

@@ -176,6 +176,10 @@
     container: ctrlcontainer / inline-size;
     overflow-x: scroll;
 }
+
+.common-header-ii5yd9 {
+    display: none;
+}
 @container ctrlcontainer (max-width: 700px) {
     .PlayerPauseButton, .PlayerPlayButton {
         left: inherit;

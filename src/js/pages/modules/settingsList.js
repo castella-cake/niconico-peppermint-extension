@@ -16,6 +16,11 @@ const settings = {
             default: false,
         },
         {
+            type: "checkbox",
+            name: "hideheaderbanner",
+            default: false,
+        },
+        {
             type: "select",
             name: "hidesupporterbutton",
             values: ["", "watch", "all"],
