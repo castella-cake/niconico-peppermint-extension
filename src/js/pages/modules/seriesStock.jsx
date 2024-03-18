@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useStorageContext } from "./extensionHook"
+import { useStorageContext, useSyncStorage } from "./extensionHook"
 import { linkAction } from "../../modules/actions";
 import {
     DndContext,
@@ -24,7 +24,7 @@ import { useLang } from "./localizeHook";
 
 function CreateSeriesStockBlock() {
     const lang = useLang()
-    const { syncStorage, setSyncStorageValue } = useStorageContext()
+    const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
     const [isUnlocked, setIsUnlockedVar] = useState(false)
     const [isFolderCreateWindow, setIsFolderCreateWindowVar] = useState(false)
     const [fcDefaultSelected, setFCDefaultSelected] = useState([]);

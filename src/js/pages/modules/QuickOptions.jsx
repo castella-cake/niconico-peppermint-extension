@@ -18,7 +18,7 @@ import {
     useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from "@dnd-kit/utilities";
-import { useStorageContext } from "./extensionHook";
+import { useStorageContext, useSyncStorage } from "./extensionHook";
 
 //import { EditOutlined, EditOffOutlined, DeleteOutlined } from "@mui/icons-material";
 import { MdOutlineEdit, MdOutlineEditOff, MdDeleteOutline} from "react-icons/md"
@@ -26,7 +26,7 @@ import { useLang } from "./localizeHook";
 
 function CreateQuickOption() {
     const lang = useLang()
-    const { syncStorage, setSyncStorageValue } = useStorageContext()
+    const [ syncStorage, setSyncStorageValue ] = useSyncStorage()
     const [ isEditMode, setIsEditMode ] = useState(false)
     const settingsObj = {}
     Object.keys(settings).map((elem) => {
