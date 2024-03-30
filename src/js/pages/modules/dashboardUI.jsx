@@ -102,7 +102,7 @@ function CreateDashboardUI() {
         </DndContext>
         <button type="button" className="dashboard-editbutton" onClick={() => {
             setIsEditMode(!isEditMode)
-        }}>{isEditMode ? <><MdOutlineDone style={{fontSize: 14}}/> {lang.EDITBUTTON_TITLE_EDITOFF}{isChanged && lang.CLICK_TO_RELOAD}</> : <><MdOutlineEdit style={{fontSize: 14}}/> {lang.DASHBOARD_EDIT}</>}</button>
+        }}>{isEditMode ? <><MdOutlineDone style={{fontSize: 14}}/> {lang.EDITBUTTON_TITLE_EDITOFF}</> : <><MdOutlineEdit style={{fontSize: 14}}/> {lang.DASHBOARD_EDIT}</>}</button>
     </div>
 }
 

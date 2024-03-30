@@ -218,6 +218,7 @@
     "CLOSE": "閉じる",
     "CANCEL": "キャンセル",
     "ADD": "追加",
+    "REMOVE": "削除",
 
     "DASHBOARD": "ダッシュボード",
     "QUICK_SETTINGS": "クイック設定",
@@ -242,6 +243,7 @@
     "ADD_AVAILABLE_FROM_CURRENT_TAB": "現在のタブから追加可能",
     "OPEN_FOLDER": "フォルダーを開く",
     "CLOSE_FOLDER": "フォルダーを閉じる",
+    "REMOVE_FROM_FOLDER": "フォルダーから除去",
     "MOVE_TO_SELECTED_FOLDER": "指定フォルダーに移動",
     "NEW_FOLDER_OPENMODAL": "新規フォルダー...",
     "FOLDER_MOVE_TO_LABEL": "移動先フォルダー",
@@ -255,6 +257,7 @@
 
     "ADD_FOLDER_TITLE": "フォルダーの作成",
     "EDIT_FOLDER_TITLE": "フォルダーの編集",
+    "REMOVE_FOLDER_TITLE": "フォルダーを削除(フォルダー内のシリーズはフォルダー外に移動されます)",
 
     "ADD_FOLDER_DESC": "フォルダーを編集します。\n表示されているシリーズは、現在追加/削除可能なシリーズのリストです。\nチェックボックスを有効化すると、フォルダーに選択されたシリーズが移動されます。",
     "EDIT_FOLDER_DESC": "現在のシリーズストック内に新しいフォルダーを作成します。\n表示されているシリーズは、現在移動可能なシリーズのリストです。\nチェックボックスを有効化すると、フォルダーに選択したシリーズが移動されます。",

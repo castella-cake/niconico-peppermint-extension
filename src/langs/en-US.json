@@ -266,6 +266,7 @@
     "CLOSE": "Close",
     "CANCEL": "Cancel",
     "ADD": "Add",
+    "REMOVE": "Remove",
 
     "DASHBOARD": "Dashboard",
     "QUICK_SETTINGS": "Quick settings",
@@ -290,6 +291,7 @@
     "ADD_AVAILABLE_FROM_CURRENT_TAB": "Can be added from the current tab",
     "OPEN_FOLDER": "Open folder",
     "CLOSE_FOLDER": "Close folder",
+    "REMOVE_FROM_FOLDER": "Remove from folder",
     "MOVE_TO_SELECTED_FOLDER": "Move to specified folder",
     "NEW_FOLDER_OPENMODAL": "New folder...",
     "FOLDER_MOVE_TO_LABEL": "Destination folder",
@@ -303,6 +305,7 @@
 
     "ADD_FOLDER_TITLE": "Create a folder",
     "EDIT_FOLDER_TITLE": "Edit folder",
+    "REMOVE_FOLDER_TITLE": "Remove Folder (Series within the folder will be moved outside)",
 
     "ADD_FOLDER_DESC": "Edit the folder. \nThe series displayed is the list of series that can currently be added/removed. Enabling the checkbox will move the selected series to the folder.",
     "EDIT_FOLDER_DESC": "Creates a new folder within the current series stock. \nThe series displayed is a list of series that can currently be moved. Enabling the checkbox will move the selected series to the folder.",

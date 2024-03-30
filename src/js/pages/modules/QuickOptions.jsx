@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import settings from "./settingsList";
 import "../../../style/pages/settingsUI.styl"
 
@@ -63,7 +63,7 @@ function CreateQuickOption() {
         //console.log(lang.SETTINGS_ITEMS[settings.name].name)
         const settings = props.settings
         if ( isEditMode ) {
-            return <div className="quickoptions-editmode-row" key={settings.name + "-edit"}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<button className="quickoption-editmode-remove" type="button" onClick={() => {removeQuickOptionList(settings.name)}}><MdDeleteOutline style={{fontSize: 16}}/></button></div>
+            return <div className="quickoptions-editmode-row" key={settings.name + "-edit"}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<button className="quickoption-editmode-remove" type="button" title={lang.REMOVE} onClick={() => {removeQuickOptionList(settings.name)}}><MdDeleteOutline style={{fontSize: 16}}/></button></div>
         }
         if ( settings.type == "checkbox" ) {
             return <label key={settings.name}><input type="checkbox" checked={syncStorage[settings.name] ?? settings.default} onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.checked)}} />{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}</label>
@@ -94,8 +94,9 @@ function CreateQuickOption() {
         return settingsFilter.map(elem => {return createSettingsRow(settingsObj[elem])})
     }
 
-    function onAddSelectChanged(e) {
-        settingsFilter.push(e.currentTarget.value)
+    const selectRef = useRef(null)
+    function onAddButtonClicked() {
+        settingsFilter.push(selectRef.current.value)
         setSyncStorageValue("quickoptionlist", settingsFilter)
     }
 
@@ -116,7 +117,7 @@ function CreateQuickOption() {
                 </div>
             </SortableContext>
         </DndContext>
-        {isEditMode && <div>{lang.ADD_ITEM} <select onChange={onAddSelectChanged}>{Object.keys(settingsObj).filter(elem => {return !settingsFilter.includes(elem)}).map((elem) => { return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[elem].name ?? elem}</option> })}</select></div>}
+        {isEditMode && <div>{lang.ADD_ITEM} <select ref={selectRef}>{Object.keys(settingsObj).filter(elem => {return !settingsFilter.includes(elem)}).map((elem) => { return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[elem].name ?? elem}</option> })}</select><button onClick={onAddButtonClicked} class="quickoption-button-add">{lang.ADD}</button></div>}
     </div>
 }
 

@@ -50,11 +50,16 @@ export function SeriesRow(props) {
     return <div className="stockedseries-row" key={thisSeries.seriesID} ref={setNodeRef} style={dndStyle} {...attributes} {...listeners}>
         <div className={isDetailedViewExpanded ? "stockedseries-desc-container detailedviewexpanded" : "stockedseries-desc-container"}>
             <div className="serieslink-container">
-                {(thisSeriesInfo && thisSeriesInfo.data && thisSeriesInfo.data.detail && thisSeriesInfo.data.detail.thumbnailUrl) && <img src={thisSeriesInfo.data.detail.thumbnailUrl} title={thisSeriesInfo.data.detail.title + lang.THUMB_ALT_TEXT} className="stockedseries-row-thumbnail" />}
+                {(thisSeriesInfo && thisSeriesInfo.data && thisSeriesInfo.data.detail && thisSeriesInfo.data.detail.thumbnailUrl) && 
+                    <img src={thisSeriesInfo.data.detail.thumbnailUrl} title={thisSeriesInfo.data.detail.title + lang.THUMB_ALT_TEXT} className="stockedseries-row-thumbnail" />
+                }
                 <div className="seriesinfo-container">
-                    <a className="stockedseries-row-link" href={seriesHref} target="_blank">{thisSeries.seriesName}</a>
+                    <a className="stockedseries-row-link" href={seriesHref} target="_blank">
+                        {thisSeries.seriesName}
+                        {isUnlocked && <span style={{ fontSize: 12, color: "var(--textcolor2)", fontWeight: "normal", marginLeft: 4}}> (ID: {thisSeries.seriesID})</span>}
+                    </a>
                     { !isMoveWindowOpen && 
-                        <>{props.isfolder ? <button className="stockedseries-row-actionbutton" onClick={() => {removeFromFolder(props.folderid, props.folderindex, thisSeries.seriesID)}}>フォルダから除去</button> : 
+                        <>{props.isfolder ? <button className="stockedseries-row-actionbutton" onClick={() => {removeFromFolder(props.folderid, props.folderindex, thisSeries.seriesID)}}>{lang.REMOVE_FROM_FOLDER}</button> : 
                         <button className="stockedseries-row-actionbutton" onClick={() => {setMoveWindowOpen(!isMoveWindowOpen)}} title={lang.MOVE_TO_FOLDER}><MdOutlineDriveFileMove/></button>}
                         <button className="stockedseries-row-actionbutton" onClick={() => {removeSeriesStock(thisSeries.seriesID)}} title={lang.REMOVE_FROM_STOCK}><MdDeleteOutline /></button></>
                     }
@@ -72,7 +77,7 @@ export function SeriesRow(props) {
                     }
                 </div>
             </div>
-            { isMoveWindowOpen && <MoveToFolder seriesid={thisSeries.seriesID}/>}
+            { isMoveWindowOpen && <MoveToFolder seriesid={thisSeries.seriesID} onExit={() => {setMoveWindowOpen(false)}}/>}
             <div className="stockedseries-vidlink-container">
                 {thisSeries.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisSeries.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${thisSeries.seriesID}`}><MdOutlinePlayArrow />{lang.LASTVID_TITLE}<span>{thisSeries.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><MdOutlinePlayArrow />{lang.LASTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
                 {thisSeries.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisSeries.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${thisSeries.seriesID}`}><MdOutlineSkipNext />{lang.NEXTVID_TITLE}<span>{thisSeries.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><MdOutlineSkipNext />{lang.NEXTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}

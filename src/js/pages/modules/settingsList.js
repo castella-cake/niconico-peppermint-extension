@@ -237,10 +237,6 @@ const settings = {
             type: "checkbox",
             name: "enableseriesstock",
             default: false,
-            settingLink: {
-                name: "SERIESSTOCK_MANAGESERIES_LINK",
-                href: "manageseries.html"
-            },
             children: [{
                 type: "checkbox",
                 name: "showseriesstockinpage",

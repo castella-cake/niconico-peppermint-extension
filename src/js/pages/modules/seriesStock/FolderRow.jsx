@@ -59,8 +59,8 @@ export function FolderRow(props) {
             {!isUnlocked && <button type="button" onClick={() => {setIsOpen(!isOpen)}} className="stockedseries-folder-openbutton">
                 { isOpen ? <>{lang.CLOSE_FOLDER}<MdOutlineExpandLess/></> : <>{lang.OPEN_FOLDER}<MdOutlineExpandMore/></> }
             </button>}
-            <button className="stockedseries-row-actionbutton" onClick={() => {setFCEditId(elem.id);setIsFolderCreateWindowVar(true)}}><MdOutlineEdit /></button>
-            <button className="stockedseries-row-actionbutton" onClick={() => {removeFolder(elem.id)}}><MdDeleteOutline /></button>
+            <button className="stockedseries-row-actionbutton" onClick={() => {setFCEditId(elem.id);setIsFolderCreateWindowVar(true)}} title={lang.EDIT_FOLDER_TITLE}><MdOutlineEdit /></button>
+            <button className="stockedseries-row-actionbutton" onClick={() => {removeFolder(elem.id)}} title={lang.REMOVE_FOLDER_TITLE}><MdDeleteOutline /></button>
         </div>
         <div className="stockedseries-folder-details" style={(!isOpen && !isUnlocked) ? {display: "none"} : {}}>
             <DndContext

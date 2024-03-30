@@ -5,7 +5,7 @@ import { useSSContext } from "./SSContext"
 // 操作: フォルダーへ移動, フォルダー追加モーダルを開く
 export function MoveToFolder(props) {
     const folderSelectRef = useRef(null)
-    const { fcDefaultSelected, setFCDefaultSelected, setIsFolderCreateWindowVar, lang, syncStorage, setSyncStorageValue } = useSSContext()
+    const { fcDefaultSelected, setFCDefaultSelected, setIsFolderCreateWindowVar, lang, syncStorage, setSyncStorageValue} = useSSContext()
     const seriesId = props.seriesid
 
     function addToFolder(folderId, seriesId) {
@@ -29,14 +29,14 @@ export function MoveToFolder(props) {
         <div className="buttons-container">
             <button type="button" onClick={() => {
                 addToFolder(folderSelectRef.current.value, seriesId)
-                setMoveWindowOpen(false)
+                props.onExit()
             }}>{lang.MOVE_TO_SELECTED_FOLDER}</button>
             <button type="button" onClick={() => {
                 setFCDefaultSelected([...fcDefaultSelected, seriesId])
                 setIsFolderCreateWindowVar(true)
-                setMoveWindowOpen(false)
+                props.onExit()
             }}>{lang.NEW_FOLDER_OPENMODAL}</button>
-            <button type="button" onClick={() => {setMoveWindowOpen(false)}}>{lang.CANCEL}</button>
+            <button type="button" onClick={props.onExit}>{lang.CANCEL}</button>
         </div>
     </div> 
 }
