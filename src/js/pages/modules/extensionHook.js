@@ -52,7 +52,7 @@ export function useManifestData() {
 }
 
 export function useStorage() {
-    const [ storages, _setStorageVar ] = useState({ local: {}, sync: {} })
+    const [ storages, _setStorageVar ] = useState({ local: {}, sync: {}, isLoaded: false })
     function setLocalStorageValue(name, value) {
         _setStorageVar(current => {
             return {
@@ -81,7 +81,7 @@ export function useStorage() {
         async function setStorage() {
             const localStorage = await getLocalStorageData()
             const syncStorage = await getSyncStorageData()
-            _setStorageVar({ local: localStorage, sync: syncStorage })
+            _setStorageVar({ local: localStorage, sync: syncStorage, isLoaded: true })
         } 
         setStorage()
     }, [])
@@ -92,7 +92,7 @@ const IStorageContext = createContext()
 
 export function StorageProvider({ children }) {
     const [storages, setLocalStorageValue, setSyncStorageValue] = useStorage()
-    return (<IStorageContext.Provider value={{ syncStorage: storages.sync, setSyncStorageValue, localStorage: storages.local, setLocalStorageValue }}>
+    return (<IStorageContext.Provider value={{ syncStorage: storages.sync, setSyncStorageValue, localStorage: storages.local, setLocalStorageValue, isLoaded: storages.isLoaded }}>
         {children}
     </IStorageContext.Provider>)
 }

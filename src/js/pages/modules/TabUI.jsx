@@ -21,7 +21,7 @@ const tabType = Object.freeze({
 function createTabUI() {
     const lang = useLang()
     const manifestData = useManifestData()
-    const { syncStorage, setSyncStorageValue, localStorage, setLocalStorageValue } = useStorageContext()
+    const { syncStorage, setSyncStorageValue, localStorage, setLocalStorageValue, isLoaded } = useStorageContext()
     if (syncStorage.skipquickpanel === true) {
         location.href = "settings.html"
     }
@@ -63,7 +63,7 @@ function createTabUI() {
         </div>
         <div className="quickpanel-mainpanel maincontainer">
             <div className="tabpanel current-tabpanel" style={isEditMode ? {background: "var(--bgcolor2)"} : {}}>
-                { isEditMode ? <div style={{ fontSize: 14, padding: 4, whiteSpace: "pre-wrap" }}>{lang.QUICKPANEL_TAB_EDIT_DESC}</div> :  currentTabElem }
+                { isLoaded && ( isEditMode ? <div style={{ fontSize: 14, padding: 4, whiteSpace: "pre-wrap" }}>{lang.QUICKPANEL_TAB_EDIT_DESC}</div> :  currentTabElem ) }
             </div>
         </div>
     </div>
