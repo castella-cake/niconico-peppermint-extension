@@ -2,64 +2,81 @@ getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
     // #region シリーズストック
     if (result.enableseriesstock == true) {
-        let seriesBC = document.querySelector('.SeriesBreadcrumbs')
-        let seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
         $('.pmbutton-container').prepend('<div class="addtostock-container subaction-container"><button id="addtostock" class="material-icons-outlined subaction-button">add</button></div>')
+        function addCurrentSeriesToStock() {
+            const seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            if ( seriesBCTitle ) {
+                manageSeriesStock(seriesBCTitle.href.slice(32).replace(/\?.*/, ''), seriesBCTitle.textContent).then(result => {
+                    if (result) {
+                        $('#addtostock').text("remove")
+                        $("#addtostock-text").text("シリーズをストックから削除")
+                    } else {
+                        $('#addtostock').text("add")
+                        $("#addtostock-text").text("シリーズをストックに追加")
+                    }
+                }).catch(error => {
+                    onError(error);
+                });
+            }
+        }
         function updateStockUI() {
-            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            const seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            const addToStockButton = document.getElementById('addtostock')
             // タイトルの下にあるシリーズを表示するやつがあるか。動画にシリーズがないなら、これは存在しない
-            //console.log(seriesBCTitle)
-            if (seriesBCTitle != null) {
-                $('#addtostock').removeClass('disabled')
-                seriesIsStocked(seriesBCTitle.href.slice(32))
+            if ( seriesBCTitle ) {
+                const thisSeriesId = seriesBCTitle.href.slice(32).replace(/\?.*/, '')
+                addToStockButton.classList.remove("disabled")
+                seriesIsStocked(thisSeriesId)
                     .then(result => {
                         if (result) {
-                            $('#addtostock').text("remove")
+                            addToStockButton.textContent = "remove"
                         } else {
-                            $('#addtostock').text("add")
+                            addToStockButton.textContent = "add"
                         }
                         //console.log(result)
                     }).catch(error => {
                         //console.log(error);
                     });
-                document.getElementById('addtostock').addEventListener('click', addCurrentSeriesToStock)
+                addToStockButton.addEventListener('click', addCurrentSeriesToStock)
             } else {
-                document.getElementById('addtostock').removeEventListener('click', addCurrentSeriesToStock)
-                $('#addtostock').addClass('disabled')
+                addToStockButton.removeEventListener('click', addCurrentSeriesToStock)
+                addToStockButton.classList.add("disabled")
             }
         }
         function updateStockVidInfo() {
-            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
-            if (seriesBCTitle != null) {
-                let currentVidSeriesID = seriesBCTitle.href.slice(32)
-                let currentVidSeriesName = seriesBCTitle.textContent
+            const seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            if (seriesBCTitle) {
+                const currentVidSeriesId = seriesBCTitle.href.slice(32).replace(/\?.*/, '')
                 // シリーズにあるかどうかを見るために、ストック中のシリーズを取得する
                 chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
                     // pathnameで /watch/sm.... が取得できるので、7文字切ってsm...だけ取得する
-                    let smID = location.pathname.slice(7)
-                    let stockedseriesarray = stockdata.stockedseries
+                    const smID = location.pathname.slice(7).replace(/\?.*/, '')
+                    const stockedseriesarray = stockdata.stockedseries
                     // シリーズ要素のhrefで https://www.nicovideo.jp/series/1234... を取得できるので、32文字切ってシリーズIDを取得する
-                    $.each(stockedseriesarray, function (i, object) {
-                        if (object.seriesID == currentVidSeriesID) {
-                            //console.log(`current series! ${smID}`)
+                    stockedseriesarray.forEach((object) => {
+                        if (object.seriesID == currentVidSeriesId) {
                             object.lastVidID = smID
                             object.lastVidName = document.querySelector('.VideoTitle').textContent
-                            //console.log($('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href'))
                             // 概要欄が開かれていない場合、.VideoDescriptionExpander-switch という要素に VideoDescriptionExpander-switchExpand というクラスが着く = nullではなくなる
-                            if (document.querySelector('.VideoDescriptionExpander-switchExpand') != null) {
+                            if ( document.querySelector('.VideoDescriptionExpander-switchExpand') ) {
                                 // 概要欄から読み取るので、概要欄が開かれてないときは一瞬開いて読み取る
-                                $('.VideoDescriptionExpander-switch').trigger('click');
-                                if (document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null) {
+                                document.querySelector('.VideoDescriptionExpander-switch').click();
+                                const nextVidElem = document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle')
+                                if ( nextVidElem ) {
                                     // 概要欄のシリーズ表示にある、「次の動画」のhrefを31文字切る。hrefはこういう形式(https://www.nicovideo.jp/watch/sm123456?ref=pc_watch_description_series)
                                     // なので、31文字切って最初のpathnameをなくしたうえで、不要なゴミトラッキング情報を消し飛ばす
-                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
-                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
+                                    object.nextVidID = nextVidElem.href.slice(31).replace(/\?.*/, '')
+                                    object.nextVidName = nextVidElem.textContent
                                 }
-                                $('.VideoDescriptionExpander-switch').trigger('click');
+                                // 即時実行だとなんか動かないときあるので0.1s空ける
+                                setTimeout(() => {
+                                    document.querySelector('.VideoDescriptionExpander-switch').click();
+                                }, 100)
                             } else {
-                                if (document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null) {
-                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
-                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
+                                const nextVidElem = document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle')
+                                if ( nextVidElem ) {
+                                    object.nextVidID = nextVidElem.href.slice(31).replace(/\?.*/, '')
+                                    object.nextVidName = nextVidElem.textContent
                                 }
                             }
                             //console.log(object)
@@ -70,23 +87,6 @@ function createCSSRule(result) {
                     })
                 })
             }
-        }
-        function addCurrentSeriesToStock() {
-            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
-            manageSeriesStock(seriesBCTitle.href.slice(32), seriesBCTitle.textContent)
-                .then(result => {
-                    //console.log(result)
-                    if (result) {
-                        $('#addtostock').text("remove")
-                        $("#addtostock-text").text("シリーズをストックから削除")
-                        updateStockVidInfo()
-                    } else {
-                        $('#addtostock').text("add")
-                        $("#addtostock-text").text("シリーズをストックに追加")
-                    }
-                }).catch(error => {
-                    onError(error);
-                });
         }
         updateStockUI()
         updateStockVidInfo()
@@ -108,9 +108,9 @@ function createCSSRule(result) {
             attributes: true
         })
         document.getElementById('addtostock').addEventListener('mouseenter', function () {
-            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            const seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
             if (seriesBCTitle != null) {
-                seriesIsStocked(seriesBCTitle.href.slice(32))
+                seriesIsStocked(seriesBCTitle.href.slice(32).replace(/\?.*/, ''))
                     .then(result => {
                         if (document.querySelector('#addtostock-text') == null) {
                             if (result) {
