@@ -1,4 +1,4 @@
-:root {
+#root {
 	--primary: #0060df;
 	--primary-hover: #0090ed;
 	--destructive: #c50042;
@@ -7,7 +7,7 @@
 	/* 基本背景色 */
 	--bgcolor1: #fefefe;
 	/* サブ背景色1 */
-	--bgcolor2: #dedede;
+	--bgcolor2: #f8f8f8;
 	/* サブ背景色2 */
 	--bgcolor3: #d0d0d0;
 	--bgcolor4: #d0d0d0;
@@ -93,7 +93,7 @@ a {
 	/*background: #00796b;
 	box-shadow: 0px 0px 5px #000;*/
 	line-height: 24px;
-	font-weight: lighter;
+	font-weight: normal;
 }
 
 .settings-area {
@@ -294,7 +294,8 @@ a {
 	font-size: 18px;
 	margin: 0 0 8px 0;
 }
-.block-title a {
+
+.block-title a:not(.block-title-primary-link) {
 	line-height: 18px;
 	font-size: 14px;
 	font-weight: 600;
@@ -303,7 +304,7 @@ a {
 
 .block-title-primary-link {
 	text-decoration: none;
-	color: #fff;
+	color: #fff !important;
 	padding: 4px 5px;
 	background: var(--primary);
 	box-shadow: 0px 0px 1px var(--primary-hover);
@@ -755,7 +756,7 @@ a {
 		color: #fff;
 	}
 
-	:root {
+	#root {
 		/* 基本背景色 */
 		--bgcolor1: #1c1b22;
 		/* サブ背景色1 */

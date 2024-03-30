@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2024/03(ETA)
+## [2.0.0] - 2024/03/31
 
 ### Added
 - クイックパネルのダッシュボードアイテムを並び替えたり非表示にしたりできるようになりました [#29](https://github.com/castella-cake/niconico-peppermint-extension/issues/29)
@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - カラーパレットに`危険テキスト色`が追加されました
 - ニコニコ生放送のダークモードサポートを改善しました
 - シリーズストックにフォルダー機能を追加しました [#15](https://github.com/castella-cake/niconico-peppermint-extension/issues/15)
+- `ヘッダーのイベント告知バナーを隠す`を追加しました
+- 拡張機能ページのローカライズに部分的に対応しました(現在は日本語,英語がサポートされています)
 
 ### Changed
 - クイックパネルとメイン設定ページは完全にReact+JSXで書き直されました
@@ -29,6 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 設定ページの危険地帯がクレジットページから移動しました
 - クレジットページのデザインを変更しました(イースターエッグ付きです!)
 - ExCommanderのエラー表示は点滅しなくなりました
+- シリーズストック情報の取得には、`nvapi.nicovideo.jp/v1/series`の代わりに`nvapi.nicovideo.jp/v2/series/`を使用するようになりました
+- ニコレポ更新バッジとシリーズストック更新バッジの色が変更されました
+- 拡張機能ページの一部パレットを調整しました
 
 ### Fixed
 - [#3](https://github.com/castella-cake/niconico-peppermint-extension/issues/3) の問題を修正するために、boxUIとシアターUIでコントローラーコンテナ幅が700pxを下回る場合に元のレイアウトに戻すようになりました
@@ -38,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ランキングページのダークモードサポートを修正しました [#31](https://github.com/castella-cake/niconico-peppermint-extension/issues/31)
 - クイックパネルの選択ハイライトがdivやimgにも適用される問題を修正しました
 - シアターUIのカーソル非表示が、エンドカードが表示されている場合でも発動する問題を修正しました
+- シリーズストックやニコレポ更新の初期遅延を0分から1分に変更しました
 
 ## [1.8.0] - 2023/11/03
 

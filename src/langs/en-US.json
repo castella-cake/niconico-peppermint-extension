@@ -17,8 +17,12 @@
             "name": "Hide the event announcement banner on the viewing page",
             "hint": "Hides the event announcement banner displayed under the header."
         },
+        "hideheaderbanner": {
+            "name": "Hide event announcement banner in header",
+            "hint": "Hides the event announcement banner displayed on the header."
+        },
         "hidepopup": {
-            "name": "Hide Follow/Supporter/Premium Member Recruitment",
+            "name": "Hide advertisements about following users/supporters/premium members",
             "hint": "Hides the follow banner that appears when you frequently watch a specific user's videos, supporter solicitation at the bottom left of the user page, and premium membership solicitation."
         },
         "hidesupporterbutton": {
@@ -27,17 +31,17 @@
             "select": [
                 "Default",
                 "Hide on viewing page",
-                "hide all"
+                "Hide all"
             ]
         },
         "hidemetadata": {
             "name": "Hide metadata other than genre and posting date/time",
-            "hint": "For intuitive video exploration, we hide the number of views, likes, likes, comments, and highest rankings.",
+            "hint": "Hide the number of views, likes, likes, comments, and highest rankings for intuitive video search.",
             "select": [
                 "Default",
                 "Hide on viewing page",
                 "Hide in search and home",
-                "hide all"
+                "Hide all"
             ]
         },
         "watchpagetheme": {
@@ -63,7 +67,7 @@
         },
         "playerstyleoverride": {
             "name": "Player theme override",
-            "hint": "Change the player's appearance. ",
+            "hint": "Change the player's appearance. It also overrides player styles set by \"player theme\".",
             "select": [
                 "Default",
                 "Harajuku",
@@ -71,7 +75,7 @@
                 "RC1",
                 "GINZA",
                 "Mint",
-                "no style"
+                "No style"
             ]
         },
         "commentrow": {
@@ -80,11 +84,11 @@
         },
         "replacemarqueecontent": {
             "name": "Marquee area replacement",
-            "hint": "Replaces the content of the marquee that appears above the player video area. ",
+            "hint": "Replaces the content of the marquee that appears above the player video area. \"Display nothing\" leaves only the black background.",
             "select": [
                 "Default",
                 "Show ranking",
-                "display nothing"
+                "Display nothing"
             ]
         },
         "highlightlockedtag": {
@@ -97,7 +101,7 @@
         },
         "shortcutassist": {
             "name": "Enable shortcut assist",
-            "hint": "Even when the player is not focused, shortcuts for play/pause, seek forward/backward, and comment focus will be available, and a shortcut key for \"Like\" (H key) will also be added. Once ExCommander is enabled, you can open the commander using the Backspace key."
+            "hint": "Even when the player is not focused, shortcuts for play/pause, seek forward/backward, and comment focus will be available, and a shortcut key for \"いいね!\" (H key) will also be added. Once ExCommander is enabled, you can open the commander using the Backspace key."
         },
         "excommander": {
             "name": "Use ExCommander"
@@ -121,12 +125,12 @@
             "name": "Use old boxUI"
         },
         "skipkokenending": {
-            "name": "Skip offer screen",
+            "name": "Skip Niconi Contribution's \"提供\" screen",
             "hint": "Skip the Niconi contribution screen that appears at the end of the video.",
             "select": [
                 "Default",
                 "Skip with boxUI",
-                "always skip"
+                "Always skip"
             ]
         },
         "quickvidarticle": {
@@ -170,8 +174,8 @@
             "hint": "Change the HTML editor when editing articles to dark and change the font to Consolas."
         },
         "diccontextsearch": {
-            "name": "Display \"Search in NicoNico Encyclopedia\" in the context menu",
-            "hint": "When you select a string and open the context menu, \"Search in Niconico Encyclopedia\" will be displayed."
+            "name": "Display \"ニコニコ大百科で検索\" in the context menu",
+            "hint": "When you select a string and open the context menu, \"ニコニコ大百科で検索\" will be displayed.\nClick to search NicoNico Encyclopedia for the selected text in a new tab."
         },
         "alignpagewidth": {
             "name": "Fix the maximum width of Niconico Home",
@@ -179,7 +183,7 @@
         },
         "fixedheaderwidth": {
             "name": "Fixed header width",
-            "hint": "The maximum width of the header content in NicoNico Douga is fixed at 1024px. "
+            "hint": "The maximum width of the header content in NicoNico Douga is fixed at 1024px. It will be similar to the header before adding the sidebar."
         },
         "highlightnewnotice": {
             "name": "Highlight new notifications",
@@ -187,11 +191,11 @@
         },
         "vidtoptwocolumn": {
             "name": "Display the top of the video in 2 columns",
-            "hint": "The Nico Nico Douga top page will be displayed wrapped in two columns."
+            "hint": "Displays the \"Video Top\" page wrapped in two columns."
         },
         "darkmode": {
             "name": "Dark mode/color palette",
-            "hint": "Use dark mode. Currently, only NicoNico Douga and some live broadcast pages are supported. \nIf you enable \"Follow browser settings\", dark mode will not be used if the browser is in light mode.",
+            "hint": "Applies the specified palette to the page. Currently, only NicoNico Douga and some live broadcast pages are supported. \nIf you enable \"Follow browser settings\", dark mode will not be used if the browser is in light mode.",
             "select": [
                 "Default",
                 "PMDark",
@@ -207,7 +211,7 @@
             "hint": ""
         },
         "headerbg": {
-            "name": "header background",
+            "name": "Header background",
             "hint": "",
             "select": [
                 "Default",
@@ -216,13 +220,13 @@
             ]
         },
         "headercolor": {
-            "name": "custom color",
+            "name": "Custom color",
             "hint": "",
             "placeholder": ""
         },
         "enablevisualpatch": {
             "name": "Enable visual patching",
-            "hint": "Apply CSS, including visual bug fixes such as line-height and resume playback display, and integration into rounded corner buttons.\n"
+            "hint": "Apply CSS to fix visual bugs such as line-height and resume playback display, and integrate rounded corner buttons. \nAlso, accessibility is taken into account, making it easier to see where the focus is."
         },
         "enablespredirect": {
             "name": "Enable SPWatch redirect",
@@ -230,18 +234,18 @@
         },
         "enableseriesstock": {
             "name": "Enable series stock",
-            "hint": "A button to stock series will be displayed at the bottom left of the series page or viewing page, and you can display the stocked series in the quick panel.\n"
+            "hint": "A button to stock series will be displayed at the bottom left of the series page or viewing page, and you can display the stocked series in the quick panel. \nThe videos you watch in the stocked series are automatically recorded, and you can check the last video you watched and the next video. \nIf you enable \"Display on Niconico\", a button to expand the series stock will be displayed at the bottom left of Niconico Home/Video top."
         },
-        "showseriesstockinpage": {
-            "name": "Displayed on Niconico"
-        },
+            "showseriesstockinpage": {
+                "name": "Display on Niconico(Deprecated)"
+            },
         "enablecustomvideotop": {
             "name": "Enable custom video top",
             "hint": "Sort or hide the content at the top of the video according to settings. "
         },
         "enablenicorepotab": {
             "name": "Enable Nicorepo Reader",
-            "hint": "The \"NicoRepo\" tab will now be displayed on the quick panel, allowing you to check your NicoRepo.\n"
+            "hint": "The \"Nicorepo\" tab will now be displayed on the quick panel, allowing you to check your Nicorepo. \nNew arrivals are checked every 45 minutes, and if there is a new NicoRepo, you will be notified with a toolbar badge. You must be logged in to Niconico within your browser for this feature to work."
         },
         "enablequicksettingstab": {
             "name": "Enable quick settings tab",
@@ -284,7 +288,7 @@
     "NO_STOCKED_SERIES": "There are no series in stock.",
     "SERIES_STOCK_TITLE": "Series stock",
     "TO_LOCK": "Change to locked state",
-    "TO_UNLOCK": "unlock",
+    "TO_UNLOCK": "Unlock",
     "THUMB_ALT_TEXT": " thumbnail",
     "MOVE_TO_FOLDER": "Go to folder",
     "REMOVE_FROM_STOCK": "Remove from stock",
