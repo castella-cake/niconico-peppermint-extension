@@ -20,8 +20,8 @@ chrome.runtime.onInstalled.addListener(function (details) {
         contexts: ["selection"],
         visible: false
     });
-    chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 0, periodInMinutes: 120 })
-    chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 0, periodInMinutes: 45 })
+    chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 1, periodInMinutes: 120 })
+    chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 1, periodInMinutes: 45 })
     //chrome.alarms.create('dynamicPatch_Refresh', { delayInMinutes: 0, periodInMinutes: 360 })
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then((storage) => {
@@ -74,7 +74,6 @@ function getSeriesInfo(seriesid, cachemode = 0) {
         try {
             let getStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
             getStorageData.then((storage) => {
-                console.log(storage)
                 // ストレージにあるseriesidのキャッシュがnullでもundefinedでもなくて極めつけにusecacheがtrueならストレージのものを返す
                 if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != null && storage.seriesdatacache[seriesid] != undefined && cachemode == 0)) {
                     resolve(storage.seriesdatacache[seriesid])
@@ -92,7 +91,6 @@ function getSeriesInfo(seriesid, cachemode = 0) {
                                 // objにパースして200かどうか確認する
                                 let dataobj = JSON.parse(data)
                                 let currentdate = new Date()
-                                console.log(dataobj)
                                 dataobj["fetchdate"] = currentdate.toString()
                                 if (dataobj.meta.status == 200) {
                                     // **ローカル**のストレージを呼ぶ
@@ -109,8 +107,10 @@ function getSeriesInfo(seriesid, cachemode = 0) {
                                             if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != undefined && dataobj.data.totalCount != storage.seriesdatacache[seriesid].data.totalCount)) {
                                                 if (chrome.browserAction != undefined) {
                                                     chrome.browserAction.setBadgeText({ text: "S" })
+                                                    chrome.browserAction.setBadgeBackgroundColor({ color: "#1dab35"});
                                                 } else if (chrome.action != undefined) {
                                                     chrome.action.setBadgeText({ text: "S" })
+                                                    chrome.action.setBadgeBackgroundColor({ color: "#1dab35"});
                                                 }
                                             }
                                             resolve(dataobj)
@@ -168,8 +168,10 @@ function getRecentNicorepo(cachemode = 0) {
                                             if (JSON.stringify(oldidarray) != JSON.stringify(newidarray)) {
                                                 if (chrome.browserAction != undefined) {
                                                     chrome.browserAction.setBadgeText({ text: "R" })
+                                                    chrome.browserAction.setBadgeBackgroundColor({ color: "#1dcc3a"});
                                                 } else if (chrome.action != undefined) {
                                                     chrome.action.setBadgeText({ text: "R" })
+                                                    chrome.action.setBadgeBackgroundColor({ color: "#1dcc3a"});
                                                 }
                                             }
 
@@ -392,7 +394,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                     if ( tabarray && tabarray[0] ) {
                         const activeURL = tabarray[0].url
                         const pathArray = activeURL.replace(/\?.*$/, "").replace("https://www.nicovideo.jp/", "").split("/");
-                        console.log(pathArray)
                         if (activeURL && activeURL.indexOf('www.nicovideo.jp') != -1 && pathArray.length >= 4 && pathArray[0] == "user" && pathArray[2] == "series") {
                             new Promise((resolve) => chrome.scripting.executeScript({
                                 target: { tabId: tabarray[0].id },
@@ -479,7 +480,7 @@ chrome.alarms.onAlarm.addListener(function (e) {
             let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
             getStorageData.then(function (result) {
                 // 有効であるか最近のニコレポタブが表示状態にある
-                if (result.enablenicorepotab || result.dashboardsortlist.some(elem => elem.name == "nicorepo" && elem.isHidden == false )) {
+                if (result.enablenicorepotab || (result.dashboardsortlist && result.dashboardsortlist.some(elem => elem.name == "nicorepo" && elem.isHidden == false ))) {
                     getRecentNicorepo(2)
                 }
             })

@@ -1,5 +1,11 @@
 import { useState, useEffect, useContext, createContext } from "react";
-import { getSyncStorageData, getLocalStorageData } from "../../modules/storageControl";
+
+async function getSyncStorageData() {
+    return await new Promise((resolve) => chrome.storage.sync.get(null, resolve))
+}
+async function getLocalStorageData() {
+    return await new Promise((resolve) => chrome.storage.local.get(null, resolve))
+}
 
 export function useSyncStorage() {
     const [ syncStorage, _setSyncStorageVar ] = useState({})
@@ -14,8 +20,7 @@ export function useSyncStorage() {
     }
     useEffect(() => {
         async function setStorage() {
-            _setSyncStorageVar(await getSyncStorageData)
-            console.log("syncstorage get")
+            _setSyncStorageVar(await getSyncStorageData())
         } 
         setStorage()
     }, [])
@@ -35,8 +40,7 @@ export function useLocalStorage() {
     }
     useEffect(() => {
         async function setStorage() {
-            _setLocalStorageVar(await getLocalStorageData)
-            console.log("localstorage get")
+            _setLocalStorageVar(await getLocalStorageData())
         } 
         setStorage()
     }, [])
@@ -75,8 +79,8 @@ export function useStorage() {
     }
     useEffect(() => {
         async function setStorage() {
-            const localStorage = await getLocalStorageData
-            const syncStorage = await getSyncStorageData
+            const localStorage = await getLocalStorageData()
+            const syncStorage = await getSyncStorageData()
             _setStorageVar({ local: localStorage, sync: syncStorage })
         } 
         setStorage()

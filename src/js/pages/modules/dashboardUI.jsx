@@ -101,12 +101,7 @@ function CreateDashboardUI() {
             </SortableContext>
         </DndContext>
         <button type="button" className="dashboard-editbutton" onClick={() => {
-            // 編集が終了されたならリロードする
-            if (!isEditMode == false && isChanged) {
-                location.reload()
-            } else {
-                setIsEditMode(!isEditMode)
-            }
+            setIsEditMode(!isEditMode)
         }}>{isEditMode ? <><MdOutlineDone style={{fontSize: 14}}/> {lang.EDITBUTTON_TITLE_EDITOFF}{isChanged && lang.CLICK_TO_RELOAD}</> : <><MdOutlineEdit style={{fontSize: 14}}/> {lang.DASHBOARD_EDIT}</>}</button>
     </div>
 }

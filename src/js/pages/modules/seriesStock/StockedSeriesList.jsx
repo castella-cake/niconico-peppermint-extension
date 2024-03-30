@@ -50,9 +50,9 @@ export function CreateRowList(props) {
                 } 
                 return elem.idList.includes(item.seriesID)
             })
-            return <FolderRow folderinfo={elem} contents={folderContent} index={index}/>
+            return <FolderRow key={elem.id} folderinfo={elem} contents={folderContent} index={index}/>
         } else {
-            return <SeriesRow series={elem} index={index} isfolder={props.isfolder} folderid={props.folderid} folderindex={props.folderindex}/>
+            return <SeriesRow key={elem.seriesID} series={elem} index={index} isfolder={props.isfolder} folderid={props.folderid} folderindex={props.folderindex}/>
         }
     })
     }</>
