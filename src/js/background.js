@@ -12,6 +12,11 @@ chrome.runtime.onInstalled.addListener(function (details) {
             chrome.action.setBadgeText({ text: "▲" })
             chrome.action.setBadgeBackgroundColor({ color: "#169cf0"});
         }
+        if (details.previousVersion.split(".")[0] != manifestData.version.split(".")[0]) {
+            chrome.tabs.create({
+                url: chrome.runtime.getURL("pages/update.html")
+            });
+        }
         chrome.storage.local.set({ "versionupdated": true })
     }
     chrome.contextMenus.create({
