@@ -1,5 +1,3 @@
-const { JsonAccessOptimizer } = require('webpack-json-access-optimizer');
-
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
     entry: {
