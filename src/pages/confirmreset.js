@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('#result').text('リセットしました。5秒後にメイン設定に戻ります...')
                 $('button,a').remove()
                 setTimeout(function() {
-                    window.location.href = "option.html"
+                    window.location.href = "settings.html"
                 }, 5000)
                 
             })

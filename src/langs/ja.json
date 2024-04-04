@@ -1,0 +1,286 @@
+{
+    "SETTINGS_DESC": "PepperMint+ の設定を変更します。\nこの設定は、ツールバーボタン、もしくは拡張機能管理ページの設定から再度アクセスできます。",
+    "SETTINGS_AREATITLE": {
+        "hide": "Hide",
+        "watchpage": "Watchpage",
+        "nicopedia": "Nicopedia",
+        "other": "Other",
+        "global": "Global",
+        "quickpanel": "Quickpanel"
+    },
+    "SETTINGS_ITEMS": {
+        "hiderankpagead": {
+            "name": "ランキングページのニコニ広告行を隠す",
+            "hint": "ニコニコ動画ランキングの途中に挟まれるニコニ広告行を隠します。"
+        },
+        "hideeventbanner": {
+            "name": "視聴ページ上のイベント告知バナーを隠す",
+            "hint": "ヘッダー下に表示されるイベントの告知バナーを隠します。"
+        },
+        "hidepopup": {
+            "name": "ユーザーのフォロー/サポーター/プレミアム会員に関するヒントを隠す",
+            "hint": "特定ユーザーの動画をよく視聴している際に表示されるフォローバナー、ユーザーページ左下のサポーター勧誘、プレミアム会員勧誘を隠します。"
+        },
+        "hideheaderbanner": {
+            "name": "ヘッダーのイベント告知バナーを隠す",
+            "hint": "ヘッダー上に表示されるイベントの告知バナーを隠します。"
+        },
+        "hidesupporterbutton": {
+            "name": "サポーターボタンを隠す",
+            "hint": "サポーター登録ボタンを非表示にします。",
+            "select": ["デフォルト", "視聴ページで隠す", "全て隠す"]
+        },
+        "hidemetadata": {
+            "name": "ジャンルと投稿日時以外のメタデータを隠す",
+            "hint": "直感的な動画探索のために、視聴回数、いいね数、マイリス数、コメント数、ランキング最高順位を隠します。",
+            "select": ["デフォルト", "視聴ページで隠す", "検索とホームで隠す", "全て隠す"]
+        },
+
+        "watchpagetheme": {
+            "name": "視聴ページテーマ",
+            "hint": "視聴ページの見た目、レイアウトを変更します。",
+            "select": ["デフォルト", "Mint", "原宿"]
+        },
+        "playertheme": {
+            "name": "プレイヤーテーマ",
+            "hint": "プレイヤーのレイアウトと見た目を一括変更します。",
+            "select": ["デフォルト", "原宿", "RC1", "RC1+", "GINZA", "Mint"]
+        },
+        "playerstyleoverride": {
+            "name": "プレイヤーテーマのオーバーライド",
+            "hint": "プレイヤーの見た目を変更します。「プレイヤーテーマ」によって設定されたプレイヤースタイルも上書きします。",
+            "select": ["デフォルト", "原宿", "RC1", "RC1+", "GINZA", "Mint", "スタイルなし"]
+        },
+        "commentrow": {
+            "name": "コメント入力欄の表示行",
+            "hint": "コメント入力欄の行数を拡張します。"
+        },
+        "replacemarqueecontent": {
+            "name": "マーキーエリアの置き換え",
+            "hint": "プレイヤー動画エリアの上に表示されるマーキーのコンテンツを置き換えます。「何も表示しない」は黒帯のみを表示します。",
+            "select": ["デフォルト", "ランキングを表示", "何も表示しない"]
+        },
+        "highlightlockedtag": {
+            "name": "ロック中のタグをハイライト",
+            "hint": "ロックされているタグのアウトラインを黄色にします。"
+        },
+        "cleanvidowner": {
+            "name": "クリーンな投稿者表示を使用",
+            "hint": "投稿者名のみを表示し、投稿動画とフォローボタンを非表示にします。"
+        },
+        "shortcutassist": {
+            "name": "ショートカットアシストを有効化",
+            "hint": "プレイヤーにフォーカスされていない場合でも、再生/一時停止,シーク送り/戻し,コメントフォーカスのショートカットを使用可能にします。\nまた、「いいね！」のショートカット(Hキー)を追加します。ExCommanderを有効化すると、Backspaceでコマンダーが開けるようになります。"
+        },
+            "excommander": {
+                "name": "ExCommanderを使用"
+            },
+        "usetheaterui": {
+            "name": "シアターUIを有効化",
+            "hint": "動画を大きく表示しつつ、プレイヤーパネルを表示するシアターページを使用します。「Nicobox風UIを使用」が優先されます。\n「テーマパレットを使用」を有効化すると、動画エリアのパレットに現在のテーマパレットを使用します。\n「テーマパレットを使用」を無効化すると、動画エリアのパレットにSolidBlackベースの黒いパレットを使用します。"
+        },
+            "disabletheaterpalette": {
+                "name": "テーマパレットを使用"
+            },
+        "enablenicoboxui": {
+            "name": "boxUIのトグルボタンを表示",
+            "hint": "左下にNicobox風ページと通常ページを切り替えるボタンを表示します。"
+        },
+        "usenicoboxui": {
+            "name": "boxUIを有効化",
+            "hint": "Nicobox風視聴ページを使用します。「旧スタイルを使用」を有効化すると、1.2.0以前のデザインに戻ります。"
+        },
+            "useoldnicoboxstyle": {
+                "name": "旧boxUIを使用"
+            },
+        "skipkokenending": {
+            "name": "ニコニ貢献の「提供」画面をスキップ",
+            "hint": "動画の最後に表示されるニコニ貢献の提供画面をスキップします。",
+            "select": ["デフォルト", "boxUIでスキップ", "常にスキップ"]
+        },
+        "quickvidarticle": {
+            "name": "動画記事ボタンを表示",
+            "hint": "ニコニコ大百科の動画記事へ繋がるボタンを表示します。"
+        },
+        "enablemisskeyshare": {
+            "name": "Misskey共有を有効化",
+            "hint": "Misskeyで現在の動画を共有するボタンを表示します。「共有先インスタンスを設定」から事前に共有先のインスタンスを設定しておく必要があります。"
+        },
+
+        "hidereputation": {
+            "name": "評価数を隠す",
+            "hint": "大百科記事のレスに付けられた評価数を隠します。",
+            "select": ["デフォルト", "低評価を非表示", "全て非表示"]
+        },
+        "liketonicoru": {
+            "name": "高評価をニコるで置き換え",
+            "hint": "レスの高評価ボタンをニコるに変更します。"
+        },
+        "dicfullwidth": {
+            "name": "最大幅を開放する",
+            "hint": "コンテンツの最大幅を開放し、記事を読みやすくします。強制モードを有効化すると、記事内でWidthが指定されている要素に対して設定した方法で幅を指定します。\n強制モードを設定すると、一部の要素が崩れる場合があります。"
+        },
+            "dicforcewidthmode": {
+                "name": "強制モード",
+                "select": ["デフォルト", "中(auto)", "強(100%, 非推奨)"]
+            },
+        "dicsidebartoleft": {
+            "name": "サイドバーを左に表示する"
+        },
+        "dicbettereditor": {
+            "name": "ダークエディターを使用",
+            "hint": "記事編集時のHTMLエディターをダークに変更し、フォントをConsolasに変更します。"
+        },
+        "diccontextsearch": {
+            "name": "コンテキストメニューに「ニコニコ大百科で検索」を表示",
+            "hint": "文字列を選択してコンテキストメニューを開いた場合に、「ニコニコ大百科で検索」を表示します。"
+        },
+
+        "alignpagewidth": {
+            "name": "ニコニコホームの最大幅を固定する",
+            "hint": "ニコニコホームの最大幅を1024pxに固定します。"
+        },
+        "fixedheaderwidth": {
+            "name": "ヘッダー幅を固定",
+            "hint": "ニコニコ動画内のヘッダーコンテンツの最大幅を1024pxに固定します。サイドバー追加前のヘッダーに近くなります。"
+        },
+        "highlightnewnotice": {
+            "name": "新着通知をハイライト",
+            "hint": "アプリ版ニコニコ動画の通知表示のように、新着通知の左上に小さい赤丸が表示されます。"
+        },
+        "vidtoptwocolumn": {
+            "name": "2カラムで動画トップを表示",
+            "hint": "ニコニコ動画トップページを2カラムで折り返して表示します。"
+        },
+
+        "darkmode": {
+            "name": "ダークモード/カラーパレット",
+            "hint": "ページに指定したカラーパレットを使用します。現在はニコニコ動画と生放送の一部ページにのみ対応しています。\n「ブラウザーに追従」を有効化した場合、ブラウザーがライトモードの場合はダークモードを使用しません。",
+            "select": ["デフォルト", "PMDark", "SPDark", "NordNight", "SolidBlack", "CyberNight", "カスタム設定"]
+        },
+            "darkmodedynamic": {
+                "name": "ブラウザーに追従",
+                "hint": ""
+            },
+        "headerbg": {
+            "name": "ヘッダー背景",
+            "hint": "",
+            "select": ["デフォルト", "グラデーション", "カスタム設定"]
+        },
+            "headercolor": {
+                "name": "カスタム色",
+                "hint": "",
+                "placeholder": "#252525"
+            },
+        "enablevisualpatch": {
+            "name": "ビジュアルパッチを有効化",
+            "hint": "line-heightやレジューム再生表示などの視覚的なバグ修正や、角丸ボタンへの統合などを含むCSSを適用します。\nまた、アクセシビリティにも配慮され、Tabブラウジングの際にどこにフォーカスがあたっているのかわかりやすくなります。"
+        },
+        "enablespredirect": {
+            "name": "SPWatchリダイレクトを有効化",
+            "hint": "モバイルブラウザ版ニコニコの視聴ページにアクセスした際に、自動でPC版ニコニコ動画にリダイレクトします。"
+        },
+        "enableseriesstock": {
+            "name": "シリーズストックを有効化",
+            "hint": "シリーズページまたは視聴ページの左下にシリーズをストックするボタンが表示され、クイックパネルでストックしたシリーズを表示できます。\nストックしたシリーズ内で視聴した動画は自動的に記録され、最後に見た動画と次の動画を確認できます。\n「ニコニコ内に表示」を有効化すると、ニコニコホーム/動画トップの左下にシリーズストックを展開するボタンが表示されます。"
+        },
+            "showseriesstockinpage": {
+                "name": "ニコニコ内に表示(非推奨)"
+            },
+        "enablecustomvideotop": {
+            "name": "カスタム動画トップを有効化",
+            "hint": "動画トップのコンテンツを設定した内容で並び替えたり非表示にします。設定は下の「カスタム動画トップを設定」から設定します。"
+        },
+        "enablenicorepotab": {
+            "name": "ニコレポリーダーを有効化",
+            "hint": "クイックパネルに「ニコレポ」タブが表示されるようになり、ニコレポを確認できるようになります。\n45分おきに新着を確認し、新着ニコレポがある場合はツールバーバッジで通知します。この機能が動作するには、ブラウザ内でニコニコにログインしている必要があります。"
+        },
+        "enablequicksettingstab": {
+            "name": "クイック設定タブを有効化",
+            "hint": "クイックパネルに「クイック設定」タブが表示されるようになります。"
+        },
+        "enableseriesstocktab": {
+            "name": "シリーズストックタブを有効化",
+            "hint": "クイックパネルに「シリーズストック」タブが表示されるようになります。"
+        },
+        "skipquickpanel": {
+            "name": "クイックパネルをスキップ",
+            "hint": "ツールバーボタンをクリックした場合に、クイックパネルを表示せずそのまま設定へ移動します。\nニコレポリーダーやシリーズストックを使用しない場合に適しています。"
+        }
+    },
+    "MISSKEYSHARE_CONFIGURE_LINK": "共有先インスタンスを設定...",
+    "DARKMODE_CUSTOMPALETTE_LINK": "カスタムカラーパレットを設定...",
+    "SERIESSTOCK_MANAGESERIES_LINK": "ストック中のシリーズを管理...",
+    "CUSTOMVIDTOP_CONFIGURE_LINK": "カスタム動画トップを設定...",
+    "CHANNEL": "チャンネル",
+    "USER": "ユーザー",
+    "LOADING": "ロード中...",
+    "CLOSE": "閉じる",
+    "CANCEL": "キャンセル",
+    "ADD": "追加",
+    "REMOVE": "削除",
+
+    "DASHBOARD": "ダッシュボード",
+    "QUICK_SETTINGS": "クイック設定",
+    "NICOREPO": "ニコレポ",
+
+    "LAST_FETCHED_DATE": "最終取得",
+    "NICOREPO_FETCH_FAILED": "ニコレポ情報の取得に失敗しました",
+
+    "LASTVID_TITLE": "最後に見た動画",
+    "NEXTVID_TITLE": "次の動画",
+    "NO_TRACKED_VIDEO": "まだ保存されていません",
+    "SEE_DETAILS": "詳細を表示",
+    "HIDE_DETAILS": "詳細を隠す",
+    "NO_EPISODE_INFO": "シリーズにエピソード情報がありません。",
+    "NO_STOCKED_SERIES": "ストック中のシリーズが一つもありません。",
+    "SERIES_STOCK_TITLE": "シリーズストック",
+    "TO_LOCK": "ロック状態に変更",
+    "TO_UNLOCK": "ロック解除",
+    "THUMB_ALT_TEXT": "のサムネイル",
+    "MOVE_TO_FOLDER": "フォルダーへ移動",
+    "REMOVE_FROM_STOCK": "ストックから削除",
+    "ADD_AVAILABLE_FROM_CURRENT_TAB": "現在のタブから追加可能",
+    "OPEN_FOLDER": "フォルダーを開く",
+    "CLOSE_FOLDER": "フォルダーを閉じる",
+    "REMOVE_FROM_FOLDER": "フォルダーから除去",
+    "MOVE_TO_SELECTED_FOLDER": "指定フォルダーに移動",
+    "NEW_FOLDER_OPENMODAL": "新規フォルダー...",
+    "FOLDER_MOVE_TO_LABEL": "移動先フォルダー",
+
+    "EDITBUTTON_TITLE_TOEDITMODE": "編集する",
+    "EDITBUTTON_TITLE_EDITOFF": "編集を終了",
+
+    "SAVE_CHANGE": "変更を保存",
+
+    "ADD_FOLDER": "フォルダーを追加",
+
+    "ADD_FOLDER_TITLE": "フォルダーの作成",
+    "EDIT_FOLDER_TITLE": "フォルダーの編集",
+    "REMOVE_FOLDER_TITLE": "フォルダーを削除(フォルダー内のシリーズはフォルダー外に移動されます)",
+
+    "ADD_FOLDER_DESC": "フォルダーを編集します。\n表示されているシリーズは、現在追加/削除可能なシリーズのリストです。\nチェックボックスを有効化すると、フォルダーに選択されたシリーズが移動されます。",
+    "EDIT_FOLDER_DESC": "現在のシリーズストック内に新しいフォルダーを作成します。\n表示されているシリーズは、現在移動可能なシリーズのリストです。\nチェックボックスを有効化すると、フォルダーに選択したシリーズが移動されます。",
+    "FOLDER_NAME": "フォルダーの名前",
+    "PLACEHOLDER_FOLDER_NAME": "フォルダー名を入力...",
+    "MOVE_SERIES_TO_FOLDER": "フォルダーにシリーズを移動",
+
+    "DASHBOARD_TITLES": {
+        "quickoption": "クイックオプション",
+        "seriesstock": "シリーズストック",
+        "nicorepo": "最近のニコレポ"
+    },
+    "QUICKPANEL_TAB_EDIT": "クイックパネルタブを編集",
+    "QUICKPANEL_TAB_EDITOFF": "クイックパネルタブの編集を終了",
+    "QUICKPANEL_TAB_EDIT_DESC": "クイックパネルタブを編集中です。\n表示するタブのチェックボックスをオンにして有効化します。",
+
+    "QUICKOPTION_EDIT": "クイック設定を編集",
+    "QUICKOPTION_EDITOFF": "クイック設定の編集を終了",
+    "OPEN_SETTINGS_PAGE": "設定ページを開く",
+    "ADD_ITEM": "項目を追加",
+    
+    "DASHBOARD_EDIT": "ダッシュボードを編集",
+    "CLICK_TO_RELOAD": "(リロードします)",
+
+    "QUICKPANEL_FIRST_TIP": "PepperMint+のクイックパネルへようこそ。\n「設定ページを開く」もしくはタイトルをクリックすると、設定ページに移動できます。\n右上の編集ボタンからタブを編集したり、下部の「ダッシュボードを編集」からブロックの表示を編集できます。"
+}

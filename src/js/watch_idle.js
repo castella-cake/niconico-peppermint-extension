@@ -1,64 +1,82 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
+    // #region シリーズストック
     if (result.enableseriesstock == true) {
-        let seriesBC = document.querySelector('.SeriesBreadcrumbs')
-        let seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
-        $('.pmbutton-container').prepend('<div class="addtostock-container subaction-container"><a id="addtostock" class="material-icons-outlined subaction-button">add</a></div>')
+        $('.pmbutton-container').prepend('<div class="addtostock-container subaction-container"><button id="addtostock" class="material-icons-outlined subaction-button">add</button></div>')
+        function addCurrentSeriesToStock() {
+            const seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            if ( seriesBCTitle ) {
+                manageSeriesStock(seriesBCTitle.href.slice(32).replace(/\?.*/, ''), seriesBCTitle.textContent).then(result => {
+                    if (result) {
+                        $('#addtostock').text("remove")
+                        $("#addtostock-text").text("シリーズをストックから削除")
+                    } else {
+                        $('#addtostock').text("add")
+                        $("#addtostock-text").text("シリーズをストックに追加")
+                    }
+                }).catch(error => {
+                    onError(error);
+                });
+            }
+        }
         function updateStockUI() {
-            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            const seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            const addToStockButton = document.getElementById('addtostock')
             // タイトルの下にあるシリーズを表示するやつがあるか。動画にシリーズがないなら、これは存在しない
-            console.log(seriesBCTitle)
-            if (seriesBCTitle != null) {
-                $('#addtostock').removeClass('disabled')
-                seriesIsStocked(seriesBCTitle.href.slice(32))
+            if ( seriesBCTitle ) {
+                const thisSeriesId = seriesBCTitle.href.slice(32).replace(/\?.*/, '')
+                addToStockButton.classList.remove("disabled")
+                seriesIsStocked(thisSeriesId)
                     .then(result => {
                         if (result) {
-                            $('#addtostock').text("remove")
+                            addToStockButton.textContent = "remove"
                         } else {
-                            $('#addtostock').text("add")
+                            addToStockButton.textContent = "add"
                         }
                         //console.log(result)
                     }).catch(error => {
                         //console.log(error);
                     });
-                document.getElementById('addtostock').addEventListener('click', addCurrentSeriesToStock)
+                addToStockButton.addEventListener('click', addCurrentSeriesToStock)
             } else {
-                document.getElementById('addtostock').removeEventListener('click', addCurrentSeriesToStock)
-                $('#addtostock').addClass('disabled')
+                addToStockButton.removeEventListener('click', addCurrentSeriesToStock)
+                addToStockButton.classList.add("disabled")
             }
         }
         function updateStockVidInfo() {
-            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
-            if (seriesBCTitle != null) {
-                let currentVidSeriesID = seriesBCTitle.href.slice(32)
-                let currentVidSeriesName = seriesBCTitle.textContent
+            const seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            if (seriesBCTitle) {
+                const currentVidSeriesId = seriesBCTitle.href.slice(32).replace(/\?.*/, '')
                 // シリーズにあるかどうかを見るために、ストック中のシリーズを取得する
                 chrome.storage.sync.get(["stockedseries"]).then((stockdata) => {
                     // pathnameで /watch/sm.... が取得できるので、7文字切ってsm...だけ取得する
-                    let smID = location.pathname.slice(7)
-                    let stockedseriesarray = stockdata.stockedseries
+                    const smID = location.pathname.slice(7).replace(/\?.*/, '')
+                    const stockedseriesarray = stockdata.stockedseries
                     // シリーズ要素のhrefで https://www.nicovideo.jp/series/1234... を取得できるので、32文字切ってシリーズIDを取得する
-                    $.each(stockedseriesarray, function (i, object) {
-                        if (object.seriesID == currentVidSeriesID) {
-                            //console.log(`current series! ${smID}`)
+                    stockedseriesarray.forEach((object) => {
+                        if (object.seriesID == currentVidSeriesId) {
                             object.lastVidID = smID
                             object.lastVidName = document.querySelector('.VideoTitle').textContent
-                            //console.log($('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href'))
                             // 概要欄が開かれていない場合、.VideoDescriptionExpander-switch という要素に VideoDescriptionExpander-switchExpand というクラスが着く = nullではなくなる
-                            if (document.querySelector('.VideoDescriptionExpander-switchExpand') != null) {
+                            if ( document.querySelector('.VideoDescriptionExpander-switchExpand') ) {
                                 // 概要欄から読み取るので、概要欄が開かれてないときは一瞬開いて読み取る
-                                $('.VideoDescriptionExpander-switch').trigger('click');
-                                if (document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null) {
+                                document.querySelector('.VideoDescriptionExpander-switch').click();
+                                const nextVidElem = document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle')
+                                if ( nextVidElem ) {
                                     // 概要欄のシリーズ表示にある、「次の動画」のhrefを31文字切る。hrefはこういう形式(https://www.nicovideo.jp/watch/sm123456?ref=pc_watch_description_series)
-                                    // なので、31文字切って不要なゴミトラッキング情報を消し飛ばす
-                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
-                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
+                                    // なので、31文字切って最初のpathnameをなくしたうえで、不要なゴミトラッキング情報を消し飛ばす
+                                    object.nextVidID = nextVidElem.href.slice(31).replace(/\?.*/, '')
+                                    object.nextVidName = nextVidElem.textContent
                                 }
-                                $('.VideoDescriptionExpander-switch').trigger('click');
+                                // 即時実行だとなんか動かないときあるので0.1s空ける
+                                setTimeout(() => {
+                                    document.querySelector('.VideoDescriptionExpander-switch').click();
+                                }, 100)
                             } else {
-                                if (document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle') != null) {
-                                    object.nextVidID = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').prop('href').slice(31).replace(/\?.*/, '')
-                                    object.nextVidName = $('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle').text()
+                                const nextVidElem = document.querySelector('.VideoDescriptionSeriesContainer-nextArea .VideoDescriptionSeriesContainer-itemTitle')
+                                if ( nextVidElem ) {
+                                    object.nextVidID = nextVidElem.href.slice(31).replace(/\?.*/, '')
+                                    object.nextVidName = nextVidElem.textContent
                                 }
                             }
                             //console.log(object)
@@ -69,23 +87,6 @@ function createCSSRule(result) {
                     })
                 })
             }
-        }
-        function addCurrentSeriesToStock() {
-            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
-            manageSeriesStock(seriesBCTitle.href.slice(32), seriesBCTitle.textContent)
-            .then(result => {
-                //console.log(result)
-                if (result) {
-                    $('#addtostock').text("remove")
-                    $("#addtostock-text").text("シリーズをストックから削除")
-                    updateStockVidInfo()
-                } else {
-                    $('#addtostock').text("add")
-                    $("#addtostock-text").text("シリーズをストックに追加")
-                }
-            }).catch(error => {
-                onError(error);
-            });
         }
         updateStockUI()
         updateStockVidInfo()
@@ -107,23 +108,23 @@ function createCSSRule(result) {
             attributes: true
         })
         document.getElementById('addtostock').addEventListener('mouseenter', function () {
-            seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
+            const seriesBCTitle = document.querySelector('.SeriesBreadcrumbs-title')
             if (seriesBCTitle != null) {
-                seriesIsStocked(seriesBCTitle.href.slice(32))
-                .then(result => {
-                    if (document.querySelector('#addtostock-text') == null) {
-                        if (result) {
-                            $('#addtostock').text("remove")
-                            $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックから削除</span>')
-                        } else {
-                            $('#addtostock').text("add")
-                            $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックに追加</span>')
+                seriesIsStocked(seriesBCTitle.href.slice(32).replace(/\?.*/, ''))
+                    .then(result => {
+                        if (document.querySelector('#addtostock-text') == null) {
+                            if (result) {
+                                $('#addtostock').text("remove")
+                                $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックから削除</span>')
+                            } else {
+                                $('#addtostock').text("add")
+                                $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">シリーズをストックに追加</span>')
+                            }
                         }
-                    }
-                    //console.log(result)
-                }).catch(error => {
-                    //console.log(error);
-                });
+                        //console.log(result)
+                    }).catch(error => {
+                        //console.log(error);
+                    });
             } else {
                 $('#addtostock').text("add")
                 $('.addtostock-container').append('<span id="addtostock-text" class="pmui-hinttext">この動画にはシリーズがありません</span>')
@@ -135,6 +136,9 @@ function createCSSRule(result) {
             }
         })
     }
+    // #endregion
+
+    // #region マーキーランキング
     if (result.replacemarqueecontent == "ranking" && result.usenicoboxui != true && result.usetheaterui != true) {
         $(function () {
             if (!(result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches))) {
@@ -151,7 +155,7 @@ function createCSSRule(result) {
                 // why chrome can't use domparser in service worker...
                 //console.log(res)
                 let domparser = new DOMParser()
-                let parsedxml = domparser.parseFromString( res, "text/xml" );
+                let parsedxml = domparser.parseFromString(res, "text/xml");
                 //console.log(parsedxml)
                 let xmlcontent = parsedxml.querySelectorAll("channel item")
                 //console.log(xmlcontent[0].querySelector('title').textContent)
@@ -168,38 +172,38 @@ function createCSSRule(result) {
                     $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-next">${xmlloop + 2}</div>`)
                 }
                 //console.log(xmlcontent.length)
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#pm-marqueerankingbg-current').css('animation', 'marqueebganim_1 0.5s linear forwards')
                     $('#pm-marqueerankingbg-next').css('animation', 'marqueebganim_2 0.8s linear forwards')
                 }, 4200)
-                setTimeout(function() {
+                setTimeout(function () {
                     $('#pm-marqueerankinglink').css('animation', 'fadeout 0.2s linear forwards')
                 }, 4500)
                 xmlloop = 1
-                setInterval(function() {
-                    setTimeout(function() {
-                    if(document.querySelector('#pm-marqueerankinglink') != null) {
-                        $('#pm-marqueerankingbg-current').remove()
-                        $('#pm-marqueerankingbg-next').remove()
-                        $('#pm-marqueerankinglink').remove()
-                    }
-                    $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-current">${xmlloop + 1}</div>`)
-                    $('.MarqueeContainer > .Marquee').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
-                    if (xmlloop + 1 >= xmlcontent.length) {
-                        $('#pm-marqueerankingbg').append('<div id="pm-marqueerankingbg-next">1</div>')
-                    } else {
-                        $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-next">${xmlloop + 2}</div>`)
-                    }
-                    xmlloop++
-                    if (xmlloop >= xmlcontent.length) {
-                        xmlloop = 0
-                    }
+                setInterval(function () {
+                    setTimeout(function () {
+                        if (document.querySelector('#pm-marqueerankinglink') != null) {
+                            $('#pm-marqueerankingbg-current').remove()
+                            $('#pm-marqueerankingbg-next').remove()
+                            $('#pm-marqueerankinglink').remove()
+                        }
+                        $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-current">${xmlloop + 1}</div>`)
+                        $('.MarqueeContainer > .Marquee').append(`<a id="pm-marqueerankinglink" href="${xmlcontent[xmlloop].querySelector('link').textContent}" target="_blank" rel="noopener noreferrer">${xmlcontent[xmlloop].querySelector('title').textContent}</div>`)
+                        if (xmlloop + 1 >= xmlcontent.length) {
+                            $('#pm-marqueerankingbg').append('<div id="pm-marqueerankingbg-next">1</div>')
+                        } else {
+                            $('#pm-marqueerankingbg').append(`<div id="pm-marqueerankingbg-next">${xmlloop + 2}</div>`)
+                        }
+                        xmlloop++
+                        if (xmlloop >= xmlcontent.length) {
+                            xmlloop = 0
+                        }
                     }, 100)
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#pm-marqueerankingbg-current').css('animation', 'marqueebganim_1 0.5s linear forwards')
                         $('#pm-marqueerankingbg-next').css('animation', 'marqueebganim_2 0.8s linear forwards')
                     }, 4200)
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $('#pm-marqueerankinglink').css('animation', 'fadeout 0.2s linear forwards')
                     }, 4500)
                 }, 5000);
@@ -208,9 +212,10 @@ function createCSSRule(result) {
     } else if (result.replacemarqueecontent == "blank" || result.replacemarqueecontent == "logo") {
         pushCSSRule('.Marquee-itemArea,.Marquee-buttonArea {display:none;}')
     }
+    //#endregion
+
+    // #region シアターUIのフォールバックと21:9強制
     if (result.usenicoboxui != true && result.usetheaterui == true) {
-        // theater UI fallback and wait load without jquery
-        addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
         document.documentElement.classList.add('PM-HeaderBG-Theater')
         // TODO: シリーズストックのものと統合する
         const metaContainer = document.querySelector('.VideoMetaContainer')
@@ -231,7 +236,7 @@ function createCSSRule(result) {
             if (descelem.textContent.indexOf("PM-ForceCinemaRatio") !== -1) {
                 document.body.classList.add('is-PMcinemaratio')
                 document.getElementById("togglefullsize").classList.add('disabled')
-            } else if ( document.getElementById("togglefullsize").classList.contains("disabled")) {
+            } else if (document.getElementById("togglefullsize").classList.contains("disabled")) {
                 document.body.classList.remove('is-PMcinemaratio')
                 document.getElementById("togglefullsize").classList.remove('disabled')
             }
@@ -248,6 +253,9 @@ function createCSSRule(result) {
         })
         detectCinemaIsForced()
     }
+    //#endregion
+
+    // #region シアターUI/boxUIのコンテナリサイズなどの修正
     if (result.usenicoboxui == true || result.usetheaterui == true) {
         let headercontainer = document.querySelector('.HeaderContainer')
         let maincontainer = document.querySelector('.MainContainer')
@@ -257,14 +265,14 @@ function createCSSRule(result) {
         //console.log(maincontainer)
 
         //headercontainer.insertBefore(maincontainer)
-        watchappcontainer.insertBefore(maincontainer,headercontainer)
+        watchappcontainer.insertBefore(maincontainer, headercontainer)
         //$('.HeaderContainer').before($('.MainContainer'));
         watchappcontainer.after(playerpanelcontainer)
         if (document.querySelector('.WakutkoolNoticeContainer') != null) {
-            watchappcontainer.insertBefore(document.querySelector('.WakutkoolNoticeContainer'),maincontainer)
+            watchappcontainer.insertBefore(document.querySelector('.WakutkoolNoticeContainer'), maincontainer)
         }
         if (document.querySelector('.EditorMenuContainer') != null) {
-            watchappcontainer.insertBefore(document.querySelector('.EditorMenuContainer'),maincontainer)
+            watchappcontainer.insertBefore(document.querySelector('.EditorMenuContainer'), maincontainer)
         }
         pushCSSRule('.VideoLiveTimeshiftContainer{text-align:center}')
         $(function () {
@@ -407,12 +415,13 @@ function createCSSRule(result) {
                 attributeFilter: ['style']
             })
             //observer.observe(supporterview, {
-                //attributeFilter: ['style']
+            //attributeFilter: ['style']
             //})
         })
     }
+    // #endregion
 
-
+    // #region プレイヤーテーマのオフセット修正
     if (result.usenicoboxui != true && result.usetheaterui != true) {
         // harazyuku dynamic volbar width
         $(function () {
@@ -500,14 +509,15 @@ function createCSSRule(result) {
                 })
             }
         })
-    }/*
-    if (result.enableexvideodata) {
-        // クリックイベントを発火する関数
-        function simulateClickAtPosition(element, percentage) {
+    }
+    // #endregion
+
+    // #region 貢献スキップ
+    if (result.skipkokenending == "always" || (result.skipkokenending == "onboxui" && result.usenicoboxui)) {
+        function seekToPercentage(element, percentage) {
             const rect = element.getBoundingClientRect();
             const clickX = rect.left + (rect.width * percentage);
             const clickY = rect.top
-            //console.log(`${clickX} ${clickY}`)
             const mousedownEvent = new MouseEvent("mousedown", {
                 cancelable: true,
                 clientX: clickX,
@@ -519,103 +529,25 @@ function createCSSRule(result) {
                 clientX: clickX,
                 clientY: clickY
             });
-            
+
             element.dispatchEvent(mousedownEvent);
             element.dispatchEvent(mouseupEvent);
         }
-        function seekToThisSec(sec) {
-            let xSliderElement = document.querySelector(".XSlider");
-            if (xSliderElement) {
-                simulateClickAtPosition(xSliderElement, 1.0);
-                setTimeout(function() {
-                    let videodurationarray = document.querySelector('.PlayerPlayTime-playtime').textContent.split(":")
-                    let videoduration = ( parseInt(videodurationarray[0]) * 60 ) + parseInt(videodurationarray[1])
-                    if (sec < videoduration) {
-                        simulateClickAtPosition(xSliderElement, (sec / videoduration));
+        const vidContainerElem = document.querySelector(".VideoContainer")
+        const observer = new MutationObserver(records => {
+            records.map(elem => {
+                if (elem.target.className == "SupporterView" && elem.target.style.visibility == "visible") {
+                    const xSliderElement = document.querySelector(".XSlider");
+                    if (xSliderElement) {
+                        seekToPercentage(xSliderElement, 100);
                     }
-                }, 500)
-            }
-        }
-        // make container
-        let openevdcontainer = document.createElement('div')
-        openevdcontainer.classList.add('openevd-container')
-        openevdcontainer.classList.add('subaction-container')
-        // make button elem
-        let openevdelem = document.createElement('button')
-        openevdelem.classList.add('subaction-button')
-        openevdelem.classList.add('material-icons')
-        openevdelem.classList.add('openevd')
-        openevdelem.id = "openevd"
-        openevdelem.textContent = "format_list_bulleted"
-        openevdcontainer.appendChild(openevdelem)
-        // make hint elem
-        let evdbtnhint = document.createElement('span')
-        evdbtnhint.classList.add('pmui-hinttext')
-        evdbtnhint.classList.add('pmui-hinttext-modern')
-        evdbtnhint.textContent = "ExVideoDataを開く"
-
-        openevdcontainer.appendChild(evdbtnhint)
-
-        openevdelem.addEventListener('click', function () {
-            if (document.getElementById('evdcontainer') == undefined) {
-                let evdcontainer = document.createElement('div')
-                evdcontainer.id = "evdcontainer"
-
-                let evdtitle = document.createElement('div')
-                evdtitle.classList.add('evd-title')
-                evdtitle.textContent = "ExVideoData"
-                evdcontainer.appendChild(evdtitle)
-
-                let evdrowcontainer = document.createElement('div')
-                evdrowcontainer.classList.add('evdrowcontainer')
-                evdcontainer.appendChild(evdrowcontainer)
-                let data = {"chapters": [
-                    {
-                        "name": "第1部",
-                        "startsAt": 60
-                    },
-                    {
-                        "name": "第2部",
-                        "startsAt": 120
-                    }
-                ]}
-                data.chapters.forEach(element => {
-                    let rowelem = document.createElement('button')
-                    rowelem.classList.add('evdchapterrow')
-                    
-                    let rowtitle = document.createElement('div')
-                    rowtitle.classList.add('evdrowtitle')
-                    rowtitle.textContent = element.name
-                    evdrowcontainer.appendChild(rowtitle)
-
-                    let rowtime = document.createElement('div')
-                    rowtime.classList.add('evdrowtime')
-                    rowtime.textContent = ( element.startsAt / 60 ) + ":" ( element.startsAt % 60 )
-                    evdrowcontainer.appendChild(rowtime)
-                    
-                    evdrowcontainer.appendChild(rowelem)
-                    rowelem.addEventListener('click', function() {
-                        seekToThisSec(element.startsAt)
-                    })
-                });
-                evdcontainer.appendChild(evdrowcontainer)
-
-                let evdclosebtn = document.createElement('button')
-                evdclosebtn.id = "evdclosebutton"
-                evdclosebtn.classList.add('windowclosebutton')
-                evdclosebtn.textContent = "キャンセル"
-                evdclosebtn.addEventListener('click', function() {
-                    document.getElementById('evdcontainer').remove()
-                })
-                evdcontainer.appendChild(evdclosebtn)
-
-                document.querySelector('.pmbutton-container').prepend(evdcontainer)
-            } else {
-                document.getElementById('evdcontainer').remove()
-            }
-
+                }
+            })
         })
-        // push to dom
-        document.querySelector('.pmbutton-container').prepend(openevdcontainer)
-    }*/
+        observer.observe(vidContainerElem, {
+            attributeFilter: ['style'],
+            subtree: true
+        })
+    }
+    // #endregion
 }

@@ -1,6 +1,10 @@
 node_modules/
 build/
-src/pagemod/css/index.css
-src/pagemod/css/darkmode/darkmode.css
+src/style/css/index.css
+src/style/css/darkmode/darkmode.css
+src/js/modules/feature_test.js
 builds/
 dev/
+dist/
+.vscode/
+src/pages/react_devtools.js

@@ -9,13 +9,13 @@
 
     <body class="width-big">
         <div class="container">
-        <header class="title"><a href="option.html" target="_self"><</a>カスタムカラーパレットの設定</header>
+        <header class="title"><a href="settings.html" target="_self"><</a>カスタムカラーパレットの設定</header>
         <div class="page-desc">
             カスタムカラーパレットの設定を行います。<br>
             CSSで使用できるフォーマットで記述する必要があります。(htmlカラーコード,RGBA,etc)
         </div>
 
-        <form id="settings-form">
+        <div class="maincontainer">
             <div class="settings-row browser-style">
                 <label>メインスキーム
                     <select id="select-mainscheme">
@@ -24,7 +24,7 @@
                     </select>
                 </label>
                 <div class="hint">
-                    このパレットがダークテーマであるか、ライトテーマであるかを選択します。<br>
+                    このパレットがダークテーマであるか、ライトテーマであるかを選択します。
                     これはロゴやアイコン表示に影響します。
                 </div>
             </div>
@@ -47,6 +47,7 @@
             <div class="settings-row"><label>ニコるグレード2背景<input type="text" id="input-nicoru2" value="rgba(201, 168, 62, 0.2)" placeholder="rgba(201, 168, 62, 0.2)"></div>
             <div class="settings-row"><label>ニコるグレード3背景<input type="text" id="input-nicoru3" value="rgba(201, 168, 62, 0.35)" placeholder="rgba(201, 168, 62, 0.35)"></div>
             <div class="settings-row"><label>ニコるグレード4背景<input type="text" id="input-nicoru4" value="rgba(201, 168, 62, 0.5)" placeholder="rgba(201, 168, 62, 0.5)"></div>
+            <div class="settings-row"><label>危険テキスト色<input type="text" id="input-dangerous1" value="rrgb(245, 71, 71)" placeholder="rgb(245, 71, 71)"></div>
             <div class="settings-row">
                 <button id="reset" type="button">リセット</button>
             </div>

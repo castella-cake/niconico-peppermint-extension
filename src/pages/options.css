@@ -7,7 +7,7 @@
     /* 基本背景色 */
     --bgcolor1: #fefefe;
     /* サブ背景色1 */
-    --bgcolor2: #fcfcfc;
+	--bgcolor2: #fafafa;
     /* サブ背景色2 */
     --bgcolor3: #eaeaea;
     --bgcolor4: #e0e0e0;
@@ -119,7 +119,7 @@ h1 {
 	/*background: #00796b;
 	box-shadow: 0px 0px 5px #000;*/
 	line-height: 24px;
-	font-weight: lighter;
+	font-weight: normal;
 }
 .settings-area {
 	background: var(--bgcolor2);
@@ -168,6 +168,7 @@ h1 {
 	font-size: 10px;
 	margin-bottom: 2px;
 	line-height: 16px;
+	white-space: pre-wrap;
 }
 
 .flavortext {
@@ -203,7 +204,6 @@ h1 {
 	transition: all 0.1s;
 }
 
-form,
 .maincontainer {
 	margin-bottom: 2px;
 	padding: 0px 8px 8px;
@@ -221,6 +221,35 @@ select:hover {
 	background: var(--accent1);
 }
 
+.select-button-container {
+	display: inline-block;
+	background: var(--accent1);
+	border-radius: 4px;
+}
+.select-button {
+	background: var(--accent1);
+	border: none;
+	border-radius: 4px;
+	height: 24px;
+	font-family: unset;
+}
+.select-button + .select-button {
+	border-left: 1px solid var(--textcolor3);
+	border-bottom-left-radius: 0px;
+	border-top-left-radius: 0px;
+}
+.select-button:hover {
+	background: var(--hover1);
+}
+.select-button.select-button-current {
+	background: var(--primary);
+	font-weight: bold;
+}
+.select-button:not(:last-child) {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
 .settings-row {
 	margin-bottom: 6px;
 	padding-bottom: 6px;
@@ -230,6 +259,7 @@ select:hover {
 }
 
 label {
+	margin-right: 8px;
 	font-size: 13px;
 }
 
@@ -330,6 +360,7 @@ label {
 
 .settings-page-desc {
 	display: none;
+	white-space: pre-wrap;
 }
 
 table {
@@ -415,7 +446,7 @@ tr td:nth-child(7) {
 .serieslink-container .stockedseries-row-link:hover {
 	color: var(--linktext2);
 }
-#removeseries {
+#removeseries, .removeseries {
 	color: var(--accent2);
 	background-color: transparent;
 	border-radius: 5px;
@@ -423,7 +454,7 @@ tr td:nth-child(7) {
 	padding: 0px;
 
 }
-.togglelock {
+.togglelock, #togglelock {
 	color: var(--textcolor1);
 	background-color: var(--accent2);
 	border-radius: 5px;
@@ -504,16 +535,7 @@ tr td:nth-child(7) {
 	color: inherit;
 	text-decoration: none;
 }
-#seriesstocktitle {
-	margin: 8px 0px
-}
-#togglelock {
-	background: transparent;
-	border: none;
-	font-size: 16px;
-	line-height: 16px;
-	cursor: pointer;
-}
+
 .stockedseries-fetchdate {
 	margin-left: auto
 }
@@ -635,6 +657,7 @@ tr td:nth-child(7) {
 .noyugothic {
 	font-family: "Lato",sans-serif
 }
+
 @media (prefers-color-scheme: dark) {
 
 	html,

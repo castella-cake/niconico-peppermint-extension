@@ -6,13 +6,17 @@
 
 
 Niconico-PepperMint+は、「ニコニコ動画をもっとクールに」を目標に開発している、   
-主にニコニコ動画向けの視覚的変更やシリーズストックなどの機能を提供する拡張機能です。   
+主にニコニコ動画向けの視覚的変更やシリーズストックなどの機能を提供する非公式の拡張機能です。   
 プロジェクトはMITライセンスで提供され、背後の面倒な規約などはありません。   
 Chrome Webstore: https://chrome.google.com/webstore/detail/niconico-peppermint+/oeadnodbjplclhibppgkkijomgcgochf   
 Firefox Add-ONS: https://addons.mozilla.org/ja/firefox/addon/niconico-peppermint/
 
+**この拡張機能は非公式のプロジェクトであり、ニコニコやドワンゴとは一切提携していません。**   
+もしページレイアウトの崩れなどのバグが発生した場合、まずそれがPepperMint+やその他の拡張機能によって引き起こされたものでないか確認してください。   
+この拡張機能で発生した問題は、ニコニコ公式のサポートではなくこのリポジトリの[Issue](https://github.com/castella-cake/niconico-peppermint-extension/issues)に報告してください。
+
 # Install
-## 安定版を入手
+## ストア版(安定版)を入手
 ### Firefox
 1. https://addons.mozilla.org/ja/firefox/addon/niconico-peppermint/ に行きます
 2. ``Firefox に追加`` を押します
@@ -24,7 +28,7 @@ Firefox Add-ONS: https://addons.mozilla.org/ja/firefox/addon/niconico-peppermint
 3. 画面の手順に従います
 4. おわり
 ## リリースからインストールする
-**通常使用には自動更新のある安定版を強く推奨します。**
+**通常使用には自動更新のある安定版を強く推奨します。このインストール方法は、ストアが使用できない場合にのみ使用してください。**
 ### Chrome
 1. リリースページに行きます
 2. ``chrome-<バージョン名>``のzipファイルをダウンロードします
@@ -53,7 +57,6 @@ npm install
 npm run build
 ```
 ビルドが正常に終了すると、`builds` フォルダーにバージョン名のフォルダーと、ストア提出用のパッケージが作成されます。   
-`npm run watch`を使用すると、ファイルの変更を監視して自動でビルドすることができます。その際は`dev`フォルダーにビルドされます。
 
 # Feature
 実装済みの機能/実装予定の機能。
@@ -61,6 +64,7 @@ npm run build
 - [x] ランキングページのニコニ広告行を隠す
 - [x] 視聴ページ上のイベント告知バナーを隠す
 - [x] フォロー/サポーター/プレミアム会員勧誘を隠す
+- [x] ヘッダー上のイベント告知を隠す
 - [x] サポーターボタンを隠す(視聴ページ,全ページ)
 - [x] 投稿日時,ジャンル以外のメタデータを隠す
 #### WatchPage
@@ -81,7 +85,6 @@ npm run build
 - [x] exCommander
 - [x] シアターUI
 - [x] Nicobox風UI
-- [ ] 動画ダウンロード機能
 - [x] 動画記事ボタンを表示
 - [x] Misskeyで共有
 #### NicoPedia
@@ -96,6 +99,7 @@ npm run build
 - [x] 動画トップを2カラムで表示
     - [x] 2カラム表示
     - [x] 画面幅が小さい場合に1カラムに戻す
+- [x] ヘッダー幅を固定
 #### Global
 - [x] ダークモード
 - [x] ヘッダー背景色の変更
@@ -106,9 +110,8 @@ npm run build
     - [x] 最後に見た動画/次の動画記録
     - [x] リスト取得機能
     - [x] 新規エピソード通知機能
-    - [ ] フォルダー分け機能
+    - [x] フォルダー分け機能
 - [x] ニコレポ取得
-- [ ] お知らせ通知
 - [x] カスタム動画トップ
 
 # Progress
@@ -125,8 +128,9 @@ Niconico-PepperMintはメインにニコニコ動画の視聴、サブにニコ�
 ニコニコ静画(漫画),ニコニコ生放送,ニコニ・コモンズに対する機能拡充も計画しています。  
 機能要望などはissueにお願いします。  
 ## ブラウザー
-Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、そしてChromium系ブラウザをサポートします。  
-ただし、ごく一部の機能の完全な動作には`:has()`のサポートが必要です。(ChromiumとFirefoxの最新バージョンではサポートされているはずです)   
+Niconico-PepperMintは最近のFirefoxとその派生ブラウザ、そしてChromium系ブラウザをサポートします。  
+ただし、完全な動作には`:has()`のサポートが必要です。(最近のブラウザでは概ねサポートされているはずです)   
+PCでの動作を想定した拡張機能のため、スマートフォンでの動作は現状サポートしていません。
 ### 動作確認済みブラウザーの一覧
 開発者の意図的に動作することを確認したブラウザー。  
 チェックボックスの付いていないブラウザーは、テストしたが何らかの無視できない問題があることを示します。  
@@ -135,7 +139,8 @@ Niconico-PepperMintはQuantumより後のFirefoxとその派生ブラウザ、�
 - [x] Waterfox 5.1.2
 - [x] Floorp 11 (それ以前のバージョンには表示に軽微な問題がありますが、使用には問題ありません)
 - [ ] MyPal 68.12.5b (Windows XP/10で動作確認、しかしニコニコ動画側がまともに動いてない模様  
-``about:config``で``webextensions.storage.sync.enabled``をtrueに変更する必要があり、対応していないCSSルールがあるためシアターモードが動作せず)
+``about:config``で``webextensions.storage.sync.enabled``をtrueに変更する必要があり、対応していないCSSルールがあるためシアターモードが動作しません)
+- [x] Wolvic 1.6.0
 #### Chromium
 - [x] Google Chrome 110
 - [x] Vivaldi 5.6.2867.62
@@ -150,15 +155,16 @@ https://github.com/sponsors/castella-cake
 Niconico-PepperMint+のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  
 
-Niconico-PepperMint+には、外部リソースとしてMaterial Iconsを使用している箇所があります。    
-Material Iconsは``Apache License 2.0`` のもとで配布されています。  
+Niconico-PepperMint+は、React Iconsからインポートもしくはまた外部リソースからインポートされたMaterial Iconsを使用している箇所があります。  
+Material Iconsは`Apache License 2.0` のもとで配布されています。  
 Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
 
 Niconico-PepperMint+のリリースファイルには、JQuery, JQuery UI, Nord が含まれています。
 これらは``MIT License``のもとで配布されています。
 
-Niconico-PepperMint+のリリースファイルにはDOMPurifyが含まれています。
+Niconico-PepperMint+のリリースファイルにはDOMPurifyが含まれています。   
 DOMPurifyは``Apache License 2.0``、``Mozilla Public License Version 2.0``のデュアルライセンスで配布されています。
 (PepperMint+では``Apache License 2.0``に従います)
 
-外部リソースのライセンスについては、``NOTICE.txt``を参照してください。
+これら以外にも、Reactやそのライブラリなどが含まれています。
+完全な外部リソースのライセンスのコピーについては、`NOTICE.txt`を参照してください。

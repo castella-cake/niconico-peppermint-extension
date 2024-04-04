@@ -1,12 +1,14 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
-    //console.log(result)
+    // #region ボタンコンテナの追加
     if ( document.querySelector('.pmbutton-container') == undefined || document.querySelector('.pmbutton-container') == null ) {
         let pmbuttoncontainer = document.createElement('div')
         pmbuttoncontainer.classList.add('pmbutton-container')
         document.body.appendChild(pmbuttoncontainer)
     }
+    // #endregion
 
+    // #region Misskey共有
     if (result.enablemisskeyshare == true) {
         // make container
         let sharebtncontainer = document.createElement('div')
@@ -105,9 +107,11 @@ function createCSSRule(result) {
         // push to dom
         document.querySelector('.pmbutton-container').appendChild(sharebtncontainer)
     }
-    // TODO: 将来的にbuttonに置き換える
+    // #endregion
+    
+    // #region クイック動画記事
     if (result.quickvidarticle == true) {
-        $('.pmbutton-container').append('<div class="vidarticle-container subaction-container"><a id="openvidarticle" class="subaction-button">百</a></div>')
+        $('.pmbutton-container').append('<div class="vidarticle-container subaction-container"><a id="openvidarticle" class="subaction-button" style="color: #fff">百</a></div>')
         $('#openvidarticle').on('mouseenter', function () {
             $('.vidarticle-container').append('<span id="vidarticle-text" class="pmui-hinttext">この動画の大百科記事を開く</span>')
         })
@@ -119,59 +123,12 @@ function createCSSRule(result) {
                 href: "https://dic.nicovideo.jp/v/" + location.pathname.slice(7)
             })
         });
-
     }
-    /*
-    if (result.enabledlbutton == true) {
-        $('.pmbutton-container').append('<div class="downloadvideo-container subaction-container"><a id="downloadvideo" class="material-icons subaction-button" target="_blank" rel="noopener noreferrer">download</a></div>')
-        if (location.pathname.slice(7, 9) != "so") {
-            $('#downloadvideo').on('mouseenter', function () {
-                $('.downloadvideo-container').append('<span id="downloadvideo-text" class="pmui-hinttext">動画をダウンロード</span>')
-            })
-            $('#downloadvideo').on('mouseleave', function () {
-                $('#downloadvideo-text').remove()
-            })
-            $('#downloadvideo').on('click', setDownloadButton);
-            function setDownloadButton(e) {
-                // 誤爆防止のために、一回目は行われたクリック操作をなかったことにする
-                if ($(e.target).attr('href') == undefined) {
-                    e.preventDefault();
-                }
-                // videoのsrcを取得する
-                let videourl = $('.MainVideoPlayer video').attr('src');
-                // ロード前にクリックされるかもしれないので、undefinedだったら蹴る
-                if (videourl == undefined || videourl == "" || videourl == null) {
-                    $('#downloadvideo-text').text('ダウンロードリンクの設定に失敗しました')
-                } else if (videourl.startsWith('blob:')) {
-                    $('#downloadvideo-text').text('視聴方式をHTTPに変更してください')
-                } else {
-                    $('#downloadvideo-text').text('もう一度クリックしてダウンロード')
-                    $('#downloadvideo').css({
-                        'background': '#4caf50',
-                        'color': '#fff',
-                        'transition': 'all .1s'
-                    })
-                    // hrefを設定
-                    // Downloadは書いてるけどクロスオリジン関係で動かないっぽい
-                    $(e.target).attr({
-                        download: location.pathname.slice(7) + ".mp4",
-                        href: videourl
-                    })
-                }
-            }
-        } else {
-            $('#downloadvideo').addClass('disabled')
-            $('#downloadvideo').text('file_download_off')
-            $('#downloadvideo').on('mouseenter', function () {
-                $('.downloadvideo-container').append('<span id="downloadvideo-text" class="pmui-hinttext">この動画はダウンロードできません</span>')
-            })
-            $('#downloadvideo').on('mouseleave', function () {
-                $('#downloadvideo-text').remove()
-            })
-        }
-    }*/
+    // #endregion
+
+    // #region シアターUI拡大ボタン
     if (result.usetheaterui == true && result.usenicoboxui != true) {
-        $('.pmbutton-container').append('<div class="togglefullsize-container subaction-container"><a id="togglefullsize" class="material-icons-outlined subaction-button">width_full</a></div>')
+        $('.pmbutton-container').append('<div class="togglefullsize-container subaction-container"><button id="togglefullsize" class="material-icons-outlined subaction-button">width_full</button></div>')
         let togglefullsizeelem = document.getElementById("togglefullsize")
         $('#togglefullsize').on('mouseenter', function () {
             if (togglefullsizeelem.classList.contains("disabled")) {
@@ -187,7 +144,7 @@ function createCSSRule(result) {
         function setFullsize(e) {
             if (togglefullsizeelem.classList.contains("disabled") != true) {
                 if (!document.body.classList.contains("is-PMcinemaratio")) {
-                    //addCSS(chrome.runtime.getURL("pagemod/css/theater_21_9_full.css"), `link[href="${chrome.runtime.getURL("pagemod/css/theater_video.css")}"]`)
+                    //addCSS(chrome.runtime.getURL("style/css/theater_21_9_full.css"), `link[href="${chrome.runtime.getURL("style/css/theater_video.css")}"]`)
                     document.body.classList.add('is-PMcinemaratio')
                     $('#togglefullsize').css({
                         'background': '#0288d1',
@@ -205,6 +162,9 @@ function createCSSRule(result) {
             }
         }
     }
+    // #endregion
+
+    // #region boxUIトグルボタン
     if (result.enablenicoboxui == true) {
         $('.pmbutton-container').append('<div class="togglenicobox-container"><button id="togglenicobox" class="material-icons mainaction-button">headphones</button></div>')
         if (result.usenicoboxui != true) {
@@ -252,15 +212,19 @@ function createCSSRule(result) {
             }, 250)
         }
     }
+    // #endregion
 
+    // #region ロックタグハイライト
     if (result.highlightlockedtag == true) {
         if (result.watchpagetheme == "harazyuku" && result.usenicoboxui != true && result.usetheaterui != true) {
             pushCSSRule('.TagItem.is-locked{border-bottom: 2px solid #ffd794;}')
         } else {
             pushCSSRule('.TagItem.is-locked{border: 1px solid #ffd794;}')
         }
-
     }
+    // #endregion
+
+    // #region QoL機能
     if (result.hideeventbanner == true) {
         //$('.WakutkoolNoticeContainer, .WakutkoolFooterContainer, .WakutkoolHeaderContainer-image').remove()
         document.documentElement.classList.add('PM-HideEventBanner')
@@ -269,7 +233,6 @@ function createCSSRule(result) {
         $('.CommentPostContainer').css('height', `${32 * result.commentrow}px`)
         $('.CommentPostContainer-commandInput .CommentCommandInput, .CommentPostContainer-commentInput .CommentInput, .CommentPostButton.ActionButton').css('height', `${28 * result.commentrow}px`)
     }
-
     if (result.cleanvidowner) {
         $('.VideoOwnerInfo .FollowButton,.VideoOwnerInfo-linkButtons').remove()
         $('.VideoOwnerInfo-links').css({
@@ -281,8 +244,11 @@ function createCSSRule(result) {
     if (result.hidemetadata == "watch" || result.hidemetadata == "all") {
         document.documentElement.classList.add('PM-HideMetaData')
     }
+    // #endregion
 
+    // #region ショートカットアシスト/ExCommander
     if (result.shortcutassist) {
+        // #region ExCommander
         async function cmdACT(cmdstr) {
             // return -1 = ERROR | 0 = SUCCESS | 1 = SUCCESS with external flag | 2 = SUCCESS with external output
             const commandstr = cmdstr
@@ -426,10 +392,9 @@ function createCSSRule(result) {
                 document.getElementById('pm-vicommander').focus()
                 document.getElementById('pm-vicommander').addEventListener('keypress', commanderKeyEvent);
             }
-
         }
-        $(document).on('keydown', shortCutAction);
-
+        // #endregion
+        // #region ショートカットアシスト
         function shortCutAction(e) {
             if (e.ctrlKey || $(e.target).closest("input, textarea").length) {
                 return true;
@@ -457,46 +422,18 @@ function createCSSRule(result) {
                     openViCommander()
                     return false;
                 }
-
             }
         }
+        $(document).on('keydown', shortCutAction);
+        // #endregion
     }
-    if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        pushCSSRule(`.IchibaForWatch {
-        background: var(--bgcolor2) !important;
-    }
-    .IchibaMain_Container .IchibaBalloon {
-        background: var(--bgcolor3);
-    }
-    .IchibaMain_Container .IchibaBalloon::after {
-        border-top: 16px solid #555;
-    }
-    .IchibaForWatch_Title_Body,.IchibaSuggest_Title {
-        color: #fafafa;
-    }
-    .IchibaMainItem_Info,.IchibaSuggestItem_Info_Shop {
-        color: var(--textcolor2);
-    }
-    .IchibaMainItem_Price_Number,.IchibaSuggestItem_Price_Number {
-        color: var(--textcolor3);
-    }
-    .IchibaMainItem_Name,.IchibaSuggestItem_Name {
-        color: #8fb9df;
-    }
-    .IchibaSuggestItem {    
-        border: 1px solid var(--accent2);
-    }`)
-    }
+    // #endregion
 
-    /*
-    $(document).on('mousemove', function(e) {
-        window.cursorX = e.pageX;
-        window.cursorY = e.pageY;
-    });*/
+    // #region boxUI/シアターUI未使用時アクション
     if (result.usenicoboxui != true && result.usetheaterui != true) {
         if (result.watchpagetheme != "") {
             //console.log(`CSS Loaded!`);
-            addCSS(chrome.runtime.getURL("pagemod/css/watchpagetheme/" + result.watchpagetheme + ".css"));
+            addCSS(chrome.runtime.getURL("style/css/watchpagetheme/" + result.watchpagetheme + ".css"));
         }
         if (result.usenicoboxui != true && result.usetheaterui != true && result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             if (result.watchpagetheme == "harazyuku") {
@@ -549,14 +486,14 @@ function createCSSRule(result) {
                     color: var(--textcolor1);
                 }`)
             }
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
         }
         if (result.playertheme != "") {
             //console.log(`CSS Loaded!`);
             if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
-                addCSS(chrome.runtime.getURL("pagemod/css/playertheme/rc1.css"));
+                addCSS(chrome.runtime.getURL("style/css/playertheme/rc1.css"));
             } else {
-                addCSS(chrome.runtime.getURL("pagemod/css/playertheme/" + result.playertheme + ".css"));
+                addCSS(chrome.runtime.getURL("style/css/playertheme/" + result.playertheme + ".css"));
             }
 
             if (result.playertheme == "harazyuku") {
@@ -569,7 +506,7 @@ function createCSSRule(result) {
             }
             if (result.playerstyleoverride != "") {
                 if (result.playerstyleoverride != "none") {
-                    addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playerstyleoverride + ".css"))
+                    addCSS(chrome.runtime.getURL("style/css/playerstyle/" + result.playerstyleoverride + ".css"))
                 }
                 if (result.playertheme == "mint" && result.playerstyleoverride == "mint") {
                     pushCSSRule('.PlayerPauseButton,.PlayerPlayButton {background-image: linear-gradient(#232323,#171717);outline: 1px solid #1c1c1c;outline-offset: -1px;height: 34px;}.PlayerPauseButton:hover,.PlayerPlayButton:hover {background-image: linear-gradient(#2a2a2a,#1b1b1b);}.ControllerButton svg {filter: drop-shadow(0px 0px 2px rgba(0,0,0 50%)) ;}.ControllerButton:hover svg {fill:#ffffff;filter: drop-shadow(0px 0px 2px rgba(128,128,128 100%));transition:all .1s ease .1s}')
@@ -658,9 +595,9 @@ function createCSSRule(result) {
                 }
             } else {
                 if (result.playertheme == "rc1" || result.playertheme == "rc1plus") {
-                    addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/rc1.css"));
+                    addCSS(chrome.runtime.getURL("style/css/playerstyle/rc1.css"));
                 } else {
-                    addCSS(chrome.runtime.getURL("pagemod/css/playerstyle/" + result.playertheme + ".css"));
+                    addCSS(chrome.runtime.getURL("style/css/playerstyle/" + result.playertheme + ".css"));
                 }
                 if (result.playertheme == "mint") {
                     pushCSSRule('.PlayerPauseButton,.PlayerPlayButton {background-image: linear-gradient(#232323,#171717);outline: 1px solid #1c1c1c;outline-offset: -1px;height: 34px;}.PlayerPauseButton:hover,.PlayerPlayButton:hover {background-image: linear-gradient(#2a2a2a,#1b1b1b);}.ControllerButton svg {filter: drop-shadow(0px 0px 2px rgba(0,0,0 50%)) ;}.ControllerButton:hover svg {fill:#ffffff;filter: drop-shadow(0px 0px 2px rgba(128,128,128 100%));transition:all .1s ease .1s}')
@@ -752,12 +689,16 @@ function createCSSRule(result) {
         if (result.hidepopup == true) {
             // cssじゃないとロードの都合で反映されなかった
             //$('.FollowAppeal,.SeekBarStoryboardPremiumLink-content,.PreVideoStartPremiumLinkContainer').css('display','none')
-            addCSS(chrome.runtime.getURL("pagemod/css/hide/hidepopup.css"));
+            addCSS(chrome.runtime.getURL("style/css/hide/hidepopup.css"));
         }
-    } else if (result.usenicoboxui == true && result.useoldnicoboxstyle != true) {
+    }
+    // #endregion
+
+    // #region 新boxUI
+    if (result.usenicoboxui == true && result.useoldnicoboxstyle != true) {
         // New Nicobox UI
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
             pushCSSRule(`.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
                 fill: #fff
             }`)
@@ -770,7 +711,11 @@ function createCSSRule(result) {
             })
         }
         $('body').addClass('is-PMNewNicoboxUI')
-        addCSS(chrome.runtime.getURL("pagemod/css/nicobox-new.css"));
+        if ( result.usejukeboxconcept == true ) {
+            addCSS(chrome.runtime.getURL("style/css/nicobox-jukebox.css"));
+        } else {
+            addCSS(chrome.runtime.getURL("style/css/nicobox-new.css"));
+        }
         $('body').css('background-color', '#fefefe')
         // 基本レイアウト変更
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}')
@@ -827,16 +772,18 @@ function createCSSRule(result) {
                 `)
             }
         });
+    // #endregion
+    // #region 旧boxUI
     } else if (result.usenicoboxui == true && result.useoldnicoboxstyle == true) {
         // Nicobox UI
         $('body').addClass('is-PMNicoboxUI')
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
+            addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
             pushCSSRule(`.ControllerButton svg,.ControllerButton.PlayerRepeatOnButton svg path,.PlaybackRateButton svg {
                 fill: #fff
             }`)
         }
-        addCSS(chrome.runtime.getURL("pagemod/css/nicobox.css"));
+        addCSS(chrome.runtime.getURL("style/css/nicobox.css"));
         $('body').css('background-color', '#fefefe')
         // 基本レイアウト変更
         //nicobox.cssに移動
@@ -858,21 +805,20 @@ function createCSSRule(result) {
                 pushCSSRule('.HeaderContainer {background: #fefefe;} .PlayerPlayTime { color: #1d2128; }')
             }
         });
-    } else {
+    } else if (result.usetheaterui == true) {
+    // #endregion
+    // #region シアターUI
         // theater UI
         $('body').css('background-color', '#000')
-        $('body').addClass('is-PMTheaterUI')
         // cssは後から読み込まれるせいで.css()が使えないものに対してのみ使う
         // video関連は早めにスタイルシートで書かないとコメントコンテナーやシンボルが動画サイズの変更を反映してくれない
-        //addCSS(chrome.runtime.getURL("pagemod/css/theater_video.css"));
+        //addCSS(chrome.runtime.getURL("style/css/theater_video.css"));
         // 基本レイアウト変更
         // theater.cssに移動
         pushCSSRule('.MainContainer-floatingPanel {position: fixed;right: 0;bottom: 0;top: 44px;z-index: 500;}.common-header-1v0m9lc, .common-header-1nvgp3g, .common-header-h0l8yl, .common-header-cdesjj, .common-header-171vphh, .common-header-wb7b82, .common-header-1ufbzdh, .common-header-654o26, .common-header-11u4gc2, .common-header-1pxv7y0, .commonHeaderArea, #CommonHeader {background-color: #000 !important;}')
         if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-            addCSS(chrome.runtime.getURL("pagemod/css/darkmode/watch.css"));
-            document.documentElement.classList.add('PM-TheaterMode')
+            addCSS(chrome.runtime.getURL("style/css/darkmode/watch.css"));
         } else {
-            document.documentElement.classList.add('PM-TheaterMode')
         }
         if ( !result.disabletheaterpalette ) {
             document.documentElement.classList.add('PM-TheaterUseBlack')
@@ -891,5 +837,5 @@ function createCSSRule(result) {
             window.scroll({ top: 0, behavior: 'smooth' });
         });
     }
-    //console.log(`createCSSRule Finished!`)
+    // #endregion
 }

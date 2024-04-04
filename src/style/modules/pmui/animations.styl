@@ -1,0 +1,64 @@
+// animations
+@keyframes fadeout {
+    0% {opacity: 100%;}
+    100% {opacity: 0%;}
+}
+@keyframes fadein {
+    0% {opacity: 0%;}
+    100% {opacity: 100%;}
+}
+@keyframes marqueebganim_1 {
+    0% { 
+        transform: translateX(0%) translateY(0%) scale(1.0);
+    }
+    50% {
+        transform: translateX(0%) translateY(15%) scale(0.6);
+    }
+    80% { 
+        transform: translateX(-100%) translateY(15%) scale(0.6);
+        opacity: 50%;
+    }
+    100% { 
+        transform: translateX(-100%) translateY(15%) scale(0.6);
+        opacity: 0%;
+    }
+}
+@keyframes marqueebganim_2 {
+    0% { 
+        transform: translateX(0%) translateY(15%) scale(0.6);
+    }
+    50% {
+        transform: translateX(-50%) translateY(15%) scale(0.6);
+        opacity: 30%;
+    }
+    95% { 
+        transform: translateX(-100%) translateY(0%) scale(1.0);
+        opacity: 50%;
+    }
+    100% { 
+        transform: translateX(-100%) translateY(0%) scale(1.0);
+        opacity: 50%;
+    }
+}
+@keyframes blink {
+    0% { 
+        opacity: 100%
+    }
+    50% { 
+        opacity: 100%
+    }
+    51% { 
+        opacity: 0%
+    }
+    100% { 
+        opacity: 0%;
+    }
+}
+@keyframes bottomslidein {
+    0% { 
+        bottom: -1000px;
+    }
+    100% { 
+        bottom: 0px;
+    }
+}
