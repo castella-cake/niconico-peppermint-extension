@@ -77,7 +77,7 @@ gulp.task('copyFilesForPrepare', function (done) {
     gulp.src(['./src/lang/*'])
         .pipe(gulp.dest(destpath + "/lang"))
 
-    gulp.src(['./src/js/**/*.js'])
+    gulp.src(['./src/js/**/*.js', '!./src/js/modules/**/*.js', '!./src/js/pages/modules/**/*.js'])
         .pipe(gulp.dest(destpath + "/js"))
         .on('end', function () {
             /*const gulp = require('gulp');
