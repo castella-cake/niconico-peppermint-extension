@@ -71,7 +71,7 @@ export function SeriesRow(props) {
                             </div>
                             : <div className="stockedseries-row-owner">
                                 {lang.USER}:
-                                <a href={"https://nico.ms/user/" + thisSeriesInfo.data.detail.owner.user.id} className="stockedseries-row-ownerlink" style={thisSeriesInfo.data.detail.owner.user.isPremium && { color: "#d9a300" }}>{thisSeriesInfo.data.detail.owner.user.nickname}</a>
+                                <a href={"https://nico.ms/user/" + thisSeriesInfo.data.detail.owner.user.id} className="stockedseries-row-ownerlink" style={thisSeriesInfo.data.detail.owner.user.isPremium ? { color: "#d9a300" } : {}}>{thisSeriesInfo.data.detail.owner.user.nickname}</a>
                             </div>
                         )
                     }
