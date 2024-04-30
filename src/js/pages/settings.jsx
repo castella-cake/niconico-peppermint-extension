@@ -4,6 +4,8 @@ import CreateSettingsList from "./modules/SettingsUI";
 import lang from "../../langs/ja.json";
 import { StorageProvider } from "./modules/extensionHook";
 
+import { ErrorBoundary } from "react-error-boundary";
+
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -18,7 +20,13 @@ createRoot(document.getElementById("root")).render(
                 </div>
                 <div className="settings-page-desc">{lang.SETTINGS_DESC}</div>
                 <div className="maincontainer">
-                    <CreateSettingsList/>
+                    <ErrorBoundary fallbackRender={({ error, resetErrorBoundary }) => {
+                        return <div style={{ background: "var(--bgcolor3)", color: "var(--textcolor3)"}}>
+                            表示中に重大なエラーが発生しました: {error.message}
+                        </div>
+                    }}>
+                        <CreateSettingsList/>
+                    </ErrorBoundary>
                     <div className="settings-area">
                         <div className="settings-row">
                             <h1>Dangerous Area</h1>
