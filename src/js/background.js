@@ -474,7 +474,9 @@ chrome.alarms.onAlarm.addListener(function (e) {
                             setTimeout(() => {
                                 //console.log(element.seriesID)
                                 // キャッシュなしで取得(これでキャッシュされる)
-                                getSeriesInfo(element.seriesID, 2)
+                                if (element.seriesID) {
+                                    getSeriesInfo(element.seriesID, 2)
+                                }
                             }, i * 10000);
                             // i * 15000msで10sおきに実行
                         });

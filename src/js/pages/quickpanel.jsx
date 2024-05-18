@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import CreateTabUI from "./modules/TabUI";
 import { StorageProvider } from "./modules/extensionHook";
+import { ErrorBoundary } from "react-error-boundary";
 
 const manifestData = chrome.runtime.getManifest();
 const currentVersion = manifestData.version_name;
@@ -29,7 +30,13 @@ createRoot(document.getElementById("root")).render(
                 </div>
             </div>
         </div>
-        <CreateTabUI/>
+        <ErrorBoundary fallbackRender={({ error, resetErrorBoundary }) => {
+            return <div style={{ background: "var(--bgcolor3)", color: "var(--textcolor3)", borderRadius: 4 }}>
+                クイックパネルの表示中に重大なエラーが発生しました: {error.message}
+            </div>
+        }}>
+            <CreateTabUI/>
+        </ErrorBoundary>
     </StorageProvider>
     </StrictMode>,
 );
