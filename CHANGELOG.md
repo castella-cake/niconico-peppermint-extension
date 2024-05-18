@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - クイックパネル内のブロックでエラーが発生した場合に、全体のレンダーが停止しないようにしました [#35](https://github.com/castella-cake/niconico-peppermint-extension/issues/35)
 - `マーキーエリアコンテンツの置き換え`で「何も表示しない」を選択しても、引き続きコンテンツが表示される問題を修正しました
 - ニコニ貢献のダークモードサポートを修正しました
+- シリーズストック情報のバックグラウンド更新で発生するエラーを修正しました
 
 ## [2.0.0] - 2024/04/04
 
