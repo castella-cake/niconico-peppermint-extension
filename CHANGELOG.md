@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2024/05/18
+
+### Fixed
+- シリーズストックのスタイル設定の誤りを修正しました [#34](https://github.com/castella-cake/niconico-peppermint-extension/issues/34)
+- クイックパネル内のブロックでエラーが発生した場合に、全体のレンダーが停止しないようにしました [#35](https://github.com/castella-cake/niconico-peppermint-extension/issues/35)
+- `マーキーエリアコンテンツの置き換え`で「何も表示しない」を選択しても、引き続きコンテンツが表示される問題を修正しました
+- ニコニ貢献のダークモードサポートを修正しました
+
 ## [2.0.0] - 2024/04/04
 
 ### Added
@@ -552,7 +560,9 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.8.0...HEAD
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.8.0...v2.0.0
 [1.8.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.7.2...v1.8.0
 [1.7.2]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.7.0...v1.7.1
