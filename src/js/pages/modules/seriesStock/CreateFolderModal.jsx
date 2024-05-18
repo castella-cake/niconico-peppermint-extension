@@ -87,7 +87,7 @@ export function CreateFolderModal() {
                                         </span>
                                         : <span className="stockedseries-row-owner" style={{ fontSize: 12, marginLeft: ".5em" }}>
                                             - {lang.USER}:
-                                            <a href={"https://nico.ms/user/" + seriesInfo[elem.seriesID].data.detail.owner.user.id} className="stockedseries-row-ownerlink" style={seriesInfo[elem.seriesID].data.detail.owner.user.isPremium && { color: "#d9a300" }}>{seriesInfo[elem.seriesID].data.detail.owner.user.nickname}</a>
+                                            <a href={"https://nico.ms/user/" + seriesInfo[elem.seriesID].data.detail.owner.user.id} className="stockedseries-row-ownerlink" style={seriesInfo[elem.seriesID].data.detail.owner.user.isPremium ? { color: "#d9a300" } : {}}>{seriesInfo[elem.seriesID].data.detail.owner.user.nickname}</a>
                                         </span>
                                     )
                                 }
