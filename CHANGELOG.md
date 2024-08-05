@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 - 新視聴ページの開始に伴って、既存の全WatchPage機能を無効化しました
+- ニコレポリーダーは削除されました
 
 ## [2.0.1] - 2024/05/18
 

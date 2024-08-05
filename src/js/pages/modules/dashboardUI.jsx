@@ -23,7 +23,6 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from "@dnd-kit/utilities";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
-import CreateNicorepoUI from "./nicorepoUI";
 import { useStorageContext } from "./extensionHook";
 import { useLang } from "./localizeHook";
 import { ErrorBoundary } from "react-error-boundary";
@@ -45,9 +44,9 @@ function CreateDashboardUI() {
     const lang = useLang()
     const { syncStorage, setSyncStorageValue } = useStorageContext()
 
-    const dashboardBlocks = { quickoption: <ComponentFallback><CreateQuickOption/></ComponentFallback>, seriesstock: (syncStorage.enableseriesstock ? <ComponentFallback><CreateSeriesStockBlock/></ComponentFallback> : <></>), nicorepo: <ComponentFallback><CreateNicorepoUI isrecentblock={true} displaylimit={5}/></ComponentFallback> }
+    const dashboardBlocks = { quickoption: <ComponentFallback><CreateQuickOption/></ComponentFallback>, seriesstock: (syncStorage.enableseriesstock ? <ComponentFallback><CreateSeriesStockBlock/></ComponentFallback> : <></>) }
     const [isChanged, setIsChanged] = useState(false);
-    const dashboardSortList = ( (syncStorage.dashboardsortlist && syncStorage.dashboardsortlist.length == Object.keys(dashboardBlocks).length) ? syncStorage.dashboardsortlist : [{ name: "quickoption", isHidden: false }, { name: "seriesstock", isHidden: false }, { name: "nicorepo", isHidden: true }])
+    const dashboardSortList = ( (syncStorage.dashboardsortlist && syncStorage.dashboardsortlist.length == Object.keys(dashboardBlocks).length) ? syncStorage.dashboardsortlist : [{ name: "quickoption", isHidden: false }, { name: "seriesstock", isHidden: false }])
     const dashboardDNDId = dashboardSortList.map(elem => { return elem.name })
     const [isEditMode, setIsEditMode] = useState(false)
 

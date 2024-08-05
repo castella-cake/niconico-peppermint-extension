@@ -269,11 +269,11 @@ const settings = {
             name: "enableseriesstocktab",
             default: false,
         },
-        {
+        /*{
             type: "checkbox",
             name: "enablenicorepotab",
             default: false,
-        },
+        },*/
         {
             type: "checkbox",
             name: "enablequicksettingstab",
