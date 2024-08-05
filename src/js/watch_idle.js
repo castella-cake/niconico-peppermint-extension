@@ -1,5 +1,6 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
+    return
     // #region シリーズストック
     if (result.enableseriesstock == true) {
         $('.pmbutton-container').prepend('<div class="addtostock-container subaction-container"><button id="addtostock" class="material-icons-outlined subaction-button">add</button></div>')

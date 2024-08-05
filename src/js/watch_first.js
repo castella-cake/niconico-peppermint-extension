@@ -74,6 +74,7 @@ function addCSS(cssfile, safeAppend = true, var2 = 'head', var3 = 'root') {
 var getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
+    return
     if (result.nicoboxuichanged == true) {
         //console.log('changed!')
         $('#CommonHeader')

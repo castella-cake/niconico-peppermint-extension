@@ -31,11 +31,12 @@ function CreateQuickOption() {
     const settingsObj = {}
     Object.keys(settings).map((elem) => {
         settings[elem].map((settingsElem) => {
+            if ( settingsElem.type === "desc" ) return;
             settingsObj[settingsElem.name] = settingsElem;
         })
     })
 
-    const settingsFilter = ( syncStorage.quickoptionlist ? syncStorage.quickoptionlist : ["playertheme", "darkmode"] )
+    const settingsFilter = ( syncStorage.quickoptionlist ? syncStorage.quickoptionlist : ["darkmode"] )
 
     // #region dnd define
     const sensors = useSensors(
@@ -62,6 +63,7 @@ function CreateQuickOption() {
     function CreateSettingsControl(props) {
         //console.log(lang.SETTINGS_ITEMS[settings.name].name)
         const settings = props.settings
+        if ( !settings || settings.type === "desc" ) return
         if ( isEditMode ) {
             return <div className="quickoptions-editmode-row" key={settings.name + "-edit"}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<button className="quickoption-editmode-remove" type="button" title={lang.REMOVE} onClick={() => {removeQuickOptionList(settings.name)}}><MdDeleteOutline style={{fontSize: 16}}/></button></div>
         }
@@ -83,10 +85,9 @@ function CreateQuickOption() {
         }
     }
     function createSettingsRow(settings) {
-
+        if ( !settings || settings.type == "desc" ) return
         const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: settings.name, disabled: !isEditMode})
         const dndStyle = { transform: CSS.Translate.toString(transform), transition, }
-
         return <div className="settings-row settings-row-qo" key={`${settings.name}-row`} ref={setNodeRef} style={dndStyle} {...attributes} {...listeners}><CreateSettingsControl settings={settings}/></div>
     }
     // functionにしないとなぜかDNDが機能しない
@@ -117,7 +118,13 @@ function CreateQuickOption() {
                 </div>
             </SortableContext>
         </DndContext>
-        {isEditMode && <div>{lang.ADD_ITEM} <select ref={selectRef}>{Object.keys(settingsObj).filter(elem => {return !settingsFilter.includes(elem)}).map((elem) => { return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[elem].name ?? elem}</option> })}</select><button onClick={onAddButtonClicked} class="quickoption-button-add">{lang.ADD}</button></div>}
+        {isEditMode && <div>{lang.ADD_ITEM} 
+            <select ref={selectRef}>
+                {Object.keys(settingsObj).filter(elem => {return !settingsFilter.includes(elem)}).map((elem) => {
+                    return <option value={elem} key={elem}>{lang.SETTINGS_ITEMS[elem].name ?? elem}</option>
+                })}
+            </select>
+            <button onClick={onAddButtonClicked} class="quickoption-button-add">{lang.ADD}</button></div>}
     </div>
 }
 

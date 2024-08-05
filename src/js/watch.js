@@ -1,5 +1,6 @@
 getStorageData.then(createCSSRule, onError);
 function createCSSRule(result) {
+    return
     // #region ボタンコンテナの追加
     if ( document.querySelector('.pmbutton-container') == undefined || document.querySelector('.pmbutton-container') == null ) {
         let pmbuttoncontainer = document.createElement('div')

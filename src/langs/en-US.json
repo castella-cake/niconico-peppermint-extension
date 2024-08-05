@@ -44,6 +44,11 @@
                 "Hide all"
             ]
         },
+
+        "featurenotavailable_newwatchpage": {
+            "name": "Due to the launch of the new watch page, the features in this section are currently unavailable.",
+            "linktitle": "Learn more"
+        },
         "watchpagetheme": {
             "name": "Viewing page theme",
             "hint": "Change the appearance and layout of the viewing page.",
