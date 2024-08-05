@@ -1,13 +1,19 @@
-const gulp = require('gulp');
-const zip = require('gulp-zip');
-const fs = require('fs');
-const path = require('path');
-const stylus = require('gulp-stylus');
-const fse = require('fs-extra');
-const webpack = require('webpack-stream');
+import gulp from 'gulp'
+import zip from 'gulp-zip';
+import fs from 'fs';
+import path from 'path';
+import stylus from 'gulp-stylus';
+import fse from 'fs-extra';
+import webpack from 'webpack-stream';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const packageJson = require('./package.json'); // package.jsonを読み込む
-const webpackConfig = require('./webpack.config');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+import packageJson from './package.json' with { type: "json" };
+import webpackConfig from './webpack.config.mjs';
+
 const stylusEndpoints = ['./src/style/index.styl', './src/style/dm_external.styl']
 
 
@@ -74,8 +80,8 @@ gulp.task('copyFilesForPrepare', function (done) {
     gulp.src(['./src/style/css/**/*.css'])
         .pipe(gulp.dest(destpath + "/style/css"))
 
-    gulp.src(['./src/lang/*'])
-        .pipe(gulp.dest(destpath + "/lang"))
+    gulp.src(['./src/langs/*'])
+        .pipe(gulp.dest(destpath + "/langs"))
 
     gulp.src(['./src/js/**/*.js', '!./src/js/modules/**/*.js', '!./src/js/pages/modules/**/*.js'])
         .pipe(gulp.dest(destpath + "/js"))

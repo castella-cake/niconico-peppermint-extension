@@ -1,5 +1,5 @@
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-module.exports = {
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+export default {
     entry: {
         index: './src/js/index.js',
         index_end: './src/js/index_end.js',
