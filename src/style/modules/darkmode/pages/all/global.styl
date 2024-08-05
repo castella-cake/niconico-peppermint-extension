@@ -55,6 +55,25 @@ html.PMDM-Enabled {
         background-color: #bbb;
         border: 1px solid var(--accent2)
     }
+    .suggestBox {
+        border-top: 2px solid var(--accent1);
+    }
+    .suggestBoxInner {
+        border: 1px solid var(--accent1);
+        li {
+            border-top: 1px dotted var(--accent1);
+            color: var(--textcolor1);
+        }
+        li.active, li.active a {
+            background: var(--hover1) !important;
+        }
+        li.active a {
+            color: var(--textcolor1) !important;
+        }
+    }
+    .suggestBox, .suggestBoxInner {
+        background-color: var(--bgcolor2);
+    }
     /* ボーダー削除 */
     .TopPage-middleBillboardAdSection {
         border: 0px;
