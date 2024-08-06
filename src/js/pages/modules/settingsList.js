@@ -35,6 +35,11 @@ const settings = {
     ],
     watchpage: [
         {
+            type: "desc",
+            name: "featurenotavailable_newwatchpage",
+            href: "https://www.cyakigasi.net/niconico/2024/peppermint-niconico-restore-affect/"
+        },
+        /*{
             type: "select",
             name: "watchpagetheme",
             values: ["","mint","harazyuku"],
@@ -129,7 +134,7 @@ const settings = {
                 name: "MISSKEYSHARE_CONFIGURE_LINK",
                 href: "setmkinstance.html"
             }
-        },
+        },*/
     ],
     nicopedia: [
         {
@@ -264,11 +269,11 @@ const settings = {
             name: "enableseriesstocktab",
             default: false,
         },
-        {
+        /*{
             type: "checkbox",
             name: "enablenicorepotab",
             default: false,
-        },
+        },*/
         {
             type: "checkbox",
             name: "enablequicksettingstab",

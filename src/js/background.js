@@ -12,7 +12,13 @@ chrome.runtime.onInstalled.addListener(function (details) {
             chrome.action.setBadgeText({ text: "▲" })
             chrome.action.setBadgeBackgroundColor({ color: "#169cf0"});
         }
-        if (details.previousVersion.split(".")[0] != manifestData.version.split(".")[0]) {
+        if (
+            details.previousVersion.split(".")[0] != manifestData.version.split(".")[0]
+            || (
+                details.previousVersion.split(".")[0] == "2" && details.previousVersion.split(".")[1] == "0" && 
+                manifestData.version.split(".")[0] == "2" && manifestData.version.split(".")[1] == "1"
+            )
+        ) {
             chrome.tabs.create({
                 url: chrome.runtime.getURL("pages/update.html")
             });
@@ -26,7 +32,6 @@ chrome.runtime.onInstalled.addListener(function (details) {
         visible: false
     });
     chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 1, periodInMinutes: 120 })
-    chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 1, periodInMinutes: 45 })
     //chrome.alarms.create('dynamicPatch_Refresh', { delayInMinutes: 0, periodInMinutes: 360 })
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then((storage) => {
@@ -49,28 +54,42 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
     }
 })
 function generateActionTrackId() {
-    return new Promise((resolve, reject) => {
+    const atc_first = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    const atc_last = "0123456789"
+    let ati_firststr = ""
+    let ati_laststr = ""
+    for (let i = 0; i < 10; i++) {
+        //console.log(i)
+        ati_firststr += atc_first[Math.floor(Math.random() * atc_first.length)]
+    }
+    for (let i = 0; i < 24; i++) {
+        //console.log(i)
+        ati_laststr += atc_last[Math.floor(Math.random() * atc_last.length)]
+    }
+    return ati_firststr + "_" + ati_laststr
+}
+// #region getVideoInfo
+function getVideoInfo(smId) {
+    return new Promise(async (resolve, reject) => {
         try {
-            let atc_first = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            let atc_last = "0123456789"
-            let ati_firststr = ""
-            let ati_laststr = ""
-            let ati_str = ""
-            for (let i = 0; i < 10; i++) {
-                //console.log(i)
-                ati_firststr += atc_first[Math.floor(Math.random() * atc_first.length)]
-            }
-            for (let i = 0; i < 24; i++) {
-                //console.log(i)
-                ati_laststr += atc_last[Math.floor(Math.random() * atc_last.length)]
-            }
-            ati_str = ati_firststr + "_" + ati_laststr
-            resolve(ati_str)
+            // responseType=jsonで取得。
+            const response = await fetch(`https://www.nicovideo.jp/watch/${smId}?responseType=json`, {
+                "credentials": "include",
+                "headers": {
+                    "User-Agent": `PepperMintPlus/${manifestData.version}`,
+                },
+                "method": "GET"
+            })
+            if ( !response.ok ) reject("Response is not ok")
+            const responseJson = await response.json()
+            if ( responseJson.meta.status !== 200 ) reject(responseJson.meta.status)
+            resolve(responseJson)
         } catch (err) {
             reject(err)
         }
     })
 }
+// #endregion
 function getSeriesInfo(seriesid, cachemode = 0) {
     // シリーズ情報を取得してキャッシュします。
     // キャッシュモードが0の場合はキャッシュを返します。
@@ -137,106 +156,6 @@ function getSeriesInfo(seriesid, cachemode = 0) {
             })
         } catch (err) {
             console.error(err)
-            reject(err)
-        }
-    })
-}
-function getRecentNicorepo(cachemode = 0) {
-    // ニコレポを取得してキャッシュします。
-    // cachemode 0 => use cache 1 => no cache 2 => no cache and badge update
-    return new Promise((resolve, reject) => {
-        try {
-            let getStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
-            getStorageData.then((storage) => {
-                // キャッシュが使用可能なら使用する
-                if (storage.nicorepocache != undefined && (storage.nicorepocache != null && storage.nicorepocache != undefined && cachemode == 0)) {
-                    resolve(storage.nicorepocache)
-                } else {
-                    // そうじゃなければfetch
-                    fetch(`https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/last-1-month/my/pc/entries.json`, { 'method': 'GET' }).then((res) => {
-                        if (res.ok) {
-                            // okだったらtextを取る
-                            res.text().then((data) => {
-                                // objにパースして200かどうか確認する
-                                let dataobj = JSON.parse(data)
-                                let currentdate = new Date()
-                                dataobj["fetchdate"] = currentdate.toString()
-                                if (dataobj.meta.status == 200) {
-                                    if (cachemode == 2) {
-                                        // ニコレポキャッシュがundefinedじゃないなら
-                                        if ( storage.nicorepocache != undefined && storage.nicorepocache.data ) {
-                                            let oldidarray = storage.nicorepocache.data.map(elem => elem.id)
-                                            let newidarray = dataobj.data.map(elem => elem.id)
-                                            //console.log(`OLD: ${JSON.stringify(oldidarray)}`)
-                                            //console.log(`NEW: ${JSON.stringify(newidarray)}`)
-                                            //console.log(JSON.stringify(oldidarray) != JSON.stringify(newidarray))
-                                            if (JSON.stringify(oldidarray) != JSON.stringify(newidarray)) {
-                                                if (chrome.browserAction != undefined) {
-                                                    chrome.browserAction.setBadgeText({ text: "R" })
-                                                    chrome.browserAction.setBadgeBackgroundColor({ color: "#1dcc3a"});
-                                                } else if (chrome.action != undefined) {
-                                                    chrome.action.setBadgeText({ text: "R" })
-                                                    chrome.action.setBadgeBackgroundColor({ color: "#1dcc3a"});
-                                                }
-                                            }
-
-                                        }
-                                    } 
-                                    chrome.storage.local.set({ "nicorepocache": dataobj })
-                                    resolve(dataobj)
-                                } else {
-                                    // 200じゃなかったらreject
-                                    reject(dataobj)
-                                }
-                            })
-                        } else {
-                            // そもそも呼べなかったらrejectしてステータス返す
-                            reject({ "meta": { "status": res.status, "reason": "APIの呼び出しに失敗しました" } })
-                        }
-                    })
-                }
-            })
-        } catch (err) {
-            reject(err)
-        }
-    })
-}
-function getDynamicPatch(cachemode = 0) {
-    // ダイナミックパッチを取得してキャッシュします。
-    // cachemode 0 => use cache 1 => no cache
-    return new Promise((resolve, reject) => {
-        try {
-            let getStorageData = new Promise((resolve) => chrome.storage.local.get(null, resolve));
-            getStorageData.then((storage) => {
-                // キャッシュが使用可能なら使用する
-                if (storage.dynamicpatchcache != undefined && (storage.dynamicpatchcache != null && storage.dynamicpatchcache != undefined && cachemode == 0)) {
-                    resolve(storage.dynamicpatchcache)
-                } else {
-                    // そうじゃなければfetch
-                    fetch(`https://raw.githubusercontent.com/castella-cake/niconico-peppermint-extension/master/dynamicpatch/updates.json`, { 'method': 'GET' }).then((res) => {
-                        if (res.ok) {
-                            // okだったらtextを取る
-                            res.text().then((data) => {
-                                // objにパースして200かどうか確認する
-                                let dataobj = JSON.parse(data)
-                                let currentdate = new Date()
-                                dataobj["fetchdate"] = currentdate.toString()
-                                if (dataobj.meta.status == 200) {
-                                    chrome.storage.local.set({ "dynamicpatchcache": dataobj })
-                                    resolve(dataobj)
-                                } else {
-                                    // 200じゃなかったらreject
-                                    reject(dataobj)
-                                }
-                            })
-                        } else {
-                            // そもそも呼べなかったらrejectしてステータス返す
-                            reject({ "meta": { "status": res.status, "reason": "Fetch failed" } })
-                        }
-                    })
-                }
-            })
-        } catch (err) {
             reject(err)
         }
     })
@@ -319,19 +238,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             });
             return true;
         }
-    } else if (message.type == "getRecentNicorepo") {
-        const updateType = message.updateType ?? 0
-        getRecentNicorepo(updateType)
-            .then((data) => {
-                sendResponse(data)
-            })
-            .catch((reason) => {
-                sendResponse({
-                    'status': false,
-                    'reason': `getRecentNicorepo() failed: ${reason}`
-                });
-            })
-        return true;
     } else if (message.type == "openThisNCLink") {
         if (message.href != null || message.href != undefined) {
             try {
@@ -437,6 +343,59 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             });
             return true;
         }
+    } else if ( message.type === "updateSeriesStockState" ) {
+        let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
+        getStorageData.then((storage) => {
+            // ストックされたシリーズが存在しないならreturn
+            if ( !storage.stockedseries || storage.stockedseries.length <= 0 ) {
+                sendResponse({
+                    'status': false,
+                    'reason': 'Stocked series is empty'
+                });
+                return true;
+            }
+            // 動画情報を取得する
+            getVideoInfo(message.smId).then(videoInfo => {
+                console.log(videoInfo)
+                // データと応答とシリーズ情報が存在する？
+                if ( videoInfo.data && videoInfo.data.response && videoInfo.data.response.series ) {
+                    // シリーズ情報を代入して、ストック情報をコピー
+                    const thisSeriesInfo = videoInfo.data.response.series
+                    console.log(thisSeriesInfo)
+                    const stockedseriesarray = JSON.parse(JSON.stringify(storage.stockedseries))
+                    // ストック情報を走査して、現在の動画が属しているシリーズに一致する要素を書き換える
+                    stockedseriesarray.forEach((object) => {
+                        // 型が違う！！===にしないように
+                        if (object.seriesID == thisSeriesInfo.id) {
+                            object.lastVidID = message.smId
+                            object.lastVidName = videoInfo.data.response.video.title
+                            if ( thisSeriesInfo.video.next ) {
+                                object.nextVidID = thisSeriesInfo.video.next.id
+                                object.nextVidName = thisSeriesInfo.video.next.title
+                            } else {
+                                object.nextVidID = null
+                                object.nextVidName = null
+                            }
+
+                            //console.log(object)
+                        }
+                    })
+                    // 保存してステータス返却
+                    chrome.storage.sync.set({
+                        "stockedseries": stockedseriesarray
+                    })
+                    sendResponse({ 'status': true });
+                    return true;
+                }
+            }).catch(err => {
+                sendResponse({
+                    'status': false,
+                    'reason': err
+                });
+                return true;
+            })
+        })
+        return true;
     } else {
         sendResponse({
             'status': false,
@@ -444,17 +403,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         });
         return true;
     }
-    //sendResponse({'status': false,'reason': 'Invalid error'});
-    /*
-    fetch("https://public.api.nicovideo.jp/v1/user/oshirasebox/box.json?offset=0&importantOnly=false", {
-    "credentials": "include",
-    "headers": {
-        "X-Request-With": "https://www.nicovideo.jp/",
-        "X-Frontend-Id": "6",
-    },
-    "method": "GET"
-});
-    */
 
 });
 
@@ -481,14 +429,6 @@ chrome.alarms.onAlarm.addListener(function (e) {
                             // i * 15000msで10sおきに実行
                         });
                     }
-                }
-            })
-        } else if (e.name == 'nicoRepo_Refresh') {
-            let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
-            getStorageData.then(function (result) {
-                // 有効であるか最近のニコレポタブが表示状態にある
-                if (result.enablenicorepotab || (result.dashboardsortlist && result.dashboardsortlist.some(elem => elem.name == "nicorepo" && elem.isHidden == false ))) {
-                    getRecentNicorepo(2)
                 }
             })
         }

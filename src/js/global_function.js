@@ -36,9 +36,9 @@ function addCSS(cssfile, safeAppend = true, var2 = 'head', var3 = 'root') {
             }
         } else {
             if (!(document.querySelector(`link[href="${cssfile}"]`) == null || isSafeAppend == false)) {
-                console.log(`addCSS() skipped because safeappend is enabled but already added`)
+                //console.log(`addCSS() skipped because safeappend is enabled but already added`)
             } else {
-                console.log(`addCSS() skipped because targetelem is null`)
+                //console.log(`addCSS() skipped because targetelem is null`)
             }
 
         }
@@ -61,9 +61,9 @@ function addCSS(cssfile, safeAppend = true, var2 = 'head', var3 = 'root') {
             //console.log(`CSS added( ${mode}: ${elementvar}, safeappend = ${safeappend} ): ${cssfile}`);
         } else {
             if (!(document.querySelector(`link[href="${cssfile}"]`) == null || isSafeAppend == false)) {
-                console.log(`addCSS() skipped because safeappend is enabled but already added`)
+                //console.log(`addCSS() skipped because safeappend is enabled but already added`)
             } else {
-                console.log(`addCSS() skipped because targetelem is null`)
+                //console.log(`addCSS() skipped because targetelem is null`)
             }
 
         }

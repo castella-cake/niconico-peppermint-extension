@@ -8,6 +8,7 @@ function CreateSettingsList() {
     const { syncStorage, setSyncStorageValue } = useStorageContext()
     function createSettingsControl(settings) {
         //console.log(lang.SETTINGS_ITEMS[settings.name].name)
+        if ( !settings ) return
         if ( settings.type == "checkbox" ) {
             return <label key={settings.name}><input type="checkbox" checked={syncStorage[settings.name] ?? settings.default} onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.checked)}} />{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}</label>
         } else if ( settings.type == "select" ){
@@ -21,6 +22,11 @@ function CreateSettingsList() {
         } else if ( settings.type == "inputString" ) {
             //console.log(syncStorage[settings.name])
             return <label key={settings.name}>{lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}<input type="text" value={(syncStorage[settings.name] ?? settings.default)} placeholder={lang.SETTINGS_ITEMS[settings.name].placeholder ?? (settings.placeholder ?? null)} onChange={(e) => {setSyncStorageValue(settings.name, e.currentTarget.value)}}/></label>
+        } else if ( settings.type == "desc") {
+            return <div key={settings.name} className="desc">
+                {lang.SETTINGS_ITEMS[settings.name].name ?? settings.name}
+                {settings.href && <a href={settings.href} target="_blank">{lang.SETTINGS_ITEMS[settings.name].linktitle ?? "LINK"}</a>}
+            </div>
         } else {
             return <label key={settings.name}>Unknown settings type</label>
         }

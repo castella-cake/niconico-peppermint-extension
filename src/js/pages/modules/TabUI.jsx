@@ -1,6 +1,5 @@
 import { useState } from "react";
 import CreateSettingsList from "./SettingsUI";
-import CreateNicorepoUI from "./nicorepoUI";
 import CreateSeriesStockBlock from "./seriesStock";
 import settings from "./settingsList";
 import CreateDashboardUI from "./dashboardUI";
@@ -31,7 +30,7 @@ function createTabUI() {
     function TabEditCheckbox(props) {
         console.log(props)
         const setting = props.setting
-        if (!isEditMode) {
+        if (!isEditMode || !setting) {
             return
         }
         return <label><input type="checkbox" checked={syncStorage[setting.name] ?? setting.default} onChange={(e) => {setSyncStorageValue(setting.name, e.currentTarget.checked)}} />{props.label}</label>
@@ -43,7 +42,7 @@ function createTabUI() {
     } else if (currentTab == tabType.settings) {
         currentTabElem = <CreateSettingsList />;
     } else if (currentTab == tabType.nicorepo) {
-        currentTabElem =  <CreateNicorepoUI />;
+        currentTabElem =  null;
     } else if (currentTab == tabType.seriesstock) {
         currentTabElem = <CreateSeriesStockBlock />;
     }
@@ -56,9 +55,9 @@ function createTabUI() {
         </div>}
         <div className="tabcontainer">
             <button type="button" className={currentTab == tabType.dashboard || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.dashboard) }) : (() => {})}>{lang.DASHBOARD}</button>
-            {(syncStorage.enablenicorepotab || isEditMode) && <button type="button" className={currentTab == tabType.nicorepo || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.nicorepo) }) : (() => {})}>{isEditMode ? <TabEditCheckbox setting={settings.quickpanel[1]} label={lang.NICOREPO} /> : lang.NICOREPO}</button>}
+            {/*(syncStorage.enablenicorepotab || isEditMode) && <button type="button" className={currentTab == tabType.nicorepo || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.nicorepo) }) : (() => {})}>{isEditMode ? <TabEditCheckbox setting={settings.quickpanel[1]} label={lang.NICOREPO} /> : lang.NICOREPO}</button>*/}
             { ((syncStorage.enableseriesstocktab || isEditMode) && syncStorage.enableseriesstock) && <button type="button" className={currentTab == tabType.seriesstock || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.seriesstock) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[0]} label={lang.SERIES_STOCK_TITLE}/> : lang.SERIES_STOCK_TITLE }</button> }
-            { (syncStorage.enablequicksettingstab || isEditMode) && <button type="button" className={currentTab == tabType.settings || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.settings) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[2]} label={lang.QUICK_SETTINGS}/> : lang.QUICK_SETTINGS }</button> }
+            { (syncStorage.enablequicksettingstab || isEditMode) && <button type="button" className={currentTab == tabType.settings || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.settings) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[1]} label={lang.QUICK_SETTINGS}/> : lang.QUICK_SETTINGS }</button> }
             <button type="button" className="tab-editbutton" title={isEditMode ? lang.QUICKPANEL_TAB_EDITOFF : lang.QUICKPANEL_TAB_EDIT} onClick={() => {setIsEditMode(!isEditMode); setCurrentTab(tabType.dashboard)}}>{ isEditMode ? <MdOutlineEditOff style={{fontSize: 18}}/> : <MdOutlineEdit style={{fontSize: 18}}/> }</button>
         </div>
         <div className="quickpanel-mainpanel maincontainer">

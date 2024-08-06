@@ -1,13 +1,19 @@
-const gulp = require('gulp');
-const zip = require('gulp-zip');
-const fs = require('fs');
-const path = require('path');
-const stylus = require('gulp-stylus');
-const fse = require('fs-extra');
-const webpack = require('webpack-stream');
+import gulp from 'gulp'
+import zip from 'gulp-zip';
+import fs from 'fs';
+import path from 'path';
+import stylus from 'gulp-stylus';
+import fse from 'fs-extra';
+import webpack from 'webpack-stream';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const packageJson = require('./package.json'); // package.jsonを読み込む
-const webpackConfig = require('./webpack.config');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+import packageJson from './package.json' with { type: "json" };
+import webpackConfig from './webpack.config.mjs';
+
 const stylusEndpoints = ['./src/style/index.styl', './src/style/dm_external.styl']
 
 
@@ -62,7 +68,7 @@ gulp.task('copyFilesForPrepare', function (done) {
     gulp.src(['./LICENSE.txt','./CHANGELOG.md','./NOTICE.txt','./README.md','./src/manifest.json','./src/manifest_chrome.json'])
         .pipe(gulp.dest(destpath));
 
-    gulp.src(['./src/icons/*'])
+    gulp.src(['./src/icons/*'], {encoding: false})
         .pipe(gulp.dest(destpath + "/icons"))
 
     gulp.src(['./src/lib/*'])
@@ -74,8 +80,8 @@ gulp.task('copyFilesForPrepare', function (done) {
     gulp.src(['./src/style/css/**/*.css'])
         .pipe(gulp.dest(destpath + "/style/css"))
 
-    gulp.src(['./src/lang/*'])
-        .pipe(gulp.dest(destpath + "/lang"))
+    gulp.src(['./src/langs/*'])
+        .pipe(gulp.dest(destpath + "/langs"))
 
     gulp.src(['./src/js/**/*.js', '!./src/js/modules/**/*.js', '!./src/js/pages/modules/**/*.js'])
         .pipe(gulp.dest(destpath + "/js"))
@@ -92,7 +98,7 @@ gulp.task('copyFilesForPrepare', function (done) {
 gulp.task('copyFilesFirefox', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
-    gulp.src('./dist/**/*')
+    gulp.src('./dist/**/*', {encoding: false})
         .pipe(gulp.dest(`./builds/${versionName}/firefox`))
         .on('end', done);
 });
@@ -100,11 +106,11 @@ gulp.task('copyFilesFirefox', function (done) {
 gulp.task('copyFilesSource', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
-    gulp.src(['./*.md', './*.js', './*.txt', './*.json'])
+    gulp.src(['./*.md', './*.js', './*.txt', './*.json'], {encoding: false})
         .pipe(gulp.dest(`./builds/${versionName}/source`));
 
     // srcフォルダーの内容をfirefoxフォルダーにコピー
-    gulp.src(['./src/**/*'])
+    gulp.src(['./src/**/*'], {encoding: false})
         .pipe(gulp.dest(`./builds/${versionName}/source/src`))
         .on('end', done);
 });
@@ -112,7 +118,7 @@ gulp.task('copyFilesSource', function (done) {
 gulp.task('copyFilesChrome', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
-    gulp.src('./dist/**/*')
+    gulp.src('./dist/**/*', {encoding: false})
         .pipe(gulp.dest(`./builds/${versionName}/chrome`))
         .on('end', done);
 });
@@ -137,17 +143,17 @@ gulp.task('compress', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
     // chromeフォルダーを圧縮
-    gulp.src(`./builds/${versionName}/chrome/**/*`)
+    gulp.src(`./builds/${versionName}/chrome/**/*`, {encoding: false})
         .pipe(zip(`chrome_${versionName}.zip`))
         .pipe(gulp.dest('./builds'));
 
     // firefoxフォルダーを圧縮
-    gulp.src(`./builds/${versionName}/firefox/**/*`)
+    gulp.src(`./builds/${versionName}/firefox/**/*`, {encoding: false})
         .pipe(zip(`firefox_${versionName}.zip`))
         .pipe(gulp.dest('./builds'));
 
     // sourceフォルダーを圧縮
-    gulp.src(`./builds/${versionName}/source/**/*`)
+    gulp.src(`./builds/${versionName}/source/**/*`, {encoding: false})
         .pipe(zip(`source_${versionName}.zip`))
         .pipe(gulp.dest('./builds'));
 

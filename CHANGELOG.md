@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2024/08/06
+
+### Added
+- 新視聴ページの開始に伴って、カラーパレットにアルファ付き背景色ダーク/ライトを追加しました
+
+### Changed
+- gulpビルドのjsファイルはmjsに変更されました
+- 一部の依存パッケージがアップグレードされました
+
+### Fixed
+- シリーズストックの動画トラッキングを修正しました
+- 一部のダークモードサポートを修正しました
+- カスタムカラーパレットが保存できない問題を修正しました
+
+### Removed
+- 新視聴ページの開始に伴って、既存の全WatchPage機能を無効化しました
+- ニコレポリーダーは削除されました
+
 ## [2.0.1] - 2024/05/18
 
 ### Fixed
@@ -561,7 +579,8 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.0.1...HEAD
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.8.0...v2.0.0
 [1.8.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.7.2...v1.8.0

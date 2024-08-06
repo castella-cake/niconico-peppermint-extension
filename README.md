@@ -68,25 +68,7 @@ npm run build
 - [x] サポーターボタンを隠す(視聴ページ,全ページ)
 - [x] 投稿日時,ジャンル以外のメタデータを隠す
 #### WatchPage
-- [x] 視聴ページテーマ
-    - [x] Mint
-    - [x] 原宿風
-- [x] プレイヤーテーマ
-    - [x] 原宿風
-    - [x] RC1風
-    - [x] GINZA風
-    - [x] Mint
-- [x] プレイヤースタイルのオーバーライド
-- [x] コメント入力欄行
-- [x] マーキーテキストをロゴに置き換え
-- [x] ロック中のタグをハイライト
-- [x] クリーンな投稿者表示
-- [x] ショートカットアシスト
-- [x] exCommander
-- [x] シアターUI
-- [x] Nicobox風UI
-- [x] 動画記事ボタンを表示
-- [x] Misskeyで共有
+新視聴ページのリリースにより、視聴ページの機能は利用できなくなりました。[#38](https://github.com/castella-cake/niconico-peppermint-extension/issues/38) を確認してください。
 #### NicoPedia
 - [x] 評価数削除
 - [x] 最大幅開放

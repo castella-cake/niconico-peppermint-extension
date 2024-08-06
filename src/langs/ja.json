@@ -36,6 +36,10 @@
             "select": ["デフォルト", "視聴ページで隠す", "検索とホームで隠す", "全て隠す"]
         },
 
+        "featurenotavailable_newwatchpage": {
+            "name": "新視聴ページの開始に伴い、このセクションの機能は現在利用できません。",
+            "linktitle": "詳しい情報"
+        },
         "watchpagetheme": {
             "name": "視聴ページテーマ",
             "hint": "視聴ページの見た目、レイアウトを変更します。",
