@@ -123,4 +123,19 @@ html.PMDM-Enabled {
     .RealEventInformationAreaContainer > * {
         border-top: 4px solid var(--accent1);
     }
+    /* ページボタン */
+    .Paginator-item {
+        background-color: var(--bgcolor2);
+        border: 1px solid var(--accent2);
+    }
+    .Paginator-item_current {
+        background-color: var(--bgcolor3);
+        border: 1px solid var(--bgcolor3);
+    }
+    .Paginator-item_current>a:not(:hover) {
+        color: var(--textcolor3);
+    }
+    .Paginator-item_current>a:hover {
+        color: var(--linktext3);
+    }
 }
