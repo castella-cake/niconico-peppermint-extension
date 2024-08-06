@@ -383,8 +383,14 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                         if (object.seriesID == thisSeriesInfo.id) {
                             object.lastVidID = message.smId
                             object.lastVidName = videoInfo.data.response.video.title
-                            object.nextVidID = thisSeriesInfo.video.next.id
-                            object.nextVidName = thisSeriesInfo.video.next.title
+                            if ( thisSeriesInfo.video.next ) {
+                                object.nextVidID = thisSeriesInfo.video.next.id
+                                object.nextVidName = thisSeriesInfo.video.next.title
+                            } else {
+                                object.nextVidID = null
+                                object.nextVidName = null
+                            }
+
                             //console.log(object)
                         }
                     })
