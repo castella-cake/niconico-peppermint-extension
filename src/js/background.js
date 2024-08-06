@@ -12,7 +12,13 @@ chrome.runtime.onInstalled.addListener(function (details) {
             chrome.action.setBadgeText({ text: "▲" })
             chrome.action.setBadgeBackgroundColor({ color: "#169cf0"});
         }
-        if (details.previousVersion.split(".")[0] != manifestData.version.split(".")[0]) {
+        if (
+            details.previousVersion.split(".")[0] != manifestData.version.split(".")[0]
+            || (
+                details.previousVersion.split(".")[0] == "2" && details.previousVersion.split(".")[1] == "0" && 
+                manifestData.version.split(".")[0] == "2" && manifestData.version.split(".")[1] == "1"
+            )
+        ) {
             chrome.tabs.create({
                 url: chrome.runtime.getURL("pages/update.html")
             });
