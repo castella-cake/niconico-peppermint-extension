@@ -32,7 +32,6 @@ chrome.runtime.onInstalled.addListener(function (details) {
         visible: false
     });
     chrome.alarms.create('seriesStock_Refresh', { delayInMinutes: 1, periodInMinutes: 120 })
-    chrome.alarms.create('nicoRepo_Refresh', { delayInMinutes: 1, periodInMinutes: 45 })
     //chrome.alarms.create('dynamicPatch_Refresh', { delayInMinutes: 0, periodInMinutes: 360 })
     let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
     getStorageData.then((storage) => {
@@ -239,19 +238,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             });
             return true;
         }
-    } else if (message.type == "getRecentNicorepo") {
-        const updateType = message.updateType ?? 0
-        getRecentNicorepo(updateType)
-            .then((data) => {
-                sendResponse(data)
-            })
-            .catch((reason) => {
-                sendResponse({
-                    'status': false,
-                    'reason': `getRecentNicorepo() failed: ${reason}`
-                });
-            })
-        return true;
     } else if (message.type == "openThisNCLink") {
         if (message.href != null || message.href != undefined) {
             try {
@@ -443,13 +429,6 @@ chrome.alarms.onAlarm.addListener(function (e) {
                             // i * 15000msで10sおきに実行
                         });
                     }
-                }
-            })
-        } else if (e.name == 'nicoRepo_Refresh') {
-            let getStorageData = new Promise((resolve) => chrome.storage.sync.get(null, resolve));
-            getStorageData.then(function (result) {
-                // 有効であるか最近のニコレポタブが表示状態にある
-                if (result.enablenicorepotab || (result.dashboardsortlist && result.dashboardsortlist.some(elem => elem.name == "nicorepo" && elem.isHidden == false ))) {
                 }
             })
         }
