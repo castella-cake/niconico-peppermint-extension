@@ -106,7 +106,7 @@ gulp.task('copyFilesFirefox', function (done) {
 gulp.task('copyFilesSource', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
-    gulp.src(['./*.md', './*.js', './*.txt', './*.json'], {encoding: false})
+    gulp.src(['./*.md','./*.mjs', './*.js', './*.txt', './*.json'], {encoding: false})
         .pipe(gulp.dest(`./builds/${versionName}/source`));
 
     // srcフォルダーの内容をfirefoxフォルダーにコピー
