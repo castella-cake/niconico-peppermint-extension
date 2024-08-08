@@ -356,12 +356,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
             // 動画情報を取得する
             getVideoInfo(message.smId).then(videoInfo => {
-                console.log(videoInfo)
+                //console.log(videoInfo)
                 // データと応答とシリーズ情報が存在する？
                 if ( videoInfo.data && videoInfo.data.response && videoInfo.data.response.series ) {
                     // シリーズ情報を代入して、ストック情報をコピー
                     const thisSeriesInfo = videoInfo.data.response.series
-                    console.log(thisSeriesInfo)
+                    //console.log(thisSeriesInfo)
                     const stockedseriesarray = JSON.parse(JSON.stringify(storage.stockedseries))
                     // ストック情報を走査して、現在の動画が属しているシリーズに一致する要素を書き換える
                     stockedseriesarray.forEach((object) => {

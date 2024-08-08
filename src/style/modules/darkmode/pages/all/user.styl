@@ -70,8 +70,34 @@ html.PMDM-Enabled {
     .RecommendUserContainer-title {
         color: var(--textcolor2);
     }
-
-
+    /* フォロー新着 */
+    .TimelineActorFilterButton-button, .TimelineItem-activityMessage, .TimelineItem-contentTitle, .TimelineSideContainer-linkButton, .BlankState-body, .Timeline-pastNotExists {
+        color: var(--textcolor2);
+    }
+    .TimelineActorFilterButton-button:hover, .TimelineSideContainer-linkButton:hover {
+        color: var(--linktext1);
+        background: var(--bgcolor2)
+    }
+    .TimelineItem-content {
+        background: var(--bgcolor2);
+        border: 1px solid var(--accent1)
+    }
+    .NC-ThreePointMenu_dark .NC-ThreePointMenu-button {
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTExLjcgMTYuNGMxIDAgMS44LjggMS44IDEuOHMtLjggMS44LTEuOCAxLjgtMS43LS44LTEuNy0xLjguOC0xLjggMS43LTEuOFptMC02LjJjMSAwIDEuOC44IDEuOCAxLjhzLS44IDEuOC0xLjggMS44UzEwIDEzIDEwIDEycy44LTEuOCAxLjctMS44Wm0wLTYuMmMxIDAgMS44LjggMS44IDEuOHMtLjggMS44LTEuOCAxLjhTMTAgNi44IDEwIDUuOCAxMC44IDQgMTEuNyA0WiIgZmlsbD0iI2E3YTdhNyIgZmlsbC1ydWxlPSJub256ZXJvIi8+PC9zdmc+")
+    }
+    .TimelineActorFilterButton-button_selected {
+        background: var(--bgcolor3);
+    }
+    .Timeline-divider {
+        border-bottom: 2px solid var(--accent1)
+        color: var(--textcolor1)
+    }
+    .TimelineItem-activityCreatedAt {
+        color: var(--textcolor2)
+    }
+    .TimelineItem-activityCreatedAt_new {
+        color: var(--textcolornew)
+    }
     /* フォロー */
     .UserItem-content {
         background-color: var(--bgcolor2) !important;
