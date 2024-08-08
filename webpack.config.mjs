@@ -3,6 +3,7 @@ export default {
     entry: {
         index: './src/js/index.js',
         index_end: './src/js/index_end.js',
+        watch: './src/js/watch.js',
         settings: './src/js/pages/settings.jsx',
         quickpanel: './src/js/pages/quickpanel.jsx',
         credit: './src/js/credit.js',
