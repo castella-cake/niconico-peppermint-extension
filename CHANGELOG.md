@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2024/08/08
+
+### Fixed
+- フォロー新着のダークモードサポートを追加しました
+- 不要なログをコメントアウトしました
+
 ## [2.1.0] - 2024/08/06
 
 ### Added
@@ -579,7 +585,8 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.1.0...HEAD
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.1.1...HEAD
+[2.1.1]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.1.0...v2.1.1
 [2.1.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v1.8.0...v2.0.0
