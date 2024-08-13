@@ -39,6 +39,11 @@ const settings = {
             name: "featurenotavailable_newwatchpage",
             href: "https://www.cyakigasi.net/niconico/2024/peppermint-niconico-restore-affect/"
         },
+        {
+            type: "checkbox",
+            name: "enablewatchpagereplace",
+            default: false,
+        },
         /*{
             type: "select",
             name: "watchpagetheme",

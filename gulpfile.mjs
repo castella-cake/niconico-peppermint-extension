@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 import packageJson from './package.json' with { type: "json" };
 import webpackConfig from './webpack.config.mjs';
 
-const stylusEndpoints = ['./src/style/index.styl', './src/style/dm_external.styl']
+const stylusEndpoints = ['./src/style/index.styl', './src/style/dm_external.styl', './src/style/pages/watchUI.styl']
 
 
 gulp.task('createVersionFolders', function (done) {
@@ -65,7 +65,7 @@ gulp.task('copyFilesForPrepare', function (done) {
     if (fs.existsSync(distFolderPath)) {
         fse.removeSync(distFolderPath)
     }
-    gulp.src(['./LICENSE.txt','./CHANGELOG.md','./NOTICE.txt','./README.md','./src/manifest.json','./src/manifest_chrome.json'])
+    gulp.src(['./LICENSE.txt','./CHANGELOG.md','./NOTICE.txt','./README.md','./src/manifest.json', './src/manifest_chrome.json'])
         .pipe(gulp.dest(destpath));
 
     gulp.src(['./src/icons/*'], {encoding: false})
@@ -123,6 +123,16 @@ gulp.task('copyFilesChrome', function (done) {
         .on('end', done);
 });
 
+gulp.task('renameDistItemsForChrome', function (done) {
+    // chromeフォルダー内のmanifest.jsonを削除してからコピーを行う
+    fs.unlinkSync(`./dist/manifest.json`);
+    // manifest_chrome.jsonをchromeフォルダー内にコピーし、同時にリネームする
+    fs.copyFileSync('./dist/manifest_chrome.json', `./dist/manifest.json`);
+    // chromeフォルダー内のmanifest_chrome.jsonを削除
+    fs.unlinkSync(`./dist/manifest_chrome.json`);
+    done()
+})
+
 gulp.task('renameFiles', function (done) {
     const versionName = packageJson.version; // バージョン情報を取得
 
@@ -168,3 +178,4 @@ gulp.task('watch', function () {
 gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'copyFilesForPrepare', 'compileStylus', 'compileWebpackWithProd', 'copyFilesChrome', 'copyFilesFirefox', 'copyFilesSource', 'renameFiles', 'compress'));
 
 gulp.task('prep', gulp.series('copyFilesForPrepare', 'compileStylus', 'compileWebpack'));
+gulp.task('prepchrome', gulp.series('copyFilesForPrepare', 'renameDistItemsForChrome', 'compileStylus', 'compileWebpack'));

@@ -49,6 +49,10 @@
             "name": "Due to the launch of the new watch page, the features in this section are currently unavailable.",
             "linktitle": "Learn more"
         },
+        "enablewatchpagereplace": {
+            "name": "Enable PepperMint watch page",
+            "hint": "Replaces the content of the watch page with the PepperMint+ watch page.\n(Firefox not supported)"
+        },
         "watchpagetheme": {
             "name": "Viewing page theme",
             "hint": "Change the appearance and layout of the viewing page.",

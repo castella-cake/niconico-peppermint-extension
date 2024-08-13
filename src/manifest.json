@@ -39,11 +39,6 @@
         },
         {
             "matches": ["*://www.nicovideo.jp/watch/*"],
-            "js": ["js/watch_start.js"],
-            "run_at": "document_start"
-        },
-        {
-            "matches": ["*://www.nicovideo.jp/watch/*"],
             "js": ["js/watch.bundle.js"],
             "run_at": "document_start"
         },

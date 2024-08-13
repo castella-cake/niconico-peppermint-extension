@@ -7,11 +7,21 @@ function onError(error) {
 }
 function createCSSRule(result) {
     if ( !result.enablewatchpagereplace ) return
+    window.stop()
     const html = document.querySelector("html")
-    html.innerHTML = "<head><body></body>"
+    html.innerHTML = "<head><meta charset=\"utf-8\"></head><body></body>"
     const body = document.body
+    const head = document.head
+    const link = document.createElement('link')
+    link.setAttribute('rel', 'stylesheet')
+    link.setAttribute('href', chrome.runtime.getURL("style/watchUI.css"))
+    head.appendChild(link)
     const root = document.createElement("div")
     root.id = "root"
     body.appendChild(root)
+    if ( root.childNodes.length != 0 ) { 
+        console.error("Watch page replace failed: #root is not empty.")
+        return
+    }
     createRoot(root).render(watchPage())
 }

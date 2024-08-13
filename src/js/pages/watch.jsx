@@ -3,13 +3,15 @@ import lang from "../../langs/ja.json";
 import { StorageProvider } from "./modules/extensionHook";
 
 import { ErrorBoundary } from "react-error-boundary";
+import { useEffect } from "react";
+import CreateWatchUI from "./modules/watchUI";
 
 
 export function watchPage() {
     return <StrictMode>
         <StorageProvider>
             <div className="container">
-                <div>Welcome to the watch page!!!!!!!!!!</div>
+                <CreateWatchUI/>
             </div>
         </StorageProvider>
     </StrictMode>

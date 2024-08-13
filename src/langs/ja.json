@@ -40,6 +40,10 @@
             "name": "新視聴ページの開始に伴い、このセクションの機能は現在利用できません。",
             "linktitle": "詳しい情報"
         },
+        "enablewatchpagereplace": {
+            "name": "PM視聴ページを有効化(InDev)",
+            "hint": "視聴ページをPepperMint+の独自ページで完全に置き換えます。\nFirefoxでは使用できません。"
+        },
         "watchpagetheme": {
             "name": "視聴ページテーマ",
             "hint": "視聴ページの見た目、レイアウトを変更します。",

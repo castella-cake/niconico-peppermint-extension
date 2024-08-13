@@ -78,6 +78,21 @@ function createFastCSSRule(result) {
         if ( result.hidesupporterbutton == "all" || (result.hidesupporterbutton == "watch" && location.pathname.indexOf('/watch') != -1) ) {
             document.documentElement.classList.add('PM-HideSupporter')
         }
+        /*if ( location.pathname.startsWith('/watch') && result.enablewatchpagereplace ) {
+            const html = document.querySelector("html")
+            document.link.remove()
+            document.body.remove()
+            html.innerHTML = "<head><meta charset=\"utf-8\"></head><body></body>"
+            const body = document.body
+            const head = document.head
+            const link = document.createElement('link')
+            link.setAttribute('rel', 'stylesheet')
+            link.setAttribute('href', chrome.runtime.getURL("style/watchUI.css"))
+            head.appendChild(link)
+            const root = document.createElement("div")
+            root.id = "root"
+            body.appendChild(root)
+        }*/
         if ( result.alignpagewidth == true && ( location.pathname == "/" || location.pathname == "" )) {
             document.documentElement.classList.add('PM-AlignPageWidth')
         }
