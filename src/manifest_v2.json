@@ -1,18 +1,22 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 2,
     "name": "Niconico-PepperMint+",
     "short_name": "PepperMint+",
     "description": "ニコニコ動画をもっとクールにする拡張機能",
     "version": "2.2.0",
     "version_name": "2.2.0-DEV",
-    "author": "CYakigasi",
+    "developer": {
+        "name": "CYakigasi"
+    },
+
     "homepage_url": "https://github.com/castella-cake/niconico-peppermint-extension",
     "icons": {
         "64": "icons/peppermint-logo-64.png"
     },
 
     "background": {
-        "service_worker": "js/background.js"
+        "scripts": ["lib/jquery.min.js","js/background.js"],
+        "persistent": false
     },
     "content_scripts": [
         {
@@ -74,23 +78,17 @@
             "run_at": "document_idle"
         }
     ],
-    "web_accessible_resources": [{
-        "resources": [
-            "style/*",
-            "js/*.bundle.js.map"
-        ],
-        "matches": [
-            "*://*.nicovideo.jp/*"
-        ]
-    }],
+    "web_accessible_resources": [
+        "style/*"
+    ],
 
-    "action": {
+    "browser_action": {
         "browser_style": true,
         "default_popup": "pages/quickpanel_new.html",
         "default_icon": {
             "32": "icons/peppermint-logo-32.png",
             "64": "icons/peppermint-logo-64.png",
-            "128": "icons/peppermint-logo-128.png" 
+            "128": "icons/peppermint-logo-128.png"
         },
         "default_title": "Niconico-PepperMint"
     },
@@ -98,12 +96,27 @@
         "page": "pages/settings.html",
         "browser_style": true
     },
+    
     "permissions": [
         "storage",
         "contextMenus",
+        "https://ext.nicovideo.jp/api/getthumbinfo/*",
+        "https://www.nicovideo.jp/ranking/*",
+        "https://nvapi.nicovideo.jp/v1/series/*",
+        "https://fonts.googleapis.com/icon",
+        "https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/*",
+        "https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*",
+        "https://nicovideo.cdn.nimg.jp/thumbnails/*",
+        "https://delivery.domand.nicovideo.jp/*",
+        "https://asset.domand.nicovideo.jp/*",
+        "https://public.nvcomment.nicovideo.jp/*",
         "alarms",
         "tabs",
         "scripting"
     ],
-    "host_permissions": ["https://www.nicovideo.jp/user/*","*://ext.nicovideo.jp/api/getthumbinfo/*","https://nvapi.nicovideo.jp/v1/series/*","https://fonts.googleapis.com/icon","https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/*","https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*","https://nicovideo.cdn.nimg.jp/thumbnails/*"]
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "niconico-peppermint@cyakigasi.net"
+        }
+    }
 }

@@ -1,14 +1,34 @@
 .playercontroller-container {
+    margin-top: 4px;
+}
+.playercontroller-container-top {
     display: flex;
-    position: relative;
-    top: -4px;
+    padding: 4px;
+    gap: 4px;
+    align-items: center;
+    .playercontroller-seekbar {
+        flex: 1
+    }
+    .playercontroller-time {
+        font-size: 0.9em;
+    }
+}
+.playercontroller-container-bottom {
+    display: flex;
 }
 .playercontroller-container-left {
-    flex: 1
+    justify-content: start;
 }
-.playercontroller-container-right, .playercontroller-container-left {
+.playercontroller-container-center {
+    justify-content: center;
+}
+.playercontroller-container-right {
+    justify-content: end;
+}
+.playercontroller-container-right, .playercontroller-container-left, .playercontroller-container-center {
     display: flex;
     align-items: center;
+    flex: 1
     button {
         display: block;
         background: transparent;
@@ -49,4 +69,9 @@
     margin-left: 4px;
     font-family: Hack, Consolas, monospace;
     border-radius: 2px;
+}
+
+.playercontroller-qualitydisplay {
+    color: var(--textcolor2)
+    margin-right: 8px;
 }

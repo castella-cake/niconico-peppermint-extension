@@ -1,0 +1,58 @@
+.player-container {
+    padding: 8px;
+    background: var(--bgcolor2);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+}
+.player-video-container {
+    flex-grow: 1;
+    /*width: 100%;
+    max-height: 100%;
+    height: 100%;
+    overflow: hidden;*/
+}
+.player-video-container-inner {
+    aspect-ratio: 16 / 9;
+    /* width: 100%; */
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        /* display: none; */
+        position: absolute;
+    }
+    canvas {
+        position: absolute;
+        width: 100%;
+        height: auto;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        aspect-ratio: 16 / 9;
+        display: block;
+    }
+}
+
+.fullscreen {
+    .player-container {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        padding: 8px;
+        align-items: center;
+        overflow: hidden;
+        background: var(--bgcolor1);
+        z-index: 1
+    }
+    .playercontroller-container {
+        width: 70vw;
+        margin: 8px 32px;
+    }
+}

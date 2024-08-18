@@ -1,6 +1,6 @@
 import Hls from "hls.js"
 import { getHls } from "../../../modules/watchApi";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 // クオリティ配列から、利用可能な中で最も良いクオリティのオブジェクトを返す。
 export function returnGreatestQuality(array) {
@@ -12,6 +12,7 @@ export function returnGreatestQuality(array) {
 
 export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId) {
     const isSupportedBrowser = useMemo(() => Hls.isSupported(), [])
+    const hlsRef = useRef(null)
     useEffect(() => {
         async function getSrc() {
             if (
@@ -61,6 +62,8 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId) {
                     hls.on(Hls.Events.ERROR, (err) => {
                         console.log(err)
                     });
+                    console.log(hls.levels)
+                    hlsRef.current = hls
                 } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
                     videoRef.current.src = hlsResponse.data.contentUrl;
                 }
@@ -68,5 +71,5 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId) {
         }
         getSrc()
     }, [videoInfo])
-    return true
+    return hlsRef
 }

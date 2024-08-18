@@ -25,22 +25,42 @@ body {
     --nicoru2: rgba(201,168,62,0.2);
     --nicoru3: rgba(201,168,62,0.35);
     --nicoru4: rgba(201,168,62,0.5);
-    --dangerous1: rgb(245, 71, 71)
+    --dangerous1: rgb(245, 71, 71);
+}
+// font-family を Stylus-langが正しく解釈しないようなので、@cssを使う
+@css {
+    body {
+        font-family: Avenir, Lato, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, メイリオ, sans-serif
+    }
 }
 a {
     color: var(--linktext1)
 }
+
 .container {
-    width: 95vw;
     margin: 0 auto;
+    overflow: scroll;
+}
+.container.fullscreen {
+    overflow: hidden
+}
+.global-flex {
+    display: flex
+    .global-flex1 {
+        flex: 1
+    }
+}
+.global-bold {
+    font-weight: bold;
 }
 .watch-container {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+    justify-content: center;
     .watch-container-left {
         min-width: 480px;
-        flex: 1;
+        flex: 0.9;
     }
     .watch-container-right {
         min-width: 400px;
@@ -48,8 +68,10 @@ a {
     }
 }
 .videoinfo-container {
-    background: var(--bgcolor2)
-    padding: 8px;
+    background: var(--bgcolor2);
+    padding: 16px;
+    margin-top: 8px;
+    border-radius: 6px;
 
     .videotitle {
         font-size: 20px;
@@ -99,28 +121,10 @@ a {
     }
 }
 
-.player-container {
-    padding: 8px;
-}
-.player-video-container {
-    aspect-ratio: 16 / 9;
-    position: relative;
-    video {
-        width: 100%;
-        height: 100%
-    }
-    canvas {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-    }
-}
-
+@import './watchUI/player.styl'
 @import './watchUI/commentList.styl'
 @import './watchUI/playerController.styl'
+
 
 .vefx-container {
     display: flex;
@@ -155,3 +159,33 @@ a {
         font-weight: bold;
     }
 }
+/*
+.fullscreen .player-container {
+    // padding: 0;
+    // aspect-ratio: 16 / 9;
+    // margin: 0 auto;
+    flex-direction: column;
+    background: var(--bgcolor1);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    flex-wrap: nowrap;
+    padding: 8px;
+    // width: 100vw;
+    // height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    bottom: 0;
+}
+.fullscreen .player-video-container {
+    max-height: 100%;
+    flex-grow: 1;
+}
+.fullscreen .playercontroller-container {
+    width: 95%;
+}
+*/

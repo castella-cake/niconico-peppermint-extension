@@ -10,9 +10,7 @@ import CreateWatchUI from "./modules/watchUI";
 export function watchPage() {
     return <StrictMode>
         <StorageProvider>
-            <div className="container">
-                <CreateWatchUI/>
-            </div>
+            <CreateWatchUI/>
         </StorageProvider>
     </StrictMode>
 }

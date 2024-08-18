@@ -13,6 +13,12 @@ function returnSelectedThread(threads, forkName) {
     return false
 }
 
+function returnFirstScrollPos(scrollPosList) {
+    for (const elem in scrollPosList) {
+        if (scrollPosList[elem].current) return scrollPosList[elem]
+    }
+}
+
 function CommentList(props) {
     const lang = useLang()
     const [ currentForkType, setCurrentForkType ] = useState("main")
@@ -32,7 +38,7 @@ function CommentList(props) {
         // video要素の時間
         const currentTime = Math.floor(props.videoRef.current.currentTime)
         // とりあえず一番最初の要素の高さを取得
-        const elemHeight = scrollPosList[0].current.offsetHeight
+        const elemHeight = returnFirstScrollPos(scrollPosList).current.offsetHeight
         if (!scrollPosList[`${currentTime}`] || !scrollPosList[`${currentTime}`].current) return
         // よくわからないけど試行錯誤の末とりあえずそれらしいように見えてるのでヨシ
         const offsetTop = scrollPosList[`${currentTime}`].current.offsetTop - elemHeight
@@ -71,10 +77,26 @@ function CommentList(props) {
 
     return <div className="commentlist-container">
         <div className="commentlist-title-container">
-            {commentContent.threads.map((elem, index) => {
-                return <button key={`${index}-${elem.id}`} type="button" onClick={() => {setCurrentForkType(elem.fork)}}>{elem.fork}</button>
-            })}
-            <label><input type="checkbox" className="commentlist-autoscroll" onChange={(e) => {setAutoScroll(e.currentTarget.checked)}} checked={autoScroll}/> 自動スクロール</label>
+            <div className="global-flex">
+                <div className="global-flex1 global-bold">
+                    コメントリスト
+                </div>
+                <div>
+                    <select onChange={(e) => {setCurrentForkType(e.currentTarget.value)}} value={currentForkType}>
+                        {commentContent.threads.map((elem, index) => {
+                            return <option key={`${index}-${elem.fork}`} value={elem.fork}>{elem.fork}</option>
+                        })}
+                    </select>
+                    <label>
+                        <input
+                            type="checkbox"
+                            className="commentlist-autoscroll"
+                            onChange={(e) => {setAutoScroll(e.currentTarget.checked)}}
+                            checked={autoScroll}
+                        />
+                        自動スクロール</label>
+                </div>
+            </div>
         </div>
         <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => setIsCommentListHovered(true)} onMouseLeave={() => setIsCommentListHovered(false)}>
             {sortedComments.map((elem, index) => {

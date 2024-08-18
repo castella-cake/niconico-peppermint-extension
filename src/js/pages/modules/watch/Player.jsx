@@ -13,6 +13,7 @@ function Player(props) {
 
     const [isVefxShown, setIsVefxShown] = useState(false)
     const [currentTime, setCurrentTime] = useState(0)
+    const [duration, setDuration] = useState(0)
 
     const canvasRef = useRef(null)
     const [frequencies] = useState([31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]);
@@ -35,7 +36,7 @@ function Player(props) {
         updatePreampGain(newState.preamp.gain);
     };
 
-    const hlsHook = useHlsVideo(props.videoRef, props.videoInfo, props.videoId, props.actionTrackId)
+    const hlsRef = useHlsVideo(props.videoRef, props.videoInfo, props.videoId, props.actionTrackId)
 
     useEffect(() => {
         if ( !localStorage || !localStorage.playersettings || !localStorage.playersettings.vefxSettings ) return
@@ -65,10 +66,22 @@ function Player(props) {
 
     return <div className="player-container">
         <div className="player-video-container">
-            <video ref={props.videoRef} controls autoPlay onTimeUpdate={(e) => {setCurrentTime(e.currentTarget.currentTime)}}/>
-            <canvas ref={canvasRef} width="1920" height="1080"/>
+            <div className="player-video-container-inner">
+                <video ref={props.videoRef} controls autoPlay onTimeUpdate={(e) => {setCurrentTime(e.currentTarget.currentTime)}} onDurationChange={(e) => {setDuration(e.currentTarget.duration)}} width="1920" height="1080"></video>
+                <canvas ref={canvasRef} width="1920" height="1080"/>
+            </div>
         </div>
-        <PlayerController videoRef={props.videoRef} effectsState={effectsState} isVefxShown={isVefxShown} setIsVefxShown={setIsVefxShown} currentTime={currentTime}/>
+        <PlayerController
+            videoRef={props.videoRef}
+            effectsState={effectsState}
+            isVefxShown={isVefxShown}
+            setIsVefxShown={setIsVefxShown}
+            currentTime={currentTime}
+            duration={duration}
+            isFullscreenUi={props.isFullscreenUi}
+            setIsFullscreenUi={props.setIsFullscreenUi}
+            hlsRef={hlsRef}
+        />
         { isVefxShown && <VefxController
             frequencies={frequencies}
             effectsState={effectsState}

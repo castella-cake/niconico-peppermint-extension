@@ -7,8 +7,6 @@ import Player from "./watch/player";
 import Info from "./watch/Info";
 import Recommend from "./watch/Recommend";
 import CommentList from "./watch/CommentList";
-import VefxController from "./watch/vefxController";
-import { useAudioEffects } from "./eqHooks";
 
 function CreateWatchUI() {
     const lang = useLang()
@@ -23,12 +21,13 @@ function CreateWatchUI() {
     const [videoInfo, setVideoInfo] = useState({})
     const [commentContent, setCommentContent] = useState({})
     const videoElementRef = useRef(null)
+    const [isFullscreenUi, setIsFullscreenUi] = useState(false);
 
     useEffect(() => {
         async function fetchInfo() {
             const fetchedVideoInfo = await getVideoInfo(smId)
             setVideoInfo(fetchedVideoInfo)
-            console.log(videoInfo)
+            //console.log(videoInfo)
 
             const commentRequestBody = {
                 params: {
@@ -44,9 +43,9 @@ function CreateWatchUI() {
     }, [])
 
 
-    console.log(videoInfo)
+    //console.log(videoInfo)
     if ( videoInfo == {} || commentContent == {} || !localStorage || !syncStorage ) return <div>ロード中</div>
-    return <>
+    return <div className={isFullscreenUi ? "container fullscreen" : "container"}>
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
         <a href="https://www.nicovideo.jp/video_top">ニコニコ動画へ戻る</a>
         <div className="watch-container">
@@ -57,6 +56,8 @@ function CreateWatchUI() {
                     videoInfo={videoInfo}
                     commentContent={commentContent}
                     videoRef={videoElementRef}
+                    isFullscreenUi={isFullscreenUi}
+                    setIsFullscreenUi={setIsFullscreenUi}
                 />
                 <Info videoInfo={videoInfo} />
             </div>
@@ -65,7 +66,7 @@ function CreateWatchUI() {
                 <Recommend videoInfo={videoInfo} smId={smId} />
             </div>
         </div>
-    </>
+    </div>
 }
 
 

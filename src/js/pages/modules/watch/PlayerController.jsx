@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState, useRef } from "react";
 import { useStorageContext } from "../extensionHook";
 import { useLang } from "../localizeHook";
-import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
+import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
+import { secondsToTime } from "./commonFunction";
+import Hls from "hls.js";
 
 function VefxDisplay({ effectsState }) {
     if (!effectsState) return <></>
@@ -14,19 +16,19 @@ function VefxDisplay({ effectsState }) {
     let text = ""
     if (enabledEffects.length >= 3) {
         text = "MULTIPLE EFFECTS"
-        bgColor = "var(--textcolor3)"
-        textColor = "var(--bgcolor2)"
+        bgColor = "var(--textcolor1)"
+        textColor = "var(--bgcolor1)"
     } else if (enabledEffects.length == 2) {
         text = enabledEffects.map(elem => elem.toUpperCase()).join("/")
-        bgColor = "var(--textcolor2)"
+        bgColor = "var(--textcolor3)"
         textColor = "var(--bgcolor2)"
     } else if ( enabledEffects.length == 1 ) {
         text = enabledEffects[0].toUpperCase()
-        bgColor = "var(--textcolor2)"
+        bgColor = "var(--textcolor3)"
         textColor = "var(--bgcolor2)"
     } else {
-        text = "NO EFFECT"
-        bgColor = "var(--bgcolor2)"
+        text = "EFFECT OFF"
+        bgColor = "var(--bgcolor1)"
         textColor = "var(--textcolor2)"
     }
     return <div className="playercontroller-effectdisplay" style={{ "--bg": bgColor, "--color": textColor }}>{text}</div>
@@ -44,6 +46,8 @@ function PlayerController(props) {
     const [isMuted, setIsMuted] = useState(false)
     const [videoVolume, setVideoVolume] = useState(50)
 
+    const [hlsLevel, setHlsLevel] = useState(0)
+    //const [qualityStrings, setQualityStrings] = useState([])
 
     useEffect(() => {
         if (!isLoaded) return
@@ -59,6 +63,11 @@ function PlayerController(props) {
             setIsIconFilled([false, false])
         }
     },[props.currentTime])
+    useEffect(() => {
+        if (!props.hlsRef.current) return
+        setHlsLevel(props.hlsRef.current.currentLevel)
+        console.log(hlsLevel)
+    }, [props.hlsRef])
     if (!isLoaded) return <div>storage待機中...</div>
 
 
@@ -113,19 +122,48 @@ function PlayerController(props) {
     }
 
     return <div className="playercontroller-container">
-        <div className="playercontroller-container-left">
-            <button type="button" className="playercontroller-skipback" onClick={() => {timeController("set", 0)}}>{ isIconFilled[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
-            <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", -10)}}><IconRewindBackward10/></button>
-            <button type="button" className="playercontroller-togglestop" onClick={() => {toggleStopState()}}>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</button>
-            <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", 10)}}><IconRewindForward10/></button>
-            <button type="button" className="playercontroller-skipforward" onClick={() => {timeController("set", video.duration)}}>{ isIconFilled[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
+        <div className="playercontroller-container-top">
+            <div className="playercontroller-time currenttime">{secondsToTime(props.currentTime)}</div>
+            <input
+                className="playercontroller-seekbar"
+                type="range"
+                value={Math.floor(props.currentTime)}
+                min="0" max={Math.floor(props.duration)}
+                onChange={(e) => {
+                    props.videoRef.current.currentTime = e.currentTarget.value
+                }}
+            />
+            <div className="playercontroller-time duration">{secondsToTime(props.duration)}</div>
         </div>
-        <div className="playercontroller-container-right">
-        <button type="button" className="playercontroller-togglestop" onClick={() => {setVolume(0, true)}}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
-            <label><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.value)}}/>{videoVolume}%</label>
-            <button type="button" className="playercontroller-effectchange" onClick={() => {props.setIsVefxShown(!props.isVefxShown)}}><IconAdjustmentsFilled/> <VefxDisplay effectsState={props.effectsState}/></button>
-            <button type="button" className="playercontroller-fullscreen" onClick={() => {}}><IconMaximize/></button>
-            <button type="button" className="playercontroller-settings" onClick={() => {}}><IconSettings/></button>
+        <div className="playercontroller-container-bottom">
+            <div className="playercontroller-container-left">
+                <button type="button" className="playercontroller-effectchange" onClick={() => {props.setIsVefxShown(!props.isVefxShown)}}>
+                    <IconAdjustmentsFilled/>
+                    <VefxDisplay effectsState={props.effectsState}/>
+                </button>
+                <button type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
+                <label><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.value)}}/>{videoVolume}%</label>
+            </div>
+            <div className="playercontroller-container-center">
+                <button type="button" className="playercontroller-skipback" onClick={() => {timeController("set", 0)}}>{ isIconFilled[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
+                <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", -10)}}><IconRewindBackward10/></button>
+                <button type="button" className="playercontroller-togglestop" onClick={() => {toggleStopState()}}>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</button>
+                <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", 10)}}><IconRewindForward10/></button>
+                <button type="button" className="playercontroller-skipforward" onClick={() => {timeController("set", video.duration)}}>{ isIconFilled[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
+            </div>
+            <div className="playercontroller-container-right">
+                {/*props.hlsRef.current && <select onChange={(e) => {
+                    props.hlsRef.current.currentLevel = e.currentTarget.value
+                    setHlsLevel(e.currentTarget.value)
+                }} value={hlsLevel}>
+                    {props.hlsRef.current.levels.map((elem, index) => {
+                        return <option value={index} key={index}>{`${elem.width}x${elem.height}`}</option>
+                    })}
+                </select>*/}
+                <div className="playercontroller-qualitydisplay">{props.hlsRef.current && props.hlsRef.current.levels.map(elem => `${elem.height}p`)[props.hlsRef.current.currentLevel]}</div>
+                <button type="button" className="playercontroller-fullscreen" onClick={() => {props.setIsFullscreenUi(!props.isFullscreenUi)}}>{ props.isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
+                <button type="button" className="playercontroller-settings" onClick={() => {}}><IconSettings/></button>
+            </div>
         </div>
     </div>
 }
