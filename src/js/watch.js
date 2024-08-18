@@ -1,13 +1,19 @@
 import { createRoot } from "react-dom/client";
-import { getSyncStorageData } from "./modules/storageControl";
+import { getLocalStorageData, getSyncStorageData } from "./modules/storageControl";
 import { watchPage } from "./pages/watch";
-getSyncStorageData.then(createCSSRule, onError);
+
+const storagePromises = [getSyncStorageData, getLocalStorageData]
+
+Promise.allSettled(storagePromises).then(createCSSRule, onError);
 function onError(error) {
     console.log(`Error: ${error}`);
 }
-function createCSSRule(result) {
-    if ( !result.enablewatchpagereplace ) return
+function createCSSRule(storages) {
+    const syncStorage = storages[0].value
+    const localStorage = storages[1].value
+    if ( !syncStorage.enablewatchpagereplace ) return
     window.stop()
+    if ( !localStorage.playersettings ) chrome.storage.local.set({ playersettings: {} })
     const html = document.querySelector("html")
     html.innerHTML = "<head><meta charset=\"utf-8\"></head><body></body>"
     const body = document.body

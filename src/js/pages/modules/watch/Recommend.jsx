@@ -2,23 +2,11 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { useStorageContext } from "../extensionHook";
 import { useLang } from "../localizeHook";
 import { getRecommend } from "../../../modules/watchApi";
+import { secondsToTime } from "./commonFunction";
 
 function Recommend(props) {
     const lang = useLang()
     const [ recommendData, setRecommendData ] = useState({})
-    function secondsToTime(seconds) {
-        let ss = Math.floor(seconds % 60)
-        let mm = Math.floor((seconds / 60) % 60)
-        let hh = Math.floor((seconds / 60) / 60)
-
-        if (ss < 10) ss = `0${ss}`
-        if (mm < 10) mm = `0${mm}`
-
-        if (hh < 1) return `${mm}:${ss}`
-
-        if (hh < 10) hh = `0${hh}`
-        return `${hh}:${mm}:${ss}`
-    }
     function VideoInfo(props) {
         const obj = props.obj
         return <a className="recommend-item" href={`https://www.nicovideo.jp/watch/${obj.id}`}>

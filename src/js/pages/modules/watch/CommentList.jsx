@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState, useRef, createRef } from "react";
 import { useStorageContext } from "../extensionHook";
 import { useLang } from "../localizeHook";
+import { useInterval } from "../commonHooks";
+import { secondsToTime } from "./commonFunction";
 
 // 選択した名前のスレッドを返す関数
 function returnSelectedThread(threads, forkName) {
@@ -9,23 +11,6 @@ function returnSelectedThread(threads, forkName) {
         if ( elem.fork == forkName ) return elem 
     }
     return false
-}
-function useInterval(callback, ms) {
-    // 渡されたコールバックでRef作成
-    const callbackRef = useRef(callback)
-    // callbackが更新されたりしたらRef更新
-    useEffect(() => {
-        callbackRef.current = callback
-    }, [callback])
-    useEffect(() => {
-        // 新しい関数でRefの関数を実行
-        const tick = () => { callbackRef.current() } 
-        const id = setInterval(tick, ms)
-        // 終わったらこれも切る
-        return () => {
-            clearInterval(id);
-        };
-    }, [])
 }
 
 function CommentList(props) {
@@ -48,10 +33,11 @@ function CommentList(props) {
         const currentTime = Math.floor(props.videoRef.current.currentTime)
         // とりあえず一番最初の要素の高さを取得
         const elemHeight = scrollPosList[0].current.offsetHeight
+        if (!scrollPosList[`${currentTime}`] || !scrollPosList[`${currentTime}`].current) return
         // よくわからないけど試行錯誤の末とりあえずそれらしいように見えてるのでヨシ
         const offsetTop = scrollPosList[`${currentTime}`].current.offsetTop - elemHeight
         // 要素がある上で、CommentListをはみ出しているスクロールするべき要素であればスクロール
-        if ( scrollPosList[`${currentTime}`] && scrollPosList[`${currentTime}`].current && offsetTop - (commentListContainerRef.current.clientHeight + elemHeight) > 0 ) {
+        if ( offsetTop - (commentListContainerRef.current.clientHeight + elemHeight) > 0 ) {
             commentListContainerRef.current.scrollTop = offsetTop - (commentListContainerRef.current.clientHeight + elemHeight)
             //scrollPosList[`${currentTime}`].current.scrollIntoView({ behavior: "smooth", block: 'nearest', inline: 'start'  })
         }
@@ -81,18 +67,21 @@ function CommentList(props) {
             scrollPosList[`${Math.floor( elem.vposMs / 1000 )}`] = commentRefs.current[index]
         }
     })
-    console.log(scrollPosList)
+    //console.log(scrollPosList)
 
     return <div className="commentlist-container">
         <div className="commentlist-title-container">
-            {commentContent.threads.map(elem => {
-                return <button key={elem.id} type="button" onClick={() => {setCurrentForkType(elem.fork)}}>{elem.fork}</button>
+            {commentContent.threads.map((elem, index) => {
+                return <button key={`${index}-${elem.id}`} type="button" onClick={() => {setCurrentForkType(elem.fork)}}>{elem.fork}</button>
             })}
             <label><input type="checkbox" className="commentlist-autoscroll" onChange={(e) => {setAutoScroll(e.currentTarget.checked)}} checked={autoScroll}/> 自動スクロール</label>
         </div>
         <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => setIsCommentListHovered(true)} onMouseLeave={() => setIsCommentListHovered(false)}>
             {sortedComments.map((elem, index) => {
-                return <div key={elem.id} ref={commentRefs.current[index]} className="commentlist-list-item">{elem.body} {Math.floor( elem.vposMs / 1000 )}</div>
+                return <div key={`${index}-${elem.id}`} ref={commentRefs.current[index]} className="commentlist-list-item">
+                    <div className="commentlist-list-item-body">{elem.body}</div>
+                    <div className="commentlist-list-item-vpos">{secondsToTime(Math.floor( elem.vposMs / 1000 ))}</div>
+                </div>
             })}
         </div>
     </div>

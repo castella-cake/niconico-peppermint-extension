@@ -76,7 +76,8 @@
     ],
     "web_accessible_resources": [{
         "resources": [
-            "style/*"
+            "style/*",
+            "js/*.bundle.js.map"
         ],
         "matches": [
             "*://*.nicovideo.jp/*"

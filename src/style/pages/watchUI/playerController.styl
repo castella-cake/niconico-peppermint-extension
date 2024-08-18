@@ -1,0 +1,52 @@
+.playercontroller-container {
+    display: flex;
+    position: relative;
+    top: -4px;
+}
+.playercontroller-container-left {
+    flex: 1
+}
+.playercontroller-container-right, .playercontroller-container-left {
+    display: flex;
+    align-items: center;
+    button {
+        display: block;
+        background: transparent;
+        border: none;
+        color: var(--textcolor1);
+        vertical-align: middle;
+        padding: 5px 8px;
+        border-radius: 8px;
+        svg {
+            vertical-align: middle;
+        }
+    }
+    button:hover {
+        background: var(--hover1);
+    }
+}
+
+
+.playercontroller-effectchange {
+    display: flex !important;
+    align-items: center;
+    background: transparent;
+    border: none;
+    color: var(--textcolor1);
+    padding: 4px;
+    vertical-align: middle;
+    border-radius: 4px;
+}
+
+.playercontroller-effectchange:hover {
+    background: var(--hover1)
+}
+
+.playercontroller-effectdisplay {
+    background: var(--bg);
+    color: var(--color);
+    padding: 6px 8px;
+    margin-left: 4px;
+    font-family: Hack, Consolas, monospace;
+    border-radius: 2px;
+}

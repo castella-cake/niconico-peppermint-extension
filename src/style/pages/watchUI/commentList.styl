@@ -1,0 +1,30 @@
+.commentlist-container {
+    max-height: 640px;
+    background: var(--bgcolor2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.commentlist-title-container {
+    padding: 8px;
+} 
+
+.commentlist-list-container {
+    overflow: hidden scroll;
+    .commentlist-list-item {
+        padding: 4px;
+        border-bottom: 1px solid var(--accent2);
+        display: flex;
+        max-width: 100%;
+        .commentlist-list-item-body {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .commentlist-list-item-vpos {
+            color: var(--textcolor2)
+        }
+    }
+}

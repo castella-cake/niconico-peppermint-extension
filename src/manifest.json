@@ -107,6 +107,9 @@
         "https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/*",
         "https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*",
         "https://nicovideo.cdn.nimg.jp/thumbnails/*",
+        "https://delivery.domand.nicovideo.jp/*",
+        "https://asset.domand.nicovideo.jp/*",
+        "https://public.nvcomment.nicovideo.jp/*",
         "alarms",
         "tabs",
         "scripting"

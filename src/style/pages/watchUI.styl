@@ -30,6 +30,10 @@ body {
 a {
     color: var(--linktext1)
 }
+.container {
+    width: 95vw;
+    margin: 0 auto;
+}
 .watch-container {
     display: flex;
     flex-wrap: wrap;
@@ -115,20 +119,39 @@ a {
     }
 }
 
-.commentlist-container {
-    max-height: 640px;
-    background: var(--bgcolor2);
+@import './watchUI/commentList.styl'
+@import './watchUI/playerController.styl'
+
+.vefx-container {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    position: relative;
+    left: 0;
+    bottom: 160px;
+    padding: 0;
 }
-.commentlist-title-container {
-    padding: 8px;
-} 
-.commentlist-list-container {
-    overflow: scroll;
-    .commentlist-list-item {
-        padding: 4px;
-        border-bottom: 1px solid var(--accent2)
+.vefx-container-inner {
+    position: absolute;
+    right: 20px;
+    padding: 16px;
+    background: var(--bgcolor1);
+    bottom: -100px;
+    width: 16em;
+    height: 32em;
+    overflow-y: scroll;
+    > div {
+        display: flex;
+        input[type="range"] {
+            flex: 1;
+        }
+        label {
+            flex: 0.6
+        }
+    }
+    > label {
+        display: block;
+    }
+    .vefx-title {
+        font-weight: bold;
     }
 }

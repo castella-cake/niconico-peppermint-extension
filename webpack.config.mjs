@@ -18,7 +18,11 @@ export default {
     module: {
         rules: [
             {
-                test: /\.(jsx|js)$/, loader: "babel-loader", exclude: /node_modules/
+                test: /\.(js|jsx)$/, 
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader'
+                },
             },
             {
                 test: /\.styl$/,
