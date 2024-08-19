@@ -60,7 +60,7 @@ a {
     justify-content: center;
     .watch-container-left {
         min-width: 480px;
-        flex: 0.9;
+        flex: 0.8;
     }
     .watch-container-right {
         min-width: 400px;
@@ -82,11 +82,36 @@ a {
             font-weight: normal;
         }
     }
+    details {
+        margin: 8px 0;
+        border-radius: 6px;
+        border: 2px solid var(--accent1);
+        padding: 8px 16px;
+    }
+}
+.bottom-container {
+    align-items: center;
+    background: var(--bgcolor1);
+    border-radius: 8px;
+    padding: 8px 16px;
+}
+.owner-container {
+    border-left: 2px solid var(--accent1);
+    padding-left: 16px;
+    img {
+        width: 3em;
+        margin-right: 8px;
+        border-radius: 6px;
+    }
+    > * {
+        vertical-align: middle;
+    }
 }
 .tags-container {
-    display: flex
+    display: flex;
     flex-wrap: wrap;
-    margin-top: 8px;
+    line-height: 24px;
+    gap: 4px;
 
     .tags-item {
         margin-right: 8px;
@@ -95,6 +120,30 @@ a {
     .tags-item-locked {
         border-bottom: 2px solid rgba(255, 255, 0, 0.5)
     }
+}
+
+.videoinfo-titlecontainer {
+    display: flex;
+}
+.videoinfo-titleinfo {
+    flex: 1;
+}
+.videoinfo-actions button {
+    background: var(--bgcolor3);
+    color: var(--textcolor1);
+    border: none;
+    border-radius: 6px;
+    padding: 4px 8px;
+    svg,span {
+        vertical-align: middle
+    }
+    span {
+        margin-left: 0.5em
+    }
+}
+.videoinfo-actions button:hover {
+    background: var(--bgcolor1);
+    color: var(--textcolor1);
 }
 
 .recommend-container {
@@ -106,6 +155,9 @@ a {
         margin-bottom: 8px;
         img {
             flex-shrink: 0;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            background: var(--bgcolor2);
         }
         div {
             flex: 1;

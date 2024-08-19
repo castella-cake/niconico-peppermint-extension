@@ -45,9 +45,9 @@ export function getVideoInfo(smId) {
                 },
                 "method": "GET"
             })
-            if ( !response.ok ) reject("Response is not ok")
+            if (!response.ok) reject("Response is not ok")
             const responseJson = await response.json()
-            if ( responseJson.meta.status !== 200 ) reject(responseJson.meta.status)
+            if (responseJson.meta.status !== 200) reject(responseJson.meta.status)
             resolve(responseJson)
         } catch (err) {
             reject(err)
@@ -88,4 +88,37 @@ export async function getCommentThread(server, body) {
         "mode": "cors"
     });
     return await response.json()
+}
+
+export async function sendLike(smId, isAdd) {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/users/me/likes/items?videoId=${smId}`, {
+        "headers": {
+            "accept": "application/json;charset=utf-8",
+            "accept-language": "ja,en-US;q=0.9,en;q=0.8",
+            "x-frontend-id": "6",
+            "x-frontend-version": "0",
+            "x-niconico-language": "ja-jp",
+            "x-request-with": `https://www.nicovideo.jp/watch/${smId}`
+        },
+        "referrer": "https://www.nicovideo.jp/",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": null,
+        "method": (isAdd ? "POST" : "DELETE"),
+        "mode": "cors",
+        "credentials": "include"
+    });
+    const json = await response.json()
+    if (isAdd) {
+        if ( json.meta.status == 201 ) {
+            return true
+        } else {
+            return false
+        }
+    } else {
+        if ( json.meta.status == 200 ) {
+            return true
+        } else {
+            return false
+        }
+    }
 }

@@ -101,7 +101,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             const renderInterval = setInterval(() => {
                 if (!videoRef.current) return
                 niconiCommentsRenderer.drawCanvas(videoRef.current.currentTime * 100)
-            }, 16)
+            }, 8)
             return () => {
                 clearInterval(renderInterval)
             };
