@@ -1,11 +1,13 @@
-import { useEffect, useMemo, useState, useRef } from "react";
-import { useStorageContext } from "../extensionHook";
-import { useLang } from "../localizeHook";
+//import { useEffect, useMemo, useState, useRef } from "react";
+//import { useStorageContext } from "../extensionHook";
+//import { useLang } from "../localizeHook";
 
-function VefxController({ frequencies, effectsState, onEffectsChange }) {
-    const lang = useLang()
-    const { syncStorage, setSyncStorageValue } = useStorageContext()
-    const handleGainChange = (index, value) => {
+import { effectsState } from "./Player";
+
+function VefxController({ frequencies, effectsState, onEffectsChange }: {frequencies: number[], effectsState: effectsState, onEffectsChange: any}) {
+    //const lang = useLang()
+    //const { syncStorage, setSyncStorageValue } = useStorageContext()
+    const handleGainChange = (index: number, value: number) => {
         const newGains = [...effectsState.equalizer.gains];
         newGains[index] = value;
         onEffectsChange({
@@ -14,37 +16,37 @@ function VefxController({ frequencies, effectsState, onEffectsChange }) {
         });
     };
 
-    const handleEchoDelayChange = (value) => {
+    const handleEchoDelayChange = (value: number) => {
         onEffectsChange({
             ...effectsState,
             echo: { ...effectsState.echo, delayTime: value },
         });
     };
 
-    const handleEchoFeedbackChange = (value) => {
+    const handleEchoFeedbackChange = (value: number) => {
         onEffectsChange({
             ...effectsState,
             echo: { ...effectsState.echo, feedback: value },
         });
     };
-    const handleEchoGainChange = (value) => {
+    const handleEchoGainChange = (value: number) => {
         onEffectsChange({
             ...effectsState,
             echo: { ...effectsState.echo, gain: value },
         });
     };
 
-    const handlePreampGainChange = (value) => {
+    const handlePreampGainChange = (value: number) => {
         onEffectsChange({
             ...effectsState,
             preamp: { ...effectsState.preamp, gain: value },
         });
     };
 
-    const handleEnabledEffect = (effectName) => {
+    const handleEnabledEffect = (effectName: string) => {
         onEffectsChange({
             ...effectsState,
-            [effectName]: { ...effectsState[effectName], enabled: !effectsState[effectName].enabled },
+            [effectName]: { ...effectsState[effectName as keyof effectsState], enabled: !effectsState[effectName as keyof effectsState].enabled },
         });
     };
 

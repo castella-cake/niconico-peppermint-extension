@@ -5,16 +5,17 @@ import { watchPage } from "./pages/watch";
 const storagePromises = [getSyncStorageData, getLocalStorageData]
 
 Promise.allSettled(storagePromises).then(createCSSRule, onError);
-function onError(error) {
+function onError(error: Error) {
     console.log(`Error: ${error}`);
 }
-function createCSSRule(storages) {
+function createCSSRule(storages: PromiseFulfilledResult<{[key: string]: string[]}>[]) {
     const syncStorage = storages[0].value
     const localStorage = storages[1].value
     if ( !syncStorage.enablewatchpagereplace ) return
     window.stop()
     if ( !localStorage.playersettings ) chrome.storage.local.set({ playersettings: {} })
     const html = document.querySelector("html")
+    if (!html) return
     html.innerHTML = "<head><meta charset=\"utf-8\"></head><body></body>"
     const body = document.body
     const head = document.head

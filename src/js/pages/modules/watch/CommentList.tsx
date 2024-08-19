@@ -1,11 +1,17 @@
-import { useEffect, useMemo, useState, useRef, createRef } from "react";
-import { useStorageContext } from "../extensionHook";
-import { useLang } from "../localizeHook";
+import { useState, useRef, createRef, RefObject } from "react";
+//import { useLang } from "../localizeHook";
 import { useInterval } from "../commonHooks";
 import { secondsToTime } from "./commonFunction";
+import type { CommentDataRootObject, Thread } from "./types/CommentData";
+import { VideoDataRootObject } from "./types/VideoData";
+
+type scrollPos = {
+    [vposSec: string]: RefObject<HTMLDivElement>
+
+}
 
 // 選択した名前のスレッドを返す関数
-function returnSelectedThread(threads, forkName) {
+function returnSelectedThread(threads: Thread[], forkName: string) {
     for (const elem of threads) {
         console.log()
         if ( elem.fork == forkName ) return elem 
@@ -13,35 +19,47 @@ function returnSelectedThread(threads, forkName) {
     return false
 }
 
-function returnFirstScrollPos(scrollPosList) {
+function returnFirstScrollPos(scrollPosList: scrollPos) {
     for (const elem in scrollPosList) {
         if (scrollPosList[elem].current) return scrollPosList[elem]
     }
+    
 }
 
-function CommentList(props) {
-    const lang = useLang()
+type Props = {
+    videoInfo: VideoDataRootObject,
+    commentContent: CommentDataRootObject,
+    videoRef: RefObject<HTMLVideoElement>
+}
+
+function CommentList(props: Props) {
+    //const lang = useLang()
     const [ currentForkType, setCurrentForkType ] = useState("main")
     const [ isCommentListHovered, setIsCommentListHovered ] = useState(false)
     const [ autoScroll, setAutoScroll ] = useState(true)
-    const commentListContainerRef = useRef(null)
+    const commentListContainerRef = useRef<HTMLDivElement>(null)
     // 複数のref
-    const commentRefs = useRef([])
+    const commentRefs = useRef<RefObject<HTMLDivElement>[]>([])
 
     // スクロールタイミングを書いたオブジェクト
-    const scrollPosList = {}
+    const scrollPosList: scrollPos = {}
 
     useInterval(() => {
         // データが足りない/オートスクロールが有効化されていない/コメントリストにホバーしている ならreturn
-        if (!props.videoInfo.data || !props.commentContent.data || !autoScroll || isCommentListHovered) return
+        if (!props.videoInfo.data || !props.commentContent.data || !props.videoRef.current || !autoScroll || isCommentListHovered || !scrollPosList) return
 
         // video要素の時間
         const currentTime = Math.floor(props.videoRef.current.currentTime)
         // とりあえず一番最初の要素の高さを取得
-        const elemHeight = returnFirstScrollPos(scrollPosList).current.offsetHeight
-        if (!scrollPosList[`${currentTime}`] || !scrollPosList[`${currentTime}`].current) return
+        const firstScrollPos = returnFirstScrollPos(scrollPosList)
+        if (!firstScrollPos || !firstScrollPos.current) return
+
+        const elemHeight = firstScrollPos.current.offsetHeight
+
+        const currentTimeRef = scrollPosList[`${currentTime}` as keyof scrollPos].current
+        if (!currentTimeRef || !commentListContainerRef.current) return
         // よくわからないけど試行錯誤の末とりあえずそれらしいように見えてるのでヨシ
-        const offsetTop = scrollPosList[`${currentTime}`].current.offsetTop - elemHeight
+        const offsetTop = currentTimeRef.offsetTop - elemHeight
         // 要素がある上で、CommentListをはみ出しているスクロールするべき要素であればスクロール
         if ( offsetTop - (commentListContainerRef.current.clientHeight + elemHeight) > 0 ) {
             commentListContainerRef.current.scrollTop = offsetTop - (commentListContainerRef.current.clientHeight + elemHeight)
@@ -52,7 +70,7 @@ function CommentList(props) {
     // データが足りなかったら閉店
     if (!props.videoInfo.data || !props.commentContent.data) return <></>
 
-    const videoInfo = props.videoInfo.data.response
+    //const videoInfo = props.videoInfo.data.response
     const commentContent = props.commentContent.data
 
     // 現在のフォークタイプで代入

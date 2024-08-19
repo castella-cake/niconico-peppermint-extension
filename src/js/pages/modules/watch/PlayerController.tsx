@@ -1,14 +1,15 @@
-import { useEffect, useMemo, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useStorageContext } from "../extensionHook";
-import { useLang } from "../localizeHook";
-import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
+import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
 import { secondsToTime } from "./commonFunction";
+import type { Dispatch, RefObject, SetStateAction } from "react";
 import Hls from "hls.js";
+import type { effectsState } from "./Player";
 
-function VefxDisplay({ effectsState }) {
+function VefxDisplay({ effectsState }: { effectsState: effectsState }) {
     if (!effectsState) return <></>
     const enabledEffects = Object.keys(effectsState).map(elem => {
-        if ( effectsState[elem].enabled ) return elem
+        if ( elem && effectsState[elem as keyof effectsState].enabled ) return elem
         return
     }).filter(elem => {if (elem) return true})
     let bgColor = ""
@@ -19,11 +20,11 @@ function VefxDisplay({ effectsState }) {
         bgColor = "var(--textcolor1)"
         textColor = "var(--bgcolor1)"
     } else if (enabledEffects.length == 2) {
-        text = enabledEffects.map(elem => elem.toUpperCase()).join("/")
+        text = enabledEffects.map((elem: string) => elem.toUpperCase()).join("/")
         bgColor = "var(--textcolor3)"
         textColor = "var(--bgcolor2)"
     } else if ( enabledEffects.length == 1 ) {
-        text = enabledEffects[0].toUpperCase()
+        if (enabledEffects[0]) text = enabledEffects[0].toUpperCase()
         bgColor = "var(--textcolor3)"
         textColor = "var(--bgcolor2)"
     } else {
@@ -31,12 +32,26 @@ function VefxDisplay({ effectsState }) {
         bgColor = "var(--bgcolor1)"
         textColor = "var(--textcolor2)"
     }
-    return <div className="playercontroller-effectdisplay" style={{ "--bg": bgColor, "--color": textColor }}>{text}</div>
+    return <div className="playercontroller-effectdisplay" style={{ background: bgColor, color: textColor }}>{text}</div>
 }
 
-function PlayerController(props) {
+type Props = {
+    videoRef: RefObject<HTMLVideoElement>,
+    effectsState: effectsState,
+    isVefxShown: boolean,
+    setIsVefxShown: Dispatch<SetStateAction<boolean>>,
+    currentTime: number,
+    duration: number,
+    isFullscreenUi: boolean,
+    setIsFullscreenUi: Dispatch<SetStateAction<boolean>>,
+    isCommentShown: boolean,
+    setIsCommentShown: Dispatch<SetStateAction<boolean>>,
+    hlsRef: RefObject<Hls>
+}
+
+function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, currentTime, duration, isFullscreenUi, setIsFullscreenUi, isCommentShown, setIsCommentShown, hlsRef}: Props) {
     const { localStorage, setLocalStorageValue, isLoaded } = useStorageContext()
-    function writePlayerSettings(name, value) {
+    function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
     }
 
@@ -55,24 +70,26 @@ function PlayerController(props) {
         setVideoVolume(localStorage.playersettings.volume || 50)
     }, [localStorage])
     useEffect(() => {
-        if ( props.currentTime < 11 ) {
+        if ( currentTime < 11 ) {
             setIsIconFilled([true, false])
-        } else if ( props.currentTime >= video.duration ) {
+        } else if ( currentTime >= video.duration ) {
             setIsIconFilled([false, true])
         } else {
             setIsIconFilled([false, false])
         }
-    },[props.currentTime])
+    },[currentTime])
     useEffect(() => {
-        if (!props.hlsRef.current) return
-        setHlsLevel(props.hlsRef.current.currentLevel)
-        console.log(hlsLevel)
-    }, [props.hlsRef])
+        if (!hlsRef.current) return
+        hlsRef.current.on(Hls.Events.LEVEL_SWITCHED, (e) => {
+            if (!hlsRef.current) return
+            setHlsLevel(hlsRef.current.currentLevel)
+        })
+    }, [hlsRef.current])
     if (!isLoaded) return <div>storage待機中...</div>
 
 
-    if (!props.videoRef || !props.videoRef.current) return <div>video待機中…</div>
-    const video = props.videoRef.current
+    if (!videoRef || !videoRef.current) return <div>video待機中…</div>
+    const video = videoRef.current
     video.volume = videoVolume / 100
     video.muted = isMuted
     function toggleStopState() {
@@ -83,7 +100,7 @@ function PlayerController(props) {
         }
         setIsIconPlay(video.paused)
     }
-    function timeController(operation, time) {
+    function timeController(operation: string, time: number) {
         // 不要かもしれないが、一応合計時間超過/0未満をハンドルする
         if ( operation == "add" && video.currentTime + time < 0 ) {
             // 足した値が0未満
@@ -109,7 +126,7 @@ function PlayerController(props) {
             throw new Error("Operation not found")
         }
     }
-    function setVolume(volume, isMuteToggle = false) {
+    function setVolume(volume: number, isMuteToggle = false) {
         if (isMuteToggle) { 
             video.muted = !video.muted
             setIsMuted(video.muted)
@@ -123,26 +140,27 @@ function PlayerController(props) {
 
     return <div className="playercontroller-container">
         <div className="playercontroller-container-top">
-            <div className="playercontroller-time currenttime">{secondsToTime(props.currentTime)}</div>
+            <div className="playercontroller-time currenttime">{secondsToTime(currentTime)}</div>
             <input
                 className="playercontroller-seekbar"
                 type="range"
-                value={Math.floor(props.currentTime)}
-                min="0" max={Math.floor(props.duration)}
+                value={Math.floor(currentTime)}
+                min="0" max={Math.floor(duration)}
                 onChange={(e) => {
-                    props.videoRef.current.currentTime = e.currentTarget.value
+                    if (!videoRef.current) return 
+                    videoRef.current.currentTime = e.currentTarget.valueAsNumber
                 }}
             />
-            <div className="playercontroller-time duration">{secondsToTime(props.duration)}</div>
+            <div className="playercontroller-time duration">{secondsToTime(duration)}</div>
         </div>
         <div className="playercontroller-container-bottom">
             <div className="playercontroller-container-left">
-                <button type="button" className="playercontroller-effectchange" onClick={() => {props.setIsVefxShown(!props.isVefxShown)}}>
-                    <IconAdjustmentsFilled/>
-                    <VefxDisplay effectsState={props.effectsState}/>
+                <button type="button" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}}>
+                    { isVefxShown ? <IconAdjustmentsFilled/> : <IconAdjustments/> }
+                    <VefxDisplay effectsState={effectsState}/>
                 </button>
                 <button type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
-                <label><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.value)}}/>{videoVolume}%</label>
+                <label><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/>{videoVolume}%</label>
             </div>
             <div className="playercontroller-container-center">
                 <button type="button" className="playercontroller-skipback" onClick={() => {timeController("set", 0)}}>{ isIconFilled[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
@@ -152,16 +170,25 @@ function PlayerController(props) {
                 <button type="button" className="playercontroller-skipforward" onClick={() => {timeController("set", video.duration)}}>{ isIconFilled[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
             </div>
             <div className="playercontroller-container-right">
-                {/*props.hlsRef.current && <select onChange={(e) => {
-                    props.hlsRef.current.currentLevel = e.currentTarget.value
-                    setHlsLevel(e.currentTarget.value)
-                }} value={hlsLevel}>
-                    {props.hlsRef.current.levels.map((elem, index) => {
-                        return <option value={index} key={index}>{`${elem.width}x${elem.height}`}</option>
+                {hlsRef.current && <select onChange={(e) => {
+                    if (!hlsRef.current) return
+                    hlsRef.current.currentLevel = Number(e.currentTarget.value)
+                    //setHlsLevel(Number(e.currentTarget.value))
+                }} value={hlsLevel} className="playercontroller-qualityselect">
+                    {hlsRef.current.levels.map((elem, index) => {
+                        return <option value={index} key={index}>{`${elem.height}p`}</option>
                     })}
-                </select>*/}
-                <div className="playercontroller-qualitydisplay">{props.hlsRef.current && props.hlsRef.current.levels.map(elem => `${elem.height}p`)[props.hlsRef.current.currentLevel]}</div>
-                <button type="button" className="playercontroller-fullscreen" onClick={() => {props.setIsFullscreenUi(!props.isFullscreenUi)}}>{ props.isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
+                </select>}
+                {/*<div className="playercontroller-qualitydisplay">{hlsRef.current && hlsRef.current.levels.map(elem => `${elem.height}p`)[hlsRef.current.currentLevel]}</div>*/}
+                <button type="button" className="playercontroller-commenttoggle" onClick={() => {setIsCommentShown(!isCommentShown)}}>{ isCommentShown ? <IconMessage2/> : <IconMessage2Off/>}</button>
+                <button type="button" className="playercontroller-fullscreen" onClick={() => {
+                    if (!isFullscreenUi) {
+                        document.body.requestFullscreen()
+                    } else {
+                        document.exitFullscreen()
+                    }
+                    setIsFullscreenUi(!isFullscreenUi)
+                }}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
                 <button type="button" className="playercontroller-settings" onClick={() => {}}><IconSettings/></button>
             </div>
         </div>
