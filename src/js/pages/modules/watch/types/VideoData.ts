@@ -72,7 +72,7 @@ interface Information {
     url: string;
 }
 
-interface ViewerInfo {
+export interface ViewerInfo {
     id: number;
     nickname: string;
     isPremium: boolean;

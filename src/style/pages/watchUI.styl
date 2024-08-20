@@ -26,6 +26,7 @@ body {
     --nicoru3: rgba(201,168,62,0.35);
     --nicoru4: rgba(201,168,62,0.5);
     --dangerous1: rgb(245, 71, 71);
+    margin: 0;
 }
 // font-family を Stylus-langが正しく解釈しないようなので、@cssを使う
 @css {
@@ -67,84 +68,6 @@ a {
         max-width: 25vw;
     }
 }
-.videoinfo-container {
-    background: var(--bgcolor2);
-    padding: 16px;
-    margin-top: 8px;
-    border-radius: 6px;
-
-    .videotitle {
-        font-size: 20px;
-        font-weight: bold;
-        span {
-            font-size: 14px;
-            opacity: 0.5;
-            font-weight: normal;
-        }
-    }
-    details {
-        margin: 8px 0;
-        border-radius: 6px;
-        border: 2px solid var(--accent1);
-        padding: 8px 16px;
-    }
-}
-.bottom-container {
-    align-items: center;
-    background: var(--bgcolor1);
-    border-radius: 8px;
-    padding: 8px 16px;
-}
-.owner-container {
-    border-left: 2px solid var(--accent1);
-    padding-left: 16px;
-    img {
-        width: 3em;
-        margin-right: 8px;
-        border-radius: 6px;
-    }
-    > * {
-        vertical-align: middle;
-    }
-}
-.tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    line-height: 24px;
-    gap: 4px;
-
-    .tags-item {
-        margin-right: 8px;
-        border-bottom: 2px solid var(--accent1)
-    }
-    .tags-item-locked {
-        border-bottom: 2px solid rgba(255, 255, 0, 0.5)
-    }
-}
-
-.videoinfo-titlecontainer {
-    display: flex;
-}
-.videoinfo-titleinfo {
-    flex: 1;
-}
-.videoinfo-actions button {
-    background: var(--bgcolor3);
-    color: var(--textcolor1);
-    border: none;
-    border-radius: 6px;
-    padding: 4px 8px;
-    svg,span {
-        vertical-align: middle
-    }
-    span {
-        margin-left: 0.5em
-    }
-}
-.videoinfo-actions button:hover {
-    background: var(--bgcolor1);
-    color: var(--textcolor1);
-}
 
 .recommend-container {
     .recommend-item {
@@ -173,10 +96,11 @@ a {
     }
 }
 
-@import './watchUI/player.styl'
-@import './watchUI/commentList.styl'
-@import './watchUI/playerController.styl'
-
+@import './watchUI/Player.styl'
+@import './watchUI/CommentList.styl'
+@import './watchUI/PlayerController.styl'
+@import './watchUI/Header.styl'
+@import './watchUI/Info.styl'
 
 .vefx-container {
     display: flex;

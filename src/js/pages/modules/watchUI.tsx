@@ -8,6 +8,7 @@ import Recommend from "./watch/Recommend";
 import CommentList from "./watch/CommentList";
 import type { VideoDataRootObject } from "./watch/types/VideoData";
 import type { CommentDataRootObject } from "./watch/types/CommentData";
+import Header from "./watch/header";
 
 function CreateWatchUI() {
     //const lang = useLang()
@@ -40,6 +41,7 @@ function CreateWatchUI() {
             const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
             setCommentContent(commentResponse)
             console.log(commentResponse)
+            
         }
         fetchInfo()
     }, [])
@@ -49,7 +51,7 @@ function CreateWatchUI() {
     if ( !videoInfo || !commentContent || !localStorage || !syncStorage ) return <div>ロード中</div>
     return <div className={isFullscreenUi ? "container fullscreen" : "container"}>
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
-        <a href="https://www.nicovideo.jp/video_top">ニコニコ動画へ戻る</a>
+        <Header videoViewerInfo={videoInfo.data?.response.viewer}/>
         <div className="watch-container">
             <div className="watch-container-left">
                 <Player

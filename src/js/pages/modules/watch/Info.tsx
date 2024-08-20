@@ -38,23 +38,23 @@ function Info({videoInfo}: Props) {
             <div className="videoinfo-actions">
                 <button type="button" onClick={likeChange} className="videoinfo-likebutton">{isLiked ? <IconHeartFilled/> : <IconHeart/>}<span>いいね！</span></button>
             </div>
+            <div className="videoinfo-owner">
+                {videoInfoResponse.owner && <a href={`https://www.nicovideo.jp/user/${videoInfoResponse.owner.id}`}>
+                    { videoInfoResponse.owner.iconUrl && <img src={videoInfoResponse.owner.iconUrl}/> }
+                    <span>
+                        { videoInfoResponse.owner.nickname }
+                    </span>
+                </a>}
+            </div>
         </div>
         <details>
             <summary>この動画の概要</summary>
             <div className="videodesc" dangerouslySetInnerHTML={innerHTMLObj}/>
         </details>
-        <div className="global-flex bottom-container">
-            <div className="tags-container global-flex1">{videoInfoResponse.tag.items.map((elem,index) => {
-                return <div key={`${index}-thistag`} className={elem.isLocked ? "tags-item tags-item-locked" : "tags-item"}>{elem.name}</div>
-            })}</div>
-            <div className="owner-container">
-                {videoInfoResponse.owner && <>
-                    { videoInfoResponse.owner.iconUrl && <img src={videoInfoResponse.owner.iconUrl}/> }
-                    <span>
-                        { videoInfoResponse.owner.nickname }
-                    </span>
-                </>}
-            </div>
+        <div className="tags-container">
+            {videoInfoResponse.tag.items.map((elem,index) => {
+                return <div key={`${index}-thistag`} className={elem.isLocked ? "tags-item tags-item-locked" : "tags-item"}><a href={`/tag/${elem.name}`}>{elem.name}</a> <a href={`https://dic.nicovideo.jp/a/${elem.name}`} className={elem.isNicodicArticleExists ? "tags-item-nicodic" : "tags-item-nicodic tags-item-nicodic-notexist"}>{elem.isNicodicArticleExists ? "百" : "？"}</a></div>
+            })}
         </div>
     </div>
 }

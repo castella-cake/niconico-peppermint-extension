@@ -52,7 +52,7 @@ function CommentList(props: Props) {
         const currentTime = Math.floor(props.videoRef.current.currentTime)
         // とりあえず一番最初の要素の高さを取得
         const firstScrollPos = returnFirstScrollPos(scrollPosList)
-        if (!firstScrollPos || !firstScrollPos.current) return
+        if (!firstScrollPos || !firstScrollPos.current || !scrollPosList[`${currentTime}` as keyof scrollPos]) return
 
         const elemHeight = firstScrollPos.current.offsetHeight
 
