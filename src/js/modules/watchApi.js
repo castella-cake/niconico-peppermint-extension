@@ -109,16 +109,56 @@ export async function sendLike(smId, isAdd) {
     });
     const json = await response.json()
     if (isAdd) {
-        if ( json.meta.status == 201 ) {
+        if (json.meta.status == 201) {
             return true
         } else {
             return false
         }
     } else {
-        if ( json.meta.status == 200 ) {
+        if (json.meta.status == 200) {
             return true
         } else {
             return false
         }
     }
 }
+export async function sendComment(threadId, body) {
+    await fetch(`https://nvapi.nicovideo.jp/v1/comment/keys/post?threadId=${threadId}`, {
+        "headers": {
+            "accept": "application/json;charset=utf-8",
+            "accept-language": "ja,en-US;q=0.9,en;q=0.8",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-site",
+            "x-frontend-id": "6",
+            "x-frontend-version": "0",
+            "x-niconico-language": "ja-jp"
+        },
+        "referrer": "https://www.nicovideo.jp/",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": null,
+        "method": "GET",
+        "mode": "cors",
+        "credentials": "include"
+    });
+    fetch(`https://public.nvcomment.nicovideo.jp/v1/threads/${threadId}/comments`, {
+        "headers": {
+            "accept": "*/*",
+            "accept-language": "ja,en-US;q=0.9,en;q=0.8",
+            "content-type": "text/plain;charset=UTF-8",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-site",
+            "x-client-os-type": "others",
+            "x-frontend-id": "6",
+            "x-frontend-version": "0"
+        },
+        "referrer": "https://www.nicovideo.jp/",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": body,
+        "method": "POST",
+        "mode": "cors",
+        "credentials": "omit"
+    });
+}
+

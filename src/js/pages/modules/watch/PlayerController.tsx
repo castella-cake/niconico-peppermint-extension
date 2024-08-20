@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useStorageContext } from "../extensionHook";
-import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
+import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSend2, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
 import { secondsToTime } from "./commonFunction";
 import type { Dispatch, RefObject, SetStateAction } from "react";
 import Hls from "hls.js";
@@ -63,6 +63,8 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
 
     const [hlsLevel, setHlsLevel] = useState(0)
     //const [qualityStrings, setQualityStrings] = useState([])
+
+    const commentInput = useRef(null)
 
     useEffect(() => {
         if (!isLoaded) return
@@ -138,6 +140,20 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         setVideoVolume(volume)
     }
 
+    function sendComment() {
+        // {"videoId":"","commands":["184"],"body":"君ビートマニア上手いねぇ！","vposMs":147327,"postKey":""}
+
+    }
+
+    const toggleFullscreen = () => {
+        if (!isFullscreenUi) {
+            document.body.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+        setIsFullscreenUi(!isFullscreenUi);
+    };
+
     return <div className="playercontroller-container">
         <div className="playercontroller-container-top">
             <div className="playercontroller-time currenttime">{secondsToTime(currentTime)}</div>
@@ -153,7 +169,7 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             />
             <div className="playercontroller-time duration">{secondsToTime(duration)}</div>
         </div>
-        <div className="playercontroller-container-bottom">
+        <div className="playercontroller-container-middle">
             <div className="playercontroller-container-left">
                 <button type="button" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}}>
                     { isVefxShown ? <IconAdjustmentsFilled/> : <IconAdjustments/> }
@@ -181,16 +197,13 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                 </select>}
                 {/*<div className="playercontroller-qualitydisplay">{hlsRef.current && hlsRef.current.levels.map(elem => `${elem.height}p`)[hlsRef.current.currentLevel]}</div>*/}
                 <button type="button" className="playercontroller-commenttoggle" onClick={() => {setIsCommentShown(!isCommentShown)}}>{ isCommentShown ? <IconMessage2/> : <IconMessage2Off/>}</button>
-                <button type="button" className="playercontroller-fullscreen" onClick={() => {
-                    if (!isFullscreenUi) {
-                        document.body.requestFullscreen()
-                    } else {
-                        document.exitFullscreen()
-                    }
-                    setIsFullscreenUi(!isFullscreenUi)
-                }}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
+                <button type="button" className="playercontroller-fullscreen" onClick={toggleFullscreen}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
                 <button type="button" className="playercontroller-settings" onClick={() => {}}><IconSettings/></button>
             </div>
+        </div>
+        <div className="playercontroller-container-bottom">
+            <input ref={commentInput}/>
+            <button type="submit" onClick={() => {sendComment()}}><IconSend2/></button>
         </div>
     </div>
 }
