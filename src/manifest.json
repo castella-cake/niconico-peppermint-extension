@@ -100,11 +100,9 @@
     "permissions": [
         "storage",
         "contextMenus",
-        "https://ext.nicovideo.jp/api/getthumbinfo/*",
-        "https://www.nicovideo.jp/ranking/*",
+        "https://www.nicovideo.jp/watch/*",
         "https://nvapi.nicovideo.jp/v1/series/*",
         "https://fonts.googleapis.com/icon",
-        "https://api.repoline.nicovideo.jp/v1/timelines/nicorepo/*",
         "https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*",
         "https://nicovideo.cdn.nimg.jp/thumbnails/*",
         "https://delivery.domand.nicovideo.jp/*",
