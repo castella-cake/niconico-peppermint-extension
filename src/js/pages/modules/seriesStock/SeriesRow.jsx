@@ -69,14 +69,14 @@ export function SeriesRow(props) {
                                 {lang.CHANNEL}:
                                 { thisSeriesInfo.data.detail.owner.channel ? 
                                     <a href={"https://nico.ms/" + thisSeriesInfo.data.detail.owner.channel.id} className="stockedseries-row-ownerlink">{thisSeriesInfo.data.detail.owner.channel.name}</a>
-                                    : <span>存在しないチャンネル</span>
+                                    : <span>{lang.UNKNOWN_CHANNEL}</span>
                                 }               
                             </div>
                             : <div className="stockedseries-row-owner">
                                 {lang.USER}:
                                 { thisSeriesInfo.data.detail.owner.user ? 
                                     <a href={"https://nico.ms/user/" + thisSeriesInfo.data.detail.owner.user.id} className="stockedseries-row-ownerlink" style={thisSeriesInfo.data.detail.owner.user.isPremium ? { color: "#d9a300" } : {}}>{thisSeriesInfo.data.detail.owner.user.nickname}</a>
-                                    : <span>存在しないユーザー</span>
+                                    : <span>{lang.UNKNOWN_USER}</span>
                                 }
                             </div>
                         )
