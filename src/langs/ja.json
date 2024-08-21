@@ -251,6 +251,8 @@
     "MOVE_TO_SELECTED_FOLDER": "指定フォルダーに移動",
     "NEW_FOLDER_OPENMODAL": "新規フォルダー...",
     "FOLDER_MOVE_TO_LABEL": "移動先フォルダー",
+    "UNKNOWN_CHANNEL": "不明なチャンネル",
+    "UNKNOWN_USER": "不明なユーザー",
 
     "EDITBUTTON_TITLE_TOEDITMODE": "編集する",
     "EDITBUTTON_TITLE_EDITOFF": "編集を終了",

@@ -304,6 +304,8 @@
     "MOVE_TO_SELECTED_FOLDER": "Move to specified folder",
     "NEW_FOLDER_OPENMODAL": "New folder...",
     "FOLDER_MOVE_TO_LABEL": "Destination folder",
+    "UNKNOWN_CHANNEL": "Unknown channel",
+    "UNKNOWN_USER": "Unknown user",
 
     "EDITBUTTON_TITLE_TOEDITMODE": "To edit",
     "EDITBUTTON_TITLE_EDITOFF": "Finish editing",
