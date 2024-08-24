@@ -18,7 +18,8 @@ function CreateWatchUI() {
 
     const smId = (debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
 
-    const actionTrackId = generateActionTrackId()
+    const [ actionTrackId, setActionTrackId ] = useState("")
+    document.dispatchEvent(new CustomEvent("actionTrackIdGenerated", { detail: actionTrackId }))
 
     const [videoInfo, setVideoInfo] = useState<VideoDataRootObject>({})
     const [commentContent, setCommentContent] = useState<CommentDataRootObject>({})
@@ -26,6 +27,8 @@ function CreateWatchUI() {
     const [isFullscreenUi, setIsFullscreenUi] = useState(false);
 
     useEffect(() => {
+        const newActionTrackId = generateActionTrackId()
+        setActionTrackId(newActionTrackId)
         async function fetchInfo() {
             const fetchedVideoInfo: VideoDataRootObject = await getVideoInfo(smId)
             setVideoInfo(fetchedVideoInfo)
@@ -41,28 +44,30 @@ function CreateWatchUI() {
             const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
             setCommentContent(commentResponse)
             console.log(commentResponse)
-            
+            document.dispatchEvent(new CustomEvent("getVideoReady", { detail: JSON.stringify({videoInfo: fetchedVideoInfo, actionTrackId: newActionTrackId, commentContent: commentResponse}) }))
         }
         fetchInfo()
     }, [])
 
 
     //console.log(videoInfo)
-    if ( !videoInfo || !commentContent || !localStorage || !syncStorage ) return <div>ロード中</div>
+    if ( !videoInfo || !commentContent || !localStorage || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
     return <div className={isFullscreenUi ? "container fullscreen" : "container"}>
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
-        <Header videoViewerInfo={videoInfo.data?.response.viewer}/>
+        { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
         <div className="watch-container">
             <div className="watch-container-left">
-                <Player
-                    videoId={smId}
-                    actionTrackId={actionTrackId}
-                    videoInfo={videoInfo}
-                    commentContent={commentContent}
-                    videoRef={videoElementRef}
-                    isFullscreenUi={isFullscreenUi}
-                    setIsFullscreenUi={setIsFullscreenUi}
-                />
+                <div id="player-area">
+                    <Player
+                        videoId={smId}
+                        actionTrackId={actionTrackId}
+                        videoInfo={videoInfo}
+                        commentContent={commentContent}
+                        videoRef={videoElementRef}
+                        isFullscreenUi={isFullscreenUi}
+                        setIsFullscreenUi={setIsFullscreenUi}
+                    />
+                </div>
                 <Info videoInfo={videoInfo} />
             </div>
             <div className="watch-container-right">

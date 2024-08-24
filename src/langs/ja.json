@@ -42,7 +42,11 @@
         },
         "enablewatchpagereplace": {
             "name": "PM視聴ページを有効化(InDev)",
-            "hint": "視聴ページをPepperMint+の独自ページで完全に置き換えます。\nFirefoxでは使用できません。"
+            "hint": "視聴ページをPepperMint+の独自ページで完全に置き換えます。\nFirefoxでは一部制限があります。"
+        },
+        "pmwforcepagehls": {
+            "name": "強制的に動画をページスクリプトでロード",
+            "hint": "コンテンツスクリプト上ではなく、常にページスクリプトを使用して動画をロードします。\nこれはFirefox環境でデフォルトで行われますが、UAの変更をしている場合やChromium環境で動画が正しくロードされない場合に役立つ可能性があります。\n正しく動作している場合は有効にしないでください。"
         },
         "watchpagetheme": {
             "name": "視聴ページテーマ",

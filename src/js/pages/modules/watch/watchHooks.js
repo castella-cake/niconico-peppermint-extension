@@ -10,7 +10,7 @@ export function returnGreatestQuality(array) {
     return false
 }
 
-export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId) {
+export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabled = true) {
     const isSupportedBrowser = useMemo(() => Hls.isSupported(), [])
     const hlsRef = useRef(null)
     useEffect(() => {
@@ -22,7 +22,8 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId) {
                 videoInfo.data.response.media.domand && 
                 videoInfo.data.response.media.domand.accessRightKey &&
                 videoInfo.data.response.media.domand.videos &&
-                videoInfo.data.response.media.domand.audios
+                videoInfo.data.response.media.domand.audios &&
+                isEnabled
             ) {
                 const accessRightKey = videoInfo.data.response.media.domand.accessRightKey
                 const availableVideoQuality = videoInfo.data.response.media.domand.videos
@@ -45,7 +46,7 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId) {
         
                 // hls.jsがサポートするならhls.jsで再生し、そうでない(Safariなど)ならネイティブ再生する
                 if ( isSupportedBrowser ) {
-                    const hls = new Hls({ debug: false, xhrSetup: function(xhr, url) {
+                    const hls = new Hls({ debug: true, xhrSetup: function(xhr, url) {
                         // xhrでクッキーを含める
                         xhr.withCredentials = true
                     }, fetchSetup: function (context, initParams)
@@ -54,7 +55,7 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId) {
                         initParams.credentials = 'include';
                         return new Request(context.url, initParams);
                     }})
-                    hls.log = false
+                    hls.log = true
                     // videoのrefにアタッチ
                     hls.attachMedia(videoRef.current)
                     // 読み込み

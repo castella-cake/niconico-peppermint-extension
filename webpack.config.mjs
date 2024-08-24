@@ -4,6 +4,7 @@ export default {
         index: './src/js/index.js',
         index_end: './src/js/index_end.js',
         watch: './src/js/watch.ts',
+        watch_injector: './src/js/watch_injector.js',
         settings: './src/js/pages/settings.jsx',
         quickpanel: './src/js/pages/quickpanel.jsx',
         credit: './src/js/credit.js',

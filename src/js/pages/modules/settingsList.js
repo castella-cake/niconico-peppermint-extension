@@ -44,6 +44,11 @@ const settings = {
             name: "enablewatchpagereplace",
             default: false,
         },
+        {
+            type: "checkbox",
+            name: "pmwforcepagehls",
+            default: false,
+        }
         /*{
             type: "select",
             name: "watchpagetheme",

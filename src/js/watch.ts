@@ -1,5 +1,5 @@
-import { createRoot } from "react-dom/client";
 import { getLocalStorageData, getSyncStorageData } from "./modules/storageControl";
+import { createRoot } from "react-dom/client";
 import { watchPage } from "./pages/watch";
 
 const storagePromises = [getSyncStorageData, getLocalStorageData]
@@ -13,16 +13,14 @@ function createCSSRule(storages: PromiseFulfilledResult<{[key: string]: string[]
     const localStorage = storages[1].value
     if ( !syncStorage.enablewatchpagereplace ) return
     window.stop()
-    if ( !localStorage.playersettings ) chrome.storage.local.set({ playersettings: {} })
-    const html = document.querySelector("html")
-    if (!html) return
-    html.innerHTML = "<head><meta charset=\"utf-8\"></head><body></body>"
-    const body = document.body
+    if (!document.documentElement) return
+    document.documentElement.innerHTML = "<head><meta charset=\"utf-8\"></head><body></body>"
     const head = document.head
     const link = document.createElement('link')
     link.setAttribute('rel', 'stylesheet')
     link.setAttribute('href', chrome.runtime.getURL("style/watchUI.css"))
     head.appendChild(link)
+    const body = document.body
     const root = document.createElement("div")
     root.id = "root"
     body.appendChild(root)
@@ -30,5 +28,13 @@ function createCSSRule(storages: PromiseFulfilledResult<{[key: string]: string[]
         console.error("Watch page replace failed: #root is not empty.")
         return
     }
+    if ( !localStorage.playersettings ) chrome.storage.local.set({ playersettings: {} })
     createRoot(root).render(watchPage())
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf('chrome') == -1 || syncStorage.pmwforcepagehls) {
+        const script = document.createElement('script');
+        script.src = chrome.runtime.getURL("js/watch_injector.bundle.js")
+        head.appendChild(script)
+    }
+
 }

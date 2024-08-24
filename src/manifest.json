@@ -108,6 +108,7 @@
         "https://delivery.domand.nicovideo.jp/*",
         "https://asset.domand.nicovideo.jp/*",
         "https://public.nvcomment.nicovideo.jp/*",
+        "https://nvapi.nicovideo.jp/v1/watch/*",
         "alarms",
         "tabs",
         "scripting"

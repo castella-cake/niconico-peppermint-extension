@@ -42,7 +42,7 @@ function VideoPlayer({videoRef, setCurrentTime, setDuration, canvasRef, isCommen
                 setCurrentTime(e.currentTarget.currentTime);
             }} onDurationChange={e => {
                 setDuration(e.currentTarget.duration);
-            }} width="1920" height="1080"></video>
+            }} width="1920" height="1080" id="player-area-video"></video>
             <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: 1} : {opacity: 0}}/>
         </div>
     </div>);
@@ -51,7 +51,7 @@ function VideoPlayer({videoRef, setCurrentTime, setDuration, canvasRef, isCommen
 
 function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi }: Props) {
     //const lang = useLang()
-    const { localStorage, setLocalStorageValue } = useStorageContext()
+    const { localStorage, setLocalStorageValue, syncStorage } = useStorageContext()
 
     const [isVefxShown, setIsVefxShown] = useState(false)
     const [currentTime, setCurrentTime] = useState(0)
@@ -79,7 +79,9 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         updatePreampGain(newState.preamp.gain);
     };
 
-    const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId)
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    const shouldUseContentScriptHls = !(userAgent.indexOf('chrome') == -1 || syncStorage.pmwforcepagehls)
+    const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, shouldUseContentScriptHls)
 
     useEffect(() => {
         if (!localStorage || !localStorage.playersettings || !localStorage.playersettings.vefxSettings) return
