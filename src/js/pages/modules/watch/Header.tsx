@@ -21,7 +21,7 @@ function Header({ videoViewerInfo }: {videoViewerInfo?: ViewerInfo}) {
             <a href="https://live.nicovideo.jp">
                 生放送
             </a>
-            <a href="#" className="header-disabled">
+            <a href="https://ch.nicovideo.jp">
                 チャンネル
             </a>
             <a href="https://dic.nicovideo.jp">
