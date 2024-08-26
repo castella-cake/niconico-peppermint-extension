@@ -8,8 +8,9 @@ import VefxController from "./vefxController";
 import { useHlsVideo } from "./watchHooks";
 import type { VideoDataRootObject } from "./types/VideoData";
 import type { CommentDataRootObject } from "./types/CommentData";
-import type { Dispatch, SetStateAction } from "react"
+import type { Dispatch, ReactNode, SetStateAction } from "react"
 import CommentInput from "./CommentInput";
+import Settings from "./Settings";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -30,6 +31,7 @@ type Props = {
 }
 
 type VideoPlayerProps = {
+    children?: ReactNode,
     videoRef: RefObject<HTMLVideoElement>,
     setCurrentTime: Dispatch<SetStateAction<number>>,
     setDuration: Dispatch<SetStateAction<number>>,
@@ -37,7 +39,7 @@ type VideoPlayerProps = {
     isCommentShown: boolean
 }
 
-function VideoPlayer({videoRef, setCurrentTime, setDuration, canvasRef, isCommentShown}: VideoPlayerProps) {
+function VideoPlayer({children, videoRef, setCurrentTime, setDuration, canvasRef, isCommentShown}: VideoPlayerProps) {
     return (<div className="player-video-container">
         <div className="player-video-container-inner">
             <video ref={videoRef} controls autoPlay onTimeUpdate={e => {
@@ -46,6 +48,7 @@ function VideoPlayer({videoRef, setCurrentTime, setDuration, canvasRef, isCommen
                 setDuration(e.currentTarget.duration);
             }} width="1920" height="1080" id="player-area-video"></video>
             <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: 1} : {opacity: 0}}/>
+            { children }
         </div>
     </div>);
 }
@@ -56,6 +59,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const { localStorage, setLocalStorageValue, syncStorage } = useStorageContext()
 
     const [isVefxShown, setIsVefxShown] = useState(false)
+    const [isSettingsShown, setIsSettingsShown] = useState(false)
     const [currentTime, setCurrentTime] = useState(0)
     const [duration, setDuration] = useState(0)
     const [isCommentShown, setIsCommentShown] = useState(true)
@@ -116,7 +120,17 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
 
     return <div id="player-area">
         <div className="player-container">
-            <VideoPlayer videoRef={videoRef} setCurrentTime={setCurrentTime} setDuration={setDuration} canvasRef={canvasRef} isCommentShown={isCommentShown} />
+            <VideoPlayer videoRef={videoRef} setCurrentTime={setCurrentTime} setDuration={setDuration} canvasRef={canvasRef} isCommentShown={isCommentShown}>
+                {isVefxShown && <VefxController
+                    frequencies={frequencies}
+                    effectsState={effectsState}
+                    onEffectsChange={(state: effectsState) => {
+                        setLocalStorageValue("playersettings", { ...localStorage.playersettings, vefxSettings: state })
+                        setEffectsState(state)
+                    }}
+                />}
+                { isSettingsShown && <Settings/> }
+            </VideoPlayer>
             <PlayerController
                 videoRef={videoRef}
                 effectsState={effectsState}
@@ -128,16 +142,10 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 setIsFullscreenUi={setIsFullscreenUi}
                 isCommentShown={isCommentShown}
                 setIsCommentShown={setIsCommentShown}
+                isSettingsShown={isSettingsShown}
+                setIsSettingsShown={setIsSettingsShown}
                 hlsRef={hlsRef}
             />
-            {isVefxShown && <VefxController
-                frequencies={frequencies}
-                effectsState={effectsState}
-                onEffectsChange={(state: effectsState) => {
-                    setLocalStorageValue("playersettings", { ...localStorage.playersettings, vefxSettings: state })
-                    setEffectsState(state)
-                }}
-            />}
             <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent}/>
         </div>
     </div>

@@ -46,10 +46,12 @@ type Props = {
     setIsFullscreenUi: Dispatch<SetStateAction<boolean>>,
     isCommentShown: boolean,
     setIsCommentShown: Dispatch<SetStateAction<boolean>>,
+    isSettingsShown: boolean,
+    setIsSettingsShown: Dispatch<SetStateAction<boolean>>,
     hlsRef: RefObject<Hls>
 }
 
-function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, currentTime, duration, isFullscreenUi, setIsFullscreenUi, isCommentShown, setIsCommentShown, hlsRef}: Props) {
+function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, currentTime, duration, isFullscreenUi, setIsFullscreenUi, isCommentShown, setIsCommentShown, hlsRef, isSettingsShown, setIsSettingsShown}: Props) {
     const { localStorage, setLocalStorageValue, isLoaded } = useStorageContext()
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
@@ -191,7 +193,7 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                 {/*<div className="playercontroller-qualitydisplay">{hlsRef.current && hlsRef.current.levels.map(elem => `${elem.height}p`)[hlsRef.current.currentLevel]}</div>*/}
                 <button type="button" className="playercontroller-commenttoggle" onClick={() => {setIsCommentShown(!isCommentShown)}}>{ isCommentShown ? <IconMessage2/> : <IconMessage2Off/>}</button>
                 <button type="button" className="playercontroller-fullscreen" onClick={toggleFullscreen}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
-                <button type="button" className="playercontroller-settings" onClick={() => {}}><IconSettings/></button>
+                <button type="button" className="playercontroller-settings" onClick={() => {setIsSettingsShown(!isSettingsShown)}}><IconSettings/></button>
             </div>
         </div>
     </div>

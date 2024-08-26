@@ -138,24 +138,27 @@ a {
 @import './watchUI/Header.styl'
 @import './watchUI/Info.styl'
 @import './watchUI/commentInput.styl'
+@import './watchUI/Settings.styl'
 
 .vefx-container {
     display: flex;
     flex-direction: column;
-    position: relative;
+    position: absolute;
     left: 0;
-    bottom: 160px;
+    top: 0;
+    bottom: 0;
     padding: 0;
+    height: 100%;
+    width: 25%;
+    z-index: 2;
+    margin: 0;
 }
 .vefx-container-inner {
-    position: absolute;
-    right: 20px;
     padding: 16px;
-    background: var(--bgcolor1);
-    bottom: -100px;
-    width: 16em;
-    height: 32em;
-    overflow-y: scroll;
+    background: #000d;
+    color: #fff;
+    height: 100%;
+    backdrop-filter: blur(8px);
     > div {
         display: flex;
         input[type="range"] {
