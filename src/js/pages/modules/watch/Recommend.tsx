@@ -37,7 +37,7 @@ function Recommend(props: {smId: string, videoInfo: VideoDataRootObject}) {
         fetchRecommend()
     }, [props.videoInfo])
     if (!recommendData.data) return <></>
-    return <div className="recommend-container">
+    return <div className="recommend-container" id="pmw-recommend">
         {recommendData.data.items.map((elem, index) => {
             if (elem.contentType == "video") return <VideoInfo key={`${index}-${elem.id}`} obj={elem}/>
             if (elem.contentType == "mylist") return <MylistInfo key={`${index}-${elem.id}`} obj={elem}/>

@@ -78,7 +78,7 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent}: Props) 
         }
     }
     
-    return <div className="commentinput-container global-flex">
+    return <div className="commentinput-container global-flex" id="pmw-commentinput">
         <input ref={commandInput} className="commentinput-cmdinput" placeholder="コマンド" />
         <input ref={commentInput} className="global-flex1 commentinput-input" placeholder="コメントを入力" onKeyDown={(e) => {onKeydown(e.key)}} onCompositionStart={startComposition} onCompositionEnd={endComposition}/>
         <button type="button" className="commentinput-submit" onClick={() => {

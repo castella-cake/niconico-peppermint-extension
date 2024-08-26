@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 
 const manifestData = chrome.runtime.getManifest();
 
 function Settings() {
-    return <div className="playersettings-container">
+    useEffect(() => {
+
+    }, )
+    return <div className="playersettings-container" id="pmw-player-settings">
         <div className="playersettings-title">プレイヤー設定</div>
         <p>
             Version {manifestData.version_name}

@@ -149,7 +149,7 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         setIsFullscreenUi(!isFullscreenUi);
     };
 
-    return <div className="playercontroller-container">
+    return <div className="playercontroller-container" id="pmw-playercontroller">
         <div className="playercontroller-container-top">
             <div className="playercontroller-time currenttime">{secondsToTime(currentTime)}</div>
             <input

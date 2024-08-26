@@ -5,7 +5,7 @@ import { ViewerInfo } from "./types/VideoData";
 function Header({ videoViewerInfo }: {videoViewerInfo?: ViewerInfo}) {
     //const [hover, setHover] = useState(false)
 
-    return <div className="header-container global-flex">
+    return <div className="header-container global-flex" id="pmw-header">
         <div className="global-flex1 global-flex">
             <a href="https://www.nicovideo.jp">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 128 128"><path

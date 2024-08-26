@@ -51,7 +51,7 @@ function CreateWatchUI() {
             const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
             setCommentContent(commentResponse)
             console.log(commentResponse)
-            document.dispatchEvent(new CustomEvent("getVideoReady", { detail: JSON.stringify({videoInfo: fetchedVideoInfo, actionTrackId: newActionTrackId, commentContent: commentResponse}) }))
+            document.dispatchEvent(new CustomEvent("pmw_infomationReady", { detail: JSON.stringify({videoInfo: fetchedVideoInfo, actionTrackId: newActionTrackId, commentContent: commentResponse}) }))
         }
         fetchInfo()
     }, [])
@@ -80,7 +80,7 @@ function CreateWatchUI() {
     return <div className={isFullscreenUi ? "container fullscreen" : "container"}>
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
         { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
-        <div className="watch-container" watch-type={layoutType}>
+        <div className="watch-container" watch-type={layoutType} id="pmw-container">
             {layoutType === watchLayoutType.reimaginedOldWatch && infoElem}
             <div className="watch-container-left">
                 {layoutType !== watchLayoutType.threeColumn && playerElem}

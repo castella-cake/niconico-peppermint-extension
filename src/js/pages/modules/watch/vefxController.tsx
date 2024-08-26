@@ -50,7 +50,7 @@ function VefxController({ frequencies, effectsState, onEffectsChange }: {frequen
         });
     };
 
-    return <div className="vefx-container">
+    return <div className="vefx-container" id="pmw-vefx">
         <div className="vefx-container-inner">
             <div className="vefx-title">Effect control</div>
             <label>

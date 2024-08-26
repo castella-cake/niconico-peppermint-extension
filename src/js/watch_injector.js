@@ -29,7 +29,7 @@ async function getHls(videoId, body, actionTrackId, accessRightKey) {
 
 // ActionTrackIdで各レンダーを識別する
 let previousATI = ""
-document.addEventListener("getVideoReady", (e) => {
+document.addEventListener("pmw_infomationReady", (e) => {
     // CORS関係でオブジェクトはStringになって渡されます。
     const detail = JSON.parse(e.detail)
     /* Readonlyです {
@@ -55,7 +55,7 @@ document.addEventListener("getVideoReady", (e) => {
 async function injectMediaToPlayer({ videoInfo, actionTrackId }) {
     // 
     if (document.getElementById("injected-player-root")) return;
-    const playerArea = document.getElementById("player-area")
+    const playerArea = document.getElementById("pmw-player")
     const altControllerContainer = document.createElement("div")
     altControllerContainer.id = "injected-player-root"
     altControllerContainer.textContent = "ページスクリプトでHLSを実行中です。"
@@ -86,7 +86,7 @@ async function injectMediaToPlayer({ videoInfo, actionTrackId }) {
                 return [elem.id, greatestAudioQuality.id]
             })
         }
-        const videoElement = document.getElementById("player-area-video") //ce("video", { id: "injected-player-video" })
+        const videoElement = document.getElementById("pmw-element-video")
         //testDiv.appendChild(videoElement)
         const hlsResponse = await getHls(location.pathname.slice(7).replace(/\?.*/, ''), JSON.stringify(hlsRequestBody), actionTrackId, accessRightKey)
         const hls = new Hls({ debug: false, xhrSetup: function(xhr, url) {

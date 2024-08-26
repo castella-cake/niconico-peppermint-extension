@@ -44,7 +44,7 @@ function Info({videoInfo}: Props) {
         }
     }
 
-    return <div className="videoinfo-container">
+    return <div className="videoinfo-container" id="pmw-videoinfo">
         <div className="videoinfo-titlecontainer">
             <div className="videoinfo-titleinfo">
                 <div className="videotitle">{videoInfoResponse.video.title}</div>
