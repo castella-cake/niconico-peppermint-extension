@@ -70,9 +70,12 @@
 .videoinfo-titlecontainer {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 .videoinfo-titleinfo {
     flex: 1;
+    min-width: 240px;
 }
 
 .videoinfo-actions button {
@@ -91,4 +94,23 @@
 .videoinfo-actions button:hover {
     background: var(--bgcolor1);
     color: var(--textcolor1);
+}
+
+.videodesc {
+    overflow: hidden;
+    overflow-wrap: break-word;
+}
+
+[watch-type="recresc"] .videoinfo-container {
+    flex-basis: 100%;
+    padding: 0;
+    margin: 0 7.5%;
+}
+
+[watch-type="recresc"] .videoinfo-container, [watch-type="3col"] .videoinfo-container {
+    background: transparent;
+}
+
+[watch-type="resp"] .videoinfo-container {
+    margin-bottom: 8px;
 }

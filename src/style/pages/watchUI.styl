@@ -69,7 +69,28 @@ a {
     }
 }
 
+[watch-type="3col"] {
+    .watch-container-left {
+        flex: 0.2;
+        min-width: 0;
+        align-self: center;
+    }
+
+    .watch-container-middle {
+        flex: 0.525;
+        align-self: center;
+    }
+
+    .watch-container-right {
+        min-width: 0;
+        flex: 0.4;
+        align-self: center;
+    }
+}
+
+
 .recommend-container {
+    margin-top: 8px;
     .recommend-item {
         display: flex;
         gap: 8px;
@@ -93,6 +114,18 @@ a {
                 opacity: 0.5;
             }
         }
+    }
+}
+
+[watch-type="recresc"] .recommend-container, [watch-type="3col"] .recommend-container {
+    display: flex;
+    overflow-x: scroll;
+    gap: 8px;
+    flex-basis: 100%;
+    margin: 0 7.5%;
+    margin-bottom: 16px;
+    .recommend-item {
+        width: 20%;
     }
 }
 

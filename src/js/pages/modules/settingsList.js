@@ -48,6 +48,12 @@ const settings = {
             type: "checkbox",
             name: "pmwforcepagehls",
             default: false,
+        },
+        {
+            type: "select",
+            name: "pmwlayouttype",
+            values: ["renew", "recresc", "resp", "3col"],
+            default: "renew"
         }
         /*{
             type: "select",

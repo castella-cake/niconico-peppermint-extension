@@ -63,8 +63,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const [frequencies] = useState([31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]);
 
-    const [effectsState, setEffectsState] = useState<effectsState>({
-        equalizer: { enabled: true, gains: new Array(frequencies.length).fill(0) },
+    const [effectsState, setEffectsState] = useState<effectsState>(localStorage.playersettings.vefxSettings || {
+        equalizer: { enabled: false, gains: new Array(frequencies.length).fill(0) },
         echo: { enabled: false, delayTime: 0.25, feedback: 0.5, gain: 1 },
         preamp: { enabled: false, gain: 1 },
         mono: { enabled: false },
@@ -88,7 +88,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     useEffect(() => {
         if (!localStorage || !localStorage.playersettings || !localStorage.playersettings.vefxSettings) return
         setEffectsState(localStorage.playersettings.vefxSettings)
-    }, [localStorage])
+    }, [localStorage, localStorage.playersettings])
 
     useEffect(() => {
         handleEffectsChange(effectsState)
@@ -114,30 +114,32 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         }
     }, [commentContent])
 
-    return <div className="player-container">
-        <VideoPlayer videoRef={videoRef} setCurrentTime={setCurrentTime} setDuration={setDuration} canvasRef={canvasRef} isCommentShown={isCommentShown} />
-        <PlayerController
-            videoRef={videoRef}
-            effectsState={effectsState}
-            isVefxShown={isVefxShown}
-            setIsVefxShown={setIsVefxShown}
-            currentTime={currentTime}
-            duration={duration}
-            isFullscreenUi={isFullscreenUi}
-            setIsFullscreenUi={setIsFullscreenUi}
-            isCommentShown={isCommentShown}
-            setIsCommentShown={setIsCommentShown}
-            hlsRef={hlsRef}
-        />
-        {isVefxShown && <VefxController
-            frequencies={frequencies}
-            effectsState={effectsState}
-            onEffectsChange={(state: effectsState) => {
-                setLocalStorageValue("playersettings", { ...localStorage.playersettings, vefxSettings: state })
-                setEffectsState(state)
-            }}
-        />}
-        <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent}/>
+    return <div id="player-area">
+        <div className="player-container">
+            <VideoPlayer videoRef={videoRef} setCurrentTime={setCurrentTime} setDuration={setDuration} canvasRef={canvasRef} isCommentShown={isCommentShown} />
+            <PlayerController
+                videoRef={videoRef}
+                effectsState={effectsState}
+                isVefxShown={isVefxShown}
+                setIsVefxShown={setIsVefxShown}
+                currentTime={currentTime}
+                duration={duration}
+                isFullscreenUi={isFullscreenUi}
+                setIsFullscreenUi={setIsFullscreenUi}
+                isCommentShown={isCommentShown}
+                setIsCommentShown={setIsCommentShown}
+                hlsRef={hlsRef}
+            />
+            {isVefxShown && <VefxController
+                frequencies={frequencies}
+                effectsState={effectsState}
+                onEffectsChange={(state: effectsState) => {
+                    setLocalStorageValue("playersettings", { ...localStorage.playersettings, vefxSettings: state })
+                    setEffectsState(state)
+                }}
+            />}
+            <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent}/>
+        </div>
     </div>
 }
 

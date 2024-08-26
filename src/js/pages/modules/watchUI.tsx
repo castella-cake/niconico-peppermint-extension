@@ -10,6 +10,13 @@ import type { VideoDataRootObject } from "./watch/types/VideoData";
 import type { CommentDataRootObject } from "./watch/types/CommentData";
 import Header from "./watch/header";
 
+const watchLayoutType = {
+    reimaginedNewWatch: "renew",
+    reimaginedOldWatch: "recresc",
+    reimaginedMobileWatch: "resp",
+    threeColumn: "3col",
+}
+
 function CreateWatchUI() {
     //const lang = useLang()
 
@@ -51,30 +58,43 @@ function CreateWatchUI() {
 
 
     //console.log(videoInfo)
-    if ( !videoInfo || !commentContent || !localStorage || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
+    if ( !videoInfo || !commentContent || !localStorage.playersettings || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
+    const layoutType = syncStorage.pmwlayouttype || watchLayoutType.reimaginedNewWatch
+    
+
+    const playerElem = <Player
+        videoId={smId}
+        actionTrackId={actionTrackId}
+        videoInfo={videoInfo}
+        commentContent={commentContent}
+        videoRef={videoElementRef}
+        isFullscreenUi={isFullscreenUi}
+        setIsFullscreenUi={setIsFullscreenUi}
+        setCommentContent={setCommentContent}
+    />
+    const infoElem = <Info videoInfo={videoInfo} />
+    const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} videoRef={videoElementRef} />
+    const recommendElem = <Recommend videoInfo={videoInfo} smId={smId} />
+
+
     return <div className={isFullscreenUi ? "container fullscreen" : "container"}>
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
         { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
-        <div className="watch-container">
+        <div className="watch-container" watch-type={layoutType}>
+            {layoutType === watchLayoutType.reimaginedOldWatch && infoElem}
             <div className="watch-container-left">
-                <div id="player-area">
-                    <Player
-                        videoId={smId}
-                        actionTrackId={actionTrackId}
-                        videoInfo={videoInfo}
-                        commentContent={commentContent}
-                        videoRef={videoElementRef}
-                        isFullscreenUi={isFullscreenUi}
-                        setIsFullscreenUi={setIsFullscreenUi}
-                        setCommentContent={setCommentContent}
-                    />
-                </div>
-                <Info videoInfo={videoInfo} />
+                {layoutType !== watchLayoutType.threeColumn && playerElem}
+                {(layoutType === watchLayoutType.reimaginedNewWatch || layoutType === watchLayoutType.threeColumn) && infoElem}
+            </div>
+            <div className="watch-container-middle">
+                {layoutType === watchLayoutType.threeColumn && playerElem}
             </div>
             <div className="watch-container-right">
-                <CommentList videoInfo={videoInfo} commentContent={commentContent} videoRef={videoElementRef} />
-                <Recommend videoInfo={videoInfo} smId={smId} />
+                {layoutType === watchLayoutType.reimaginedMobileWatch && infoElem}
+                {commentListElem}
+                {(layoutType !== watchLayoutType.reimaginedOldWatch && layoutType !== watchLayoutType.threeColumn) && recommendElem}
             </div>
+            {(layoutType === watchLayoutType.reimaginedOldWatch || layoutType === watchLayoutType.threeColumn) && recommendElem}
         </div>
     </div>
 }

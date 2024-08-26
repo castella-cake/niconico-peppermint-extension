@@ -57,6 +57,11 @@
             "name": "Force video to load with page script",
             "hint": "Always use page scripts to load videos instead of content scripts.\nThis is done by default in Firefox environments, but may resolve issues if you are making UA changes or if videos are not loading correctly in Chromium environments.\nGenerally there is no need to enable it as it may cause problems."
         },
+        "pmwlayouttype": {
+            "name": "PepperMint watch page layout",
+            "hint": "Change the layout of the PepperMint watch page.",
+            "select": ["Reimagined-NewWatch", "Reimagined-cresc.", "Reimagined-Mobile", "Three-Column"]
+        },
         "watchpagetheme": {
             "name": "Viewing page theme",
             "hint": "Change the appearance and layout of the viewing page.",
