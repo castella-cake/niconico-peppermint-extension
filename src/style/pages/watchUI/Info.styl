@@ -17,8 +17,17 @@
         margin: 8px 0;
         border-radius: 6px;
         border: 2px solid var(--accent1);
-        padding: 8px 16px;
+        padding: 0;
+        summary {
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+        summary:hover {
+            background: var(--hover1);
+            cursor: pointer;
+        }
     }
+
 }
 .videoinfo-owner {
     margin-left: 16px;
@@ -94,11 +103,13 @@
 .videoinfo-actions button:hover {
     background: var(--bgcolor1);
     color: var(--textcolor1);
+    cursor: pointer;
 }
 
 .videodesc {
     overflow: hidden;
     overflow-wrap: break-word;
+    padding: 16px;
 }
 
 [watch-type="recresc"] .videoinfo-container {
@@ -117,5 +128,6 @@
 
 [watch-type="3col"] .videoinfo-container {
     position: absolute;
-    margin: auto 0;
+    overflow: hidden;
+    width: calc(100% - 32px);
 }
