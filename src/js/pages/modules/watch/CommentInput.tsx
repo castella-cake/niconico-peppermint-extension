@@ -1,5 +1,5 @@
 import { IconSend2 } from "@tabler/icons-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type { Dispatch, RefObject, SetStateAction } from "react"
 import type { VideoDataRootObject } from "./types/VideoData";
 import type { CommentDataRootObject, CommentResponseRootObject, Thread } from "./types/CommentData";
@@ -20,6 +20,10 @@ type Props = {
 function CommentInput({videoRef, videoId, videoInfo, setCommentContent}: Props) {
     const commentInput = useRef<HTMLInputElement>(null)
     const commandInput = useRef<HTMLInputElement>(null)
+
+    const [isComposing, setIsComposing] = useState(false);
+    const startComposition = () => setIsComposing(true);
+    const endComposition = () => setIsComposing(false);
 
     const mainThreads = videoInfo.data?.response.comment.threads.filter(elem => elem.forkLabel === "main")[0]
 
@@ -66,15 +70,17 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent}: Props) 
             setCommentContent(commentDataResult)
         }
     }
+
+    function onKeydown(keyName: string) {
+        if ( keyName === "Enter" && commentInput.current && videoRef.current && !isComposing ) {
+            sendComment(videoId, commentInput.current.value, commandInput.current?.value.split(""), Math.floor(videoRef.current.currentTime * 1000) )
+            commentInput.current.value = ""
+        }
+    }
     
     return <div className="commentinput-container global-flex">
         <input ref={commandInput} className="commentinput-cmdinput" placeholder="コマンド" />
-        <input ref={commentInput} className="global-flex1 commentinput-input" placeholder="コメントを入力" onKeyDown={(e) => {
-            if ( e.key === "Enter" && commentInput.current && videoRef.current ) {
-                sendComment(videoId, commentInput.current.value, commandInput.current?.value.split(""), Math.floor(videoRef.current.currentTime * 1000) )
-                commentInput.current.value = ""
-            }
-        }}/>
+        <input ref={commentInput} className="global-flex1 commentinput-input" placeholder="コメントを入力" onKeyDown={(e) => {onKeydown(e.key)}} onCompositionStart={startComposition} onCompositionEnd={endComposition}/>
         <button type="button" className="commentinput-submit" onClick={() => {
             if (!commentInput.current || !videoRef.current || commentInput.current.value === "") return
             sendComment(videoId, commentInput.current.value, commandInput.current?.value.split(" "), Math.floor(videoRef.current.currentTime * 1000) )
