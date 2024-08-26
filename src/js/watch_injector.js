@@ -29,7 +29,7 @@ async function getHls(videoId, body, actionTrackId, accessRightKey) {
 
 // ActionTrackIdで各レンダーを識別する
 let previousATI = ""
-document.addEventListener("pmw_infomationReady", (e) => {
+document.addEventListener("pmw_informationReady", (e) => {
     // CORS関係でオブジェクトはStringになって渡されます。
     const detail = JSON.parse(e.detail)
     /* Readonlyです {

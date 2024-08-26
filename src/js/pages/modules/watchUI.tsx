@@ -51,7 +51,7 @@ function CreateWatchUI() {
             const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
             setCommentContent(commentResponse)
             console.log(commentResponse)
-            document.dispatchEvent(new CustomEvent("pmw_infomationReady", { detail: JSON.stringify({videoInfo: fetchedVideoInfo, actionTrackId: newActionTrackId, commentContent: commentResponse}) }))
+            document.dispatchEvent(new CustomEvent("pmw_informationReady", { detail: JSON.stringify({videoInfo: fetchedVideoInfo, actionTrackId: newActionTrackId, commentContent: commentResponse}) }))
         }
         fetchInfo()
     }, [])
