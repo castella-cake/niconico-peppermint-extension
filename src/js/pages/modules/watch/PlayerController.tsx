@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useStorageContext } from "../extensionHook";
-import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSend2, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
+import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
 import { secondsToTime } from "./commonFunction";
 import type { Dispatch, RefObject, SetStateAction } from "react";
 import Hls from "hls.js";
@@ -63,8 +63,6 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
 
     const [hlsLevel, setHlsLevel] = useState(0)
     //const [qualityStrings, setQualityStrings] = useState([])
-
-    const commentInput = useRef(null)
 
     useEffect(() => {
         if (!isLoaded) return
@@ -140,11 +138,6 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         setVideoVolume(volume)
     }
 
-    function sendComment() {
-        // {"videoId":"","commands":["184"],"body":"君ビートマニア上手いねぇ！","vposMs":147327,"postKey":""}
-
-    }
-
     const toggleFullscreen = () => {
         if (!isFullscreenUi) {
             document.body.requestFullscreen();
@@ -176,7 +169,7 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                     <VefxDisplay effectsState={effectsState}/>
                 </button>
                 <button type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
-                <label><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/>{videoVolume}%</label>
+                <label className="playercontroller-volume-container"><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/><span>{videoVolume}%</span></label>
             </div>
             <div className="playercontroller-container-center">
                 <button type="button" className="playercontroller-skipback" onClick={() => {timeController("set", 0)}}>{ isIconFilled[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
@@ -200,10 +193,6 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                 <button type="button" className="playercontroller-fullscreen" onClick={toggleFullscreen}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
                 <button type="button" className="playercontroller-settings" onClick={() => {}}><IconSettings/></button>
             </div>
-        </div>
-        <div className="playercontroller-container-bottom">
-            <input ref={commentInput}/>
-            <button type="submit" onClick={() => {sendComment()}}><IconSend2/></button>
         </div>
     </div>
 }

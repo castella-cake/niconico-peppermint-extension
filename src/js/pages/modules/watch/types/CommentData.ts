@@ -40,3 +40,13 @@ interface GlobalComment {
 interface Meta {
     status: number;
 }
+
+export interface CommentResponseRootObject {
+    meta: Meta;
+    data: CommentResponseData;
+}
+
+interface CommentResponseData {
+    id: string;
+    no: number;
+}

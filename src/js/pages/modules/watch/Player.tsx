@@ -9,6 +9,7 @@ import { useHlsVideo } from "./watchHooks";
 import type { VideoDataRootObject } from "./types/VideoData";
 import type { CommentDataRootObject } from "./types/CommentData";
 import type { Dispatch, SetStateAction } from "react"
+import CommentInput from "./CommentInput";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -24,7 +25,8 @@ type Props = {
     commentContent: CommentDataRootObject,
     videoRef: RefObject<HTMLVideoElement>,
     isFullscreenUi: boolean,
-    setIsFullscreenUi: Dispatch<SetStateAction<boolean>>
+    setIsFullscreenUi: Dispatch<SetStateAction<boolean>>,
+    setCommentContent: Dispatch<SetStateAction<CommentDataRootObject>>,
 }
 
 type VideoPlayerProps = {
@@ -49,7 +51,7 @@ function VideoPlayer({videoRef, setCurrentTime, setDuration, canvasRef, isCommen
 }
 
 
-function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi }: Props) {
+function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi, setCommentContent }: Props) {
     //const lang = useLang()
     const { localStorage, setLocalStorageValue, syncStorage } = useStorageContext()
 
@@ -58,7 +60,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const [duration, setDuration] = useState(0)
     const [isCommentShown, setIsCommentShown] = useState(true)
 
-    const canvasRef = useRef(null)
+    const canvasRef = useRef<HTMLCanvasElement>(null)
     const [frequencies] = useState([31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]);
 
     const [effectsState, setEffectsState] = useState<effectsState>({
@@ -91,6 +93,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     useEffect(() => {
         handleEffectsChange(effectsState)
     }, [effectsState])
+
+    //console.log(videoInfo.data?.response.comment.threads)
 
     useEffect(() => {
         if (
@@ -133,6 +137,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 setEffectsState(state)
             }}
         />}
+        <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent}/>
     </div>
 }
 

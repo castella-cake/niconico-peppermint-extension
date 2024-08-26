@@ -122,8 +122,9 @@ export async function sendLike(smId, isAdd) {
         }
     }
 }
-export async function sendComment(threadId, body) {
-    await fetch(`https://nvapi.nicovideo.jp/v1/comment/keys/post?threadId=${threadId}`, {
+
+export async function getCommentPostKey(threadId) {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/comment/keys/post?threadId=${threadId}`, {
         "headers": {
             "accept": "application/json;charset=utf-8",
             "accept-language": "ja,en-US;q=0.9,en;q=0.8",
@@ -141,7 +142,10 @@ export async function sendComment(threadId, body) {
         "mode": "cors",
         "credentials": "include"
     });
-    fetch(`https://public.nvcomment.nicovideo.jp/v1/threads/${threadId}/comments`, {
+    return await response.json()
+}
+export async function postComment(threadId, body) {
+    const response = await fetch(`https://public.nvcomment.nicovideo.jp/v1/threads/${threadId}/comments`, {
         "headers": {
             "accept": "*/*",
             "accept-language": "ja,en-US;q=0.9,en;q=0.8",
@@ -160,5 +164,6 @@ export async function sendComment(threadId, body) {
         "mode": "cors",
         "credentials": "omit"
     });
+    return await response.json()
 }
 

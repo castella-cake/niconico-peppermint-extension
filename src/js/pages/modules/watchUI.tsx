@@ -66,6 +66,7 @@ function CreateWatchUI() {
                         videoRef={videoElementRef}
                         isFullscreenUi={isFullscreenUi}
                         setIsFullscreenUi={setIsFullscreenUi}
+                        setCommentContent={setCommentContent}
                     />
                 </div>
                 <Info videoInfo={videoInfo} />

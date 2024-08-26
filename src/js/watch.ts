@@ -14,7 +14,7 @@ function createCSSRule(storages: PromiseFulfilledResult<{[key: string]: string[]
     if ( !syncStorage.enablewatchpagereplace ) return
     window.stop()
     if (!document.documentElement) return
-    document.documentElement.innerHTML = "<head><meta charset=\"utf-8\"></head><body></body>"
+    document.documentElement.innerHTML = "<head><meta charset=\"utf-8\"></head><body><div id=\"ads-130\"></div></body>"
     const head = document.head
     const link = document.createElement('link')
     link.setAttribute('rel', 'stylesheet')

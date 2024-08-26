@@ -1,5 +1,5 @@
 // key
-interface KeyRootObjectResponse {
+export interface KeyRootObjectResponse {
     meta: KeyMeta;
     data: KeyData;
 }
@@ -12,7 +12,7 @@ interface KeyMeta {
     status: number;
 }
 //commentpost
-interface CommentPostBody {
+export interface CommentPostBody {
     videoId: string;
     commands: string[];
     body: string;
