@@ -8,6 +8,21 @@ type Props = {
     videoInfo: VideoDataRootObject
 }
 
+
+function readableInt(number: number) {
+    const units = ["万","億","兆","京","垓","秭","穣","溝","潤","正","載","極","恒河沙","阿僧祇","那由他","不可思議","無量大数"]
+    if ( number.toString().indexOf("e") == -1 ) {
+        const stringArray = number.toString().split("").reverse()
+        const afterStringArray = stringArray.map((char, index) => {
+            if ((index) % 4 !== 0) return char
+            return `${char}${units[((index) / 4) - 1] || ""}`
+        })
+        return afterStringArray.reverse().join("")
+    } else {
+        return number
+    }
+}
+
 function Info({videoInfo}: Props) {
     const [isLiked, setIsLiked] = useState<boolean>(false)
     useEffect(() => {
@@ -33,7 +48,7 @@ function Info({videoInfo}: Props) {
         <div className="videoinfo-titlecontainer">
             <div className="videoinfo-titleinfo">
                 <div className="videotitle">{videoInfoResponse.video.title}</div>
-                <div className="videostats">再生: {videoInfoResponse.video.count.view} / コメント: {videoInfoResponse.video.count.comment} / マイリスト: {videoInfoResponse.video.count.mylist}</div>
+                <div className="videostats"><span>再生: {readableInt(videoInfoResponse.video.count.view)}</span> / <span>コメント: {readableInt(videoInfoResponse.video.count.comment)}</span> / <span>マイリスト: {readableInt(videoInfoResponse.video.count.mylist)}</span></div>
             </div>
             <div className="videoinfo-actions">
                 <button type="button" onClick={likeChange} className="videoinfo-likebutton">{isLiked ? <IconHeartFilled/> : <IconHeart/>}<span>いいね！</span></button>
