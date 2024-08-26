@@ -12,6 +12,9 @@ function createCSSRule(storages: PromiseFulfilledResult<{[key: string]: string[]
     const syncStorage = storages[0].value
     const localStorage = storages[1].value
     if ( !syncStorage.enablewatchpagereplace ) return
+    const queryString = location.search
+    const searchParams = new URLSearchParams(queryString)
+    if ( searchParams.get("nopmw") == "true" ) return
     window.stop()
     if (!document.documentElement) return
     document.documentElement.innerHTML = "<head><meta charset=\"utf-8\"></head><body><div id=\"ads-130\"></div></body>"
