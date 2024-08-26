@@ -68,6 +68,8 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent}: Props) 
                 }
             }
             setCommentContent(commentDataResult)
+            // 今はただ要素が利用可能であることだけ伝えます
+            document.dispatchEvent(new CustomEvent("pmw_commentDataUpdated", { detail: "" })) // JSON.stringify({commentContent: commentResponse})
         }
     }
 

@@ -33,6 +33,8 @@ function Recommend(props: {smId: string, videoInfo: VideoDataRootObject}) {
         async function fetchRecommend() {
             const recommendResponse = await getRecommend(props.smId)
             setRecommendData(recommendResponse)
+            // 今はただ要素が利用可能であることだけ伝えます
+            document.dispatchEvent(new CustomEvent("pmw_recommendReady", { detail: "" })) // JSON.stringify({ recommendData: recommendResponse })
         }
         fetchRecommend()
     }, [props.videoInfo])

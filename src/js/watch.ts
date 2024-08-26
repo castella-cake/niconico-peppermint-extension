@@ -33,6 +33,7 @@ function createCSSRule(storages: PromiseFulfilledResult<{[key: string]: string[]
     }
     if ( !localStorage.playersettings ) chrome.storage.local.set({ playersettings: {} })
     createRoot(root).render(watchPage())
+    document.dispatchEvent(new CustomEvent("pmw_pageReplaced", { detail: "" }))
     const userAgent = window.navigator.userAgent.toLowerCase();
     if (userAgent.indexOf('chrome') == -1 || syncStorage.pmwforcepagehls) {
         const script = document.createElement('script');
