@@ -20,7 +20,7 @@ const watchLayoutType = {
 function CreateWatchUI() {
     //const lang = useLang()
 
-    const { syncStorage, localStorage } = useStorageContext()
+    const { syncStorage, isLoaded } = useStorageContext()
     const debugAlwaysOnmyouji: Boolean = syncStorage.debugalwaysonmyouji
 
     const smId = (debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
@@ -58,7 +58,7 @@ function CreateWatchUI() {
 
 
     //console.log(videoInfo)
-    if ( !videoInfo || !commentContent || !localStorage.playersettings || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
+    if ( !videoInfo || !commentContent || !isLoaded || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
     const layoutType = syncStorage.pmwlayouttype || watchLayoutType.reimaginedNewWatch
     
 
