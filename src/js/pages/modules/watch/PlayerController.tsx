@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useStorageContext } from "../extensionHook";
 import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
 import { secondsToTime } from "./commonFunction";
@@ -64,7 +64,12 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
     const [videoVolume, setVideoVolume] = useState(50)
 
     const [hlsLevel, setHlsLevel] = useState(0)
+    const [bufferedDuration, setBufferedDuration] = useState(0)
     //const [qualityStrings, setQualityStrings] = useState([])
+
+    const seekbarRef = useRef<HTMLDivElement>(null)
+    const [isSeeking, setIsSeeking] = useState(false)
+    const [tempSeekDuration, setTempSeekDuration] = useState(0)
 
     useEffect(() => {
         if (!isLoaded) return
@@ -82,9 +87,17 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
     },[currentTime])
     useEffect(() => {
         if (!hlsRef.current) return
-        hlsRef.current.on(Hls.Events.LEVEL_SWITCHED, (e) => {
+        hlsRef.current.on(Hls.Events.LEVEL_SWITCHED, (e, data) => {
             if (!hlsRef.current) return
             setHlsLevel(hlsRef.current.currentLevel)
+            
+        })
+        hlsRef.current.on(Hls.Events.BUFFER_APPENDED, (e, data) => {
+            console.log(data.frag.end)
+            setBufferedDuration(data.frag.end)
+        })
+        hlsRef.current.on(Hls.Events.BUFFER_FLUSHED, (e, data) => {
+            setBufferedDuration(0)
         })
     }, [hlsRef.current])
     if (!isLoaded) return <div>storage待機中...</div>
@@ -149,19 +162,37 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         setIsFullscreenUi(!isFullscreenUi);
     };
 
-    return <div className="playercontroller-container" id="pmw-playercontroller">
+    function tempSeekHandle(clientX: number) {
+        const boundingClientRect = seekbarRef.current?.getBoundingClientRect()
+        if (!boundingClientRect || !videoRef.current) return
+        //console.log((clientX - boundingClientRect.left) / boundingClientRect.width * 100)
+        setTempSeekDuration(duration * ((clientX - boundingClientRect.left) / boundingClientRect.width))
+    }
+
+    function doSeek(clientX?: number) {
+        const boundingClientRect = seekbarRef.current?.getBoundingClientRect()
+        if (!boundingClientRect || !videoRef.current) return
+        //console.log((clientX - boundingClientRect.left) / boundingClientRect.width * 100)
+        if ( clientX ) {
+            videoRef.current.currentTime = duration * ((clientX - boundingClientRect.left) / boundingClientRect.width)
+        } else {
+            videoRef.current.currentTime = tempSeekDuration
+        }
+    }
+
+    return <div className="playercontroller-container" id="pmw-playercontroller"
+        onMouseUp={(e) => {if ( isSeeking ) doSeek(e.clientX);setIsSeeking(false);}}
+        onMouseMove={(e) => {if ( isSeeking ) tempSeekHandle(e.clientX)}} 
+        onMouseLeave={(e) => {if ( isSeeking ) { doSeek() };setIsSeeking(false);}}
+    >
         <div className="playercontroller-container-top">
-            <div className="playercontroller-time currenttime">{secondsToTime(currentTime)}</div>
-            <input
-                className="playercontroller-seekbar"
-                type="range"
-                value={Math.floor(currentTime)}
-                min="0" max={Math.floor(duration)}
-                onChange={(e) => {
-                    if (!videoRef.current) return 
-                    videoRef.current.currentTime = e.currentTarget.valueAsNumber
-                }}
-            />
+            <div className="playercontroller-time currenttime">{secondsToTime( isSeeking ? tempSeekDuration : currentTime )}</div>
+            <div className="seekbar" ref={seekbarRef} onDragOver={(e) => {e.preventDefault()}}
+                onMouseDown={(e) => {setIsSeeking(true);tempSeekHandle(e.clientX)}}
+            >
+                <div className="seekbar-buffered" style={{ width: `${bufferedDuration / duration * 100}%` }}></div>
+                <div className="seekbar-played" style={{ width: `${( isSeeking ? tempSeekDuration : currentTime ) / duration * 100}%` }}></div>
+            </div>
             <div className="playercontroller-time duration">{secondsToTime(duration)}</div>
         </div>
         <div className="playercontroller-container-middle">
