@@ -59,13 +59,19 @@ a {
     flex-wrap: wrap;
     gap: 16px;
     justify-content: center;
+    margin: 0 auto;
+    max-width: 98vw;
     .watch-container-left {
         min-width: 480px;
-        flex: 0.8;
+        flex: 0.6;
     }
     .watch-container-right {
-        min-width: 400px;
         max-width: 25vw;
+        height: auto;
+        align-self: stretch;
+        position: relative;
+        min-width: 400px;
+        flex: 0.4;
     }
 }
 
@@ -86,14 +92,14 @@ a {
 
     .watch-container-right {
         min-width: 0;
-        flex: 0.4;
-        align-self: center;
+        flex: 0.3;
+        align-self: stretch;
     }
 }
 
 
 .recommend-container {
-    margin-top: 8px;
+    margin-top: 16px;
     .recommend-item {
         display: flex;
         gap: 8px;

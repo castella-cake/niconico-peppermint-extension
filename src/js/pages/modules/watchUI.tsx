@@ -86,9 +86,9 @@ function CreateWatchUI() {
                 {layoutType !== watchLayoutType.threeColumn && playerElem}
                 {(layoutType === watchLayoutType.reimaginedNewWatch || layoutType === watchLayoutType.threeColumn) && infoElem}
             </div>
-            <div className="watch-container-middle">
+            { layoutType === watchLayoutType.threeColumn && <div className="watch-container-middle">
                 {layoutType === watchLayoutType.threeColumn && playerElem}
-            </div>
+            </div> }
             <div className="watch-container-right">
                 {layoutType === watchLayoutType.reimaginedMobileWatch && infoElem}
                 {commentListElem}

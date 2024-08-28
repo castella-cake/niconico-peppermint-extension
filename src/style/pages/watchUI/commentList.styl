@@ -1,11 +1,19 @@
 .commentlist-container {
-    max-height: 745px;
     background: var(--bgcolor2);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     border-radius: 6px;
-    margin-bottom: 8px;
+    max-height: 640px;
+}
+
+[watch-type="recresc"] .commentlist-container, [watch-type="3col"] .commentlist-container {
+    max-height: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .commentlist-title-container {

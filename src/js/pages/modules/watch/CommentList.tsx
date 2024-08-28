@@ -52,18 +52,20 @@ function CommentList(props: Props) {
         const currentTime = Math.floor(props.videoRef.current.currentTime)
         // とりあえず一番最初の要素の高さを取得
         const firstScrollPos = returnFirstScrollPos(scrollPosList)
-        if (!firstScrollPos || !firstScrollPos.current || !scrollPosList[`${currentTime}` as keyof scrollPos]) return
+        if (!firstScrollPos || !firstScrollPos.current || !scrollPosList[`${currentTime}` as keyof scrollPos] || !commentListContainerRef.current) return
 
         const elemHeight = firstScrollPos.current.offsetHeight
+        const listHeight = commentListContainerRef.current.clientHeight
+        const listPosTop = commentListContainerRef.current.offsetTop
+        const currentTimeElem = scrollPosList[`${currentTime}` as keyof scrollPos].current
+        if (!currentTimeElem) return
+        // offsetTopがでかいのでリスト自身の上からの座標を与えて正しくする
+        const elemOffsetTop = currentTimeElem.offsetTop - listPosTop
 
-        const currentTimeRef = scrollPosList[`${currentTime}` as keyof scrollPos].current
-        if (!currentTimeRef || !commentListContainerRef.current) return
-        // よくわからないけど試行錯誤の末とりあえずそれらしいように見えてるのでヨシ
-        const offsetTop = currentTimeRef.offsetTop - elemHeight
-        // 要素がある上で、CommentListをはみ出しているスクロールするべき要素であればスクロール
-        if ( offsetTop - (commentListContainerRef.current.clientHeight + elemHeight) > 0 ) {
-            commentListContainerRef.current.scrollTop = offsetTop - (commentListContainerRef.current.clientHeight + elemHeight)
-            //scrollPosList[`${currentTime}`].current.scrollIntoView({ behavior: "smooth", block: 'nearest', inline: 'start'  })
+        // リストの高さからはみ出していればスクロール
+        if ( elemOffsetTop - listHeight > 0 ) {
+            // そのまま座標を与えると上に行ってしまうので、リストの高さから1個分のアイテムの高さを引いて下からにする
+            commentListContainerRef.current.scrollTop = elemOffsetTop - (listHeight - elemHeight)
         }
     }, 500)
     
