@@ -48,10 +48,11 @@ type Props = {
     setIsCommentShown: Dispatch<SetStateAction<boolean>>,
     isSettingsShown: boolean,
     setIsSettingsShown: Dispatch<SetStateAction<boolean>>,
-    hlsRef: RefObject<Hls>
+    hlsRef: RefObject<Hls>,
+    commentInputRef: RefObject<HTMLInputElement>,
 }
 
-function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, currentTime, duration, isFullscreenUi, setIsFullscreenUi, isCommentShown, setIsCommentShown, hlsRef, isSettingsShown, setIsSettingsShown}: Props) {
+function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, currentTime, duration, isFullscreenUi, setIsFullscreenUi, isCommentShown, setIsCommentShown, hlsRef, isSettingsShown, setIsSettingsShown, commentInputRef}: Props) {
     const { localStorage, setLocalStorageValue, isLoaded } = useStorageContext()
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
@@ -100,6 +101,48 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             setBufferedDuration(0)
         })
     }, [hlsRef.current])
+    useEffect(() => {
+        const handleFullscreenChange = (e: Event) => {
+            if ( !document.fullscreenElement ) {
+                setIsFullscreenUi(false)
+            } else {
+                setIsFullscreenUi(true)
+            }
+        }
+        const handleCtrl = (e: KeyboardEvent) => {
+            if ( e.ctrlKey ) return true;
+            if ( e.target instanceof Element ) {
+                if ( e.target.closest("input, textarea") ) return true;
+            }
+            e.preventDefault()
+            if ( e.key === " " || e.key === "　" ) {
+                toggleStopState()
+                return false;
+            }
+            if ( e.key === "ArrowLeft" ) {
+                timeController("add", -10)
+                return false;
+            }
+            if ( e.key === "ArrowRight" ) {
+                timeController("add", 10)
+                return false;
+            }
+            if ( e.key === "c" || e.key === "C" ) {
+                if (!commentInputRef.current) return
+                commentInputRef.current.focus()
+                return false;
+            }
+            if ( e.key === "f" || e.key === "F" ) {
+                toggleFullscreen()
+                return false;
+            }
+        }
+        document.body.addEventListener("keydown", handleCtrl)
+        document.body.addEventListener("fullscreenchange", handleFullscreenChange)
+        return () => {
+            document.body.removeEventListener("keydown", handleCtrl)
+        }
+    }, [videoRef.current])
     if (!isLoaded) return <div>storage待機中...</div>
 
 

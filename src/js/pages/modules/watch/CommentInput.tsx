@@ -12,13 +12,13 @@ type Props = {
     videoId: string,
     videoInfo: VideoDataRootObject,
     setCommentContent: Dispatch<SetStateAction<CommentDataRootObject>>,
-    videoRef: RefObject<HTMLVideoElement>
+    videoRef: RefObject<HTMLVideoElement>,
+    commentInputRef: RefObject<HTMLInputElement>,
 }
 
 
 
-function CommentInput({videoRef, videoId, videoInfo, setCommentContent}: Props) {
-    const commentInput = useRef<HTMLInputElement>(null)
+function CommentInput({videoRef, videoId, videoInfo, setCommentContent, commentInputRef}: Props) {
     const commandInput = useRef<HTMLInputElement>(null)
 
     const [isComposing, setIsComposing] = useState(false);
@@ -74,19 +74,19 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent}: Props) 
     }
 
     function onKeydown(keyName: string) {
-        if ( keyName === "Enter" && commentInput.current && videoRef.current && !isComposing ) {
-            sendComment(videoId, commentInput.current.value, commandInput.current?.value.split(""), Math.floor(videoRef.current.currentTime * 1000) )
-            commentInput.current.value = ""
+        if ( keyName === "Enter" && commentInputRef.current && videoRef.current && !isComposing ) {
+            sendComment(videoId, commentInputRef.current.value, commandInput.current?.value.split(""), Math.floor(videoRef.current.currentTime * 1000) )
+            commentInputRef.current.value = ""
         }
     }
     
     return <div className="commentinput-container global-flex" id="pmw-commentinput">
         <input ref={commandInput} className="commentinput-cmdinput" placeholder="コマンド" />
-        <input ref={commentInput} className="global-flex1 commentinput-input" placeholder="コメントを入力" onKeyDown={(e) => {onKeydown(e.key)}} onCompositionStart={startComposition} onCompositionEnd={endComposition}/>
+        <input ref={commentInputRef} className="global-flex1 commentinput-input" placeholder="コメントを入力" onKeyDown={(e) => {onKeydown(e.key)}} onCompositionStart={startComposition} onCompositionEnd={endComposition}/>
         <button type="button" className="commentinput-submit" onClick={() => {
-            if (!commentInput.current || !videoRef.current || commentInput.current.value === "") return
-            sendComment(videoId, commentInput.current.value, commandInput.current?.value.split(" "), Math.floor(videoRef.current.currentTime * 1000) )
-            commentInput.current.value = ""
+            if (!commentInputRef.current || !videoRef.current || commentInputRef.current.value === "") return
+            sendComment(videoId, commentInputRef.current.value, commandInput.current?.value.split(" "), Math.floor(videoRef.current.currentTime * 1000) )
+            commentInputRef.current.value = ""
         }}><IconSend2/><span>コメント</span></button>
     </div>
 }

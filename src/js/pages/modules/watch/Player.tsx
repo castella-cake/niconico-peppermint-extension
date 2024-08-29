@@ -67,6 +67,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const [isCommentShown, setIsCommentShown] = useState(true)
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
+    const commentInputRef = useRef<HTMLInputElement>(null)
     const [frequencies] = useState([31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]);
 
     const [effectsState, setEffectsState] = useState<effectsState>(localStorage.playersettings.vefxSettings || {
@@ -92,12 +93,13 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, shouldUseContentScriptHls)
 
     useEffect(() => {
-        window.addEventListener("beforeunload", () => {
+        const onUnload = () => {
             if ( !videoRef.current ) return
             const playbackPositionBody = { watchId: videoId, seconds: videoRef.current.currentTime }
             putPlaybackPosition(JSON.stringify(playbackPositionBody))
-        })
-        return 
+        }
+        window.addEventListener("beforeunload", onUnload)
+        return () => { window.removeEventListener("beforeunload", onUnload) }
     }, [])
 
     useEffect(() => {
@@ -164,8 +166,9 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             isSettingsShown={isSettingsShown}
             setIsSettingsShown={setIsSettingsShown}
             hlsRef={hlsRef}
+            commentInputRef={commentInputRef}
         />
-        <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent}/>
+        <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} commentInputRef={commentInputRef}/>
     </div>
 }
 
