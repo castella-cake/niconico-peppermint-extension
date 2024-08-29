@@ -11,6 +11,7 @@ import type { CommentDataRootObject } from "./types/CommentData";
 import type { Dispatch, ReactNode, SetStateAction } from "react"
 import CommentInput from "./CommentInput";
 import Settings from "./Settings";
+import { putPlaybackPosition } from "../../../modules/watchApi";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -35,18 +36,19 @@ type VideoPlayerProps = {
     videoRef: RefObject<HTMLVideoElement>,
     setCurrentTime: Dispatch<SetStateAction<number>>,
     setDuration: Dispatch<SetStateAction<number>>,
+    onPause: Function
     canvasRef: RefObject<HTMLCanvasElement>,
     isCommentShown: boolean
 }
 
-function VideoPlayer({children, videoRef, setCurrentTime, setDuration, canvasRef, isCommentShown}: VideoPlayerProps) {
+function VideoPlayer({children, videoRef, setCurrentTime, setDuration, canvasRef, isCommentShown, onPause}: VideoPlayerProps) {
     return (<div className="player-video-container">
         <div className="player-video-container-inner">
             <video ref={videoRef} controls autoPlay onTimeUpdate={e => {
                 setCurrentTime(e.currentTarget.currentTime);
             }} onDurationChange={e => {
                 setDuration(e.currentTarget.duration);
-            }} width="1920" height="1080" id="pmw-element-video"></video>
+            }} onPause={(e) => {onPause()}} width="1920" height="1080" id="pmw-element-video"></video>
             <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: 1} : {opacity: 0}} id="pmw-element-commentcanvas"/>
             { children }
         </div>
@@ -90,6 +92,20 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, shouldUseContentScriptHls)
 
     useEffect(() => {
+        window.addEventListener("beforeunload", () => {
+            if ( !videoRef.current ) return
+            const playbackPositionBody = { watchId: videoId, seconds: videoRef.current.currentTime }
+            putPlaybackPosition(JSON.stringify(playbackPositionBody))
+        })
+        return 
+    }, [])
+
+    useEffect(() => {
+        if (!videoInfo.data || !videoRef.current || !videoInfo.data.response.player.initialPlayback) return
+        videoRef.current.currentTime = videoInfo.data.response.player.initialPlayback?.positionSec
+    }, [videoInfo])
+
+    useEffect(() => {
         if (!localStorage || !localStorage.playersettings || !localStorage.playersettings.vefxSettings) return
         setEffectsState(localStorage.playersettings.vefxSettings)
     }, [localStorage, localStorage.playersettings])
@@ -97,8 +113,6 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     useEffect(() => {
         handleEffectsChange(effectsState)
     }, [effectsState])
-
-    //console.log(videoInfo.data?.response.comment.threads)
 
     useEffect(() => {
         if (
@@ -117,9 +131,15 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             };
         }
     }, [commentContent])
+    
+    function onPause() {
+        if ( !videoRef.current ) return
+        const playbackPositionBody = { watchId: videoId, seconds: videoRef.current.currentTime }
+        putPlaybackPosition(JSON.stringify(playbackPositionBody))
+    }
 
     return <div className="player-container" id="pmw-player">
-        <VideoPlayer videoRef={videoRef} setCurrentTime={setCurrentTime} setDuration={setDuration} canvasRef={canvasRef} isCommentShown={isCommentShown}>
+        <VideoPlayer videoRef={videoRef} setCurrentTime={setCurrentTime} setDuration={setDuration} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause}>
             {isVefxShown && <VefxController
                 frequencies={frequencies}
                 effectsState={effectsState}

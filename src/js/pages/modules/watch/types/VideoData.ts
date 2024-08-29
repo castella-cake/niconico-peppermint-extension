@@ -254,9 +254,14 @@ interface Genre2 {
 }
 
 interface Player {
-    initialPlayback: null;
+    initialPlayback: InitialPlayback | null;
     comment: Comment2;
     layerMode: number;
+}
+
+interface InitialPlayback {
+    type: string;
+    positionSec: number;
 }
 
 interface Comment2 {
