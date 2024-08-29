@@ -12,17 +12,28 @@ function createCSSRule(storages: PromiseFulfilledResult<{[key: string]: string[]
     const syncStorage = storages[0].value
     const localStorage = storages[1].value
     if ( !syncStorage.enablewatchpagereplace ) return
+    
     const queryString = location.search
     const searchParams = new URLSearchParams(queryString)
     if ( searchParams.get("nopmw") == "true" ) return
     window.stop()
+
     if (!document.documentElement) return
-    document.documentElement.innerHTML = "<head><meta charset=\"utf-8\"></head><body><div id=\"ads-130\"></div></body>"
+    document.documentElement.innerHTML = `
+        <head>
+            <meta charset="utf-8">
+            <link rel="shortcut icon" href="https://resource.video.nimg.jp/web/images/favicon/favicon.ico">
+        </head>
+        <body>
+            <div id="ads-130"></div>
+        </body>
+    `
     const head = document.head
     const link = document.createElement('link')
     link.setAttribute('rel', 'stylesheet')
     link.setAttribute('href', chrome.runtime.getURL("style/watchUI.css"))
     head.appendChild(link)
+
     const body = document.body
     const root = document.createElement("div")
     root.id = "root"
@@ -31,13 +42,35 @@ function createCSSRule(storages: PromiseFulfilledResult<{[key: string]: string[]
         console.error("Watch page replace failed: #root is not empty.")
         return
     }
+
+    const observehead = document.head
+    const observer = new MutationObserver(records => {
+        records.forEach(function (record) {
+            const addedNodes = record.addedNodes;
+            for (const node of addedNodes) {
+                const elem = node as Element
+                console.log(elem)
+                // scriptが増えたならこのレンダーはもう維持するべきではないのでリロード
+                if ( elem.tagName === "link" && elem.getAttribute("rel") === "modulepreload" && elem.getAttribute("href")?.startsWith("https://resource.video.nimg.jp/web/scripts/nvpc_next/assets/manifest-") ) {
+                    location.reload()
+                }
+            }
+        });
+    })
+    observer.observe(observehead, {
+        childList: true
+    })
+
     if ( !localStorage.playersettings ) chrome.storage.local.set({ playersettings: {} })
+    
     createRoot(root).render(watchPage())
     document.dispatchEvent(new CustomEvent("pmw_pageReplaced", { detail: "" }))
+
     const userAgent = window.navigator.userAgent.toLowerCase();
     if (userAgent.indexOf('chrome') == -1 || syncStorage.pmwforcepagehls) {
         const script = document.createElement('script');
         script.src = chrome.runtime.getURL("js/watch_injector.bundle.js")
+        script.setAttribute("pmw-isplugin", "true")
         head.appendChild(script)
     }
 

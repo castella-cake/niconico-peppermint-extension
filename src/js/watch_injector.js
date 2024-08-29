@@ -54,12 +54,22 @@ document.addEventListener("pmw_informationReady", (e) => {
 
 async function injectMediaToPlayer({ videoInfo, actionTrackId }) {
     // 
-    if (document.getElementById("injected-player-root")) return;
-    const playerArea = document.getElementById("pmw-player")
-    const altControllerContainer = document.createElement("div")
-    altControllerContainer.id = "injected-player-root"
-    altControllerContainer.textContent = "ページスクリプトでHLSを実行中です。"
-    playerArea.appendChild(altControllerContainer)
+    if (document.getElementById("pmwp-cyaki-mediainjector")) return;
+    const pluginList = document.getElementById("pmw-plugin-list")
+
+    const mediaInjectorContainer = document.createElement("div")
+    mediaInjectorContainer.id = "pmwp-cyaki-mediainjector"
+    mediaInjectorContainer.className = "plugin-list-item"
+    mediaInjectorContainer.innerHTML = `
+        <div class="plugin-list-item-title">
+            外部HLS プラグイン (ビルトイン)
+        </div>
+        <div class="plugin-list-item-desc">
+            ページスクリプトとしてHLSを実行し、一部のCORS問題を回避します。
+        </div>
+    `
+    
+    pluginList.appendChild(mediaInjectorContainer)
 
 
     if (

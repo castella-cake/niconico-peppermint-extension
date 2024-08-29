@@ -54,6 +54,7 @@ a {
 .global-bold {
     font-weight: bold;
 }
+
 .watch-container {
     display: flex;
     flex-wrap: wrap;
@@ -72,6 +73,18 @@ a {
         position: relative;
         min-width: 400px;
         flex: 0.4;
+    }
+}
+
+.watch-container:not([watch-type="3col"]) {
+    .watch-container-left[settings-size="0"] {
+        flex: 0.4
+    }
+    .watch-container-left[settings-size="1"] {
+        flex: 0.6
+    }
+    .watch-container-left[settings-size="2"] {
+        flex: 1
     }
 }
 
@@ -96,7 +109,6 @@ a {
         align-self: stretch;
     }
 }
-
 
 .recommend-container {
     margin-top: 16px;
@@ -145,6 +157,7 @@ a {
 @import './watchUI/Info.styl'
 @import './watchUI/commentInput.styl'
 @import './watchUI/Settings.styl'
+@import './watchUI/PluginList.styl'
 
 .vefx-container {
     display: flex;
