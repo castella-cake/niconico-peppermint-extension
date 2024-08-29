@@ -1,9 +1,11 @@
-import { useState, useRef, createRef, RefObject } from "react";
+import { useState, useRef, createRef, RefObject, Dispatch, SetStateAction } from "react";
 //import { useLang } from "../localizeHook";
 import { useInterval } from "../commonHooks";
 import { secondsToTime } from "./commonFunction";
 import type { CommentDataRootObject, Thread } from "./types/CommentData";
 import { VideoDataRootObject } from "./types/VideoData";
+import { NicoruKeyResponseRootObject, NicoruPostBodyRootObject, NicoruPostResponseRootObject, NicoruRemoveRootObject } from "./types/NicoruPostData";
+import { getCommentThread, getNicoruKey, postNicoru, removeNicoru } from "../../../modules/watchApi";
 
 type scrollPos = {
     [vposSec: string]: RefObject<HTMLDivElement>
@@ -29,6 +31,7 @@ function returnFirstScrollPos(scrollPosList: scrollPos) {
 type Props = {
     videoInfo: VideoDataRootObject,
     commentContent: CommentDataRootObject,
+    setCommentContent: Dispatch<SetStateAction<CommentDataRootObject>>,
     videoRef: RefObject<HTMLVideoElement>
 }
 
@@ -93,6 +96,40 @@ function CommentList(props: Props) {
             scrollPosList[`${Math.floor( elem.vposMs / 1000 )}`] = commentRefs.current[index]
         }
     })
+
+    async function reloadCommentData() {
+        if (!props.videoInfo.data) return
+        const commentRequestBody = {
+            params: {
+                ...props.videoInfo.data.response.comment.nvComment.params
+            },
+            threadKey: props.videoInfo.data.response.comment.nvComment.threadKey
+        }
+        const commentResponse: CommentDataRootObject = await getCommentThread(props.videoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
+        props.setCommentContent(commentResponse)
+    }
+
+    async function onNicoru(commentNo: number, commentBody: string, nicoruId: string | null) {
+        //"{\"videoId\":\"\",\"fork\":\"\",\"no\":0,\"content\":\"\",\"nicoruKey\":\"\"}"
+        if (!props.videoInfo.data || !props.videoInfo.data.response.video.id) return
+        if (nicoruId) {
+            const response: NicoruRemoveRootObject = await removeNicoru(nicoruId)
+            if ( response.meta.status === 200 ) {
+                reloadCommentData()
+            }
+        } else {
+            const currentThread = props.videoInfo.data.response.comment.threads.filter(elem => elem.forkLabel === currentForkType)[0]
+            const nicoruKeyResponse: NicoruKeyResponseRootObject = await getNicoruKey(currentThread.id, currentForkType)
+            if (nicoruKeyResponse.meta.status !== 200) return
+            const body: NicoruPostBodyRootObject = {videoId: props.videoInfo.data.response.video.id, fork: currentForkType, no: commentNo, content: commentBody, nicoruKey: nicoruKeyResponse.data.nicoruKey} 
+            const response: NicoruPostResponseRootObject = await postNicoru(currentThread.id, JSON.stringify(body))
+            console.log(response)
+            if (response.meta.status === 201) {
+                reloadCommentData()
+            }
+        }
+
+    }
     //console.log(scrollPosList)
 
     return <div className="commentlist-container" id="pmw-commentlist">
@@ -120,7 +157,9 @@ function CommentList(props: Props) {
         </div>
         <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => setIsCommentListHovered(true)} onMouseLeave={() => setIsCommentListHovered(false)}>
             {sortedComments.map((elem, index) => {
+                //console.log(elem)
                 return <div key={`${index}-${elem.id}`} ref={commentRefs.current[index]} className="commentlist-list-item">
+                    <button onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className="commentlist-list-item-nicorubutton">ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>
                     <div className="commentlist-list-item-body">{elem.body}</div>
                     <div className="commentlist-list-item-vpos">{secondsToTime(Math.floor( elem.vposMs / 1000 ))}</div>
                 </div>

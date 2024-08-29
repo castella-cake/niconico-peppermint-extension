@@ -74,7 +74,7 @@ function CreateWatchUI() {
         setCommentContent={setCommentContent}
     />
     const infoElem = <Info videoInfo={videoInfo} />
-    const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} videoRef={videoElementRef} />
+    const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} />
     const recommendElem = <Recommend videoInfo={videoInfo} smId={smId} />
 
 

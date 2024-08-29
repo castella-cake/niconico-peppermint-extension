@@ -27,7 +27,7 @@ interface Comment {
     score: number;
     postedAt: string;
     nicoruCount: number;
-    nicoruId: null;
+    nicoruId: string | null;
     source: string;
     isMyPost: boolean;
 }

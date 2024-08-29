@@ -147,8 +147,6 @@ export async function getCommentPostKey(threadId) {
 export async function postComment(threadId, body) {
     const response = await fetch(`https://public.nvcomment.nicovideo.jp/v1/threads/${threadId}/comments`, {
         "headers": {
-            "accept": "*/*",
-            "accept-language": "ja,en-US;q=0.9,en;q=0.8",
             "content-type": "text/plain;charset=UTF-8",
             "sec-fetch-dest": "empty",
             "sec-fetch-mode": "cors",
@@ -158,7 +156,6 @@ export async function postComment(threadId, body) {
             "x-frontend-version": "0"
         },
         "referrer": "https://www.nicovideo.jp/",
-        "referrerPolicy": "strict-origin-when-cross-origin",
         "body": body,
         "method": "POST",
         "mode": "cors",
@@ -167,3 +164,46 @@ export async function postComment(threadId, body) {
     return await response.json()
 }
 
+export async function getNicoruKey(threadId, fork) {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/comment/keys/nicoru?threadId=${threadId}&fork=${fork}`, {
+        "headers": {
+            "x-frontend-id": "6",
+            "x-frontend-version": "0",
+            "x-niconico-language": "ja-jp"
+        },
+        "method": "GET",
+        "credentials": "include"
+    });
+    return await response.json()
+}
+
+export async function postNicoru(threadId, body) {
+    const response = await fetch(`https://public.nvcomment.nicovideo.jp/v1/threads/${threadId}/nicorus`, {
+        "headers": {
+            "x-client-os-type": "others",
+            "x-frontend-id": "6",
+            "x-frontend-version": "0"
+        },
+        "body": body,
+        "method": "POST",
+        "mode": "cors",
+        "credentials": "omit",
+        "cache": "no-store"
+    });
+    return await response.json()
+}
+
+export async function removeNicoru(nicoruId) {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/users/me/nicoru/send/${nicoruId}`, {
+        "headers": {
+            "x-frontend-id": "6",
+            "x-frontend-version": "0",
+            "x-niconico-language": "ja-jp",
+            "x-request-with": "nicovideo"
+        },
+        "method": "DELETE",
+        "mode": "cors",
+        "credentials": "include"
+    });
+    return await response.json()
+}
