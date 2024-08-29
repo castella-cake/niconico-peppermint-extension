@@ -2,6 +2,7 @@ import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
 import type { VideoDataRootObject } from "./types/VideoData";
 import { useEffect, useState } from "react";
 import { sendLike } from "../../../modules/watchApi";
+import { useStorageContext } from "../extensionHook";
 
 
 type Props = {
@@ -24,11 +25,16 @@ function readableInt(number: number) {
 }
 
 function Info({videoInfo}: Props) {
+    const { localStorage, setLocalStorageValue } = useStorageContext()
     const [isLiked, setIsLiked] = useState<boolean>(false)
+    const [isDescOpen, setIsDescOpen] = useState<boolean>(localStorage.playersettings.descriptionOpen || false)
     useEffect(() => {
         if (!videoInfo.data) return
         setIsLiked(videoInfo.data.response.video.viewer.like.isLiked)
     }, [videoInfo])
+    function writePlayerSettings(name: string, value: any) {
+        setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
+    }
     if (!videoInfo.data) return <></>
 
     const videoInfoResponse = videoInfo.data.response
@@ -62,7 +68,7 @@ function Info({videoInfo}: Props) {
                 </a>}
             </div>
         </div>
-        <details>
+        <details open={isDescOpen && true} onToggle={(e) => {setIsDescOpen(e.currentTarget.open);writePlayerSettings("descriptionOpen", e.currentTarget.open)}}>
             <summary>この動画の概要</summary>
             <div className="videodesc" dangerouslySetInnerHTML={innerHTMLObj}/>
         </details>
