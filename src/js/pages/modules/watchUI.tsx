@@ -20,7 +20,7 @@ const watchLayoutType = {
 function CreateWatchUI() {
     //const lang = useLang()
 
-    const { syncStorage, isLoaded } = useStorageContext()
+    const { syncStorage, localStorage, isLoaded } = useStorageContext()
     const debugAlwaysOnmyouji: Boolean = syncStorage.debugalwaysonmyouji
 
     const smId = (debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
@@ -60,6 +60,7 @@ function CreateWatchUI() {
     //console.log(videoInfo)
     if ( !videoInfo || !commentContent || !isLoaded || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
     const layoutType = syncStorage.pmwlayouttype || watchLayoutType.reimaginedNewWatch
+    const playerSize = localStorage.playersettings.playerAreaSize || 1
     
 
     const playerElem = <Player
@@ -82,7 +83,7 @@ function CreateWatchUI() {
         { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
         <div className="watch-container" watch-type={layoutType} id="pmw-container">
             {layoutType === watchLayoutType.reimaginedOldWatch && infoElem}
-            <div className="watch-container-left">
+            <div className="watch-container-left" settings-size={playerSize}>
                 {layoutType !== watchLayoutType.threeColumn && playerElem}
                 {(layoutType === watchLayoutType.reimaginedNewWatch || layoutType === watchLayoutType.threeColumn) && infoElem}
             </div>
