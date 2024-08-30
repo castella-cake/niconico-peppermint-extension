@@ -1,12 +1,13 @@
-import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
+import { IconFolderFilled, IconHeart, IconHeartFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
 import type { VideoDataRootObject } from "./types/VideoData";
-import { useEffect, useState } from "react";
+import { MouseEvent, RefObject, useEffect, useState } from "react";
 import { sendLike } from "../../../modules/watchApi";
 import { useStorageContext } from "../extensionHook";
 
 
 type Props = {
-    videoInfo: VideoDataRootObject
+    videoInfo: VideoDataRootObject,
+    videoRef: RefObject<HTMLVideoElement>,
 }
 
 
@@ -24,13 +25,17 @@ function readableInt(number: number) {
     }
 }
 
-function Info({videoInfo}: Props) {
+function Info({videoInfo, videoRef}: Props) {
     const { localStorage, setLocalStorageValue } = useStorageContext()
     const [isLiked, setIsLiked] = useState<boolean>(false)
+    const [temporalLikeModifier, setTemporalLikeModifier] = useState<number>(0) // videoInfoに焼き込まれていない「いいね」のための加算。
+    const [likeThanksMsg, setLikeThanksMsg] = useState<string | null>(null)
     const [isDescOpen, setIsDescOpen] = useState<boolean>(localStorage.playersettings.descriptionOpen || false)
     useEffect(() => {
         if (!videoInfo.data) return
+        setTemporalLikeModifier(0)
         setIsLiked(videoInfo.data.response.video.viewer.like.isLiked)
+        setLikeThanksMsg(null)
     }, [videoInfo])
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
@@ -46,7 +51,35 @@ function Info({videoInfo}: Props) {
     async function likeChange() {
         const likeResponse = await sendLike(videoInfoResponse.video.id, !isLiked)
         if ( likeResponse ) {
+            if (!isLiked) {
+                setTemporalLikeModifier(temporalLikeModifier + 1)
+            } else {
+                setTemporalLikeModifier(temporalLikeModifier - 1)
+            }
             setIsLiked(!isLiked)
+            if ( likeResponse.data && likeResponse.data.thanksMessage ) {
+                setLikeThanksMsg(likeResponse.data.thanksMessage)
+            }
+        }
+    }
+
+    const handleAnchorClick = (e: MouseEvent<HTMLDivElement>) => {
+        if ( e.target instanceof Element ) {
+            const nearestAnchor: HTMLAnchorElement | null = e.target.closest("a")
+            if ( nearestAnchor && nearestAnchor.getAttribute("data-seektime") ) {
+                e.stopPropagation()
+                e.preventDefault()
+                if (videoRef.current) {
+                    const seekTimeArray = nearestAnchor.getAttribute("data-seektime")?.split(":")
+                    // 反転して秒:分:時:日としていき、順に秒に直したらreduceですべて加算
+                    const seekToTime = seekTimeArray?.reverse().map((time, index) => {
+                        if ( index === 0 ) return Number(time) // 秒
+                        if ( index <= 2 ) return Number(time) * (60 ^ index) // 分/時
+                        return Number(time) * 172800 // 日
+                    }).reduce((prev,current) => prev + current)
+                    if (seekToTime) videoRef.current.currentTime = seekToTime
+                }
+            }
         }
     }
 
@@ -54,7 +87,13 @@ function Info({videoInfo}: Props) {
         <div className="videoinfo-titlecontainer">
             <div className="videoinfo-titleinfo">
                 <div className="videotitle">{videoInfoResponse.video.title}</div>
-                <div className="videostats"><span>再生: {readableInt(videoInfoResponse.video.count.view)}</span> / <span>コメント: {readableInt(videoInfoResponse.video.count.comment)}</span> / <span>マイリスト: {readableInt(videoInfoResponse.video.count.mylist)}</span></div>
+                <div className="videostats">
+                    <span>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</span>
+                    <span><IconPlayerPlayFilled/>{readableInt(videoInfoResponse.video.count.view)}</span>
+                    <span><IconMessageFilled/>{readableInt(videoInfoResponse.video.count.comment)}</span>
+                    <span><IconFolderFilled/>{readableInt(videoInfoResponse.video.count.mylist)}</span>
+                    <span><IconHeartFilled/>{readableInt(videoInfoResponse.video.count.like + temporalLikeModifier)}</span>
+                </div>
             </div>
             <div className="videoinfo-actions">
                 <button type="button" onClick={likeChange} className="videoinfo-likebutton">{isLiked ? <IconHeartFilled/> : <IconHeart/>}<span>いいね！</span></button>
@@ -66,11 +105,17 @@ function Info({videoInfo}: Props) {
                         { videoInfoResponse.owner.nickname }
                     </span>
                 </a>}
+                {isLiked && likeThanksMsg && <div className="videoinfo-likethanks-outercontainer">
+                    <div className="videoinfo-likethanks-container">
+                        いいね！へのお礼メッセージ
+                        <div className="videoinfo-likethanks-body">{likeThanksMsg}</div>
+                    </div>
+                </div>}
             </div>
         </div>
         <details open={isDescOpen && true} onToggle={(e) => {setIsDescOpen(e.currentTarget.open);writePlayerSettings("descriptionOpen", e.currentTarget.open)}}>
             <summary>この動画の概要</summary>
-            <div className="videodesc" dangerouslySetInnerHTML={innerHTMLObj}/>
+            <div className="videodesc" dangerouslySetInnerHTML={innerHTMLObj} onClickCapture={(e) => {handleAnchorClick(e)}}/>
         </details>
         <div className="tags-container">
             {videoInfoResponse.tag.items.map((elem,index) => {

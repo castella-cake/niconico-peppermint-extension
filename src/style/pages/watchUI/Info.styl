@@ -33,6 +33,7 @@
     margin-left: 16px;
     border-left: 2px solid var(--accent1);
     padding-left: 16px;
+    position: relative;
     img {
         width: 3em;
         margin-right: 8px;
@@ -86,6 +87,19 @@
     flex: 1;
     min-width: 240px;
 }
+.videostats {
+    span {
+        margin-right: 0.4em;
+        border-left: 2px solid var(--accent2);
+        padding-left: 0.3em;
+        color: var(--textcolor2);
+        .tabler-icon {
+            vertical-align: text-top;
+            height: 1.2em;
+            margin-right: 0.1em;
+        }
+    }
+}
 
 .videoinfo-actions button {
     background: var(--bgcolor3);
@@ -130,4 +144,43 @@
     position: absolute;
     overflow: hidden;
     width: calc(100% - 32px);
+}
+
+.videoinfo-likethanks-outercontainer {
+    position: absolute;
+    right: 0;
+    left: -25vw;
+    display: flex;
+    flex-direction: row-reverse;
+    pointer-events: none;
+}
+
+.videoinfo-likethanks-container {
+    padding: 8px;
+    background: var(--bgcolor2);
+    border-radius: 6px;
+    margin-top: 1em;
+    position: relative;
+    font-size: 0.9em;
+    pointer-events: all;
+    box-shadow: 0px 0px 8px var(--bgcolor1);
+}
+
+.videoinfo-likethanks-container:before {
+    content: "";
+    background: var(--bgcolor2);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    top: -1em;
+    height: 2em;
+    width: 2em;
+    right: 0.5em;
+    position: absolute;
+}
+
+.videoinfo-likethanks-body {
+    font-size: 1rem;
+    background: var(--accent1);
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-top: 6px;
 }

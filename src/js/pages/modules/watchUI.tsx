@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from "react";
-import { generateActionTrackId, getVideoInfo, getCommentThread } from "../../modules/watchApi";
+import { useEffect, useState, useRef, MouseEvent } from "react";
+import { generateActionTrackId, getVideoInfo, getCommentThread, putPlaybackPosition } from "../../modules/watchApi";
 import { useStorageContext } from "./extensionHook";
 //import { useLang } from "./localizeHook";
 import Player from "./watch/Player";
@@ -23,7 +23,7 @@ function CreateWatchUI() {
     const { syncStorage, localStorage, isLoaded } = useStorageContext()
     const debugAlwaysOnmyouji: Boolean = syncStorage.debugalwaysonmyouji
 
-    const smId = (debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
+    const [smId, setSmId] = useState(debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
 
     const [ actionTrackId, setActionTrackId ] = useState("")
     document.dispatchEvent(new CustomEvent("actionTrackIdGenerated", { detail: actionTrackId }))
@@ -54,7 +54,7 @@ function CreateWatchUI() {
             document.dispatchEvent(new CustomEvent("pmw_informationReady", { detail: JSON.stringify({videoInfo: fetchedVideoInfo, actionTrackId: newActionTrackId, commentContent: commentResponse}) }))
         }
         fetchInfo()
-    }, [])
+    }, [smId])
 
 
     //console.log(videoInfo)
@@ -73,12 +73,28 @@ function CreateWatchUI() {
         setIsFullscreenUi={setIsFullscreenUi}
         setCommentContent={setCommentContent}
     />
-    const infoElem = <Info videoInfo={videoInfo} />
+    const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} />
     const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} />
     const recommendElem = <Recommend videoInfo={videoInfo} smId={smId} />
 
+    const linkClickHandler = (e: MouseEvent<HTMLDivElement>) => {
+        if ( e.target instanceof Element ) {
+            const nearestAnchor: HTMLAnchorElement | null = e.target.closest("a")
+            if ( nearestAnchor && nearestAnchor.href.startsWith("https://www.nicovideo.jp/watch/") && !nearestAnchor.getAttribute("data-seektime") ) {
+                e.stopPropagation()
+                e.preventDefault()
+                if (videoElementRef.current) {
+                    const playbackPositionBody = { watchId: smId, seconds: videoElementRef.current.currentTime }
+                    putPlaybackPosition(JSON.stringify(playbackPositionBody))
+                }
+                history.pushState(null, '', nearestAnchor.href)
+                setSmId(nearestAnchor.href.replace("https://www.nicovideo.jp/watch/", "").replace(/\?.*/, ''))
+            }
+        }
+    }
 
-    return <div className={isFullscreenUi ? "container fullscreen" : "container"}>
+
+    return <div className={isFullscreenUi ? "container fullscreen" : "container"} onClickCapture={(e) => {linkClickHandler(e)}}>
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
         { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
         <div className="watch-container" watch-type={layoutType} id="pmw-container">

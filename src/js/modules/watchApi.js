@@ -110,13 +110,13 @@ export async function sendLike(smId, isAdd) {
     const json = await response.json()
     if (isAdd) {
         if (json.meta.status == 201) {
-            return true
+            return json
         } else {
             return false
         }
     } else {
         if (json.meta.status == 200) {
-            return true
+            return json
         } else {
             return false
         }
