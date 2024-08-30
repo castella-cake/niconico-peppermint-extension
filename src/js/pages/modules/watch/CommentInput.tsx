@@ -25,8 +25,8 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, commentI
     const startComposition = () => setIsComposing(true);
     const endComposition = () => setIsComposing(false);
 
-    const mainThreads = videoInfo.data?.response.comment.threads.filter(elem => elem.forkLabel === "main")[0]
-
+    // idが遅い方のmain
+    const mainThreads = videoInfo.data?.response.comment.threads.filter(elem => elem.forkLabel === "main").sort((a, b) => Number(b.id) - Number(a.id))[0]
 
     async function sendComment(videoId: string, commentBody: string, commentCommand: string[] = [], vposMs: number) {
         // {"videoId":"","commands":["184"],"body":"君ビートマニア上手いねぇ！","vposMs":147327,"postKey":""}

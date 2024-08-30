@@ -13,12 +13,16 @@ type scrollPos = {
 }
 
 // 選択した名前のスレッドを返す関数
+// 同名のforkがある場合はidが遅い方を返します(dアニメのため)
 function returnSelectedThread(threads: Thread[], forkName: string) {
-    for (const elem of threads) {
-        console.log()
-        if ( elem.fork == forkName ) return elem 
+    const filteredThreads = threads.filter(elem => elem.fork === forkName ).sort((a, b) => {
+        return Number(b.id) - Number(a.id)
+    })
+    if ( filteredThreads.length > 0 ) {
+        return filteredThreads[0]
+    } else {
+        return false
     }
-    return false
 }
 
 function returnFirstScrollPos(scrollPosList: scrollPos) {
