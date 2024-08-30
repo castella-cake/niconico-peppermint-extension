@@ -128,6 +128,8 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             }
             if ( e.key === "c" || e.key === "C" ) {
                 if (!commentInputRef.current) return
+// 入力を防ぐために preventDefaultしてからフォーカス(後でreturnしたら間に合わない)
+                e.preventDefault()
                 commentInputRef.current.focus()
                 return false;
             }
