@@ -240,19 +240,19 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         </div>
         <div className="playercontroller-container-middle">
             <div className="playercontroller-container-left">
-                <button type="button" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}}>
+                <button type="button" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}} title="エフェクト設定">
                     { isVefxShown ? <IconAdjustmentsFilled/> : <IconAdjustments/> }
                     <VefxDisplay effectsState={effectsState}/>
                 </button>
-                <button type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
+                <button type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}} title={ isMuted ? "ミュート解除" : "ミュート"}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
                 <label className="playercontroller-volume-container"><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/><span>{videoVolume}%</span></label>
             </div>
             <div className="playercontroller-container-center">
-                <button type="button" className="playercontroller-skipback" onClick={() => {timeController("set", 0)}}>{ isIconFilled[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
-                <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", -10)}}><IconRewindBackward10/></button>
-                <button type="button" className="playercontroller-togglestop" onClick={() => {toggleStopState()}}>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</button>
-                <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", 10)}}><IconRewindForward10/></button>
-                <button type="button" className="playercontroller-skipforward" onClick={() => {timeController("set", video.duration)}}>{ isIconFilled[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
+                <button type="button" className="playercontroller-skipback" onClick={() => {timeController("set", 0)}} title="開始地点にシーク">{ isIconFilled[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
+                <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", -10)}} title="-10秒シーク"><IconRewindBackward10/></button>
+                <button type="button" className="playercontroller-togglestop" onClick={() => {toggleStopState()}} title={ isIconPlay ? "再生" : "一時停止"}>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</button>
+                <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", 10)}} title="10秒シーク"><IconRewindForward10/></button>
+                <button type="button" className="playercontroller-skipforward" onClick={() => {timeController("set", video.duration)}} title="終了地点にシーク">{ isIconFilled[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
             </div>
             <div className="playercontroller-container-right">
                 {hlsRef.current && <select onChange={(e) => {
@@ -267,9 +267,9 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                     <option value={-1}>Auto</option>
                 </select>}
                 {/*<div className="playercontroller-qualitydisplay">{hlsRef.current && hlsRef.current.levels.map(elem => `${elem.height}p`)[hlsRef.current.currentLevel]}</div>*/}
-                <button type="button" className="playercontroller-commenttoggle" onClick={() => {setIsCommentShown(!isCommentShown)}}>{ isCommentShown ? <IconMessage2/> : <IconMessage2Off/>}</button>
-                <button type="button" className="playercontroller-fullscreen" onClick={toggleFullscreen}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
-                <button type="button" className="playercontroller-settings" onClick={() => {setIsSettingsShown(!isSettingsShown)}}><IconSettings/></button>
+                <button type="button" className="playercontroller-commenttoggle" onClick={() => {setIsCommentShown(!isCommentShown)}} title={isCommentShown ? "コメントを非表示" : "コメントを表示"}>{ isCommentShown ? <IconMessage2/> : <IconMessage2Off/>}</button>
+                <button type="button" className="playercontroller-fullscreen" onClick={toggleFullscreen} title={isFullscreenUi ? "フルスクリーンを終了" : "フルスクリーン"}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
+                <button type="button" className="playercontroller-settings" onClick={() => {setIsSettingsShown(!isSettingsShown)}} title="プレイヤーの設定"><IconSettings/></button>
             </div>
         </div>
     </div>
