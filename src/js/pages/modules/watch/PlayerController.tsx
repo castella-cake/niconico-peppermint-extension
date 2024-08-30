@@ -114,7 +114,6 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             if ( e.target instanceof Element ) {
                 if ( e.target.closest("input, textarea") ) return true;
             }
-            e.preventDefault()
             if ( e.key === " " || e.key === "　" ) {
                 toggleStopState()
                 return false;
