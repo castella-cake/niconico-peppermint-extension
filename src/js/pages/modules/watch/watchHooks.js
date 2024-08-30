@@ -10,7 +10,13 @@ export function returnGreatestQuality(array) {
     return false
 }
 
-export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabled = true) {
+function returnGreatestLevelNumber(preferValue, max) {
+    if (preferValue === -1) return -1
+    if (max < preferValue) return max
+    return preferValue
+}
+
+export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabled = true, preferredLevel = -1) {
     const isSupportedBrowser = useMemo(() => Hls.isSupported(), [])
     const hlsRef = useRef(null)
     useEffect(() => {
@@ -46,7 +52,7 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabl
         
                 // hls.jsがサポートするならhls.jsで再生し、そうでない(Safariなど)ならネイティブ再生する
                 if ( isSupportedBrowser ) {
-                    const hls = new Hls({ debug: true, xhrSetup: function(xhr, url) {
+                    const hls = new Hls({ debug: false, xhrSetup: function(xhr, url) {
                         // xhrでクッキーを含める
                         xhr.withCredentials = true
                     }, fetchSetup: function (context, initParams)
@@ -55,15 +61,19 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabl
                         initParams.credentials = 'include';
                         return new Request(context.url, initParams);
                     }})
-                    hls.log = true
+                    hls.log = false
                     // videoのrefにアタッチ
                     hls.attachMedia(videoRef.current)
                     // 読み込み
+                    hls.startLevel = preferredLevel
                     hls.loadSource(hlsResponse.data.contentUrl)
                     hls.on(Hls.Events.ERROR, (err) => {
                         console.log(err)
                     });
-                    console.log(hls.levels)
+                    hls.on(Hls.Events.MANIFEST_LOADED, (event, data) => {
+                        console.log(data.levels)
+                        if ( preferredLevel !== -1 && hls.currentLevel !== preferredLevel ) hls.currentLevel = returnGreatestLevelNumber(preferredLevel, (data.levels.length - 1))
+                    })
                     hlsRef.current = hls
                 } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
                     videoRef.current.src = hlsResponse.data.contentUrl;

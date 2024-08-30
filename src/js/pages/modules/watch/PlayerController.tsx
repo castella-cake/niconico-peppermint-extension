@@ -91,7 +91,6 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         hlsRef.current.on(Hls.Events.LEVEL_SWITCHED, (e, data) => {
             if (!hlsRef.current) return
             setHlsLevel(hlsRef.current.currentLevel)
-            
         })
         hlsRef.current.on(Hls.Events.BUFFER_APPENDED, (e, data) => {
             console.log(data.frag.end)
@@ -128,7 +127,7 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             }
             if ( e.key === "c" || e.key === "C" ) {
                 if (!commentInputRef.current) return
-// 入力を防ぐために preventDefaultしてからフォーカス(後でreturnしたら間に合わない)
+                // 入力を防ぐために preventDefaultしてからフォーカス(後でreturnしたら間に合わない)
                 e.preventDefault()
                 commentInputRef.current.focus()
                 return false;
@@ -259,11 +258,13 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                 {hlsRef.current && <select onChange={(e) => {
                     if (!hlsRef.current) return
                     hlsRef.current.currentLevel = Number(e.currentTarget.value)
+                    writePlayerSettings("preferredLevel", Number(e.currentTarget.value))
                     //setHlsLevel(Number(e.currentTarget.value))
                 }} value={hlsLevel} className="playercontroller-qualityselect">
                     {hlsRef.current.levels.map((elem, index) => {
                         return <option value={index} key={index}>{`${elem.height}p`}</option>
                     })}
+                    <option value={-1}>Auto</option>
                 </select>}
                 {/*<div className="playercontroller-qualitydisplay">{hlsRef.current && hlsRef.current.levels.map(elem => `${elem.height}p`)[hlsRef.current.currentLevel]}</div>*/}
                 <button type="button" className="playercontroller-commenttoggle" onClick={() => {setIsCommentShown(!isCommentShown)}}>{ isCommentShown ? <IconMessage2/> : <IconMessage2Off/>}</button>

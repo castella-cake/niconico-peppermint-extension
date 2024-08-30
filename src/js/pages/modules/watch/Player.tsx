@@ -90,7 +90,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
 
     const userAgent = window.navigator.userAgent.toLowerCase();
     const shouldUseContentScriptHls = !(userAgent.indexOf('chrome') == -1 || syncStorage.pmwforcepagehls)
-    const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, shouldUseContentScriptHls)
+    const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, shouldUseContentScriptHls, localStorage.playersettings.preferredLevel || -1)
 
     useEffect(() => {
         const onUnload = () => {
