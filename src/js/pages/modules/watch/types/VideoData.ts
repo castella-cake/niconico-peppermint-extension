@@ -15,8 +15,7 @@ interface Response {
     // ads と category は不明
     ads: any;
     category: null;
-    // channel は実装待ち
-    channel: null;
+    channel: Channel | null;
     client: Client;
     comment: Comment;
     // 多分もう復活しないのでnull
@@ -620,4 +619,29 @@ interface Attr {
 interface Meta {
     status: number;
     code: string;
+}
+
+interface Channel {
+    id: string;
+    name: string;
+    isOfficialAnime: boolean;
+    isDisplayAdBanner: boolean;
+    thumbnail: Thumbnail;
+    viewer: Viewer;
+}
+
+interface Viewer {
+    follow: Follow;
+}
+
+interface Follow {
+    isFollowed: boolean;
+    isBookmarked: boolean;
+    token: string;
+    tokenTimestamp: number;
+}
+
+interface Thumbnail {
+    url: string;
+    smallUrl: string;
 }

@@ -105,6 +105,12 @@ function Info({videoInfo, videoRef}: Props) {
                         { videoInfoResponse.owner.nickname }
                     </span>
                 </a>}
+                {videoInfoResponse.channel && <a href={`https://ch.nicovideo.jp/${videoInfoResponse.channel.id}`}>
+                    { videoInfoResponse.channel.thumbnail.smallUrl && <img src={videoInfoResponse.channel.thumbnail.smallUrl}/> }
+                    <span>
+                        { videoInfoResponse.channel.name }
+                    </span>
+                </a>}
                 {isLiked && likeThanksMsg && <div className="videoinfo-likethanks-outercontainer">
                     <div className="videoinfo-likethanks-container">
                         いいね！へのお礼メッセージ
