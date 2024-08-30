@@ -30,6 +30,7 @@
         max-width: 100%;
         height: 1.6em;
         align-items: center;
+        gap: 4px;
         .commentlist-list-item-body {
             flex: 1;
             white-space: nowrap;
@@ -37,7 +38,56 @@
             text-overflow: ellipsis;
         }
         .commentlist-list-item-vpos {
-            color: var(--textcolor2)
+            color: var(--textcolor2);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .commentlist-list-item-vpos:hover {
+            text-decoration: underline
         }
     }
+    .commentlist-list-item[nicoru-count="1"] {
+        background: var(--nicoru1)
+    }
+    .commentlist-list-item[nicoru-count="2"] {
+        background: var(--nicoru2)
+    }
+    .commentlist-list-item[nicoru-count="3"] {
+        background: var(--nicoru3)
+    }
+    .commentlist-list-item[nicoru-count="4"] {
+        background: var(--nicoru4)
+    }
+    
+    .commentlist-list-item-open {
+        height: inherit;
+        min-height: 1.6em;
+        flex-wrap: wrap;
+        .commentlist-list-item-body {
+            white-space: normal;
+        }
+        .commentlist-list-item-stats {
+            flex: 100%;
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+    }
+}
+
+.commentlist-list-item-nicorubutton {
+    flex: 0.1;
+    background: none;
+    border: none;
+    color: var(--textcolor1);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    line-height: 1.5em;
+    font-size: 0.9em;
+    white-space: nowrap;
+}
+.commentlist-list-item-nicorubutton:hover {
+    background: var(--hover1);
 }
