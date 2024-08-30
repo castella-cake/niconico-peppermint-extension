@@ -56,6 +56,14 @@ function CreateWatchUI() {
         fetchInfo()
     }, [smId])
 
+    useEffect(() => {
+        const onPopState = () => {
+            setSmId(location.pathname.slice(7).replace(/\?.*/, ''))
+        }
+        window.addEventListener("popstate", onPopState)
+        return () => {window.removeEventListener("popstate", onPopState)}
+    }, [])
+
 
     //console.log(videoInfo)
     if ( !videoInfo || !commentContent || !isLoaded || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
