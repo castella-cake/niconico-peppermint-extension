@@ -1,0 +1,47 @@
+.videoinfo-title {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.contenttree-kind-container {
+    background: var(--accent1);
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 6px;
+    .contenttree-title {
+        padding: 4px;
+    }
+}
+
+.contenttree-items-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding: 8px;
+    .contenttree-item {
+        flex-basis: 10em;
+        flex-shrink: 0;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        font-size: 0.8em;
+    }
+    .contenttree-nothinghere {
+        color: var(--textcolor2);
+        text-align: center;
+        flex-basis: 100%;
+    }
+}
+
+
+
+
+
+
+.contenttree-item img {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    object-fit: contain;
+    background: var(--bgcolor3);
+}

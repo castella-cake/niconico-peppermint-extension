@@ -93,7 +93,6 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             setHlsLevel(hlsRef.current.currentLevel)
         })
         hlsRef.current.on(Hls.Events.BUFFER_APPENDED, (e, data) => {
-            console.log(data.frag.end)
             setBufferedDuration(data.frag.end)
         })
         hlsRef.current.on(Hls.Events.BUFFER_FLUSHED, (e, data) => {

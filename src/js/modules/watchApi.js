@@ -223,3 +223,13 @@ export async function putPlaybackPosition(body) {
     });
     return await response.json()
 }
+
+export async function getCommonsRelatives(videoId, limit = 15) {
+    const response = await fetch(`https://public-api.commons.nicovideo.jp/v1/tree/${videoId}/relatives?_limit=${limit}&with_meta=1&_sort=-id`, {
+        "method": "GET",
+        "mode": "cors",
+        "credentials": "include"
+    });
+    if (!response.ok) null
+    return await response.json()
+}

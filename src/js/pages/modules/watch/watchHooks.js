@@ -71,7 +71,7 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabl
                         console.log(err)
                     });
                     hls.on(Hls.Events.MANIFEST_LOADED, (event, data) => {
-                        console.log(data.levels)
+                        //console.log(data.levels)
                         if ( preferredLevel !== -1 && hls.currentLevel !== preferredLevel ) hls.currentLevel = returnGreatestLevelNumber(preferredLevel, (data.levels.length - 1))
                     })
                     hlsRef.current = hls

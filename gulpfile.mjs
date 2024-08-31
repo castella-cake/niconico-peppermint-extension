@@ -177,5 +177,7 @@ gulp.task('watch', function () {
 // デフォルトタスク
 gulp.task('default', gulp.series('cleanUp', 'createVersionFolders', 'copyFilesForPrepare', 'compileStylus', 'compileWebpackWithProd', 'copyFilesChrome', 'copyFilesFirefox', 'copyFilesSource', 'renameFiles', 'compress'));
 
-gulp.task('prep', gulp.series('copyFilesForPrepare', 'compileStylus', 'compileWebpack'));
-gulp.task('prepchrome', gulp.series('copyFilesForPrepare', 'renameDistItemsForChrome', 'compileStylus', 'compileWebpack'));
+gulp.task('devmv2', gulp.series('copyFilesForPrepare', 'compileStylus', 'compileWebpack'));
+gulp.task('devmv3', gulp.series('copyFilesForPrepare', 'renameDistItemsForChrome', 'compileStylus', 'compileWebpack'));
+gulp.task('prodmv2', gulp.series('copyFilesForPrepare', 'compileStylus', 'compileWebpackWithProd'));
+gulp.task('prodmv3', gulp.series('copyFilesForPrepare', 'renameDistItemsForChrome', 'compileStylus', 'compileWebpackWithProd'));

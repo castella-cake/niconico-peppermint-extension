@@ -74,6 +74,16 @@ a {
         min-width: 400px;
         flex: 0.4;
     }
+    ::-webkit-scrollbar {
+        background: #fff5
+        width: 16px;
+        height: 16px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #fffd
+        border-radius: 4px;
+        margin: 0 4px;
+    }
 }
 
 .watch-container:not([watch-type="3col"]) {
@@ -158,6 +168,7 @@ a {
 @import './watchUI/commentInput.styl'
 @import './watchUI/Settings.styl'
 @import './watchUI/PluginList.styl'
+@import './watchUI/BottomInfo.styl'
 
 .vefx-container {
     display: flex;

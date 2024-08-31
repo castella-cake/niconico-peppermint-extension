@@ -1,4 +1,4 @@
-import { IconFolderFilled, IconHeart, IconHeartFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
+import { IconFolderFilled, IconHeart, IconHeartFilled, IconMessageFilled, IconPlayerPlayFilled, IconX } from "@tabler/icons-react";
 import type { VideoDataRootObject } from "./types/VideoData";
 import { MouseEvent, RefObject, useEffect, useState } from "react";
 import { sendLike } from "../../../modules/watchApi";
@@ -30,12 +30,14 @@ function Info({videoInfo, videoRef}: Props) {
     const [isLiked, setIsLiked] = useState<boolean>(false)
     const [temporalLikeModifier, setTemporalLikeModifier] = useState<number>(0) // videoInfoに焼き込まれていない「いいね」のための加算。
     const [likeThanksMsg, setLikeThanksMsg] = useState<string | null>(null)
+    const [isLikeThanksMsgClosed, setIsLikeThanksMsgClosed] = useState(false)
     const [isDescOpen, setIsDescOpen] = useState<boolean>(localStorage.playersettings.descriptionOpen || false)
     useEffect(() => {
         if (!videoInfo.data) return
         setTemporalLikeModifier(0)
         setIsLiked(videoInfo.data.response.video.viewer.like.isLiked)
         setLikeThanksMsg(null)
+        setIsLikeThanksMsgClosed(false)
     }, [videoInfo])
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
@@ -59,6 +61,7 @@ function Info({videoInfo, videoRef}: Props) {
             setIsLiked(!isLiked)
             if ( likeResponse.data && likeResponse.data.thanksMessage ) {
                 setLikeThanksMsg(likeResponse.data.thanksMessage)
+                setIsLikeThanksMsgClosed(false)
             }
         }
     }
@@ -111,9 +114,9 @@ function Info({videoInfo, videoRef}: Props) {
                         { videoInfoResponse.channel.name }
                     </span>
                 </a>}
-                {isLiked && likeThanksMsg && <div className="videoinfo-likethanks-outercontainer">
+                {isLiked && likeThanksMsg && !isLikeThanksMsgClosed && <div className="videoinfo-likethanks-outercontainer">
                     <div className="videoinfo-likethanks-container">
-                        いいね！へのお礼メッセージ
+                        いいね！へのお礼メッセージ<button type="button" title="お礼メッセージを閉じる" onClick={() => {setIsLikeThanksMsgClosed(true)}}><IconX/></button>
                         <div className="videoinfo-likethanks-body">{likeThanksMsg}</div>
                     </div>
                 </div>}

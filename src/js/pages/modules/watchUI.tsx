@@ -9,6 +9,7 @@ import CommentList from "./watch/CommentList";
 import type { VideoDataRootObject } from "./watch/types/VideoData";
 import type { CommentDataRootObject } from "./watch/types/CommentData";
 import Header from "./watch/header";
+import BottomInfo from "./watch/BottomInfo";
 
 const watchLayoutType = {
     reimaginedNewWatch: "renew",
@@ -50,7 +51,7 @@ function CreateWatchUI() {
             }
             const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
             setCommentContent(commentResponse)
-            console.log(commentResponse)
+            //console.log(commentResponse)
             document.dispatchEvent(new CustomEvent("pmw_informationReady", { detail: JSON.stringify({videoInfo: fetchedVideoInfo, actionTrackId: newActionTrackId, commentContent: commentResponse}) }))
         }
         fetchInfo()
@@ -84,6 +85,7 @@ function CreateWatchUI() {
     const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} />
     const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} />
     const recommendElem = <Recommend videoInfo={videoInfo} smId={smId} />
+    const bottomInfoElem = <BottomInfo videoInfo={videoInfo}/>
 
     const linkClickHandler = (e: MouseEvent<HTMLDivElement>) => {
         if ( e.target instanceof Element ) {
@@ -110,6 +112,7 @@ function CreateWatchUI() {
             <div className="watch-container-left" settings-size={playerSize}>
                 {layoutType !== watchLayoutType.threeColumn && playerElem}
                 {(layoutType === watchLayoutType.reimaginedNewWatch || layoutType === watchLayoutType.threeColumn) && infoElem}
+                {(layoutType === watchLayoutType.reimaginedNewWatch || layoutType === watchLayoutType.reimaginedMobileWatch) && bottomInfoElem}
             </div>
             { layoutType === watchLayoutType.threeColumn && <div className="watch-container-middle">
                 {layoutType === watchLayoutType.threeColumn && playerElem}
@@ -120,6 +123,7 @@ function CreateWatchUI() {
                 {(layoutType !== watchLayoutType.reimaginedOldWatch && layoutType !== watchLayoutType.threeColumn) && recommendElem}
             </div>
             {(layoutType === watchLayoutType.reimaginedOldWatch || layoutType === watchLayoutType.threeColumn) && recommendElem}
+            {(layoutType === watchLayoutType.reimaginedOldWatch || layoutType === watchLayoutType.threeColumn) && bottomInfoElem}
         </div>
     </div>
 }
