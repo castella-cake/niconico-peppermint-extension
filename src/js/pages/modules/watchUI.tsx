@@ -11,6 +11,7 @@ import type { CommentDataRootObject } from "./watch/types/CommentData";
 import Header from "./watch/header";
 import BottomInfo from "./watch/BottomInfo";
 import Actions from "./watch/Actions";
+import Search from "./watch/Search";
 
 const watchLayoutType = {
     reimaginedNewWatch: "renew",
@@ -95,6 +96,7 @@ function CreateWatchUI() {
     </div>
     const recommendElem = <Recommend smId={smId} key="watchui-recommend" />
     const bottomInfoElem = <BottomInfo videoInfo={videoInfo} key="watchui-bottominfo"/>
+    const searchElem = <Search key="watchui-search" />
     
     type layoutInfo = {
         top: false | any[],
@@ -110,14 +112,14 @@ function CreateWatchUI() {
         "renew": {
             top: false,
     
-            midLeft: [playerElem, infoElem, bottomInfoElem],
+            midLeft: [playerElem, infoElem, bottomInfoElem, searchElem],
             midCenter: false,
             midRight: [rightActionElem, recommendElem],
     
             bottom: false
         },
         "recresc": {
-            top: [infoElem],
+            top: [infoElem, searchElem],
     
             midLeft: [playerElem],
             midCenter: false,
@@ -128,7 +130,7 @@ function CreateWatchUI() {
         "resp": {
             top: false,
     
-            midLeft: [playerElem, bottomInfoElem],
+            midLeft: [playerElem, bottomInfoElem, searchElem],
             midCenter: false,
             midRight: [infoElem, rightActionElem, recommendElem],
     
@@ -141,7 +143,7 @@ function CreateWatchUI() {
             midCenter: [playerElem],
             midRight: [rightActionElem],
     
-            bottom: [recommendElem, bottomInfoElem]
+            bottom: [recommendElem, bottomInfoElem, searchElem]
         },
     }
 
@@ -168,7 +170,10 @@ function CreateWatchUI() {
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
         { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
         <div className="watch-container" watch-type={layoutType} id="pmw-container">
-            {currentLayout.top !== false && currentLayout.top}
+            <div className="watch-container-top">
+                {currentLayout.top !== false && currentLayout.top}
+            </div>
+            
             <div className="watch-container-left" settings-size={playerSize}>
                 {currentLayout.midLeft}
             </div>
@@ -178,7 +183,9 @@ function CreateWatchUI() {
             <div className="watch-container-right">
                 {currentLayout.midRight}
             </div>
-            {currentLayout.bottom !== false && currentLayout.bottom}
+            <div className="watch-container-bottom">
+                {currentLayout.bottom !== false && currentLayout.bottom}
+            </div>
         </div>
     </div>
 }

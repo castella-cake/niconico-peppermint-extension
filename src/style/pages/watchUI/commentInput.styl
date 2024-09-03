@@ -1,6 +1,6 @@
 .commentinput-container {
     margin-top: 8px;
-    border-radius: 8px;
+    border-radius: var(--radius);
     --border: 2px solid var(--accent1);
     > input {
         background: var(--bgcolor1);
@@ -12,13 +12,13 @@
         padding: 8px;
     }
     > input:first-child {
-        border-radius: 6px 0 0 6px
+        border-radius: var(--radius) 0 0 var(--radius)
     }
 }
 .commentinput-submit {
     background: var(--bgcolor3);
     color: var(--textcolor1);
-    border-radius: 0 6px 6px 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
     border: 2px solid var(--bgcolor3);
     padding: 4px 8px;
     > * {

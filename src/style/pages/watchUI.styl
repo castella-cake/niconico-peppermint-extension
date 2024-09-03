@@ -1,6 +1,9 @@
 body {
     background: var(--bgcolor1);
     color: var(--textcolor1);
+    --radius: 6px;
+    --radius-mini: 4px;
+    --radius-big: 8px;
     margin: 0;
 }
 // font-family を Stylus-langが正しく解釈しないようなので、@cssを使う
@@ -37,6 +40,13 @@ a {
     justify-content: center;
     margin: 0 auto;
     max-width: 98vw;
+    .watch-container-top {
+        flex-basis: 100%;
+        margin: 0 7.5%;
+        display: flex;
+        overflow: hidden;
+        gap: 2em;
+    }
     .watch-container-left {
         min-width: 480px;
         flex: 0.6;
@@ -49,6 +59,12 @@ a {
         min-width: 400px;
         flex: 0.4;
     }
+    .watch-container-bottom {
+        flex-basis: 100%;
+        margin: 0 7.5%;
+        overflow: hidden;
+    }
+
     ::-webkit-scrollbar {
         background: var(--bgcolor3)
         width: 16px;
@@ -56,7 +72,7 @@ a {
     }
     ::-webkit-scrollbar-thumb {
         background: var(--textcolor3)
-        border-radius: 4px;
+        border-radius: var(--radius-mini);
         margin: 0 4px;
     }
 }
@@ -93,6 +109,17 @@ a {
         flex: 0.3;
         align-self: stretch;
     }
+}
+
+[watch-type="recresc"] .watch-container-rightaction, [watch-type="3col"] .watch-container-rightaction {
+    max-height: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 @import './watchUI/*.styl'

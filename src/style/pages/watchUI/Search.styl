@@ -1,0 +1,45 @@
+.searchbox-inputcontainer {
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    input {
+        background: var(--bgcolor2);
+        border: 1px solid var(--accent1);
+        color: var(--textcolor1);
+        font-size: 1em;
+        padding: 2%;
+        width: 16em;
+        border-bottom-left-radius: var(--radius);
+    }
+    button {
+        border: 1px solid var(--accent1);
+        background: var(--bgcolor2);
+        color: var(--textcolor1);
+        font-size: 1em;
+        border-radius: 0 var(--radius) var(--radius) 0;
+        cursor: pointer;
+        .tabler-icon {
+            height: 1.2em;
+            width: 1.2em;
+            vertical-align: middle;
+        }
+    }
+    button:hover {
+        background: var(--hover1);
+    }
+}
+
+button.searchbox-type-item {
+    background: var(--bgcolor2);
+    border: none;
+    color: var(--textcolor1);
+    margin-right: 4px;
+    padding: 2px 8px;
+    border-radius: var(--radius) var(--radius) 0 0;
+    vertical-align: bottom;
+}
+
+button.searchbox-type-item.searchbox-type-active {
+    background: var(--bgcolor3);
+    padding: 4px 8px;
+}

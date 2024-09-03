@@ -2,7 +2,7 @@
     background: var(--bgcolor2);
     padding: 16px;
     margin-top: 8px;
-    border-radius: 6px;
+    border-radius: var(--radius);
 
     .videotitle {
         font-size: 20px;
@@ -15,12 +15,12 @@
     }
     details {
         margin: 8px 0;
-        border-radius: 6px;
+        border-radius: var(--radius);
         border: 2px solid var(--accent1);
         padding: 0;
         summary {
             padding: 8px 16px;
-            border-radius: 4px;
+            border-radius: var(--radius-mini);
         }
         summary:hover {
             background: var(--hover1);
@@ -37,7 +37,7 @@
     img {
         width: 3em;
         margin-right: 8px;
-        border-radius: 6px;
+        border-radius: var(--radius);
     }
     > a {
         text-decoration: none;
@@ -53,7 +53,7 @@
     line-height: 24px;
     gap: 4px;
     background: var(--bgcolor1);
-    border-radius: 8px;
+    border-radius: var(--radius);
     padding: 8px 16px;
 
     .tags-item {
@@ -65,7 +65,7 @@
         } 
         .tags-item-nicodic {
             background: #b81414;
-            border-radius: 2px;
+            border-radius: var(--radius-mini);
             color: #fff;
             font-size: 0.7em;
             padding: 1px 2px;
@@ -110,10 +110,9 @@
     padding: 16px;
 }
 
-[watch-type="recresc"] .videoinfo-container {
-    flex-basis: 100%;
+.watch-container-top .videoinfo-container {
     padding: 0;
-    margin: 0 7.5%;
+    flex: 1;
 }
 
 [watch-type="recresc"] .videoinfo-container, [watch-type="3col"] .videoinfo-container {
