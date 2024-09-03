@@ -7,7 +7,7 @@
         border: 1px solid var(--accent1);
         color: var(--textcolor1);
         font-size: 1em;
-        padding: 2%;
+        padding: 0.5em;
         width: 16em;
         border-bottom-left-radius: var(--radius);
     }
@@ -29,17 +29,59 @@
     }
 }
 
-button.searchbox-type-item {
-    background: var(--bgcolor2);
-    border: none;
-    color: var(--textcolor1);
-    margin-right: 4px;
-    padding: 2px 8px;
-    border-radius: var(--radius) var(--radius) 0 0;
-    vertical-align: bottom;
+.searchbox-typeselector {
+    display: flex;
+    gap: 4px;
+    button.searchbox-type-item {
+        background: var(--bgcolor2);
+        border: none;
+        color: var(--textcolor1);
+        padding: 2px 8px;
+        border-radius: var(--radius) var(--radius) 0 0;
+        vertical-align: bottom;
+        cursor: pointer;
+    }
+
+    button.searchbox-type-item.searchbox-type-active {
+        background: var(--bgcolor3);
+        padding: 4px 8px;
+    }
 }
 
-button.searchbox-type-item.searchbox-type-active {
-    background: var(--bgcolor3);
-    padding: 4px 8px;
+
+
+.watch-container-left .searchbox-container {
+    display: flex;
+    background: var(--bgcolor2);
+    padding: 8px;
+    border-radius: var(--radius);
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    .searchbox-typeselector {
+        background: var(--bgcolor1);
+        padding: 8px;
+        border-radius: var(--radius);
+
+        button.searchbox-type-item {
+            background: transparent;
+            border-radius: var(--radius);
+            padding: 4px 8px;
+        }
+        button.searchbox-type-item.searchbox-type-active {
+            background: var(--bgcolor3);
+        }
+    }
+
+    .searchbox-inputcontainer {
+        flex: 1;
+        input {
+            flex: 1;
+            border-radius: var(--radius) 0 0 var(--radius);
+            background: var(--bgcolor3);
+        }
+        input:placeholder {
+            color: var(--bgcolor2);
+        }
+    }
 }
