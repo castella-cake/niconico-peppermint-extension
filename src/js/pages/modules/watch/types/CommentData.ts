@@ -16,7 +16,7 @@ export interface Thread {
     comments: Comment[];
 }
 
-interface Comment {
+export interface Comment {
     id: string;
     no: number;
     vposMs: number;

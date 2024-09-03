@@ -79,15 +79,6 @@
     background: var(--hover1)
 }
 
-.playercontroller-effectdisplay {
-    background: var(--bg);
-    color: var(--color);
-    padding: 6px 8px;
-    margin-left: 4px;
-    font-family: Hack, Consolas, monospace;
-    border-radius: 2px;
-}
-
 .playercontroller-qualitydisplay {
     color: var(--textcolor2)
     margin-right: 8px;
@@ -125,4 +116,33 @@
     background: var(--textcolor1);
     border-radius: 4px;
     opacity: 0.5;
+}
+
+.seekbar-commentstats {
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease
+} 
+
+.seekbar:hover {
+    .seekbar-commentstats.global-flex {
+        background: linear-gradient(0deg, rgba(0,0,0,0.667), rgba(0,0,0,0.333));
+        /* height: 10px; */
+        align-items: end;
+        gap: 4px;
+        padding: 0px 8px;
+        border-radius: 8px 8px 0 0;
+        opacity: 1;
+
+        span {
+            height: calc(var(--height) * 2);
+            background: #fff;
+            border-radius: 6px 6px 0 0;
+            opacity: 0.7;
+        }
+    }
 }

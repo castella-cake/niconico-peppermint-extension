@@ -54,6 +54,15 @@ const settings = {
             name: "pmwlayouttype",
             values: ["renew", "recresc", "resp", "3col"],
             default: "renew"
+        },
+        {
+            type: "checkbox",
+            name: "enablemisskeyshare",
+            default: false,
+            settingLink: {
+                name: "MISSKEYSHARE_CONFIGURE_LINK",
+                href: "setmkinstance.html"
+            }
         }
         /*{
             type: "select",
@@ -141,16 +150,7 @@ const settings = {
             type: "checkbox",
             name: "quickvidarticle",
             default: false,
-        },
-        {
-            type: "checkbox",
-            name: "enablemisskeyshare",
-            default: false,
-            settingLink: {
-                name: "MISSKEYSHARE_CONFIGURE_LINK",
-                href: "setmkinstance.html"
-            }
-        },*/
+        }*/
     ],
     nicopedia: [
         {

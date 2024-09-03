@@ -8,7 +8,8 @@ function PluginList() {
         <div className={isPluginListShown ? "plugin-list-display" : "plugin-list-display-hidden"}>
             <p>
                 このプラグインリストは、視聴ページのコンポーネントによって管理されていません。<br/>
-                各表示はプラグインのスクリプトによって自己管理されます。
+                各表示はプラグインのスクリプトによって自己管理されます。<br/>
+                もしこの下に何も表示されなければ、まだプラグインが何もインストールされていないか、ここに表示をしていません。
             </p>
             <div id="pmw-plugin-list">
             </div>

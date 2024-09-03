@@ -10,6 +10,7 @@ import type { VideoDataRootObject } from "./watch/types/VideoData";
 import type { CommentDataRootObject } from "./watch/types/CommentData";
 import Header from "./watch/header";
 import BottomInfo from "./watch/BottomInfo";
+import Actions from "./watch/Actions";
 
 const watchLayoutType = {
     reimaginedNewWatch: "renew",
@@ -59,6 +60,10 @@ function CreateWatchUI() {
 
     useEffect(() => {
         const onPopState = () => {
+            if (videoElementRef.current) {
+                const playbackPositionBody = { watchId: smId, seconds: videoElementRef.current.currentTime }
+                putPlaybackPosition(JSON.stringify(playbackPositionBody))
+            }
             setSmId(location.pathname.slice(7).replace(/\?.*/, ''))
         }
         window.addEventListener("popstate", onPopState)
@@ -70,7 +75,7 @@ function CreateWatchUI() {
     if ( !videoInfo || !commentContent || !isLoaded || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
     const layoutType = syncStorage.pmwlayouttype || watchLayoutType.reimaginedNewWatch
     const playerSize = localStorage.playersettings.playerAreaSize || 1
-    
+
 
     const playerElem = <Player
         videoId={smId}
@@ -81,11 +86,66 @@ function CreateWatchUI() {
         isFullscreenUi={isFullscreenUi}
         setIsFullscreenUi={setIsFullscreenUi}
         setCommentContent={setCommentContent}
+        key="watchui-player"
     />
-    const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} />
-    const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} />
-    const recommendElem = <Recommend videoInfo={videoInfo} smId={smId} />
-    const bottomInfoElem = <BottomInfo videoInfo={videoInfo}/>
+    const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} key="watchui-info" />
+    const rightActionElem = <div className="watch-container-rightaction" key="watchui-rightaction">
+        <Actions videoInfo={videoInfo}/>
+        <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} key="watchui-commentlist" />
+    </div>
+    const recommendElem = <Recommend smId={smId} key="watchui-recommend" />
+    const bottomInfoElem = <BottomInfo videoInfo={videoInfo} key="watchui-bottominfo"/>
+    
+    type layoutInfo = {
+        top: false | any[],
+        midLeft: any[],
+        midCenter: false | any[]
+        midRight: any[],
+        bottom: false | any[],
+    }
+
+    const layoutPresets: {
+        [key: string]: layoutInfo
+    } = {
+        "renew": {
+            top: false,
+    
+            midLeft: [playerElem, infoElem, bottomInfoElem],
+            midCenter: false,
+            midRight: [rightActionElem, recommendElem],
+    
+            bottom: false
+        },
+        "recresc": {
+            top: [infoElem],
+    
+            midLeft: [playerElem],
+            midCenter: false,
+            midRight: [rightActionElem],
+    
+            bottom: [recommendElem, bottomInfoElem]
+        },
+        "resp": {
+            top: false,
+    
+            midLeft: [playerElem, bottomInfoElem],
+            midCenter: false,
+            midRight: [infoElem, rightActionElem, recommendElem],
+    
+            bottom: false
+        },
+        "3col": {
+            top: false,
+    
+            midLeft: [infoElem],
+            midCenter: [playerElem],
+            midRight: [rightActionElem],
+    
+            bottom: [recommendElem, bottomInfoElem]
+        },
+    }
+
+    const currentLayout = layoutPresets[layoutType]
 
     const linkClickHandler = (e: MouseEvent<HTMLDivElement>) => {
         if ( e.target instanceof Element ) {
@@ -108,22 +168,17 @@ function CreateWatchUI() {
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
         { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
         <div className="watch-container" watch-type={layoutType} id="pmw-container">
-            {layoutType === watchLayoutType.reimaginedOldWatch && infoElem}
+            {currentLayout.top !== false && currentLayout.top}
             <div className="watch-container-left" settings-size={playerSize}>
-                {layoutType !== watchLayoutType.threeColumn && playerElem}
-                {(layoutType === watchLayoutType.reimaginedNewWatch || layoutType === watchLayoutType.threeColumn) && infoElem}
-                {(layoutType === watchLayoutType.reimaginedNewWatch || layoutType === watchLayoutType.reimaginedMobileWatch) && bottomInfoElem}
+                {currentLayout.midLeft}
             </div>
             { layoutType === watchLayoutType.threeColumn && <div className="watch-container-middle">
-                {layoutType === watchLayoutType.threeColumn && playerElem}
+                {currentLayout.midCenter !== false && currentLayout.midCenter}
             </div> }
             <div className="watch-container-right">
-                {layoutType === watchLayoutType.reimaginedMobileWatch && infoElem}
-                {commentListElem}
-                {(layoutType !== watchLayoutType.reimaginedOldWatch && layoutType !== watchLayoutType.threeColumn) && recommendElem}
+                {currentLayout.midRight}
             </div>
-            {(layoutType === watchLayoutType.reimaginedOldWatch || layoutType === watchLayoutType.threeColumn) && recommendElem}
-            {(layoutType === watchLayoutType.reimaginedOldWatch || layoutType === watchLayoutType.threeColumn) && bottomInfoElem}
+            {currentLayout.bottom !== false && currentLayout.bottom}
         </div>
     </div>
 }

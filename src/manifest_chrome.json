@@ -81,7 +81,8 @@
             "js/watch_injector.bundle.js"
         ],
         "matches": [
-            "*://*.nicovideo.jp/*"
+            "*://*.nicovideo.jp/*",
+            "http://localhost:8097/*"
         ]
     }],
 
@@ -112,6 +113,7 @@
         "https://nvapi.nicovideo.jp/v1/series/*",
         "https://fonts.googleapis.com/icon",
         "https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*",
-        "https://nicovideo.cdn.nimg.jp/thumbnails/*"
+        "https://nicovideo.cdn.nimg.jp/thumbnails/*",
+        "http://localhost:8097/*"
     ]
 }

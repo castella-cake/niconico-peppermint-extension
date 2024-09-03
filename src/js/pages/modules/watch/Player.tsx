@@ -38,10 +38,11 @@ type VideoPlayerProps = {
     setDuration: Dispatch<SetStateAction<number>>,
     onPause: Function
     canvasRef: RefObject<HTMLCanvasElement>,
-    isCommentShown: boolean
+    isCommentShown: boolean,
+    commentOpacity: number,
 }
 
-function VideoPlayer({children, videoRef, setCurrentTime, setDuration, canvasRef, isCommentShown, onPause}: VideoPlayerProps) {
+function VideoPlayer({children, videoRef, setCurrentTime, setDuration, canvasRef, isCommentShown, onPause, commentOpacity}: VideoPlayerProps) {
     return (<div className="player-video-container">
         <div className="player-video-container-inner">
             <video ref={videoRef} controls autoPlay onTimeUpdate={e => {
@@ -49,7 +50,7 @@ function VideoPlayer({children, videoRef, setCurrentTime, setDuration, canvasRef
             }} onDurationChange={e => {
                 setDuration(e.currentTarget.duration);
             }} onPause={(e) => {onPause()}} width="1920" height="1080" id="pmw-element-video"></video>
-            <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: 1} : {opacity: 0}} id="pmw-element-commentcanvas"/>
+            <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: commentOpacity} : {opacity: 0}} id="pmw-element-commentcanvas"/>
             { children }
         </div>
     </div>);
@@ -141,7 +142,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     }
 
     return <div className="player-container" id="pmw-player">
-        <VideoPlayer videoRef={videoRef} setCurrentTime={setCurrentTime} setDuration={setDuration} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause}>
+        <VideoPlayer videoRef={videoRef} setCurrentTime={setCurrentTime} setDuration={setDuration} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} commentOpacity={localStorage.playersettings.commentOpacity || 1}>
             {isVefxShown && <VefxController
                 frequencies={frequencies}
                 effectsState={effectsState}
@@ -167,6 +168,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             setIsSettingsShown={setIsSettingsShown}
             hlsRef={hlsRef}
             commentInputRef={commentInputRef}
+            commentContent={commentContent}
         />
         <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} commentInputRef={commentInputRef}/>
     </div>

@@ -7,4 +7,5 @@ builds/
 dev/
 dist/
 .vscode/
+src/js/react_devtools.js
 src/pages/react_devtools.js

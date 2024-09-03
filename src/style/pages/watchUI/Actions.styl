@@ -1,0 +1,107 @@
+.video-actions button {
+    background: var(--bgcolor2);
+    color: var(--textcolor1);
+    border: none;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-family: inherit;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 0.25em;
+    flex-wrap: wrap;
+    svg,span {
+        vertical-align: bottom;
+    }
+    span {
+        white-space: nowrap;
+    }
+}
+.video-actions {
+    margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
+    flex-direction: row-reverse;
+    justify-content: center;
+    button.video-action-disabled {
+        color: var(--bgcolor4);
+    }
+
+    button:not(.video-action-disabled):hover {
+        background: var(--bgcolor1);
+        color: var(--textcolor1);
+        cursor: pointer;
+    }
+}
+
+.video-action-likethanks-outercontainer {
+    position: absolute;
+    right: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row-reverse;
+    pointer-events: none;
+    top: 24px;
+}
+
+.video-action-likethanks-container {
+    padding: 8px;
+    background: var(--bgcolor2);
+    border-radius: 6px;
+    margin-top: 1em;
+    position: relative;
+    font-size: 0.9em;
+    pointer-events: all;
+    box-shadow: 0px 0px 8px var(--bgcolor1);
+    width: 100%;
+    button {
+        background: transparent;
+        border: none;
+        color: var(--textcolor1);
+        cursor: pointer;
+        .tabler-icon {
+            height: 1.25em;
+            vertical-align: middle;
+        }
+    }
+}
+
+/*.video-action-likethanks-container:before {
+    content: "";
+    background: var(--bgcolor2);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    top: -1em;
+    height: 1em;
+    width: 1em;
+    right: 0.5em;
+    position: absolute;
+}*/
+
+.video-action-likethanks-icon {
+    height: 3em;
+    align-self: center;
+    border-radius: 6px;
+    object-fit: contain;
+}
+
+.video-action-likethanks-arrow {
+    clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    align-self: center;
+    width: 1em;
+    height: 1em;
+    background: var(--accent1);
+    margin-left: 4px;
+    margin-right: 0;
+}
+
+.video-action-likethanks-title {
+    align-items: center;
+}
+.video-action-likethanks-body {
+    font-size: 1rem;
+    background: var(--accent1);
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin-top: 6px;
+    line-height: 2em;
+}

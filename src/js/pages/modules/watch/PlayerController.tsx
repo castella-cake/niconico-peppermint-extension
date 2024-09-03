@@ -1,40 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useStorageContext } from "../extensionHook";
-import { IconAdjustments, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
+import { IconAdjustments, IconAdjustmentsCheck, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
 import { secondsToTime } from "./commonFunction";
 import type { Dispatch, RefObject, SetStateAction } from "react";
 import Hls from "hls.js";
 import type { effectsState } from "./Player";
-
-function VefxDisplay({ effectsState }: { effectsState: effectsState }) {
-    if (!effectsState) return <></>
-    const enabledEffects = Object.keys(effectsState).map(elem => {
-        if ( elem && effectsState[elem as keyof effectsState].enabled ) return elem
-        return
-    }).filter(elem => {if (elem) return true})
-    let bgColor = ""
-    let textColor = ""
-    let text = ""
-    if (enabledEffects.length >= 3) {
-        text = "MULTIPLE EFFECTS"
-        bgColor = "var(--textcolor1)"
-        textColor = "var(--bgcolor1)"
-    } else if (enabledEffects.length == 2) {
-        text = enabledEffects.map((elem: string) => elem.toUpperCase()).join("/")
-        bgColor = "var(--textcolor3)"
-        textColor = "var(--bgcolor2)"
-    } else if ( enabledEffects.length == 1 ) {
-        if (enabledEffects[0]) text = enabledEffects[0].toUpperCase()
-        bgColor = "var(--textcolor3)"
-        textColor = "var(--bgcolor2)"
-    } else {
-        text = "EFFECT OFF"
-        bgColor = "var(--bgcolor1)"
-        textColor = "var(--textcolor2)"
-    }
-    return <div className="playercontroller-effectdisplay" style={{ background: bgColor, color: textColor }}>{text}</div>
-}
-
+import { CommentDataRootObject, Comment as CommentItem} from "./types/CommentData";
 type Props = {
     videoRef: RefObject<HTMLVideoElement>,
     effectsState: effectsState,
@@ -50,9 +21,10 @@ type Props = {
     setIsSettingsShown: Dispatch<SetStateAction<boolean>>,
     hlsRef: RefObject<Hls>,
     commentInputRef: RefObject<HTMLInputElement>,
+    commentContent: CommentDataRootObject,
 }
 
-function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, currentTime, duration, isFullscreenUi, setIsFullscreenUi, isCommentShown, setIsCommentShown, hlsRef, isSettingsShown, setIsSettingsShown, commentInputRef}: Props) {
+function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, currentTime, duration, isFullscreenUi, setIsFullscreenUi, isCommentShown, setIsCommentShown, hlsRef, isSettingsShown, setIsSettingsShown, commentInputRef, commentContent}: Props) {
     const { localStorage, setLocalStorageValue, isLoaded } = useStorageContext()
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
@@ -93,7 +65,10 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             setHlsLevel(hlsRef.current.currentLevel)
         })
         hlsRef.current.on(Hls.Events.BUFFER_APPENDED, (e, data) => {
-            setBufferedDuration(data.frag.end)
+            if (videoRef.current?.buffered.length) {
+                setBufferedDuration(videoRef.current?.buffered.end(videoRef.current?.buffered.length - 1))
+            }
+            //setBufferedDuration()
         })
         hlsRef.current.on(Hls.Events.BUFFER_FLUSHED, (e, data) => {
             setBufferedDuration(0)
@@ -113,14 +88,17 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                 if ( e.target.closest("input, textarea") ) return true;
             }
             if ( e.key === " " || e.key === "　" ) {
+                e.preventDefault()
                 toggleStopState()
                 return false;
             }
             if ( e.key === "ArrowLeft" ) {
+                e.preventDefault()
                 timeController("add", -10)
                 return false;
             }
             if ( e.key === "ArrowRight" ) {
+                e.preventDefault()
                 timeController("add", 10)
                 return false;
             }
@@ -142,6 +120,36 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             document.body.removeEventListener("keydown", handleCtrl)
         }
     }, [videoRef.current])
+
+    const commentStatsCalc = useMemo(() => {
+        const comments = commentContent.data?.threads
+            .map(elem => elem.comments)
+            .reduce((prev, current) => {
+                return prev.concat(current)
+            }, [] as CommentItem[])
+            .sort((a, b) => a.vposMs - b.vposMs)
+        let commentStats: { [key: string]: number } = {}
+        if (!comments) return {}
+        // 大体要素数が60くらいになるように
+        const splitSeconds = duration / 60
+        const setMax = 50
+        let maxLength = -1
+
+        for (let i = 0; i < (Math.floor(duration) / splitSeconds); i++) {
+            // 前の範囲以上、今の範囲内のvposMsでフィルターして数を記録
+            const thisLength = comments.filter(elem => elem.vposMs < (i + 1) * (splitSeconds * 1000) && elem.vposMs > i * (splitSeconds * 1000)).length
+            commentStats[i * splitSeconds] = thisLength
+            // 最高値なら代入
+            if ( maxLength < thisLength ) maxLength = thisLength
+        }
+        // maxLength は setMax の何倍か
+        const lengthScale = maxLength / setMax
+        // lengthScaleの値で commentStats をスケール
+        for (const key in commentStats) {
+            commentStats[key] = Math.floor(commentStats[key] / lengthScale)
+        }
+        return commentStats
+    }, [commentContent, duration])
     if (!isLoaded) return <div>storage待機中...</div>
 
 
@@ -221,6 +229,10 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             videoRef.current.currentTime = tempSeekDuration
         }
     }
+    const enabledEffects = Object.keys(effectsState).map(elem => {
+        if ( elem && effectsState[elem as keyof effectsState].enabled ) return elem
+        return
+    }).filter(elem => {if (elem) return true})
 
     return <div className="playercontroller-container" id="pmw-playercontroller"
         onMouseUp={(e) => {if ( isSeeking ) doSeek(e.clientX);setIsSeeking(false);}}
@@ -232,6 +244,9 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             <div className="seekbar" ref={seekbarRef} onDragOver={(e) => {e.preventDefault()}}
                 onMouseDown={(e) => {setIsSeeking(true);tempSeekHandle(e.clientX)}}
             >
+                <div className="seekbar-commentstats global-flex">{Object.keys(commentStatsCalc).map((keyname, index) => {
+                    return <span key={`${keyname}s-index`} className="global-flex1" style={{["--height" as any]: `${commentStatsCalc[keyname]}px`}}></span>
+                })}</div>
                 <div className="seekbar-buffered" style={{ width: `${bufferedDuration / duration * 100}%` }}></div>
                 <div className="seekbar-played" style={{ width: `${( isSeeking ? tempSeekDuration : currentTime ) / duration * 100}%` }}></div>
             </div>
@@ -240,8 +255,9 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         <div className="playercontroller-container-middle">
             <div className="playercontroller-container-left">
                 <button type="button" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}} title="エフェクト設定">
-                    { isVefxShown ? <IconAdjustmentsFilled/> : <IconAdjustments/> }
-                    <VefxDisplay effectsState={effectsState}/>
+                    { isVefxShown ? <IconAdjustmentsFilled/> : 
+                        (enabledEffects.length > 0) ? <IconAdjustmentsCheck/> : <IconAdjustments/>
+                    }
                 </button>
                 <button type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}} title={ isMuted ? "ミュート解除" : "ミュート"}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
                 <label className="playercontroller-volume-container"><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/><span>{videoVolume}%</span></label>

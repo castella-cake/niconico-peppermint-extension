@@ -1,7 +1,6 @@
-import { IconFolderFilled, IconHeart, IconHeartFilled, IconMessageFilled, IconPlayerPlayFilled, IconX } from "@tabler/icons-react";
+import { IconFolderFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
 import type { VideoDataRootObject } from "./types/VideoData";
-import { MouseEvent, RefObject, useEffect, useState } from "react";
-import { sendLike } from "../../../modules/watchApi";
+import { MouseEvent, RefObject, useState } from "react";
 import { useStorageContext } from "../extensionHook";
 
 
@@ -27,44 +26,16 @@ function readableInt(number: number) {
 
 function Info({videoInfo, videoRef}: Props) {
     const { localStorage, setLocalStorageValue } = useStorageContext()
-    const [isLiked, setIsLiked] = useState<boolean>(false)
-    const [temporalLikeModifier, setTemporalLikeModifier] = useState<number>(0) // videoInfoに焼き込まれていない「いいね」のための加算。
-    const [likeThanksMsg, setLikeThanksMsg] = useState<string | null>(null)
-    const [isLikeThanksMsgClosed, setIsLikeThanksMsgClosed] = useState(false)
     const [isDescOpen, setIsDescOpen] = useState<boolean>(localStorage.playersettings.descriptionOpen || false)
-    useEffect(() => {
-        if (!videoInfo.data) return
-        setTemporalLikeModifier(0)
-        setIsLiked(videoInfo.data.response.video.viewer.like.isLiked)
-        setLikeThanksMsg(null)
-        setIsLikeThanksMsgClosed(false)
-    }, [videoInfo])
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
     }
     if (!videoInfo.data) return <></>
 
     const videoInfoResponse = videoInfo.data.response
-    
 
     // Scary!
     const innerHTMLObj = { __html: videoInfoResponse.video.description }
-
-    async function likeChange() {
-        const likeResponse = await sendLike(videoInfoResponse.video.id, !isLiked)
-        if ( likeResponse ) {
-            if (!isLiked) {
-                setTemporalLikeModifier(temporalLikeModifier + 1)
-            } else {
-                setTemporalLikeModifier(temporalLikeModifier - 1)
-            }
-            setIsLiked(!isLiked)
-            if ( likeResponse.data && likeResponse.data.thanksMessage ) {
-                setLikeThanksMsg(likeResponse.data.thanksMessage)
-                setIsLikeThanksMsgClosed(false)
-            }
-        }
-    }
 
     const handleAnchorClick = (e: MouseEvent<HTMLDivElement>) => {
         if ( e.target instanceof Element ) {
@@ -85,6 +56,14 @@ function Info({videoInfo, videoRef}: Props) {
             }
         }
     }
+    /*function ShareSelector() {
+        return <select>
+            <option value="x.com">X</option>
+            {syncStorage.shareinstancelist && syncStorage.shareinstancelist.map((server: string, index: number) => {
+                return <option key={`shareinstancelist-${index}`} value={server}>{server}</option>
+            })}
+        </select>
+    }*/
 
     return <div className="videoinfo-container" id="pmw-videoinfo">
         <div className="videoinfo-titlecontainer">
@@ -95,11 +74,7 @@ function Info({videoInfo, videoRef}: Props) {
                     <span><IconPlayerPlayFilled/>{readableInt(videoInfoResponse.video.count.view)}</span>
                     <span><IconMessageFilled/>{readableInt(videoInfoResponse.video.count.comment)}</span>
                     <span><IconFolderFilled/>{readableInt(videoInfoResponse.video.count.mylist)}</span>
-                    <span><IconHeartFilled/>{readableInt(videoInfoResponse.video.count.like + temporalLikeModifier)}</span>
                 </div>
-            </div>
-            <div className="videoinfo-actions">
-                <button type="button" onClick={likeChange} className="videoinfo-likebutton">{isLiked ? <IconHeartFilled/> : <IconHeart/>}<span>いいね！</span></button>
             </div>
             <div className="videoinfo-owner">
                 {videoInfoResponse.owner && <a href={`https://www.nicovideo.jp/user/${videoInfoResponse.owner.id}`}>
@@ -114,12 +89,6 @@ function Info({videoInfo, videoRef}: Props) {
                         { videoInfoResponse.channel.name }
                     </span>
                 </a>}
-                {isLiked && likeThanksMsg && !isLikeThanksMsgClosed && <div className="videoinfo-likethanks-outercontainer">
-                    <div className="videoinfo-likethanks-container">
-                        いいね！へのお礼メッセージ<button type="button" title="お礼メッセージを閉じる" onClick={() => {setIsLikeThanksMsgClosed(true)}}><IconX/></button>
-                        <div className="videoinfo-likethanks-body">{likeThanksMsg}</div>
-                    </div>
-                </div>}
             </div>
         </div>
         <details open={isDescOpen && true} onToggle={(e) => {setIsDescOpen(e.currentTarget.open);writePlayerSettings("descriptionOpen", e.currentTarget.open)}}>

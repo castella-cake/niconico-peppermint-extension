@@ -1,31 +1,6 @@
 body {
-    background: var(--bgcolor1)
-    color: var(--textcolor1)
-    /* 基本背景色 */
-    --bgcolor1: #252525;
-    /* サブ背景色1 */
-    --bgcolor2: #333;
-    /* サブ背景色2 */
-    --bgcolor3: #666;
-    --bgcolor4: #aaa;
-    --bgcolorab: rgba(#252525, 0.25);
-    --bgcoloraw: rgba(#fff, 0.25);
-    --textcolor1: #fff;
-    --textcolor2: #ddd;
-    --textcolor3: #aaa;
-    --textcolornew: #e05050;
-    --accent1: #444;
-    --accent2: #888;
-    --hover1: #666;
-    --hover2: #aaa;
-    --linktext1: #8fb9df;
-    --linktext2: #8ed9ff;
-    --linktext3: #008acf;
-    --nicoru1: rgba(201,168,62,0.1);
-    --nicoru2: rgba(201,168,62,0.2);
-    --nicoru3: rgba(201,168,62,0.35);
-    --nicoru4: rgba(201,168,62,0.5);
-    --dangerous1: rgb(245, 71, 71);
+    background: var(--bgcolor1);
+    color: var(--textcolor1);
     margin: 0;
 }
 // font-family を Stylus-langが正しく解釈しないようなので、@cssを使う
@@ -75,12 +50,12 @@ a {
         flex: 0.4;
     }
     ::-webkit-scrollbar {
-        background: #fff5
+        background: var(--bgcolor3)
         width: 16px;
         height: 16px;
     }
     ::-webkit-scrollbar-thumb {
-        background: #fffd
+        background: var(--textcolor3)
         border-radius: 4px;
         margin: 0 4px;
     }
@@ -120,118 +95,4 @@ a {
     }
 }
 
-.recommend-container {
-    margin-top: 16px;
-    .recommend-item {
-        display: flex;
-        gap: 8px;
-        height: 4em
-        text-decoration: none;
-        margin-bottom: 8px;
-        img {
-            flex-shrink: 0;
-            aspect-ratio: 16 / 9;
-            object-fit: contain;
-            background: var(--bgcolor2);
-        }
-        div {
-            flex: 1;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            align-self: center;
-            color: var(--textcolor1);
-            span {
-                opacity: 0.5;
-            }
-        }
-    }
-}
-
-[watch-type="recresc"] .recommend-container, [watch-type="3col"] .recommend-container {
-    display: flex;
-    overflow-x: scroll;
-    gap: 8px;
-    flex-basis: 100%;
-    margin: 0 7.5%;
-    margin-bottom: 16px;
-    .recommend-item {
-        width: 20%;
-    }
-}
-
-@import './watchUI/Player.styl'
-@import './watchUI/CommentList.styl'
-@import './watchUI/PlayerController.styl'
-@import './watchUI/Header.styl'
-@import './watchUI/Info.styl'
-@import './watchUI/commentInput.styl'
-@import './watchUI/Settings.styl'
-@import './watchUI/PluginList.styl'
-@import './watchUI/BottomInfo.styl'
-
-.vefx-container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    padding: 0;
-    height: 100%;
-    width: 25%;
-    z-index: 2;
-    margin: 0;
-}
-.vefx-container-inner {
-    padding: 16px;
-    background: #000d;
-    color: #fff;
-    height: 100%;
-    backdrop-filter: blur(8px);
-    > div {
-        display: flex;
-        input[type="range"] {
-            flex: 1;
-        }
-        label {
-            flex: 0.6
-        }
-    }
-    > label {
-        display: block;
-    }
-    .vefx-title {
-        font-weight: bold;
-    }
-}
-/*
-.fullscreen .player-container {
-    // padding: 0;
-    // aspect-ratio: 16 / 9;
-    // margin: 0 auto;
-    flex-direction: column;
-    background: var(--bgcolor1);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    right: 0;
-    flex-wrap: nowrap;
-    padding: 8px;
-    // width: 100vw;
-    // height: 100vh;
-    max-width: 100vw;
-    max-height: 100vh;
-    bottom: 0;
-}
-.fullscreen .player-video-container {
-    max-height: 100%;
-    flex-grow: 1;
-}
-.fullscreen .playercontroller-container {
-    width: 95%;
-}
-*/
+@import './watchUI/*.styl'
