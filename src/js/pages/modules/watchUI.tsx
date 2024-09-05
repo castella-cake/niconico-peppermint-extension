@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef, MouseEvent } from "react";
-import { generateActionTrackId, getVideoInfo, getCommentThread, putPlaybackPosition } from "../../modules/watchApi";
+import { useEffect, useState, useRef, MouseEvent, ReactNode, createContext, useContext } from "react";
+import { generateActionTrackId, getVideoInfo, getCommentThread, putPlaybackPosition, getPlaylists } from "../../modules/watchApi";
 import { useStorageContext } from "./extensionHook";
 //import { useLang } from "./localizeHook";
 import Player from "./watch/Player";
@@ -12,6 +12,8 @@ import Header from "./watch/header";
 import BottomInfo from "./watch/BottomInfo";
 import Actions from "./watch/Actions";
 import Search from "./watch/Search";
+import Playlist from "./watch/Playlist";
+import { mylistContext, playlistData } from "./watch/types/playlistQuery";
 
 const watchLayoutType = {
     reimaginedNewWatch: "renew",
@@ -20,13 +22,63 @@ const watchLayoutType = {
     threeColumn: "3col",
 }
 
+type stackerItem = {
+    title: string;
+    content?: ReactNode;
+}
+
+type WatchContextProps = {
+    videoInfo?: VideoDataRootObject;
+    commentData?: CommentDataRootObject;
+    playlistData?: playlistData;
+    videoId?: string;
+}
+
+const IWatchContext = createContext<WatchContextProps>({})
+
+export function useWatchContext() {
+    return useContext(IWatchContext)
+}
+
+function Stacker({ items }: { items: stackerItem[] }) {
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+    return <div className="stacker-container">
+        <div className="stacker-tabbutton-container">
+            {items.map((item, index) => {
+                return <button key={index} className={`stacker-tabbutton ${activeTabIndex === index ? "stacker-tabbutton-active" : ""}`} onClick={() => setActiveTabIndex(index)}>{item.title}</button>
+            })}
+        </div>
+        <div className="stacker-content">
+            { items[activeTabIndex].content }
+        </div>
+    </div>
+}
+
 function CreateWatchUI() {
     //const lang = useLang()
+    
 
     const { syncStorage, localStorage, isLoaded } = useStorageContext()
     const debugAlwaysOnmyouji: Boolean = syncStorage.debugalwaysonmyouji
 
     const [smId, setSmId] = useState(debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
+    const [ currentPlaylist, setCurrentPlaylist ] = useState<playlistData>({ type: null })
+    const [ fetchedPlaylistData, setFetchedPlaylistData ] = useState<any>(null)
+
+    function updatePlaylistState() {
+        const searchParams = new URLSearchParams(location.search);
+        const playlistString = searchParams.get('playlist');
+        console.log(playlistString)
+
+        if (playlistString) {
+            const decodedPlaylist = atob(playlistString);
+            const playlistJson: playlistData = JSON.parse(decodedPlaylist)
+            setCurrentPlaylist(playlistJson)
+        } else {
+            setCurrentPlaylist({ type: null })
+        }
+    }
 
     const [ actionTrackId, setActionTrackId ] = useState("")
     document.dispatchEvent(new CustomEvent("actionTrackIdGenerated", { detail: actionTrackId }))
@@ -60,17 +112,31 @@ function CreateWatchUI() {
     }, [smId])
 
     useEffect(() => {
+        updatePlaylistState()
         const onPopState = () => {
             if (videoElementRef.current) {
                 const playbackPositionBody = { watchId: smId, seconds: videoElementRef.current.currentTime }
                 putPlaybackPosition(JSON.stringify(playbackPositionBody))
             }
             setSmId(location.pathname.slice(7).replace(/\?.*/, ''))
+            updatePlaylistState()
         }
         window.addEventListener("popstate", onPopState)
         return () => {window.removeEventListener("popstate", onPopState)}
     }, [])
 
+    useEffect(() => {
+        async function getData() {
+            console.log(currentPlaylist)
+            if ( currentPlaylist.type === "mylist" ) {
+                const context: mylistContext = currentPlaylist.context
+                const response: any = await getPlaylists(context.mylistId)
+                console.log(response);
+                setFetchedPlaylistData(response)
+            }
+        }
+        getData()
+    }, [currentPlaylist])
 
     //console.log(videoInfo)
     if ( !videoInfo || !commentContent || !isLoaded || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
@@ -90,9 +156,11 @@ function CreateWatchUI() {
         key="watchui-player"
     />
     const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} key="watchui-info" />
+    const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} key="watchui-commentlist" />
+    const playListElem = <Playlist playlistData={fetchedPlaylistData}/>
     const rightActionElem = <div className="watch-container-rightaction" key="watchui-rightaction">
         <Actions videoInfo={videoInfo}/>
-        <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} key="watchui-commentlist" />
+        <Stacker items={[{ title: "コメントリスト", content: commentListElem }, { title: "再生リスト", content: playListElem }]}/>
     </div>
     const recommendElem = <Recommend smId={smId} key="watchui-recommend" />
     const bottomInfoElem = <BottomInfo videoInfo={videoInfo} key="watchui-bottominfo"/>
@@ -167,26 +235,27 @@ function CreateWatchUI() {
 
 
     return <div className={isFullscreenUi ? "container fullscreen" : "container"} onClickCapture={(e) => {linkClickHandler(e)}}>
-        {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
-        { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
-        <div className="watch-container" watch-type={layoutType} id="pmw-container">
-            <div className="watch-container-top">
-                {currentLayout.top !== false && currentLayout.top}
+        <IWatchContext.Provider value={{videoInfo: videoInfo, videoId: smId, commentData: commentContent, playlistData: fetchedPlaylistData}}>
+            {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
+            { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
+            <div className="watch-container" watch-type={layoutType} id="pmw-container">
+                <div className="watch-container-top">
+                    {currentLayout.top !== false && currentLayout.top}
+                </div>
+                <div className="watch-container-left" settings-size={playerSize}>
+                    {currentLayout.midLeft}
+                </div>
+                { layoutType === watchLayoutType.threeColumn && <div className="watch-container-middle">
+                    {currentLayout.midCenter !== false && currentLayout.midCenter}
+                </div> }
+                <div className="watch-container-right">
+                    {currentLayout.midRight}
+                </div>
+                <div className="watch-container-bottom">
+                    {currentLayout.bottom !== false && currentLayout.bottom}
+                </div>
             </div>
-            
-            <div className="watch-container-left" settings-size={playerSize}>
-                {currentLayout.midLeft}
-            </div>
-            { layoutType === watchLayoutType.threeColumn && <div className="watch-container-middle">
-                {currentLayout.midCenter !== false && currentLayout.midCenter}
-            </div> }
-            <div className="watch-container-right">
-                {currentLayout.midRight}
-            </div>
-            <div className="watch-container-bottom">
-                {currentLayout.bottom !== false && currentLayout.bottom}
-            </div>
-        </div>
+        </IWatchContext.Provider>
     </div>
 }
 

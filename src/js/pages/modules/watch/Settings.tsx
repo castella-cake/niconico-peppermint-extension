@@ -48,7 +48,7 @@ function Settings() {
         { Object.keys(settings).map((name, index) => {
             const elem = settings[name]
             if ( elem.type === "select" ) {
-                return <div className="playersettings-item">
+                return <div className="playersettings-item" key={index}>
                     <label>
                         {elem.name}
                         <select value={localStorage.playersettings[name] || elem.defaultValue} onChange={(e) => {writePlayerSettings(name, e.currentTarget.value)}}>

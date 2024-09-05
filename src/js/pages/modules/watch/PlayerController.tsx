@@ -47,7 +47,7 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
     useEffect(() => {
         if (!isLoaded) return
         setIsMuted(localStorage.playersettings.isMuted || false)
-        setVideoVolume(localStorage.playersettings.volume || 50)
+        setVideoVolume(localStorage.playersettings.volume || localStorage.playersettings.volume === 0 ? localStorage.playersettings.volume : 50)
     }, [localStorage])
     useEffect(() => {
         if ( currentTime < 11 ) {
@@ -114,10 +114,17 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                 return false;
             }
         }
+        const setIconToPause = () => setIsIconPlay(false)
+        const setIconToPlay = () => setIsIconPlay(true)
         document.body.addEventListener("keydown", handleCtrl)
         document.body.addEventListener("fullscreenchange", handleFullscreenChange)
+        videoRef.current?.addEventListener("play", setIconToPause)
+        videoRef.current?.addEventListener("pause", setIconToPlay)
         return () => {
             document.body.removeEventListener("keydown", handleCtrl)
+            document.body.removeEventListener("fullscreenchange", handleFullscreenChange)
+            videoRef.current?.removeEventListener("play", setIconToPause)
+            videoRef.current?.removeEventListener("pause", setIconToPlay)
         }
     }, [videoRef.current])
 

@@ -77,6 +77,50 @@ a {
     }
 }
 
+.stacker-container {
+    overflow: hidden;
+    max-height: 640px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .stacker-content {
+        overflow: hidden;
+    }
+}
+.stacker-tabbutton-container {
+    display: flex;
+    gap: 8px;
+    margin: 0 var(--radius-big);
+    .stacker-tabbutton {
+        background: var(--accent1);
+        color: var(--textcolor1);
+        border: none;
+        padding: 4px 8px;
+        border-radius: var(--radius) var(--radius) 0 0;
+        cursor: pointer;
+        font-size: 0.9em;
+        align-self: end;
+        flex: 1;
+    }
+
+    .stacker-tabbutton:hover {
+        background: var(--hover1);
+    }
+
+    .stacker-tabbutton.stacker-tabbutton-active {
+        background: var(--bgcolor2);
+        font-weight: bold;
+        font-size: 1em;
+    }
+}
+
+.watch-container[watch-type="3col"], .watch-container[watch-type="recresc"] {
+    .stacker-container {
+        max-height: none;
+    }
+    
+}
+
 .watch-container:not([watch-type="3col"]) {
     .watch-container-left[settings-size="0"] {
         flex: 0.4

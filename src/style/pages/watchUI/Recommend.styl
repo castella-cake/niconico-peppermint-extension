@@ -1,36 +1,12 @@
 .recommend-container {
     margin-top: 16px;
-    .recommend-item {
-        display: flex;
-        gap: 8px;
-        height: 4em
-        text-decoration: none;
-        margin-bottom: 8px;
-        img {
-            flex-shrink: 0;
-            aspect-ratio: 16 / 9;
-            object-fit: contain;
-            background: var(--bgcolor2);
-        }
-        div {
-            flex: 1;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            align-self: center;
-            color: var(--textcolor1);
-            span {
-                opacity: 0.5;
-            }
-        }
-    }
 }
 
 .watch-container-bottom .recommend-container {
     display: flex;
     overflow-x: scroll;
     gap: 8px;
-    .recommend-item {
+    .info-card {
         width: 20%;
     }
 }

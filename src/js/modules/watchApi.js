@@ -233,3 +233,20 @@ export async function getCommonsRelatives(videoId, limit = 15) {
     if (!response.ok) null
     return await response.json()
 }
+
+export async function getPlaylists(playlistId) {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/playlist/mylist/${playlistId}?sortKey=registeredAt&sortOrder=desc`, {
+        "credentials": "include",
+        "headers": {
+            "accept": "application/json;charset=utf-8",
+            "accept-language": "ja,en-US;q=0.9,en;q=0.8",
+            "content-type": "application/json",
+            "X-Frontend-Id": "6",
+            "X-Frontend-Version": "0",
+            "X-Niconico-Language": "ja-jp",
+        },
+        "method": "GET",
+        "referrer": "https://www.nicovideo.jp/",
+    });
+    return await response.json()
+}

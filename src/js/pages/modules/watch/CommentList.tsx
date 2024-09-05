@@ -52,7 +52,7 @@ function CommentList(props: Props) {
     // スクロールタイミングを書いたオブジェクト
     const scrollPosList: scrollPos = {}
 
-    useInterval(() => {
+    function updateScrollPosition() {
         // データが足りない/オートスクロールが有効化されていない/コメントリストにホバーしている ならreturn
         if (!props.videoInfo.data || !props.commentContent.data || !props.videoRef.current || !autoScroll || isCommentListHovered || !scrollPosList) return
 
@@ -75,6 +75,11 @@ function CommentList(props: Props) {
             // そのまま座標を与えると上に行ってしまうので、リストの高さから1個分のアイテムの高さを引いて下からにする
             commentListContainerRef.current.scrollTop = elemOffsetTop - (listHeight - elemHeight)
         }
+    }
+
+    updateScrollPosition()
+    useInterval(() => {
+        updateScrollPosition()
     }, 500)
     
     // データが足りなかったら閉店
@@ -156,7 +161,7 @@ function CommentList(props: Props) {
         <div className="commentlist-title-container">
             <div className="global-flex">
                 <div className="global-flex1 global-bold">
-                    コメントリスト
+                    
                 </div>
                 <div>
                     <select onChange={(e) => {setCurrentForkType(e.currentTarget.value)}} value={currentForkType}>

@@ -1,19 +1,20 @@
-import { useRef, useEffect, createContext } from "react";
+import { useRef, useEffect, RefObject } from "react";
+import { effectsState } from "./watch/Player";
 
 // Thank you ChatGPT
-export const useAudioEffects = (videoRef, frequencies, effectsState) => {
-    const audioContextRef = useRef(null);
-    const mediaElementSourceRef = useRef(null);
-    const biquadFiltersRef = useRef([]);
-    const echoDelayNodeRef = useRef(null);
-    const echoFeedbackNodeRef = useRef(null);
-    const echoGainNodeRef = useRef(null)
-    const gainNodeRef = useRef(null);
-    const mergerNodeRef = useRef(null);
+export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequencies: number[], effectsState: effectsState) => {
+    const audioContextRef = useRef<any>(null);
+    const mediaElementSourceRef = useRef<MediaElementAudioSourceNode | null>(null);
+    const biquadFiltersRef = useRef<BiquadFilterNode[]>([]);
+    const echoDelayNodeRef = useRef<DelayNode | null>(null);
+    const echoFeedbackNodeRef = useRef<GainNode | null>(null);
+    const echoGainNodeRef = useRef<GainNode | null>(null);
+    const gainNodeRef = useRef<GainNode | null>(null);
+    const mergerNodeRef = useRef<ChannelMergerNode | null>(null);
 
     useEffect(() => {
         if (!audioContextRef.current) {
-            audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+            audioContextRef.current = new (window.AudioContext)();
         }
 
         if (videoRef.current && !mediaElementSourceRef.current) {
@@ -33,28 +34,30 @@ export const useAudioEffects = (videoRef, frequencies, effectsState) => {
 
             // エコーの設定
             echoDelayNodeRef.current = audioContextRef.current.createDelay();
-            echoDelayNodeRef.current.delayTime.value = effectsState.echo.time || 0.5;
+            if (echoDelayNodeRef.current) echoDelayNodeRef.current.delayTime.value = effectsState.echo.delayTime || 0.5;
 
             echoFeedbackNodeRef.current = audioContextRef.current.createGain();
-            echoFeedbackNodeRef.current.gain.value = effectsState.echo.feedback || 0.5;
+            if (echoFeedbackNodeRef.current) echoFeedbackNodeRef.current.gain.value = effectsState.echo.feedback || 0.5;
 
             echoGainNodeRef.current = audioContextRef.current.createGain();
-            echoGainNodeRef.current.gain.value = effectsState.echo.gain || 0.5;
+            if (echoGainNodeRef.current) echoGainNodeRef.current.gain.value = effectsState.echo.gain || 0.5;
 
-            echoDelayNodeRef.current.connect(echoFeedbackNodeRef.current);
-            echoFeedbackNodeRef.current.connect(echoDelayNodeRef.current);
-            echoDelayNodeRef.current.connect(echoGainNodeRef.current);
+            if (echoDelayNodeRef.current && echoFeedbackNodeRef.current && echoGainNodeRef.current) {
+                echoDelayNodeRef.current.connect(echoFeedbackNodeRef.current);
+                echoFeedbackNodeRef.current.connect(echoDelayNodeRef.current);
+                echoDelayNodeRef.current.connect(echoGainNodeRef.current);
+            }
 
             // プリアンプの設定
             gainNodeRef.current = audioContextRef.current.createGain();
-            gainNodeRef.current.gain.value = effectsState.preamp.gain;
+            if (gainNodeRef.current) gainNodeRef.current.gain.value = effectsState.preamp.gain;
 
 
             // モノラル化の設定
             mergerNodeRef.current = audioContextRef.current.createChannelMerger(1);
         }
         if (mediaElementSourceRef.current) {
-            let lastNode = mediaElementSourceRef.current;
+            let lastNode: any = mediaElementSourceRef.current;
             // 一旦繋がるノードを切断してから接続するようにした
             // 全disconnect
             lastNode.disconnect();
@@ -98,14 +101,14 @@ export const useAudioEffects = (videoRef, frequencies, effectsState) => {
     }, [frequencies, effectsState]);
 
     // イコライザーのゲイン更新
-    const updateEqualizer = (gains) => {
+    const updateEqualizer = (gains: number[]) => {
         biquadFiltersRef.current.forEach((filter, i) => {
             filter.gain.value = gains[i];
         });
     };
 
     // エコーの設定更新
-    const updateEcho = (time, feedback, gain) => {
+    const updateEcho = (time: number, feedback: number, gain: number) => {
         if (echoDelayNodeRef.current && echoFeedbackNodeRef.current && echoGainNodeRef.current) {
             /*if (!effectsState.echo.enabled) {
                 echoDelayNodeRef.current.delayTime.value = 0;
@@ -120,7 +123,7 @@ export const useAudioEffects = (videoRef, frequencies, effectsState) => {
     };
 
     // プリアンプのゲイン更新
-    const updatePreampGain = (gain) => {
+    const updatePreampGain = (gain: number) => {
         if (gainNodeRef.current) {
             /*if (!effectsState.preamp.enabled) {
                 gainNodeRef.current.gain.value = 0;

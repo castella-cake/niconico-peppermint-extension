@@ -1,29 +1,8 @@
 import { useEffect,  useState } from "react";
 //import { useLang } from "../localizeHook";
 import { getRecommend } from "../../../modules/watchApi";
-import { secondsToTime } from "./commonFunction";
 import type { RecommendDataRootObject } from "./types/RecommendData"
-
-function VideoInfo(props: { obj: any }) {
-    const obj = props.obj
-    return <a className="recommend-item" href={`https://www.nicovideo.jp/watch/${obj.id}`}>
-        { (obj.content.thumbnail) && <img src={obj.content.thumbnail.listingUrl}/> }
-        <div>
-            {obj.content.title}<br />
-            by {obj.content.owner.name} <span>{secondsToTime(obj.content.duration)}</span>
-        </div>
-    </a>
-}
-function MylistInfo(props: { obj: any }) {
-    const obj = props.obj
-    return <a className="recommend-item" href={`https://www.nicovideo.jp/mylist/${obj.id}`}>
-        { (obj.content.sampleItems[0].video.thumbnail) && <img src={obj.content.sampleItems[0].video.thumbnail.listingUrl}/> }
-        <div>
-            {obj.content.name}<br />
-            by {obj.content.owner.name} - {obj.content.itemsCount} items
-        </div>
-    </a>
-}
+import { InfoCard } from "./InfoCards";
 
 function Recommend({smId,}: {smId: string}) {
     //const lang = useLang()
@@ -40,9 +19,7 @@ function Recommend({smId,}: {smId: string}) {
     if (!recommendData.data) return <></>
     return <div className="recommend-container" id="pmw-recommend">
         {recommendData.data.items.map((elem, index) => {
-            if (elem.contentType == "video") return <VideoInfo key={`${index}-${elem.id}`} obj={elem}/>
-            if (elem.contentType == "mylist") return <MylistInfo key={`${index}-${elem.id}`} obj={elem}/>
-            return <div>Unknown contentType</div>
+            return <InfoCard key={`${index}-${elem.id}`} obj={elem}/>
         })}
     </div>
 }
