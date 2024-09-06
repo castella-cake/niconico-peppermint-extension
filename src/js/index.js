@@ -91,6 +91,9 @@ function createFastCSSRule(result) {
         if (result.fixedheaderwidth == true) {
             document.documentElement.classList.add('PM-FixedHeaderWidth')
         }
+        if ( result.vidtoptwocolumn === true ) {
+            document.documentElement.classList.add('PM-VideoTopTwoColumn')
+        }
     }
     if ( location.hostname == "sp.nicovideo.jp" && location.pathname.startsWith("/watch") ) {
         if ( result.enablespredirect == true ) {

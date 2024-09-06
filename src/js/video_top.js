@@ -34,6 +34,6 @@ function createCSSRule(result) {
                 $('.BaseLayout-main-left').append(elem)
             }
         });
-        addCSS(chrome.runtime.getURL("style/css/vidtoptwocolumn.css"))
+        //addCSS(chrome.runtime.getURL("style/css/vidtoptwocolumn.css"))
     }
 }
