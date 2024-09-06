@@ -13,6 +13,8 @@ import CommentInput from "./PlayerUI/CommentInput";
 import Settings from "./Settings";
 import { putPlaybackPosition } from "../../../modules/watchApi";
 import { handleCtrl } from "./commonFunction";
+import { PlaylistResponseRootObject } from "./types/playlistData";
+import { mylistContext } from "./types/playlistQuery";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -30,28 +32,31 @@ type Props = {
     isFullscreenUi: boolean,
     setIsFullscreenUi: Dispatch<SetStateAction<boolean>>,
     setCommentContent: Dispatch<SetStateAction<CommentDataRootObject>>,
+    playlistData: PlaylistResponseRootObject | null,
+    changeVideo: (videoId: string) => void,
 }
 
 type VideoPlayerProps = {
     children?: ReactNode,
     videoRef: RefObject<HTMLVideoElement>,
-    onPause: Function,
+    onPause: () => void,
+    onEnded: () => void,
     canvasRef: RefObject<HTMLCanvasElement>,
     isCommentShown: boolean,
     commentOpacity: number,
 }
 
-function VideoPlayer({children, videoRef, canvasRef, isCommentShown, onPause, commentOpacity}: VideoPlayerProps) {
+function VideoPlayer({children, videoRef, canvasRef, isCommentShown, onPause, onEnded, commentOpacity}: VideoPlayerProps) {
     return (<div className="player-video-container">
         <div className="player-video-container-inner">
-            <video ref={videoRef} controls autoPlay onPause={(e) => {onPause()}} width="1920" height="1080" id="pmw-element-video"></video>
+            <video ref={videoRef} controls autoPlay onPause={(e) => {onPause()}} onEnded={onEnded} width="1920" height="1080" id="pmw-element-video"></video>
             <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: commentOpacity} : {opacity: 0}} id="pmw-element-commentcanvas"/>
             { children }
         </div>
     </div>);
 }
 
-function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi, setCommentContent }: Props) {
+function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi, setCommentContent, playlistData, changeVideo }: Props) {
     //const lang = useLang()
     const { localStorage, setLocalStorageValue, syncStorage } = useStorageContext()
 
@@ -149,6 +154,16 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             document.body.removeEventListener("fullscreenchange", handleFullscreenChange)
         }
     }, [])
+
+    function playlistIndexControl(add: number) {
+        if (playlistData) {
+            const currentVideoIndex = playlistData.data.items.findIndex(video => video.content.id === videoId)
+            if (currentVideoIndex === -1 || currentVideoIndex + add > playlistData.data.items.length || currentVideoIndex + add < 0) return
+            const nextVideo = playlistData.data.items[currentVideoIndex + add]
+            const mylistQuery: { type: string, context: mylistContext } = { type: "mylist", context: { mylistId: Number(playlistData && playlistData.data && playlistData.data.id.value), sortKey: "addedAt", sortOrder: "asc" }}
+            changeVideo(`https://www.nicovideo.jp/watch/${encodeURIComponent(nextVideo.content.id)}?playlist=${btoa(JSON.stringify(mylistQuery))}`)
+        }
+    }
     
     function onPause() {
         if ( !videoRef.current ) return
@@ -156,8 +171,12 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         putPlaybackPosition(JSON.stringify(playbackPositionBody))
     }
 
+    function onEnded() {
+
+    }
+
     return <div className="player-container" id="pmw-player">
-        <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} commentOpacity={localStorage.playersettings.commentOpacity || 1}>
+        <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} onEnded={onEnded} commentOpacity={localStorage.playersettings.commentOpacity || 1}>
             {isVefxShown && <VefxController
                 frequencies={frequencies}
                 effectsState={effectsState}
@@ -188,6 +207,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             setIsSettingsShown={setIsSettingsShown}
 
             commentContent={commentContent}
+
+            playlistIndexControl={playlistIndexControl}
         />
         <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} commentInputRef={commentInputRef}/>
     </div>

@@ -20,16 +20,31 @@ type Props = {
     setIsSettingsShown: Dispatch<SetStateAction<boolean>>,
     hlsRef: RefObject<Hls>,
     commentContent: CommentDataRootObject,
+    playlistIndexControl: (index: number) => void,
 }
 
-function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, isFullscreenUi, toggleFullscreen, isCommentShown, setIsCommentShown, hlsRef, isSettingsShown, setIsSettingsShown, commentContent}: Props) {
+function PlayerController({
+    videoRef, 
+    effectsState,
+    isVefxShown,
+    setIsVefxShown,
+    isFullscreenUi,
+    toggleFullscreen,
+    isCommentShown,
+    setIsCommentShown,
+    hlsRef,
+    isSettingsShown,
+    setIsSettingsShown,
+    commentContent,
+    playlistIndexControl,
+}: Props) {
     const { localStorage, setLocalStorageValue, isLoaded } = useStorageContext()
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
     }
 
     const [isIconPlay, setIsIconPlay] = useState(false)
-    const [isIconFilled, setIsIconFilled] = useState([false, false])
+    const [isIndexControl, setIsIndexControl] = useState([false, false])
 
     const [isMuted, setIsMuted] = useState(false)
     const [videoVolume, setVideoVolume] = useState(50)
@@ -51,12 +66,12 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         setVideoVolume(localStorage.playersettings.volume || localStorage.playersettings.volume === 0 ? localStorage.playersettings.volume : 50)
     }, [localStorage])
     useEffect(() => {
-        if ( currentTime < 11 ) {
-            setIsIconFilled([true, false])
+        if ( currentTime < 3 ) {
+            setIsIndexControl([true, false])
         } else if ( currentTime >= video.duration ) {
-            setIsIconFilled([false, true])
+            setIsIndexControl([false, true])
         } else {
-            setIsIconFilled([false, false])
+            setIsIndexControl([false, false])
         }
     },[currentTime])
     useEffect(() => {
@@ -143,6 +158,16 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         }
     }
 
+    function onSkipBack() {
+        onTimeControl("set", 0)
+        if (isIndexControl[0] === true) playlistIndexControl(-1)
+    }
+
+    function onSkipForward() {
+        onTimeControl("set", video.duration)
+        if (isIndexControl[1] === true) playlistIndexControl(1)
+    }
+
     const enabledEffects = Object.keys(effectsState).map(elem => {
         if ( elem && effectsState[elem as keyof effectsState].enabled ) return elem
         return
@@ -175,11 +200,11 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                 <label className="playercontroller-volume-container"><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/><span>{videoVolume}%</span></label>
             </div>
             <div className="playercontroller-container-center">
-                <button type="button" className="playercontroller-skipback" onClick={() => {onTimeControl("set", 0)}} title="開始地点にシーク">{ isIconFilled[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
+                <button type="button" className="playercontroller-skipback" onClick={() => {onSkipBack()}} title="開始地点にシーク">{ isIndexControl[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
                 <button type="button" className="playercontroller-backward10s" onClick={() => {onTimeControl("add", -10)}} title="-10秒シーク"><IconRewindBackward10/></button>
                 <button type="button" className="playercontroller-togglestop" onClick={() => {toggleStopState()}} title={ isIconPlay ? "再生" : "一時停止"}>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</button>
                 <button type="button" className="playercontroller-backward10s" onClick={() => {onTimeControl("add", 10)}} title="10秒シーク"><IconRewindForward10/></button>
-                <button type="button" className="playercontroller-skipforward" onClick={() => {onTimeControl("set", video.duration)}} title="終了地点にシーク">{ isIconFilled[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
+                <button type="button" className="playercontroller-skipforward" onClick={() => {onSkipForward()}} title="終了地点にシーク">{ isIndexControl[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
             </div>
             <div className="playercontroller-container-right">
                 {hlsRef.current && <select onChange={(e) => {

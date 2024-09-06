@@ -152,20 +152,24 @@ function CreateWatchUI() {
                 e.stopPropagation()
                 e.preventDefault()
 
-                // 移動前にシーク位置を保存
-                if (videoElementRef.current) {
-                    const playbackPositionBody = { watchId: smId, seconds: videoElementRef.current.currentTime }
-                    putPlaybackPosition(JSON.stringify(playbackPositionBody))
-                }
-
-                // historyにpushして移動
-                history.pushState(null, '', nearestAnchor.href)
-                
-                // 動画IDとプレイリスト状態を更新。プレイリスト状態はlocationが未更新のため、
-                setSmId(nearestAnchor.href.replace("https://www.nicovideo.jp/watch/", "").replace(/\?.*/, ''))
-                updatePlaylistState(new URL(nearestAnchor.href).search)
+                changeVideo(nearestAnchor.href)
             }
         }
+    }
+
+    function changeVideo(videoUrl: string) {
+        // 移動前にシーク位置を保存
+        if (videoElementRef.current) {
+            const playbackPositionBody = { watchId: smId, seconds: videoElementRef.current.currentTime }
+            putPlaybackPosition(JSON.stringify(playbackPositionBody))
+        }
+
+        // historyにpushして移動
+        history.pushState(null, '', videoUrl)
+        
+        // 動画IDとプレイリスト状態を更新。プレイリスト状態はlocationが未更新のため、
+        setSmId(videoUrl.replace("https://www.nicovideo.jp/watch/", "").replace(/\?.*/, ''))
+        updatePlaylistState(new URL(videoUrl).search)
     }
 
     const playerElem = <Player
@@ -177,6 +181,8 @@ function CreateWatchUI() {
         isFullscreenUi={isFullscreenUi}
         setIsFullscreenUi={setIsFullscreenUi}
         setCommentContent={setCommentContent}
+        playlistData={fetchedPlaylistData}
+        changeVideo={changeVideo}
         key="watchui-player"
     />
     const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} key="watchui-info" />
