@@ -63,11 +63,6 @@
             "run_at": "document_end"
         },
         {
-            "matches": ["*://www.nicovideo.jp/search/*", "*://www.nicovideo.jp/tag/*", "*://www.nicovideo.jp/mylist_search/*"],
-            "js": ["js/searchpage.js"],
-            "run_at": "document_end"
-        },
-        {
             "matches": ["*://*.nicovideo.jp/series/*"],
             "js": ["js/series.js"],
             "run_at": "document_idle"

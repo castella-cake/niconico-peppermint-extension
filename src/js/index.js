@@ -58,12 +58,16 @@ function createFastCSSRule(result) {
         if ( locationWhiteList.includes(location.hostname) ) {
             document.documentElement.classList.add('PMDM-Enabled')
         }
-        if (location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/watch")) {
-            document.documentElement.classList.add('PMDM-VidWatch')
-        } else if (location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/ranking")) {
-            document.documentElement.classList.add('PMDM-Ranking')
-        } else if (location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/video_top")) {
-            document.documentElement.classList.add('PMDM-VideoTop')
+        if (location.hostname == "www.nicovideo.jp"){
+            if (location.pathname.startsWith("/watch")) {
+                document.documentElement.classList.add('PMDM-VidWatch')
+            } else if (location.pathname.startsWith("/ranking")) {
+                document.documentElement.classList.add('PMDM-Ranking')
+            } else if (location.pathname.startsWith("/video_top")) {
+                document.documentElement.classList.add('PMDM-VideoTop')
+            } else if (location.pathname.startsWith("/search") || location.pathname.startsWith("/tag") || location.pathname.startsWith("/mylist_search")) {
+                document.documentElement.classList.add('PMDM-Search')
+            }
         }
     } 
     // #endregion
