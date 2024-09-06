@@ -93,6 +93,7 @@ function CreateWatchUI() {
     const [commentContent, setCommentContent] = useState<CommentDataRootObject>({})
     const videoElementRef = useRef<HTMLVideoElement | null>(null)
     const [isFullscreenUi, setIsFullscreenUi] = useState(false);
+    const isEventFired = useRef<boolean>(false)
 
     useEffect(() => {
         const newActionTrackId = generateActionTrackId()
@@ -113,10 +114,17 @@ function CreateWatchUI() {
             const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
             setCommentContent(commentResponse)
             //console.log(commentResponse)
-            document.dispatchEvent(new CustomEvent("pmw_informationReady", { detail: JSON.stringify({videoInfo: fetchedVideoInfo, actionTrackId: newActionTrackId, commentContent: commentResponse}) }))
+            
         }
         fetchInfo()
     }, [smId])
+
+    useEffect(() => {
+        if (videoInfo.meta?.status === 200 && commentContent.meta?.status === 200 && actionTrackId !== "" && isEventFired.current !== true) {
+            document.dispatchEvent(new CustomEvent("pmw_informationReady", { detail: JSON.stringify({ videoInfo, actionTrackId, commentContent }) }))
+            isEventFired.current = true
+        }
+    }, [videoInfo, commentContent, actionTrackId])
 
     useEffect(() => {
         // 初回レンダリングで今のプレイリスト状態を設定
