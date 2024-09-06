@@ -1,10 +1,10 @@
 import { IconSend2 } from "@tabler/icons-react";
 import { useRef, useState } from "react";
 import type { Dispatch, RefObject, SetStateAction } from "react"
-import type { VideoDataRootObject } from "./types/VideoData";
-import type { CommentDataRootObject, CommentResponseRootObject, Thread } from "./types/CommentData";
-import { CommentPostBody, KeyRootObjectResponse } from "./types/CommentPostData";
-import { getCommentPostKey, getCommentThread, postComment } from "../../../modules/watchApi";
+import type { VideoDataRootObject } from "../types/VideoData";
+import type { CommentDataRootObject, CommentResponseRootObject, Thread } from "../types/CommentData";
+import { CommentPostBody, KeyRootObjectResponse } from "../types/CommentPostData";
+import { getCommentPostKey, getCommentThread, postComment } from "../../../../modules/watchApi";
 //import { getCommentPostKey, postComment } from "../../../modules/watchApi";
 
 

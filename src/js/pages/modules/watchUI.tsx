@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, MouseEvent, ReactNode, createContext, useContext } from "react";
+import { useEffect, useState, useRef, MouseEvent, ReactNode } from "react";
 import { generateActionTrackId, getVideoInfo, getCommentThread, putPlaybackPosition, getPlaylists } from "../../modules/watchApi";
 import { useStorageContext } from "./extensionHook";
 //import { useLang } from "./localizeHook";
@@ -25,19 +25,6 @@ const watchLayoutType = {
 type stackerItem = {
     title: string;
     content?: ReactNode;
-}
-
-type WatchContextProps = {
-    videoInfo?: VideoDataRootObject;
-    commentData?: CommentDataRootObject;
-    playlistData?: playlistData;
-    videoId?: string;
-}
-
-const IWatchContext = createContext<WatchContextProps>({})
-
-export function useWatchContext() {
-    return useContext(IWatchContext)
 }
 
 function Stacker({ items }: { items: stackerItem[] }) {
@@ -81,7 +68,6 @@ function CreateWatchUI() {
     }
 
     const [ actionTrackId, setActionTrackId ] = useState("")
-    document.dispatchEvent(new CustomEvent("actionTrackIdGenerated", { detail: actionTrackId }))
 
     const [videoInfo, setVideoInfo] = useState<VideoDataRootObject>({})
     const [commentContent, setCommentContent] = useState<CommentDataRootObject>({})
@@ -91,6 +77,7 @@ function CreateWatchUI() {
     useEffect(() => {
         const newActionTrackId = generateActionTrackId()
         setActionTrackId(newActionTrackId)
+        document.dispatchEvent(new CustomEvent("actionTrackIdGenerated", { detail: actionTrackId }))
         async function fetchInfo() {
             const fetchedVideoInfo: VideoDataRootObject = await getVideoInfo(smId)
             setVideoInfo(fetchedVideoInfo)
@@ -127,11 +114,11 @@ function CreateWatchUI() {
 
     useEffect(() => {
         async function getData() {
-            console.log(currentPlaylist)
+            //console.log(currentPlaylist)
             if ( currentPlaylist.type === "mylist" ) {
                 const context: mylistContext = currentPlaylist.context
                 const response: any = await getPlaylists(context.mylistId)
-                console.log(response);
+                //console.log(response);
                 setFetchedPlaylistData(response)
             }
         }
@@ -157,7 +144,7 @@ function CreateWatchUI() {
     />
     const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} key="watchui-info" />
     const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} key="watchui-commentlist" />
-    const playListElem = <Playlist playlistData={fetchedPlaylistData}/>
+    const playListElem = <Playlist playlistData={fetchedPlaylistData} videoInfo={videoInfo} key="watchui-playlist"/>
     const rightActionElem = <div className="watch-container-rightaction" key="watchui-rightaction">
         <Actions videoInfo={videoInfo}/>
         <Stacker items={[{ title: "コメントリスト", content: commentListElem }, { title: "再生リスト", content: playListElem }]}/>
@@ -235,27 +222,25 @@ function CreateWatchUI() {
 
 
     return <div className={isFullscreenUi ? "container fullscreen" : "container"} onClickCapture={(e) => {linkClickHandler(e)}}>
-        <IWatchContext.Provider value={{videoInfo: videoInfo, videoId: smId, commentData: commentContent, playlistData: fetchedPlaylistData}}>
-            {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
-            { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
-            <div className="watch-container" watch-type={layoutType} id="pmw-container">
-                <div className="watch-container-top">
-                    {currentLayout.top !== false && currentLayout.top}
-                </div>
-                <div className="watch-container-left" settings-size={playerSize}>
-                    {currentLayout.midLeft}
-                </div>
-                { layoutType === watchLayoutType.threeColumn && <div className="watch-container-middle">
-                    {currentLayout.midCenter !== false && currentLayout.midCenter}
-                </div> }
-                <div className="watch-container-right">
-                    {currentLayout.midRight}
-                </div>
-                <div className="watch-container-bottom">
-                    {currentLayout.bottom !== false && currentLayout.bottom}
-                </div>
+        {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
+        { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
+        <div className="watch-container" watch-type={layoutType} id="pmw-container">
+            <div className="watch-container-top">
+                {currentLayout.top !== false && currentLayout.top}
             </div>
-        </IWatchContext.Provider>
+            <div className="watch-container-left" settings-size={playerSize}>
+                {currentLayout.midLeft}
+            </div>
+            { layoutType === watchLayoutType.threeColumn && <div className="watch-container-middle">
+                {currentLayout.midCenter !== false && currentLayout.midCenter}
+            </div> }
+            <div className="watch-container-right">
+                {currentLayout.midRight}
+            </div>
+            <div className="watch-container-bottom">
+                {currentLayout.bottom !== false && currentLayout.bottom}
+            </div>
+        </div>
     </div>
 }
 

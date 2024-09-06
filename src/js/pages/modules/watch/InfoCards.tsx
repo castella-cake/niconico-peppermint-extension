@@ -1,16 +1,14 @@
-import { useWatchContext } from "../watchUI";
+import { IconPlayerPlayFilled } from "@tabler/icons-react";
 import { secondsToTime } from "./commonFunction";
 
-export function VideoInfo(props: { obj: any, additionalQuery?: string }) {
-    const { videoInfo } = useWatchContext()
-    const obj = props.obj
+export function VideoInfo({obj, additionalQuery, isNowPlaying}: { obj: any, additionalQuery?: string, isNowPlaying?: boolean }) {
     const thisVideoId = obj.id || ( obj.content && obj.content.id ) || null
-    const isNowPlaying = videoInfo?.data?.response.video.id === thisVideoId
+    
     if (!thisVideoId) return <div className="info-card">表示に失敗しました</div>
-    return <a className={`info-card ${isNowPlaying ? "info-card-nowplaying" : ""}`} href={`https://www.nicovideo.jp/watch/${thisVideoId}${props.additionalQuery || ""}`}>
+    return <a className={`info-card ${isNowPlaying ? "info-card-nowplaying" : ""}`} href={`https://www.nicovideo.jp/watch/${thisVideoId}${additionalQuery || ""}`}>
         { (obj.content.thumbnail) && <img src={obj.content.thumbnail.listingUrl}/> }
         <div>
-            { isNowPlaying && <span className="info-card-playingtext">再生中</span> }{obj.content.title}<br />
+            { isNowPlaying && <span className="info-card-playingtext"><IconPlayerPlayFilled/></span> }{obj.content.title}<br />
             by {obj.content.owner.name} <span className="info-card-durationtext">{secondsToTime(obj.content.duration)}</span>
         </div>
     </a>

@@ -1,30 +1,28 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useStorageContext } from "../extensionHook";
+import { useEffect, useRef, useState } from "react";
+import { useStorageContext } from "../../extensionHook";
 import { IconAdjustments, IconAdjustmentsCheck, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRewindBackward10, IconRewindForward10, IconSettings, IconVolume, IconVolume3 } from "@tabler/icons-react";
-import { secondsToTime } from "./commonFunction";
 import type { Dispatch, RefObject, SetStateAction } from "react";
 import Hls from "hls.js";
-import type { effectsState } from "./Player";
-import { CommentDataRootObject, Comment as CommentItem} from "./types/CommentData";
+import type { effectsState } from "../Player";
+import { CommentDataRootObject } from "../types/CommentData";
+import { Seekbar } from "./Seekbar";
+import { timeCalc } from "../commonFunction";
 type Props = {
     videoRef: RefObject<HTMLVideoElement>,
     effectsState: effectsState,
     isVefxShown: boolean,
     setIsVefxShown: Dispatch<SetStateAction<boolean>>,
-    currentTime: number,
-    duration: number,
     isFullscreenUi: boolean,
-    setIsFullscreenUi: Dispatch<SetStateAction<boolean>>,
+    toggleFullscreen: () => void,
     isCommentShown: boolean,
     setIsCommentShown: Dispatch<SetStateAction<boolean>>,
     isSettingsShown: boolean,
     setIsSettingsShown: Dispatch<SetStateAction<boolean>>,
     hlsRef: RefObject<Hls>,
-    commentInputRef: RefObject<HTMLInputElement>,
     commentContent: CommentDataRootObject,
 }
 
-function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, currentTime, duration, isFullscreenUi, setIsFullscreenUi, isCommentShown, setIsCommentShown, hlsRef, isSettingsShown, setIsSettingsShown, commentInputRef, commentContent}: Props) {
+function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, isFullscreenUi, toggleFullscreen, isCommentShown, setIsCommentShown, hlsRef, isSettingsShown, setIsSettingsShown, commentContent}: Props) {
     const { localStorage, setLocalStorageValue, isLoaded } = useStorageContext()
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
@@ -39,6 +37,9 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
     const [hlsLevel, setHlsLevel] = useState(0)
     const [bufferedDuration, setBufferedDuration] = useState(0)
     //const [qualityStrings, setQualityStrings] = useState([])
+
+    const [currentTime, setCurrentTime] = useState(0)
+    const [duration, setDuration] = useState(0)
 
     const seekbarRef = useRef<HTMLDivElement>(null)
     const [isSeeking, setIsSeeking] = useState(false)
@@ -75,88 +76,22 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         })
     }, [hlsRef.current])
     useEffect(() => {
-        const handleFullscreenChange = (e: Event) => {
-            if ( !document.fullscreenElement ) {
-                setIsFullscreenUi(false)
-            } else {
-                setIsFullscreenUi(true)
-            }
-        }
-        const handleCtrl = (e: KeyboardEvent) => {
-            if ( e.ctrlKey ) return true;
-            if ( e.target instanceof Element ) {
-                if ( e.target.closest("input, textarea") ) return true;
-            }
-            if ( e.key === " " || e.key === "　" ) {
-                e.preventDefault()
-                toggleStopState()
-                return false;
-            }
-            if ( e.key === "ArrowLeft" ) {
-                e.preventDefault()
-                timeController("add", -10)
-                return false;
-            }
-            if ( e.key === "ArrowRight" ) {
-                e.preventDefault()
-                timeController("add", 10)
-                return false;
-            }
-            if ( e.key === "c" || e.key === "C" ) {
-                if (!commentInputRef.current) return
-                // 入力を防ぐために preventDefaultしてからフォーカス(後でreturnしたら間に合わない)
-                e.preventDefault()
-                commentInputRef.current.focus()
-                return false;
-            }
-            if ( e.key === "f" || e.key === "F" ) {
-                toggleFullscreen()
-                return false;
-            }
-        }
         const setIconToPause = () => setIsIconPlay(false)
         const setIconToPlay = () => setIsIconPlay(true)
-        document.body.addEventListener("keydown", handleCtrl)
-        document.body.addEventListener("fullscreenchange", handleFullscreenChange)
+        const updateCurrentTime = () => setCurrentTime(videoRef.current!.currentTime)
+        const updateDuration = () => setDuration(videoRef.current!.duration)
+        
         videoRef.current?.addEventListener("play", setIconToPause)
         videoRef.current?.addEventListener("pause", setIconToPlay)
+        videoRef.current?.addEventListener("timeupdate", updateCurrentTime)
+        videoRef.current?.addEventListener("durationchange", updateDuration)
         return () => {
-            document.body.removeEventListener("keydown", handleCtrl)
-            document.body.removeEventListener("fullscreenchange", handleFullscreenChange)
             videoRef.current?.removeEventListener("play", setIconToPause)
             videoRef.current?.removeEventListener("pause", setIconToPlay)
+            videoRef.current?.removeEventListener("timeupdate", updateCurrentTime)
+            videoRef.current?.removeEventListener("durationchange", updateDuration)
         }
     }, [videoRef.current])
-
-    const commentStatsCalc = useMemo(() => {
-        const comments = commentContent.data?.threads
-            .map(elem => elem.comments)
-            .reduce((prev, current) => {
-                return prev.concat(current)
-            }, [] as CommentItem[])
-            .sort((a, b) => a.vposMs - b.vposMs)
-        let commentStats: { [key: string]: number } = {}
-        if (!comments) return {}
-        // 大体要素数が60くらいになるように
-        const splitSeconds = duration / 60
-        const setMax = 50
-        let maxLength = -1
-
-        for (let i = 0; i < (Math.floor(duration) / splitSeconds); i++) {
-            // 前の範囲以上、今の範囲内のvposMsでフィルターして数を記録
-            const thisLength = comments.filter(elem => elem.vposMs < (i + 1) * (splitSeconds * 1000) && elem.vposMs > i * (splitSeconds * 1000)).length
-            commentStats[i * splitSeconds] = thisLength
-            // 最高値なら代入
-            if ( maxLength < thisLength ) maxLength = thisLength
-        }
-        // maxLength は setMax の何倍か
-        const lengthScale = maxLength / setMax
-        // lengthScaleの値で commentStats をスケール
-        for (const key in commentStats) {
-            commentStats[key] = Math.floor(commentStats[key] / lengthScale)
-        }
-        return commentStats
-    }, [commentContent, duration])
     if (!isLoaded) return <div>storage待機中...</div>
 
 
@@ -172,32 +107,12 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         }
         setIsIconPlay(video.paused)
     }
-    function timeController(operation: string, time: number) {
-        // 不要かもしれないが、一応合計時間超過/0未満をハンドルする
-        if ( operation == "add" && video.currentTime + time < 0 ) {
-            // 足した値が0未満
-            video.currentTime = 0
-            return true
-        } else if ( operation == "add" && video.currentTime + time < video.duration ) {
-            // 足した値が合計時間を超えない
-            video.currentTime += time
-            return true
-        } else if ( operation == "add" && video.currentTime + time > video.duration ) {
-            // 足した値が合計時間を超える
-            video.currentTime = video.duration
-            return true
-        } else if ( operation == "set" && time >= 0 ){
-            // 三項演算子 指定された時間が合計時間を超えるなら合計時間に
-            video.currentTime = ( time > video.duration ? video.duration : time )
-            return true
-        } else if ( operation == "set" && time < 0 ){
-            // 指定された時間が0
-            video.currentTime = 0
-            return true
-        } else {
-            throw new Error("Operation not found")
-        }
+
+
+    function onTimeControl(operation: string, time: number) {
+        video.currentTime = timeCalc(operation, time, currentTime, duration)
     }
+
     function setVolume(volume: number, isMuteToggle = false) {
         if (isMuteToggle) { 
             video.muted = !video.muted
@@ -209,15 +124,6 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         writePlayerSettings("volume", volume)
         setVideoVolume(volume)
     }
-
-    const toggleFullscreen = () => {
-        if (!isFullscreenUi) {
-            document.body.requestFullscreen();
-        } else {
-            document.exitFullscreen();
-        }
-        setIsFullscreenUi(!isFullscreenUi);
-    };
 
     function tempSeekHandle(clientX: number) {
         const boundingClientRect = seekbarRef.current?.getBoundingClientRect()
@@ -236,6 +142,7 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
             videoRef.current.currentTime = tempSeekDuration
         }
     }
+
     const enabledEffects = Object.keys(effectsState).map(elem => {
         if ( elem && effectsState[elem as keyof effectsState].enabled ) return elem
         return
@@ -246,19 +153,17 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
         onMouseMove={(e) => {if ( isSeeking ) tempSeekHandle(e.clientX)}} 
         onMouseLeave={(e) => {if ( isSeeking ) { doSeek() };setIsSeeking(false);}}
     >
-        <div className="playercontroller-container-top">
-            <div className="playercontroller-time currenttime">{secondsToTime( isSeeking ? tempSeekDuration : currentTime )}</div>
-            <div className="seekbar" ref={seekbarRef} onDragOver={(e) => {e.preventDefault()}}
-                onMouseDown={(e) => {setIsSeeking(true);tempSeekHandle(e.clientX)}}
-            >
-                <div className="seekbar-commentstats global-flex">{Object.keys(commentStatsCalc).map((keyname, index) => {
-                    return <span key={`${keyname}s-index`} className="global-flex1" style={{["--height" as any]: `${commentStatsCalc[keyname]}px`}}></span>
-                })}</div>
-                <div className="seekbar-buffered" style={{ width: `${bufferedDuration / duration * 100}%` }}></div>
-                <div className="seekbar-played" style={{ width: `${( isSeeking ? tempSeekDuration : currentTime ) / duration * 100}%` }}></div>
-            </div>
-            <div className="playercontroller-time duration">{secondsToTime(duration)}</div>
-        </div>
+        <Seekbar
+            currentTime={currentTime}
+            duration={duration}
+            tempSeekDuration={tempSeekDuration}
+            bufferedDuration={bufferedDuration}
+            isSeeking={isSeeking}
+            setIsSeeking={setIsSeeking}
+            tempSeekHandle={tempSeekHandle}
+            seekbarRef={seekbarRef}
+            commentContent={commentContent}
+        />
         <div className="playercontroller-container-middle">
             <div className="playercontroller-container-left">
                 <button type="button" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}} title="エフェクト設定">
@@ -270,11 +175,11 @@ function PlayerController({videoRef, effectsState, isVefxShown, setIsVefxShown, 
                 <label className="playercontroller-volume-container"><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/><span>{videoVolume}%</span></label>
             </div>
             <div className="playercontroller-container-center">
-                <button type="button" className="playercontroller-skipback" onClick={() => {timeController("set", 0)}} title="開始地点にシーク">{ isIconFilled[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
-                <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", -10)}} title="-10秒シーク"><IconRewindBackward10/></button>
+                <button type="button" className="playercontroller-skipback" onClick={() => {onTimeControl("set", 0)}} title="開始地点にシーク">{ isIconFilled[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
+                <button type="button" className="playercontroller-backward10s" onClick={() => {onTimeControl("add", -10)}} title="-10秒シーク"><IconRewindBackward10/></button>
                 <button type="button" className="playercontroller-togglestop" onClick={() => {toggleStopState()}} title={ isIconPlay ? "再生" : "一時停止"}>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</button>
-                <button type="button" className="playercontroller-backward10s" onClick={() => {timeController("add", 10)}} title="10秒シーク"><IconRewindForward10/></button>
-                <button type="button" className="playercontroller-skipforward" onClick={() => {timeController("set", video.duration)}} title="終了地点にシーク">{ isIconFilled[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
+                <button type="button" className="playercontroller-backward10s" onClick={() => {onTimeControl("add", 10)}} title="10秒シーク"><IconRewindForward10/></button>
+                <button type="button" className="playercontroller-skipforward" onClick={() => {onTimeControl("set", video.duration)}} title="終了地点にシーク">{ isIconFilled[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
             </div>
             <div className="playercontroller-container-right">
                 {hlsRef.current && <select onChange={(e) => {

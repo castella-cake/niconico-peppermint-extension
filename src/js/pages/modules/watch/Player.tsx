@@ -2,16 +2,17 @@ import { useEffect, useState, useRef, RefObject } from "react";
 import { useStorageContext } from "../extensionHook";
 //import { useLang } from "../localizeHook";
 import NiconiComments from "@xpadev-net/niconicomments";
-import PlayerController from "./PlayerController";
+import PlayerController from "./PlayerUI/PlayerController";
 import { useAudioEffects, } from "../eqHooks";
-import VefxController from "./vefxController";
+import VefxController from "./PlayerUI/vefxController";
 import { useHlsVideo } from "./watchHooks";
 import type { VideoDataRootObject } from "./types/VideoData";
 import type { CommentDataRootObject } from "./types/CommentData";
 import type { Dispatch, ReactNode, SetStateAction } from "react"
-import CommentInput from "./CommentInput";
+import CommentInput from "./PlayerUI/CommentInput";
 import Settings from "./Settings";
 import { putPlaybackPosition } from "../../../modules/watchApi";
+import { handleCtrl } from "./commonFunction";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -34,28 +35,21 @@ type Props = {
 type VideoPlayerProps = {
     children?: ReactNode,
     videoRef: RefObject<HTMLVideoElement>,
-    setCurrentTime: Dispatch<SetStateAction<number>>,
-    setDuration: Dispatch<SetStateAction<number>>,
-    onPause: Function
+    onPause: Function,
     canvasRef: RefObject<HTMLCanvasElement>,
     isCommentShown: boolean,
     commentOpacity: number,
 }
 
-function VideoPlayer({children, videoRef, setCurrentTime, setDuration, canvasRef, isCommentShown, onPause, commentOpacity}: VideoPlayerProps) {
+function VideoPlayer({children, videoRef, canvasRef, isCommentShown, onPause, commentOpacity}: VideoPlayerProps) {
     return (<div className="player-video-container">
         <div className="player-video-container-inner">
-            <video ref={videoRef} controls autoPlay onTimeUpdate={e => {
-                setCurrentTime(e.currentTarget.currentTime);
-            }} onDurationChange={e => {
-                setDuration(e.currentTarget.duration);
-            }} onPause={(e) => {onPause()}} width="1920" height="1080" id="pmw-element-video"></video>
+            <video ref={videoRef} controls autoPlay onPause={(e) => {onPause()}} width="1920" height="1080" id="pmw-element-video"></video>
             <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: commentOpacity} : {opacity: 0}} id="pmw-element-commentcanvas"/>
             { children }
         </div>
     </div>);
 }
-
 
 function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi, setCommentContent }: Props) {
     //const lang = useLang()
@@ -63,8 +57,6 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
 
     const [isVefxShown, setIsVefxShown] = useState(false)
     const [isSettingsShown, setIsSettingsShown] = useState(false)
-    const [currentTime, setCurrentTime] = useState(0)
-    const [duration, setDuration] = useState(0)
     const [isCommentShown, setIsCommentShown] = useState(true)
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -111,11 +103,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     useEffect(() => {
         if (!localStorage || !localStorage.playersettings || !localStorage.playersettings.vefxSettings) return
         setEffectsState(localStorage.playersettings.vefxSettings)
-    }, [localStorage, localStorage.playersettings])
-
-    useEffect(() => {
         handleEffectsChange(effectsState)
-    }, [effectsState])
+    }, [])
 
     useEffect(() => {
         if (
@@ -134,6 +123,32 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             };
         }
     }, [commentContent])
+
+    const toggleFullscreen = () => {
+        if (!isFullscreenUi) {
+            document.body.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+        setIsFullscreenUi(!isFullscreenUi);
+    };
+
+    useEffect(() => {
+        const handleFullscreenChange = (e: Event) => {
+            if ( !document.fullscreenElement ) {
+                setIsFullscreenUi(false)
+            } else {
+                setIsFullscreenUi(true)
+            }
+        }
+        const onKeydown = (e: KeyboardEvent) => handleCtrl(e, videoRef.current, commentInputRef.current, toggleFullscreen)
+        document.body.addEventListener("keydown", onKeydown)
+        document.body.addEventListener("fullscreenchange", handleFullscreenChange)
+        return () => {
+            document.body.removeEventListener("keydown", onKeydown)
+            document.body.removeEventListener("fullscreenchange", handleFullscreenChange)
+        }
+    }, [])
     
     function onPause() {
         if ( !videoRef.current ) return
@@ -142,12 +157,14 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     }
 
     return <div className="player-container" id="pmw-player">
-        <VideoPlayer videoRef={videoRef} setCurrentTime={setCurrentTime} setDuration={setDuration} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} commentOpacity={localStorage.playersettings.commentOpacity || 1}>
+        <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} commentOpacity={localStorage.playersettings.commentOpacity || 1}>
             {isVefxShown && <VefxController
                 frequencies={frequencies}
                 effectsState={effectsState}
                 onEffectsChange={(state: effectsState) => {
                     setLocalStorageValue("playersettings", { ...localStorage.playersettings, vefxSettings: state })
+                    // 反映して再レンダリング
+                    handleEffectsChange(state)
                     setEffectsState(state)
                 }}
             />}
@@ -155,19 +172,21 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         </VideoPlayer>
         <PlayerController
             videoRef={videoRef}
+            hlsRef={hlsRef}
             effectsState={effectsState}
+
             isVefxShown={isVefxShown}
             setIsVefxShown={setIsVefxShown}
-            currentTime={currentTime}
-            duration={duration}
+
             isFullscreenUi={isFullscreenUi}
-            setIsFullscreenUi={setIsFullscreenUi}
+            toggleFullscreen={toggleFullscreen}
+
             isCommentShown={isCommentShown}
             setIsCommentShown={setIsCommentShown}
+
             isSettingsShown={isSettingsShown}
             setIsSettingsShown={setIsSettingsShown}
-            hlsRef={hlsRef}
-            commentInputRef={commentInputRef}
+
             commentContent={commentContent}
         />
         <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} commentInputRef={commentInputRef}/>

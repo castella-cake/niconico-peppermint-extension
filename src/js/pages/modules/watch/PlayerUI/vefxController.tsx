@@ -2,7 +2,7 @@
 //import { useStorageContext } from "../extensionHook";
 //import { useLang } from "../localizeHook";
 
-import { effectsState } from "./Player";
+import { effectsState } from "../Player";
 
 function VefxDisplay({ effectsState }: { effectsState: effectsState }) {
     if (!effectsState) return <></>
