@@ -14,6 +14,7 @@ import Actions from "./watch/Actions";
 import Search from "./watch/Search";
 import Playlist from "./watch/Playlist";
 import { mylistContext, playlistData } from "./watch/types/playlistQuery";
+import { PlaylistResponseRootObject } from "./watch/types/playlistData";
 
 const watchLayoutType = {
     reimaginedNewWatch: "renew",
@@ -50,20 +51,39 @@ function CreateWatchUI() {
     const debugAlwaysOnmyouji: Boolean = syncStorage.debugalwaysonmyouji
 
     const [smId, setSmId] = useState(debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
-    const [ currentPlaylist, setCurrentPlaylist ] = useState<playlistData>({ type: null })
-    const [ fetchedPlaylistData, setFetchedPlaylistData ] = useState<any>(null)
+    //const [ currentPlaylist, setCurrentPlaylist ] = useState<playlistData>({ type: null })
+    const [ fetchedPlaylistData, setFetchedPlaylistData ] = useState<PlaylistResponseRootObject | null>(null)
 
-    function updatePlaylistState() {
-        const searchParams = new URLSearchParams(location.search);
+    function updatePlaylistState(search = location.search) {
+        
+        const searchParams = new URLSearchParams(search);
         const playlistString = searchParams.get('playlist');
-        console.log(playlistString)
+        //console.log(playlistString)
+
+        async function getData(playlistJson: playlistData) {
+            //console.log(playlistJson.context.mylistId)
+
+            if ( playlistJson.type === "mylist" && playlistJson.context.mylistId ) {
+                // fetchしようとしているマイリストが、すでにフェッチ済みのマイリストと同一ならスキップする
+                if (fetchedPlaylistData && fetchedPlaylistData.data && fetchedPlaylistData.data.id === playlistJson.context.mylistId) return
+
+                const context: mylistContext = playlistJson.context
+                const response: any = await getPlaylists(context.mylistId)
+                //console.log(response);
+                setFetchedPlaylistData(response)
+            } else {
+                setFetchedPlaylistData(null)
+            }
+        }
 
         if (playlistString) {
             const decodedPlaylist = atob(playlistString);
             const playlistJson: playlistData = JSON.parse(decodedPlaylist)
-            setCurrentPlaylist(playlistJson)
+            //setCurrentPlaylist(playlistJson)
+            getData(playlistJson)
         } else {
-            setCurrentPlaylist({ type: null })
+            //setCurrentPlaylist({ type: null })
+            setFetchedPlaylistData(null)
         }
     }
 
@@ -99,37 +119,54 @@ function CreateWatchUI() {
     }, [smId])
 
     useEffect(() => {
+        // 初回レンダリングで今のプレイリスト状態を設定
         updatePlaylistState()
+
+        // 戻るボタンとかが発生した場合
         const onPopState = () => {
+            // 移動前にシーク位置を保存
             if (videoElementRef.current) {
                 const playbackPositionBody = { watchId: smId, seconds: videoElementRef.current.currentTime }
                 putPlaybackPosition(JSON.stringify(playbackPositionBody))
             }
+            // watchだったら更新する、watchではない場合はページ移動が起こる
             setSmId(location.pathname.slice(7).replace(/\?.*/, ''))
+            // popstateはlocationも更新後なので、プレイリストに対して何も与えなくて良い
             updatePlaylistState()
         }
         window.addEventListener("popstate", onPopState)
         return () => {window.removeEventListener("popstate", onPopState)}
     }, [])
 
-    useEffect(() => {
-        async function getData() {
-            //console.log(currentPlaylist)
-            if ( currentPlaylist.type === "mylist" ) {
-                const context: mylistContext = currentPlaylist.context
-                const response: any = await getPlaylists(context.mylistId)
-                //console.log(response);
-                setFetchedPlaylistData(response)
-            }
-        }
-        getData()
-    }, [currentPlaylist])
-
     //console.log(videoInfo)
     if ( !videoInfo || !commentContent || !isLoaded || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
     const layoutType = syncStorage.pmwlayouttype || watchLayoutType.reimaginedNewWatch
     const playerSize = localStorage.playersettings.playerAreaSize || 1
 
+    const linkClickHandler = (e: MouseEvent<HTMLDivElement>) => {
+        if ( e.target instanceof Element ) {
+            const nearestAnchor: HTMLAnchorElement | null = e.target.closest("a")
+            // data-seektimeがある場合は、mousecaptureな都合上スキップする。
+            if ( nearestAnchor && nearestAnchor.href.startsWith("https://www.nicovideo.jp/watch/") && !nearestAnchor.getAttribute("data-seektime") ) {
+                // 別の動画リンクであることが確定したら、これ以上イベントが伝播しないようにする
+                e.stopPropagation()
+                e.preventDefault()
+
+                // 移動前にシーク位置を保存
+                if (videoElementRef.current) {
+                    const playbackPositionBody = { watchId: smId, seconds: videoElementRef.current.currentTime }
+                    putPlaybackPosition(JSON.stringify(playbackPositionBody))
+                }
+
+                // historyにpushして移動
+                history.pushState(null, '', nearestAnchor.href)
+                
+                // 動画IDとプレイリスト状態を更新。プレイリスト状態はlocationが未更新のため、
+                setSmId(nearestAnchor.href.replace("https://www.nicovideo.jp/watch/", "").replace(/\?.*/, ''))
+                updatePlaylistState(new URL(nearestAnchor.href).search)
+            }
+        }
+    }
 
     const playerElem = <Player
         videoId={smId}
@@ -203,22 +240,6 @@ function CreateWatchUI() {
     }
 
     const currentLayout = layoutPresets[layoutType]
-
-    const linkClickHandler = (e: MouseEvent<HTMLDivElement>) => {
-        if ( e.target instanceof Element ) {
-            const nearestAnchor: HTMLAnchorElement | null = e.target.closest("a")
-            if ( nearestAnchor && nearestAnchor.href.startsWith("https://www.nicovideo.jp/watch/") && !nearestAnchor.getAttribute("data-seektime") ) {
-                e.stopPropagation()
-                e.preventDefault()
-                if (videoElementRef.current) {
-                    const playbackPositionBody = { watchId: smId, seconds: videoElementRef.current.currentTime }
-                    putPlaybackPosition(JSON.stringify(playbackPositionBody))
-                }
-                history.pushState(null, '', nearestAnchor.href)
-                setSmId(nearestAnchor.href.replace("https://www.nicovideo.jp/watch/", "").replace(/\?.*/, ''))
-            }
-        }
-    }
 
 
     return <div className={isFullscreenUi ? "container fullscreen" : "container"} onClickCapture={(e) => {linkClickHandler(e)}}>
