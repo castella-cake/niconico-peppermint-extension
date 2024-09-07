@@ -6,7 +6,7 @@ import Hls from "hls.js";
 import type { effectsState } from "../Player";
 import { CommentDataRootObject } from "../types/CommentData";
 import { Seekbar } from "./Seekbar";
-import { timeCalc } from "../commonFunction";
+import { secondsToTime, timeCalc } from "../commonFunction";
 type Props = {
     videoRef: RefObject<HTMLVideoElement>,
     effectsState: effectsState,
@@ -21,6 +21,12 @@ type Props = {
     hlsRef: RefObject<Hls>,
     commentContent: CommentDataRootObject,
     playlistIndexControl: (index: number) => void,
+}
+
+const playerTypes = {
+    default: "default",
+    officialPlayer: "html5",
+    shinjuku: "shinjuku",
 }
 
 function PlayerController({
@@ -38,7 +44,7 @@ function PlayerController({
     commentContent,
     playlistIndexControl,
 }: Props) {
-    const { localStorage, setLocalStorageValue, isLoaded } = useStorageContext()
+    const { localStorage, setLocalStorageValue, syncStorage, isLoaded } = useStorageContext()
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
     }
@@ -144,18 +150,10 @@ function PlayerController({
         const boundingClientRect = seekbarRef.current?.getBoundingClientRect()
         if (!boundingClientRect || !videoRef.current) return
         //console.log((clientX - boundingClientRect.left) / boundingClientRect.width * 100)
-        setTempSeekDuration(duration * ((clientX - boundingClientRect.left) / boundingClientRect.width))
-    }
-
-    function doSeek(clientX?: number) {
-        const boundingClientRect = seekbarRef.current?.getBoundingClientRect()
-        if (!boundingClientRect || !videoRef.current) return
-        //console.log((clientX - boundingClientRect.left) / boundingClientRect.width * 100)
-        if ( clientX ) {
-            videoRef.current.currentTime = duration * ((clientX - boundingClientRect.left) / boundingClientRect.width)
-        } else {
-            videoRef.current.currentTime = tempSeekDuration
-        }
+        let scale = ((clientX - boundingClientRect.left) / boundingClientRect.width)
+        if ( scale > 1 ) scale = 1
+        if ( scale < 0 ) scale = 0
+        setTempSeekDuration(duration * ( scale <= 1 ? scale : 1 ))
     }
 
     function onSkipBack() {
@@ -168,45 +166,113 @@ function PlayerController({
         if (isIndexControl[1] === true) playlistIndexControl(1)
     }
 
+    function doSeek(clientX?: number) {
+        const boundingClientRect = seekbarRef.current?.getBoundingClientRect()
+        if (!boundingClientRect || !videoRef.current) return
+        //console.log((clientX - boundingClientRect.left) / boundingClientRect.width * 100)
+        if ( clientX ) {
+            let scale = ((clientX - boundingClientRect.left) / boundingClientRect.width)
+            if ( scale > 1 ) scale = 1
+            if ( scale < 0 ) scale = 0
+            videoRef.current.currentTime = duration * scale
+        } else {
+            videoRef.current.currentTime = tempSeekDuration
+        }
+    }
+
+    const onSeekPointerMove = (e: PointerEvent) => {
+        tempSeekHandle(e.clientX)
+        e.preventDefault()
+        e.stopPropagation()
+    }
+
+    const onSeekPointerUp = (e: PointerEvent) => {
+        doSeek(e.clientX)
+        setIsSeeking(false)
+        document.removeEventListener("pointermove", onSeekPointerMove)
+        document.removeEventListener("pointerup", onSeekPointerUp)
+        e.preventDefault()
+        e.stopPropagation()
+    }
+
+    function onSeekStart() {
+        document.addEventListener("pointermove", onSeekPointerMove)
+        document.addEventListener("pointerup", onSeekPointerUp)
+    }
+
     const enabledEffects = Object.keys(effectsState).map(elem => {
         if ( elem && effectsState[elem as keyof effectsState].enabled ) return elem
         return
     }).filter(elem => {if (elem) return true})
 
-    return <div className="playercontroller-container" id="pmw-playercontroller"
-        onMouseUp={(e) => {if ( isSeeking ) doSeek(e.clientX);setIsSeeking(false);}}
-        onMouseMove={(e) => {if ( isSeeking ) tempSeekHandle(e.clientX)}} 
-        onMouseLeave={(e) => {if ( isSeeking ) { doSeek() };setIsSeeking(false);}}
+    const currentPlayerType = syncStorage.pmwplayertype || playerTypes.default
+
+    const seekbarElem = <Seekbar
+        currentTime={currentTime}
+        duration={duration}
+        showTime={currentPlayerType === playerTypes.default}
+        tempSeekDuration={tempSeekDuration}
+        bufferedDuration={bufferedDuration}
+        isSeeking={isSeeking}
+        setIsSeeking={setIsSeeking}
+        tempSeekHandle={tempSeekHandle}
+        seekbarRef={seekbarRef}
+        commentContent={commentContent}
+        onSeekStart={onSeekStart}
+    />
+
+    const effectChangeElem =  <button key="control-effectchange" type="button" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}} title="エフェクト設定">
+        { isVefxShown ? <IconAdjustmentsFilled/> :
+            (enabledEffects.length > 0) ? <IconAdjustmentsCheck/> : <IconAdjustments/>
+        }
+    </button>
+    const toggleMuteElem = <button key="control-togglemute" type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}} title={ isMuted ? "ミュート解除" : "ミュート"}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
+    const volumeElem = <label key="control-volume" className="playercontroller-volume-container"><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/><span>{videoVolume}%</span></label>
+    
+    const skipBackElem = <button key="control-skipback" type="button" className="playercontroller-skipback" onClick={() => {onSkipBack()}} title="開始地点にシーク">{ isIndexControl[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
+    const skipForwardElem = <button key="control-skipforward" type="button" className="playercontroller-skipforward" onClick={() => {onSkipForward()}} title="終了地点にシーク">{ isIndexControl[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
+    
+    const backwardElem = <button key="control-backward10s" type="button" className="playercontroller-backward10s" onClick={() => {onTimeControl("add", -10)}} title="-10秒シーク"><IconRewindBackward10/></button>
+    const forwardElem = <button key="control-forward10s" type="button" className="playercontroller-forward10s" onClick={() => {onTimeControl("add", 10)}} title="10秒シーク"><IconRewindForward10/></button>
+    
+    const togglePauseElem = <button key="control-togglepause" type="button" className="playercontroller-togglepause" onClick={() => {toggleStopState()}} title={ isIconPlay ? "再生" : "一時停止"}>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</button>
+
+    const timeElem = <div key="control-time" className="playercontroller-time">{secondsToTime( isSeeking ? tempSeekDuration : currentTime )} / {secondsToTime(duration)}</div>
+
+    const controlLayouts: { [key: string]: {top: JSX.Element[], left: JSX.Element[], center: JSX.Element[], right: JSX.Element[]} } = {
+        "default": {
+            top: [ seekbarElem ],
+            left: [ effectChangeElem, toggleMuteElem, volumeElem ],
+            center: [ skipBackElem, backwardElem, togglePauseElem, forwardElem, skipForwardElem ],
+            right: [],
+        },
+        "html5": {
+            top: [ seekbarElem ],
+            left: [ togglePauseElem, effectChangeElem, toggleMuteElem, volumeElem ],
+            center: [ skipBackElem, backwardElem, timeElem, forwardElem, skipForwardElem ],
+            right: [],
+        },
+        "shinjuku": {
+            top: [],
+            left: [ togglePauseElem, skipBackElem ],
+            center: [ seekbarElem, timeElem ],
+            right: [ effectChangeElem, toggleMuteElem, volumeElem ],
+        },
+    }
+
+    return <div className={`playercontroller-container`} id="pmw-playercontroller"
+        player-type={currentPlayerType}
     >
-        <Seekbar
-            currentTime={currentTime}
-            duration={duration}
-            tempSeekDuration={tempSeekDuration}
-            bufferedDuration={bufferedDuration}
-            isSeeking={isSeeking}
-            setIsSeeking={setIsSeeking}
-            tempSeekHandle={tempSeekHandle}
-            seekbarRef={seekbarRef}
-            commentContent={commentContent}
-        />
+        {controlLayouts[currentPlayerType].top}
         <div className="playercontroller-container-middle">
             <div className="playercontroller-container-left">
-                <button type="button" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}} title="エフェクト設定">
-                    { isVefxShown ? <IconAdjustmentsFilled/> : 
-                        (enabledEffects.length > 0) ? <IconAdjustmentsCheck/> : <IconAdjustments/>
-                    }
-                </button>
-                <button type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}} title={ isMuted ? "ミュート解除" : "ミュート"}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
-                <label className="playercontroller-volume-container"><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/><span>{videoVolume}%</span></label>
+                {controlLayouts[currentPlayerType].left}
             </div>
             <div className="playercontroller-container-center">
-                <button type="button" className="playercontroller-skipback" onClick={() => {onSkipBack()}} title="開始地点にシーク">{ isIndexControl[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
-                <button type="button" className="playercontroller-backward10s" onClick={() => {onTimeControl("add", -10)}} title="-10秒シーク"><IconRewindBackward10/></button>
-                <button type="button" className="playercontroller-togglestop" onClick={() => {toggleStopState()}} title={ isIconPlay ? "再生" : "一時停止"}>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</button>
-                <button type="button" className="playercontroller-backward10s" onClick={() => {onTimeControl("add", 10)}} title="10秒シーク"><IconRewindForward10/></button>
-                <button type="button" className="playercontroller-skipforward" onClick={() => {onSkipForward()}} title="終了地点にシーク">{ isIndexControl[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
+                {controlLayouts[currentPlayerType].center}
             </div>
             <div className="playercontroller-container-right">
+                {controlLayouts[currentPlayerType].right}
                 {hlsRef.current && <select onChange={(e) => {
                     if (!hlsRef.current) return
                     hlsRef.current.currentLevel = Number(e.currentTarget.value)

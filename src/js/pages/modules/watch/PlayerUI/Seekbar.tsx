@@ -6,16 +6,18 @@ import type { CommentDataRootObject, Comment as CommentItem} from "../types/Comm
 type Props = {
     currentTime: number,
     duration: number,
+    showTime: boolean,
     tempSeekDuration: number,
     bufferedDuration: number,
     isSeeking: boolean,
     setIsSeeking: Dispatch<SetStateAction<boolean>>,
     tempSeekHandle: (clientX: number) => void,
     commentContent: CommentDataRootObject,
-    seekbarRef: RefObject<HTMLDivElement>
+    seekbarRef: RefObject<HTMLDivElement>,
+    onSeekStart: () => void
 }
 
-export function Seekbar({ currentTime, duration, tempSeekDuration, bufferedDuration, isSeeking, setIsSeeking, tempSeekHandle, commentContent, seekbarRef }: Props) {
+export function Seekbar({ currentTime, duration, showTime, tempSeekDuration, bufferedDuration, isSeeking, setIsSeeking, tempSeekHandle, commentContent, seekbarRef, onSeekStart }: Props) {
     const commentStatsCalc = useMemo(() => {
         const comments = commentContent.data?.threads
             .map(elem => elem.comments)
@@ -47,16 +49,17 @@ export function Seekbar({ currentTime, duration, tempSeekDuration, bufferedDurat
     }, [commentContent, duration])
 
     return <div className="seekbar-container" id="pmw-seekbar">
-        <div className="seekbar-time currenttime">{secondsToTime( isSeeking ? tempSeekDuration : currentTime )}</div>
+        { showTime && <div className="seekbar-time currenttime">{secondsToTime( isSeeking ? tempSeekDuration : currentTime )}</div> }
         <div className="seekbar" ref={seekbarRef} onDragOver={(e) => {e.preventDefault()}}
-            onMouseDown={(e) => {setIsSeeking(true);tempSeekHandle(e.clientX)}}
+            onPointerDown={(e) => {setIsSeeking(true);tempSeekHandle(e.clientX);onSeekStart();e.preventDefault();e.stopPropagation()}}
         >
             <div className="seekbar-commentstats global-flex">{Object.keys(commentStatsCalc).map((keyname, index) => {
                 return <span key={`${keyname}s-index`} className="global-flex1" style={{["--height" as any]: `${commentStatsCalc[keyname]}px`}}></span>
             })}</div>
             <div className="seekbar-buffered" style={{ width: `${bufferedDuration / duration * 100}%` }}></div>
             <div className="seekbar-played" style={{ width: `${( isSeeking ? tempSeekDuration : currentTime ) / duration * 100}%` }}></div>
+            <div className="seekbar-thumb" style={{ left: `${( isSeeking ? tempSeekDuration : currentTime ) / duration * 100}%` }}></div>
         </div>
-        <div className="seekbar-time duration">{secondsToTime(duration)}</div>
+        { showTime && <div className="seekbar-time duration">{secondsToTime(duration)}</div> }
     </div>
 }

@@ -45,24 +45,29 @@
         background: var(--hover1);
         cursor: pointer;
     }
-    
-    .playercontroller-qualityselect {
-        padding: 8px;
-        margin: 0 8px;
-        background: var(--bgcolor2);
-        color: var(--textcolor2);
-        border: none;
-        border-radius: var(--radius-mini);
-        font-family: inherit;
-        font-size: inherit;
-        cursor: pointer;
-    }
-    .playercontroller-qualityselect:hover, .playercontroller-qualityselect:focus {
-        background: var(--hover1);
-        color: var(--textcolor1);
-    }
+}
+.playercontroller-qualityselect {
+    padding: 8px;
+    margin: 0 8px;
+    background: var(--bgcolor2);
+    color: var(--textcolor2);
+    border: none;
+    border-radius: var(--radius-mini);
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+}
+.playercontroller-qualityselect:hover, .playercontroller-qualityselect:focus {
+    background: var(--hover1);
+    color: var(--textcolor1);
 }
 
+[player-type="shinjuku"] .playercontroller-container-right, [player-type="shinjuku"] .playercontroller-container-left {
+    flex: none;
+}
+[player-type="shinjuku"] .seekbar-container {
+    flex: 1;
+}
 
 .playercontroller-effectchange {
     display: flex !important;
@@ -91,6 +96,10 @@
     span {
         vertical-align: middle;
     }
+}
+
+.playercontroller-time {
+    margin: 0 8px;
 }
 
 .seekbar {
@@ -146,3 +155,99 @@
         }
     }
 }
+
+.playercontroller-container[player-type="shinjuku"] {
+    --radius: 0px;
+    --radius-mini: 0px;
+    --radius-big: 0px;
+    background-image: linear-gradient(#ddd 1%, #494949 2%, #282828 49%, #141414 50%, #202020 100%);
+    color: #fff;
+    margin-top: 0;
+    font-family: "MS Gothic";
+    font-weight: bold;
+    letter-spacing: -1px;
+    font-size: 14px;
+    .playercontroller-container-middle {
+        min-height: 32px;
+    }
+
+    .playercontroller-container-left, .playercontroller-container-center {
+        button {
+            border: 1px solid #111;
+            border-image: linear-gradient(#5c5c5c,#363636);
+            border-image-slice: 1;
+            outline: 1px solid #060606;
+            padding:2px;
+            margin-left: 2px;
+        }
+    }
+
+
+    button svg {
+        height: 20px;
+        width: 20px;
+        color: #fff;
+    }
+
+    .playercontroller-container-left button.playercontroller-togglepause {
+        padding: 2px 8px;
+    }
+    .playercontroller-container-right button {
+        padding: 4px;
+    }
+    .playercontroller-qualityselect {
+        background: transparent;
+        padding: 6px;
+        color: #fff;
+        option {
+            background: #000;
+            color: #fff;
+        }
+    }
+
+    .playercontroller-volume-container .playercontroller-volume {
+        max-width: 64px;
+        vertical-align: middle;
+        appearance: none;
+        border: 2px solid #111;
+        background: linear-gradient(#666 0%, #fff 20%, #ddd 90%, #aaa 90%);
+        height: 8px;
+    }
+
+    .seekbar-thumb {
+        position: relative;
+        height: 24px;
+        width: 4px;
+        background: linear-gradient(#ddd 1%, #ddd 2%, #ddd 49%, #555 50%, #eee 100%);
+        bottom: 16px;
+        border: 2px solid #050505;
+    }
+    .seekbar {
+        height: 6px;
+        border: 2px solid #111;
+        background: linear-gradient(#888, #ddd 20%, #fff 70%);
+    }
+    .seekbar-played {
+        background: transparent;
+    }
+    .seekbar-buffered {
+        background: #0001;
+    }
+    .playercontroller-time {
+        font-family: "MS Gothic";
+        font-weight: bold;
+        letter-spacing: -1px;
+        font-size: 14px;
+        margin: 0 4px;
+    }
+    .playercontroller-container-right, .playercontroller-container-left, .playercontroller-container-center {
+        button:hover {
+            background: #fff2;
+            cursor: pointer;
+        }
+    }
+    /*.playercontroller-volume-container .playercontroller-volume::-webkit-slider-thumb {
+        display: none;
+    }*/
+}
+

@@ -52,8 +52,14 @@ const settings = {
         {
             type: "select",
             name: "pmwlayouttype",
-            values: ["renew", "recresc", "resp", "3col"],
+            values: ["renew", "recresc", "resp", "3col", "shinjuku"],
             default: "renew"
+        },
+        {
+            type: "select",
+            name: "pmwplayertype",
+            values: ["default", "html5", "shinjuku"],
+            default: "default"
         },
         {
             type: "checkbox",

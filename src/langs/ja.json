@@ -49,9 +49,14 @@
             "hint": "コンテンツスクリプト上ではなく、常にページスクリプトを使用して動画をロードします。\nこれはFirefox環境でデフォルトで行われますが、UAの変更をしている場合やChromium環境で動画が正しくロードされない場合に役立つ可能性があります。\n正しく動作している場合は有効にしないでください。"
         },
         "pmwlayouttype": {
-            "name": "PM視聴ページのレイアウト",
-            "hint": "視聴ページの要素配置を指定します。",
-            "select": ["Reimagined-新視聴", "Reimagined-cresc.", "Reimagined-モバイル", "3カラム"]
+            "name": "PM視聴ページのテーマ",
+            "hint": "視聴ページの要素配置を指定します。Shinjukuでは見た目も変更されます。",
+            "select": ["Reimagined-新視聴", "Reimagined-cresc.", "Reimagined-モバイル", "3カラム", "Shinjuku"]
+        },
+        "pmwplayertype": {
+            "name": "PMプレイヤーのテーマ",
+            "hint": "プレイヤーの見た目、レイアウトを指定します。",
+            "select": ["デフォルト", "HTML5", "Shinjuku"]
         },
         "watchpagetheme": {
             "name": "視聴ページテーマ",

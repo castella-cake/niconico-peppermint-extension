@@ -21,6 +21,7 @@ const watchLayoutType = {
     reimaginedOldWatch: "recresc",
     reimaginedMobileWatch: "resp",
     threeColumn: "3col",
+    shinjuku: "shinjuku"
 }
 
 type stackerItem = {
@@ -250,6 +251,15 @@ function CreateWatchUI() {
             midRight: [rightActionElem],
     
             bottom: [recommendElem, bottomInfoElem, searchElem]
+        },
+        "shinjuku": {
+            top: [infoElem, searchElem],
+    
+            midLeft: [playerElem],
+            midCenter: false,
+            midRight: [rightActionElem],
+    
+            bottom: [recommendElem, bottomInfoElem]
         },
     }
 
