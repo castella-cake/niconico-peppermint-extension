@@ -2,6 +2,8 @@ import { IconFolderFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabl
 import type { VideoDataRootObject } from "./types/VideoData";
 import { MouseEvent, RefObject, useState } from "react";
 import { useStorageContext } from "../extensionHook";
+import * as DOMPurify from "dompurify";
+import HTMLReactParser from "html-react-parser";
 
 
 type Props = {
@@ -34,8 +36,8 @@ function Info({videoInfo, videoRef}: Props) {
 
     const videoInfoResponse = videoInfo.data.response
 
-    // Scary!
-    const innerHTMLObj = { __html: videoInfoResponse.video.description }
+    // Not scary!
+    const sanitizedDesc = DOMPurify.sanitize(videoInfoResponse.video.description || "")
 
     const handleAnchorClick = (e: MouseEvent<HTMLDivElement>) => {
         if ( e.target instanceof Element ) {
@@ -92,8 +94,10 @@ function Info({videoInfo, videoRef}: Props) {
             </div>
         </div>
         <details open={isDescOpen && true} onToggle={(e) => {setIsDescOpen(e.currentTarget.open);writePlayerSettings("descriptionOpen", e.currentTarget.open)}}>
-            <summary>この動画の概要</summary>
-            <div className="videodesc" dangerouslySetInnerHTML={innerHTMLObj} onClickCapture={(e) => {handleAnchorClick(e)}}/>
+            <summary>この動画の概要 {!isDescOpen && <span>{}</span>}</summary>
+            <div className="videodesc" onClickCapture={(e) => {handleAnchorClick(e)}}>
+                {HTMLReactParser(sanitizedDesc)}
+            </div>
         </details>
         <div className="tags-container">
             {videoInfoResponse.tag.items.map((elem,index) => {

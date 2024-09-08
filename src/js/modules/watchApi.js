@@ -230,7 +230,7 @@ export async function getCommonsRelatives(videoId, limit = 15) {
         "mode": "cors",
         "credentials": "include"
     });
-    if (!response.ok) null
+    if (!response.ok) return null;
     return await response.json()
 }
 

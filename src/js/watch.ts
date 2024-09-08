@@ -90,16 +90,14 @@ function createCSSRule(
             for (const node of addedNodes) {
                 const elem = node as Element;
                 console.log(elem);
+                console.log(`${elem.tagName} ${elem.getAttribute("rel")} ${elem.getAttribute("href")}`)
                 // scriptが増えたならこのレンダーはもう維持するべきではないのでリロード
                 if (
-                    elem.tagName === "link" &&
-                    elem.getAttribute("rel") === "modulepreload" &&
-                    elem
-                        .getAttribute("href")
-                        ?.startsWith(
-                            "https://resource.video.nimg.jp/web/scripts/nvpc_next/assets/manifest-",
-                        )
+                    elem.tagName.toLowerCase() === "link" &&
+                    elem.getAttribute("rel")?.toLowerCase() === "modulepreload" &&
+                    elem.getAttribute("href")?.toLowerCase().startsWith("https://resource.video.nimg.jp/web/scripts/nvpc_next/assets/manifest-")
                 ) {
+                    console.log("Inconsistent injection detected. Reloading...")
                     location.reload();
                 }
             }

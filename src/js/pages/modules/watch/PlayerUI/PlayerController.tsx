@@ -208,6 +208,7 @@ function PlayerController({
     const currentPlayerType = syncStorage.pmwplayertype || playerTypes.default
 
     const seekbarElem = <Seekbar
+        key="control-seekbar"
         currentTime={currentTime}
         duration={duration}
         showTime={currentPlayerType === playerTypes.default}

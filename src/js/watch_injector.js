@@ -29,6 +29,8 @@ async function getHls(videoId, body, actionTrackId, accessRightKey) {
 
 // ActionTrackIdで各レンダーを識別する
 let previousATI = ""
+// 動画変更の検出
+let previousVideoId = ""
 document.addEventListener("pmw_informationReady", (e) => {
     // CORS関係でオブジェクトはStringになって渡されます。
     const detail = JSON.parse(e.detail)
@@ -37,7 +39,7 @@ document.addEventListener("pmw_informationReady", (e) => {
         actionTrackId: 現在のレンダーで使っているアクショントラックID,
         commentContent: /v1/threadsで返ってくるコメント情報のオブジェクト,
     }*/
-    //console.log(detail)
+    console.log(detail)
     // 以前のATIと一緒ならスキップする
     if (detail.actionTrackId !== previousATI) {
         //console.log("Player injecting...")
@@ -54,22 +56,24 @@ document.addEventListener("pmw_informationReady", (e) => {
 
 async function injectMediaToPlayer({ videoInfo, actionTrackId }) {
     // 
-    if (document.getElementById("pmwp-cyaki-mediainjector")) return;
-    const pluginList = document.getElementById("pmw-plugin-list")
+    if (!document.getElementById("pmwp-cyaki-mediainjector")) {
+        const pluginList = document.getElementById("pmw-plugin-list")
 
-    const mediaInjectorContainer = document.createElement("div")
-    mediaInjectorContainer.id = "pmwp-cyaki-mediainjector"
-    mediaInjectorContainer.className = "plugin-list-item"
-    mediaInjectorContainer.innerHTML = `
-        <div class="plugin-list-item-title">
-            外部HLS プラグイン (ビルトイン)
-        </div>
-        <div class="plugin-list-item-desc">
-            ページスクリプトとしてHLSを実行し、一部のCORS問題を回避します。
-        </div>
-    `
-    
-    pluginList.appendChild(mediaInjectorContainer)
+        const mediaInjectorContainer = document.createElement("div")
+        mediaInjectorContainer.id = "pmwp-cyaki-mediainjector"
+        mediaInjectorContainer.className = "plugin-list-item"
+        mediaInjectorContainer.innerHTML = `
+            <div class="plugin-list-item-title">
+                外部HLS プラグイン (ビルトイン)
+            </div>
+            <div class="plugin-list-item-desc">
+                ページスクリプトとしてHLSを実行し、一部のCORS問題を回避します。
+            </div>
+        `
+        
+        pluginList.appendChild(mediaInjectorContainer)
+    }
+
 
 
     if (
@@ -79,8 +83,12 @@ async function injectMediaToPlayer({ videoInfo, actionTrackId }) {
         videoInfo.data.response.media.domand &&
         videoInfo.data.response.media.domand.accessRightKey &&
         videoInfo.data.response.media.domand.videos &&
-        videoInfo.data.response.media.domand.audios
+        videoInfo.data.response.media.domand.audios &&
+        videoInfo.data.response.video.id !== previousVideoId
     ) {
+        // hlsの取得より先に動画が変更される可能性を考えて、とりあえず最初に前の動画IDを保存
+        previousVideoId = videoInfo.data.response.video.id
+
         const accessRightKey = videoInfo.data.response.media.domand.accessRightKey
         const availableVideoQuality = videoInfo.data.response.media.domand.videos
         const availableAudioQuality = videoInfo.data.response.media.domand.audios

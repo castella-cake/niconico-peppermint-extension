@@ -99,7 +99,7 @@ function CreateWatchUI() {
     useEffect(() => {
         const newActionTrackId = generateActionTrackId()
         setActionTrackId(newActionTrackId)
-        document.dispatchEvent(new CustomEvent("actionTrackIdGenerated", { detail: actionTrackId }))
+        document.dispatchEvent(new CustomEvent("actionTrackIdGenerated", { detail: newActionTrackId }))
         async function fetchInfo() {
             const fetchedVideoInfo: VideoDataRootObject = await getVideoInfo(smId)
             setVideoInfo(fetchedVideoInfo)
@@ -114,8 +114,8 @@ function CreateWatchUI() {
             }
             const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
             setCommentContent(commentResponse)
-            //console.log(commentResponse)
             
+            //console.log(commentResponse)
         }
         fetchInfo()
     }, [smId])
@@ -123,9 +123,9 @@ function CreateWatchUI() {
     useEffect(() => {
         if (videoInfo.meta?.status === 200 && commentContent.meta?.status === 200 && actionTrackId !== "" && isEventFired.current !== true) {
             document.dispatchEvent(new CustomEvent("pmw_informationReady", { detail: JSON.stringify({ videoInfo, actionTrackId, commentContent }) }))
-            isEventFired.current = true
+            //isEventFired.current = true
         }
-    }, [videoInfo, commentContent, actionTrackId])
+    }, [commentContent]) // コメント情報が最後に更新されると踏んで、commentContentだけを依存する
 
     useEffect(() => {
         // 初回レンダリングで今のプレイリスト状態を設定
@@ -139,6 +139,7 @@ function CreateWatchUI() {
                 putPlaybackPosition(JSON.stringify(playbackPositionBody))
             }
             // watchだったら更新する、watchではない場合はページ移動が起こる
+            isEventFired.current = false
             setSmId(location.pathname.slice(7).replace(/\?.*/, ''))
             // popstateはlocationも更新後なので、プレイリストに対して何も与えなくて良い
             updatePlaylistState()
@@ -175,7 +176,7 @@ function CreateWatchUI() {
 
         // historyにpushして移動
         history.pushState(null, '', videoUrl)
-        
+        isEventFired.current = false
         // 動画IDとプレイリスト状態を更新。プレイリスト状態はlocationが未更新のため、
         setSmId(videoUrl.replace("https://www.nicovideo.jp/watch/", "").replace(/\?.*/, ''))
         updatePlaylistState(new URL(videoUrl).search)
