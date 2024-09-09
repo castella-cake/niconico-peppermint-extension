@@ -183,7 +183,7 @@ function CommentList(props: Props) {
         <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => setIsCommentListHovered(true)} onMouseLeave={() => setIsCommentListHovered(false)}>
             {sortedComments.map((elem, index) => {
                 //console.log(elem)
-                return <div key={`${index}-${elem.id}`} ref={commentRefs.current[index]} className={openedCommentItems.includes(elem.id) ? "commentlist-list-item commentlist-list-item-open" : "commentlist-list-item"} nicoru-count={returnNicoruRank(elem.nicoruCount)}>
+                return <div key={elem.id} ref={commentRefs.current[index]} className={openedCommentItems.includes(elem.id) ? "commentlist-list-item commentlist-list-item-open" : "commentlist-list-item"} nicoru-count={returnNicoruRank(elem.nicoruCount)}>
                     <button type="button" onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className="commentlist-list-item-nicorubutton">ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>
                     <div className="commentlist-list-item-body" title={elem.body}>{elem.body}</div>
                     <button type="button" className="commentlist-list-item-vpos" onClick={() => {toggleCommentItemExpand(elem.id)}}>{secondsToTime(Math.floor( elem.vposMs / 1000 ))}</button>

@@ -53,7 +53,7 @@ function Settings() {
         { Object.keys(settings).map((name, index) => {
             const elem = settings[name]
             if ( elem.type === "select" ) {
-                return <div className="playersettings-item" key={index}>
+                return <div className="playersettings-item" key={name}>
                     <label>
                         {elem.name}
                         <select value={localStorage.playersettings[name] || elem.defaultValue} onChange={(e) => {writePlayerSettings(name, e.currentTarget.value)}}>
@@ -65,7 +65,7 @@ function Settings() {
                     { elem.hint && <div className="playersettings-hint">{elem.hint}</div> }
                 </div>
             } else if ( elem.type === "checkbox" ) {
-                return <div className="playersettings-item" key={index}>
+                return <div className="playersettings-item" key={name}>
                     <label>
                         {elem.name}
                         <input type="checkbox" checked={localStorage.playersettings[name] ?? elem.defaultValue} onChange={(e) => {writePlayerSettings(name, e.currentTarget.checked)}}/>

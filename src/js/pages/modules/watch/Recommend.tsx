@@ -19,7 +19,7 @@ function Recommend({smId,}: {smId: string}) {
     if (!recommendData.data) return <></>
     return <div className="recommend-container" id="pmw-recommend">
         {recommendData.data.items.map((elem, index) => {
-            return <InfoCard key={`${index}-${elem.id}`} obj={elem}/>
+            return <InfoCard key={`${elem.id}`} obj={elem}/>
         })}
     </div>
 }

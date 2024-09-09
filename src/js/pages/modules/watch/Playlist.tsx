@@ -13,7 +13,7 @@ function Playlist({ playlistData, videoInfo }: { playlistData: PlaylistResponseR
         </div>
         {playlistData ? <div className="playlist-items-container">{playlistData.data.items.map((item, index) => {
             const isNowPlaying = videoInfo?.data?.response.video.id === item.content.id
-            return <VideoInfo key={index} obj={item} additionalQuery={`?playlist=${query}`} isNowPlaying={isNowPlaying}/>
+            return <VideoInfo key={`playlist-${item.watchId}`} obj={item} additionalQuery={`?playlist=${query}`} isNowPlaying={isNowPlaying}/>
         })}</div> : <div className="playlist-nothinghere">
             <p>
                 自動再生するプレイリストはありません。<br/>
