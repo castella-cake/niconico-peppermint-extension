@@ -90,7 +90,7 @@ export async function getCommentThread(server, body) {
     return await response.json()
 }
 
-export async function sendLike(smId, isAdd) {
+export async function sendLike(smId, method) {
     const response = await fetch(`https://nvapi.nicovideo.jp/v1/users/me/likes/items?videoId=${smId}`, {
         "headers": {
             "accept": "application/json;charset=utf-8",
@@ -103,23 +103,15 @@ export async function sendLike(smId, isAdd) {
         "referrer": "https://www.nicovideo.jp/",
         "referrerPolicy": "strict-origin-when-cross-origin",
         "body": null,
-        "method": (isAdd ? "POST" : "DELETE"),
+        "method": method,
         "mode": "cors",
         "credentials": "include"
     });
     const json = await response.json()
-    if (isAdd) {
-        if (json.meta.status == 201) {
-            return json
-        } else {
-            return false
-        }
+    if (json.meta.status == 200 || json.meta.status == 201) {
+        return json
     } else {
-        if (json.meta.status == 200) {
-            return json
-        } else {
-            return false
-        }
+        return false
     }
 }
 
