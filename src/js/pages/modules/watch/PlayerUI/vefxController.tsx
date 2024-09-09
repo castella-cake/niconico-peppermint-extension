@@ -114,7 +114,7 @@ function VefxController({ frequencies, effectsState, onEffectsChange }: {frequen
                 ))
             }
             <datalist id="eq-list">
-                {[-15,-10,-5,0,5,10,15].map(elem => {return <option key={`eq-list-${elem}`}>{elem}</option>})}
+                {[-10,0,10].map(elem => {return <option key={`eq-list-${elem}`}>{elem}</option>})}
             </datalist>
 
             <label>
@@ -123,14 +123,14 @@ function VefxController({ frequencies, effectsState, onEffectsChange }: {frequen
                     checked={effectsState.echo.enabled}
                     onChange={(e) => handleEnabledEffect("echo")}
                 />
-                Enable Echo
+                Echo/Delay
             </label>
             <div className="vefx-slidercontainer">
                 <label>Delay Time</label>
                 <input
                     type="range"
                     min="0"
-                    max="1"
+                    max="0.5"
                     step="0.05"
                     value={effectsState.echo.delayTime}
                     list="gain-list"
@@ -143,7 +143,7 @@ function VefxController({ frequencies, effectsState, onEffectsChange }: {frequen
                 <input
                     type="range"
                     min="0"
-                    max="1"
+                    max="0.5"
                     step="0.05"
                     value={effectsState.echo.feedback}
                     list="gain-list"
@@ -174,13 +174,13 @@ function VefxController({ frequencies, effectsState, onEffectsChange }: {frequen
                     checked={effectsState.preamp.enabled}
                     onChange={(e) => handleEnabledEffect("preamp")}
                 />
-                Enable Preamp
+                Preamp
             </label>
             <div className="vefx-slidercontainer">
                 <input
                     type="range"
                     min="0"
-                    max="5"
+                    max="3"
                     step="0.1"
                     value={effectsState.preamp.gain}
                     list="preamp-list"
@@ -189,7 +189,7 @@ function VefxController({ frequencies, effectsState, onEffectsChange }: {frequen
                 />
             </div>
             <datalist id="preamp-list">
-                {[0,1,2,3,4,5].map(elem => {return <option key={`preamp-list-${elem}`}>{elem}</option>})}
+                {[0,0.5,1,1.5,2,3].map(elem => {return <option key={`preamp-list-${elem}`}>{elem}</option>})}
             </datalist>
 
             <label>

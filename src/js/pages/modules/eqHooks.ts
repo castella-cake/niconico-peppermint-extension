@@ -2,7 +2,7 @@ import { useRef, useEffect, RefObject } from "react";
 import { effectsState } from "./watch/Player";
 
 // Thank you ChatGPT
-export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequencies: number[], effectsState: effectsState) => {
+export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequencies: number[], effectsState: effectsState, loudnessControl: number) => {
     const audioContextRef = useRef<any>(null);
     const mediaElementSourceRef = useRef<MediaElementAudioSourceNode | null>(null);
     const biquadFiltersRef = useRef<BiquadFilterNode[]>([]);
@@ -10,7 +10,9 @@ export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequenci
     const echoFeedbackNodeRef = useRef<GainNode | null>(null);
     const echoGainNodeRef = useRef<GainNode | null>(null);
     const gainNodeRef = useRef<GainNode | null>(null);
+    const loudnessGainNodeRef = useRef<GainNode | null>(null);
     const mergerNodeRef = useRef<ChannelMergerNode | null>(null);
+    
 
     useEffect(() => {
         if (!audioContextRef.current) {
@@ -50,8 +52,11 @@ export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequenci
 
             // プリアンプの設定
             gainNodeRef.current = audioContextRef.current.createGain();
-            if (gainNodeRef.current) gainNodeRef.current.gain.value = effectsState.preamp.gain;
+            if (gainNodeRef.current) gainNodeRef.current.gain.value = effectsState.preamp.gain
 
+            // ラウドネスコントロール
+            loudnessGainNodeRef.current = audioContextRef.current.createGain();
+            if (loudnessGainNodeRef.current) loudnessGainNodeRef.current.gain.value = loudnessControl
 
             // モノラル化の設定
             mergerNodeRef.current = audioContextRef.current.createChannelMerger(1);
@@ -64,6 +69,7 @@ export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequenci
             audioContextRef.current.destination.disconnect();
             
             // effect
+            if ( loudnessGainNodeRef.current ) loudnessGainNodeRef.current.disconnect();
             if ( gainNodeRef.current ) gainNodeRef.current.disconnect()
             if ( mergerNodeRef.current ) mergerNodeRef.current.disconnect()
             if (echoGainNodeRef.current) echoGainNodeRef.current.disconnect();
@@ -74,6 +80,10 @@ export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequenci
             });
             
             // ノードを順次接続
+            if (loudnessGainNodeRef.current) loudnessGainNodeRef.current.gain.value = loudnessControl
+            lastNode.connect(loudnessGainNodeRef.current);
+            lastNode = loudnessGainNodeRef.current;
+
             biquadFiltersRef.current.forEach((filter) => {
                 if (effectsState.equalizer.enabled) {
                     lastNode.connect(filter);
@@ -98,7 +108,7 @@ export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequenci
             
             lastNode.connect(audioContextRef.current.destination);
         }
-    }, [frequencies, effectsState]);
+    }, [frequencies, effectsState, loudnessControl]);
 
     // イコライザーのゲイン更新
     const updateEqualizer = (gains: number[]) => {
@@ -133,9 +143,14 @@ export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequenci
         }
     };
 
+    const updateLoudnessControl = (gain: number) => {
+        if (loudnessGainNodeRef.current) loudnessGainNodeRef.current.gain.value = gain;
+    }
+
     return {
         updateEqualizer,
         updateEcho,
         updatePreampGain,
+        updateLoudnessControl
     };
 };

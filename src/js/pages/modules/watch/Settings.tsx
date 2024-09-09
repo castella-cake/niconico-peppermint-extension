@@ -27,6 +27,11 @@ const settings: { [key: string]: setting } = {
         texts: ["薄い(0.5)", "やや薄い(0.75)", "透過なし(1)"],
         name: "コメント透過",
     },
+    enableLoudnessData: {
+        type: "checkbox",
+        defaultValue: true,
+        name: "ラウドネスノーマライズ"
+    }
 }
 
 function Settings() {
@@ -56,6 +61,14 @@ function Settings() {
                                 return <option value={option} key={`${name}-${index}`}>{elem.texts && elem.texts[index]}</option>
                             })}
                         </select>
+                    </label>
+                    { elem.hint && <div className="playersettings-hint">{elem.hint}</div> }
+                </div>
+            } else if ( elem.type === "checkbox" ) {
+                return <div className="playersettings-item" key={index}>
+                    <label>
+                        {elem.name}
+                        <input type="checkbox" checked={localStorage.playersettings[name] ?? elem.defaultValue} onChange={(e) => {writePlayerSettings(name, e.currentTarget.checked)}}/>
                     </label>
                     { elem.hint && <div className="playersettings-hint">{elem.hint}</div> }
                 </div>
