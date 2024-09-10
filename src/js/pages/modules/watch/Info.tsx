@@ -11,6 +11,12 @@ type Props = {
     videoRef: RefObject<HTMLVideoElement>,
 }
 
+function htmlToText(htmlString: string) {
+    const dummyDiv = document.createElement("div")
+    dummyDiv.innerHTML = htmlString;
+    return dummyDiv.textContent || dummyDiv.innerText || "";
+}
+
 
 function readableInt(number: number) {
     const units = ["万","億","兆","京","垓","秭","穣","溝","潤","正","載","極","恒河沙","阿僧祇","那由他","不可思議","無量大数"]
@@ -38,6 +44,7 @@ function Info({videoInfo, videoRef}: Props) {
 
     // Not scary!
     const sanitizedDesc = DOMPurify.sanitize(videoInfoResponse.video.description || "")
+    const descElem = HTMLReactParser(sanitizedDesc)
 
     const handleAnchorClick = (e: MouseEvent<HTMLDivElement>) => {
         if ( e.target instanceof Element ) {
@@ -94,9 +101,9 @@ function Info({videoInfo, videoRef}: Props) {
             </div>
         </div>
         <details open={isDescOpen && true} onToggle={(e) => {setIsDescOpen(e.currentTarget.open);writePlayerSettings("descriptionOpen", e.currentTarget.open)}}>
-            <summary>この動画の概要 {!isDescOpen && <span>{}</span>}</summary>
+            <summary>この動画の概要 {!isDescOpen && <span>{htmlToText(sanitizedDesc)}</span>}</summary>
             <div className="videodesc" onClickCapture={(e) => {handleAnchorClick(e)}}>
-                {HTMLReactParser(sanitizedDesc)}
+                {descElem}
             </div>
         </details>
         <div className="tags-container">
