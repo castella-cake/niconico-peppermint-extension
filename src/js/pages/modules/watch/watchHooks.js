@@ -41,9 +41,9 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabl
         
                 // 使えるやつを全部希望する。音声クオリティは常に一番良いものを希望する。
                 const hlsRequestBody = {outputs: availableVideoQuality.map(elem => {
-                    if (!elem.isAvailable) return
+                    if (!elem.isAvailable) return null
                     return [elem.id, greatestAudioQuality.id]
-                })}
+                }).filter(elem => elem !== null)}
                 //{\"outputs\":[[\"video-h264-1080p\",\"audio-aac-192kbps\"],[\"video-h264-720p\",\"audio-aac-192kbps\"],[\"video-h264-480p\",\"audio-aac-192kbps\"],[\"video-h264-360p\",\"audio-aac-192kbps\"],[\"video-h264-144p\",\"audio-aac-192kbps\"]]}
                 // APIから取得
                 const hlsResponse = await getHls(videoId, JSON.stringify(hlsRequestBody), actionTrackId, accessRightKey)

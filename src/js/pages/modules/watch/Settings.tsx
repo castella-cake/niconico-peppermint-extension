@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import { useStorageContext } from "../extensionHook";
 
 const manifestData = chrome.runtime.getManifest();
@@ -34,7 +35,7 @@ const settings: { [key: string]: setting } = {
     }
 }
 
-function Settings() {
+function Settings({ isStatsShown, setIsStatsShown }: {isStatsShown: boolean, setIsStatsShown: Dispatch<SetStateAction<boolean>>}) {
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
     }
@@ -74,6 +75,12 @@ function Settings() {
                 </div>
             }
         }) }
+        <div className="playersettings-item">
+            <label>
+                統計情報を表示(一時的)
+                <input type="checkbox" checked={isStatsShown} onChange={(e) => {setIsStatsShown(e.currentTarget.checked)}}/>
+            </label>
+        </div>
         Work in progress!
     </div>
 }

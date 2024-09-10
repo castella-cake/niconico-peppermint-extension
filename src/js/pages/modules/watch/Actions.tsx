@@ -31,8 +31,8 @@ function Actions({videoInfo}: Props) {
     useEffect(() => {
         if (!videoInfo.data) return
         setTemporalLikeModifier(0)
-        setIsLiked(videoInfo.data.response.video.viewer.like.isLiked)
-        if (videoInfo.data.response.video.viewer.like.isLiked) {
+        setIsLiked(videoInfo.data.response.video.viewer ? videoInfo.data.response.video.viewer.like.isLiked : false)
+        if (videoInfo.data.response.video.viewer && videoInfo.data.response.video.viewer.like.isLiked) {
             async function getData() {
                 const likeResponse = await sendLike(videoInfoResponse.video.id, "GET")
                 if ( likeResponse && likeResponse.data && likeResponse.data.thanksMessage) {
@@ -57,6 +57,7 @@ function Actions({videoInfo}: Props) {
     }
 
     async function likeChange() {
+        if ( !videoInfo.data || !videoInfo.data.response.video.viewer ) return;
         const method = isLiked ? "DELETE" : "POST"
         const likeResponse = await sendLike(videoInfoResponse.video.id, method)
         if ( likeResponse ) {

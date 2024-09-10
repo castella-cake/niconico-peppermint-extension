@@ -121,7 +121,7 @@ function CommentList(props: Props) {
 
     async function onNicoru(commentNo: number, commentBody: string, nicoruId: string | null) {
         //"{\"videoId\":\"\",\"fork\":\"\",\"no\":0,\"content\":\"\",\"nicoruKey\":\"\"}"
-        if (!props.videoInfo.data || !props.videoInfo.data.response.video.id) return
+        if (!props.videoInfo.data || !props.videoInfo.data.response.video.id || !props.videoInfo.data.response.viewer || !props.videoInfo.data.response.viewer.isPremium ) return
         if (nicoruId) {
             const response: NicoruRemoveRootObject = await removeNicoru(nicoruId)
             if ( response.meta.status === 200 ) {
@@ -183,8 +183,8 @@ function CommentList(props: Props) {
         <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => setIsCommentListHovered(true)} onMouseLeave={() => setIsCommentListHovered(false)}>
             {sortedComments.map((elem, index) => {
                 //console.log(elem)
-                return <div key={elem.id} ref={commentRefs.current[index]} className={openedCommentItems.includes(elem.id) ? "commentlist-list-item commentlist-list-item-open" : "commentlist-list-item"} nicoru-count={returnNicoruRank(elem.nicoruCount)}>
-                    <button type="button" onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className="commentlist-list-item-nicorubutton">ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>
+                return <div key={elem.id} ref={commentRefs.current[index]} className={`commentlist-list-item ${openedCommentItems.includes(elem.id) ? "commentlist-list-item-open" : ""}`} nicoru-count={returnNicoruRank(elem.nicoruCount)}>
+                    <button type="button" onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className={`commentlist-list-item-nicorubutton ${(!props.videoInfo.data?.response.viewer.isPremium) ? "commentlist-list-item-nicorubutton-disabled" : ""}`}>ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>
                     <div className="commentlist-list-item-body" title={elem.body}>{elem.body}</div>
                     <button type="button" className="commentlist-list-item-vpos" onClick={() => {toggleCommentItemExpand(elem.id)}}>{secondsToTime(Math.floor( elem.vposMs / 1000 ))}</button>
                     { openedCommentItems.includes(elem.id) && <>

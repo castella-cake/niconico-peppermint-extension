@@ -15,6 +15,7 @@ import { putPlaybackPosition } from "../../../modules/watchApi";
 import { handleCtrl } from "./commonFunction";
 import { PlaylistResponseRootObject } from "./types/playlistData";
 import { mylistContext } from "./types/playlistQuery";
+import { StatsOverlay } from "./PlayerUI/StatsOverlay";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -63,6 +64,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const [isVefxShown, setIsVefxShown] = useState(false)
     const [isSettingsShown, setIsSettingsShown] = useState(false)
     const [isCommentShown, setIsCommentShown] = useState(true)
+    const [isStatsShown, setIsStatsShown] = useState(false)
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const commentInputRef = useRef<HTMLInputElement>(null)
@@ -190,7 +192,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                     setEffectsState(state)
                 }}
             />}
-            { isSettingsShown && <Settings/> }
+            { isSettingsShown && <Settings isStatsShown={isStatsShown} setIsStatsShown={setIsStatsShown}/> }
+            { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/>}
         </VideoPlayer>
         <PlayerController
             videoRef={videoRef}
