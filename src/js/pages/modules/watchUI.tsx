@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, MouseEvent, ReactNode } from "react";
-import { generateActionTrackId, getVideoInfo, getCommentThread, putPlaybackPosition, getPlaylists } from "../../modules/watchApi";
+import { generateActionTrackId, getVideoInfo, getCommentThread, putPlaybackPosition, getPlaylists, getRecommend } from "../../modules/watchApi";
 import { useStorageContext } from "./extensionHook";
 //import { useLang } from "./localizeHook";
 import Player from "./watch/Player";
@@ -15,11 +15,12 @@ import Search from "./watch/Search";
 import Playlist from "./watch/Playlist";
 import { mylistContext, playlistData } from "./watch/types/playlistQuery";
 import { PlaylistResponseRootObject } from "./watch/types/playlistData";
+import { RecommendDataRootObject } from "./watch/types/RecommendData";
 
 const watchLayoutType = {
     reimaginedNewWatch: "renew",
     reimaginedOldWatch: "recresc",
-    reimaginedMobileWatch: "resp",
+    Stacked: "stacked",
     threeColumn: "3col",
     shinjuku: "shinjuku"
 }
@@ -27,6 +28,7 @@ const watchLayoutType = {
 type stackerItem = {
     title: string;
     content?: ReactNode;
+    disabled?: boolean;
 }
 
 function Stacker({ items }: { items: stackerItem[] }) {
@@ -35,6 +37,7 @@ function Stacker({ items }: { items: stackerItem[] }) {
     return <div className="stacker-container">
         <div className="stacker-tabbutton-container">
             {items.map((item, index) => {
+                if (item.disabled) return null;
                 return <button key={index} className={`stacker-tabbutton ${activeTabIndex === index ? "stacker-tabbutton-active" : ""}`} onClick={() => setActiveTabIndex(index)}>{item.title}</button>
             })}
         </div>
@@ -92,6 +95,7 @@ function CreateWatchUI() {
 
     const [videoInfo, setVideoInfo] = useState<VideoDataRootObject>({})
     const [commentContent, setCommentContent] = useState<CommentDataRootObject>({})
+    const [ recommendData, setRecommendData ] = useState<RecommendDataRootObject>({})
     const videoElementRef = useRef<HTMLVideoElement | null>(null)
     const [isFullscreenUi, setIsFullscreenUi] = useState(false);
     const isEventFired = useRef<boolean>(false)
@@ -115,6 +119,8 @@ function CreateWatchUI() {
             const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
             setCommentContent(commentResponse)
             
+            const recommendResponse = await getRecommend(smId)
+            setRecommendData(recommendResponse)
             //console.log(commentResponse)
         }
         fetchInfo()
@@ -149,7 +155,7 @@ function CreateWatchUI() {
     }, [])
 
     //console.log(videoInfo)
-    if ( !videoInfo || !commentContent || !isLoaded || !syncStorage || actionTrackId === "" ) return <div>ロード中</div>
+    if ( !isLoaded ) return <div>ロード中</div>
     const layoutType = syncStorage.pmwlayouttype || watchLayoutType.reimaginedNewWatch
     const playerSize = localStorage.playersettings.playerAreaSize || 1
 
@@ -193,6 +199,7 @@ function CreateWatchUI() {
         setCommentContent={setCommentContent}
         playlistData={fetchedPlaylistData}
         changeVideo={changeVideo}
+        recommendData={recommendData}
         key="watchui-player"
     />
     const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} key="watchui-info" />
@@ -200,9 +207,9 @@ function CreateWatchUI() {
     const playListElem = <Playlist playlistData={fetchedPlaylistData} videoInfo={videoInfo} key="watchui-playlist"/>
     const rightActionElem = <div className="watch-container-rightaction" key="watchui-rightaction">
         <Actions videoInfo={videoInfo}/>
-        <Stacker items={[{ title: "コメントリスト", content: commentListElem }, { title: "再生リスト", content: playListElem }]}/>
+        <Stacker items={[{ title: "コメントリスト", content: commentListElem }, { title: "動画概要", content: infoElem, disabled: (layoutType !== watchLayoutType.Stacked)}, { title: "再生リスト", content: playListElem }]}/>
     </div>
-    const recommendElem = <Recommend smId={smId} key="watchui-recommend" />
+    const recommendElem = <Recommend recommendData={recommendData} key="watchui-recommend" />
     const bottomInfoElem = <BottomInfo videoInfo={videoInfo} key="watchui-bottominfo"/>
     const searchElem = <Search key="watchui-search" />
     
@@ -235,12 +242,12 @@ function CreateWatchUI() {
     
             bottom: [recommendElem, bottomInfoElem]
         },
-        "resp": {
+        "stacked": {
             top: false,
     
             midLeft: [playerElem, bottomInfoElem, searchElem],
             midCenter: false,
-            midRight: [infoElem, rightActionElem, recommendElem],
+            midRight: [rightActionElem, recommendElem],
     
             bottom: false
         },

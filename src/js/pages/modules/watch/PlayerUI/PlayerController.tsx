@@ -228,7 +228,10 @@ function PlayerController({
         }
     </button>
     const toggleMuteElem = <button key="control-togglemute" type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}} title={ isMuted ? "ミュート解除" : "ミュート"}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
-    const volumeElem = <label key="control-volume" className="playercontroller-volume-container"><input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/><span>{videoVolume}%</span></label>
+    const volumeElem = <span key="control-volume" className="playercontroller-volume-container" style={{["--width" as string]: `${videoVolume}%`, ["--left" as string]: `${videoVolume}%`}}>
+        <input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} aria-label={`音量 ${videoVolume}%`} onChange={(e) => {setVolume(e.currentTarget.valueAsNumber)}}/>
+        <span className="playercontroller-volume-tooltip">{videoVolume}%</span>
+    </span>
     
     const skipBackElem = <button key="control-skipback" type="button" className="playercontroller-skipback" onClick={() => {onSkipBack()}} title="開始地点にシーク">{ isIndexControl[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
     const skipForwardElem = <button key="control-skipforward" type="button" className="playercontroller-skipforward" onClick={() => {onSkipForward()}} title="終了地点にシーク">{ isIndexControl[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>

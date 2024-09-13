@@ -90,15 +90,62 @@
 }
 
 .playercontroller-volume-container {
+    position: relative;
+    vertical-align: middle;
+    height: 10px;
     .playercontroller-volume {
         max-width: 100px;
-        vertical-align: middle;
+        appearance: none;
+        -webkit-appearance: none;
+        background: transparent;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        vertical-align: top;
     }
-    span {
-        vertical-align: middle;
+    .playercontroller-volume:before {
+        content: "";
+        background: var(--linktext2);
+        width: var(--width);
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: var(--radius-big);
+    }
+
+    .playercontroller-volume::-webkit-slider-runnable-track {
+        background: var(--bgcolor3);
+        border-radius: var(--radius-big);
+        height: 100%;
+    }
+
+    .playercontroller-volume::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 100%;
+        background: var(--textcolor2);
+        width: 0px;
     }
 }
+.playercontroller-volume-container:hover .playercontroller-volume-tooltip {
+    display: inline;
+}
 
+.playercontroller-volume-tooltip {
+    display: none;
+    position: absolute;
+    top: 12px;
+    font-size: 0.8em;
+    border-radius: var(--radius-mini);
+    background: #000a;
+    padding: 0 4px;
+    white-space: nowrap;
+    left: calc(var(--left) / 2);
+}
 .playercontroller-time {
     margin: 0 8px;
 }
@@ -206,14 +253,22 @@
         }
     }
 
-    .playercontroller-volume-container .playercontroller-volume {
-        max-width: 64px;
-        vertical-align: middle;
-        appearance: none;
-        border: 2px solid #111;
-        background: linear-gradient(#666 0%, #fff 20%, #ddd 90%, #aaa 90%);
-        height: 8px;
+    .playercontroller-volume-container {
+        height: 10px;
+        .playercontroller-volume {
+            max-width: 64px;
+        }
+        .playercontroller-volume::-webkit-slider-runnable-track {
+            border: 2px solid #111;
+            background: linear-gradient(#000 0%, #555 20%, #333 90%, #444 90%);
+        }
+        .playercontroller-volume:before {
+            background: linear-gradient(#666 0%, #fff 20%, #ddd 90%, #aaa 90%);
+            margin: 2px;
+        }
     }
+
+
 
     .seekbar-thumb {
         position: relative;

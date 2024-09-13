@@ -16,6 +16,7 @@ import { handleCtrl } from "./commonFunction";
 import { PlaylistResponseRootObject } from "./types/playlistData";
 import { mylistContext } from "./types/playlistQuery";
 import { StatsOverlay } from "./PlayerUI/StatsOverlay";
+import { RecommendDataRootObject } from "./types/RecommendData";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -34,6 +35,7 @@ type Props = {
     setIsFullscreenUi: Dispatch<SetStateAction<boolean>>,
     setCommentContent: Dispatch<SetStateAction<CommentDataRootObject>>,
     playlistData: PlaylistResponseRootObject | null,
+    recommendData: RecommendDataRootObject,
     changeVideo: (videoId: string) => void,
 }
 
@@ -57,7 +59,7 @@ function VideoPlayer({children, videoRef, canvasRef, isCommentShown, onPause, on
     </div>);
 }
 
-function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi, setCommentContent, playlistData, changeVideo }: Props) {
+function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi, setCommentContent, playlistData, changeVideo, recommendData }: Props) {
     //const lang = useLang()
     const { localStorage, setLocalStorageValue, syncStorage } = useStorageContext()
 
@@ -167,6 +169,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             const nextVideo = playlistData.data.items[currentVideoIndex + add]
             const mylistQuery: { type: string, context: mylistContext } = { type: "mylist", context: { mylistId: Number(playlistData && playlistData.data && playlistData.data.id.value), sortKey: "addedAt", sortOrder: "asc" }}
             changeVideo(`https://www.nicovideo.jp/watch/${encodeURIComponent(nextVideo.content.id)}?playlist=${btoa(JSON.stringify(mylistQuery))}`)
+        } else if (recommendData.data?.items && recommendData.data.items[0].contentType === "video" && add === 1) {
+            changeVideo(`https://www.nicovideo.jp/watch/${encodeURIComponent(recommendData.data.items[0].content.id)}`)
         }
     }
     
@@ -177,7 +181,9 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     }
 
     function onEnded() {
-
+        if ( localStorage.playersettings.enableAutoPlay ) {
+            playlistIndexControl(1)
+        }
     }
 
     return <div className="player-container" id="pmw-player">

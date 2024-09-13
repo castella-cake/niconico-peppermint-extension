@@ -33,7 +33,9 @@ gulp.task('createVersionFolders', function (done) {
 gulp.task('compileStylus', function () {
     // Stylusファイルのコンパイル処理
     return gulp.src(stylusEndpoints)
-        .pipe(stylus())
+        .pipe(stylus({
+            compress: true
+        }))
         .pipe(gulp.dest('./dist/style/')); // コンパイルされたCSSファイルをsrcフォルダーに出力
 });
 

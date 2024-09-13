@@ -51,7 +51,7 @@
         "pmwlayouttype": {
             "name": "PM視聴ページのテーマ",
             "hint": "視聴ページの要素配置を指定します。Shinjukuでは見た目も変更されます。",
-            "select": ["Reimagined-新視聴", "Reimagined-cresc.", "Reimagined-モバイル", "3カラム", "Shinjuku"]
+            "select": ["Reimagined-新視聴", "Reimagined-cresc.", "Stacked", "3カラム", "Shinjuku"]
         },
         "pmwplayertype": {
             "name": "PMプレイヤーのテーマ",

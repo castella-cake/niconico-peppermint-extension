@@ -32,6 +32,11 @@ const settings: { [key: string]: setting } = {
         type: "checkbox",
         defaultValue: true,
         name: "ラウドネスノーマライズ"
+    },
+    enableAutoPlay: {
+        type: "checkbox",
+        defaultValue: false,
+        name: "自動再生",
     }
 }
 

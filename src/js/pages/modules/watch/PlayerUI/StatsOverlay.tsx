@@ -12,6 +12,8 @@ export function StatsOverlay({ videoInfo, hlsRef, videoRef }: { videoInfo: Video
             setHlsLevel(hlsRef.current.currentLevel)
         })
     }, [hlsRef.current])
+
+    if (!videoInfo.data) return <div className="statsoverlay">動画情報が利用できません</div>
     return <div className="statsoverlay">
         動画ID: {videoInfo.data?.response.video.id}<br/>
         <br/>
