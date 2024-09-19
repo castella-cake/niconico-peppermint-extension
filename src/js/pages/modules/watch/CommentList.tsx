@@ -128,7 +128,9 @@ function CommentList(props: Props) {
                 reloadCommentData()
             }
         } else {
-            const currentThread = props.videoInfo.data.response.comment.threads.filter(elem => elem.forkLabel === currentForkType)[0]
+            const currentThread = props.videoInfo.data.response.comment.threads.filter(elem => elem.forkLabel === currentForkType).sort((a, b) => {
+                return Number(b.id) - Number(a.id)
+            })[0]
             const nicoruKeyResponse: NicoruKeyResponseRootObject = await getNicoruKey(currentThread.id, currentForkType)
             if (nicoruKeyResponse.meta.status !== 200) return
             const body: NicoruPostBodyRootObject = {videoId: props.videoInfo.data.response.video.id, fork: currentForkType, no: commentNo, content: commentBody, nicoruKey: nicoruKeyResponse.data.nicoruKey} 
