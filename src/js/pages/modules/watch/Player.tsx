@@ -10,13 +10,12 @@ import type { VideoDataRootObject } from "./types/VideoData";
 import type { CommentDataRootObject } from "./types/CommentData";
 import type { Dispatch, ReactNode, SetStateAction } from "react"
 import CommentInput from "./PlayerUI/CommentInput";
-import Settings from "./Settings";
+import Settings from "./PlayerUI/Settings";
 import { putPlaybackPosition } from "../../../modules/watchApi";
 import { handleCtrl } from "./commonFunction";
-import { PlaylistResponseRootObject } from "./types/playlistData";
-import { mylistContext } from "./types/playlistQuery";
 import { StatsOverlay } from "./PlayerUI/StatsOverlay";
 import { RecommendDataRootObject } from "./types/RecommendData";
+import { playlistData } from "./Playlist";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -34,7 +33,7 @@ type Props = {
     isFullscreenUi: boolean,
     setIsFullscreenUi: Dispatch<SetStateAction<boolean>>,
     setCommentContent: Dispatch<SetStateAction<CommentDataRootObject>>,
-    playlistData: PlaylistResponseRootObject | null,
+    playlistData: playlistData,
     recommendData: RecommendDataRootObject,
     changeVideo: (videoId: string) => void,
 }
@@ -163,12 +162,20 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     }, [])
 
     function playlistIndexControl(add: number) {
-        if (playlistData) {
-            const currentVideoIndex = playlistData.data.items.findIndex(video => video.content.id === videoId)
-            if (currentVideoIndex === -1 || currentVideoIndex + add > playlistData.data.items.length || currentVideoIndex + add < 0) return
-            const nextVideo = playlistData.data.items[currentVideoIndex + add]
-            const mylistQuery: { type: string, context: mylistContext } = { type: "mylist", context: { mylistId: Number(playlistData && playlistData.data && playlistData.data.id.value), sortKey: "addedAt", sortOrder: "asc" }}
-            changeVideo(`https://www.nicovideo.jp/watch/${encodeURIComponent(nextVideo.content.id)}?playlist=${btoa(JSON.stringify(mylistQuery))}`)
+        if (playlistData.items.length > 0) {
+            const currentVideoIndex = playlistData.items?.findIndex(video => video.id === videoId)
+            if (currentVideoIndex === undefined || currentVideoIndex === -1 || currentVideoIndex + add > playlistData.items.length || currentVideoIndex + add < 0) return
+            const nextVideo = playlistData.items[currentVideoIndex + add]
+            let playlistQuery: { type: string, context: any } = {
+                type: playlistData.type,
+                context: {}
+            }
+            if ( playlistData.type === "mylist" ) {
+                playlistQuery.context = { mylistId: Number(playlistData.id), sortKey: "addedAt", sortOrder: "asc" }
+            } else if ( playlistData.type === "series" ) {
+                playlistQuery.context = { seriesId: Number(playlistData.id) }
+            }
+            changeVideo(`https://www.nicovideo.jp/watch/${encodeURIComponent(nextVideo.id)}?playlist=${btoa(JSON.stringify(playlistQuery))}`)
         } else if (recommendData.data?.items && recommendData.data.items[0].contentType === "video" && add === 1) {
             changeVideo(`https://www.nicovideo.jp/watch/${encodeURIComponent(recommendData.data.items[0].content.id)}`)
         }

@@ -215,8 +215,14 @@
     font-weight: bold;
     letter-spacing: -1px;
     font-size: 14px;
-    .playercontroller-container-middle {
-        min-height: 32px;
+
+    .playercontroller-container-left {
+        flex: 1;
+        padding-left: 1px;
+    }
+
+    .playercontroller-container-right, .playercontroller-container-center {
+        flex: none;
     }
 
     .playercontroller-container-left, .playercontroller-container-center {
@@ -241,7 +247,7 @@
         padding: 2px 8px;
     }
     .playercontroller-container-right button {
-        padding: 4px;
+        padding: 6px 4px;
     }
     .playercontroller-qualityselect {
         background: transparent;
@@ -290,11 +296,11 @@
         background: #0001;
     }
     .playercontroller-time {
-        font-family: "MS Gothic";
+        font-family: "MS Gothic", sans-serif;
         font-weight: bold;
         letter-spacing: -1px;
-        font-size: 14px;
-        margin: 0 4px;
+        font-size: 13px;
+        margin: 0 2px;
     }
     .playercontroller-container-right, .playercontroller-container-left, .playercontroller-container-center {
         button:hover {

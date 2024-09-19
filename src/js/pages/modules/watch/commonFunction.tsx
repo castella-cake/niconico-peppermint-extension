@@ -74,3 +74,17 @@ export const handleCtrl = (e: KeyboardEvent, video: HTMLVideoElement | null, com
         return false;
     }
 }
+
+export function readableInt(number: number) {
+    const units = ["万","億","兆","京","垓","秭","穣","溝","潤","正","載","極","恒河沙","阿僧祇","那由他","不可思議","無量大数"]
+    if ( number.toString().indexOf("e") == -1 ) {
+        const stringArray = number.toString().split("").reverse()
+        const afterStringArray = stringArray.map((char, index) => {
+            if ((index) % 4 !== 0) return char
+            return `${char}${units[((index) / 4) - 1] || ""}`
+        })
+        return afterStringArray.reverse().join("")
+    } else {
+        return number
+    }
+}

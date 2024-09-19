@@ -4,11 +4,13 @@ import { MouseEvent, RefObject, useState } from "react";
 import { useStorageContext } from "../extensionHook";
 import * as DOMPurify from "dompurify";
 import HTMLReactParser from "html-react-parser";
+import { readableInt } from "./commonFunction";
 
 
 type Props = {
     videoInfo: VideoDataRootObject,
     videoRef: RefObject<HTMLVideoElement>,
+    isShinjukuLayout: boolean
 }
 
 function htmlToText(htmlString: string) {
@@ -17,22 +19,7 @@ function htmlToText(htmlString: string) {
     return dummyDiv.textContent || dummyDiv.innerText || "";
 }
 
-
-function readableInt(number: number) {
-    const units = ["万","億","兆","京","垓","秭","穣","溝","潤","正","載","極","恒河沙","阿僧祇","那由他","不可思議","無量大数"]
-    if ( number.toString().indexOf("e") == -1 ) {
-        const stringArray = number.toString().split("").reverse()
-        const afterStringArray = stringArray.map((char, index) => {
-            if ((index) % 4 !== 0) return char
-            return `${char}${units[((index) / 4) - 1] || ""}`
-        })
-        return afterStringArray.reverse().join("")
-    } else {
-        return number
-    }
-}
-
-function Info({videoInfo, videoRef}: Props) {
+function Info({videoInfo, videoRef, isShinjukuLayout}: Props) {
     const { localStorage, setLocalStorageValue } = useStorageContext()
     const [isDescOpen, setIsDescOpen] = useState<boolean>(localStorage.playersettings.descriptionOpen || false)
     function writePlayerSettings(name: string, value: any) {
@@ -77,13 +64,14 @@ function Info({videoInfo, videoRef}: Props) {
     return <div className="videoinfo-container" id="pmw-videoinfo">
         <div className="videoinfo-titlecontainer">
             <div className="videoinfo-titleinfo">
+                { isShinjukuLayout && <div className="uploaddate"><span>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</span> 投稿の{videoInfoResponse.channel ? "公式" : "ユーザー"}動画</div> }
                 <div className="videotitle">{videoInfoResponse.video.title}</div>
-                <div className="videostats">
+                { !isShinjukuLayout && <div className="videostats">
                     <span>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</span>
                     <span><IconPlayerPlayFilled/>{readableInt(videoInfoResponse.video.count.view)}</span>
                     <span><IconMessageFilled/>{readableInt(videoInfoResponse.video.count.comment)}</span>
                     <span><IconFolderFilled/>{readableInt(videoInfoResponse.video.count.mylist)}</span>
-                </div>
+                </div> }
             </div>
             <div className="videoinfo-owner">
                 {videoInfoResponse.owner && <a href={`https://www.nicovideo.jp/user/${videoInfoResponse.owner.id}`}>

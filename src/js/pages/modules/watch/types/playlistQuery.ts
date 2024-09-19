@@ -1,4 +1,4 @@
-export interface playlistData {
+export interface playlistQueryData {
     type: "mylist" | "custom-ranking" | "series" | "pm-queue" | null;
     context?: any;
 }

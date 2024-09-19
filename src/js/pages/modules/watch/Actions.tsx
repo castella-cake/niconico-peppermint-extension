@@ -1,28 +1,16 @@
 import { IconFolderFilled, IconHeart, IconHeartFilled, IconShare, IconSpeakerphone, IconX } from "@tabler/icons-react";
 import type { VideoDataRootObject } from "./types/VideoData";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { sendLike } from "../../../modules/watchApi";
+import { readableInt } from "./commonFunction";
 
 
 type Props = {
-    videoInfo: VideoDataRootObject
+    videoInfo: VideoDataRootObject,
+    children?: ReactNode
 }
 
-function readableInt(number: number) {
-    const units = ["万","億","兆","京","垓","秭","穣","溝","潤","正","載","極","恒河沙","阿僧祇","那由他","不可思議","無量大数"]
-    if ( number.toString().indexOf("e") == -1 ) {
-        const stringArray = number.toString().split("").reverse()
-        const afterStringArray = stringArray.map((char, index) => {
-            if ((index) % 4 !== 0) return char
-            return `${char}${units[((index) / 4) - 1] || ""}`
-        })
-        return afterStringArray.reverse().join("")
-    } else {
-        return number
-    }
-}
-
-function Actions({videoInfo}: Props) {
+function Actions({videoInfo, children}: Props) {
     const [isLiked, setIsLiked] = useState<boolean>(false)
     const [likeThanksMsg, setLikeThanksMsg] = useState<string | null>(null)
     const [isLikeThanksMsgClosed, setIsLikeThanksMsgClosed] = useState(false)
@@ -92,14 +80,14 @@ function Actions({videoInfo}: Props) {
     }*/
 
     return <div className="video-actions" id="pmw-videoactions">
-        { /* row-reverse です！！！！ */}
-        <button type="button" className="video-action-mylistbutton video-action-disabled"><IconFolderFilled/></button>
-        <button type="button" className="video-action-adbutton" onClick={onAdsClicked} title="ニコニ広告する"><IconSpeakerphone/> <span>ニコニ広告</span></button>
-        <button type="button" className="video-action-sharebutton" onClick={onShareClicked}><IconShare/> <span>共有</span></button>
+        { /* row-reverse じゃなくなりました！！！！ */}
         <button type="button" onClick={likeChange} onMouseEnter={() => setIsLikeHovered(true)} onMouseLeave={() => setIsLikeHovered(false)} className="video-action-likebutton">
             {isLiked ? <IconHeartFilled/> : <IconHeart/>}
             <span>いいね！{readableInt(videoInfoResponse.video.count.like + temporalLikeModifier)}</span>
         </button>
+        <button type="button" className="video-action-adbutton" onClick={onAdsClicked} title="ニコニ広告する"><IconSpeakerphone/> <span>ニコニ広告</span></button>
+        <button type="button" className="video-action-sharebutton" onClick={onShareClicked}><IconShare/> <span>共有</span></button>
+        <button type="button" className="video-action-mylistbutton video-action-disabled"><IconFolderFilled/>マイリスト</button>
         {isLiked && likeThanksMsg && ( (videoInfo.data.response.video.viewer.like.isLiked && isLikeHovered) || (!videoInfo.data.response.video.viewer.like.isLiked && (!isLikeThanksMsgClosed || isLikeHovered)) ) && <div className="video-action-likethanks-outercontainer">
             <div className="video-action-likethanks-container">
                 <div className="global-flex video-action-likethanks-title">

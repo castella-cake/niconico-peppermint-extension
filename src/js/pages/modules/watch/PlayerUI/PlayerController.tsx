@@ -258,8 +258,8 @@ function PlayerController({
         },
         "shinjuku": {
             top: [],
-            left: [ togglePauseElem, skipBackElem ],
-            center: [ seekbarElem, timeElem ],
+            left: [ togglePauseElem, skipBackElem, seekbarElem, timeElem ],
+            center: [],
             right: [ effectChangeElem, toggleMuteElem, volumeElem ],
         },
     }

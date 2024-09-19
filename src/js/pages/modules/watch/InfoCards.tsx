@@ -1,5 +1,6 @@
 import { IconPlayerPlayFilled, IconPlayerSkipForwardFilled } from "@tabler/icons-react";
 import { secondsToTime } from "./commonFunction";
+import { playlistVideoItem } from "./Playlist";
 
 export function VideoInfo({obj, additionalQuery, isNowPlaying, isNextVideo = false}: { obj: any, additionalQuery?: string, isNowPlaying?: boolean, isNextVideo?: boolean }) {
     const thisVideoId = obj.id || ( obj.content && obj.content.id ) || null
@@ -20,6 +21,16 @@ export function MylistInfo(props: { obj: any }) {
         <div>
             {obj.content.name}<br />
             by {obj.content.owner.name} - {obj.content.itemsCount} items
+        </div>
+    </a>
+}
+
+export function PlaylistVideoCard({obj, additionalQuery, isNowPlaying, isNextVideo = false}: { obj: playlistVideoItem, additionalQuery?: string, isNowPlaying?: boolean, isNextVideo?: boolean }) {
+    return <a className={`info-card ${isNowPlaying ? "info-card-nowplaying" : ""}`} href={`https://www.nicovideo.jp/watch/${obj.id}${additionalQuery || ""}`}>
+        { (obj.thumbnailUrl) && <img src={obj.thumbnailUrl}/> }
+        <div>
+            { isNowPlaying && <span className="info-card-playingtext"><IconPlayerPlayFilled/></span> }{ isNextVideo && <span className="info-card-playingtext"><IconPlayerSkipForwardFilled/></span>}{obj.title}<br />
+            by {obj.ownerName} <span className="info-card-durationtext">{secondsToTime(obj.duration)}</span>
         </div>
     </a>
 }

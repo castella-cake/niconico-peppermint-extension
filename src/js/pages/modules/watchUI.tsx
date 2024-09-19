@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, MouseEvent, ReactNode } from "react";
-import { generateActionTrackId, getVideoInfo, getCommentThread, putPlaybackPosition, getPlaylists, getRecommend } from "../../modules/watchApi";
+import { generateActionTrackId, getVideoInfo, getCommentThread, putPlaybackPosition, getMylist, getRecommend, getSeriesInfo } from "../../modules/watchApi";
 import { useStorageContext } from "./extensionHook";
 //import { useLang } from "./localizeHook";
 import Player from "./watch/Player";
@@ -12,10 +12,12 @@ import Header from "./watch/header";
 import BottomInfo from "./watch/BottomInfo";
 import Actions from "./watch/Actions";
 import Search from "./watch/Search";
-import Playlist from "./watch/Playlist";
-import { mylistContext, playlistData } from "./watch/types/playlistQuery";
-import { PlaylistResponseRootObject } from "./watch/types/playlistData";
+import Playlist, { playlistData, mylistToSimplifiedPlaylist, seriesToSimplifiedPlaylist } from "./watch/Playlist";
+import { mylistContext, playlistQueryData } from "./watch/types/playlistQuery";
+//import { MylistResponseRootObject } from "./watch/types/mylistData";
 import { RecommendDataRootObject } from "./watch/types/RecommendData";
+import { SeriesResponseRootObject } from "./watch/types/seriesData";
+import { Stats } from "./watch/ShinjukuUI";
 
 const watchLayoutType = {
     reimaginedNewWatch: "renew",
@@ -34,7 +36,7 @@ type stackerItem = {
 function Stacker({ items }: { items: stackerItem[] }) {
     const [activeTabIndex, setActiveTabIndex] = useState(0);
 
-    return <div className="stacker-container">
+    return <div className="stacker-wrapper"><div className="stacker-container">
         <div className="stacker-tabbutton-container">
             {items.map((item, index) => {
                 if (item.disabled) return null;
@@ -44,6 +46,7 @@ function Stacker({ items }: { items: stackerItem[] }) {
         <div className="stacker-content">
             { items[activeTabIndex].content }
         </div>
+    </div>
     </div>
 }
 
@@ -56,7 +59,8 @@ function CreateWatchUI() {
 
     const [smId, setSmId] = useState(debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
     //const [ currentPlaylist, setCurrentPlaylist ] = useState<playlistData>({ type: null })
-    const [ fetchedPlaylistData, setFetchedPlaylistData ] = useState<PlaylistResponseRootObject | null>(null)
+    //const [ fetchedPlaylistData, setFetchedPlaylistData ] = useState<MylistResponseRootObject | null>(null)
+    const [ playlistData, setPlaylistData ] = useState<playlistData>({ type: "none", items: [] })
 
     function updatePlaylistState(search = location.search) {
         
@@ -64,30 +68,36 @@ function CreateWatchUI() {
         const playlistString = searchParams.get('playlist');
         //console.log(playlistString)
 
-        async function getData(playlistJson: playlistData) {
+        async function getData(playlistJson: playlistQueryData) {
             //console.log(playlistJson.context.mylistId)
 
             if ( playlistJson.type === "mylist" && playlistJson.context.mylistId ) {
                 // fetchしようとしているマイリストが、すでにフェッチ済みのマイリストと同一ならスキップする
-                if (fetchedPlaylistData && fetchedPlaylistData.data && fetchedPlaylistData.data.id === playlistJson.context.mylistId) return
+                if (playlistData.id === playlistJson.context.mylistId) return
 
                 const context: mylistContext = playlistJson.context
-                const response: any = await getPlaylists(context.mylistId)
+                const response: any = await getMylist(context.mylistId)
                 //console.log(response);
-                setFetchedPlaylistData(response)
+                //setFetchedPlaylistData(response)
+                setPlaylistData({ type: "mylist", id: response.data.id.value, items: mylistToSimplifiedPlaylist(response) })
+            } else if ( playlistJson.type === "series" && playlistJson.context.seriesId ) {
+                const response: SeriesResponseRootObject = await getSeriesInfo(playlistJson.context.seriesId)
+                console.log(response)
+                setPlaylistData({ type: "series", id: playlistJson.context.seriesId, items: seriesToSimplifiedPlaylist(response)})
             } else {
-                setFetchedPlaylistData(null)
+                //setFetchedPlaylistData(null)
+                setPlaylistData({ type: "none", items: [] })
             }
         }
 
         if (playlistString) {
             const decodedPlaylist = atob(playlistString);
-            const playlistJson: playlistData = JSON.parse(decodedPlaylist)
+            const playlistJson: playlistQueryData = JSON.parse(decodedPlaylist)
             //setCurrentPlaylist(playlistJson)
             getData(playlistJson)
         } else {
             //setCurrentPlaylist({ type: null })
-            setFetchedPlaylistData(null)
+            //setFetchedPlaylistData(null)
         }
     }
 
@@ -197,16 +207,22 @@ function CreateWatchUI() {
         isFullscreenUi={isFullscreenUi}
         setIsFullscreenUi={setIsFullscreenUi}
         setCommentContent={setCommentContent}
-        playlistData={fetchedPlaylistData}
+        playlistData={playlistData}
         changeVideo={changeVideo}
         recommendData={recommendData}
         key="watchui-player"
     />
-    const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} key="watchui-info" />
+    const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} isShinjukuLayout={layoutType === watchLayoutType.shinjuku} key="watchui-info" />
     const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} key="watchui-commentlist" />
-    const playListElem = <Playlist playlistData={fetchedPlaylistData} videoInfo={videoInfo} key="watchui-playlist"/>
+    const playListElem = <Playlist playlistData={playlistData} videoInfo={videoInfo} key="watchui-playlist"/>
     const rightActionElem = <div className="watch-container-rightaction" key="watchui-rightaction">
-        <Actions videoInfo={videoInfo}/>
+        { layoutType === watchLayoutType.shinjuku ?
+            <div className="watch-container-rightaction-hjleft">
+                <Stats videoInfo={videoInfo}/>
+                <Actions videoInfo={videoInfo}></Actions>
+            </div> :
+            <Actions videoInfo={videoInfo}></Actions>
+        }
         <Stacker items={[{ title: "コメントリスト", content: commentListElem }, { title: "動画概要", content: infoElem, disabled: (layoutType !== watchLayoutType.Stacked)}, { title: "再生リスト", content: playListElem }]}/>
     </div>
     const recommendElem = <Recommend recommendData={recommendData} key="watchui-recommend" />
@@ -261,11 +277,11 @@ function CreateWatchUI() {
             bottom: [recommendElem, bottomInfoElem, searchElem]
         },
         "shinjuku": {
-            top: [infoElem, searchElem],
+            top: [searchElem,infoElem],
     
-            midLeft: [playerElem],
-            midCenter: false,
-            midRight: [rightActionElem],
+            midLeft: [],
+            midCenter: [playerElem, rightActionElem],
+            midRight: [],
     
             bottom: [recommendElem, bottomInfoElem]
         },
@@ -284,8 +300,8 @@ function CreateWatchUI() {
             <div className="watch-container-left" settings-size={playerSize}>
                 {currentLayout.midLeft}
             </div>
-            { layoutType === watchLayoutType.threeColumn && <div className="watch-container-middle">
-                {currentLayout.midCenter !== false && currentLayout.midCenter}
+            { currentLayout.midCenter !== false && <div className="watch-container-middle">
+                {currentLayout.midCenter}
             </div> }
             <div className="watch-container-right">
                 {currentLayout.midRight}

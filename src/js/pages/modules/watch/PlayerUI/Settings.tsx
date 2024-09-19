@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { useStorageContext } from "../extensionHook";
+import { useStorageContext } from "../../extensionHook";
 
 const manifestData = chrome.runtime.getManifest();
 

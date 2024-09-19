@@ -77,12 +77,21 @@ a {
     }
 }
 
+.stacker-wrapper {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
 .stacker-container {
     overflow: hidden;
     max-height: 640px;
-    flex: 1;
     display: flex;
     flex-direction: column;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     .stacker-content {
         overflow: hidden;
         flex: 1;
@@ -172,6 +181,152 @@ a {
     --radius: 0px;
     --radius-mini: 0px;
     --radius-big: 0px;
+    .watch-container-top {
+        flex-direction: column;
+        gap: 1em;
+    }
+    .watch-container-left {
+        display: none;
+    }
+
+    .watch-container-right {
+        display: none;
+    }
+
+    .watch-container-top {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .stacker-container {
+        /* display: none; */
+    }
+
+    .watch-container-middle .watch-container-rightaction {
+        position: relative;
+        flex: 1;
+        gap: 8px;
+    }
+
+    .watch-container-middle {
+        flex-basis: 80%;
+        position: relative;
+        display: flex;
+        gap: 1em;
+        outline: 3px solid #000;
+        border: 1px solid;
+        border-image: linear-gradient(#c7c7c7,#d1d1d1) 1;
+        padding: 8px;
+        background: linear-gradient(#222, #333);
+    }
+    .player-container {
+        padding: 0;
+        flex: 2.5;
+    }
+
+    .stacker-tabbutton-container {
+        padding: 0 2em;
+        gap: 0;
+    }
+
+    .stacker-tabbutton {
+        border: 3px solid var(--textcolor3);
+        border-bottom: 0;
+    }
+
+    .stacker-tabbutton:not(:last-child) {
+        border-right: none;
+    }
+
+    .stacker-tabbutton {
+        font-size: 0.8em !important;
+    }
+
+    .video-actions button {
+        background-image: linear-gradient(#494949 2%, #282828 49%, #141414 50%, #202020 100%);
+        color: #fff;
+        border: 1px solid #555;
+        outline: 1px solid #000;
+    }
+
+    .video-actions {
+        gap: 7px;
+        font-size: 0.8em;
+        margin-bottom: 0;
+    }
+
+    .video-actions button svg {
+        width: 1.5em;
+        height: 1.5em;
+    }
+    .playercontroller-container[player-type="shinjuku"] {
+        border-bottom: 1px solid #000;
+    }
+
+    .commentinput-container > * {
+        padding: 2px 6px;
+    }
+    .commentinput-container svg {
+        height: 1.5em;
+        width: 1.5em;
+    }
+
+    .commentinput-submit {
+        background: linear-gradient(#ff9e3c 1%,#ffa114 40%,#ff5919 60%,#f4781a 100%);
+        color: #fff;
+        font-weight: bold;
+        text-shadow: 0 0 2px #000;
+    }
+    .commentinput-submit:hover {
+        background: linear-gradient(#ffac59 1%, #ffab2d 40%, #ff8d2d 60%, #ff9646 100%);
+    }
+
+    .videoinfo-container details {
+        border: 2px solid var(--textcolor1);
+    }
+
+    .videostat-container {
+        font-size: 13px;
+        font-family: "MS Gothic", monospace;
+        background: #222;
+        color: #fff;
+        font-weight: bold;
+        width: fit-content;
+        border: 1px solid #000;
+        white-space: nowrap;
+    }
+
+    .videostat-container > div {
+        padding: 1px;
+        background: linear-gradient(#333, #111, #333);
+        display: flex;
+        gap: 1em;
+    }
+
+    .videostat-container > div:not(:last-child) {
+        border-bottom: 1px solid #000;
+    }
+
+    .videostat-container > div > span:last-child {flex: 1;text-align: right;padding: 1px;}
+
+    .videostat-container > div > span:first-child {
+        letter-spacing: -2px;
+    }
+
+    .watch-container-rightaction-hjleft {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+    }
+
+    .watch-container-rightaction-hjleft .video-actions {
+        flex-wrap: wrap;
+        justify-content: left;
+    }
+
+    [watch-type="shinjuku"] .tags-item {
+        line-height: 1em;
+    }
 }
 
 @import './watchUI/*.styl'

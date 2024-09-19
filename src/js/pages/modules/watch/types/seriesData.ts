@@ -1,21 +1,20 @@
-export interface PlaylistResponseRootObject {
+export interface SeriesResponseRootObject {
     meta: Meta;
     data: Data;
 }
 
 interface Data {
-    id: Id;
-    meta: Meta2;
+    detail: Detail;
     totalCount: number;
     items: Item[];
 }
 
 interface Item {
-    watchId: string;
-    content: Content;
+    meta: Meta2;
+    video: Video;
 }
 
-interface Content {
+interface Video {
     type: string;
     id: string;
     title: string;
@@ -27,14 +26,14 @@ interface Content {
     latestCommentSummary: string;
     isChannelVideo: boolean;
     isPaymentRequired: boolean;
-    playbackPosition: null | number;
-    owner: Owner;
+    playbackPosition: null;
+    owner: Owner2;
     requireSensitiveMasking: boolean;
     videoLive: null;
     isMuted: boolean;
 }
 
-interface Owner {
+interface Owner2 {
     ownerType: string;
     type: string;
     visibility: string;
@@ -59,13 +58,36 @@ interface Count {
 }
 
 interface Meta2 {
-    title: string;
-    ownerName: string;
+    id: string;
+    order: number;
+    createdAt: string;
+    updatedAt: string;
 }
 
-interface Id {
+interface Detail {
+    id: number;
+    owner: Owner;
+    title: string;
+    description: string;
+    decoratedDescriptionHtml: string;
+    thumbnailUrl: string;
+    isListed: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
+
+interface Owner {
     type: string;
-    value: string;
+    id: string;
+    channel: Channel;
+}
+
+interface Channel {
+    id: string;
+    name: string;
+    description: string;
+    thumbnailUrl: string;
+    thumbnailSmallUrl: string;
 }
 
 interface Meta {
