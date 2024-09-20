@@ -37,6 +37,13 @@ const settings: { [key: string]: setting } = {
         type: "checkbox",
         defaultValue: false,
         name: "自動再生",
+    },
+    playbackRate: {
+        type: "select",
+        options: [0.1,0.25,0.5,0.75,1,1.25,1.5,1.75,2],
+        texts: ["x0.1", "x0.25", "x0.5", "x0.75", "x1", "x1.25", "x1.5", "x1.75", "x2"],
+        name: "再生速度",
+        defaultValue: 1.0,
     }
 }
 

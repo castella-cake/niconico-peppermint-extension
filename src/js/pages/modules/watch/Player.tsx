@@ -51,7 +51,7 @@ type VideoPlayerProps = {
 function VideoPlayer({children, videoRef, canvasRef, isCommentShown, onPause, onEnded, commentOpacity}: VideoPlayerProps) {
     return (<div className="player-video-container">
         <div className="player-video-container-inner">
-            <video ref={videoRef} controls autoPlay onPause={(e) => {onPause()}} onEnded={onEnded} width="1920" height="1080" id="pmw-element-video"></video>
+            <video ref={videoRef} autoPlay onPause={(e) => {onPause()}} onEnded={onEnded} width="1920" height="1080" id="pmw-element-video"></video>
             <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: commentOpacity} : {opacity: 0}} id="pmw-element-commentcanvas"/>
             { children }
         </div>
@@ -161,6 +161,10 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         }
     }, [])
 
+    useEffect(() => {
+        if (videoRef.current) videoRef.current.playbackRate = localStorage.playersettings.playbackRate || 1.0
+    }, [localStorage])
+
     function playlistIndexControl(add: number) {
         if (playlistData.items.length > 0) {
             const currentVideoIndex = playlistData.items?.findIndex(video => video.id === videoId)
@@ -188,7 +192,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     }
 
     function onEnded() {
-        if ( localStorage.playersettings.enableAutoPlay ) {
+        if ( localStorage.playersettings.enableAutoPlay && !localStorage.playersettings.isLoop ) {
             playlistIndexControl(1)
         }
     }
