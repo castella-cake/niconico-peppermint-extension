@@ -46,12 +46,13 @@ type VideoPlayerProps = {
     canvasRef: RefObject<HTMLCanvasElement>,
     isCommentShown: boolean,
     commentOpacity: number,
+    onClick: () => void,
 }
 
-function VideoPlayer({children, videoRef, canvasRef, isCommentShown, onPause, onEnded, commentOpacity}: VideoPlayerProps) {
-    return (<div className="player-video-container">
+function VideoPlayer({children, videoRef, canvasRef, isCommentShown, onPause, onEnded, commentOpacity, onClick}: VideoPlayerProps) {
+    return (<div className="player-video-container" >
         <div className="player-video-container-inner">
-            <video ref={videoRef} autoPlay onPause={(e) => {onPause()}} onEnded={onEnded} width="1920" height="1080" id="pmw-element-video"></video>
+            <video ref={videoRef} autoPlay onPause={(e) => {onPause()}} onEnded={onEnded} width="1920" height="1080" id="pmw-element-video" onClick={onClick}></video>
             <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: commentOpacity} : {opacity: 0}} id="pmw-element-commentcanvas"/>
             { children }
         </div>
@@ -197,8 +198,19 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         }
     }
 
+    function videoOnClick() {
+        const video = videoRef.current
+        if ( !video ) return
+        if ( video.paused ) {
+            video.play()
+        } else {
+            video.pause()
+            onPause()
+        }
+    }
+
     return <div className="player-container" id="pmw-player">
-        <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} onEnded={onEnded} commentOpacity={localStorage.playersettings.commentOpacity || 1}>
+        <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} onEnded={onEnded} commentOpacity={localStorage.playersettings.commentOpacity || 1} onClick={videoOnClick}>
             {isVefxShown && <VefxController
                 frequencies={frequencies}
                 effectsState={effectsState}
