@@ -1,5 +1,5 @@
 import Hls from "hls.js"
-import { getHls } from "../../../modules/watchApi";
+import { getHls } from "../../../../modules/watchApi";
 import { useEffect, useMemo, useRef } from "react";
 
 // クオリティ配列から、利用可能な中で最も良いクオリティのオブジェクトを返す。

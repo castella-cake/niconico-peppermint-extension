@@ -1,13 +1,11 @@
 import { useEffect, useState, useRef, MouseEvent, ReactNode } from "react";
-import { generateActionTrackId, getVideoInfo, getCommentThread, putPlaybackPosition, getMylist, getRecommend, getSeriesInfo } from "../../modules/watchApi";
+import { generateActionTrackId, putPlaybackPosition, getMylist, getSeriesInfo } from "../../modules/watchApi";
 import { useStorageContext } from "./extensionHook";
 //import { useLang } from "./localizeHook";
 import Player from "./watch/Player";
 import Info from "./watch/Info";
 import Recommend from "./watch/Recommend";
 import CommentList from "./watch/CommentList";
-import type { VideoDataRootObject } from "./watch/types/VideoData";
-import type { CommentDataRootObject } from "./watch/types/CommentData";
 import Header from "./watch/header";
 import BottomInfo from "./watch/BottomInfo";
 import Actions from "./watch/Actions";
@@ -15,9 +13,9 @@ import Search from "./watch/Search";
 import Playlist, { playlistData, mylistToSimplifiedPlaylist, seriesToSimplifiedPlaylist } from "./watch/Playlist";
 import { mylistContext, playlistQueryData } from "./watch/types/playlistQuery";
 //import { MylistResponseRootObject } from "./watch/types/mylistData";
-import { RecommendDataRootObject } from "./watch/types/RecommendData";
 import { SeriesResponseRootObject } from "./watch/types/seriesData";
 import { Stats } from "./watch/ShinjukuUI";
+import { useRecommendData, useWatchData } from "./watch/hooks/apiHooks";
 
 const watchLayoutType = {
     reimaginedNewWatch: "renew",
@@ -52,12 +50,13 @@ function Stacker({ items }: { items: stackerItem[] }) {
 
 function CreateWatchUI() {
     //const lang = useLang()
-    
 
     const { syncStorage, localStorage, isLoaded } = useStorageContext()
     const debugAlwaysOnmyouji: Boolean = syncStorage.debugalwaysonmyouji
 
     const [smId, setSmId] = useState(debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
+    const {videoInfo, commentContent, setCommentContent} = useWatchData(smId)
+    const recommendData = useRecommendData(smId)
     //const [ currentPlaylist, setCurrentPlaylist ] = useState<playlistData>({ type: null })
     //const [ fetchedPlaylistData, setFetchedPlaylistData ] = useState<MylistResponseRootObject | null>(null)
     const [ playlistData, setPlaylistData ] = useState<playlistData>({ type: "none", items: [] })
@@ -103,9 +102,6 @@ function CreateWatchUI() {
 
     const [ actionTrackId, setActionTrackId ] = useState("")
 
-    const [videoInfo, setVideoInfo] = useState<VideoDataRootObject>({})
-    const [commentContent, setCommentContent] = useState<CommentDataRootObject>({})
-    const [ recommendData, setRecommendData ] = useState<RecommendDataRootObject>({})
     const videoElementRef = useRef<HTMLVideoElement | null>(null)
     const [isFullscreenUi, setIsFullscreenUi] = useState(false);
     const isEventFired = useRef<boolean>(false)
@@ -114,26 +110,6 @@ function CreateWatchUI() {
         const newActionTrackId = generateActionTrackId()
         setActionTrackId(newActionTrackId)
         document.dispatchEvent(new CustomEvent("actionTrackIdGenerated", { detail: newActionTrackId }))
-        async function fetchInfo() {
-            const fetchedVideoInfo: VideoDataRootObject = await getVideoInfo(smId)
-            setVideoInfo(fetchedVideoInfo)
-            //console.log(videoInfo)
-
-            if (!fetchedVideoInfo.data) return
-            const commentRequestBody = {
-                params: {
-                    ...fetchedVideoInfo.data.response.comment.nvComment.params
-                },
-                threadKey: fetchedVideoInfo.data.response.comment.nvComment.threadKey
-            }
-            const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
-            setCommentContent(commentResponse)
-            
-            const recommendResponse = await getRecommend(smId)
-            setRecommendData(recommendResponse)
-            //console.log(commentResponse)
-        }
-        fetchInfo()
     }, [smId])
 
     useEffect(() => {

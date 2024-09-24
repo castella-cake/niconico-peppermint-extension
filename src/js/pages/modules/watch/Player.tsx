@@ -5,7 +5,7 @@ import NiconiComments from "@xpadev-net/niconicomments";
 import PlayerController from "./PlayerUI/PlayerController";
 import { useAudioEffects, } from "../eqHooks";
 import VefxController from "./PlayerUI/vefxController";
-import { useHlsVideo } from "./watchHooks";
+import { useHlsVideo } from "./hooks/hlsHooks";
 import type { VideoDataRootObject } from "./types/VideoData";
 import type { CommentDataRootObject } from "./types/CommentData";
 import type { Dispatch, ReactNode, SetStateAction } from "react"
