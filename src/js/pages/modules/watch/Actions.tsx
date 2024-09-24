@@ -3,6 +3,7 @@ import type { VideoDataRootObject } from "./types/VideoData";
 import { ReactNode, useEffect, useState } from "react";
 import { sendLike } from "../../../modules/watchApi";
 import { readableInt } from "./commonFunction";
+import { Mylist } from "./MylistUI";
 
 
 type Props = {
@@ -16,6 +17,7 @@ function Actions({videoInfo, children}: Props) {
     const [isLikeThanksMsgClosed, setIsLikeThanksMsgClosed] = useState(false)
     const [isLikeHovered, setIsLikeHovered] = useState(false)
     const [temporalLikeModifier, setTemporalLikeModifier] = useState<number>(0) // videoInfoに焼き込まれていない「いいね」のための加算。
+    const [isMylistWindowOpen, setIsMylistWindowOpen] = useState<boolean>(false)
     useEffect(() => {
         if (!videoInfo.data) return
         setTemporalLikeModifier(0)
@@ -70,6 +72,10 @@ function Actions({videoInfo, children}: Props) {
         window.open(shareIntents.twitter, "_blank")
     }
 
+    function onMylistClicked() {
+        setIsMylistWindowOpen(!isMylistWindowOpen)
+    }
+
     /*function ShareSelector() {
         return <select>
             <option value="x.com">X</option>
@@ -87,7 +93,7 @@ function Actions({videoInfo, children}: Props) {
         </button>
         <button type="button" className="video-action-adbutton" onClick={onAdsClicked} title="ニコニ広告する"><IconSpeakerphone/> <span>ニコニ広告</span></button>
         <button type="button" className="video-action-sharebutton" onClick={onShareClicked}><IconShare/> <span>共有</span></button>
-        <button type="button" className="video-action-mylistbutton video-action-disabled"><IconFolderFilled/>マイリスト</button>
+        <button type="button" className="video-action-mylistbutton" onClick={onMylistClicked}><IconFolderFilled/>マイリスト</button>
         {isLiked && likeThanksMsg && ( (videoInfo.data.response.video.viewer.like.isLiked && isLikeHovered) || (!videoInfo.data.response.video.viewer.like.isLiked && (!isLikeThanksMsgClosed || isLikeHovered)) ) && <div className="video-action-likethanks-outercontainer">
             <div className="video-action-likethanks-container">
                 <div className="global-flex video-action-likethanks-title">
@@ -102,6 +108,9 @@ function Actions({videoInfo, children}: Props) {
                 </div>
             </div>
         </div>}
+        <div className="video-action-mylists-outercontainer" is-open={isMylistWindowOpen ? "true" : undefined}> {/* Mylistがレンダー時に毎回APIを呼ぶのを避けるために、cssで制御する */}
+            <Mylist videoInfo={videoInfo} onClose={onMylistClicked}/>
+        </div>
     </div>
 }
 

@@ -226,6 +226,17 @@ export async function getCommonsRelatives(videoId, limit = 15) {
     return await response.json()
 }
 
+export async function getSeriesInfo(seriesId) {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v2/series/${seriesId}`, {
+        'method': 'GET',
+        "headers": {
+            "X-Frontend-Id": "6",
+            "X-Frontend-Version": "0",
+        },
+    })
+    return await response.json()
+}
+
 export async function getMylist(mylistId) {
     const response = await fetch(`https://nvapi.nicovideo.jp/v1/playlist/mylist/${mylistId}?sortKey=registeredAt&sortOrder=desc`, {
         "credentials": "include",
@@ -243,13 +254,32 @@ export async function getMylist(mylistId) {
     return await response.json()
 }
 
-export async function getSeriesInfo(seriesId) {
-    const response = await fetch(`https://nvapi.nicovideo.jp/v2/series/${seriesId}`, {
-        'method': 'GET',
+export async function getMylists() {
+    const response = await fetch("https://nvapi.nicovideo.jp/v1/users/me/mylists", {
+        "credentials": "include",
         "headers": {
             "X-Frontend-Id": "6",
             "X-Frontend-Version": "0",
+            "X-Niconico-Language": "ja-jp",
         },
-    })
+        "method": "GET",
+        "mode": "cors"
+    });
+    return await response.json()
+}
+
+export async function addItemToMylist(mylistId, itemId, requestWith) {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/users/me/mylists/${encodeURIComponent(mylistId)}/items?itemId=${encodeURIComponent(itemId)}`, {
+        "credentials": "include",
+        "headers": {
+            "X-Frontend-Id": "6",
+            "X-Frontend-Version": "0",
+            "X-Niconico-Language": "ja-jp",
+            "X-Request-With": requestWith,
+        },
+        "referrer": "https://www.nicovideo.jp/",
+        "method": "POST",
+        "mode": "cors"
+    });
     return await response.json()
 }
