@@ -17,7 +17,7 @@ const settings: { [key: string]: setting } = {
         type: "select",
         options: [0,1,2],
         defaultValue: 1,
-        texts: ["小(0.4)", "中(0.6)", "フル(1)"],
+        texts: ["小", "中", "フル"],
         name: "プレイヤーサイズ",
         hint: "そのエリアに属している要素もリサイズされます。また、3カラムでは使用できません。"
     },

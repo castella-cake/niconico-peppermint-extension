@@ -14,7 +14,7 @@ import Playlist, { playlistData, mylistToSimplifiedPlaylist, seriesToSimplifiedP
 import { mylistContext, playlistQueryData } from "./watch/types/playlistQuery";
 //import { MylistResponseRootObject } from "./watch/types/mylistData";
 import { SeriesResponseRootObject } from "./watch/types/seriesData";
-import { Stats } from "./watch/ShinjukuUI";
+import { Owner, Stats } from "./watch/ShinjukuUI";
 import { useRecommendData, useWatchData } from "./watch/hooks/apiHooks";
 
 const watchLayoutType = {
@@ -191,22 +191,23 @@ function CreateWatchUI() {
     const infoElem = <Info videoInfo={videoInfo} videoRef={videoElementRef} isShinjukuLayout={layoutType === watchLayoutType.shinjuku} key="watchui-info" />
     const commentListElem = <CommentList videoInfo={videoInfo} commentContent={commentContent} setCommentContent={setCommentContent} videoRef={videoElementRef} key="watchui-commentlist" />
     const playListElem = <Playlist playlistData={playlistData} videoInfo={videoInfo} key="watchui-playlist"/>
+    const actionsElem = <Actions videoInfo={videoInfo} key="watchui-actions"></Actions>
     const rightActionElem = <div className="watch-container-rightaction" key="watchui-rightaction">
         { layoutType === watchLayoutType.shinjuku ?
             <div className="watch-container-rightaction-hjleft">
                 <Stats videoInfo={videoInfo}/>
-                <Actions videoInfo={videoInfo}></Actions>
-            </div> :
-            <Actions videoInfo={videoInfo}></Actions>
+            </div> : actionsElem
         }
         <Stacker items={[{ title: "コメントリスト", content: commentListElem }, { title: "動画概要", content: infoElem, disabled: (layoutType !== watchLayoutType.Stacked)}, { title: "再生リスト", content: playListElem }]}/>
     </div>
     const recommendElem = <Recommend recommendData={recommendData} key="watchui-recommend" />
     const bottomInfoElem = <BottomInfo videoInfo={videoInfo} key="watchui-bottominfo"/>
     const searchElem = <Search key="watchui-search" />
+    const ownerElem = <Owner videoInfo={videoInfo} key="watchui-owner"/>
     
     type layoutInfo = {
-        top: false | any[],
+        topLeft: false | any[],
+        topRight?: any[]
         midLeft: any[],
         midCenter: false | any[]
         midRight: any[],
@@ -217,7 +218,7 @@ function CreateWatchUI() {
         [key: string]: layoutInfo
     } = {
         "renew": {
-            top: false,
+            topLeft: false,
     
             midLeft: [playerElem, infoElem, bottomInfoElem, searchElem],
             midCenter: false,
@@ -226,7 +227,7 @@ function CreateWatchUI() {
             bottom: false
         },
         "recresc": {
-            top: [infoElem, searchElem],
+            topLeft: [infoElem, searchElem],
     
             midLeft: [playerElem],
             midCenter: false,
@@ -235,7 +236,7 @@ function CreateWatchUI() {
             bottom: [recommendElem, bottomInfoElem]
         },
         "stacked": {
-            top: false,
+            topLeft: false,
     
             midLeft: [playerElem, bottomInfoElem, searchElem],
             midCenter: false,
@@ -244,7 +245,7 @@ function CreateWatchUI() {
             bottom: false
         },
         "3col": {
-            top: false,
+            topLeft: false,
     
             midLeft: [infoElem],
             midCenter: [playerElem],
@@ -253,7 +254,8 @@ function CreateWatchUI() {
             bottom: [recommendElem, bottomInfoElem, searchElem]
         },
         "shinjuku": {
-            top: [searchElem,infoElem],
+            topLeft: [searchElem,infoElem],
+            topRight: [ownerElem, actionsElem],
     
             midLeft: [],
             midCenter: [playerElem, rightActionElem],
@@ -269,11 +271,14 @@ function CreateWatchUI() {
     return <div className={isFullscreenUi ? "container fullscreen" : "container"} onClickCapture={(e) => {linkClickHandler(e)}}>
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
         { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer}/> }
-        <div className="watch-container" watch-type={layoutType} id="pmw-container">
+        <div className="watch-container" watch-type={layoutType} settings-size={playerSize} id="pmw-container">
             <div className="watch-container-top">
-                {currentLayout.top !== false && currentLayout.top}
+                {currentLayout.topLeft !== false && currentLayout.topLeft}
+                { currentLayout.topRight && <div className="watch-container-top-right">
+                    { currentLayout.topRight }
+                </div> }
             </div>
-            <div className="watch-container-left" settings-size={playerSize}>
+            <div className="watch-container-left">
                 {currentLayout.midLeft}
             </div>
             { currentLayout.midCenter !== false && <div className="watch-container-middle">

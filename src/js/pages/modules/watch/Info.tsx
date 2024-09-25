@@ -73,7 +73,7 @@ function Info({videoInfo, videoRef, isShinjukuLayout}: Props) {
                     <span><IconFolderFilled/>{readableInt(videoInfoResponse.video.count.mylist)}</span>
                 </div> }
             </div>
-            <div className="videoinfo-owner">
+            { !isShinjukuLayout && <div className="videoinfo-owner">
                 {videoInfoResponse.owner && <a href={`https://www.nicovideo.jp/user/${videoInfoResponse.owner.id}`}>
                     { videoInfoResponse.owner.iconUrl && <img src={videoInfoResponse.owner.iconUrl}/> }
                     <span>
@@ -86,7 +86,7 @@ function Info({videoInfo, videoRef, isShinjukuLayout}: Props) {
                         { videoInfoResponse.channel.name }
                     </span>
                 </a>}
-            </div>
+            </div>}
         </div>
         <details open={isDescOpen && true} onToggle={(e) => {setIsDescOpen(e.currentTarget.open);writePlayerSettings("descriptionOpen", e.currentTarget.open)}}>
             <summary>この動画の概要 {!isDescOpen && <span>{htmlToText(sanitizedDesc)}</span>}</summary>

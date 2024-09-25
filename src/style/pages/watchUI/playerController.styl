@@ -11,6 +11,7 @@
     }
     .seekbar-time {
         font-size: 0.9em;
+        color: var(--textcolor1)
     }
 }
 .playercontroller-container-middle {
@@ -161,6 +162,7 @@
     font-size: 0.8em;
     border-radius: var(--radius-mini);
     background: #000a;
+    color: #fff;
     padding: 0 4px;
     white-space: nowrap;
     left: calc(var(--left) / 2);
@@ -227,7 +229,7 @@
     --radius: 0px;
     --radius-mini: 0px;
     --radius-big: 0px;
-    background-image: linear-gradient(#ddd 1%, #494949 2%, #282828 49%, #141414 50%, #202020 100%);
+    background-image: linear-gradient(#ddd, #494949 3%, #282828 48%, #1a1a1a 50%, #202020 95%, #000 100%)
     color: #fff;
     margin-top: 0;
     font-family: "MS Gothic";
@@ -249,9 +251,12 @@
             border: 1px solid #111;
             border-image: linear-gradient(#5c5c5c,#363636);
             border-image-slice: 1;
-            outline: 1px solid #060606;
             padding:2px;
             margin-left: 2px;
+            box-shadow: 0px 0px 3px #000 inset;
+        }
+        button:not(:focus-visible) {
+            outline: 1px solid #060606;
         }
     }
 
@@ -270,8 +275,12 @@
     }
     .playercontroller-qualityselect {
         background: transparent;
-        padding: 6px;
+        padding: 6px 2px;
         color: #fff;
+        margin: 0;
+        font-size: 12px;
+        font-family: "MS UI Gothic", sans-serif;
+        font-weight: bold;
         option {
             background: #000;
             color: #fff;
@@ -280,6 +289,7 @@
 
     .playercontroller-volume-container {
         height: 10px;
+        margin-right: 4px;
         .playercontroller-volume {
             max-width: 64px;
         }
@@ -308,7 +318,7 @@
         width: 4px;
         background: linear-gradient(#ddd 1%, #ddd 2%, #ddd 49%, #555 50%, #eee 100%);
         bottom: 16px;
-        border: 2px solid #050505;
+        border: 1px solid #111;
     }
     .seekbar {
         height: 6px;
@@ -337,5 +347,10 @@
     /*.playercontroller-volume-container .playercontroller-volume::-webkit-slider-thumb {
         display: none;
     }*/
+
+    .playercontroller-commenttoggle, .playercontroller-togglemute, .playercontroller-toggleloop {
+        border-left: 3px solid;
+        border-image: linear-gradient(90deg, #aaaa 1%, #000 5%, #000 10%, #aaaa 15%) 5;
+    }
 }
 
