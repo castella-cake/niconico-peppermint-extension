@@ -142,7 +142,7 @@ function CreateWatchUI() {
 
     //console.log(videoInfo)
     if ( !isLoaded ) return <div>ロード中</div>
-    const layoutType = syncStorage.pmwlayouttype || watchLayoutType.reimaginedNewWatch
+    const layoutType = syncStorage.pmwlayouttype || watchLayoutType.reimaginedOldWatch
     const playerSize = localStorage.playersettings.playerAreaSize || 1
 
     const linkClickHandler = (e: MouseEvent<HTMLDivElement>) => {

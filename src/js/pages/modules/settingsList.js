@@ -52,11 +52,11 @@ const settings = {
         {
             type: "select",
             name: "pmwlayouttype",
-            values: ["renew", "recresc", "stacked", "3col", "shinjuku"],
-            default: "renew"
+            values: ["recresc", "renew", "stacked", "3col", "shinjuku"],
+            default: "recresc"
         },
         {
-            type: "select",
+            type: "selectButtons",
             name: "pmwplayertype",
             values: ["default", "html5", "shinjuku"],
             default: "default"
