@@ -102,10 +102,10 @@ html.PMDMP-light .container.fullscreen {
     flex: 1;
     overflow: hidden;
     position: relative;
+    min-height: 640px;
 }
 .stacker-container {
     overflow: hidden;
-    max-height: 640px;
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -148,8 +148,8 @@ html.PMDMP-light .container.fullscreen {
 }
 
 .watch-container[watch-type="3col"], .watch-container[watch-type="recresc"], .watch-container[watch-type="shinjuku"] {
-    .stacker-container {
-        max-height: none;
+    .stacker-wrapper {
+        min-height: 0;
     }
 }
 
@@ -200,15 +200,20 @@ html.PMDMP-light .container.fullscreen {
     }
 }
 
-[watch-type="recresc"] .watch-container-rightaction, [watch-type="shinjuku"] .watch-container-rightaction, [watch-type="3col"] .watch-container-rightaction {
-    max-height: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
+[watch-type="recresc"], [watch-type="shinjuku"], [watch-type="3col"] {
+    .watch-container-rightaction {
+        min-height: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .stacker-wrapper {
+        min-height: 0;
+    }
 }
 
 [watch-type="shinjuku"] {
