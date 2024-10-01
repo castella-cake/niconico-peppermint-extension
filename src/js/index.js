@@ -5,7 +5,7 @@ function onError(error) {
     console.log(`Error: ${error}`);
 }
 
-const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp"];
+const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp"];
 const livePathnameWhiteList = ["/focus", "/recent", "/timetable"]
 function createFastCSSRule(result) {
     // #region HTML要素用のパレット設定
@@ -37,9 +37,6 @@ function createFastCSSRule(result) {
             document.documentElement.classList.add(`PMDMP-${result.darkmode}`)
         }
         //console.log(result.darkmode)
-        if (location.hostname == "blog.nicovideo.jp" && location.pathname.startsWith("/niconews")) {
-            document.documentElement.classList.add('PMDM-NicoInfo')
-        }
         if (location.hostname == "anime.nicovideo.jp") {
             document.documentElement.classList.add('PMDM-NAnime')
         }

@@ -18,7 +18,7 @@ if ( addPMStyleElem() == false ) {
     html.appendChild(peppermintStyle)
 }
 
-let locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp"];
+let locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp"];
 
 getSyncStorageData.then(createBaseCSSRule, onError);
 function createBaseCSSRule(result) {
