@@ -17,6 +17,16 @@ const tabType = Object.freeze({
 })
 // #endregion
 
+function TabEditCheckbox(props) {
+    const { syncStorage, setSyncStorageValue } = useStorageContext()
+    console.log(props)
+    const setting = props.setting
+    if (!setting) {
+        return
+    }
+    return <label><input type="checkbox" checked={syncStorage[setting.name] ?? setting.default} onChange={(e) => {setSyncStorageValue(setting.name, e.currentTarget.checked)}} />{props.label}</label>
+}
+
 function createTabUI() {
     const lang = useLang()
     const manifestData = useManifestData()
@@ -26,15 +36,6 @@ function createTabUI() {
     }
     const [isEditMode, setIsEditMode] = useState(false)
     const [currentTab, setCurrentTab] = useState(tabType.dashboard)
-
-    function TabEditCheckbox(props) {
-        console.log(props)
-        const setting = props.setting
-        if (!isEditMode || !setting) {
-            return
-        }
-        return <label><input type="checkbox" checked={syncStorage[setting.name] ?? setting.default} onChange={(e) => {setSyncStorageValue(setting.name, e.currentTarget.checked)}} />{props.label}</label>
-    }
 
     let currentTabElem = <div>Invalid tab type.</div>;
     if (currentTab == tabType.dashboard) {

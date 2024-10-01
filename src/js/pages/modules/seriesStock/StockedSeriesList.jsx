@@ -25,7 +25,7 @@ export function CreateRowList(props) {
     const array = props.array
     // 個別表示するべきかしないべきかを判断するために、一旦シリーズストック内にあるフォルダーを見て、個別表示してはならないIDを列挙する
     // mapでIDリストを取ってから、reduceで繋げる
-    const inFolderElemIdList = useMemo(() => array.map(elem => {
+    const inFolderElemIdList = array.map(elem => {
         if ( elem.type == "folder" && elem.idList && elem.idList.length > 0 ) {
             return elem.idList
         } else {
@@ -35,7 +35,7 @@ export function CreateRowList(props) {
         if ( acm ) {
             return acm.concat(elem)
         }
-    }, []).filter(elem => elem != null), [array])
+    }, []).filter(elem => elem != null)
 
     return <>{ array.map((elem, index) => {
         // どっかのフォルダーにいるなら個別表示しちゃダメなので帰って

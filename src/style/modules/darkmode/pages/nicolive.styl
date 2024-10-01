@@ -1,4 +1,25 @@
 html.PMDM-NicoLiveHome {
+    --base-font: var(--textcolor1);
+    --base-bg: var(--bgcolor1);
+    --mono1: var(--textcolor1);
+    --mono2: var(--textcolor2);
+    --mono3: var(--textcolor3);
+    --mono4: var(--bgcolor4);
+    --mono5: var(--bgcolor3);
+    --mono6: var(--bgcolor2);
+    --mono7: var(--bgcolor1);
+    --mono8: var(--bgcolor1);
+    --blue: var(--linktext1);
+
+    // swiper
+    .swiper-slide [class*="___program-card___"] > .content-area > .program-summary > .program-title > a {
+        color: #fff
+    }
+
+    .swiper-slide [class*="___program-card___"] > .content-area > .program-summary {
+        background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.7) 100%);
+    }
+
     [class*="___base-page___"] {
         background: var(--bgcolor1);
         color: var(--textcolor1);
@@ -100,11 +121,6 @@ html.PMDM-NicoLiveHome {
         background: var(--bgcolor2)
     }
 
-    .program-card > .content-area > .program-summary {
-        background: transparent
-        color: var(--textcolor1)
-    }
-
     .program-card > .content-area > .program-summary:hover {
         color: var(--linktext1)
     }
@@ -140,6 +156,11 @@ html.PMDM-NicoLiveHome {
         .menu-area > .menu-popup-control > .toggle-button {
             --icon-color: var(--textcolor2)
         }
+    }
+
+    .statistics-item {
+        --local-color: var(--textcolor2);
+        --local-icon-color: var(--bgcolor3)
     }
     // konomi
     [class^="___user-konomi-tag-list-section"] {
@@ -202,6 +223,19 @@ html.PMDM-NicoLiveHome {
 
     [class^="___caption___"] {
         color: var(--textcolor1)
+    }
+    // program-notification
+    [class^="___program-provider-name___"], [class^="___program-title___"] {
+        color: var(--textcolor1);
+    }
+    // information-list
+    [class*="___site-information-list-section___"] {
+        background: var(--bgcolor2);
+    }
+
+    //datepicker
+    .react-datepicker__day-name {
+        color: var(--textcolor1);
     }
 }
 html.PMDM-NicoLiveWatch {

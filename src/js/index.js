@@ -5,8 +5,8 @@ function onError(error) {
     console.log(`Error: ${error}`);
 }
 
-const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp"];
-const livePathnameWhiteList = ["/focus", "/recent", "/timetable"]
+const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp"];
+const livePathnameWhiteList = ["/focus", "/recent", "/timetable", "/ranking"]
 function createFastCSSRule(result) {
     // #region HTML要素用のパレット設定
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) && locationWhiteList.includes(location.hostname)) {
@@ -37,9 +37,6 @@ function createFastCSSRule(result) {
             document.documentElement.classList.add(`PMDMP-${result.darkmode}`)
         }
         //console.log(result.darkmode)
-        if (location.hostname == "blog.nicovideo.jp" && location.pathname.startsWith("/niconews")) {
-            document.documentElement.classList.add('PMDM-NicoInfo')
-        }
         if (location.hostname == "anime.nicovideo.jp") {
             document.documentElement.classList.add('PMDM-NAnime')
         }
@@ -58,12 +55,16 @@ function createFastCSSRule(result) {
         if ( locationWhiteList.includes(location.hostname) ) {
             document.documentElement.classList.add('PMDM-Enabled')
         }
-        if (location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/watch")) {
-            document.documentElement.classList.add('PMDM-VidWatch')
-        } else if (location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/ranking")) {
-            document.documentElement.classList.add('PMDM-Ranking')
-        } else if (location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/video_top")) {
-            document.documentElement.classList.add('PMDM-VideoTop')
+        if (location.hostname == "www.nicovideo.jp"){
+            if (location.pathname.startsWith("/watch")) {
+                document.documentElement.classList.add('PMDM-VidWatch')
+            } else if (location.pathname.startsWith("/ranking")) {
+                document.documentElement.classList.add('PMDM-Ranking')
+            } else if (location.pathname.startsWith("/video_top")) {
+                document.documentElement.classList.add('PMDM-VideoTop')
+            } else if (location.pathname.startsWith("/search") || location.pathname.startsWith("/tag") || location.pathname.startsWith("/mylist_search")) {
+                document.documentElement.classList.add('PMDM-Search')
+            }
         }
     } 
     // #endregion
@@ -86,6 +87,9 @@ function createFastCSSRule(result) {
         }
         if (result.fixedheaderwidth == true) {
             document.documentElement.classList.add('PM-FixedHeaderWidth')
+        }
+        if ( result.vidtoptwocolumn === true ) {
+            document.documentElement.classList.add('PM-VideoTopTwoColumn')
         }
     }
     if ( location.hostname == "sp.nicovideo.jp" && location.pathname.startsWith("/watch") ) {

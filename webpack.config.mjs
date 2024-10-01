@@ -12,12 +12,23 @@ export default {
     },
     watch: false,
     resolve: {
-        extensions: ['.mjs', ".js", ".jsx", ".json", ".styl"]
+        extensions: ['.mjs', ".js", ".jsx", ".ts", ".tsx", ".json", ".styl"]
     },
     module: {
         rules: [
+            /*{
+                test: /\.(js|jsx)$/, 
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader'
+                },
+            },*/
             {
-                test: /\.(jsx|js)$/, loader: "babel-loader", exclude: /node_modules/
+                test: /\.(ts|tsx|js|jsx)$/, 
+                exclude: /node_modules/,
+                use: [
+                    {loader: 'ts-loader'}
+                ]
             },
             {
                 test: /\.styl$/,

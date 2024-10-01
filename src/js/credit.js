@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
                 .maincontainer_inner {
                     transform-style: preserve-3d;
-                    animation: 30s linear 0s forwards star;
+                    animation: 15s linear 0s forwards star;
                     overflow: hidden;
                 }
                 .settings-area { background: transparent; text-align: center; }
@@ -53,15 +53,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 .settings-area a { color: #ff0; }
                 @keyframes star {
                     0% {
-                        transform: perspective(2000px) rotateX(5deg) scale(0.9) translateY(50px);
+                        transform: perspective(2000px) rotateX(30deg) scale(0.9) translateY(200vh);
                         opacity: 1.0
                     }
                     93% {
-                        transform: perspective(2000px) rotateX(5deg) scale(0.9) translateY(-2400vh);
+                        transform: perspective(2000px) rotateX(30deg) scale(0.9) translateY(-450vh);
                         opacity: 1.0
                     }
                     94% {
-                        transform: perspective(2000px) rotateX(5deg) scale(0.9) translateY(-2400vh);
+                        transform: perspective(2000px) rotateX(30deg) scale(0.9) translateY(-450vh);
                         opacity: 0.0
                     }
                     95% {
