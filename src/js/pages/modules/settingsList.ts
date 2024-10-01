@@ -1,4 +1,23 @@
-const settings = {
+export type setting = {
+    type: string,
+    name: string,
+    values?: any[],
+    default?: any,
+    href?: string,
+    settingLink?: {
+        name: string,
+        href: string
+    },
+    children?: setting[],
+    min?: number,
+    max?: number,
+    placeholder?: string,
+}
+
+type settingList = {
+    [categoryName: string]: setting[]
+}
+const settings: settingList = {
     hide: [
         {
             type: "checkbox",
