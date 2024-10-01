@@ -4,6 +4,9 @@
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
+    &[is-pipvideo="false"] .player-commentvideo-pip {
+        display: none;
+    }
 }
 .player-video-container {
     flex-grow: 1;

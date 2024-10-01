@@ -44,6 +44,11 @@ const settings: { [key: string]: setting } = {
         texts: ["x0.1", "x0.25", "x0.5", "x0.75", "x1", "x1.25", "x1.5", "x1.75", "x2"],
         name: "再生速度",
         defaultValue: 1.0,
+    },
+    enableCommentPiP: {
+        type: "checkbox",
+        defaultValue: false,
+        name: "PiPでコメントを表示(高負荷)",
     }
 }
 

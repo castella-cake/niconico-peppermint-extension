@@ -16,6 +16,7 @@ import { handleCtrl } from "./commonFunction";
 import { StatsOverlay } from "./PlayerUI/StatsOverlay";
 import { RecommendDataRootObject } from "./types/RecommendData";
 import { playlistData } from "./Playlist";
+import { useInterval } from "../commonHooks";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -69,6 +70,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const [isStatsShown, setIsStatsShown] = useState(false)
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
+    const pipVideoRef = useRef<HTMLVideoElement>(null)
     const commentInputRef = useRef<HTMLInputElement>(null)
     const [frequencies] = useState([31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]);
 
@@ -96,6 +98,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const userAgent = window.navigator.userAgent.toLowerCase();
     const shouldUseContentScriptHls = !(userAgent.indexOf('chrome') == -1 || syncStorage.pmwforcepagehls)
     const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, shouldUseContentScriptHls, localStorage.playersettings.preferredLevel || -1)
+    const niconicommentsRef = useRef<NiconiComments | null>(null!)
 
     useEffect(() => {
         const onUnload = () => {
@@ -118,23 +121,28 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         handleEffectsChange(effectsState)
     }, [])
 
-    useEffect(() => {
+    useEffect(() => { // とりあえずこれでパフォーマンスが改善したけど、returnするときにnull入れてるのが良いのか、要素非表示をCSSに任せているのが良いのか、captureStreamを一回だけ作ってるのが良いのかはよくわからない
         if (
             canvasRef.current &&
             commentContent.data &&
-            videoRef.current
+            videoRef.current &&
+            localStorage.playersettings
         ) {
             if (!commentContent.data) return
-            const niconiCommentsRenderer = new NiconiComments(canvasRef.current, commentContent.data.threads, { format: "v1" })
-            const renderInterval = setInterval(() => {
-                if (!videoRef.current) return
-                niconiCommentsRenderer.drawCanvas(videoRef.current.currentTime * 100)
-            }, 8)
-            return () => {
-                clearInterval(renderInterval)
-            };
+            niconicommentsRef.current = new NiconiComments(canvasRef.current, commentContent.data.threads, { format: "v1", video: (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined) })
+            
+            if (localStorage.playersettings.enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
+                pipVideoRef.current.srcObject = canvasRef.current.captureStream()
+            }
+            return () => { niconicommentsRef.current = null }
         }
-    }, [commentContent])
+    }, [commentContent, localStorage])
+    
+    
+    useInterval(() => {
+        if (!videoRef.current || !isCommentShown || !niconicommentsRef.current) return
+        niconicommentsRef.current.drawCanvas(videoRef.current.currentTime * 100)
+    }, 8)
 
     const toggleFullscreen = () => {
         if (!isFullscreenUi) {
@@ -209,7 +217,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         }
     }
 
-    return <div className="player-container" id="pmw-player">
+    return <div className="player-container" id="pmw-player" is-pipvideo={localStorage.playersettings.enableCommentPiP && isCommentShown ? "true" : "false"}>
         <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} onEnded={onEnded} commentOpacity={localStorage.playersettings.commentOpacity || 1} onClick={videoOnClick}>
             {isVefxShown && <VefxController
                 frequencies={frequencies}
@@ -221,8 +229,19 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                     setEffectsState(state)
                 }}
             />}
+            <video
+                ref={pipVideoRef}
+                className="player-commentvideo-pip"
+                width="1920"
+                height="1080"
+                autoPlay
+                onPause={() => {videoRef.current && videoRef.current.pause()}}
+                onPlay={() => {videoRef.current && videoRef.current.play()}}
+                onClick={videoOnClick}
+            >
+            </video>
             { isSettingsShown && <Settings isStatsShown={isStatsShown} setIsStatsShown={setIsStatsShown}/> }
-            { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/>}
+            { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/> }
         </VideoPlayer>
         <PlayerController
             videoRef={videoRef}

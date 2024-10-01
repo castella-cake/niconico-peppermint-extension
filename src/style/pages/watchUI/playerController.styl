@@ -157,15 +157,19 @@
 
 .playercontroller-volume-tooltip {
     display: none;
-    position: absolute;
     top: 12px;
-    font-size: 0.8em;
+    font-size: .8em;
     border-radius: var(--radius-mini);
-    background: #000a;
+    background: rgba(0,0,0,0.667);
     color: #fff;
     padding: 0 4px;
     white-space: nowrap;
-    left: calc(var(--left) / 2);
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto;
 }
 .playercontroller-time {
     margin: 0 8px;

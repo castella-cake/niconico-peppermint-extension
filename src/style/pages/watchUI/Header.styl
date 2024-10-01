@@ -16,13 +16,15 @@
         }
     }
     a {
-        display: block;
-        vertical-align: middle;
         padding-left: 8px;
-        font-size: 0.8rem;
+        font-size: .8rem;
         text-decoration: none;
         line-height: var(--header-height);
-        color: #fff
+        color: #fff;
+        align-self: center;
+        span {
+            vertical-align: middle;
+        }
     }
     a:last-child {
         padding-right: 8px;
@@ -39,10 +41,12 @@
         margin-right: 0;
     }
     .header-usercontainer > a > img {
-        height: 80%;
         vertical-align: middle;
         border-radius: 512px;
         margin-right: 8px;
+        width: 2.25em;
+        height: 2.25em;
+        object-fit: contain;
     }
     .header-right-container {
         justify-content: flex-end;
