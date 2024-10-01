@@ -68,6 +68,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const [isSettingsShown, setIsSettingsShown] = useState(false)
     const [isCommentShown, setIsCommentShown] = useState(true)
     const [isStatsShown, setIsStatsShown] = useState(false)
+    const [isCursorStopped, setIsCursorStopped] = useState<boolean>(false)
 
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const pipVideoRef = useRef<HTMLVideoElement>(null)
@@ -129,7 +130,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             localStorage.playersettings
         ) {
             if (!commentContent.data) return
-            niconicommentsRef.current = new NiconiComments(canvasRef.current, commentContent.data.threads, { format: "v1", video: (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined) })
+            niconicommentsRef.current = new NiconiComments(canvasRef.current, commentContent.data.threads, { format: "v1", enableLegacyPiP: true, video: (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined) })
             
             if (localStorage.playersettings.enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
                 pipVideoRef.current.srcObject = canvasRef.current.captureStream()
@@ -154,6 +155,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     };
 
     useEffect(() => {
+        let timeout: any;
         const handleFullscreenChange = (e: Event) => {
             if ( !document.fullscreenElement ) {
                 setIsFullscreenUi(false)
@@ -162,11 +164,22 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             }
         }
         const onKeydown = (e: KeyboardEvent) => handleCtrl(e, videoRef.current, commentInputRef.current, toggleFullscreen)
+        const handleMouseMove = (e: MouseEvent) => {
+            clearTimeout(timeout)
+            if ( isCursorStopped !== true ) setIsCursorStopped(false)
+            timeout = setTimeout(() => {
+                setIsCursorStopped(true)
+            }, 3000)
+        }
         document.body.addEventListener("keydown", onKeydown)
         document.body.addEventListener("fullscreenchange", handleFullscreenChange)
+        videoRef.current?.addEventListener("mousemove", handleMouseMove)
+        pipVideoRef.current?.addEventListener("mousemove", handleMouseMove)
         return () => {
             document.body.removeEventListener("keydown", onKeydown)
             document.body.removeEventListener("fullscreenchange", handleFullscreenChange)
+            videoRef.current?.removeEventListener("mousemove", handleMouseMove)
+            pipVideoRef.current?.removeEventListener("mousemove", handleMouseMove)
         }
     }, [])
 
@@ -217,7 +230,12 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         }
     }
 
-    return <div className="player-container" id="pmw-player" is-pipvideo={localStorage.playersettings.enableCommentPiP && isCommentShown ? "true" : "false"}>
+    return <div className="player-container"
+        id="pmw-player"
+        is-pipvideo={localStorage.playersettings.enableCommentPiP && isCommentShown ? "true" : "false"}
+        is-dynamic-controller={localStorage.playersettings.enableFullscreenSmartControl ? "true" : "false"}
+        is-cursor-stopped={isCursorStopped ? "true" : "false"}
+    >
         <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} onEnded={onEnded} commentOpacity={localStorage.playersettings.commentOpacity || 1} onClick={videoOnClick}>
             {isVefxShown && <VefxController
                 frequencies={frequencies}
@@ -243,28 +261,30 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             { isSettingsShown && <Settings isStatsShown={isStatsShown} setIsStatsShown={setIsStatsShown}/> }
             { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/> }
         </VideoPlayer>
-        <PlayerController
-            videoRef={videoRef}
-            hlsRef={hlsRef}
-            effectsState={effectsState}
+        <div className="player-bottom-container">
+            <PlayerController
+                videoRef={videoRef}
+                hlsRef={hlsRef}
+                effectsState={effectsState}
 
-            isVefxShown={isVefxShown}
-            setIsVefxShown={setIsVefxShown}
+                isVefxShown={isVefxShown}
+                setIsVefxShown={setIsVefxShown}
 
-            isFullscreenUi={isFullscreenUi}
-            toggleFullscreen={toggleFullscreen}
+                isFullscreenUi={isFullscreenUi}
+                toggleFullscreen={toggleFullscreen}
 
-            isCommentShown={isCommentShown}
-            setIsCommentShown={setIsCommentShown}
+                isCommentShown={isCommentShown}
+                setIsCommentShown={setIsCommentShown}
 
-            isSettingsShown={isSettingsShown}
-            setIsSettingsShown={setIsSettingsShown}
+                isSettingsShown={isSettingsShown}
+                setIsSettingsShown={setIsSettingsShown}
 
-            commentContent={commentContent}
+                commentContent={commentContent}
 
-            playlistIndexControl={playlistIndexControl}
-        />
-        <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} commentInputRef={commentInputRef}/>
+                playlistIndexControl={playlistIndexControl}
+            />
+            <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} commentInputRef={commentInputRef}/>
+        </div>
     </div>
 }
 

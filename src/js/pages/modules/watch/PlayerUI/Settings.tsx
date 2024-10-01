@@ -45,10 +45,15 @@ const settings: { [key: string]: setting } = {
         name: "再生速度",
         defaultValue: 1.0,
     },
+    enableFullscreenSmartControl: {
+        type: "checkbox",
+        defaultValue: false,
+        name: "フルスクリーンでコントローラーを動的表示",
+    },
     enableCommentPiP: {
         type: "checkbox",
         defaultValue: false,
-        name: "PiPでコメントを表示(高負荷)",
+        name: "PiPでコメントを表示",
     }
 }
 
@@ -85,8 +90,8 @@ function Settings({ isStatsShown, setIsStatsShown }: {isStatsShown: boolean, set
             } else if ( elem.type === "checkbox" ) {
                 return <div className="playersettings-item" key={name}>
                     <label>
-                        {elem.name}
                         <input type="checkbox" checked={localStorage.playersettings[name] ?? elem.defaultValue} onChange={(e) => {writePlayerSettings(name, e.currentTarget.checked)}}/>
+                        {elem.name}
                     </label>
                     { elem.hint && <div className="playersettings-hint">{elem.hint}</div> }
                 </div>

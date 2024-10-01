@@ -43,6 +43,21 @@
     }
 }
 
+.player-bottom-container {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    > div {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+// 非フルスクリーンもしくは非ダイナミックコントローラー時に、動画要素の上でカーソルが動いていない場合は半透明。
+// 非ホバー時は適用しない。また、後ろに書いたopacityによってオーバーライドする場合もある
+[is-cursor-stopped="true"]:hover .player-bottom-container:not(:hover) {
+    opacity: 0.5; 
+}
+
 .fullscreen {
     .player-container {
         position: fixed;
@@ -50,7 +65,7 @@
         right: 0;
         bottom: 0;
         top: 0;
-        padding: 8px;
+        padding: 0;
         align-items: center;
         overflow: hidden;
         background: var(--bgcolor1);
@@ -60,7 +75,39 @@
         width: 70vw;
         margin: 8px 32px;
     }
+    [is-dynamic-controller="true"] .player-bottom-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 8px;
+        background: linear-gradient(0deg, #000a 80%, #0000);
+        padding-top: 32px;
+        z-index: 30;
+        opacity: 0 !important; // フルスクリーンでダイナミック表示時にカーソルが動いていない
+    }
+
+    [is-dynamic-controller="true"] .player-bottom-container > div {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    // フルスクリーンでダイナミック表示時にカーソルが動いている場合、もしくはホバーされている場合に不透明
+    [is-cursor-stopped="false"][is-dynamic-controller="true"] .player-bottom-container, [is-dynamic-controller="true"] .player-bottom-container:hover {
+        opacity: 1 !important;
+    }
 }
+
+[is-cursor-stopped="true"] {
+    .player-video-container {
+        cursor: none;
+    }
+}
+
+.player-bottom-container {
+    cursor: inherit;
+}
+
 
 [watch-type="shinjuku"] .player-container {
     padding: 0px;
