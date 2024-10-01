@@ -69,6 +69,9 @@ npm run build
 - [x] 投稿日時,ジャンル以外のメタデータを隠す
 #### WatchPage
 新視聴ページのリリースにより、視聴ページの機能は利用できなくなりました。[#38](https://github.com/castella-cake/niconico-peppermint-extension/issues/38) を確認してください。
+- [ ] 独自視聴ページ
+    - [ ] レイアウトカスタマイズ
+    - [ ] 新宿レイアウト 
 #### NicoPedia
 - [x] 評価数削除
 - [x] 最大幅開放
@@ -95,14 +98,6 @@ npm run build
     - [x] フォルダー分け機能
 - [x] ニコレポ取得
 - [x] カスタム動画トップ
-
-# Progress
-- [x] 拡張機能を作成する
-- [x] ベースの作成(設定内容を元にCSSを適用するなど)
-- [x] メジャー機能をUserStyle版から移植する
-- [x] ダークモードをUserStyle版から移植する
-- [x] Chromium系との相性を確認する
-- [x] マイナー機能をUserStyle版から移植する
 
 # Support
 ## サービス
@@ -137,16 +132,8 @@ https://github.com/sponsors/castella-cake
 Niconico-PepperMint+のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  
 
-Niconico-PepperMint+は、React Iconsからインポートもしくはまた外部リソースからインポートされたMaterial Iconsを使用している箇所があります。  
-Material Iconsは`Apache License 2.0` のもとで配布されています。  
-Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
-
-Niconico-PepperMint+のリリースファイルには、JQuery, JQuery UI, Nord が含まれています。
+Niconico-PepperMint+には、JQuery, JQuery UI, Nord が含まれています。
 これらは``MIT License``のもとで配布されています。
 
-Niconico-PepperMint+のリリースファイルにはDOMPurifyが含まれています。   
-DOMPurifyは``Apache License 2.0``、``Mozilla Public License Version 2.0``のデュアルライセンスで配布されています。
-(PepperMint+では``Apache License 2.0``に従います)
-
-これら以外にも、Reactやそのライブラリなどが含まれています。
-完全な外部リソースのライセンスのコピーについては、`NOTICE.txt`を参照してください。
+これら以外にも、リリースファイルにはReactなどのライブラリが含まれています。
+それらのライセンス表示については、リリースファイルの各`<ファイル名>.LICENSE.txt`を参照してください。
