@@ -6,7 +6,7 @@ function onError(error) {
 }
 
 const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp"];
-const livePathnameWhiteList = ["/focus", "/recent", "/timetable"]
+const livePathnameWhiteList = ["/focus", "/recent", "/timetable", "/ranking"]
 function createFastCSSRule(result) {
     // #region HTML要素用のパレット設定
     if (result.darkmode != "" && result.darkmode != undefined && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) && locationWhiteList.includes(location.hostname)) {
