@@ -68,7 +68,7 @@ npm run build
 - [x] サポーターボタンを隠す(視聴ページ,全ページ)
 - [x] 投稿日時,ジャンル以外のメタデータを隠す
 #### WatchPage
-新視聴ページのリリースにより、視聴ページの機能は利用できなくなりました。[#38](https://github.com/castella-cake/niconico-peppermint-extension/issues/38) を確認してください。
+新視聴ページのリリースにより、視聴ページの機能は利用できなくなりました。[#38](https://github.com/castella-cake/niconico-peppermint-extension/issues/38) を確認してください。   
 - [ ] 独自視聴ページ
     - [ ] レイアウトカスタマイズ
     - [ ] 新宿レイアウト 
@@ -87,6 +87,14 @@ npm run build
 - [x] ヘッダー幅を固定
 #### Global
 - [x] ダークモード
+    - [x] ホーム
+    - [x] ニコニコ動画 - 視聴全般
+    - [x] ニコニコ生放送 - 視聴全般
+    - [x] ニコニ貢献 - 部分的なサポート
+    - [x] 通知ページ(inform)
+    - [ ] ニコニコ静画 - 閲覧全般
+    - ~~[ ] ニコニコインフォ~~
+- [x] ダークモードカスタムパレット
 - [x] ヘッダー背景色の変更
 - [x] ビジュアルパッチ
 - [x] spwatchリダイレクト
@@ -96,14 +104,12 @@ npm run build
     - [x] リスト取得機能
     - [x] 新規エピソード通知機能
     - [x] フォルダー分け機能
-- [x] ニコレポ取得
 - [x] カスタム動画トップ
 
 # Support
-## サービス
-Niconico-PepperMintはメインにニコニコ動画の視聴、サブにニコニコ大百科の閲覧や編集にフォーカスを当てています。  
-ニコニコ静画(漫画),ニコニコ生放送,ニコニ・コモンズに対する機能拡充も計画しています。  
-機能要望などはissueにお願いします。  
+Niconico-PepperMintはニコニコ動画に対する改変にフォーカスを当てています。   
+ダークモードサポートは動画の他に生放送,貢献に一部対応していますが、ニコニコ静画に対するサポートの追加は現状未定です。   
+機能要望やバグ報告はIssueにお願いします。  
 ## ブラウザー
 Niconico-PepperMintは最近のFirefoxとその派生ブラウザ、そしてChromium系ブラウザをサポートします。  
 ただし、完全な動作には`:has()`のサポートが必要です。(最近のブラウザでは概ねサポートされているはずです)   
@@ -115,8 +121,6 @@ PCでの動作を想定した拡張機能のため、スマートフォンでの
 - [x] Firefox 110
 - [x] Waterfox 5.1.2
 - [x] Floorp 11 (それ以前のバージョンには表示に軽微な問題がありますが、使用には問題ありません)
-- [ ] MyPal 68.12.5b (Windows XP/10で動作確認、しかしニコニコ動画側がまともに動いてない模様  
-``about:config``で``webextensions.storage.sync.enabled``をtrueに変更する必要があり、対応していないCSSルールがあるためシアターモードが動作しません)
 - [x] Wolvic 1.6.0
 #### Chromium
 - [x] Google Chrome 110
@@ -132,8 +136,8 @@ https://github.com/sponsors/castella-cake
 Niconico-PepperMint+のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  
 
-Niconico-PepperMint+には、JQuery, JQuery UI, Nord が含まれています。
-これらは``MIT License``のもとで配布されています。
+Niconico-PepperMint+には、JQuery, JQuery UI, Nord が含まれています。   
+これらは``MIT License``のもとで配布されています。   
 
-これら以外にも、リリースファイルにはReactなどのライブラリが含まれています。
-それらのライセンス表示については、リリースファイルの各`<ファイル名>.LICENSE.txt`を参照してください。
+これら以外にも、リリースファイルにはReactなどのライブラリが含まれています。   
+それらのライセンス表示については、リリースファイルの各`<ファイル名>.LICENSE.txt`を参照してください。   

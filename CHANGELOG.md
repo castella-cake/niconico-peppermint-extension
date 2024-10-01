@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.3] - 2024/10
+
+### Added
+- DMS: 生放送のランキングに簡易的なダークモードサポートを追加しました
+
+### Changed
+- PAGES: 一部のコンポーネントをTypeScriptに移動し、適切なコンポーネント実装をするように変更しました
+- STYLE: 一部のスタイルがindex.cssに移動しました
+- NOTICE.txtをバンドルファイルのライブラリについては各LICENSE.txtに誘導するように変更しました
+
+### Fixed
+- TWEAK: 動画トップ2カラムが広告でずれないようになりました
+- DMS: 検索ページのニコニ広告ダークモードサポートを修正しました
+
+### Removed
+- DMS: ニコニコインフォのダークモードサポートは信頼性が低いため削除されました
+
 ## [2.1.2] - 2024/08/21
 
 ### Fixed
