@@ -20,6 +20,20 @@
 
 .mylist-title {
     align-items: center;
+    padding: 4px 0;
+    padding-top: 0;
+    button {
+        background: transparent;
+        border: none;
+        color: var(--textcolor1);
+        cursor: pointer;
+        svg {
+            vertical-align: middle;
+        }
+        &:hover {
+            background: var(--hover1)
+        }
+    }
 }
 
 .mylist-item-container {
@@ -28,10 +42,13 @@
     > button {
         background: transparent;
         padding: 8px;
-        border-bottom: 2px solid var(--bgcolor2);
-        border-radius: 0px;
+        border-bottom: 2px solid var(--bgcolor2) !important;
+        border-radius: 0;
         width: 100%;
         cursor: pointer;
+        border: none;
+        color: var(--textcolor1);
+        text-align: left;
         &:hover {
             background: var(--bgcolor2);
         }

@@ -2,6 +2,7 @@
 //import { useStorageContext } from "../extensionHook";
 //import { useLang } from "../localizeHook";
 
+import { RefObject } from "react";
 import { effectsState } from "../Player";
 
 function VefxDisplay({ effectsState }: { effectsState: effectsState }) {
@@ -35,7 +36,7 @@ function VefxDisplay({ effectsState }: { effectsState: effectsState }) {
     return <div className="vefx-effectdisplay" style={{ ["--bg" as any]: bgColor, ["--color" as any]: textColor }} is-glowing={isGlowing ? "true" : "false"}>{text}</div>
 }
 
-function VefxController({ frequencies, effectsState, onEffectsChange }: {frequencies: number[], effectsState: effectsState, onEffectsChange: any}) {
+function VefxController({ frequencies, effectsState, onEffectsChange, nodeRef }: {frequencies: number[], effectsState: effectsState, onEffectsChange: any, nodeRef: RefObject<HTMLDivElement>}) {
     //const lang = useLang()
     //const { syncStorage, setSyncStorageValue } = useStorageContext()
     const handleGainChange = (index: number, value: number) => {
@@ -81,7 +82,7 @@ function VefxController({ frequencies, effectsState, onEffectsChange }: {frequen
         });
     };
 
-    return <div className="vefx-container" id="pmw-vefx">
+    return <div className="vefx-container" id="pmw-vefx" ref={nodeRef}>
         <div className="vefx-container-inner">
             <div className="vefx-title">Effect control</div>
             <VefxDisplay effectsState={effectsState}/>

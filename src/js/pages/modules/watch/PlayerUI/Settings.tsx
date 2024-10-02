@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, RefObject, SetStateAction } from "react";
 import { useStorageContext } from "../../extensionHook";
 
 const manifestData = chrome.runtime.getManifest();
@@ -27,6 +27,7 @@ const settings: { [key: string]: setting } = {
         defaultValue: 1,
         texts: ["薄い(0.5)", "やや薄い(0.75)", "透過なし(1)"],
         name: "コメント透過",
+        hint: "「PiPでコメントを表示」が有効の場合は使用できません。",
     },
     playbackRate: {
         type: "select",
@@ -35,15 +36,17 @@ const settings: { [key: string]: setting } = {
         name: "再生速度",
         defaultValue: 1.0,
     },
+    integratedControl: {
+        type: "select",
+        defaultValue: "never",
+        options: ["never","fullscreen","always"],
+        texts: ["分割表示","全画面時のみ統合表示","常に統合表示"],
+        name: "コントローラーの表示",
+    },
     enableAutoPlay: {
         type: "checkbox",
         defaultValue: false,
         name: "自動再生",
-    },
-    enableFullscreenSmartControl: {
-        type: "checkbox",
-        defaultValue: false,
-        name: "フルスクリーンでコントローラーを動的表示",
     },
     enableCommentPiP: {
         type: "checkbox",
@@ -57,13 +60,13 @@ const settings: { [key: string]: setting } = {
     },
 }
 
-function Settings({ isStatsShown, setIsStatsShown }: {isStatsShown: boolean, setIsStatsShown: Dispatch<SetStateAction<boolean>>}) {
+function Settings({ isStatsShown, setIsStatsShown, nodeRef }: {isStatsShown: boolean, setIsStatsShown: Dispatch<SetStateAction<boolean>>, nodeRef: RefObject<HTMLDivElement>}) {
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
     }
     const { localStorage, setLocalStorageValue } = useStorageContext()
     
-    return <div className="playersettings-container" id="pmw-player-settings">
+    return <div className="playersettings-container" id="pmw-player-settings" ref={nodeRef}>
         <div className="playersettings-title">プレイヤー設定</div>
         <p>
             Version {manifestData.version_name}

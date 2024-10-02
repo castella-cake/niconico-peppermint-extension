@@ -4,6 +4,7 @@
     border-radius: var(--radius);
     display: flex;
     flex-direction: column;
+    position: relative;
     &[is-pipvideo="false"] .player-commentvideo-pip {
         display: none;
     }
@@ -52,10 +53,42 @@
     }
 }
 
+.PMDMP-light [is-integrated-controller="true"] .playercontroller-container {
+    --bgcolor1: #000;
+    --bgcolor2: #1a1a1a;
+    --bgcolor3: #252525;
+    --bgcolor4: #3a3a3a;
+    --accent1: #1e1e1e;
+    --accent2: #2a2a2a;
+    --hover1: #404040;
+    --hover2: #5a5a5a;
+    --textcolor1: #fff;
+    --textcolor2: #ddd;
+    --textcolor3: #aaa;
+    // black.stylを一部引用
+}
+
+[is-integrated-controller="true"] .playercontroller-container {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    background: linear-gradient(0deg, #000a 80%, #0000);
+    bottom: calc(0.9em + 32px + 5px);
+    padding: 4px;
+    z-index: 60;
+    padding-top: 16px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
 // 非フルスクリーンもしくは非ダイナミックコントローラー時に、動画要素の上でカーソルが動いていない場合は半透明。
 // 非ホバー時は適用しない。また、後ろに書いたopacityによってオーバーライドする場合もある
 [is-cursor-stopped="true"]:hover .player-bottom-container:not(:hover) {
     opacity: 0.5; 
+}
+
+[is-integrated-controller="true"][is-cursor-stopped="true"] .playercontroller-container:not(:hover) {
+    opacity: 0 !important; 
 }
 
 .fullscreen {

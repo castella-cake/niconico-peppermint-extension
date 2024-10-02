@@ -102,6 +102,10 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, shouldUseContentScriptHls, localStorage.playersettings.preferredLevel || -1)
     const niconicommentsRef = useRef<NiconiComments | null>(null!)
 
+    // for transition
+    const vefxElemRef = useRef<HTMLDivElement>(null)
+    const settingsElemRef = useRef<HTMLDivElement>(null)
+
     useEffect(() => {
         const onUnload = () => {
             if ( !videoRef.current ) return
@@ -132,7 +136,6 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         ) {
             if (!commentContent.data) return
             niconicommentsRef.current = new NiconiComments(canvasRef.current, commentContent.data.threads, { format: "v1", enableLegacyPiP: true, video: (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined) })
-            
             if (localStorage.playersettings.enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
                 pipVideoRef.current.srcObject = canvasRef.current.captureStream()
             }
@@ -156,7 +159,9 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     };
 
     useEffect(() => {
-        let timeout: any;
+        let timeout = setTimeout(() => {
+            setIsCursorStopped(true)
+        }, 2500)
         const handleFullscreenChange = (e: Event) => {
             if ( !document.fullscreenElement ) {
                 setIsFullscreenUi(false)
@@ -170,7 +175,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             if ( isCursorStopped !== true ) setIsCursorStopped(false)
             timeout = setTimeout(() => {
                 setIsCursorStopped(true)
-            }, 3000)
+            }, 2500)
         }
         document.body.addEventListener("keydown", onKeydown)
         document.body.addEventListener("fullscreenchange", handleFullscreenChange)
@@ -234,7 +239,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     return <div className="player-container"
         id="pmw-player"
         is-pipvideo={localStorage.playersettings.enableCommentPiP && isCommentShown ? "true" : "false"}
-        is-dynamic-controller={localStorage.playersettings.enableFullscreenSmartControl ? "true" : "false"}
+        is-dynamic-controller={localStorage.playersettings.integratedControl !== "never" ? "true" : "false"}
+        is-integrated-controller={localStorage.playersettings.integratedControl === "always" && !isFullscreenUi ? "true" : "false"}
         is-cursor-stopped={isCursorStopped ? "true" : "false"}
     >
         <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} onEnded={onEnded} commentOpacity={localStorage.playersettings.commentOpacity || 1} onClick={videoOnClick}>
@@ -249,8 +255,9 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 onClick={videoOnClick}
             >
             </video>
-            <CSSTransition in={isVefxShown} timeout={300} unmountOnExit classNames="player-transition-vefx">
+            <CSSTransition nodeRef={vefxElemRef} in={isVefxShown} timeout={300} unmountOnExit classNames="player-transition-vefx">
                 <VefxController
+                    nodeRef={vefxElemRef}
                     frequencies={frequencies}
                     effectsState={effectsState}
                     onEffectsChange={(state: effectsState) => {
@@ -261,8 +268,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                     }}
                 />
             </CSSTransition>
-            <CSSTransition in={isSettingsShown} timeout={300} unmountOnExit classNames="player-transition-settings">
-                <Settings isStatsShown={isStatsShown} setIsStatsShown={setIsStatsShown}/>
+            <CSSTransition nodeRef={settingsElemRef} in={isSettingsShown} timeout={300} unmountOnExit classNames="player-transition-settings">
+                <Settings nodeRef={settingsElemRef} isStatsShown={isStatsShown} setIsStatsShown={setIsStatsShown}/>
             </CSSTransition>
             { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/> }
         </VideoPlayer>
