@@ -123,6 +123,7 @@ function CommentList(props: Props) {
             threadKey: props.videoInfo.data.response.comment.nvComment.threadKey
         }
         const commentResponse: CommentDataRootObject = await getCommentThread(props.videoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
+        if (!commentResponse.data || !commentResponse.data.threads) return
         props.setCommentContent(commentResponse)
     }
 
