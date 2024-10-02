@@ -28,22 +28,17 @@ const settings: { [key: string]: setting } = {
         texts: ["薄い(0.5)", "やや薄い(0.75)", "透過なし(1)"],
         name: "コメント透過",
     },
-    enableLoudnessData: {
-        type: "checkbox",
-        defaultValue: true,
-        name: "ラウドネスノーマライズ"
-    },
-    enableAutoPlay: {
-        type: "checkbox",
-        defaultValue: false,
-        name: "自動再生",
-    },
     playbackRate: {
         type: "select",
         options: [0.1,0.25,0.5,0.75,1,1.25,1.5,1.75,2],
         texts: ["x0.1", "x0.25", "x0.5", "x0.75", "x1", "x1.25", "x1.5", "x1.75", "x2"],
         name: "再生速度",
         defaultValue: 1.0,
+    },
+    enableAutoPlay: {
+        type: "checkbox",
+        defaultValue: false,
+        name: "自動再生",
     },
     enableFullscreenSmartControl: {
         type: "checkbox",
@@ -54,7 +49,12 @@ const settings: { [key: string]: setting } = {
         type: "checkbox",
         defaultValue: false,
         name: "PiPでコメントを表示",
-    }
+    },
+    enableLoudnessData: {
+        type: "checkbox",
+        defaultValue: true,
+        name: "ラウドネスノーマライズ"
+    },
 }
 
 function Settings({ isStatsShown, setIsStatsShown }: {isStatsShown: boolean, setIsStatsShown: Dispatch<SetStateAction<boolean>>}) {
@@ -99,8 +99,8 @@ function Settings({ isStatsShown, setIsStatsShown }: {isStatsShown: boolean, set
         }) }
         <div className="playersettings-item">
             <label>
-                統計情報を表示(一時的)
                 <input type="checkbox" checked={isStatsShown} onChange={(e) => {setIsStatsShown(e.currentTarget.checked)}}/>
+                統計情報を表示(一時的)
             </label>
         </div>
         Work in progress!

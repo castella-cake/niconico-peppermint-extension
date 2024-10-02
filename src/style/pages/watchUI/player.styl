@@ -124,3 +124,23 @@
     font-family: monospace;
     font-size: 16px;
 }
+
+.player-transition {
+    &-vefx-enter, &-vefx-exit-active {
+        --translateX: -100%;
+    }
+    &-settings-enter, &-settings-exit-active {
+        --translateX: 100%;
+    }
+    &-vefx, &-settings {
+        &-enter-active, &-exit-active {
+            transition: transform 0.3s ease;
+        }
+        &-enter, &-exit-active {
+            transform: translateX(var(--translateX))
+        }
+        &-enter-done, &-enter-active {
+            transform: translateX(0%)
+        }
+    }
+}

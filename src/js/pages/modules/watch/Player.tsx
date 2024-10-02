@@ -17,6 +17,7 @@ import { StatsOverlay } from "./PlayerUI/StatsOverlay";
 import { RecommendDataRootObject } from "./types/RecommendData";
 import { playlistData } from "./Playlist";
 import { useInterval } from "../commonHooks";
+import { CSSTransition } from "react-transition-group";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -237,16 +238,6 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         is-cursor-stopped={isCursorStopped ? "true" : "false"}
     >
         <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} onEnded={onEnded} commentOpacity={localStorage.playersettings.commentOpacity || 1} onClick={videoOnClick}>
-            {isVefxShown && <VefxController
-                frequencies={frequencies}
-                effectsState={effectsState}
-                onEffectsChange={(state: effectsState) => {
-                    setLocalStorageValue("playersettings", { ...localStorage.playersettings, vefxSettings: state })
-                    // 反映して再レンダリング
-                    handleEffectsChange(state)
-                    setEffectsState(state)
-                }}
-            />}
             <video
                 ref={pipVideoRef}
                 className="player-commentvideo-pip"
@@ -258,7 +249,21 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 onClick={videoOnClick}
             >
             </video>
-            { isSettingsShown && <Settings isStatsShown={isStatsShown} setIsStatsShown={setIsStatsShown}/> }
+            <CSSTransition in={isVefxShown} timeout={300} unmountOnExit classNames="player-transition-vefx">
+                <VefxController
+                    frequencies={frequencies}
+                    effectsState={effectsState}
+                    onEffectsChange={(state: effectsState) => {
+                        setLocalStorageValue("playersettings", { ...localStorage.playersettings, vefxSettings: state })
+                        // 反映して再レンダリング
+                        handleEffectsChange(state)
+                        setEffectsState(state)
+                    }}
+                />
+            </CSSTransition>
+            <CSSTransition in={isSettingsShown} timeout={300} unmountOnExit classNames="player-transition-settings">
+                <Settings isStatsShown={isStatsShown} setIsStatsShown={setIsStatsShown}/>
+            </CSSTransition>
             { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/> }
         </VideoPlayer>
         <div className="player-bottom-container">

@@ -1,32 +1,35 @@
-.video-actions button {
-    background: var(--bgcolor2);
-    color: var(--textcolor1);
-    border: none;
-    border-radius: var(--radius-mini);
-    padding: 4px 8px;
-    font-family: inherit;
-    font-size: 0.9em;
-    display: flex;
-    align-items: center;
-    gap: 0.25em;
-    flex-wrap: wrap;
-    svg,span {
-        vertical-align: bottom;
-    }
-    span {
-        white-space: nowrap;
-    }
-}
 .video-actions {
     margin-bottom: 8px;
     display: flex;
     gap: 8px;
     justify-content: center;
-    button.video-action-disabled {
+    
+    > button {
+        background: var(--bgcolor2);
+        color: var(--textcolor1);
+        border: none;
+        border-radius: var(--radius-mini);
+        padding: 4px 8px;
+        font-family: inherit;
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        gap: 0.25em;
+        flex-wrap: wrap;
+
+        svg,span {
+            vertical-align: bottom;
+        }
+        span {
+            white-space: nowrap;
+        }
+    }
+
+    > button.video-action-disabled {
         color: var(--bgcolor4);
     }
 
-    button:not(.video-action-disabled):hover {
+    > button:not(.video-action-disabled):hover {
         background: var(--bgcolor1);
         color: var(--textcolor1);
         cursor: pointer;

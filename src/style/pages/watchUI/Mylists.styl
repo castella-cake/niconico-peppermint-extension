@@ -25,4 +25,15 @@
 .mylist-item-container {
     padding: 8px;
     background: var(--bgcolor1);
+    > button {
+        background: transparent;
+        padding: 8px;
+        border-bottom: 2px solid var(--bgcolor2);
+        border-radius: 0px;
+        width: 100%;
+        cursor: pointer;
+        &:hover {
+            background: var(--bgcolor2);
+        }
+    }
 }

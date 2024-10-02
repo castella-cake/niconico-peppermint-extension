@@ -1,4 +1,4 @@
-import { IconFolderFilled, IconHeart, IconHeartFilled, IconShare, IconSpeakerphone, IconX } from "@tabler/icons-react";
+import { IconFolder, IconFolderFilled, IconHeart, IconHeartFilled, IconShare, IconSpeakerphone, IconX } from "@tabler/icons-react";
 import type { VideoDataRootObject } from "./types/VideoData";
 import { ReactNode, useEffect, useState } from "react";
 import { sendLike } from "../../../modules/watchApi";
@@ -93,7 +93,7 @@ function Actions({videoInfo, children}: Props) {
         </button>
         <button type="button" className="video-action-adbutton" onClick={onAdsClicked} title="ニコニ広告する"><IconSpeakerphone/> <span>ニコニ広告</span></button>
         <button type="button" className="video-action-sharebutton" onClick={onShareClicked}><IconShare/> <span>共有</span></button>
-        <button type="button" className="video-action-mylistbutton" onClick={onMylistClicked}><IconFolderFilled/>マイリスト</button>
+        <button type="button" className="video-action-mylistbutton" onClick={onMylistClicked}>{ isMylistWindowOpen ? <IconFolderFilled/> : <IconFolder/> }マイリスト</button>
         {isLiked && likeThanksMsg && ( (videoInfo.data.response.video.viewer.like.isLiked && isLikeHovered) || (!videoInfo.data.response.video.viewer.like.isLiked && (!isLikeThanksMsgClosed || isLikeHovered)) ) && <div className="video-action-likethanks-outercontainer">
             <div className="video-action-likethanks-container">
                 <div className="global-flex video-action-likethanks-title">

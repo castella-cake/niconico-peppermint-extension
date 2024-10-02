@@ -9,7 +9,6 @@ import { getCommentThread, getNicoruKey, postNicoru, removeNicoru } from "../../
 
 type scrollPos = {
     [vposSec: string]: RefObject<HTMLDivElement>
-
 }
 /*
 // 選択した名前のスレッドを返す関数
@@ -24,6 +23,14 @@ function returnSelectedThread(threads: Thread[], forkName: string) {
         return false
     }
 }*/
+
+const forkLabelToLang: { [key: string]: string} = {
+    "default": "メイン",
+    "community": "コミュニティ",
+    "easy": "かんたん",
+    "owner": "オーナー",
+    "nicos": "ニコス"
+}
 
 function getDefaultThreadIndex(videoInfo: VideoDataRootObject) {
     return videoInfo.data?.response.comment.threads.findIndex(elem => elem.isDefaultPostTarget) ?? 0
@@ -172,9 +179,10 @@ function CommentList(props: Props) {
                     
                 </div>
                 <div>
-                    <select onChange={(e) => {setCurrentForkType(Number(e.currentTarget.value))}} value={currentForkType}>
+                    <select onChange={(e) => {setCurrentForkType(Number(e.currentTarget.value))}} value={currentForkType} className="commentlist-fork-selector">
                         {props.videoInfo.data.response.comment.threads.map((elem, index) => {
-                            return <option key={`${index}-${elem.fork}-${elem.label}`} value={index}>{elem.label}</option>
+                            const key = elem.label as keyof typeof forkLabelToLang
+                            return <option key={`${index}-${elem.fork}-${elem.label}`} value={index}>{forkLabelToLang[key] || elem.label}</option>
                         })}
                     </select>
                     <label>
