@@ -90,7 +90,7 @@ function CreateWatchUI() {
         }
 
         if (playlistString) {
-            const decodedPlaylist = atob(playlistString);
+            const decodedPlaylist = atob(playlistString.replace("-", "+").replace("_", "/"));
             const playlistJson: playlistQueryData = JSON.parse(decodedPlaylist)
             //setCurrentPlaylist(playlistJson)
             getData(playlistJson)
