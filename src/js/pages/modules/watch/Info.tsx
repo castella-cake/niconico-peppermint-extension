@@ -1,5 +1,5 @@
-import { IconFolderFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
-import type { VideoDataRootObject } from "./types/VideoData";
+import { IconExclamationCircleFilled, IconFolderFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
+import type { ErrorResponse, VideoDataRootObject } from "./types/VideoData";
 import { MouseEvent, RefObject, useState } from "react";
 import { useStorageContext } from "../extensionHook";
 import * as DOMPurify from "dompurify";
@@ -10,6 +10,7 @@ import { readableInt } from "./commonFunction";
 type Props = {
     videoInfo: VideoDataRootObject,
     videoRef: RefObject<HTMLVideoElement>,
+    errorInfo: any,
     isShinjukuLayout: boolean
 }
 
@@ -19,12 +20,27 @@ function htmlToText(htmlString: string) {
     return dummyDiv.textContent || dummyDiv.innerText || "";
 }
 
-function Info({videoInfo, videoRef, isShinjukuLayout}: Props) {
+function ErrorUI({ error }: { error: any }) {
+    if (!error.data || !error.data.response) return <div className="videoinfo-error-container">動画の取得に失敗しました</div> 
+    const errorResponse: ErrorResponse = error.data.response
+    return <div className="videoinfo-container errorinfo-container">
+        <div className="videoinfo-titlecontainer">
+            <div className="videoinfo-titleinfo">
+                <div className="videotitle"><IconExclamationCircleFilled/>{errorResponse.statusCode}: {errorResponse.reasonCode}</div>
+                動画の取得に失敗しました。動画が削除されたか、サーバーに接続できなかった可能性があります。
+                削除動画→<a href="https://www.nicovideo.jp/watch/sm38213757">sm38213757</a>
+            </div>
+        </div>
+    </div>
+}
+
+function Info({videoInfo, videoRef, isShinjukuLayout, errorInfo}: Props) {
     const { localStorage, setLocalStorageValue } = useStorageContext()
     const [isDescOpen, setIsDescOpen] = useState<boolean>(localStorage.playersettings.descriptionOpen || false)
     function writePlayerSettings(name: string, value: any) {
         setLocalStorageValue("playersettings", { ...localStorage.playersettings, [name]: value })
     }
+    if (errorInfo !== false) return <ErrorUI error={errorInfo}/>
     if (!videoInfo.data) return <></>
 
     const videoInfoResponse = videoInfo.data.response

@@ -645,3 +645,14 @@ interface Thumbnail {
     url: string;
     smallUrl: string;
 }
+
+export interface ErrorResponse {
+    isCustomError: boolean;
+    statusCode: number;
+    errorCode: string;
+    reasonCode: string;
+    deletedMessage: null;
+    communityLink: null;
+    publishScheduledAt: null;
+    data: null;
+}

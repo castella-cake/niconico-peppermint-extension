@@ -7,23 +7,30 @@ import { RecommendDataRootObject } from "../types/RecommendData"
 export function useWatchData(smId: string) {
     const [videoInfo, setVideoInfo] = useState<VideoDataRootObject>({})
     const [commentContent, setCommentContent] = useState<CommentDataRootObject>({})
+    const [errorInfo, setErrorInfo] = useState<any>(false)
     useEffect(() => {
         async function fetchInfo() {
-            const fetchedVideoInfo: VideoDataRootObject = await getVideoInfo(smId)
-            setVideoInfo(fetchedVideoInfo)
-            if (!fetchedVideoInfo.data) return
-            const commentRequestBody = {
-                params: {
-                    ...fetchedVideoInfo.data.response.comment.nvComment.params
-                },
-                threadKey: fetchedVideoInfo.data.response.comment.nvComment.threadKey
+            try {
+                const fetchedVideoInfo: VideoDataRootObject = await getVideoInfo(smId)
+                setVideoInfo(fetchedVideoInfo)
+                if (!fetchedVideoInfo.data) return
+                setErrorInfo(false)
+                const commentRequestBody = {
+                    params: {
+                        ...fetchedVideoInfo.data.response.comment.nvComment.params
+                    },
+                    threadKey: fetchedVideoInfo.data.response.comment.nvComment.threadKey
+                }
+                const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
+                setCommentContent(commentResponse)
+            } catch (error) {
+                console.error(error)
+                setErrorInfo(error)
             }
-            const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
-            setCommentContent(commentResponse)
         }
         fetchInfo()
     }, [smId])
-    return { videoInfo, commentContent, setCommentContent }
+    return { videoInfo, commentContent, setCommentContent, errorInfo }
 }
 
 export function useRecommendData(smId: string) {

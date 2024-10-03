@@ -8,6 +8,9 @@
     &[is-pipvideo="false"] .player-commentvideo-pip {
         display: none;
     }
+    &[is-pipvideo="true"] .player-video-container-inner canvas, &[is-pipvideo="true"] .player-video-container-inner video:not(.player-commentvideo-pip) {
+        display: none;
+    }
 }
 .player-video-container {
     flex-grow: 1;

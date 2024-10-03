@@ -45,9 +45,8 @@ export function getVideoInfo(smId) {
                 },
                 "method": "GET"
             })
-            if (!response.ok) reject("Response is not ok")
             const responseJson = await response.json()
-            if (responseJson.meta.status !== 200) reject(responseJson.meta.status)
+            if (responseJson.meta.status !== 200) reject(responseJson)
             resolve(responseJson)
         } catch (err) {
             reject(err)
