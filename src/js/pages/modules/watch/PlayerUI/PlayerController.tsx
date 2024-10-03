@@ -115,9 +115,7 @@ function PlayerController({
         const updateVolumeState = () => {
             if ( videoRef.current!.volume !== videoVolume / 100 ) {
                 setVideoVolume(videoRef.current!.volume * 100)
-                setIsMuted(false)
                 writePlayerSettings("volume", videoRef.current!.volume * 100)
-                writePlayerSettings("isMuted", false)
             }
             if ( videoRef.current!.muted !== isMuted ) {
                 setIsMuted(videoRef.current!.muted)
