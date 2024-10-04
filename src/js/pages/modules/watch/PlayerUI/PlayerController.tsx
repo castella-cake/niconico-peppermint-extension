@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useStorageContext } from "../../extensionHook";
 import { IconAdjustments, IconAdjustmentsCheck, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRepeat, IconRepeatOff, IconRewindBackward10, IconRewindForward10, IconSettings, IconSettingsFilled, IconVolume, IconVolume3 } from "@tabler/icons-react";
-import type { Dispatch, RefObject, SetStateAction } from "react";
+import type { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
 import Hls from "hls.js";
 import type { effectsState } from "../Player";
 import { CommentDataRootObject } from "../types/CommentData";
@@ -28,6 +28,11 @@ const playerTypes = {
     officialPlayer: "html5",
     shinjuku: "shinjuku",
 }
+
+function PlayerControllerButton({ onClick, title, className, children }: { onClick: any, title: string, className: string, children: ReactNode}) {
+    return <button className={className} onClick={onClick} title={title}>{children}</button>
+}
+
 
 function PlayerController({
     videoRef, 
@@ -64,6 +69,7 @@ function PlayerController({
 
     const seekbarRef = useRef<HTMLDivElement>(null)
     const [isSeeking, setIsSeeking] = useState(false)
+    // @ts-ignore
     const [tempSeekDuration, setTempSeekDuration] = useState(0)
 
     const [isLoop, setIsLoop] = useState(false)
@@ -110,8 +116,6 @@ function PlayerController({
     useEffect(() => {
         const setIconToPause = () => setIsIconPlay(false)
         const setIconToPlay = () => setIsIconPlay(true)
-        const updateCurrentTime = () => setCurrentTime(videoRef.current!.currentTime)
-        const updateDuration = () => setDuration(videoRef.current!.duration)
         const updateVolumeState = () => {
             if ( videoRef.current!.volume !== videoVolume / 100 ) {
                 setVideoVolume(videoRef.current!.volume * 100)
@@ -125,17 +129,29 @@ function PlayerController({
         
         videoRef.current?.addEventListener("play", setIconToPause)
         videoRef.current?.addEventListener("pause", setIconToPlay)
-        videoRef.current?.addEventListener("timeupdate", updateCurrentTime)
-        videoRef.current?.addEventListener("durationchange", updateDuration)
+
         videoRef.current?.addEventListener("volumechange", updateVolumeState)
         return () => {
             videoRef.current?.removeEventListener("play", setIconToPause)
             videoRef.current?.removeEventListener("pause", setIconToPlay)
-            videoRef.current?.removeEventListener("timeupdate", updateCurrentTime)
-            videoRef.current?.removeEventListener("durationchange", updateDuration)
             videoRef.current?.removeEventListener("volumechange", updateVolumeState)
         }
     }, [videoRef.current])
+    useEffect(() => {
+        const updateCurrentTime = () => { if (videoRef.current!.currentTime !== currentTime && !isSeeking) setCurrentTime(videoRef.current!.currentTime) }
+        const updateDuration = () => { if (videoRef.current!.duration !== duration ) setDuration(videoRef.current!.duration) }
+        document.addEventListener("pointermove", onSeekPointerMove)
+        document.addEventListener("pointerup", onSeekPointerUp)
+        videoRef.current?.addEventListener("timeupdate", updateCurrentTime)
+        videoRef.current?.addEventListener("durationchange", updateDuration)
+        return () => {
+            document.removeEventListener("pointermove", onSeekPointerMove)
+            document.removeEventListener("pointerup", onSeekPointerUp)
+            videoRef.current?.removeEventListener("timeupdate", updateCurrentTime)
+            videoRef.current?.removeEventListener("durationchange", updateDuration)
+        }
+    }, [isSeeking])
+
     if (!isLoaded) return <div>storage待機中...</div>
 
 
@@ -173,7 +189,7 @@ function PlayerController({
         let scale = ((clientX - boundingClientRect.left) / boundingClientRect.width)
         if ( scale > 1 ) scale = 1
         if ( scale < 0 ) scale = 0
-        setTempSeekDuration(duration * ( scale <= 1 ? scale : 1 ))
+        setCurrentTime(duration * ( scale <= 1 ? scale : 1 ))
     }
 
     function onSkipBack() {
@@ -186,42 +202,29 @@ function PlayerController({
         if (isIndexControl[1] === true) playlistIndexControl(1)
     }
 
-    function doSeek(clientX?: number) {
-        const boundingClientRect = seekbarRef.current?.getBoundingClientRect()
-        if (!boundingClientRect || !videoRef.current) return
-        //console.log((clientX - boundingClientRect.left) / boundingClientRect.width * 100)
-        if ( clientX ) {
-            let scale = ((clientX - boundingClientRect.left) / boundingClientRect.width)
-            if ( scale > 1 ) scale = 1
-            if ( scale < 0 ) scale = 0
-            videoRef.current.currentTime = duration * scale
-        } else {
-            videoRef.current.currentTime = tempSeekDuration
-        }
+    function doSeek() {
+        if (!videoRef.current) return
+        videoRef.current.currentTime = currentTime
+        // 元々clientXから再計算してたけど素直に突っ込んだ方が早かった！！！！！！！
     }
 
-    function toggleLoopState() {
-        setIsLoop(!isLoop)
-    }
-
-    const onSeekPointerMove = (e: PointerEvent) => {
+    function onSeekPointerMove(e: PointerEvent) {
+        if ( !isSeeking ) return
         tempSeekHandle(e.clientX)
         e.preventDefault()
         e.stopPropagation()
     }
 
-    const onSeekPointerUp = (e: PointerEvent) => {
-        doSeek(e.clientX)
+    function onSeekPointerUp(e: PointerEvent) {
+        if ( !isSeeking ) return
+        doSeek()
         setIsSeeking(false)
-        document.removeEventListener("pointermove", onSeekPointerMove)
-        document.removeEventListener("pointerup", onSeekPointerUp)
         e.preventDefault()
         e.stopPropagation()
     }
 
-    function onSeekStart() {
-        document.addEventListener("pointermove", onSeekPointerMove)
-        document.addEventListener("pointerup", onSeekPointerUp)
+    function toggleLoopState() {
+        setIsLoop(!isLoop)
     }
 
     const enabledEffects = Object.keys(effectsState).map(elem => {
@@ -243,31 +246,30 @@ function PlayerController({
         tempSeekHandle={tempSeekHandle}
         seekbarRef={seekbarRef}
         commentContent={commentContent}
-        onSeekStart={onSeekStart}
     />
 
-    const effectChangeElem =  <button key="control-effectchange" type="button" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}} title="エフェクト設定">
+    const effectChangeElem =  <PlayerControllerButton key="control-effectchange" className="playercontroller-effectchange" onClick={() => {setIsVefxShown(!isVefxShown)}} title="エフェクト設定">
         { isVefxShown ? <IconAdjustmentsFilled/> :
             (enabledEffects.length > 0) ? <IconAdjustmentsCheck/> : <IconAdjustments/>
         }
-    </button>
-    const toggleMuteElem = <button key="control-togglemute" type="button" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}} title={ isMuted ? "ミュート解除" : "ミュート"}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</button>
+    </PlayerControllerButton>
+    const toggleMuteElem = <PlayerControllerButton key="control-togglemute" className="playercontroller-togglemute" onClick={() => {setVolume(0, true)}} title={ isMuted ? "ミュート解除" : "ミュート"}>{ ( isMuted || videoVolume <= 0 ) ? <IconVolume3/> : <IconVolume/> }</PlayerControllerButton>
     const volumeElem = <span key="control-volume" className="playercontroller-volume-container" style={{["--width" as string]: `${videoVolume}%`}}>
         <input type="range" className="playercontroller-volume" min="0" max="100" value={videoVolume} disabled={isMuted} aria-label={`音量 ${videoVolume}%`} onChange={(e) => {setVolume(Math.floor(e.currentTarget.valueAsNumber))}}/>
         <span className="playercontroller-volume-tooltip">{videoVolume}%</span>
     </span>
     
-    const skipBackElem = <button key="control-skipback" type="button" className="playercontroller-skipback" onClick={() => {onSkipBack()}} title="開始地点にシーク">{ isIndexControl[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</button>
-    const skipForwardElem = <button key="control-skipforward" type="button" className="playercontroller-skipforward" onClick={() => {onSkipForward()}} title="終了地点にシーク">{ isIndexControl[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</button>
+    const skipBackElem = <PlayerControllerButton key="control-skipback" className="playercontroller-skipback" onClick={() => {onSkipBack()}} title="開始地点にシーク">{ isIndexControl[0] ? <IconPlayerSkipBackFilled/> : <IconPlayerSkipBack/>}</PlayerControllerButton>
+    const skipForwardElem = <PlayerControllerButton key="control-skipforward" className="playercontroller-skipforward" onClick={() => {onSkipForward()}} title="終了地点にシーク">{ isIndexControl[1] ? <IconPlayerSkipForwardFilled/> : <IconPlayerSkipForward/>}</PlayerControllerButton>
     
-    const backwardElem = <button key="control-backward10s" type="button" className="playercontroller-backward10s" onClick={() => {onTimeControl("add", -10)}} title="-10秒シーク"><IconRewindBackward10/></button>
-    const forwardElem = <button key="control-forward10s" type="button" className="playercontroller-forward10s" onClick={() => {onTimeControl("add", 10)}} title="10秒シーク"><IconRewindForward10/></button>
+    const backwardElem = <PlayerControllerButton key="control-backward10s" className="playercontroller-backward10s" onClick={() => {onTimeControl("add", -10)}} title="-10秒シーク"><IconRewindBackward10/></PlayerControllerButton>
+    const forwardElem = <PlayerControllerButton key="control-forward10s" className="playercontroller-forward10s" onClick={() => {onTimeControl("add", 10)}} title="10秒シーク"><IconRewindForward10/></PlayerControllerButton>
     
-    const togglePauseElem = <button key="control-togglepause" type="button" className="playercontroller-togglepause" onClick={() => {toggleStopState()}} title={ isIconPlay ? "再生" : "一時停止" }>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</button>
+    const togglePauseElem = <PlayerControllerButton key="control-togglepause" className="playercontroller-togglepause" onClick={() => {toggleStopState()}} title={ isIconPlay ? "再生" : "一時停止" }>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</PlayerControllerButton>
 
-    const toggleLoopElem = <button key="control-toggleloop" type="button" className="playercontroller-toggleloop" onClick={() => {toggleLoopState()}} title={ isLoop ? "ループ再生" : "単一再生で停止" }>{ isLoop ? <IconRepeat/> : <IconRepeatOff/> }</button>
+    const toggleLoopElem = <PlayerControllerButton key="control-toggleloop"className="playercontroller-toggleloop" onClick={() => {toggleLoopState()}} title={ isLoop ? "ループ再生" : "単一再生で停止" }>{ isLoop ? <IconRepeat/> : <IconRepeatOff/> }</PlayerControllerButton>
 
-    const timeElem = <div key="control-time" className="playercontroller-time">{secondsToTime( isSeeking ? tempSeekDuration : currentTime )} / {secondsToTime(duration)}</div>
+    const timeElem = <div key="control-time" className="playercontroller-time">{secondsToTime( currentTime )} / {secondsToTime(duration)}</div>
 
     const controlLayouts: { [key: string]: {top: JSX.Element[], left: JSX.Element[], center: JSX.Element[], right: JSX.Element[]} } = {
         "default": {

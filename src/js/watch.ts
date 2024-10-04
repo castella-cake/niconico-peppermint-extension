@@ -2,7 +2,6 @@ import {
     getLocalStorageData,
     getSyncStorageData,
 } from "./modules/storageControl";
-//import "react-devtools"
 import { createRoot } from "react-dom/client";
 import { watchPage } from "./pages/watch";
 

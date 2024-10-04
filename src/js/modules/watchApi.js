@@ -282,3 +282,8 @@ export async function addItemToMylist(mylistId, itemId, requestWith) {
     });
     return await response.json()
 }
+
+export async function getPickupSupporters(videoId, limit) {
+    const response = await fetch(`https://api.nicoad.nicovideo.jp/v1/contents/video/${encodeURIComponent(videoId)}/pickup_supporters?limit=${limit}`)
+    return await response.json()
+}

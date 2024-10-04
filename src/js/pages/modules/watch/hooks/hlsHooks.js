@@ -60,7 +60,7 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabl
                         // クロスオリジンであってもクッキーを含める
                         initParams.credentials = 'include';
                         return new Request(context.url, initParams);
-                    }})
+                    }, enableCEA708Captions: false })
                     hls.log = false
                     // videoのrefにアタッチ
                     hls.attachMedia(videoRef.current)

@@ -18,6 +18,7 @@ import { RecommendDataRootObject } from "./types/RecommendData";
 import { playlistData } from "./Playlist";
 import { useInterval } from "../commonHooks";
 import { CSSTransition } from "react-transition-group";
+import { EndCard } from "./PlayerUI/EndCard";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -180,6 +181,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         document.body.addEventListener("keydown", onKeydown)
         document.body.addEventListener("fullscreenchange", handleFullscreenChange)
         videoRef.current?.addEventListener("mousemove", handleMouseMove)
+
         pipVideoRef.current?.addEventListener("mousemove", handleMouseMove)
         return () => {
             document.body.removeEventListener("keydown", onKeydown)
@@ -272,6 +274,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 <Settings nodeRef={settingsElemRef} isStatsShown={isStatsShown} setIsStatsShown={setIsStatsShown}/>
             </CSSTransition>
             { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/> }
+            <EndCard videoInfo={videoInfo} videoRef={videoRef}/>
         </VideoPlayer>
         <div className="player-bottom-container">
             <PlayerController
