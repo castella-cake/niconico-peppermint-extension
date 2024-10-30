@@ -1,10 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import CreateTabUI from "../pages/TabUI";
-import { StorageProvider } from "../pages/extensionHook";
 import { ErrorBoundary } from "react-error-boundary";
 
 import "./quickpanel.styl"
+import CreateTabUI from "@/components/pages/TabUI";
 
 const manifestData = browser.runtime.getManifest();
 const currentVersion = manifestData.version_name || manifestData.version || "Unknown";

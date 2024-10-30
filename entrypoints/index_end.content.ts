@@ -1,5 +1,5 @@
-import { getSyncStorageData } from "./modules/storageControl";
-import { addCSS, addPMStyleElem, pushCSSRule } from "./modules/styleControl";
+import { getSyncStorageData } from "../utils/storageControl";
+import { addCSS, addPMStyleElem, pushCSSRule } from "../utils/styleControl";
 import $ from "jquery"
 
 function onError(error: any) {

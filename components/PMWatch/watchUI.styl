@@ -1,0 +1,332 @@
+body {
+    background: var(--bgcolor1);
+    color: var(--textcolor1);
+    --radius: 6px;
+    --radius-mini: 4px;
+    --radius-big: 8px;
+    --border-width: 1px
+    --border-style: solid
+    --border: var(--border-width) var(--border-style) var(--accent1);
+    --box-shadow: 0 0 4px #0001;
+    margin: 0;
+}
+// font-family を Stylus-langが正しく解釈しないようなので、@cssを使う
+@css {
+    body {
+        font-family: Avenir, Lato, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, メイリオ, sans-serif
+    }
+}
+a {
+    color: var(--linktext1)
+}
+
+.container {
+    margin: 0 auto;
+    //overflow: scroll;
+    button, input, select {
+        font-family: inherit;
+    }
+}
+.container.fullscreen {
+    overflow: hidden;
+}
+html.PMDMP-light .container.fullscreen {
+    --bgcolor1: #252525;
+    --bgcolor2: #333;
+    --bgcolor3: #666;
+    --bgcolor4: #aaa;
+    --textcolor1: #fff;
+    --textcolor2: #ddd;
+    --textcolor3: #aaa;
+    --accent1: #444;
+    --accent2: #888;
+    --hover1: #666;
+    --hover2: #aaa;
+    --linktext1: #8fb9df;
+    --linktext2: #8ed9ff;
+    --linktext3: #008acf;
+}
+.global-flex {
+    display: flex
+    .global-flex1 {
+        flex: 1
+    }
+}
+.global-bold {
+    font-weight: bold;
+}
+
+.watch-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin: 0 auto;
+    max-width: 98vw;
+    .watch-container-top {
+        flex-basis: 100%;
+        margin: 0 7.5%;
+        display: flex;
+        overflow: hidden;
+        gap: 2em;
+        .watch-container-top-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+    .watch-container-left {
+        min-width: 480px;
+        flex: 0.6;
+    }
+    .watch-container-right {
+        max-width: 25vw;
+        height: auto;
+        align-self: stretch;
+        position: relative;
+        min-width: 400px;
+        flex: 0.4;
+    }
+    .watch-container-bottom {
+        flex-basis: 100%;
+        margin: 0 7.5%;
+        overflow: hidden;
+    }
+
+    ::-webkit-scrollbar {
+        background: var(--bgcolor3)
+        width: 16px;
+        height: 16px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: var(--textcolor3)
+        border-radius: var(--radius-mini);
+        margin: 0 4px;
+    }
+}
+
+.stacker-wrapper {
+    flex: 1;
+    //overflow: hidden;
+    position: relative;
+    //min-height: 640px;
+}
+.stacker-container {
+    //overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    .stacker-content {
+        overflow: hidden;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        border-radius: var(--radius);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border: var(--border);
+        border-top: none;
+        box-shadow: var(--box-shadow);
+    }
+}
+.stacker-tabbutton-container {
+    display: flex;
+    //gap: 8px;
+    //margin: 0 var(--radius-big);
+    position: relative;
+    //bottom: calc(var(--border-width) * -1);
+    z-index: 1;
+    .stacker-tabbutton {
+        background: var(--accent1);
+        color: var(--textcolor1);
+        border: var(--border);
+        padding: 4px 8px;
+        border-radius: var(--radius) var(--radius) 0 0;
+        cursor: pointer;
+        font-size: 0.9em;
+        align-self: end;
+        flex: 1;
+        border-bottom: transparent;
+        box-shadow: var(--box-shadow);
+    }
+
+    .stacker-tabbutton:hover {
+        background: var(--hover1);
+    }
+
+    .stacker-tabbutton.stacker-tabbutton-active {
+        background: var(--bgcolor2);
+        font-weight: bold;
+        font-size: 1em;
+    }
+}
+/*
+.watch-container[watch-type="3col"], .watch-container[watch-type="recresc"], .watch-container[watch-type="shinjuku"] {
+    .stacker-wrapper {
+        min-height: 0;
+    }
+}
+
+.watch-container:not([watch-type="3col"]):not([watch-type="shinjuku"]) {
+    &[settings-size="0"] .watch-container-left {
+        flex: 0.4
+    }
+    &[settings-size="1"] .watch-container-left {
+        flex: 0.6
+    }
+    &[settings-size="2"] .watch-container-left {
+        flex: 1
+    }
+}
+
+.watch-container[watch-type="shinjuku"] {
+    &[settings-size="0"] .watch-container-middle {
+        flex-basis: 60%
+    }
+    &[settings-size="1"] .watch-container-middle {
+        flex-basis: 80%
+    }
+    &[settings-size="2"] .watch-container-middle {
+        flex-basis: 100%
+    }
+}
+
+
+[watch-type="3col"] {
+    .watch-container-left {
+        flex: 0.2;
+        min-width: 0;
+        align-self: stretch;
+        position: relative;
+        overflow-y: scroll;
+    }
+
+    .watch-container-middle {
+        flex: 0.525;
+        align-self: center;
+    }
+
+    .watch-container-right {
+        min-width: 0;
+        flex: 0.3;
+        align-self: stretch;
+    }
+}
+
+[watch-type="recresc"], [watch-type="shinjuku"], [watch-type="3col"] {
+    .watch-container-rightaction {
+        min-height: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+    }
+    .stacker-wrapper {
+        min-height: 0;
+    }
+}*/
+.watch-container-rightaction {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.watch-container {
+    &[settings-size="0"] {
+        --padding: 16%;
+    }
+    &[settings-size="1"] {
+        --padding: 8%;
+    }
+    &[settings-size="2"] {
+        --padding: 1%;
+    }
+}
+
+.watch-container-grid {
+    display: grid !important; 
+    padding: 0 var(--padding);
+    grid-auto-rows: 1fr; 
+    grid-template-columns: 1fr 8% calc(18% + var(--padding) / 2);
+    grid-template-rows: repeat(3, max-content);
+    gap: 0.5em 0.5em; 
+    /*grid-template-areas: 
+        "vid act act"
+        "inf rec rec"
+        "btm rec rec"
+        "sch rec rec"
+        "sch rec rec"; */
+    grid-template-areas: "inf inf sch" "vid act act" "rec rec rec" "btm btm btm" "btm btm btm";
+}
+
+[watch-type="renew"] .watch-container-grid {
+    grid-template-areas: "vid act act" "inf rec rec" "btm rec rec" "sch rec rec";
+}
+
+[watch-type="stacked"] .watch-container-grid {
+    grid-template-areas: "vid act act" "btm rec rec" "sch rec rec" "sch rec rec";
+}
+
+[watch-type="3col"] .watch-container-grid {
+    grid-template-columns: 20% 1fr 20%; 
+    grid-template-rows: repeat(4, max-content);
+    grid-template-areas: "tit tit tit" "inf vid act" "rec rec rec" "btm btm btm" "sch sch sch";
+}
+
+[watch-type="shinjuku"] .watch-container-grid {
+    grid-template-rows: repeat(6, max-content);
+    grid-template-areas: "sch sch sch" "inf inf own" "inf inf sac" "spl spl spl" "rec rec rec" "btm btm btm" "btm btm btm";
+}
+
+.watch-container-grid {
+    > .player-container {
+        grid-area: vid;
+    }
+
+    > .watch-container-rightaction {
+        grid-area: act;
+    }
+
+    > .recommend-wrapper {
+        grid-area: rec;
+    }
+
+    > .videoinfo-container {
+        grid-area: inf;
+    }
+
+    > .bottominfo-container {
+        grid-area: btm;
+    }
+
+    > .searchbox-container {
+        grid-area: sch;
+    }
+
+    > .videotitle-container {
+        grid-area: tit;
+    }
+
+    > .owner-container {
+        grid-area: own;
+    }
+
+    > .video-actions {
+        grid-area: sac;
+    }
+    > .shinjuku-player-container {
+        grid-area: spl;
+    }
+}
+
+
+
+@import './styleModules/*.styl'
+@import './styleModules/layoutStyle/*.styl'

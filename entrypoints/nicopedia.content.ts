@@ -1,5 +1,5 @@
-import { getSyncStorageData } from "./modules/storageControl";
-import { addCSS } from "./modules/styleControl";
+import { getSyncStorageData } from "../utils/storageControl";
+import { addCSS } from "../utils/styleControl";
 
 export default defineContentScript({
     matches: ["*://dic.nicovideo.jp/*"],

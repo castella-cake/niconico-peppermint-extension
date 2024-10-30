@@ -1,13 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import CreateSettingsList from "../pages/SettingsUI";
-import lang from "../langs/ja.json";
-import { StorageProvider } from "../pages/extensionHook";
+import CreateSettingsList from "@/components/pages/SettingsUI";
+import lang from "@/langs/ja.json";
+import { StorageProvider } from "@/hooks/extensionHook";
 
 import { ErrorBoundary } from "react-error-boundary";
 
 import "./settingsUI.styl"
-import settings from "../pages/settingsList";
+import settings from "@/utils/settingsList";
 
 const rootElement = document.getElementById("root")
 if (!rootElement) throw new Error("root element not found");

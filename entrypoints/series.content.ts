@@ -1,4 +1,4 @@
-import { getSyncStorageData } from "./modules/storageControl";
+import { getSyncStorageData } from "../utils/storageControl";
 import $ from "jquery"
 // 一旦移行を優先して全てanyを付けます。
 

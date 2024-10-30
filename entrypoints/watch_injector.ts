@@ -1,7 +1,7 @@
 // @unimport-disable
 // scriptタグ経由で注入される""ページスクリプト""。拡張機能APIは使えないことに注意。
 import Hls from "hls.js"
-import { VideoDataRootObject } from "@/entrypoints/types/VideoData";
+import { VideoDataRootObject } from "@/types/VideoData";
 
 function returnGreatestQuality(array: any[]) {
     for (const elem of array) {

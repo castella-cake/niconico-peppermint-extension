@@ -1,5 +1,5 @@
 import $ from "jquery"
-import { addCSS, pushCSSRule } from "./modules/styleControl";
+import { addCSS, pushCSSRule } from "../utils/styleControl";
 
 
 export default defineContentScript({

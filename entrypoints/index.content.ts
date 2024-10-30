@@ -1,5 +1,5 @@
-import { getSyncStorageData } from "./modules/storageControl";
-import { addCSS, pushCSSRule } from "./modules/styleControl";
+import { getSyncStorageData } from "../utils/storageControl";
+import { addCSS, pushCSSRule } from "../utils/styleControl";
 import "./style/index.styl"
 
 export default defineContentScript({

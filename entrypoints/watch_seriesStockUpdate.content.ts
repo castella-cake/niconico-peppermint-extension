@@ -1,4 +1,4 @@
-import { getSyncStorageData } from "./modules/storageControl";
+import { getSyncStorageData } from "../utils/storageControl";
 import "./style/dm_external.styl"
 
 export default defineContentScript({

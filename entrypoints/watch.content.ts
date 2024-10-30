@@ -1,10 +1,10 @@
 import {
     getLocalStorageData,
     getSyncStorageData,
-} from "./modules/storageControl";
+} from "../utils/storageControl";
 import { createRoot } from "react-dom/client";
-import { watchPage } from "./PMWatch/watch";
-import "./PMWatch/index.styl"
+import { watchPage } from "../components/PMWatch/watch";
+import "@/components/PMWatch/index.styl"
 
 // Old Twitter Layoutの実装を大いに参考にさせていただきました
 // https://github.com/dimdenGD/OldTwitter/blob/master/scripts/blockBeforeInject.js
