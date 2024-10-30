@@ -253,6 +253,7 @@ html.PMDMP-light .container.fullscreen {
 .watch-container-grid {
     display: grid !important; 
     padding: 0 var(--padding);
+    width: 100%;
     grid-auto-rows: 1fr; 
     grid-template-columns: 1fr 8% calc(18% + var(--padding) / 2);
     grid-template-rows: repeat(3, max-content);
@@ -326,6 +327,35 @@ html.PMDMP-light .container.fullscreen {
     }
 }
 
+.pmwatch-error-boundary-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h1 {
+        margin: 0;
+        svg {
+            height: 1em;
+            width: 1em;
+            vertical-align: bottom;
+        }
+    }
+    .pmwatch-error-boundary-container {
+        padding: 1%;
+        border: 3px solid var(--textcolor1);
+        background: var(--bgcolor2);
+        outline: 5px solid var(--bgcolor2);
+    }
+    .pmwatch-error-boundary-msg {
+        padding: 4px;
+        background: var(--bgcolor1);
+        border-radius: var(--radius);
+    }
+}
 
 
 @import './styleModules/*.styl'
