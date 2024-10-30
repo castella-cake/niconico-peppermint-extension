@@ -1,0 +1,81 @@
+.header-container {
+    --header-height: 36px;
+    --header-width: 1024px;
+    background: #353535;
+    color: #fff
+    height: var(--header-height);
+    position: relative;
+    z-index: 100;
+    margin-bottom: 16px;
+    .header-center-container {
+        justify-content: space-between;
+        flex: 1.5 !important;
+        min-width: 35em;
+        > div {
+            display: flex;
+        }
+    }
+    a {
+        padding-left: 8px;
+        font-size: .8rem;
+        text-decoration: none;
+        line-height: var(--header-height);
+        color: #fff;
+        align-self: center;
+        span {
+            vertical-align: middle;
+        }
+    }
+    a:last-child {
+        padding-right: 8px;
+    }
+    a.header-disabled {
+        opacity: 0.5;
+    }
+    a:not(:last-child):after {
+        content: "";
+        border-right: 1px solid #555;
+        margin-left: 8px;
+        height: 100%;
+        display: inline;
+        margin-right: 0;
+    }
+    .header-usercontainer > a > img {
+        vertical-align: middle;
+        border-radius: 512px;
+        margin-right: 8px;
+        width: 2.25em;
+        height: 2.25em;
+        object-fit: contain;
+    }
+    .header-right-container {
+        justify-content: flex-end;
+    }
+    .header-right-container, .header-left-container {
+        padding: 0 8px;
+    }
+    button {
+        background: transparent;
+        border: none;
+        color: #888;
+        cursor: pointer;
+        svg {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+    }
+    button:hover {
+        color: #fff;
+    }
+}
+
+
+.header-container a > svg {
+    display: inline;
+    vertical-align: middle;
+}
+
+.header-container a:not(.header-disabled):hover {
+    background: #555;
+}

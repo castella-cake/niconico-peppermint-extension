@@ -1,0 +1,56 @@
+.video-action-mylists-outercontainer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 2.5em;
+    z-index: 2;
+    display: none;
+}
+
+.video-action-mylists-outercontainer[is-open="true"] {
+    display: block;
+}
+
+.mylists-container {
+    //box-shadow: 0px 0px 10px #0005;
+    border-radius: var(--radius);
+    padding: 8px;
+    background: var(--bgcolor1);
+}
+
+.mylist-title {
+    align-items: center;
+    padding: 4px 0;
+    padding-top: 0;
+    button {
+        background: transparent;
+        border: none;
+        color: var(--textcolor1);
+        cursor: pointer;
+        svg {
+            vertical-align: middle;
+        }
+        &:hover {
+            background: var(--hover1)
+        }
+    }
+}
+
+.mylist-item-container {
+    padding: 8px;
+    background: var(--bgcolor2);
+    > button {
+        background: transparent;
+        padding: 8px;
+        border-bottom: 2px solid var(--bgcolor3) !important;
+        border-radius: 0;
+        width: 100%;
+        cursor: pointer;
+        border: none;
+        color: var(--textcolor1);
+        text-align: left;
+        &:hover {
+            background: var(--hover1);
+        }
+    }
+}

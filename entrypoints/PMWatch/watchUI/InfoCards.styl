@@ -1,0 +1,115 @@
+a.info-card {
+    display: flex;
+    white-space: nowrap;
+    height: 4em;
+    padding: 4px;
+    gap: 0.5em;
+    text-decoration: none;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.info-card-thumbnail {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: var(--radius-mini);
+    }
+}
+
+.info-card-durationtext {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: #000a;
+    color: #fff;
+    margin: 2px;
+    border-radius: var(--radius-mini);
+    padding: 2px;
+    font-size: 0.8em;
+    .info-card-durationtext svg {
+        height: 1.2em;
+        width: 1.2em;
+        vertical-align: bottom;
+    }
+}
+
+.info-card-text {
+    color: var(--textcolor1);
+    height: fit-content;
+    align-self: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    span svg {
+        height: 1em;
+        width: 1em;
+        margin-right: 0.25em;
+    }
+}
+.info-card-nowplaying {
+    background: var(--bgcolor3);
+}
+
+.info-card-playingtext {
+    vertical-align: middle;
+    color: var(--linktext2);
+}
+
+.info-card-owner {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+
+.watch-container[use-card-recommend="true"] .recommend-container {
+    .info-card {
+        flex-direction: column;
+        height: calc(100% - 10px);
+        width: 11em;
+        background: var(--bgcolor2);
+        border: var(--border);
+        box-shadow: var(--box-shadow);
+        white-space: wrap;
+        margin: 0 auto;
+        /* height: 10em; */
+
+        .info-card-thumbnail {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+        }
+
+        .info-card-thumbnail img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: 0 auto;
+        }
+
+        .info-card-text {
+            align-self: start;
+        }
+        .info-card-title {
+            --max-line: 2
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: var(--max-line);
+            height: calc(1.5em * var(--max-line));
+            overflow: hidden;
+            display: -webkit-box;
+        }
+        .info-card-owner {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            width: 100% !important;
+            display: inline-block;
+        }
+    }
+}

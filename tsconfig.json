@@ -1,4 +1,5 @@
 {
+  "extends": "./.wxt/tsconfig.json",
   "compilerOptions": {
     "strictNullChecks": true,
     "noUnusedLocals" : true,
@@ -12,10 +13,16 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "allowJs": true,
+    "allowImportingTsExtensions": true,
     "forceConsistentCasingInFileNames": false,
     "allowUmdGlobalAccess": true,
-    "moduleResolution": "node",
     "resolveJsonModule": true
   },
-  "exclude": ["./node_modules/","./dist/", "./build/", "./builds/", "./dev/"]
+  "exclude": [
+    "./node_modules/",
+    "./dist/",
+    "./build/",
+    "./builds/",
+    "./dev/"
+  ]
 }

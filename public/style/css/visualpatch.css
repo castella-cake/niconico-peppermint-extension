@@ -1,0 +1,28 @@
+.VideoDescriptionSeriesContainer-itemTitle {
+    line-height: 14px;
+}
+@keyframes fadeout {
+    0% {opacity: 100%;}
+    100% {opacity: 0%;}
+}
+.ResumeContainer {
+    animation: fadeout 1s linear forwards 2s;
+}
+.VideoTopGenreListContainer,.VideoTopGenreListContainer-item,.VideoIntroductionPlayerContainer-historyButton,.GenreTopPageHeader,.NC-MutedVideoCard, .NC-SensitiveVideoCard, .VideoItem.NC-Card,.RankingGenreListContainer,.RankingGenreListContainer-item {
+    border-radius:5px
+}
+.videoSearchOption .tab {
+    border-radius: 4px 4px 0 0
+}
+.list .contentHeader,.list .contentHeader .title::before {
+    border-radius: 5px
+}
+.video .itemThumb,.video .itemThumbBox {
+    border-radius: 4px
+}
+a:focus-visible, button:focus-visible {
+    box-shadow: 0px 0px 5px #fff;
+    outline: #fff 2px solid;
+    /*caret-color: transparent;*/
+    user-select: all;
+}

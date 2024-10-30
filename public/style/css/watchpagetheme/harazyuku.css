@@ -1,0 +1,130 @@
+.HeaderContainer-row .VideoOwnerInfo-gridCell {
+    position:absolute;
+    right:0;
+    z-index:1000;
+}
+.VideoDescriptionContainer {
+    outline: 2px solid #000;
+    outline-offset:0px;
+    padding:8px;
+    position:relative
+}
+.VideoDescriptionSeriesContainer-itemTitle {
+    height:16px;
+}
+.TagContainer {
+    width:69%;
+}
+.MainContainer-playerPanel {
+    height:calc(100% + 44px);
+    top:auto;
+}
+.HeaderContainer .VideoOwnerInfo-gridCell {
+    width: auto;
+    box-shadow: 0 0 0 #000;
+    outline: 2px solid #969696;
+}
+.VideoOwnerInfo-gridCell {
+    padding-left:5px;
+    padding-right:5px;
+    padding-bottom:5px;
+    padding-top:5px;
+    bottom:0;
+    top:auto;
+}
+body,.HeaderContainer {
+    background-color:#fafafa;
+}
+.VideoMenuContainer,.BottomContainer,.VideoMenuContainer-areaLeft, .VideoMenuContainer-areaRight {
+    background-color: #fafafa;
+}
+.VideoDescriptionContainer {
+    background-color:#fafafa;
+}
+.HeaderContainer .VideoOwnerInfo-gridCell {
+    background: #f5f5f5;
+}
+.MainContainer {
+    box-shadow: 0 0 0 #000;
+    outline: 2px solid #000;
+}
+.VideoDescriptionContainer-expander,.VideoDescriptionExpander.is-expanded {
+    width: 135px;
+    height: 0px;
+    top:0px;
+    position:absolute
+}
+.VideoDescriptionExpander .VideoDescriptionExpander-switch {
+    right:auto;
+    padding-left:0px;
+    text-align:left
+}
+.VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse::before {
+    border-color: transparent transparent #000;
+}
+.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand::before {
+    border-color: #000 transparent transparent;
+}
+.VideoDescriptionExpander .VideoDescriptionExpander-switchExpand,.VideoDescriptionExpander .VideoDescriptionExpander-switchCollapse {
+    background-image: linear-gradient(#d2d2d2,#fafafa);
+    border-radius:4px 4px 0 0;
+    border-left: 2px solid #000;
+    border-right: 2px solid #000;
+    border-top: 2px solid #000;
+    padding:2px;
+    fill:#000;
+    color:#000;
+    height:25px
+}
+.VideoDescription.is-expanded {
+    padding-bottom: 0px !important;
+}
+/*
+.PlayerPanelContainer-tabItem {
+    height:32px
+    position:relative
+    bottom:0
+}
+.PlayerPanelContainer-tab {
+    padding-left:24px
+    padding-right:24px
+}*/
+.VideoMenuContainer::after {
+    border-bottom: 2px solid #000;
+}
+.NC-CreatorSupportAccepting-arrow {
+    display: none;
+}
+.NC-CreatorSupportAccepting {
+	top: -64px !important;
+	right: 0 !important;
+	left: inherit !important;
+}
+.NC-CreatorSupportAccepting-content {
+	background-image: linear-gradient(#262626,#151515);
+	/* display: inline-block; */
+	border-radius: 10px;
+	border: 1px solid #000;
+	text-align: center;
+	font-size: 12px;
+	/* padding: 4px; */
+	margin: 6px 0 0 0;
+	font-weight: bold;
+	color: #fff;
+}
+.NC-CreatorSupportAccepting_floating .NC-CreatorSupportAccepting-content {
+    filter: drop-shadow(0 0 2px rgba(0,0,0,.15));
+}
+.NC-CreatorSupportAccepting-content::before {
+    display:none;
+}
+.VideoTitle { padding-bottom:20px }
+.VideoLiveTimeshiftContainer { padding-bottom:24px }
+.VideoOwnerChannelLink {height:20px}
+
+.TagItem {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #999;
+    border-radius: 0px;
+}

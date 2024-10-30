@@ -1,0 +1,120 @@
+.mintwatch-config {
+    --primary: #0060df;
+	--primary-hover: #0090ed;
+	--destructive: #c50042;
+	--destructive-hover: #e22850;
+	--destructive-dark: #810220;
+    --bg: #0003;
+    --bg-hover: #555a;
+    --fg: #fafafa;
+    --fg-dark: #aaa;
+}
+
+.mintwatch-config {
+    position: fixed;
+    left: 0;
+    top: 0;
+    //bottom: 0;
+    width: clamp(10em, 25em, 90vw);
+    padding: 16px;
+    z-index: 100;
+    border-radius: 8px;
+    background: linear-gradient(-45deg, #124d, #344d);
+    color: #fff;
+    margin: 48px 16px;
+    font-size: 0.9em;
+    backdrop-filter: blur(10px);
+    border: 1px solid #aaa8;
+    box-shadow: 2px 2px 16px #000;
+
+    > h2 {
+        margin: 8px 0;
+        font-size: 1.5em;
+    }
+    .settings-area h1 {
+        display: none;
+    }
+    select {
+        margin-left: 5px;
+        border: 0px solid #fff;
+        border-radius: 2px;
+        padding: 4px 6px;
+        font-family: Lato, Meiryo, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        option {
+            background: #252525;
+            color: #fff;
+        }
+    }
+    select:hover {
+        background: var(--bg-hover);
+    }
+
+    label {
+        margin-right: 8px;
+        font-size: 13px;
+    }
+}
+
+.select-button-container {
+	display: inline-block;
+	background: var(--bg);
+	border-radius: 4px;
+}
+.select-button {
+	background: var(--bg);
+    color: var(--fg);
+	border: none;
+	border-radius: 4px;
+	height: 24px;
+	font-family: unset;
+}
+.select-button + .select-button {
+	border-left: 1px solid var(--fg-dark);
+	border-bottom-left-radius: 0px;
+	border-top-left-radius: 0px;
+}
+.select-button:hover {
+	background: var(--bg-hover);
+}
+.select-button.select-button-current {
+	background: var(--primary);
+	font-weight: bold;
+}
+.select-button:not(:last-child) {
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.hint {
+	font-size: 10px;
+	margin-bottom: 2px;
+	line-height: 16px;
+	white-space: pre-wrap;
+}
+
+.settings-row {
+    padding: 8px;
+    border-radius: 4px;
+    background: #fff2;
+    margin-bottom: 8px;
+}
+
+.mintconfig-transition {
+    &-enter, &-exit-active {
+        --translateX: -110%;
+    }
+    &-enter-active, &-exit-active {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    &-enter, &-exit-active {
+        transform: translateX(var(--translateX))
+        opacity: 0;
+    }
+    &-enter-done, &-enter-active {
+        transform: translateX(0%)
+        opacity: 1;
+    }
+}
+

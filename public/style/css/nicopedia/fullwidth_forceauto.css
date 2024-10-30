@@ -1,0 +1,26 @@
+#container,#contents,#header, #article-title-box,.a-contents,.st-bbs_adContents,.index-weekly-recommend,.index-option-recommend,.index-newly-list,.a-edit,.a-edit_contents-header,div.left-box{
+    width:100%;
+}
+#main {
+    width:calc(100% - 320px)
+}
+.index-weekly-recommend,.index-option-recommend,.index-newly-list,#header {
+    justify-content: left
+}
+.a-recommend_news-info {
+    float: left;
+}
+img.border {
+    display:none;
+}
+div.left-box {
+    padding:8px 0px;
+    border-radius:8px;
+    background-image: none;
+    background-color: #fff;
+    border-left: 1px solid #558dd2;
+    border-right: 1px solid #558dd2;
+}
+#article div {
+    width: auto !important;
+}

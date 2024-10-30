@@ -1,0 +1,31 @@
+.ControllerBoxContainer {
+    position: relative;
+    background-image: linear-gradient(#2d2d2d, #000);
+}
+.MarqueeContainer {
+    background-image: linear-gradient(#111,#000);
+}
+.DefaultAnimator-excludeButton,.DefaultAnimator-excludeButton::after {
+    background:none;
+}
+.ControllerButton:hover {
+    background-image: linear-gradient(#373737,#1b1b1b);
+}
+.ControllerButton {
+    outline: 1px solid #363636;
+    outline-offset: -1px;
+}
+.PlayerPauseButton,.PlayerPlayButton {
+    background-image: linear-gradient(#b85012,#98400c);
+}
+.PlayerPauseButton:hover,.PlayerPlayButton:hover {
+    background-image: linear-gradient(#dc6b27,#c55412);
+}
+.ControllerButton svg {
+    filter: drop-shadow(0px 0px 2px rgba(0,0,0 50%)) 
+}
+.ControllerButton:hover svg {
+    fill:#ffffff;
+    filter: drop-shadow(0px 0px 2px rgba(128,128,128 100%));
+    transition:all .1s ease .1s
+}

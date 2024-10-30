@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Misskey共有の設定</title>
+        <link rel="stylesheet" href="options.css"/>
+    </head>
+
+    <body class="width-big">
+        <div class="container">
+        <header class="title"><a href="settings.html" target="_self"><</a>共有先インスタンスの設定</header>
+        <div class="page-desc">共有先のMisskeyインスタンスを設定します。</div>
+
+        <div class="maincontainer">
+            <table id="instanceheader">
+                <tbody>
+                    <tr class="header">
+                        <th>選択</th>
+                        <th>ドメイン</th>
+                        <th>削除</th>
+                    </tr>
+                </tbody>
+            </table>
+            <table id="instancelist">
+                <tbody>
+                </tbody>
+            </table>
+            <div class="settings-row">
+                <label id="add">
+                    <input type="text" id="input-addinstancedomain" value="" placeholder="インスタンスドメイン(Hostname)" style="width:12rem">
+                    <button id="addinstance" type="button">追加</button>
+                </label>
+            </div>
+            <div class="settings-row">
+                <button id="removeselectedinstance" type="button">選択中のインスタンスを削除</button>
+            </div>
+        </form>
+        </div>
+        <script src="setmkinstance.js" type="module"></script>
+    </body>
+
+</html>

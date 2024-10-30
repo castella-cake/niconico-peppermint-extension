@@ -1,0 +1,44 @@
+.share-body {
+    background: var(--bgcolor2);
+    padding: 0.5em;
+    border-radius: var(--radius);
+    margin-bottom: 1em;
+}
+
+.share-container {
+    background: var(--bgcolor1);
+    border-radius: var(--radius);
+    padding: 1em;
+}
+
+.share-button {
+    text-decoration: none;
+    background: var(--share-bg, #fff);
+    color: var(--share-fg, #000) !important;
+    padding: 0.5em;
+    margin-right: 0.5em;
+    border-radius: var(--radius);
+    font-weight: bold;
+}
+
+.share-button:hover {
+    background: var(--share-bg-hover, #222);
+}
+
+.share-button-x {
+    --share-bg: linear-gradient(345deg, #000, #222);
+    --share-fg: #fff;
+    --share-bg-hover: linear-gradient(345deg, #333, #444);
+}
+
+.share-button-misskey {
+    --share-bg: linear-gradient(345deg, #006c09, #81b700);
+    --share-fg: #fff;
+    --share-bg-hover: linear-gradient(345deg, #1aac00, #52d600);
+}
+
+.share-button-bluesky {
+    --share-bg: linear-gradient(345deg, #004ddc, #00a5b7);
+    --share-fg: #fff;
+    --share-bg-hover: linear-gradient(345deg, #0085d4, #00aed6);
+}

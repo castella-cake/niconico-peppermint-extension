@@ -1,0 +1,20 @@
+:root {
+    /* 基本背景色 */
+    --bgcolor1: #eee;
+    /* サブ背景色1 */
+    --bgcolor2: #ddd;
+    /* サブ背景色2 */
+    --bgcolor3: #ccc;
+    --bgcolor4: #bbb;
+    --textcolor1: #000;
+    --textcolor2: #333;
+    --textcolor3: #666;
+    --textcolornew: #e05050;
+    --accent1: #dadada;
+    --accent2: #c0c0c0;
+    --hover1: #fff;
+    --hover2: #aaa;
+    --linktext1: #008acf;
+    --linktext2: #008acf;
+    --linktext3: #008acf;
+}

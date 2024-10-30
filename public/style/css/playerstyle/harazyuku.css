@@ -1,0 +1,33 @@
+        .ControllerButton {
+            border: 1px solid #111;
+            border-image: linear-gradient(#5c5c5c,#363636);
+            border-image-slice: 1;
+            outline: 1px solid #060606;
+            height: 24px;
+            width: 24px;
+            padding:2px
+        }
+        .ControllerContainer-centerArea .PlayerSeekBackwardButton, .ControllerContainer-centerArea .PlayerSeekForwardButton, .ControllerContainer-centerArea .PlayerSkipNextButton, .ControllerContainer-centerArea .SeekToHeadButton {
+            padding-left: 3px;
+            padding-right: 3px;
+            padding:2px;
+            width: 24px;
+        }
+        .PlayerPlayButton,.PlayerPauseButton {
+            width:36px
+        }
+        .ControllerButton.PlayerRepeatOnButton {
+            padding: 3px;
+        }
+        .ControllerButton:hover {
+            background-image: linear-gradient(#949494 2%, #3f3f3f 49%, #4e4e4e 1%, #343434 49%);
+        }
+        .ControllerContainer {
+            background-image: linear-gradient(#ddd 1%,#494949 2%, #282828 49%, #141414 50%,#202020 100%);
+        }
+        .MarqueeContainer {
+            background-image: linear-gradient(#111,#000);
+        }
+        .DefaultAnimator-excludeButton,.DefaultAnimator-excludeButton::after {
+            background:none;
+        }
