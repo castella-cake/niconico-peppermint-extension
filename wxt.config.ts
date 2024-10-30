@@ -15,7 +15,6 @@ export default defineConfig({
         ],
         "host_permissions": [
             "*://*.nicovideo.jp/*",
-            "https://nvapi.nicovideo.jp/v1/series/*",
             "https://fonts.googleapis.com/icon",
             "https://secure-dcdn.cdn.nimg.jp/nicoaccount/usericon/*",
             "https://nicovideo.cdn.nimg.jp/thumbnails/*",
