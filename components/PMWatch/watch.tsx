@@ -17,6 +17,10 @@ export function watchPage() {
                         <h1><IconBoom/> Aw, snap!</h1>
                         <p>MintWatchの表示中に重大なエラーが発生しました。</p>
                         <p className="pmwatch-error-boundary-msg"><code>{error.message}</code></p>
+                        <p className="pmwatch-error-boundary-button-container">
+                            <a href="https://www.nicovideo.jp/video_top">ニコニコ動画へ戻る</a>
+                            <button onClick={resetErrorBoundary}>再読み込み</button>
+                        </p>
                     </div>
                 </div>
             }}>

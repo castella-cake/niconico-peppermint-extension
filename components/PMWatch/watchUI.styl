@@ -345,7 +345,7 @@ html.PMDMP-light .container.fullscreen {
         }
     }
     .pmwatch-error-boundary-container {
-        padding: 1%;
+        padding: 2% 4%;
         border: 3px solid var(--textcolor1);
         background: var(--bgcolor2);
         outline: 5px solid var(--bgcolor2);
@@ -354,6 +354,30 @@ html.PMDMP-light .container.fullscreen {
         padding: 4px;
         background: var(--bgcolor1);
         border-radius: var(--radius);
+    }
+    .pmwatch-error-boundary-button-container {
+        margin-bottom: 0;
+        display: flex;
+        justify-content: right;
+        gap: 1em;
+        > button, > a {
+            text-decoration: none;
+            color: var(--textcolor1) !important;
+            border: 1px solid var(--textcolor1);
+            background: var(--bgcolor2);
+            padding: 2px 8px;
+            margin: 0;
+            font-size: 1em;
+            height: auto;
+            display: inline-block;
+            line-height: 1.5em;
+            border-radius: 10px;
+            cursor: pointer;
+            &:hover {
+                background: var(--textcolor1);
+                color: var(--bgcolor2) !important;
+            }
+        }
     }
 }
 
