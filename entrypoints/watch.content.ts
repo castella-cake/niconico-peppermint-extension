@@ -54,10 +54,15 @@ export default defineContentScript({
 
             if ( import.meta.env.FIREFOX ) window.stop() // これでなぜかFirefoxで虚無になる問題が治る。逆にChromeのコードに入れると問題が起こる。
             if (!document.documentElement) return;
+
+            // わたってくるdocumentには既に動画情報のレスポンスが入っている。使えるならこっちを使って高速化してしまったほうが良いので、innerHTMLが書き換わる前に取得しておく
+            const initialResponse = document.getElementsByName('server-response')[0].getAttribute("content") ?? "" 
+
             document.documentElement.innerHTML = `
                 <head>
                     <meta charset="utf-8">
                     <link rel="shortcut icon" href="https://resource.video.nimg.jp/web/images/favicon/favicon.ico">
+                    <meta name="initial-response" content="{}">
                 </head>
                 <body>
                     <div id="ads-130"></div>
@@ -78,6 +83,7 @@ export default defineContentScript({
                 });
             });
             observer.observe(head, { childList: true, subtree: true });
+            
             const userAgent = window.navigator.userAgent.toLowerCase();
             if (userAgent.indexOf("chrome") == -1 || syncStorage.pmwforcepagehls) {
                 const script = document.createElement("script");
@@ -85,6 +91,11 @@ export default defineContentScript({
                 script.setAttribute("pmw-isplugin", "true");
                 head.appendChild(script);
             }
+
+            
+            //console.log("initialResponse", JSON.parse(initialResponse))
+            // さっき書き換える前に取得した値を書き戻す。innerHTMLに直接埋め込むのは信用できない。
+            document.getElementsByName('initial-response')[0].setAttribute("content", initialResponse);
 
             if (
                 syncStorage.darkmode === "custom" &&

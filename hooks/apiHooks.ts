@@ -11,9 +11,23 @@ export function useWatchData(smId: string) {
     useEffect(() => {
         async function fetchInfo() {
             try {
-                const fetchedVideoInfo: VideoDataRootObject = await getVideoInfo(smId)
+                // metaタグからのレスポンスを入れる。ないかもしれないので最初はnull。
+                let initialResponse: VideoDataRootObject | null = null
+                let fetchedVideoInfo: VideoDataRootObject | null = null
+                if (
+                    document.getElementsByName('initial-response').length > 0 && 
+                    typeof document.getElementsByName('initial-response')[0].getAttribute('content') === "string"
+                ) {
+                    initialResponse = JSON.parse(document.getElementsByName('initial-response')[0].getAttribute('content')!) as VideoDataRootObject
+                }
+                // HTMlのレスポンスが今フェッチしようとしているvideoのidと同じならこっちを使う
+                if (initialResponse && initialResponse.meta?.status === 200 && initialResponse.data?.response.video.id === smId) {
+                    fetchedVideoInfo = initialResponse
+                    document.getElementsByName('initial-response')[0].remove() // 使いまわすべきではないので削除。Reactの思想(一貫性)に反するがこうするしかない。
+                    console.log("using initialResponse")
+                } else fetchedVideoInfo = await getVideoInfo(smId)
+                if (!fetchedVideoInfo || !fetchedVideoInfo.data) return
                 setVideoInfo(fetchedVideoInfo)
-                if (!fetchedVideoInfo.data) return
                 setErrorInfo(false)
                 const commentRequestBody = {
                     params: {
