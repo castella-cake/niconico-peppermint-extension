@@ -19,7 +19,7 @@ export function linkAction(e) {
     // aのonClickに引数も含めてそのまま渡すことで動作します。
     console.log(e)
     // イベントを中止してこっちで代行する
-    const href = this.href ?? e.currentTarget.href
+    const href = e.target.href ?? e.currentTarget.href
     openLink(href)
     e.preventDefault()
     
