@@ -63,15 +63,19 @@ a.info-card {
     opacity: 0.8;
 }
 
+.recommend-container .info-card {
+    background: var(--bgcolor2);
+    border: var(--border);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
+}
 
 .watch-container[use-card-recommend="true"] .recommend-container {
     .info-card {
         flex-direction: column;
         height: calc(100% - 10px);
         width: 11em;
-        background: var(--bgcolor2);
-        border: var(--border);
-        box-shadow: var(--box-shadow);
         white-space: wrap;
         margin: 0 auto;
         /* height: 10em; */
