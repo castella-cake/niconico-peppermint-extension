@@ -29,11 +29,6 @@ export default defineConfig({
                 "*://*.nicovideo.jp/*",
             ]
         }],
-        "browser_specific_settings": {
-            "gecko": {
-                "id": "niconico-peppermint@cyakigasi.net"
-            }
-        }
     },
     extensionApi: "chrome",
     hooks: {
@@ -43,6 +38,13 @@ export default defineConfig({
                     "32": "icon-dev/icon-32.png",
                     "64": "icon-dev/icon-64.png",
                     "128": "icon-dev/icon-128.png"
+                }
+            }
+            if (wxt.config.browser === "firefox") {
+                manifest.browser_specific_settings = {
+                    "gecko": {
+                        "id": "niconico-peppermint@cyakigasi.net"
+                    }
                 }
             }
         },
