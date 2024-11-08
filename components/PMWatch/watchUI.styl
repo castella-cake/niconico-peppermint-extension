@@ -12,7 +12,7 @@ body {
 }
 // font-family を Stylus-langが正しく解釈しないようなので、@cssを使う
 @css {
-    body {
+    html.PMW-Enabled body {
         font-family: Avenir, Lato, -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Kaku Gothic ProN", Meiryo, メイリオ, sans-serif
     }
 }
@@ -29,22 +29,6 @@ a {
 }
 .container.fullscreen {
     overflow: hidden;
-}
-html.PMDMP-light .container.fullscreen {
-    --bgcolor1: #252525;
-    --bgcolor2: #333;
-    --bgcolor3: #666;
-    --bgcolor4: #aaa;
-    --textcolor1: #fff;
-    --textcolor2: #ddd;
-    --textcolor3: #aaa;
-    --accent1: #444;
-    --accent2: #888;
-    --hover1: #666;
-    --hover2: #aaa;
-    --linktext1: #8fb9df;
-    --linktext2: #8ed9ff;
-    --linktext3: #008acf;
 }
 .global-flex {
     display: flex
@@ -251,8 +235,7 @@ html.PMDMP-light .container.fullscreen {
 }
 
 .watch-container-grid {
-    display: grid !important; 
-    padding: 0 var(--padding);
+    display: grid; 
     width: 100%;
     grid-auto-rows: 1fr; 
     grid-template-columns: 1fr 8% calc(18% + var(--padding) / 2);
@@ -265,6 +248,12 @@ html.PMDMP-light .container.fullscreen {
         "sch rec rec"
         "sch rec rec"; */
     grid-template-areas: "inf inf sch" "vid act act" "rec rec rec" "btm btm btm" "btm btm btm";
+}
+
+@css {
+    html.PMW-Enabled .watch-container-grid {
+        margin: 0 round(var(--padding), 1px); /*小数点以下のpaddingを丸める。video要素が微妙にずれるのが緩和される。*/
+    }
 }
 
 [watch-type="renew"] .watch-container-grid {
