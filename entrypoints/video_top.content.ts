@@ -3,7 +3,7 @@ import { addCSS, pushCSSRule } from "../utils/styleControl";
 
 
 export default defineContentScript({
-    matches: ["*://www.nicovideo.jp/video_top/*"],
+    matches: ["*://www.nicovideo.jp/video_top", "*://www.nicovideo.jp/video_top*"],
     async main() {
         const result = await browser.storage.sync.get(null)
         if (result.darkmode && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
@@ -15,7 +15,7 @@ export default defineContentScript({
             pushCSSRule('.VideoIntroductionAreaContainer {display:none}')
         }
         //console.log(location.pathname)
-        if (result.enablecustomvideotop && result.customvideotop != undefined && (location.pathname == "/video_top" || location.pathname == "/video_top/")) {
+        if ( result.enablecustomvideotop ) {
             $('.BaseLayout-main').append('<div class="BaseLayout-main-custom" style="margin-top: 16px"></div>')
             $.each(result.customvideotop, function (i, object) {
                 if (object.dispstat == true) {
