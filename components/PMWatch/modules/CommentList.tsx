@@ -4,7 +4,7 @@ import { secondsToTime, sharedNgLevelScore } from "./commonFunction";
 import type { CommentDataRootObject } from "@/types/CommentData";
 import { VideoDataRootObject } from "@/types/VideoData";
 import { NicoruKeyResponseRootObject, NicoruPostBodyRootObject, NicoruPostResponseRootObject, NicoruRemoveRootObject } from "@/types/NicoruPostData";
-import { getCommentThread, getNicoruKey, postNicoru, removeNicoru } from "../../../utils/watchApi";
+import { getNicoruKey, postNicoru, removeNicoru } from "../../../utils/watchApi";
 import { useStorageContext } from "@/hooks/extensionHook";
 import { useInterval } from "@/hooks/commonHooks";
 
@@ -123,7 +123,7 @@ function CommentList(props: Props) {
         }
     })
 
-    async function reloadCommentData() {
+    /*async function reloadCommentData() {
         if (!props.videoInfo.data) return
         const commentRequestBody = {
             params: {
@@ -134,15 +134,21 @@ function CommentList(props: Props) {
         const commentResponse: CommentDataRootObject = await getCommentThread(props.videoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
         if (!commentResponse.data || !commentResponse.data.threads) return
         props.setCommentContent(commentResponse)
-    }
+    }*/
 
     async function onNicoru(commentNo: number, commentBody: string, nicoruId: string | null) {
         //"{\"videoId\":\"\",\"fork\":\"\",\"no\":0,\"content\":\"\",\"nicoruKey\":\"\"}"
-        if (!props.videoInfo.data || !props.videoInfo.data.response.video.id || !props.videoInfo.data.response.viewer || !props.videoInfo.data.response.viewer.isPremium ) return
+        if (!props.videoInfo.data || !props.videoInfo.data.response.video.id || !props.videoInfo.data.response.viewer || !props.videoInfo.data.response.viewer.isPremium || !props.commentContent.data) return
         if (nicoruId) {
             const response: NicoruRemoveRootObject = await removeNicoru(nicoruId)
             if ( response.meta.status === 200 ) {
-                reloadCommentData()
+                const commentContentCopy: typeof props.commentContent = JSON.parse(JSON.stringify(props.commentContent))
+                const comments = commentContentCopy.data!.threads[currentForkType].comments
+                const thisComment = comments[comments.findIndex((comment) => comment.no === commentNo)]
+                if (!thisComment) return
+                thisComment.nicoruCount = thisComment.nicoruCount - 1
+                thisComment.nicoruId = null
+                props.setCommentContent(commentContentCopy)
             }
         } else {
             const currentThread = props.videoInfo.data.response.comment.threads[currentForkType]
@@ -152,7 +158,13 @@ function CommentList(props: Props) {
             const response: NicoruPostResponseRootObject = await postNicoru(currentThread.id, JSON.stringify(body))
             console.log(response)
             if (response.meta.status === 201) {
-                reloadCommentData()
+                const commentContentCopy: typeof props.commentContent = JSON.parse(JSON.stringify(props.commentContent))
+                const comments = commentContentCopy.data!.threads[currentForkType].comments
+                const thisComment = comments[comments.findIndex((comment) => comment.no === commentNo)]
+                if (!thisComment) return
+                thisComment.nicoruCount = thisComment.nicoruCount + 1
+                thisComment.nicoruId = response.data.nicoruId
+                props.setCommentContent(commentContentCopy)
             }
         }
 
@@ -204,7 +216,7 @@ function CommentList(props: Props) {
                 if ( isNgComment ) return
                 //console.log(elem)
                 return <div key={elem.id} ref={commentRefs.current[index]} className={`commentlist-list-item ${openedCommentItem.includes(elem.id) ? "commentlist-list-item-open" : ""}`} nicoru-count={returnNicoruRank(elem.nicoruCount)}>
-                    <button type="button" onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className={`commentlist-list-item-nicorubutton ${(!props.videoInfo.data?.response.viewer.isPremium) ? "commentlist-list-item-nicorubutton-disabled" : ""}`}>ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>
+                    <button type="button" onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className={`commentlist-list-item-nicorubutton ${!props.videoInfo.data?.response.viewer || (!props.videoInfo.data?.response.viewer.isPremium) ? "commentlist-list-item-nicorubutton-disabled" : ""}`}>ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>
                     <div className="commentlist-list-item-body" title={elem.body}>{elem.body}</div>
                     <button type="button" className="commentlist-list-item-vpos" onClick={() => {toggleCommentItemExpand(elem.id)}}>{secondsToTime(Math.floor( elem.vposMs / 1000 ))}</button>
                     { openedCommentItem === elem.id && <>

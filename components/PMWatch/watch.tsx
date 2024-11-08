@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 
-import CreateWatchUI from "./watchUI";
+import CreateWatchUI from "./WatchUI";
 import PluginList from "./modules/PluginList";
 
 //import "./index.styl"

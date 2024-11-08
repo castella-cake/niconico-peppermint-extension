@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, RefObject } from "react";
 //import { useLang } from "../localizeHook";
 import NiconiComments from "@xpadev-net/niconicomments";
 import PlayerController from "./PlayerUI/PlayerController";
-import VefxController from "./PlayerUI/vefxController";
+import VefxController from "./PlayerUI/VefxController";
 import { useHlsVideo } from "@/hooks/hlsHooks";
 import type { VideoDataRootObject } from "@/types/VideoData";
 import type { CommentDataRootObject } from "@/types/CommentData";

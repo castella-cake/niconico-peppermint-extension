@@ -3,7 +3,7 @@ import { MylistResponseRootObject } from "@/types/mylistData";
 import { SeriesResponseRootObject } from "@/types/seriesData";
 import { VideoDataRootObject } from "@/types/VideoData";
 import { Dispatch, SetStateAction } from "react";
-import { DndContext, DragEndEvent, PointerSensor, useDroppable, useSensor, useSensors } from "@dnd-kit/core";
+import { useDroppable } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { IconMeteor } from "@tabler/icons-react";
 
@@ -49,8 +49,8 @@ export function seriesToSimplifiedPlaylist(obj: SeriesResponseRootObject) {
 }
 
 const playlistTypeString = {
-    "mylist": "マイリストから",
-    "series": "シリーズから",
+    "mylist": "マイリストからの",
+    "series": "シリーズからの",
     "custom": "カスタムの",
     "none": "",
 }
@@ -59,13 +59,6 @@ function Playlist({ playlistData, videoInfo, setPlaylistData }: { playlistData: 
     const {setNodeRef, isOver} = useDroppable({
         id: 'playlist-droppable',
     });
-    const sensors = useSensors(
-        useSensor(PointerSensor, {
-            activationConstraint: {
-                distance: 8,
-            },
-        })
-    )
     
     //const [playlistData, setPlaylistData] = useState({} as any);
     let playlistQuery: { type: string, context: any } = {

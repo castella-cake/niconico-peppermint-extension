@@ -119,12 +119,14 @@ function CreateWatchUI() {
             getData(playlistJson)
         }
         if (videoInfo.data && (playlistData.type === "none" || (playlistData.type === "custom" && playlistData.items.length < 2))) {
+            const ownerName = videoInfo.data.response.owner && videoInfo.data.response.owner.nickname
+            const channelName = videoInfo.data.response.channel && videoInfo.data.response.channel.name
             setPlaylistData({ type: "custom", items: [
                 {
                     title: videoInfo.data.response.video.title,
                     id: videoInfo.data.response.video.id,
                     itemId: crypto.randomUUID(),
-                    ownerName: ( videoInfo.data.response.owner ? videoInfo.data.response.owner.nickname : "非公開または退会済みユーザー" ),
+                    ownerName: ownerName ?? channelName ?? "非公開または退会済みユーザー",
                     duration: videoInfo.data.response.video.duration,
                     thumbnailUrl: videoInfo.data.response.video.thumbnail.middleUrl
                 }
