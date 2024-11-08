@@ -84,8 +84,7 @@ export default defineContentScript({
             });
             observer.observe(head, { childList: true, subtree: true });
             
-            const userAgent = window.navigator.userAgent.toLowerCase();
-            if (userAgent.indexOf("chrome") == -1 || syncStorage.pmwforcepagehls) {
+            if (import.meta.env.FIREFOX || syncStorage.pmwforcepagehls) {
                 const script = document.createElement("script");
                 script.src = browser.runtime.getURL("/watch_injector.js");
                 script.setAttribute("pmw-isplugin", "true");
