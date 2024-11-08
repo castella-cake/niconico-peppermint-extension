@@ -94,7 +94,7 @@ h1 {
 
 .title>a {
 	font-size: 24px;
-	font-weight: bold;
+	//font-weight: bold;
 	text-decoration: none;
 	margin-right: 8px;
 	line-height: 24px;
@@ -138,7 +138,7 @@ h1 {
 	display: flex;
 }
 .optlink {
-	font-weight: lighter !important;
+	//font-weight: lighter !important;
 	color: inherit
 }
 .titlelink {
@@ -454,6 +454,26 @@ tr td:nth-child(7) {
 }
 .quickoption-button-add:hover {
 	background: var(--hover3);
+}
+
+.settings-anchors {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0.5em;
+    flex-wrap: wrap;
+}
+
+.settings-anchor-item {
+    color: var(--textcolor1);
+    text-decoration: none;
+    background: var(--bgcolor3);
+    padding: 4px 4px;
+    white-space: nowrap;
+    border-radius: 4px;
+}
+
+.settings-anchor-item:hover {
+    background: var(--hover1);
 }
 
 @media (prefers-color-scheme: dark) {

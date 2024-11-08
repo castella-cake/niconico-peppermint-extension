@@ -69,15 +69,21 @@ function createSettingsRow(setting: setting) {
 function CreateSettingsList({settings}: {settings: settingList}) {
     const lang: any = useLang()
 
+    const anchorArray = Object.keys(settings).map((elem) => {
+        return <a className="settings-anchor-item" href={`#${elem}`} key={`anchor-${elem}`}>{lang.SETTINGS_AREATITLE[elem] ?? elem}</a>
+    })
     const elemArray = Object.keys(settings).map((elem) => {
         const settingsAreaElems = settings[elem].map((settingsElem) => {
             //console.log(settingsElem)
             return createSettingsRow(settingsElem)
         })
-        return <div className="settings-area" key={elem}><h1>{lang.SETTINGS_AREATITLE[elem] ?? elem}</h1>{settingsAreaElems}</div>
+        return <div className="settings-area" key={elem} id={elem}><h1>{lang.SETTINGS_AREATITLE[elem] ?? elem}</h1>{settingsAreaElems}</div>
     })
     //console.log(elemArray)
-    return <>{ elemArray }</>
+    return <>
+        { Object.keys(settings).length > 1 && <div className="settings-anchors">{anchorArray}</div> }
+        { elemArray }
+    </>
 }
 
 
