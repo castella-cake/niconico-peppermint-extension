@@ -21,6 +21,7 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabl
     const hlsRef = useRef(null)
     useEffect(() => {
         async function getSrc() {
+            if (!isEnabled) return
             if (
                 videoInfo.data && 
                 videoInfo.data.response && 
@@ -28,8 +29,7 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabl
                 videoInfo.data.response.media.domand && 
                 videoInfo.data.response.media.domand.accessRightKey &&
                 videoInfo.data.response.media.domand.videos &&
-                videoInfo.data.response.media.domand.audios &&
-                isEnabled
+                videoInfo.data.response.media.domand.audios
             ) {
                 const accessRightKey = videoInfo.data.response.media.domand.accessRightKey
                 const availableVideoQuality = videoInfo.data.response.media.domand.videos
@@ -78,6 +78,8 @@ export function useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, isEnabl
                 } else if (videoRef.current.canPlayType('application/vnd.apple.mpegurl')) {
                     videoRef.current.src = hlsResponse.data.contentUrl;
                 }
+            } else {
+                videoRef.current.src = "";
             }
         }
         getSrc()

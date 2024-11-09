@@ -19,6 +19,7 @@ import { EndCard } from "./PlayerUI/EndCard";
 import { useAudioEffects } from "@/hooks/eqHooks";
 import { useStorageContext } from "@/hooks/extensionHook";
 import { useInterval } from "@/hooks/commonHooks";
+import { PPVScreen } from "./PlayerUI/PPVScreen";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -85,7 +86,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     });
 
     const isLoudnessEnabled = localStorage.playersettings.enableLoudnessData ?? true
-    const integratedLoudness = videoInfo.data?.response.media.domand.audios[0].loudnessCollection[0].value ?? 1
+    const integratedLoudness = (videoInfo.data?.response.media.domand && videoInfo.data?.response.media.domand?.audios[0].loudnessCollection[0].value) ?? 1
     const loudnessData = isLoudnessEnabled ? integratedLoudness : 1
     const { updateEqualizer, updateEcho, updatePreampGain } = useAudioEffects(videoRef, frequencies, effectsState, loudnessData);
 
@@ -118,7 +119,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     }, [])
 
     useEffect(() => {
-        if (!videoInfo.data || !videoRef.current || !videoInfo.data.response.player.initialPlayback) return
+        if (!videoInfo.data || !videoRef.current || !videoInfo.data.response.player.initialPlayback || localStorage.playersettings.enableResumePlayback === false) return
         videoRef.current.currentTime = videoInfo.data.response.player.initialPlayback?.positionSec
     }, [videoInfo])
 
@@ -282,6 +283,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             </CSSTransition>
             { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/> }
             <EndCard videoInfo={videoInfo} videoRef={videoRef}/>
+            <PPVScreen videoInfo={videoInfo}/>
         </VideoPlayer>
         <div className="player-bottom-container">
             <PlayerController

@@ -58,6 +58,12 @@ const settings: { [key: string]: setting } = {
         name: "スコアに基づくコメントNGレベル",
         texts: ["なし","低 (< -10000)","中 (< -4800)","高 (< -1000)"],
     },
+    enableResumePlayback: {
+        type: "checkbox",
+        defaultValue: true,
+        name: "レジューム再生",
+        hint: "プレミアム会員資格が必要です。"
+    },
     enableCommentPiP: {
         type: "checkbox",
         defaultValue: false,
@@ -72,7 +78,7 @@ const settings: { [key: string]: setting } = {
         type: "checkbox",
         defaultValue: true,
         name: "モニターサイズのフルスクリーンを使用",
-    }
+    },
 }
 
 function Settings({ isStatsShown, setIsStatsShown, nodeRef }: {isStatsShown: boolean, setIsStatsShown: Dispatch<SetStateAction<boolean>>, nodeRef: RefObject<HTMLDivElement>}) {

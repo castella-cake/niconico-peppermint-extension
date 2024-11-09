@@ -41,7 +41,7 @@ interface Response {
     videoAds: VideoAds;
     // ライブ公開のオブジェクト？
     videoLive: any;
-    viewer: ViewerInfo;
+    viewer?: ViewerInfo;
     waku: Waku;
 }
 
@@ -286,10 +286,10 @@ interface Payment {
 }
 
 interface Preview {
-    ppv: Ichiba;
-    admission: Ichiba;
-    continuationBenefit: Ichiba;
-    premium: Ichiba;
+    ppv: IsEnabled;
+    admission: IsEnabled;
+    continuationBenefit: IsEnabled;
+    premium: IsEnabled;
 }
 
 interface Video2 {
@@ -319,7 +319,7 @@ interface ViewerFollowing {
 }
 
 interface Media {
-    domand: Domand;
+    domand?: Domand;
     delivery: null;
     deliveryLegacy: null;
 }
@@ -373,10 +373,10 @@ interface Genre {
 
 interface External {
     commons: Commons;
-    ichiba: Ichiba;
+    ichiba: IsEnabled;
 }
 
-interface Ichiba {
+interface IsEnabled {
     isEnabled: boolean;
 }
 
