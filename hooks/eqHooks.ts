@@ -1,5 +1,5 @@
+import { effectsState } from "@/components/PMWatch/modules/Player";
 import { useRef, useEffect, RefObject } from "react";
-import { effectsState } from "../PMWatch/modules/Player";
 
 function returnQValue(center: number, next: number | null, prev: number | null) {
     const f0 = center; // 中心周波数

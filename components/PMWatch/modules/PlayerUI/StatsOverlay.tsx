@@ -26,14 +26,14 @@ export function StatsOverlay({ videoInfo, hlsRef, videoRef }: { videoInfo: Video
         <br/>
         <br/>
         取得した動画クオリティ: <br/>
-        {videoInfo.data?.response.media.domand.videos.map(elem => {
+        {videoInfo.data?.response.media.domand?.videos.map(elem => {
             return <span key={`videoq-${elem.id}`}>
                 {`ID: ${elem.id} - ${elem.width}x${elem.height} (${elem.label} / ${elem.bitRate}bps)`}<br/>
             </span>;
         })}
         <br/>
         取得した音声クオリティ: <br/>
-        {videoInfo.data?.response.media.domand.audios.map(elem => {
+        {videoInfo.data?.response.media.domand?.audios.map(elem => {
             return <span key={`audioq-${elem.id}`}>{`ID: ${elem.id} - ${elem.bitRate}bps / ${elem.samplingRate}Hz`}<br/></span>;
         })}
     </div>
