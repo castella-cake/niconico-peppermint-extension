@@ -18,6 +18,50 @@ export type settingList = {
     [categoryName: string]: setting[]
 }
 const settings: settingList = {
+    global: [
+        {
+            type: "select",
+            name: "darkmode",
+            values: ["", "pmcolor", "spcolor", "nordcolor", "black", "cybernight", "custom"],
+            default: "",
+            settingLink: {
+                name: "DARKMODE_CUSTOMPALETTE_LINK",
+                href: "customcolorpalette.html"
+            },
+            children: [{
+                type: "checkbox",
+                name: "darkmodedynamic",
+                default: false,
+            }],
+        },
+        {
+            type: "select",
+            name: "headerbg",
+            values: ["", "gradient", "custom"],
+            default: "",
+            children: [
+                {
+                    type: "inputString",
+                    name: "headercolor",
+                    default: "#252525",
+                },
+            ],
+        },
+        {
+            type: "checkbox",
+            name: "enableseriesstock",
+            default: false,
+        },
+        {
+            type: "checkbox",
+            name: "enablecustomvideotop",
+            default: false,
+            settingLink: {
+                name: "CUSTOMVIDTOP_CONFIGURE_LINK",
+                href: "customvideotop.html"
+            },
+        },
+    ],
     hide: [
         {
             type: "checkbox",
@@ -54,117 +98,20 @@ const settings: settingList = {
     ],
     watchpage: [
         {
-            type: "desc",
-            name: "featurenotavailable_newwatchpage",
-            href: "https://www.cyakigasi.net/niconico/2024/peppermint-niconico-restore-affect/"
-        },
-        {
             type: "checkbox",
             name: "enablewatchpagereplace",
             default: false,
         },
-                {
-            type: "checkbox",
-            name: "pmwforcepagehls",
-            default: false,
-        },
-        /*{
-            type: "select",
-            name: "watchpagetheme",
-            values: ["","mint","harazyuku"],
-            default: ""
-        },
-        {
-            type: "select",
-            name: "playertheme",
-            values: ["", "harazyuku", "rc1", "rc1plus", "ginza", "mint"],
-            default: "",
-        },
-        {
-            type: "select",
-            name: "playerstyleoverride",
-            values: ["", "harazyuku", "rc1", "rc1dark", "ginza", "mint", "none"],
-            default: "",
-        },
-        {
-            type: "inputNumber",
-            name: "commentrow",
-            min: 1,
-            max: 32,
-            default: 1,
-        },
-        {
-            type: "select",
-            name: "replacemarqueecontent",
-            values: ["", "ranking", "blank"],
-            default: "",
-        },
         {
             type: "checkbox",
-            name: "highlightlockedtag",
+            name: "watchhideknowntitle",
             default: false,
         },
         {
             type: "checkbox",
-            name: "cleanvidowner",
+            name: "usenativedarkmode",
             default: false,
-        },
-        {
-            type: "checkbox",
-            name: "shortcutassist",
-            default: false,
-            children: [{
-                type: "checkbox",
-                name: "excommander",
-                default: false,
-            }]
-        },
-        {
-            type: "checkbox",
-            name: "usetheaterui",
-            default: false,
-            children: [{
-                type: "checkbox",
-                name: "disabletheaterpalette",
-                default: false,
-            }]
-        },
-        {
-            type: "checkbox",
-            name: "enablenicoboxui",
-            default: false,
-        },
-        {
-            type: "checkbox",
-            name: "usenicoboxui",
-            default: false,
-            children: [{
-                type: "checkbox",
-                name: "useoldnicoboxstyle",
-                default: false,
-            }]
-        },
-        {
-            "type": "select",
-            "name": "skipkokenending",
-            default: "",
-            values: ["", "onboxui", "always"],
-        },
-        {
-            type: "checkbox",
-            name: "quickvidarticle",
-            default: false,
-        },
-        {
-            type: "checkbox",
-            name: "enablemisskeyshare",
-            default: false,
-            settingLink: {
-                name: "MISSKEYSHARE_CONFIGURE_LINK",
-                href: "setmkinstance.html"
-            }
-        },
-        */
+        }
     ],
     mintwatch: [
         {
@@ -178,6 +125,11 @@ const settings: settingList = {
             name: "pmwplayertype",
             values: ["default", "html5", "shinjuku"],
             default: "default"
+        },
+        {
+            type: "checkbox",
+            name: "pmwforcepagehls",
+            default: false,
         },
     ],
     nicopedia: [
@@ -242,36 +194,6 @@ const settings: settingList = {
             name: "vidtoptwocolumn",
             default: false,
         },
-    ],
-    global: [
-        {
-            type: "select",
-            name: "darkmode",
-            values: ["", "pmcolor", "spcolor", "nordcolor", "black", "cybernight", "custom"],
-            default: "",
-            settingLink: {
-                name: "DARKMODE_CUSTOMPALETTE_LINK",
-                href: "customcolorpalette.html"
-            },
-            children: [{
-                type: "checkbox",
-                name: "darkmodedynamic",
-                default: false,
-            }],
-        },
-        {
-            type: "select",
-            name: "headerbg",
-            values: ["", "gradient", "custom"],
-            default: "",
-            children: [
-                {
-                    type: "inputString",
-                    name: "headercolor",
-                    default: "#252525",
-                },
-            ],
-        },
         {
             type: "checkbox",
             name: "enablevisualpatch",
@@ -281,25 +203,6 @@ const settings: settingList = {
             type: "checkbox",
             name: "enablespredirect",
             default: false,
-        },
-        {
-            type: "checkbox",
-            name: "enableseriesstock",
-            default: false,
-            children: [{
-                type: "checkbox",
-                name: "showseriesstockinpage",
-                default: false,
-            }],
-        },
-        {
-            type: "checkbox",
-            name: "enablecustomvideotop",
-            default: false,
-            settingLink: {
-                name: "CUSTOMVIDTOP_CONFIGURE_LINK",
-                href: "customvideotop.html"
-            },
         },
     ],
     quickpanel: [
