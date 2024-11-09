@@ -14,7 +14,11 @@ export default defineContentScript({
         const livePathnameWhiteList = ["/focus", "/recent", "/timetable"]
         function createFastCSSRule(result: { [key: string]: any }) {
             // #region HTML要素用のパレット設定
-            if (result.darkmode && !(result.darkmodedynamic === true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) && locationWhiteList.includes(location.hostname)) {
+            if (result.darkmode
+                && !(result.darkmodedynamic === true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)
+                && locationWhiteList.includes(location.hostname)
+                && !(location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/watch") && result.usenativedarkmode)
+            ) {
                 document.documentElement.classList.add('PMDM-Assist')
                 if (result.darkmode === 'custom' && result.customcolorpalette !== undefined) {
                     Object.keys(result.customcolorpalette).forEach(elem => {
@@ -78,6 +82,9 @@ export default defineContentScript({
                 }
                 if ( location.pathname.startsWith("/ranking") && result.hiderankpagead === true ) {
                     document.documentElement.classList.add('PM-HideRankingPageNiconiAdRow')
+                }
+                if ( location.pathname.startsWith("/watch") && result.watchhideknowntitle === true ) {
+                    document.documentElement.classList.add('PM-HideKnownTitle')
                 }
             }
             if ( location.hostname === "sp.nicovideo.jp" && location.pathname.startsWith("/watch") ) {
