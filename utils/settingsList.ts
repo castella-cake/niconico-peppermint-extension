@@ -20,6 +20,10 @@ export type settingList = {
 const settings: settingList = {
     global: [
         {
+            type: "desc",
+            name: "globaldesc"
+        },
+        {
             type: "select",
             name: "darkmode",
             values: ["", "pmcolor", "spcolor", "nordcolor", "black", "cybernight", "custom"],
@@ -64,6 +68,10 @@ const settings: settingList = {
     ],
     hide: [
         {
+            type: "desc",
+            name: "hidedesc"
+        },
+        {
             type: "checkbox",
             name: "hiderankpagead",
             default: false,
@@ -98,6 +106,10 @@ const settings: settingList = {
     ],
     watchpage: [
         {
+            type: "desc",
+            name: "watchpagedesc"
+        },
+        {
             type: "checkbox",
             name: "enablewatchpagereplace",
             default: false,
@@ -114,6 +126,10 @@ const settings: settingList = {
         }
     ],
     mintwatch: [
+        {
+            type: "desc",
+            name: "mintwatchdesc"
+        },
         {
             type: "select",
             name: "pmwlayouttype",
@@ -133,6 +149,10 @@ const settings: settingList = {
         },
     ],
     nicopedia: [
+        {
+            type: "desc",
+            name: "nicopediadesc"
+        },
         {
             type: "select",
             name: "hidereputation",
@@ -175,6 +195,10 @@ const settings: settingList = {
     ],
     other: [
         {
+            type: "desc",
+            name: "otherdesc"
+        },
+        {
             type: "checkbox",
             name: "alignpagewidth",
             default: false,
@@ -206,6 +230,10 @@ const settings: settingList = {
         },
     ],
     quickpanel: [
+        {
+            type: "desc",
+            name: "quickpaneldesc"
+        },
         {
             type: "checkbox",
             name: "enableseriesstocktab",
