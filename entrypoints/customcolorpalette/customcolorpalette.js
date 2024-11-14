@@ -1,15 +1,4 @@
-$('a').on('click', function (e) {
-    if ($(this).attr('target') != "_blank") {
-        e.preventDefault();
-        $('body').css({
-            'animation': 'fadeout 0.1s ease forwards 0s',
-        })
-        let href = $(this).attr('href')
-        setTimeout(function () {
-            location.href = href
-        }, 100)
-    }
-})
+import $ from 'jquery'
 
 // button がclickされたときに発火！！！！(前はsubmitだったけど必要ないと思ったのでclickへ)
 function saveOptions() {
@@ -41,6 +30,8 @@ function saveOptions() {
             nicoru3: $("#input-nicoru3").val(),
             nicoru4: $("#input-nicoru4").val(),
             dangerous1: $("#input-dangerous1").val(),
+            likecolor: $("#input-likecolor").val(),
+            likebg: $("#input-likebg").val(),
         }
     });
     let getStorageData = browser.storage.sync.get(null);
@@ -82,6 +73,8 @@ function restoreOptions() {
             $("#input-nicoru3").val(result.customcolorpalette.nicoru3 || "");
             $("#input-nicoru4").val(result.customcolorpalette.nicoru4 || "");
             $("#input-dangerous1").val(result.customcolorpalette.dangerous1 || "");
+            $("#input-likecolor").val(result.customcolorpalette.likecolor || "");
+            $("#input-likebg").val(result.customcolorpalette.likebg || "");
         }
     }
     let getStorageData = browser.storage.sync.get(null);

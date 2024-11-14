@@ -1,16 +1,5 @@
 import $ from 'jquery'
 
-$('a').on('click', function(e) {
-    e.preventDefault();
-    $('body').css({
-        'animation': 'fadeout 0.1s ease forwards 0s',
-    })
-    let href = $(this).attr('href')
-    setTimeout(function() {
-        location.href = href
-    }, 100)
-})
-
 //console.log('hello!')
 
 function appendTableRow(dispstat, contentname, contentclass) {
