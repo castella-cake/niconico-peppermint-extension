@@ -102,7 +102,7 @@ export default defineContentScript({
                         if (location.pathname.indexOf('/video_top') != -1) {
                             //console.log('vidtop')
                             //addCSS(browser.runtime.getURL("style/css/darkmode/video_top.css"), true);
-                            if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
+                            if ((result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) && result.darkmode !== "nordlight") {
                                 pushCSSRule('.RankingVideosContainer .ColumnTitle-icon,.ViewHistoriesContainer .ColumnTitle-icon,.NicoadVideosContainer .ColumnTitle-icon,.HotTagsContainer .ColumnTitle-icon,.NewArrivalVideosContainer .ColumnTitle-icon,.NewsNotificationContainer-column[data-sub-column="maintenance"] .ColumnTitle-icon {filter: brightness(5.0)}')
                             }
                         } else if (location.pathname.indexOf('/ranking') != -1) {

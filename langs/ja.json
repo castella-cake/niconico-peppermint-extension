@@ -188,7 +188,7 @@
         "darkmode": {
             "name": "ダークモード/カラーパレット",
             "hint": "ページに指定したカラーパレットを使用します。現在はニコニコ動画と生放送の一部ページにのみ対応しています。\n「ブラウザーに追従」を有効化した場合、ブラウザーがライトモードの場合はダークモードを使用しません。",
-            "select": ["デフォルト", "PMDark", "SPDark", "NordNight", "SolidBlack", "CyberNight", "カスタム設定"]
+            "select": ["デフォルト", "PMDark", "SPDark", "NordNight", "NordSnow", "SolidBlack", "CyberNight", "カスタム設定"]
         },
             "darkmodedynamic": {
                 "name": "ブラウザーに追従",

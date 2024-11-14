@@ -41,7 +41,7 @@ export default defineContentScript({
                     //addCSS(browser.runtime.getURL("style/css/darkmode/" + result.darkmode + ".css"));
                 }
                 if ( locationWhiteList.includes(location.hostname) ) {
-                    if (result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) {
+                    if ((result.darkmode != "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) && result.darkmode !== "nordlight") {
                         $('.NiconicoLogo_black').addClass('NiconicoLogo_white')
                         $('.NiconicoLogo_black').removeClass('NiconicoLogo_black')
                         $('.NicovideoLogo[data-color="black"]').attr('data-color',"white")

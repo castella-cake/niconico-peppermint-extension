@@ -26,7 +26,7 @@ const settings: settingList = {
         {
             type: "select",
             name: "darkmode",
-            values: ["", "pmcolor", "spcolor", "nordcolor", "black", "cybernight", "custom"],
+            values: ["", "pmcolor", "spcolor", "nordcolor", "nordlight", "black", "cybernight", "custom"],
             default: "",
             settingLink: {
                 name: "DARKMODE_CUSTOMPALETTE_LINK",
@@ -133,7 +133,7 @@ const settings: settingList = {
         {
             type: "select",
             name: "pmwlayouttype",
-            values: ["recresc", "renew", "stacked", "3col", "shinjuku","gridtest"],
+            values: ["recresc", "renew", "stacked", "3col", "shinjuku"],
             default: "recresc"
         },
         {
