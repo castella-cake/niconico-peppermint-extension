@@ -46,7 +46,6 @@ a {
     gap: 16px;
     justify-content: center;
     margin: 0 auto;
-    max-width: 98vw;
     .watch-container-top {
         flex-basis: 100%;
         margin: 0 7.5%;
@@ -86,6 +85,11 @@ a {
         background: var(--textcolor3)
         border-radius: var(--radius-mini);
         margin: 0 4px;
+    }
+}
+@css {
+    .watch-container {
+        max-width: round(98vw, 1px)
     }
 }
 
@@ -146,6 +150,7 @@ a {
         background: var(--bgcolor2);
         font-weight: bold;
         font-size: 1em;
+        border-top: 2px solid var(--linktext3);
     }
 }
 /*
@@ -238,7 +243,6 @@ a {
     display: grid; 
     width: 100%;
     grid-auto-rows: 1fr; 
-    grid-template-columns: 1fr 8% calc(18% + var(--padding) / 2);
     grid-template-rows: repeat(3, max-content);
     gap: 0.5em 0.5em; 
     /*grid-template-areas: 
@@ -252,6 +256,7 @@ a {
 
 @css {
     html.PMW-Enabled .watch-container-grid {
+        grid-template-columns: 1fr round(8%, 1px) round(calc(18% + var(--padding) / 2), 1px);
         margin: 0 round(var(--padding), 1px); /*小数点以下のpaddingを丸める。video要素が微妙にずれるのが緩和される。*/
     }
 }
@@ -272,7 +277,7 @@ a {
 
 [watch-type="shinjuku"] .watch-container-grid {
     grid-template-rows: repeat(6, max-content);
-    grid-template-areas: "sch sch sch" "inf inf own" "inf inf sac" "spl spl spl" "rec rec rec" "btm btm btm" "btm btm btm";
+    grid-template-areas: "shr shr shr" "inf inf own" "inf inf sac" "spl spl spl" "rec rec rec" "btm btm btm" "btm btm btm";
 }
 
 .watch-container-grid {

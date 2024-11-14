@@ -38,6 +38,7 @@ function BottomInfo({videoInfo}: Props) {
     }
 
     return <div className="videoinfo-container bottominfo-container" id="pmw-bottominfo">
+        <SeriesInfo videoInfo={videoInfo}/>
         <div className="videoinfo-title">コンテンツツリー</div>
         <div className="contenttree-kind-container">
             <div className="contenttree-title">親作品</div>
@@ -55,7 +56,6 @@ function BottomInfo({videoInfo}: Props) {
                 }) : <div className="contenttree-nothinghere">子作品は何も登録されていません</div>}
             </div>
         </div>
-        <SeriesInfo videoInfo={videoInfo}/>
     </div>
 }
 

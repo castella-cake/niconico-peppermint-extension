@@ -61,6 +61,7 @@
     }
 
     .stacker-tabbutton.stacker-tabbutton-active {
+        border-top: 3px solid var(--textcolor3);
         border-bottom: 3px solid transparent;
     }
 
@@ -72,7 +73,7 @@
         border: 3px solid var(--textcolor3);
     }
 
-    .video-actions button {
+    .video-actions button, .video-actions button.video-action-likebutton.active {
         background-image: linear-gradient(#4f4f4f, #101010);
         color: #fff;
         border: 1px solid #000;
@@ -87,6 +88,7 @@
         margin-bottom: 0;
         height: fit-content;
         align-self: end;
+        justify-content: right;
     }
 
     .video-actions button svg {
@@ -221,11 +223,53 @@
         }
     }
 
+    .videoinfo-container {
+        padding: 0;
+    }
+
     .uploaddate {
         color: var(--textcolor2);
         span {
             font-weight: bold;
             color: var(--textcolor1);
         }
+    }
+
+    .hrjk-header {
+        grid-area: shr;
+        display: flex;
+        gap: 1em;
+        align-items: center;
+
+        .harajuku-logo {
+            display: block;
+            height: max-content;
+            > img {
+                filter: var(--hrjk-logo-filter);
+                height: 100%;
+                width: auto;
+            }
+        }
+        .harajuku-header-migiue-filler {
+            background: #0001;
+            flex: 1;
+            height: 100%;
+            margin-left: 20%;
+            text-align: center;
+            line-height: 100%;
+            color: #0002;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    .searchbox-inputcontainer input {
+        padding: 6px;
+    }
+
+    .searchbox-type-item {
+        font-size: 0.8em;
+        padding: 2px 8px !important;
     }
 }

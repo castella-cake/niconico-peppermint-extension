@@ -1,0 +1,81 @@
+.fullscreen .watch-container[is-bigview="true"] {
+    //animation: sidebarslideleft 0.25s ease forwards 1;
+    --right-width: 25%;
+    --component-bg: transparent;
+    .watch-container-grid {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: 0;
+        background: var(--bgcolor1);
+        grid-template-areas: "vid act" "vid act" "inf act" "inf act";
+        grid-template-columns: 1fr var(--right-width);
+        gap: 0;
+    }
+    &[watch-type="shinjuku"] .watch-container-grid {
+        grid-template-areas: "spl act" "inf act";
+        grid-template-rows: max-content 1fr;
+    }
+    .videoinfo-container, .video-actions, .stacker-container {
+        transition: opacity 0.3s ease;
+        opacity: 1 !important;
+    }
+    .watch-container-grid:has(.player-container[is-dynamic-controller="true"][is-cursor-stopped="true"]):has(.player-video-container:hover) {
+        // フルスクリーンでダイナミック表示時にカーソルが動いていない
+        .videoinfo-container, .video-actions {
+            transition: opacity 3s linear;
+            opacity: 0.2 !important;
+        }
+        .stacker-container {
+            transition: opacity 3s linear;
+            opacity: 0.5 !important;
+        }
+    }
+    .videoinfo-container.bottominfo-container, .searchbox-container, .recommend-wrapper, .videoowner-container, .watch-container-grid > .video-actions {
+        display: none;
+    }
+
+    .commentinput-container {
+        width: auto;
+    }
+
+    .player-container {
+        padding: 0;
+        background: var(--component-bg);
+        border: none;
+    }
+
+    .watch-container-rightaction {
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: var(--right-width);
+    }
+
+    .videoinfo-container {
+        overflow: auto;
+        background: var(--component-bg);
+        border: none;
+    }
+    .stacker-content {
+        border: none;
+        --radius: 0;
+    }
+
+    .commentlist-container, .video-actions {
+        background: var(--component-bg);
+    }
+}
+
+@keyframes sidebarslideleft {
+    from {
+        --right-width: 0%
+    }
+    to {
+        --right-width: 25%
+    }
+}
+

@@ -25,7 +25,18 @@
             white-space: nowrap;
         }
     }
+}
 
+.watch-container:not([watch-type="shinjuku"]) .video-actions {
+    > .video-action-likebutton svg.tabler-icon-heart-filled {
+        color: var(--like-color, #FF5588);
+    }
+    > .video-action-likebutton[is-liked="true"] {
+        border: 1px solid var(--like-color, #FF5588);
+        background: var(--like-bg, #502834);
+    }
+}
+.video-actions {
     > button.video-action-disabled {
         color: var(--bgcolor4);
     }
@@ -36,6 +47,7 @@
         cursor: pointer;
     }
 }
+
 
 .video-action-likethanks-outercontainer {
     position: absolute;

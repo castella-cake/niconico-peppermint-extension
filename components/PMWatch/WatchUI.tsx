@@ -13,7 +13,7 @@ import Playlist, { playlistData, mylistToSimplifiedPlaylist, seriesToSimplifiedP
 import { mylistContext, playlistQueryData } from "@/types/playlistQuery";
 //import { MylistResponseRootObject } from "./watch/types/mylistData";
 import { SeriesResponseRootObject } from "@/types/seriesData";
-import { Owner, Stats } from "./modules/ShinjukuUI";
+import { NicoHarajukuLogo, Owner, Stats } from "./modules/ShinjukuUI";
 import { useRecommendData, useWatchData } from "@/hooks/apiHooks";
 import { MintConfig } from "./modules/MintConfig";
 import { CSSTransition } from "react-transition-group";
@@ -252,6 +252,7 @@ function CreateWatchUI() {
     const bottomInfoElem = <BottomInfo videoInfo={videoInfo} key="watchui-bottominfo"/>
     const searchElem = <Search key="watchui-search" />
     const ownerElem = <Owner videoInfo={videoInfo} key="watchui-owner"/>
+    const hrjkLogoElem = <div className="hrjk-header"><NicoHarajukuLogo key="watchui-hrjklogo"/>{searchElem}<div className="harajuku-header-migiue-filler">MintWatch</div></div>
 
     const layoutPresets: {
         [key: string]: JSX.Element[]
@@ -260,8 +261,7 @@ function CreateWatchUI() {
         "recresc": [infoElem, searchElem, playerElem, rightActionElem, recommendElem, bottomInfoElem],
         "stacked": [playerElem, bottomInfoElem, searchElem, rightActionElem, recommendElem],
         "3col": [titleElem, infoElem, playerElem, rightActionElem, recommendElem, bottomInfoElem, searchElem],
-        "shinjuku": [searchElem, infoElem, ownerElem, actionsElem, combinedPlayerElem, recommendElem, bottomInfoElem],
-        "gridtest": [infoElem, searchElem, playerElem, rightActionElem, bottomInfoElem, recommendElem],
+        "shinjuku": [hrjkLogoElem, infoElem, ownerElem, actionsElem, combinedPlayerElem, recommendElem, bottomInfoElem],
     }
 
     const currentLayout = layoutPresets[layoutType]
@@ -300,12 +300,13 @@ function CreateWatchUI() {
     const shouldUseCardRecommend = !( layoutType === watchLayoutType.Stacked || layoutType === watchLayoutType.reimaginedNewWatch ) ? "true" : "false"
     const shouldUseHorizontalSearchLayout = !(layoutType === watchLayoutType.shinjuku || layoutType === watchLayoutType.reimaginedOldWatch) ? "true" : "false"
     const shouldUseCardInfo = !( layoutType === watchLayoutType.reimaginedOldWatch || layoutType === watchLayoutType.shinjuku ) ? "true" : "false"
+    const shouldUseBigView = localStorage.playersettings.enableBigView ?? false
 
     return <div className={isFullscreenUi ? "container fullscreen" : "container"} >
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
         { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer} setIsMintConfigShown={setIsMintConfigShown}/> }
         <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart} sensors={sensors}>
-        <div className="watch-container" watch-type={layoutType} settings-size={playerSize} use-card-recommend={shouldUseCardRecommend} use-horizontal-search={shouldUseHorizontalSearchLayout} use-card-info={shouldUseCardInfo} id="pmw-container" onClickCapture={(e) => {linkClickHandler(e)}}>
+        <div className="watch-container" is-bigview={shouldUseBigView ? "true" : "false"} watch-type={layoutType} settings-size={playerSize} use-card-recommend={shouldUseCardRecommend} use-horizontal-search={shouldUseHorizontalSearchLayout} use-card-info={shouldUseCardInfo} id="pmw-container" onClickCapture={(e) => {linkClickHandler(e)}}>
             <div className="watch-container-grid">
                 {currentLayout}
             </div>

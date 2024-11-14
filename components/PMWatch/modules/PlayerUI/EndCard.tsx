@@ -4,9 +4,12 @@ import { getPickupSupporters } from "../../../../utils/watchApi";
 import { PickupSupportersRootObject } from "@/types/pickupSupportersData";
 
 export function EndCard({ videoInfo, videoRef }: { videoInfo: VideoDataRootObject, videoRef: RefObject<HTMLVideoElement> }) {
+    const { localStorage } = useStorageContext()
     const [supportersInfo, setSupportersInfo] = useState<PickupSupportersRootObject | null>(null)
     const [currentTime, setCurrentTime] = useState<number>(0)
     const [duration, setDuration] = useState<number>(Infinity)
+
+    const audioElemRef = useRef<HTMLAudioElement>(null)
     useEffect(() => {
         async function getData() {
             if (!videoInfo.data) return
@@ -28,6 +31,13 @@ export function EndCard({ videoInfo, videoRef }: { videoInfo: VideoDataRootObjec
         videoRef.current.addEventListener("durationchange", onDurationChange)
     }, [videoRef.current])
 
+    useEffect(() => {
+        if (!audioElemRef.current) return
+
+        audioElemRef.current.volume = (localStorage.playersettings.volume ?? 50) * 0.01
+        audioElemRef.current.muted = localStorage.playersettings.isMuted ?? false
+    }, [localStorage.playersettings, audioElemRef.current])
+
     if (currentTime < duration) return null
 
     return <div className="endcard-container global-flex">
@@ -40,7 +50,7 @@ export function EndCard({ videoInfo, videoRef }: { videoInfo: VideoDataRootObjec
                 </span>
             })}
             </div>
-            { supportersInfo?.data && <audio autoPlay src={supportersInfo?.data.voiceUrl} controls/> }
+            { supportersInfo?.data && <audio autoPlay src={supportersInfo?.data.voiceUrl} controls ref={audioElemRef}/> }
         </div>
         <div className="endcard-right">
             Work in progress!

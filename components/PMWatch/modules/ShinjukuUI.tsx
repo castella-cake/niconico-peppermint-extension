@@ -13,7 +13,7 @@ function Clock() {
     useEffect(() => {
         const interval = setInterval(() => {
             const date = new Date()
-            setClockString(`${date.getMonth()}/${date.getDate()} (${weekDay[date.getDay()]}) ${date.toLocaleTimeString("en-GB")}`) // en-GBは24時間表記で返す(hh:mm:ss)
+            setClockString(`${date.getMonth() + 1}/${date.getDate()} (${weekDay[date.getDay()]}) ${date.toLocaleTimeString("en-GB")}`) // en-GBは24時間表記で返す(hh:mm:ss)
         }, 500)
         return () => clearInterval(interval)
     }, [])
@@ -38,7 +38,7 @@ export function Stats({ videoInfo }: Props) {
             </div>
         </div>
         <div className="videostat-right-container">
-            <div className="videostat-right-top-dummy">PepperMint+ Player</div>
+            <div className="videostat-right-top-dummy">MintWatch Player</div>
             <Clock/>
         </div>
     </div>
@@ -65,4 +65,10 @@ export function Owner({ videoInfo }: Props) {
             </div>
         </a>}
     </div>
+}
+
+export function NicoHarajukuLogo() {
+    return <a href="https://www.nicovideo.jp/video_top" className="harajuku-logo">
+        <img src="http://nicovideo.cdn.nimg.jp/uni/img/logo.gif" alt="ニコニコ動画"/>
+    </a>
 }

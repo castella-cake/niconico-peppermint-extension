@@ -12,7 +12,6 @@
     margin: 0;
     min-width: 16em;
     cursor: auto; // 動画の上で動いてない判定されてカーソルが見えなくならないように
-    overflow: auto;
 }
 .vefx-container-inner {
     padding: 16px;
@@ -20,6 +19,7 @@
     color: #000;
     height: 100%;
     backdrop-filter: blur(8px);
+    overflow: auto;
     > .vefx-slidercontainer {
         display: flex;
         input[type="range"] {

@@ -88,7 +88,7 @@ function Actions({videoInfo, children, onModalOpen}: Props) {
 
     return <div className="video-actions" id="pmw-videoactions">
         { /* row-reverse じゃなくなりました！！！！ */}
-        <button type="button" onClick={likeChange} onMouseEnter={() => setIsLikeHovered(true)} onMouseLeave={() => setIsLikeHovered(false)} className="video-action-likebutton" title="いいね！">
+        <button type="button" onClick={likeChange} onMouseEnter={() => setIsLikeHovered(true)} onMouseLeave={() => setIsLikeHovered(false)} className="video-action-likebutton" title="いいね！" is-liked={isLiked ? "true" : "false"}>
             {isLiked ? <IconHeartFilled/> : <IconHeart/>}
             <span>いいね！{readableInt(videoInfoResponse.video.count.like + temporalLikeModifier)}</span>
         </button>

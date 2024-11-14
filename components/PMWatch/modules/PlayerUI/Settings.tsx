@@ -24,9 +24,9 @@ const settings: { [key: string]: setting } = {
     },
     commentOpacity: {
         type: "select",
-        options: [0.5, 0.75, 1],
+        options: [0.25, 0.5, 0.75, 1],
         defaultValue: 1,
-        texts: ["薄い(50%)", "やや薄い(75%)", "透過なし"],
+        texts: ["非常に薄い(25%)", "薄い(50%)", "やや薄い(75%)", "透過なし"],
         name: "コメント透過",
         hint: "「PiPでコメントを表示」が有効の場合は使用できません。",
     },
