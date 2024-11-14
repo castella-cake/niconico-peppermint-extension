@@ -18,7 +18,7 @@ createRoot(rootElement).render(
                 <div className="title-container">
                     <div className="title toptitle"><a href="settings.html" target="_blank" rel="noopener noreferrer" className="optlink">PepperMint+ の設定</a></div>
                     <div className="titlelink-container">
-                        <a href="https://github.com/sponsors/castella-cake" target="_blank" rel="noopener noreferrer" className="titlelink">Sponsor</a>
+                        <a href="https://discord.com/invite/GNDtKuu5Rb" target="_blank" rel="noopener noreferrer" className="titlelink">Discord</a>
                         <a href="https://github.com/castella-cake/niconico-peppermint-extension/issues" target="_blank" rel="noopener noreferrer" className="titlelink">Feedback</a>
                     </div>
                 </div>
@@ -50,6 +50,7 @@ createRoot(rootElement).render(
                     Niconico-PepperMint+ <a href="https://github.com/castella-cake/niconico-peppermint-extension"target="_blank" rel="noopener noreferrer">Github Repo</a><br/>
                     Created by CYakigasi <a href="https://www.cyakigasi.net" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Website</a>
                     <a href="https://www.nicovideo.jp/user/92343354" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Niconico</a>
+                    <a href="https://discord.com/invite/GNDtKuu5Rb" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Discord</a>
                     <a href="https://www.cyakigasi.net/links" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>SNS Links(Misskey,Bluesky,Twitter...)</a> <br/>
                     <a href="credit.html" target="_self" className="settinglink">PepperMintについて...</a>    
                 </div>

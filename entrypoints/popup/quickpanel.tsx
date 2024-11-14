@@ -26,7 +26,7 @@ createRoot(rootElement).render(
                         </span>
                     </div>
                 <div className="titlelink-container">
-                    <a href="https://github.com/sponsors/castella-cake" target="_blank" rel="noopener noreferrer" className="titlelink">Sponsor</a>
+                    <a href="https://discord.com/invite/GNDtKuu5Rb" target="_blank" rel="noopener noreferrer" className="titlelink">Discord</a>
                     <a href="https://github.com/castella-cake/niconico-peppermint-extension/issues" target="_blank" rel="noopener noreferrer" className="titlelink">Feedback</a>
                 </div>
             </div>

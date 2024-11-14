@@ -8,7 +8,7 @@
 .MainContainer {
     display: flex;
     flex-direction: column;
-    padding: 32px;
+	padding: 1%;
     background-color: #00000002;
     border-radius: 16px;
     width: 40vw;
@@ -17,9 +17,20 @@
     margin: auto 0;
 }
 .title {
+	display: flex;
+	align-items: center;
     font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 24px;
+    margin-bottom: 0.5em;
+	gap: 1em;
+	font-size: 1.8em;
+	
+}
+.title img {
+	width: 4em;
+	height: 4em;
+}
+.title span {
+	margin-top: 0.5em;
 }
 body {
     font-family: "Lato","Yu Gothic UI","Meiryo UI",sans-serif;
@@ -30,6 +41,7 @@ body {
     justify-content: center;
     height: 100vh;
     padding: 0px;
+	margin: 0;
 }
 body > * {
 	color-scheme: light dark;
@@ -47,11 +59,13 @@ body > * {
 	background: var(--primary);
 	box-shadow: 0px 0px 1px var(--primary-hover);
 	border-radius: 5px;
-	margin: 8px 0;
-	display: block;
+	margin: 0.1em 0;
+	margin-right: 1em;
+	margin-bottom: 1em;
 	text-align: center;
 	width: fit-content;
 	font-family: "SF Pro Text","Yu Gothic UI","Meiryo UI",sans-serif;
+	line-height: 1.3em;
 }
 .repolink {
     font-weight: bold;
@@ -62,20 +76,44 @@ body > * {
 	background: #ccc;
 	box-shadow: #afafaf;
 	border-radius: 5px;
-	margin: 8px 0;
-	display: block;
+	margin: 0.1em 0;
+	margin-right: 1em;
+	margin-bottom: 1em;
 	text-align: center;
 	width: fit-content;
 	font-family: "SF Pro Text","Yu Gothic UI","Meiryo UI",sans-serif;
+	display: inline;
+	line-height: 1.3em;
+}
+.multiplebutton {
+	margin-top: 0.5em;
+	margin-bottom: 1.5em;
 }
 .repolink:hover {
 	color: #000;
 	background: #bbb;
 }
 .snslink > a {
-	color: #666;
+	color: #999;
 	margin-right: 16px;
 }
+
+h2, p {
+    margin: 0;
+    margin-bottom: 0.5em;
+}
+
+h2 {
+	font-size: 1.2em;
+	border-left: 4px solid #999;
+	padding-left: 0.5em;
+	line-height: 1.8em;
+}
+
+p {
+	line-height: 1.5em
+}
+
 @media (prefers-color-scheme: dark) {
 	html,
 	body {

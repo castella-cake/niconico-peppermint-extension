@@ -19,10 +19,6 @@ main(){
             }
             if (
                 details.previousVersion.split(".")[0] != manifestData.version.split(".")[0]
-                || (
-                    details.previousVersion.split(".")[0] == "2" && details.previousVersion.split(".")[1] == "0" && 
-                    manifestData.version.split(".")[0] == "2" && manifestData.version.split(".")[1] == "1"
-                )
             ) {
                 browser.tabs.create({
                     url: browser.runtime.getURL("update.html")
