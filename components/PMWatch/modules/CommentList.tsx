@@ -6,7 +6,6 @@ import { VideoDataRootObject } from "@/types/VideoData";
 import { NicoruKeyResponseRootObject, NicoruPostBodyRootObject, NicoruPostResponseRootObject, NicoruRemoveRootObject } from "@/types/NicoruPostData";
 import { getNicoruKey, postNicoru, removeNicoru } from "../../../utils/watchApi";
 import { useStorageContext } from "@/hooks/extensionHook";
-import { useInterval } from "@/hooks/commonHooks";
 
 type scrollPos = {
     [vposSec: string]: RefObject<HTMLDivElement>
