@@ -82,6 +82,9 @@ html.PMDM-SearchPage {
         .itemDescription {
             color: var(--textcolor3);
         }
+        .itemTime {
+            color: var(--textcolor2);
+        }
     }
     .videoList01 .itemContent .itemComment {
         border: var(--accent1) solid 2px;
@@ -93,7 +96,11 @@ html.PMDM-SearchPage {
         background: var(--accent1);
         border: 1px solid var(--accent2);
         color: var(--textcolor2);
+        &.active {
+            background: var(--bgcolor3);
+        }
     }
+
     .switchingBtn.expand, .switchingBtn:not(.columnChange):hover {
         background: var(--hover1);
     }
@@ -132,6 +139,20 @@ html.PMDM-SearchPage {
     .TagRelatedBannerBox {
         background-color: #40403a;
         border-top: 1px solid #60605a;
+    }
+
+    .videoRcolumn {
+        .itemTitle a:link {
+            color: var(--linktext1);
+        }
+
+        .itemDescription {
+            color: var(--textcolor2);
+        }
+    }
+
+    .nicopedia .itemDescription {
+        color: var(--textcolor3);
     }
     /* nicoadlist */
     .nicodicNicoadVideoList {
