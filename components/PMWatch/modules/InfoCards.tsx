@@ -35,11 +35,11 @@ export function Card({ href, thumbnailUrl, thumbText, ownerName, additionalClass
 
 export function VideoInfo({obj, additionalQuery, isNowPlaying, isNextVideo = false}: { obj: RecommendItem, additionalQuery?: string, isNowPlaying?: boolean, isNextVideo?: boolean }) {
     const thisVideoId = obj.id || ( obj.content && obj.content.id ) || null
-
+    
     if (!thisVideoId) return <div className="info-card">表示に失敗しました</div>
     return <Draggable id={thisVideoId.toString()} obj={obj}>
         <Card
-            thumbnailUrl={obj.content.thumbnail && obj.content.thumbnail.listingUrl}
+            thumbnailUrl={obj.content.thumbnail && (obj.content.thumbnail.listingUrl ?? obj.content.thumbnail.url ?? "")}
             thumbText={obj.content.duration ? secondsToTime(obj.content.duration) : "??:??"}
             ownerName={obj.content.owner.name}
             href={`https://www.nicovideo.jp/watch/${thisVideoId}${additionalQuery || ""}`}

@@ -128,7 +128,7 @@ function CreateWatchUI() {
                     itemId: crypto.randomUUID(),
                     ownerName: ownerName ?? channelName ?? "非公開または退会済みユーザー",
                     duration: videoInfo.data.response.video.duration,
-                    thumbnailUrl: videoInfo.data.response.video.thumbnail.middleUrl
+                    thumbnailUrl: videoInfo.data.response.video.thumbnail.middleUrl ?? videoInfo.data.response.video.thumbnail.url
                 }
             ] })
         }
