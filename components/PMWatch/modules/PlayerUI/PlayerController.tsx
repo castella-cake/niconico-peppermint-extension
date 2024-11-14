@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { IconAdjustments, IconAdjustmentsCheck, IconAdjustmentsFilled, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRepeat, IconRepeatOff, IconRewindBackward10, IconRewindForward10, IconSettings, IconSettingsFilled, IconVolume, IconVolume3 } from "@tabler/icons-react";
+import { IconAdjustments, IconAdjustmentsCheck, IconAdjustmentsFilled, IconLayoutSidebarRightCollapseFilled, IconLayoutSidebarRightExpand, IconMaximize, IconMessage2, IconMessage2Off, IconMinimize, IconPlayerPauseFilled, IconPlayerPlayFilled, IconPlayerSkipBack, IconPlayerSkipBackFilled, IconPlayerSkipForward, IconPlayerSkipForwardFilled, IconRepeat, IconRepeatOff, IconRewindBackward10, IconRewindForward10, IconSettings, IconSettingsFilled, IconVolume, IconVolume3 } from "@tabler/icons-react";
 import type { Dispatch, ReactNode, RefObject, SetStateAction } from "react";
 import Hls from "hls.js";
 import type { effectsState } from "../Player";
@@ -20,7 +20,7 @@ type Props = {
     setIsSettingsShown: Dispatch<SetStateAction<boolean>>,
     hlsRef: RefObject<Hls>,
     commentContent: CommentDataRootObject,
-    playlistIndexControl: (index: number) => void,
+    playlistIndexControl: (index: number, shuffleEnabled?: boolean) => void,
 }
 
 const playerTypes = {
@@ -211,12 +211,12 @@ function PlayerController({
 
     function onSkipBack() {
         onTimeControl("set", 0)
-        if (isIndexControl[0] === true) playlistIndexControl(-1)
+        if (isIndexControl[0] === true) playlistIndexControl(-1, localStorage.playersettings.enableShufflePlay)
     }
 
     function onSkipForward() {
         onTimeControl("set", video.duration)
-        if (isIndexControl[1] === true) playlistIndexControl(1)
+        if (isIndexControl[1] === true) playlistIndexControl(1, localStorage.playersettings.enableShufflePlay)
     }
 
 
@@ -280,7 +280,7 @@ function PlayerController({
     
     const togglePauseElem = <PlayerControllerButton key="control-togglepause" className="playercontroller-togglepause" onClick={() => {toggleStopState()}} title={ isIconPlay ? "再生" : "一時停止" }>{ isIconPlay ? <IconPlayerPlayFilled/> : <IconPlayerPauseFilled/> }</PlayerControllerButton>
 
-    const toggleLoopElem = <PlayerControllerButton key="control-toggleloop"className="playercontroller-toggleloop" onClick={() => {toggleLoopState()}} title={ isLoop ? "ループ再生" : "単一再生で停止" }>{ isLoop ? <IconRepeat/> : <IconRepeatOff/> }</PlayerControllerButton>
+    const toggleLoopElem = <PlayerControllerButton key="control-toggleloop"className="playercontroller-toggleloop" onClick={() => {toggleLoopState()}} title={ isLoop ? "ループ再生を解除" : "ループ再生を有効化" }>{ isLoop ? <IconRepeat/> : <IconRepeatOff/> }</PlayerControllerButton>
 
     const timeElem = <div key="control-time" className="playercontroller-time">{secondsToTime( currentTime )}/{secondsToTime(duration)}</div>
 
@@ -333,6 +333,7 @@ function PlayerController({
                 <button type="button" className="playercontroller-commenttoggle" onClick={() => {setIsCommentShown(!isCommentShown)}} title={isCommentShown ? "コメントを非表示" : "コメントを表示"}>{ isCommentShown ? <IconMessage2/> : <IconMessage2Off/>}</button>
                 <button type="button" className="playercontroller-fullscreen" onClick={toggleFullscreen} title={isFullscreenUi ? "フルスクリーンを終了" : "フルスクリーン"}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
                 <button type="button" className="playercontroller-settings" onClick={() => {setIsSettingsShown(!isSettingsShown)}} title="プレイヤーの設定">{ isSettingsShown ? <IconSettingsFilled/> : <IconSettings/>}</button>
+                {isFullscreenUi && <button type="button" className="playercontroller-expandsidebar" onClick={() => {writePlayerSettings("enableBigView", !(localStorage.playersettings.enableBigView ?? false))}} title="サイドバーを展開">{ (localStorage.playersettings.enableBigView ?? false) ? <IconLayoutSidebarRightCollapseFilled/> : <IconLayoutSidebarRightExpand/> }</button>}
             </div>
         </div>
     </div>

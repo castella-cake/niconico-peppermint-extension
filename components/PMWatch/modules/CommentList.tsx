@@ -1,6 +1,6 @@
 import { useState, useRef, createRef, RefObject, Dispatch, SetStateAction } from "react";
 //import { useLang } from "../localizeHook";
-import { secondsToTime, sharedNgLevelScore } from "./commonFunction";
+import { doFilterComments, secondsToTime, sharedNgLevelScore } from "./commonFunction";
 import type { CommentDataRootObject } from "@/types/CommentData";
 import { VideoDataRootObject } from "@/types/VideoData";
 import { NicoruKeyResponseRootObject, NicoruPostBodyRootObject, NicoruPostResponseRootObject, NicoruRemoveRootObject } from "@/types/NicoruPostData";
@@ -30,7 +30,9 @@ const forkLabelToLang: { [key: string]: string} = {
     "community": "コミュニティ",
     "easy": "かんたん",
     "owner": "オーナー",
-    "nicos": "ニコス"
+    "nicos": "ニコス",
+    "extra-community": "引用コミュニティ",
+    "extra-easy": "引用かんたん",
 }
 
 function getDefaultThreadIndex(videoInfo: VideoDataRootObject) {
@@ -62,13 +64,18 @@ function CommentList(props: Props) {
     // 複数のref
     const commentRefs = useRef<RefObject<HTMLDivElement>[]>([])
 
+    const videoInfoRef = useRef<VideoDataRootObject | null>(null)
+    videoInfoRef.current = props.videoInfo
+
+    const commentContentRef = useRef<CommentDataRootObject | null>(null)
+    commentContentRef.current = props.commentContent
+
     // スクロールタイミングを書いたオブジェクト
     const scrollPosList: scrollPos = {}
 
     function updateScrollPosition() {
         // データが足りない/オートスクロールが有効化されていない/コメントリストにホバーしている ならreturn
-        if (!props.videoInfo.data || !props.commentContent.data || !props.videoRef.current || !autoScroll || isCommentListHovered || !scrollPosList) return
-
+        if (!videoInfoRef.current?.data || !commentContentRef.current?.data || !props.videoRef.current || !autoScroll || isCommentListHovered || !scrollPosList) return
         // video要素の時間
         const currentTime = Math.floor(props.videoRef.current.currentTime)
         // とりあえず一番最初の要素の高さを取得
@@ -79,7 +86,7 @@ function CommentList(props: Props) {
         const listHeight = commentListContainerRef.current.clientHeight
         const listPosTop = commentListContainerRef.current.offsetTop
         const currentTimeElem = scrollPosList[`${currentTime}` as keyof scrollPos].current
-        if (!currentTimeElem) return
+        if (!currentTimeElem) return 
         // offsetTopがでかいのでリスト自身の上からの座標を与えて正しくする
         const elemOffsetTop = currentTimeElem.offsetTop - listPosTop
 
@@ -91,9 +98,11 @@ function CommentList(props: Props) {
     }
 
     updateScrollPosition()
-    useInterval(() => {
-        updateScrollPosition()
-    }, 500)
+    useEffect(() => {
+        if ( !props.videoRef.current ) return
+        props.videoRef.current.addEventListener("timeupdate", updateScrollPosition)
+        return () => props.videoRef.current?.removeEventListener("timeupdate", updateScrollPosition)
+    }, [props.videoRef.current, autoScroll, isCommentListHovered, scrollPosList])
     
     // データが足りなかったら閉店
     if (!props.videoInfo.data || !props.commentContent.data) return <></>
@@ -115,8 +124,10 @@ function CommentList(props: Props) {
         if ( a.vposMs < b.vposMs ) return -1
         return 0
     })
+
+    const filteredComments = doFilterComments(sortedComments, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore], props.videoInfo.data?.response.comment.ng.viewer)
     // refを登録
-    sortedComments.forEach((elem, index) => {
+    filteredComments.forEach((elem, index) => {
         commentRefs.current[index] = createRef()
         if ( commentRefs.current[index] != null ) {
             scrollPosList[`${Math.floor( elem.vposMs / 1000 )}`] = commentRefs.current[index]
@@ -211,9 +222,7 @@ function CommentList(props: Props) {
             </div>
         </div>
         <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => setIsCommentListHovered(true)} onMouseLeave={() => setIsCommentListHovered(false)}>
-            {sortedComments.map((elem, index) => {
-                const isNgComment = elem.score <= sharedNgLevelScore[((localStorage.playersettings ? localStorage.playersettings.sharedNgLevel : "mid") ?? "mid") as keyof typeof sharedNgLevelScore]
-                if ( isNgComment ) return
+            {filteredComments.map((elem, index) => {
                 //console.log(elem)
                 return <div key={elem.id} ref={commentRefs.current[index]} className={`commentlist-list-item ${openedCommentItem.includes(elem.id) ? "commentlist-list-item-open" : ""}`} nicoru-count={returnNicoruRank(elem.nicoruCount)}>
                     <button type="button" onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className={`commentlist-list-item-nicorubutton ${!props.videoInfo.data?.response.viewer || (!props.videoInfo.data?.response.viewer.isPremium) ? "commentlist-list-item-nicorubutton-disabled" : ""}`}>ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>

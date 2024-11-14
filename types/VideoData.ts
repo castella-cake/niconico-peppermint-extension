@@ -433,14 +433,14 @@ interface Ng {
     viewer: ViewerNg;
 }
 
-interface ViewerNg {
+export interface ViewerNg {
     revision: number;
     count: number;
-    items: Item2[];
+    items: NgItem[];
 }
 
-interface Item2 {
-    type: string;
+interface NgItem {
+    type: "command" | "id" | "word";
     source: string;
     registeredAt: string;
 }

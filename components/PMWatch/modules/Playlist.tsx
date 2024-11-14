@@ -5,7 +5,7 @@ import { VideoDataRootObject } from "@/types/VideoData";
 import { Dispatch, SetStateAction } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
-import { IconMeteor } from "@tabler/icons-react";
+import { IconArrowsShuffle } from "@tabler/icons-react";
 
 export type playlistData = {
     type: "mylist" | "series" | "custom" | "none",
@@ -56,6 +56,12 @@ const playlistTypeString = {
 }
 
 function Playlist({ playlistData, videoInfo, setPlaylistData }: { playlistData: playlistData, videoInfo: VideoDataRootObject, setPlaylistData: Dispatch<SetStateAction<playlistData>> }) {
+    const { localStorage, setLocalStorageValue } = useStorageContext()
+    const localStorageRef = useRef<any>(null)
+    localStorageRef.current = localStorage
+    function writePlayerSettings(name: string, value: any) {
+        setLocalStorageValue("playersettings", { ...localStorageRef.current.playersettings, [name]: value })
+    }
     const {setNodeRef, isOver} = useDroppable({
         id: 'playlist-droppable',
     });
@@ -72,6 +78,9 @@ function Playlist({ playlistData, videoInfo, setPlaylistData }: { playlistData: 
     }
     const query = encodeURIComponent(btoa(JSON.stringify(playlistQuery)));
     function onRandomShuffle() {
+        const currentShufflePlayState = localStorage.playersettings.enableShufflePlay ?? false
+        writePlayerSettings("enableShufflePlay", !currentShufflePlayState)
+        /*
         const playlistItems = playlistData.items.slice();
         // シャッフルしてから先頭を現在の動画に
         for ( const [index, item] of playlistItems.entries() ) {
@@ -86,13 +95,13 @@ function Playlist({ playlistData, videoInfo, setPlaylistData }: { playlistData: 
         playlistItems[0] = currentVideoItem;
         playlistItems[currentVideoIndex] = currentFirstVideoItem;
         
-        setPlaylistData({ ...playlistData, type: "custom", items: playlistItems });
+        setPlaylistData({ ...playlistData, type: "custom", items: playlistItems });*/
     }
     return <div className={`playlist-container`} id="pmw-playlist" ref={setNodeRef}>
         <div className="playlist-title-container global-flex">
             <div className="playlist-title global-flex1 global-bold">{playlistTypeString[playlistData.type]}再生キュー</div>
-            <button title="順序をランダムに入れ替え" onClick={onRandomShuffle}>
-                <IconMeteor/>
+            <button title={(localStorage.playersettings.enableShufflePlay ?? false) ? "シャッフル再生を無効化" : "シャッフル再生を有効化"} onClick={onRandomShuffle} is-enable={(localStorage.playersettings.enableShufflePlay ?? false) ? "true" : "false"}>
+                <IconArrowsShuffle/>
             </button>
         </div>
         <SortableContext items={playlistData.items.map(elem => elem.itemId)}>

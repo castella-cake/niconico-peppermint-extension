@@ -10,7 +10,7 @@ import type { Dispatch, ReactNode, SetStateAction } from "react"
 import CommentInput from "./PlayerUI/CommentInput";
 import Settings from "./PlayerUI/Settings";
 import { putPlaybackPosition } from "../../../utils/watchApi";
-import { doFilterComment, handleCtrl, sharedNgLevelScore } from "./commonFunction";
+import { doFilterThreads, handleCtrl, sharedNgLevelScore } from "./commonFunction";
 import { StatsOverlay } from "./PlayerUI/StatsOverlay";
 import { RecommendDataRootObject } from "@/types/RecommendData";
 import { playlistData } from "./Playlist";
@@ -90,6 +90,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const loudnessData = isLoudnessEnabled ? integratedLoudness : 1
     const { updateEqualizer, updateEcho, updatePreampGain } = useAudioEffects(videoRef, frequencies, effectsState, loudnessData);
 
+    const shuffleBagRef = useRef<string[]>([])
+
     const handleEffectsChange = (newState: effectsState) => {
         setEffectsState(newState);
 
@@ -138,7 +140,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         ) {
             if (!commentContent.data) return
             console.log("niconicomments redefined")
-            const filteredThreads = doFilterComment(commentContent.data.threads, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore])
+            const filteredThreads = doFilterThreads(commentContent.data.threads, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore], videoInfo.data?.response.comment.ng.viewer)
             niconicommentsRef.current = new NiconiComments(canvasRef.current, filteredThreads, { format: "v1", enableLegacyPiP: true, video: (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined) })
             if (localStorage.playersettings.enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
                 pipVideoRef.current.srcObject = canvasRef.current.captureStream()
@@ -154,7 +156,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     useInterval(() => {
         if (!videoRef.current || !isCommentShown || !niconicommentsRef.current) return
         niconicommentsRef.current.drawCanvas(videoRef.current.currentTime * 100)
-    }, 8)
+    }, Math.floor(1000 / 60))
 
     const toggleFullscreen = () => {
         const shouldRequestFullscreen = localStorage.playersettings.requestMonitorFullscreen ?? true
@@ -202,11 +204,24 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         if (videoRef.current) videoRef.current.playbackRate = localStorage.playersettings.playbackRate || 1.0
     }, [localStorage])
 
-    function playlistIndexControl(add: number) {
+    function playlistIndexControl(add: number, isShuffle?: boolean) {
         if (playlistData.items.length > 0) {
-            const currentVideoIndex = playlistData.items?.findIndex(video => video.id === videoId)
-            if (currentVideoIndex === undefined || currentVideoIndex === -1 || currentVideoIndex + add > playlistData.items.length || currentVideoIndex + add < 0) return
-            const nextVideo = playlistData.items[currentVideoIndex + add]
+            let nextVideo = playlistData.items[0]
+            if (isShuffle) {
+                // 某ブロックゲームと同じく、バックの中から抽選する形式にする
+                const shuffleBag = shuffleBagRef.current
+                if (shuffleBag.length - 1 >= playlistData.items.length) shuffleBagRef.current = []
+                shuffleBagRef.current.push(videoId)
+                const bagItems = playlistData.items.filter(item => !shuffleBag.includes(item.id))
+                const pickedIndex = Math.floor(Math.random() * (bagItems.length - 1))
+                nextVideo = bagItems[pickedIndex]
+                console.log(shuffleBag)
+                console.log(bagItems)
+            } else {
+                const currentVideoIndex = playlistData.items?.findIndex(video => video.id === videoId)
+                if (currentVideoIndex === undefined || currentVideoIndex === -1 || currentVideoIndex + add > playlistData.items.length || currentVideoIndex + add < 0) return
+                nextVideo = playlistData.items[currentVideoIndex + add]
+            }
             let playlistQuery: { type: string, context: any } = {
                 type: playlistData.type,
                 context: {}
@@ -231,7 +246,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     function onEnded() {
         const autoPlayType = localStorage.playersettings.autoPlayType ?? "playlistonly"
         if ( ((autoPlayType === "playlistonly" && playlistData.items.length > 1) || autoPlayType === "always") && !localStorage.playersettings.isLoop ) {
-            playlistIndexControl(1)
+            playlistIndexControl(1, localStorage.playersettings.enableShufflePlay)
         }
     }
 

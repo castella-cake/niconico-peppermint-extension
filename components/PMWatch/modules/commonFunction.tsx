@@ -1,4 +1,5 @@
-import { Thread } from "@/types/CommentData"
+import { Thread, Comment } from "@/types/CommentData"
+import { ViewerNg } from "@/types/VideoData"
 
 export function secondsToTime(seconds: number) {
     const second = Math.floor(seconds % 60)
@@ -81,11 +82,20 @@ export function readableInt(number: number) {
     const units = ["万","億","兆","京","垓","秭","穣","溝","潤","正","載","極","恒河沙","阿僧祇","那由他","不可思議","無量大数"]
     if ( number.toString().indexOf("e") == -1 ) {
         const stringArray = number.toString().split("").reverse()
-        const afterStringArray = stringArray.map((char, index) => {
+        const length = Math.ceil(stringArray.length / 4)
+        const splitArray = new Array(length).fill("").map((_, index) => stringArray.slice(index * 4, (index + 1) * 4))
+        const afterStringArray = splitArray.map((chars, index) => {
+            if (chars.length === 4 && index + 1 !== length) {
+                return [...chars, units[index]]
+            } else {
+                return chars
+            }
+        })
+        /*const afterStringArray = stringArray.map((char, index) => {
             if ((index) % 4 !== 0) return char
             return `${char}${units[((index) / 4) - 1] || ""}`
-        })
-        return afterStringArray.reverse().join("")
+        })*/
+        return afterStringArray.reduce((prev,current) => prev.concat(current), []).reverse().join("")
     } else {
         return number
     }
@@ -100,11 +110,25 @@ export const sharedNgLevelScore = {
     "none": -1000000,
 }
 
-export function doFilterComment(threads: Thread[], sharedNgLevel: number) {
+export function doFilterThreads(threads: Thread[], sharedNgLevel: number, viewerNg?: ViewerNg ) {
     const threadsAfter = threads.map((thread) => {
         if ( thread.fork === "owner" ) return thread
-        const comments = thread.comments.filter((comment) => comment.score > sharedNgLevel)
+        const comments = doFilterComments(thread.comments, sharedNgLevel, viewerNg)
         return { ...thread, comments }
     })
     return threadsAfter
 }
+
+export function doFilterComments(comments: Comment[], sharedNgLevel: number, viewerNg?: ViewerNg) {
+    return comments.filter((comment) => {
+        if ( comment.score < sharedNgLevel ) return false
+        if (viewerNg && viewerNg.items.findIndex(elem => {
+            if (elem.type === "command" && comment.commands.findIndex(command => elem.source === command) !== -1) return true
+            if (elem.type === "id" && comment.userId === elem.source) return true
+            if (elem.type === "word" && comment.body.includes(elem.source)) return true
+            return false
+        }) !== -1) return false
+        return true
+    })
+}
+
