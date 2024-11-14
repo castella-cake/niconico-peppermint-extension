@@ -32,11 +32,13 @@ export function EndCard({ videoInfo, videoRef }: { videoInfo: VideoDataRootObjec
     }, [videoRef.current])
 
     useEffect(() => {
+        //console.log("vol set:", audioElemRef.current)
         if (!audioElemRef.current) return
 
         audioElemRef.current.volume = (localStorage.playersettings.volume ?? 50) * 0.01
         audioElemRef.current.muted = localStorage.playersettings.isMuted ?? false
-    }, [localStorage.playersettings, audioElemRef.current])
+        
+    }, [localStorage.playersettings, audioElemRef.current, currentTime])
 
     if (currentTime < duration) return null
 
