@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, RefObject } from "react";
 //import { useLang } from "../localizeHook";
-import NiconiComments from "@xpadev-net/niconicomments";
 import PlayerController from "./PlayerUI/PlayerController";
 import VefxController from "./PlayerUI/VefxController";
 import { useHlsVideo } from "@/hooks/hlsHooks";
@@ -18,8 +17,8 @@ import { CSSTransition } from "react-transition-group";
 import { EndCard } from "./PlayerUI/EndCard";
 import { useAudioEffects } from "@/hooks/eqHooks";
 import { useStorageContext } from "@/hooks/extensionHook";
-import { useInterval } from "@/hooks/commonHooks";
 import { PPVScreen } from "./PlayerUI/PPVScreen";
+import { CommentRender } from "./PlayerUI/CommentRender";
 
 export type effectsState = {
     equalizer: { enabled: boolean, gains: number[] },
@@ -47,17 +46,13 @@ type VideoPlayerProps = {
     videoRef: RefObject<HTMLVideoElement>,
     onPause: () => void,
     onEnded: () => void,
-    canvasRef: RefObject<HTMLCanvasElement>,
-    isCommentShown: boolean,
-    commentOpacity: number,
     onClick: () => void,
 }
 
-function VideoPlayer({children, videoRef, canvasRef, isCommentShown, onPause, onEnded, commentOpacity, onClick}: VideoPlayerProps) {
+function VideoPlayer({children, videoRef, onPause, onEnded, onClick}: VideoPlayerProps) {
     return (<div className="player-video-container" >
         <div className="player-video-container-inner">
             <video ref={videoRef} autoPlay onPause={(e) => {onPause()}} onEnded={onEnded} width="1920" height="1080" id="pmw-element-video" onClick={onClick}></video>
-            <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: commentOpacity} : {opacity: 0}} id="pmw-element-commentcanvas"/>
             { children }
         </div>
     </div>);
@@ -72,8 +67,6 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const [isCommentShown, setIsCommentShown] = useState(true)
     const [isStatsShown, setIsStatsShown] = useState(false)
     const [isCursorStopped, setIsCursorStopped] = useState<boolean>(false)
-
-    const canvasRef = useRef<HTMLCanvasElement>(null)
     const pipVideoRef = useRef<HTMLVideoElement>(null)
     const commentInputRef = useRef<HTMLInputElement>(null)
     const [frequencies] = useState([31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]);
@@ -104,12 +97,12 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const userAgent = window.navigator.userAgent.toLowerCase();
     const shouldUseContentScriptHls = !(userAgent.indexOf('chrome') == -1 || syncStorage.pmwforcepagehls)
     const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, shouldUseContentScriptHls, localStorage.playersettings.preferredLevel || -1)
-    const niconicommentsRef = useRef<NiconiComments | null>(null!)
 
     // for transition
     const vefxElemRef = useRef<HTMLDivElement>(null)
     const settingsElemRef = useRef<HTMLDivElement>(null)
 
+    // レジューム再生の処理
     useEffect(() => {
         const onUnload = () => {
             if ( !videoRef.current ) return
@@ -119,44 +112,17 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         window.addEventListener("beforeunload", onUnload)
         return () => { window.removeEventListener("beforeunload", onUnload) }
     }, [])
-
     useEffect(() => {
         if (!videoInfo.data || !videoRef.current || !videoInfo.data.response.player.initialPlayback || localStorage.playersettings.enableResumePlayback === false) return
         videoRef.current.currentTime = videoInfo.data.response.player.initialPlayback?.positionSec
     }, [videoInfo])
 
+    // エフェクト設定をリストア
     useEffect(() => {
         if (!localStorage || !localStorage.playersettings || !localStorage.playersettings.vefxSettings) return
         setEffectsState(localStorage.playersettings.vefxSettings)
         handleEffectsChange(effectsState)
     }, [])
-
-    useEffect(() => { // とりあえずこれでパフォーマンスが改善したけど、returnするときにnull入れてるのが良いのか、要素非表示をCSSに任せているのが良いのか、captureStreamを一回だけ作ってるのが良いのかはよくわからない
-        if (
-            canvasRef.current &&
-            commentContent.data &&  
-            videoRef.current &&
-            localStorage.playersettings
-        ) {
-            if (!commentContent.data) return
-            //console.log("niconicomments redefined")
-            const filteredThreads = doFilterThreads(commentContent.data.threads, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore], videoInfo.data?.response.comment.ng.viewer)
-            niconicommentsRef.current = new NiconiComments(canvasRef.current, filteredThreads, { format: "v1", enableLegacyPiP: true, video: undefined }) // (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined)
-            /*if (localStorage.playersettings.enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
-                pipVideoRef.current.srcObject = canvasRef.current.captureStream()
-            }*/
-            return () => {
-                niconicommentsRef.current = null
-                if (pipVideoRef.current) pipVideoRef.current.srcObject = null
-            }
-        }
-    }, [commentContent, localStorage.playersettings.enableCommentPiP])
-    
-    
-    useInterval(() => {
-        if (!videoRef.current || !isCommentShown || !niconicommentsRef.current) return
-        niconicommentsRef.current.drawCanvas(videoRef.current.currentTime * 100)
-    }, Math.floor(1000 / 60))
 
     const toggleFullscreen = () => {
         const shouldRequestFullscreen = localStorage.playersettings.requestMonitorFullscreen ?? true
@@ -260,6 +226,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             onPause()
         }
     }
+    const filteredComments = commentContent.data && doFilterThreads(commentContent.data.threads, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore], videoInfo.data?.response.comment.ng.viewer)
 
     return <div className="player-container"
         id="pmw-player"
@@ -268,18 +235,16 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         is-integrated-controller={localStorage.playersettings.integratedControl === "always" && !isFullscreenUi ? "true" : "false"}
         is-cursor-stopped={isCursorStopped ? "true" : "false"}
     >
-        <VideoPlayer videoRef={videoRef} canvasRef={canvasRef} isCommentShown={isCommentShown} onPause={onPause} onEnded={onEnded} commentOpacity={localStorage.playersettings.commentOpacity || 1} onClick={videoOnClick}>
-            <video
-                ref={pipVideoRef}
-                className="player-commentvideo-pip"
-                width="1920"
-                height="1080"
-                autoPlay
-                onPause={() => {videoRef.current && videoRef.current.pause()}}
-                onPlay={() => {videoRef.current && videoRef.current.play()}}
-                onClick={videoOnClick}
-            >
-            </video>
+        <VideoPlayer videoRef={videoRef} onPause={onPause} onEnded={onEnded} onClick={videoOnClick}>
+            { filteredComments && <CommentRender
+                videoRef={videoRef}
+                pipVideoRef={pipVideoRef}
+                isCommentShown={isCommentShown}
+                commentOpacity={localStorage.playersettings.commentOpacity || 1}
+                threads={filteredComments}
+                videoOnClick={videoOnClick}
+                enableCommentPiP={localStorage.playersettings.enableCommentPiP}
+            /> }
             <CSSTransition nodeRef={vefxElemRef} in={isVefxShown} timeout={400} unmountOnExit classNames="player-transition-vefx">
                 <VefxController
                     nodeRef={vefxElemRef}
