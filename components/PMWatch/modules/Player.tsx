@@ -139,12 +139,12 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             localStorage.playersettings
         ) {
             if (!commentContent.data) return
-            console.log("niconicomments redefined")
+            //console.log("niconicomments redefined")
             const filteredThreads = doFilterThreads(commentContent.data.threads, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore], videoInfo.data?.response.comment.ng.viewer)
-            niconicommentsRef.current = new NiconiComments(canvasRef.current, filteredThreads, { format: "v1", enableLegacyPiP: true, video: (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined) })
-            if (localStorage.playersettings.enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
+            niconicommentsRef.current = new NiconiComments(canvasRef.current, filteredThreads, { format: "v1", enableLegacyPiP: true, video: undefined }) // (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined)
+            /*if (localStorage.playersettings.enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
                 pipVideoRef.current.srcObject = canvasRef.current.captureStream()
-            }
+            }*/
             return () => {
                 niconicommentsRef.current = null
                 if (pipVideoRef.current) pipVideoRef.current.srcObject = null

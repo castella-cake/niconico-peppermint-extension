@@ -11,7 +11,7 @@ import "@/components/PMWatch/index.styl"
 function blockScriptElement(element: Element) {
     const href: string = element.getAttribute("href") ?? ""
     if ( element.tagName.toLowerCase() === "script" && element.getAttribute("pmw-isplugin") !== "true" ) {
-        console.log("blocked:",element);
+        //console.log("blocked:",element);
         element.setAttribute("type", 'javascript/blocked')
         function onBeforeScriptExecute(e: Event) {
             if ( element.getAttribute("type") === "javascript/blocked") {
@@ -22,10 +22,10 @@ function blockScriptElement(element: Element) {
         element.addEventListener('beforescriptexecute', onBeforeScriptExecute);
         element.remove();
     } else if ( element.tagName.toLowerCase() === "link" && ( typeof element.getAttribute("href") === "string" && href.includes("resource.video.nimg.jp") ) ) {
-        console.log("blocked:",element);
+        //console.log("blocked:",element);
         element.setAttribute("href", "");
     } else {
-        console.log("not blocked:",element);
+        //console.log("not blocked:",element);
     }
 }
 

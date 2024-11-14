@@ -64,11 +64,11 @@ const settings: { [key: string]: setting } = {
         name: "レジューム再生",
         hint: "プレミアム会員資格が必要です。"
     },
-    enableCommentPiP: {
+    /*enableCommentPiP: {
         type: "checkbox",
         defaultValue: false,
         name: "PiPでコメントを表示",
-    },
+    },*/
     enableLoudnessData: {
         type: "checkbox",
         defaultValue: true,

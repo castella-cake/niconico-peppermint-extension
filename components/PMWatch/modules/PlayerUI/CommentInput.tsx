@@ -30,13 +30,13 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, commentI
 
     async function sendComment(videoId: string, commentBody: string, commentCommand: string[] = [], vposMs: number) {
         // {"videoId":"","commands":["184"],"body":"君ビートマニア上手いねぇ！","vposMs":147327,"postKey":""}
-        console.log(mainThreads)
+        //console.log(mainThreads)
         const postKeyResponse: KeyRootObjectResponse = await getCommentPostKey(mainThreads?.id)
         if (postKeyResponse.meta.status !== 200) return 
         const reqBody: CommentPostBody = {videoId, commands: [...commentCommand, "184"], body: commentBody, vposMs, postKey: postKeyResponse.data.postKey}
-        console.log(reqBody)
+        //console.log(reqBody)
         const commentPostResponse: CommentResponseRootObject = await postComment(mainThreads?.id, JSON.stringify(reqBody))
-        console.log(commentPostResponse)
+        //console.log(commentPostResponse)
         if ( commentPostResponse.meta.status === 201 && videoInfo.data ) {
             const commentRequestBody = {
                 params: {

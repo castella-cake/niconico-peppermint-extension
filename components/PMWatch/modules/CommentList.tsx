@@ -166,7 +166,7 @@ function CommentList(props: Props) {
             if (nicoruKeyResponse.meta.status !== 200) return
             const body: NicoruPostBodyRootObject = {videoId: props.videoInfo.data.response.video.id, fork: currentThread.forkLabel, no: commentNo, content: commentBody, nicoruKey: nicoruKeyResponse.data.nicoruKey} 
             const response: NicoruPostResponseRootObject = await postNicoru(currentThread.id, JSON.stringify(body))
-            console.log(response)
+            //console.log(response)
             if (response.meta.status === 201) {
                 const commentContentCopy: typeof props.commentContent = JSON.parse(JSON.stringify(props.commentContent))
                 const comments = commentContentCopy.data!.threads[currentForkType].comments

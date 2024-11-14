@@ -24,7 +24,7 @@ export function useWatchData(smId: string) {
                 if (initialResponse && initialResponse.meta?.status === 200 && initialResponse.data?.response.video.id === smId) {
                     fetchedVideoInfo = initialResponse
                     document.getElementsByName('initial-response')[0].remove() // 使いまわすべきではないので削除。Reactの思想(一貫性)に反するがこうするしかない。
-                    console.log("using initialResponse")
+                    //console.log("using initialResponse")
                 } else fetchedVideoInfo = await getVideoInfo(smId)
                 if (!fetchedVideoInfo || !fetchedVideoInfo.data) return
                 setVideoInfo(fetchedVideoInfo)
