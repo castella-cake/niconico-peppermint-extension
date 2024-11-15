@@ -28,9 +28,14 @@ async function getHls(videoId: string, body: string, actionTrackId: string, acce
     const responseJson = await response.json()
     return responseJson
 }
+interface Window {
+    __NV_PUBLIC_PATH__: string
+}
+declare var window: Window
 
 export default defineUnlistedScript({
     main() {
+    //window.__NV_PUBLIC_PATH__ = "https://256.256.256.256";
     // ActionTrackIdで各レンダーを識別する
     let previousATI = ""
     // 動画変更の検出

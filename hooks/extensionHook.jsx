@@ -54,16 +54,18 @@ export function useManifestData() {
 
 export function useStorage() {
     const [ storages, _setStorageVar ] = useState({ local: {}, sync: {}, isLoaded: false })
-    function setLocalStorageValue(name, value) {
-        _setStorageVar(current => {
-            return {
-                ...current,
-                local: {
-                    ...current.local,
-                    [name]: value 
+    function setLocalStorageValue(name, value, silent = false) {
+        if ( !silent ) {
+            _setStorageVar(current => {
+                return {
+                    ...current,
+                    local: {
+                        ...current.local,
+                        [name]: value 
+                    }
                 }
-            }
-        })
+            })
+        }
         browser.storage.local.set({ [name]: value })
     }
     function setSyncStorageValue(name, value) {

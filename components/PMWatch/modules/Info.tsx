@@ -1,4 +1,4 @@
-import { IconExclamationCircleFilled, IconFolderFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
+import { IconEdit, IconExclamationCircleFilled, IconFolderFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
 import type { ErrorResponse, VideoDataRootObject } from "@/types/VideoData";
 import { MouseEvent, RefObject, useState } from "react";
 import DOMPurify from "dompurify";
@@ -53,13 +53,12 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
     const { localStorage, setLocalStorageValue } = useStorageContext()
     const localStorageRef = useRef<any>(null)
     localStorageRef.current = localStorage
-    function writePlayerSettings(name: string, value: any) {
-        setLocalStorageValue("playersettings", { ...localStorageRef.current.playersettings, [name]: value })
+    function writePlayerSettings(name: string, value: any, silent: boolean = false) {
+        setLocalStorageValue("playersettings", { ...localStorageRef.current.playersettings, [name]: value }, silent)
     }
     const [isDescOpen, setIsDescOpen] = useState<boolean>(localStorage.playersettings.descriptionOpen || false)
     if (errorInfo !== false) return <ErrorUI error={errorInfo}/>
     if (!videoInfo.data) return <></>
-
     const videoInfoResponse = videoInfo.data.response
 
     // Not scary!
@@ -93,11 +92,17 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
             })}
         </select>
     }*/
+    const nicodicExistIcon = isShinjukuLayout ? <img src="http://nicovideo.cdn.nimg.jp/web/img/common/icon/dic_on.png"/> : "百"
+    const nicodicNotExistIcon = isShinjukuLayout ? <img src="http://nicovideo.cdn.nimg.jp/web/img/common/icon/dic_off.png"/> : "？"
 
     return <div className="videoinfo-container" id="pmw-videoinfo">
         <div className="videoinfo-titlecontainer">
             <div className="videoinfo-titleinfo">
-                { isShinjukuLayout && <div className="uploaddate"><span>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</span> 投稿の{videoInfoResponse.channel ? "公式" : "ユーザー"}動画</div> }
+                { isShinjukuLayout && <div className="uploaddate">
+                    <strong>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</strong> 投稿の{videoInfoResponse.channel ? "公式" : "ユーザー"}動画 
+                    <span className="threeleader">…</span> <strong>{videoInfoResponse.genre.isNotSet ? "未設定" : videoInfoResponse.genre.label}</strong> 
+                    カテゴリ過去最高順位: {videoInfoResponse.ranking.genre.rank}位
+                </div> }
                 { isTitleShown && <div className="videotitle">{videoInfoResponse.video.title}</div> }
                 { (!isShinjukuLayout && isTitleShown) && <div className="videostats">
                     <span>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</span>
@@ -121,18 +126,31 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
                 </a>}
             </div>}
         </div>
-        <details open={isDescOpen && true} onToggle={(e) => {setIsDescOpen(e.currentTarget.open);writePlayerSettings("descriptionOpen", e.currentTarget.open)}}>
+        <details open={isDescOpen && true} onToggle={(e) => {setIsDescOpen(e.currentTarget.open);writePlayerSettings("descriptionOpen", e.currentTarget.open, true)}}>
             <summary>この動画の概要 {!isDescOpen && <span>{htmlToText(sanitizedDesc)}</span>}</summary>
             <div className="videodesc" onClickCapture={(e) => {handleAnchorClick(e)}}>
                 {descElem}
             </div>
         </details>
         <div className="tags-container">
-            {videoInfoResponse.tag.items.map((elem,index) => {
-                return <div key={`tag-${elem.name}`} className={elem.isLocked ? "tags-item tags-item-locked" : "tags-item"}>
-                    <a href={`/tag/${elem.name}`}>{elem.name}</a> <a href={`https://dic.nicovideo.jp/a/${elem.name}`} className={elem.isNicodicArticleExists ? "tags-item-nicodic" : "tags-item-nicodic tags-item-nicodic-notexist"}>{elem.isNicodicArticleExists ? "百" : "？"}</a>
-                </div>
-            })}
+            <div className="tags-title">
+                <span>登録タグ</span>
+                <button className="tags-editbutton disabled" aria-disabled="true">
+                    <IconEdit/>編集
+                </button>
+            </div>
+            <div className="tags-item-container">
+                {videoInfoResponse.tag.items.map((elem,index) => {
+                    return <div key={`tag-${elem.name}`} className={elem.isLocked ? "tags-item tags-item-locked" : "tags-item"}>
+                        <a href={`/tag/${elem.name}`}>
+                            {elem.name}
+                        </a>
+                        <a href={`https://dic.nicovideo.jp/a/${elem.name}`} className={elem.isNicodicArticleExists ? "tags-item-nicodic" : "tags-item-nicodic tags-item-nicodic-notexist"}>
+                            {elem.isNicodicArticleExists ? nicodicExistIcon : nicodicNotExistIcon}
+                        </a>
+                    </div>
+                })}
+            </div>
         </div>
     </div>
 }

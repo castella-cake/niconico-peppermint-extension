@@ -9,6 +9,7 @@ import "@/components/PMWatch/index.styl"
 // Old Twitter Layoutの実装を大いに参考にさせていただきました
 // https://github.com/dimdenGD/OldTwitter/blob/master/scripts/blockBeforeInject.js
 function blockScriptElement(element: Element) {
+    //console.log("acting block:" , element)
     const href: string = element.getAttribute("href") ?? ""
     if ( element.tagName.toLowerCase() === "script" && element.getAttribute("pmw-isplugin") !== "true" ) {
         //console.log("blocked:",element);
@@ -20,10 +21,11 @@ function blockScriptElement(element: Element) {
             element.removeEventListener('beforescriptexecute', onBeforeScriptExecute);
         }
         element.addEventListener('beforescriptexecute', onBeforeScriptExecute);
-        element.remove();
+        //element.remove();
     } else if ( element.tagName.toLowerCase() === "link" && ( typeof element.getAttribute("href") === "string" && href.includes("resource.video.nimg.jp") ) ) {
         //console.log("blocked:",element);
         element.setAttribute("href", "");
+        //element.remove()
     } else {
         //console.log("not blocked:",element);
     }
@@ -54,9 +56,12 @@ export default defineContentScript({
 
             if ( import.meta.env.FIREFOX ) window.stop() // これでなぜかFirefoxで虚無になる問題が治る。逆にChromeのコードに入れると問題が起こる。
             if (!document.documentElement) return;
+            //console.log(document.documentElement.outerHTML)
 
             // わたってくるdocumentには既に動画情報のレスポンスが入っている。使えるならこっちを使って高速化してしまったほうが良いので、innerHTMLが書き換わる前に取得しておく
             const initialResponse = document.getElementsByName('server-response')[0].getAttribute("content") ?? "" 
+
+            document.documentElement.querySelectorAll('script').forEach(blockScriptElement);
 
             document.documentElement.innerHTML = `
                 <head>
@@ -76,14 +81,16 @@ export default defineContentScript({
                         console.log("node: ", node)
                         const elem = node as Element;
                         if (node.nodeType === Node.ELEMENT_NODE) {
+                            console.log("nodetype")
                             blockScriptElement(elem);
                             elem.querySelectorAll('script').forEach(blockScriptElement);
                         }
                     }
                 });
             });
-            observer.observe(head, { childList: true, subtree: true });
-            
+            observer.observe(document.head, { childList: true, subtree: true });
+            document.dispatchEvent(new CustomEvent("pmw_pageReplaced", { detail: "" }));
+
             if (import.meta.env.FIREFOX || syncStorage.pmwforcepagehls) {
                 const script = document.createElement("script");
                 script.src = browser.runtime.getURL("/watch_injector.js");
@@ -116,18 +123,16 @@ export default defineContentScript({
 
             const body = document.body;
             const root = document.createElement("div");
-            root.id = "root";
+            root.id = "root-pmw";
             body.appendChild(root);
             if (root.childNodes.length != 0) {
                 console.error("Watch page replace failed: #root is not empty.");
                 return;
             }
 
-            if (!localStorage.playersettings)
-                chrome.storage.local.set({ playersettings: {} });
+            if (!localStorage.playersettings) chrome.storage.local.set({ playersettings: {} });
 
             createRoot(root).render(watchPage());
-            document.dispatchEvent(new CustomEvent("pmw_pageReplaced", { detail: "" }));
         }
     }
 })

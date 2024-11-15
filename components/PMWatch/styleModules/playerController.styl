@@ -254,14 +254,26 @@
     .playercontroller-container-left, .playercontroller-container-center {
         button {
             border: 1px solid #111;
-            border-image: linear-gradient(#5c5c5c,#363636);
-            border-image-slice: 1;
-            padding:2px;
+            border-image: linear-gradient(#252525 10%, #000000 50%, #0f0f0f) 2;
+            padding: 3px 4px; // 1px増やすのはoutlineが減った分
             margin-left: 2px;
             box-shadow: 0px 0px 3px #000 inset;
+            position: relative;
+            &:after {
+                content: "";
+                background: transparent;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                position: absolute;
+                z-index: 1;
+                border: 1px solid #000;
+                border-image: linear-gradient(#000, #252525 50%, #666) 2;
+            }
         }
         button:not(:focus-visible) {
-            outline: 1px solid #060606;
+            //outline: 1px solid #060606;
         }
     }
 
@@ -273,7 +285,7 @@
     }
 
     .playercontroller-container-left button.playercontroller-togglepause {
-        padding: 2px 8px;
+        padding: 3px 9px; // 1px増やすのはoutlineが減った分
     }
     .playercontroller-container-right button {
         padding: 6px 4px;

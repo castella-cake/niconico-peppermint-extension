@@ -22,7 +22,9 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
             videoRef.current
         ) {
             //console.log("niconicomments redefined")
-            niconicommentsRef.current = new NiconiComments(canvasRef.current, threads, { format: "v1", enableLegacyPiP: true, video: undefined }) // (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined)
+            // , config: { contextLineWidth: { html5: 0, flash: 0 }, contextStrokeOpacity: 0 } 
+            niconicommentsRef.current = new NiconiComments(canvasRef.current, threads, { format: "v1", enableLegacyPiP: true, video: undefined, mode: "html5" }) // (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined)
+
             /*if (localStorage.playersettings.enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
                 pipVideoRef.current.srcObject = canvasRef.current.captureStream()
             }*/

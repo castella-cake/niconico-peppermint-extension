@@ -75,12 +75,34 @@
 }
 .tags-container {
     display: flex;
+    background: var(--bgcolor1);
+    border-radius: var(--radius);
+    gap: 1em;
+    padding: 8px 16px;
+    align-items: center;
+}
+.tags-title {
+    font-weight: bold;
+    text-align: left;
+    .tags-editbutton {
+        background: transparent;
+        border: none;
+        vertical-align: middle;
+        display: block;
+        padding: 0;
+        &.disabled { opacity: 0.2; }
+        svg {
+            vertical-align: middle;
+        }
+    }
+}
+.tags-item-container {
+    flex: 1;
+    display: flex;
     flex-wrap: wrap;
     line-height: 24px;
     gap: 4px;
-    background: var(--bgcolor1);
-    border-radius: var(--radius);
-    padding: 8px 16px;
+    
 
     .tags-item {
         margin-right: 8px;
@@ -146,7 +168,9 @@
     border: none;
     box-shadow: none;
 }
-
+.threeleader {
+    font-family: Hiragino Kaku Gothic ProN, Noto Sans JP, Meiryo, sans-serif
+}
 /*
 [watch-type="resp"] .videoinfo-container {
     margin-bottom: 8px;

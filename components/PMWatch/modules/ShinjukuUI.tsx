@@ -28,13 +28,13 @@ export function Stats({ videoInfo }: Props) {
     return <div className="videostat-container" id="pmw-videostat">
         <div className="videostat-left-container">
             <div>
-                <span>再　　生　:</span><span>{readableInt(videoInfoResponse.video.count.view)}</span>
+                <span>再生</span>:<span>{readableInt(videoInfoResponse.video.count.view)}</span>
             </div>
             <div>
-                <span>コメント　:</span><span>{readableInt(videoInfoResponse.video.count.comment)}</span>
+                <span>コメント</span>:<span>{readableInt(videoInfoResponse.video.count.comment)}</span>
             </div>
             <div>
-                <span>マイリスト:</span><span>{readableInt(videoInfoResponse.video.count.mylist)}</span>
+                <span>マイリスト</span>:<span>{readableInt(videoInfoResponse.video.count.mylist)}</span>
             </div>
         </div>
         <div className="videostat-right-container">
