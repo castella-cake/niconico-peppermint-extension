@@ -121,11 +121,6 @@
         background: linear-gradient(#ffac59 1%, #ffab2d 40%, #ff8d2d 60%, #ff9646 100%);
     }
 
-    // この動画の概要
-    .videoinfo-container details {
-        border: 2px solid var(--textcolor1);
-    }
-
     // 原宿の統計表示+時計とダミー
     .videostat-container {
         font-size: 13px;
@@ -236,6 +231,38 @@
         padding: 0;
     }
 
+    // 動画概要
+    .videoinfo-container details {
+        border: 2px solid var(--textcolor1);
+        margin-top: 0;
+        margin-bottom: 4px;
+        padding: 8px;
+        summary {
+            background: transparent;
+            font-size: 0;
+            padding: 0;
+            span {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .videoinfo-hjdesc-tabbutton {
+        margin-left: 0.8rem;
+        border-radius: 8px 8px 0 0;
+        border: 2px solid var(--textcolor1);
+        border-bottom: none;
+        position: relative;
+        top: 2px;
+        padding: 2px 6px;
+        margin-top: 2px;
+        background: linear-gradient(var(--bgcolor3), var(--bgcolor1));
+    }
+
+    .videodesc {
+        padding: 0px;
+    }
+
     // 投稿日時とランキング情報
     .uploaddate {
         color: var(--textcolor2);
@@ -327,10 +354,7 @@
         margin-bottom: 2px;
         font-size: 0.8em;
         font-family: "MS UI Gothic", sans-serif;
-    }
-
-    .tags-editbutton {
-        margin-top: 4px;
+        display: block;
     }
 
     .tags-editbutton svg {
@@ -338,9 +362,9 @@
     }
 
     .tags-editbutton:before {
-        content: "＜";
+        content: "【";
     }
     .tags-editbutton:after {
-        content: "＞";
+        content: "】";
     }
 }

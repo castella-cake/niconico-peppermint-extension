@@ -84,17 +84,6 @@
 .tags-title {
     font-weight: bold;
     text-align: left;
-    .tags-editbutton {
-        background: transparent;
-        border: none;
-        vertical-align: middle;
-        display: block;
-        padding: 0;
-        &.disabled { opacity: 0.2; }
-        svg {
-            vertical-align: middle;
-        }
-    }
 }
 .tags-item-container {
     flex: 1;
@@ -124,6 +113,16 @@
     }
     .tags-item-locked {
         border-bottom: 2px solid rgb(212, 138, 0)
+    }
+    .tags-editbutton {
+        background: transparent;
+        border: none;
+        vertical-align: middle;
+        padding: 0;
+        &.disabled { opacity: 0.2; }
+        svg {
+            vertical-align: middle;
+        }
     }
 }
 

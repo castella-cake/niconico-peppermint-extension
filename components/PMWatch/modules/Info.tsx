@@ -126,6 +126,7 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
                 </a>}
             </div>}
         </div>
+        { isShinjukuLayout && <button className="videoinfo-hjdesc-tabbutton" onClick={(e) => {setIsDescOpen(!isDescOpen);writePlayerSettings("descriptionOpen", !isDescOpen, true)}}>{isDescOpen ? "▲" : "▼"} 動画概要</button>}
         <details open={isDescOpen && true} onToggle={(e) => {setIsDescOpen(e.currentTarget.open);writePlayerSettings("descriptionOpen", e.currentTarget.open, true)}}>
             <summary>この動画の概要 {!isDescOpen && <span>{htmlToText(sanitizedDesc)}</span>}</summary>
             <div className="videodesc" onClickCapture={(e) => {handleAnchorClick(e)}}>
@@ -135,9 +136,6 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
         <div className="tags-container">
             <div className="tags-title">
                 <span>登録タグ</span>
-                <button className="tags-editbutton disabled" aria-disabled="true">
-                    <IconEdit/>編集
-                </button>
             </div>
             <div className="tags-item-container">
                 {videoInfoResponse.tag.items.map((elem,index) => {
@@ -150,6 +148,9 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
                         </a>
                     </div>
                 })}
+                <button className="tags-editbutton disabled" aria-disabled="true">
+                    <IconEdit/>編集
+                </button>
             </div>
         </div>
     </div>
