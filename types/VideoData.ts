@@ -234,7 +234,7 @@ interface Count {
 }
 
 interface Ranking {
-    genre: Genre2;
+    genre: Genre2 | null;
     popularTag: PopularTag[];
 }
 

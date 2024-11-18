@@ -99,9 +99,9 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
         <div className="videoinfo-titlecontainer">
             <div className="videoinfo-titleinfo">
                 { isShinjukuLayout && <div className="uploaddate">
-                    <strong>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</strong> 投稿の{videoInfoResponse.channel ? "公式" : "ユーザー"}動画 
-                    <span className="threeleader">…</span> <strong>{videoInfoResponse.genre.isNotSet ? "未設定" : videoInfoResponse.genre.label}</strong> 
-                    カテゴリ過去最高順位: {videoInfoResponse.ranking.genre.rank}位
+                    <strong>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</strong> 投稿の{videoInfoResponse.channel ? "公式" : "ユーザー"}動画
+                    <span className="threeleader"> … </span><strong>{videoInfoResponse.genre.isNotSet ? "未設定" : videoInfoResponse.genre.label}</strong> 
+                    カテゴリ{videoInfoResponse.ranking.genre ? `過去最高順位: ${videoInfoResponse.ranking.genre.rank}位` : "" }
                 </div> }
                 { isTitleShown && <div className="videotitle">{videoInfoResponse.video.title}</div> }
                 { (!isShinjukuLayout && isTitleShown) && <div className="videostats">

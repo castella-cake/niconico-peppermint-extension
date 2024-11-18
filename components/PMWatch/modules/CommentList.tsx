@@ -102,7 +102,22 @@ function CommentList(props: Props) {
         props.videoRef.current.addEventListener("timeupdate", updateScrollPosition)
         return () => props.videoRef.current?.removeEventListener("timeupdate", updateScrollPosition)
     }, [props.videoRef.current, autoScroll, isCommentListHovered, scrollPosList])
-    
+
+    // 現在のフォークタイプで代入
+    const commentContent = props.commentContent.data
+    const currentThread = commentContent?.threads[currentForkType]
+    // 早い順にソート
+    const filteredComments = useMemo(() => {
+        if (!currentThread) return
+        const sortedComments = currentThread.comments.sort((a,b) => {
+            if ( a.vposMs > b.vposMs ) return 1
+            if ( a.vposMs < b.vposMs ) return -1
+            return 0
+        })
+        return doFilterComments(sortedComments, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore], props.videoInfo.data?.response.comment.ng.viewer)
+    }, [currentThread, localStorage.playersettings.sharedNgLevel, props.videoInfo])
+
+
     // データが足りなかったら閉店
     if (!props.videoInfo.data || !props.commentContent.data) return <></>
 
@@ -110,23 +125,11 @@ function CommentList(props: Props) {
     if (currentForkType === -1) setCurrentForkType(getDefaultThreadIndex(props.videoInfo))
 
     //const videoInfo = props.videoInfo.data.response
-    const commentContent = props.commentContent.data
 
-    // 現在のフォークタイプで代入
-    const currentThread = commentContent.threads[currentForkType]
     // 指定したフォークタイプのスレッドが見つからなかったらreturn
     if (!currentThread) return <></>
-
-    // 早い順にソート
-    const sortedComments = currentThread.comments.sort((a,b) => {
-        if ( a.vposMs > b.vposMs ) return 1
-        if ( a.vposMs < b.vposMs ) return -1
-        return 0
-    })
-
-    const filteredComments = doFilterComments(sortedComments, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore], props.videoInfo.data?.response.comment.ng.viewer)
     // refを登録
-    filteredComments.forEach((elem, index) => {
+    filteredComments?.forEach((elem, index) => {
         commentRefs.current[index] = createRef()
         if ( commentRefs.current[index] != null ) {
             scrollPosList[`${Math.floor( elem.vposMs / 1000 )}`] = commentRefs.current[index]
@@ -221,7 +224,7 @@ function CommentList(props: Props) {
             </div>
         </div>
         <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => setIsCommentListHovered(true)} onMouseLeave={() => setIsCommentListHovered(false)}>
-            {filteredComments.map((elem, index) => {
+            {filteredComments?.map((elem, index) => {
                 //console.log(elem)
                 return <div key={elem.id} ref={commentRefs.current[index]} className={`commentlist-list-item ${openedCommentItem.includes(elem.id) ? "commentlist-list-item-open" : ""}`} nicoru-count={returnNicoruRank(elem.nicoruCount)}>
                     <button type="button" onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className={`commentlist-list-item-nicorubutton ${!props.videoInfo.data?.response.viewer || (!props.videoInfo.data?.response.viewer.isPremium) ? "commentlist-list-item-nicorubutton-disabled" : ""}`}>ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>

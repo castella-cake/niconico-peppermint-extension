@@ -66,9 +66,10 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const [isSettingsShown, setIsSettingsShown] = useState(false)
     const [isCommentShown, setIsCommentShown] = useState(true)
     const [isStatsShown, setIsStatsShown] = useState(false)
-    const [isCursorStopped, setIsCursorStopped] = useState<boolean>(false)
+    const cursorStopRef = useRef<boolean>(false) // これはコンテナのルートにも使われるけど、直接書き換えて再レンダリングを抑止する
     const pipVideoRef = useRef<HTMLVideoElement>(null)
     const commentInputRef = useRef<HTMLInputElement>(null)
+    const containerRef = useRef<HTMLDivElement>(null)
     const [frequencies] = useState([31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]);
 
     const [effectsState, setEffectsState] = useState<effectsState>(localStorage.playersettings.vefxSettings || {
@@ -135,9 +136,11 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     };
 
     useEffect(() => {
-        let timeout = setTimeout(() => {
-            setIsCursorStopped(true)
-        }, 2500)
+        const toCursorStop = () => {
+            cursorStopRef.current = true
+            containerRef.current?.setAttribute("is-cursor-stopped", "true")
+        }
+        let timeout = setTimeout(toCursorStop, 2500)
         const handleFullscreenChange = (e: Event) => {
             if ( !document.fullscreenElement ) {
                 setIsFullscreenUi(false)
@@ -148,10 +151,9 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         const onKeydown = (e: KeyboardEvent) => handleCtrl(e, videoRef.current, commentInputRef.current, toggleFullscreen)
         const handleMouseMove = (e: MouseEvent) => {
             clearTimeout(timeout)
-            if ( isCursorStopped !== true ) setIsCursorStopped(false)
-            timeout = setTimeout(() => {
-                setIsCursorStopped(true)
-            }, 2500)
+            cursorStopRef.current = false
+            containerRef.current?.setAttribute("is-cursor-stopped", "false")
+            timeout = setTimeout(toCursorStop, 2500)
         }
         document.body.addEventListener("keydown", onKeydown)
         document.body.addEventListener("fullscreenchange", handleFullscreenChange)
@@ -159,6 +161,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
 
         pipVideoRef.current?.addEventListener("mousemove", handleMouseMove)
         return () => {
+            clearTimeout(timeout)
             document.body.removeEventListener("keydown", onKeydown)
             document.body.removeEventListener("fullscreenchange", handleFullscreenChange)
             videoRef.current?.removeEventListener("mousemove", handleMouseMove)
@@ -169,6 +172,11 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     useEffect(() => {
         if (videoRef.current) videoRef.current.playbackRate = localStorage.playersettings.playbackRate || 1.0
     }, [localStorage])
+
+    const filteredComments = useMemo(() => {
+        if (!commentContent.data) return
+        return doFilterThreads(commentContent.data.threads, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore], videoInfo.data?.response.comment.ng.viewer)
+    }, [commentContent, videoInfo, localStorage.playersettings.sharedNgLevel])
 
     function playlistIndexControl(add: number, isShuffle?: boolean) {
         if (playlistData.items.length > 0) {
@@ -226,14 +234,14 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             onPause()
         }
     }
-    const filteredComments = commentContent.data && doFilterThreads(commentContent.data.threads, sharedNgLevelScore[(localStorage.playersettings.sharedNgLevel ?? "mid") as keyof typeof sharedNgLevelScore], videoInfo.data?.response.comment.ng.viewer)
 
     return <div className="player-container"
         id="pmw-player"
         is-pipvideo={localStorage.playersettings.enableCommentPiP && isCommentShown ? "true" : "false"}
         is-dynamic-controller={localStorage.playersettings.integratedControl !== "never" ? "true" : "false"}
         is-integrated-controller={localStorage.playersettings.integratedControl === "always" && !isFullscreenUi ? "true" : "false"}
-        is-cursor-stopped={isCursorStopped ? "true" : "false"}
+        is-cursor-stopped={cursorStopRef.current ? "true" : "false"}
+        ref={containerRef}
     >
         <VideoPlayer videoRef={videoRef} onPause={onPause} onEnded={onEnded} onClick={videoOnClick}>
             { filteredComments && <CommentRender
