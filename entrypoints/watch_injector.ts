@@ -83,6 +83,15 @@ export default defineUnlistedScript({
             if (pluginList) pluginList.appendChild(mediaInjectorContainer)
         }
 
+        const levelSelector = document.createElement("select")
+        levelSelector.id = "pmwp-cyaki-mediainjector-level-select"
+        levelSelector.className = "playercontroller-qualityselect"
+
+        if (!document.getElementById("pmwp-cyaki-mediainjector-level-select")) {
+            const rightControl = document.getElementsByClassName("playercontroller-container-right")[0]
+            if (rightControl) rightControl.prepend(levelSelector)
+        }
+
 
 
         if (
@@ -134,6 +143,26 @@ export default defineUnlistedScript({
             hls.on(Hls.Events.ERROR, (err) => {
                 console.log(err)
             });
+            hls.on(Hls.Events.LEVEL_SWITCHED, (e, data) => {
+                //console.log("switched:", data)
+                levelSelector.selectedIndex = data.level
+            })
+            hls.on(Hls.Events.MANIFEST_LOADED, (e, data) => {
+                //console.log("levels",   hls.levels)
+                levelSelector.innerHTML = ""
+                hls.levels.forEach((level,index) => {
+                    const option = document.createElement("option")
+                    option.setAttribute("value", index.toString())
+                    option.textContent = `${level.height}p`
+                    levelSelector.appendChild(option)
+                })
+            })
+            levelSelector.addEventListener("change", (e) => {
+                if (e.target && e.target instanceof HTMLSelectElement) {
+                    //console.log("change: ", e)
+                    hls.currentLevel = Number(e.target.value)
+                }
+            })
         }
     }
 }
