@@ -71,6 +71,9 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, commentI
             // 今はただ要素が利用可能であることだけ伝えます
             document.dispatchEvent(new CustomEvent("pmw_commentDataUpdated", { detail: "" })) // JSON.stringify({commentContent: commentResponse})
         }
+        if (commentBody === "＠ピザ" || commentBody === "@ピザ") {
+            window.open("https://www.google.com/search?q=ピザ")
+        }
     }
 
     function onKeydown(keyName: string) {
