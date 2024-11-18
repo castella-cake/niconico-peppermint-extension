@@ -305,6 +305,9 @@ function CreateWatchUI() {
     return <div className={isFullscreenUi ? "container fullscreen" : "container"} >
         {(videoInfo.data) && <title>{videoInfo.data.response.video.title}</title>}
         { !isFullscreenUi && <Header videoViewerInfo={videoInfo.data?.response.viewer} setIsMintConfigShown={setIsMintConfigShown}/> }
+        <CSSTransition nodeRef={mintConfigElemRef} in={isMintConfigShown} timeout={300} unmountOnExit classNames="mintconfig-transition">
+            <MintConfig nodeRef={mintConfigElemRef} setIsMintConfigShown={setIsMintConfigShown}/>
+        </CSSTransition>
         <DndContext onDragEnd={handleDragEnd} onDragStart={handleDragStart} sensors={sensors}>
         <div className="watch-container" is-bigview={shouldUseBigView ? "true" : "false"} watch-type={layoutType} settings-size={playerSize} use-card-recommend={shouldUseCardRecommend} use-horizontal-search={shouldUseHorizontalSearchLayout} use-card-info={shouldUseCardInfo} id="pmw-container" onClickCapture={(e) => {linkClickHandler(e)}}>
             <div className="watch-container-grid">
@@ -320,9 +323,6 @@ function CreateWatchUI() {
         /> : null}
         </DragOverlay>
         </DndContext>
-        <CSSTransition nodeRef={mintConfigElemRef} in={isMintConfigShown} timeout={300} unmountOnExit classNames="mintconfig-transition">
-            <MintConfig nodeRef={mintConfigElemRef}/>
-        </CSSTransition>
     </div>
 }
 
