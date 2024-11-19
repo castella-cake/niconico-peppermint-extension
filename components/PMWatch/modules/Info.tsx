@@ -1,4 +1,4 @@
-import { IconEdit, IconExclamationCircleFilled, IconFolderFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
+import { IconClockHour4Filled, IconEdit, IconExclamationCircleFilled, IconFolderFilled, IconMessageFilled, IconPlayerPlayFilled } from "@tabler/icons-react";
 import type { ErrorResponse, VideoDataRootObject } from "@/types/VideoData";
 import { MouseEvent, RefObject, useState } from "react";
 import DOMPurify from "dompurify";
@@ -100,15 +100,16 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
             <div className="videoinfo-titleinfo">
                 { isShinjukuLayout && <div className="uploaddate">
                     <strong>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</strong> 投稿の{videoInfoResponse.channel ? "公式" : "ユーザー"}動画
-                    <span className="threeleader"> … </span><strong>{videoInfoResponse.genre.isNotSet ? "未設定" : videoInfoResponse.genre.label}</strong> 
-                    カテゴリ{videoInfoResponse.ranking.genre ? `過去最高順位: ${videoInfoResponse.ranking.genre.rank}位` : "" }
+                    <span className="threeleader"> … </span><strong>{videoInfoResponse.genre.isNotSet ? "未設定" : videoInfoResponse.genre.label} </strong> 
+                    カテゴリ{videoInfoResponse.ranking.genre ? `(過去最高順位: ${videoInfoResponse.ranking.genre.rank}位)` : "" }
                 </div> }
                 { isTitleShown && <div className="videotitle">{videoInfoResponse.video.title}</div> }
                 { (!isShinjukuLayout && isTitleShown) && <div className="videostats">
-                    <span>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</span>
+                    <span><IconClockHour4Filled/>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</span>
                     <span><IconPlayerPlayFilled/>{readableInt(videoInfoResponse.video.count.view)}</span>
                     <span><IconMessageFilled/>{readableInt(videoInfoResponse.video.count.comment)}</span>
                     <span><IconFolderFilled/>{readableInt(videoInfoResponse.video.count.mylist)}</span>
+                    <span>{videoInfoResponse.genre.isNotSet ? "未設定" : videoInfoResponse.genre.label}{videoInfoResponse.ranking.genre ? `(過去最高順位: ${videoInfoResponse.ranking.genre.rank}位)` : "" }</span>
                 </div> }
             </div>
             { !isShinjukuLayout && <div className="videoinfo-owner">
