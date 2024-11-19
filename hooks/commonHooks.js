@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-export function useInterval(callback, ms) {
+export function useInterval(callback, delayMs) {
     // 渡されたコールバックでRef作成
     const callbackRef = useRef(callback)
     // callbackが更新されたりしたらRef更新
@@ -10,10 +10,10 @@ export function useInterval(callback, ms) {
     useEffect(() => {
         // 新しい関数でRefの関数を実行
         const tick = () => { callbackRef.current() } 
-        const id = setInterval(tick, ms)
+        const id = setInterval(tick, delayMs)
         // 終わったらこれも切る
         return () => {
             clearInterval(id);
         };
-    }, [])
+    }, [delayMs])
 }

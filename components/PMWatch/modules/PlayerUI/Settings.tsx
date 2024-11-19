@@ -58,6 +58,13 @@ const settings: { [key: string]: setting } = {
         name: "スコアに基づくコメントNGレベル",
         texts: ["なし","低 (< -10000)","中 (< -4800)","高 (< -1000)"],
     },
+    commentRenderFPS: {
+        type: "select",
+        defaultValue: 60,
+        options: [30, 60, 120],
+        name: "コメント描画FPS",
+        texts: ["30FPS","60FPS","120FPS"],
+    },
     enableResumePlayback: {
         type: "checkbox",
         defaultValue: true,

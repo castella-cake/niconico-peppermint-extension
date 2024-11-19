@@ -12,7 +12,7 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
     videoOnClick: () => void,
     enableCommentPiP: boolean,
 }) {
-
+    const { localStorage } = useStorageContext()
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const niconicommentsRef = useRef<NiconiComments | null>(null!)
     useEffect(() => { // とりあえずこれでパフォーマンスが改善したけど、returnするときにnull入れてるのが良いのか、要素非表示をCSSに任せているのが良いのか、captureStreamを一回だけ作ってるのが良いのかはよくわからない
@@ -37,7 +37,7 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
     useInterval(() => {
         if (!videoRef.current || !isCommentShown || !niconicommentsRef.current) return
         niconicommentsRef.current.drawCanvas(videoRef.current.currentTime * 100)
-    }, Math.floor(1000 / 60))
+    }, Math.floor(1000 / (localStorage.playersettings.commentRenderFPS ?? 60)))
     return <>
         <canvas ref={canvasRef} width="1920" height="1080" style={isCommentShown ? {opacity: commentOpacity} : {opacity: 0}} id="pmw-element-commentcanvas"/>
         <video
