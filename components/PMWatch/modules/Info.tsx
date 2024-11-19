@@ -105,11 +105,25 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
                 </div> }
                 { isTitleShown && <div className="videotitle">{videoInfoResponse.video.title}</div> }
                 { (!isShinjukuLayout && isTitleShown) && <div className="videostats">
-                    <span><IconClockHour4Filled/>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</span>
-                    <span><IconPlayerPlayFilled/>{readableInt(videoInfoResponse.video.count.view)}</span>
-                    <span><IconMessageFilled/>{readableInt(videoInfoResponse.video.count.comment)}</span>
-                    <span><IconFolderFilled/>{readableInt(videoInfoResponse.video.count.mylist)}</span>
-                    <span>{videoInfoResponse.genre.isNotSet ? "未設定" : videoInfoResponse.genre.label}{videoInfoResponse.ranking.genre ? `(過去最高順位: ${videoInfoResponse.ranking.genre.rank}位)` : "" }</span>
+                    <span className="videostats-item">
+                        <IconClockHour4Filled/>
+                        <span>{new Date(videoInfoResponse.video.registeredAt).toLocaleString('ja-JP')}</span>
+                    </span>
+                    <span className="videostats-item">
+                        <IconPlayerPlayFilled/>
+                        <span>{readableInt(videoInfoResponse.video.count.view)}</span>
+                    </span>
+                    <span className="videostats-item">
+                        <IconMessageFilled/>
+                        <span>{readableInt(videoInfoResponse.video.count.comment)}</span>
+                    </span>
+                    <span className="videostats-item">
+                        <IconFolderFilled/>
+                        <span>{readableInt(videoInfoResponse.video.count.mylist)}</span>
+                    </span>
+                    <span className="videostats-item">
+                        <span>{videoInfoResponse.genre.isNotSet ? "未設定" : videoInfoResponse.genre.label}{videoInfoResponse.ranking.genre ? `(過去最高順位: ${videoInfoResponse.ranking.genre.rank}位)` : "" }</span>
+                    </span>
                 </div> }
             </div>
             { !isShinjukuLayout && <div className="videoinfo-owner">

@@ -138,16 +138,18 @@
     min-width: 240px;
 }
 .videostats {
-    span {
+    > span.videostats-item {
         margin-right: 0.4em;
         border-left: 2px solid var(--accent2);
         padding-left: 0.3em;
         color: var(--textcolor2);
         white-space: nowrap;
         .tabler-icon {
-            vertical-align: text-top;
             height: 1.2em;
             margin-right: 0.1em;
+        }
+        * {
+            vertical-align: middle;
         }
     }
 }
