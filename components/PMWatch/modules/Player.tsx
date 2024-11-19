@@ -270,7 +270,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 <Settings nodeRef={settingsElemRef} isStatsShown={isStatsShown} setIsStatsShown={setIsStatsShown}/>
             </CSSTransition>
             { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/> }
-            <EndCard videoInfo={videoInfo} videoRef={videoRef}/>
+            <EndCard videoInfo={videoInfo} videoRef={videoRef} recommendData={recommendData}/>
             <PPVScreen videoInfo={videoInfo}/>
         </VideoPlayer>
         <div className="player-bottom-container">

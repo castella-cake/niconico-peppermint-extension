@@ -8,6 +8,10 @@
     color: #fff;    
     z-index: 1;
     cursor: auto;
+    --textcolor1: #fff;
+    --textcolor2: #ddd;
+    --textcolor3: #aaa;
+    --bgcolor2: #222a;
 }
 
 .endcard-left {
@@ -29,4 +33,45 @@
 
 .endcard-right {
     flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1em;
+    overflow: hidden;
+
+    h2 {
+        margin: 0.5rem 0;
+        font-size: 1em;
+    }
+
+    .endcard-currentvideo-container {
+        display: flex;
+        align-items: center;
+        background: var(--bgcolor2);
+        padding: 8px 4px;
+        backdrop-filter: blur(4px);
+        border: 1px solid var(--textcolor3);
+        border-left-width: 4px;
+        border-radius: var(--radius);
+        img {
+            height: 4em;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+        }
+        .endcard-currentvideo-text span {
+            opacity: 0.8;
+        }
+    }
+
+    .endcard-upnext-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        font-size: 0.9em;
+        .info-card {
+            border: 1px solid var(--textcolor3);
+            background: var(--bgcolor2);
+            backdrop-filter: blur(4px);
+        }
+    }
 }
