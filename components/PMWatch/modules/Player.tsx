@@ -137,8 +137,17 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
 
     useEffect(() => {
         const toCursorStop = () => {
+            if (videoRef.current && videoRef.current.currentTime && videoRef.current.duration && videoRef.current?.currentTime >= videoRef.current?.duration) return
             cursorStopRef.current = true
             containerRef.current?.setAttribute("is-cursor-stopped", "true")
+        }
+        const onTimeUpdate = () => {
+            if ( !videoRef.current || !videoRef.current.currentTime || !videoRef.current.duration ) return
+            if (videoRef.current?.currentTime >= videoRef.current?.duration) {
+                cursorStopRef.current = false
+                containerRef.current?.setAttribute("is-cursor-stopped", "false")
+                clearTimeout(timeout)
+            }
         }
         let timeout = setTimeout(toCursorStop, 2500)
         const handleFullscreenChange = (e: Event) => {
@@ -158,6 +167,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         document.body.addEventListener("keydown", onKeydown)
         document.body.addEventListener("fullscreenchange", handleFullscreenChange)
         videoRef.current?.addEventListener("mousemove", handleMouseMove)
+        videoRef.current?.addEventListener("timeupdate", onTimeUpdate)
 
         pipVideoRef.current?.addEventListener("mousemove", handleMouseMove)
         return () => {
@@ -165,6 +175,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             document.body.removeEventListener("keydown", onKeydown)
             document.body.removeEventListener("fullscreenchange", handleFullscreenChange)
             videoRef.current?.removeEventListener("mousemove", handleMouseMove)
+            videoRef.current?.removeEventListener("timeupdate", onTimeUpdate)
             pipVideoRef.current?.removeEventListener("mousemove", handleMouseMove)
         }
     }, [])

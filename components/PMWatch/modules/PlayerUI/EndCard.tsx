@@ -58,7 +58,7 @@ export function EndCard({ videoInfo, videoRef, recommendData }: { videoInfo: Vid
                 </span>
             })}
             </div>
-            { supportersInfo?.data && <audio autoPlay src={supportersInfo?.data.voiceUrl} controls ref={audioElemRef}/> }
+            { supportersInfo?.data && <audio autoPlay src={supportersInfo?.data.voiceUrl} ref={audioElemRef}/> }
         </div>
         <div className="endcard-right">
             <h2>現在の動画</h2>
