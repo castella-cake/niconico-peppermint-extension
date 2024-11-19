@@ -5,7 +5,7 @@ import Player from "./modules/Player";
 import Info, { Title } from "./modules/Info";
 import Recommend from "./modules/Recommend";
 import CommentList from "./modules/CommentList";
-import Header from "./modules/header";
+import Header from "./modules/Header";
 import BottomInfo from "./modules/BottomInfo";
 import Actions from "./modules/Actions";
 import Search from "./modules/Search";
