@@ -115,7 +115,7 @@ export default defineContentScript({
                     `${document.body.style}
                     ${varArray.join("")}`
                 );
-            } else if ( syncStorage.darkmode !== "" ) {
+            } else if ( syncStorage.darkmode && syncStorage.darkmode !== "" ) {
                 document.documentElement.classList.add(`PMDMP-${syncStorage.darkmode}`);
             } else {
                 document.documentElement.classList.add(`PMDMP-light`);
