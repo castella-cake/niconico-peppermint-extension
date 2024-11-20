@@ -17,7 +17,7 @@ import { CSSTransition } from "react-transition-group";
 import { EndCard } from "./PlayerUI/EndCard";
 import { useAudioEffects } from "@/hooks/eqHooks";
 import { useStorageContext } from "@/hooks/extensionHook";
-import { PPVScreen } from "./PlayerUI/PPVScreen";
+import { ErrorScreen } from "./PlayerUI/ErrorScreen";
 import { CommentRender } from "./PlayerUI/CommentRender";
 
 export type effectsState = {
@@ -282,7 +282,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
             </CSSTransition>
             { isStatsShown && <StatsOverlay videoInfo={videoInfo} videoRef={videoRef} hlsRef={hlsRef}/> }
             <EndCard videoInfo={videoInfo} videoRef={videoRef} recommendData={recommendData}/>
-            <PPVScreen videoInfo={videoInfo}/>
+            <ErrorScreen videoInfo={videoInfo}/>
         </VideoPlayer>
         <div className="player-bottom-container">
             <PlayerController
