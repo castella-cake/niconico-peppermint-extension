@@ -41,7 +41,7 @@ export function timeCalc(operation: string, time: number, currentTime: number, d
     }
 }
 
-export const handleCtrl = (e: KeyboardEvent, video: HTMLVideoElement | null, commentInput: HTMLInputElement | null, onToggleFullscreen: () => void) => {
+export const handleCtrl = (e: KeyboardEvent, video: HTMLVideoElement | null, commentInput: HTMLTextAreaElement | null, onToggleFullscreen: () => void) => {
     if ( e.ctrlKey ) return true;
     if ( e.target instanceof Element ) {
         if ( e.target.closest("input, textarea") ) return true;

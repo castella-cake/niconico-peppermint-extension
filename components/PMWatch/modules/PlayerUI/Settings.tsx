@@ -55,7 +55,7 @@ const settings: { [key: string]: setting } = {
         type: "select",
         defaultValue: "mid",
         options: ["none","low","mid","high"],
-        name: "スコアに基づくコメントNGレベル",
+        name: "共有NGコメントレベル",
         texts: ["なし","低 (< -10000)","中 (< -4800)","高 (< -1000)"],
     },
     commentRenderFPS: {
@@ -80,6 +80,11 @@ const settings: { [key: string]: setting } = {
         type: "checkbox",
         defaultValue: true,
         name: "ラウドネスノーマライズ"
+    },
+    pauseOnCommentInput: {
+        type: "checkbox",
+        defaultValue: false,
+        name: "コメント入力時に一時停止してプレビュー",
     },
     requestMonitorFullscreen: {
         type: "checkbox",

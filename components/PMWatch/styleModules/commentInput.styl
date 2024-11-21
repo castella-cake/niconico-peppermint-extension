@@ -2,7 +2,7 @@
     margin-top: 8px;
     border-radius: var(--radius);
     --border: 2px solid var(--accent1);
-    > input {
+    > input, > .commentinput-textarea-container > .commentinput-input {
         background: var(--bgcolor1);
         color: var(--textcolor1);
         border-top: var(--border);
@@ -10,6 +10,32 @@
         border-left: var(--border);
         border-right: none;
         padding: 8px;
+    }
+    > .commentinput-textarea-container {
+        position: relative;
+        > .commentinput-textarea-dummy {
+            overflow: hidden;
+            visibility: hidden;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            padding: 10px;
+        }
+        > .commentinput-input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: block;
+            overflow: hidden;
+            resize: none;
+            font-family: inherit;
+        }
+    }
+    .commentinput-input, .commentinput-cmdinput, .commentinput-textarea-dummy  {
+        font-size: 0.8rem;
+        line-height: 1rem;
     }
     > input:first-child {
         border-radius: var(--radius) 0 0 var(--radius)

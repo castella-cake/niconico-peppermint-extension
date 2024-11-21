@@ -104,8 +104,14 @@
     }
 
     // コメント入力
-    .commentinput-container > * {
+    .commentinput-container > input {
         padding: 2px 6px;
+    }
+    .commentinput-container > .commentinput-textarea-container > .commentinput-input {
+        padding: 5px 6px !important
+    }
+    .commentinput-textarea-dummy {
+        padding: 7px 8px !important;
     }
     .commentinput-container svg {
         height: 1.5em;
@@ -132,6 +138,7 @@
         display: flex;
         gap: 0.5em;
         width: 100%;
+        line-height: 1em;
     }
     .videostat-left-container {
         font-weight: bold;

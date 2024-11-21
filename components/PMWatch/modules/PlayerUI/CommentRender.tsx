@@ -1,9 +1,9 @@
-import { Thread } from "@/types/CommentData";
+import { Comment, Thread } from "@/types/CommentData";
 import NiconiComments from "@xpadev-net/niconicomments";
 import { RefObject } from "react";
 
 // コメントレンダラー
-export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOpacity, threads, videoOnClick, enableCommentPiP }: {
+export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOpacity, threads, videoOnClick, enableCommentPiP, previewCommentItem, defaultPostTargetIndex }: {
     videoRef: RefObject<HTMLVideoElement>,
     pipVideoRef: RefObject<HTMLVideoElement>,
     isCommentShown: boolean,
@@ -11,6 +11,8 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
     threads: Thread[],
     videoOnClick: () => void,
     enableCommentPiP: boolean,
+    previewCommentItem: null | Comment,
+    defaultPostTargetIndex: number,
 }) {
     const { localStorage } = useStorageContext()
     const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -23,6 +25,12 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
         ) {
             //console.log("niconicomments redefined")
             // , config: { contextLineWidth: { html5: 0, flash: 0 }, contextStrokeOpacity: 0 } 
+            if (previewCommentItem && defaultPostTargetIndex !== -1) {
+                threads[defaultPostTargetIndex].comments = threads[defaultPostTargetIndex].comments.filter(comment => comment.id !== "-1")
+                threads[defaultPostTargetIndex].comments.push(previewCommentItem)
+            } else if (defaultPostTargetIndex !== -1) {
+                threads[defaultPostTargetIndex].comments = threads[defaultPostTargetIndex].comments.filter(comment => comment.id !== "-1")
+            }
             niconicommentsRef.current = new NiconiComments(canvasRef.current, threads, { format: "v1", enableLegacyPiP: true, video: undefined, mode: "html5" }) // (localStorage.playersettings.enableCommentPiP ? videoRef.current : undefined)
 
             /*if (localStorage.playersettings.enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
@@ -33,7 +41,7 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
                 if (pipVideoRef.current) pipVideoRef.current.srcObject = null
             }
         }
-    }, [threads, enableCommentPiP])
+    }, [threads, enableCommentPiP, previewCommentItem])
     useInterval(() => {
         if (!videoRef.current || !isCommentShown || !niconicommentsRef.current) return
         niconicommentsRef.current.drawCanvas(videoRef.current.currentTime * 100)

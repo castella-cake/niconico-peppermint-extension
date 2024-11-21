@@ -4,7 +4,7 @@ import PlayerController from "./PlayerUI/PlayerController";
 import VefxController from "./PlayerUI/VefxController";
 import { useHlsVideo } from "@/hooks/hlsHooks";
 import type { VideoDataRootObject } from "@/types/VideoData";
-import type { CommentDataRootObject } from "@/types/CommentData";
+import { Comment, type CommentDataRootObject } from "@/types/CommentData";
 import type { Dispatch, ReactNode, SetStateAction } from "react"
 import CommentInput from "./PlayerUI/CommentInput";
 import Settings from "./PlayerUI/Settings";
@@ -68,9 +68,11 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const [isStatsShown, setIsStatsShown] = useState(false)
     const cursorStopRef = useRef<boolean>(false) // これはコンテナのルートにも使われるけど、直接書き換えて再レンダリングを抑止する
     const pipVideoRef = useRef<HTMLVideoElement>(null)
-    const commentInputRef = useRef<HTMLInputElement>(null)
+    const commentInputRef = useRef<HTMLTextAreaElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
     const [frequencies] = useState([31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]);
+    const [previewCommentItem, setPreviewCommentItem] = useState<Comment | null>(null)
+
 
     const [effectsState, setEffectsState] = useState<effectsState>(localStorage.playersettings.vefxSettings || {
         equalizer: { enabled: false, gains: new Array(frequencies.length).fill(0) },
@@ -263,6 +265,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 threads={filteredComments}
                 videoOnClick={videoOnClick}
                 enableCommentPiP={localStorage.playersettings.enableCommentPiP}
+                previewCommentItem={previewCommentItem}
+                defaultPostTargetIndex={videoInfo.data ? videoInfo.data.response.comment.threads.findIndex(elem => elem.isDefaultPostTarget) : -1}
             /> }
             <CSSTransition nodeRef={vefxElemRef} in={isVefxShown} timeout={400} unmountOnExit classNames="player-transition-vefx">
                 <VefxController
@@ -306,7 +310,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
 
                 playlistIndexControl={playlistIndexControl}
             />
-            <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} commentInputRef={commentInputRef}/>
+            <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} commentInputRef={commentInputRef} setPreviewCommentItem={setPreviewCommentItem}/>
         </div>
     </div>
 }

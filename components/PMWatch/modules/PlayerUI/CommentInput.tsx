@@ -1,8 +1,8 @@
 import { IconSend2 } from "@tabler/icons-react";
 import { useRef, useState } from "react";
-import type { Dispatch, RefObject, SetStateAction } from "react"
+import type { ChangeEvent, Dispatch, KeyboardEvent, RefObject, SetStateAction } from "react"
 import type { VideoDataRootObject } from "@/types/VideoData";
-import type { CommentDataRootObject, CommentResponseRootObject, Thread } from "@/types/CommentData";
+import type { Comment, CommentDataRootObject, CommentResponseRootObject, Thread } from "@/types/CommentData";
 import { CommentPostBody, KeyRootObjectResponse } from "@/types/CommentPostData";
 import { getCommentPostKey, getCommentThread, postComment } from "../../../../utils/watchApi";
 //import { getCommentPostKey, postComment } from "../../../modules/watchApi";
@@ -13,19 +13,22 @@ type Props = {
     videoInfo: VideoDataRootObject,
     setCommentContent: Dispatch<SetStateAction<CommentDataRootObject>>,
     videoRef: RefObject<HTMLVideoElement>,
-    commentInputRef: RefObject<HTMLInputElement>,
+    commentInputRef: RefObject<HTMLTextAreaElement>,
+    setPreviewCommentItem: Dispatch<SetStateAction<Comment | null>>
 }
 
 
 
-function CommentInput({videoRef, videoId, videoInfo, setCommentContent, commentInputRef}: Props) {
+function CommentInput({videoRef, videoId, videoInfo, setCommentContent, commentInputRef, setPreviewCommentItem}: Props) {
+    const { localStorage } = useStorageContext()
     const commandInput = useRef<HTMLInputElement>(null)
 
+    const [dummyTextAreaContent, setDummyTextAreaContent] = useState("")
     const [isComposing, setIsComposing] = useState(false);
     const startComposition = () => setIsComposing(true);
     const endComposition = () => setIsComposing(false);
 
-    // idが遅い方のmain
+    // idが遅い方のデフォルトの投稿ターゲット
     const mainThreads = videoInfo.data?.response.comment.threads.filter(elem => elem.isDefaultPostTarget).sort((a, b) => Number(b.id) - Number(a.id))[0]
 
     async function sendComment(videoId: string, commentBody: string, commentCommand: string[] = [], vposMs: number) {
@@ -74,22 +77,56 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, commentI
         if (commentBody === "＠ピザ" || commentBody === "@ピザ") {
             window.open("https://www.google.com/search?q=ピザ")
         }
+        if (localStorage.playersettings.pauseOnCommentInput && videoRef.current) {
+            videoRef.current.play()
+        }
+        setPreviewCommentItem(null)
+        if (commentInputRef.current) commentInputRef.current.value = ""
+        setDummyTextAreaContent("")
     }
 
-    function onKeydown(keyName: string) {
-        if ( keyName === "Enter" && commentInputRef.current && videoRef.current && !isComposing ) {
+    function onKeydown(e: KeyboardEvent<HTMLTextAreaElement>) {
+        if (e.shiftKey || e.ctrlKey || e.altKey) return
+        if ( e.key === "Enter" && commentInputRef.current && videoRef.current && !isComposing ) {
             sendComment(videoId, commentInputRef.current.value, commandInput.current?.value.split(""), Math.floor(videoRef.current.currentTime * 1000) )
             commentInputRef.current.value = ""
+            e.preventDefault()
+        } else if (localStorage.playersettings.pauseOnCommentInput && videoRef.current ) {
+            videoRef.current.pause()
         }
     }
     
+    function onChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
+        if (commentInputRef.current) setDummyTextAreaContent(commentInputRef.current.value)
+        if (videoInfo.data && videoInfo.data.response.viewer && commentInputRef.current && commandInput.current && commentInputRef.current.value.length > 0 && videoRef.current) {
+            setPreviewCommentItem({
+                id: "-1", 
+                no: -1,
+                vposMs: Math.floor(videoRef.current.currentTime * 1000),
+                body: commentInputRef.current.value,
+                commands: ["184", "nico:waku:#faf", ...commandInput.current.value.split(" ")],
+                isMyPost: true,
+                userId: "-1",
+                isPremium: videoInfo.data?.response.viewer?.isPremium,
+                score: 0,
+                postedAt: new Date().toString(),
+                nicoruCount: 0,
+                nicoruId: null,
+                source: ""
+            })
+        } else setPreviewCommentItem(null)
+    }
+
+    // textarea 周りの挙動は https://qiita.com/tsmd/items/fce7bf1f65f03239eef0 を参考にさせていただきました
     return <div className="commentinput-container global-flex" id="pmw-commentinput">
-        <input ref={commandInput} className="commentinput-cmdinput" placeholder="コマンド" />
-        <input ref={commentInputRef} className="global-flex1 commentinput-input" placeholder="コメントを入力" onKeyDown={(e) => {onKeydown(e.key)}} onCompositionStart={startComposition} onCompositionEnd={endComposition}/>
+        <input ref={commandInput} className="commentinput-cmdinput" placeholder="コマンド" onChange={onChange} />
+        <div className="commentinput-textarea-container global-flex1">
+            <div className="commentinput-textarea-dummy" aria-hidden="true">{dummyTextAreaContent + '\u200b'}</div>
+            <textarea ref={commentInputRef} className="commentinput-input" placeholder="コメントを入力" onKeyDown={onKeydown} onChange={onChange} onCompositionStart={startComposition} onCompositionEnd={endComposition}/>
+        </div>
         <button type="button" className="commentinput-submit" onClick={() => {
             if (!commentInputRef.current || !videoRef.current || commentInputRef.current.value === "") return
             sendComment(videoId, commentInputRef.current.value, commandInput.current?.value.split(" "), Math.floor(videoRef.current.currentTime * 1000) )
-            commentInputRef.current.value = ""
         }}><IconSend2/><span>コメント</span></button>
     </div>
 }
