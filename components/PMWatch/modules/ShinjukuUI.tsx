@@ -68,7 +68,7 @@ export function Owner({ videoInfo }: Props) {
 }
 
 export function NicoHarajukuLogo() {
-    const [ hidariueNumber, _setHidariueNumber ] = useState(new Array(3).fill(Math.floor(Math.random() * 9)))
+    const [ hidariueNumber, _setHidariueNumber ] = useState([0,0,0].map(n => Math.floor(Math.random() * 9)))
     return <a href="https://www.nicovideo.jp/video_top" className="harajuku-logo">
         <img src={`https://resource.video.nimg.jp/web/img/base/head/icon/nico/${ hidariueNumber.join("") }.gif`} alt="左上"/>
         <img src="http://nicovideo.cdn.nimg.jp/uni/img/logo.gif" alt="ニコニコ動画"/>
