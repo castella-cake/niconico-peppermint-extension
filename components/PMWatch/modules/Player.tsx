@@ -116,7 +116,15 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         return () => { window.removeEventListener("beforeunload", onUnload) }
     }, [])
     useEffect(() => {
-        if (!videoInfo.data || !videoRef.current || !videoInfo.data.response.player.initialPlayback || localStorage.playersettings.enableResumePlayback === false) return
+        if (!videoInfo.data || !videoRef.current) return
+        const searchParams = new URLSearchParams(location.search);
+        const fromSecond = Number(searchParams.get('from'))
+        if (fromSecond) {
+            videoRef.current.currentTime = fromSecond
+            return
+        }
+
+        if (!videoInfo.data.response.player.initialPlayback || localStorage.playersettings.enableResumePlayback === false) return
         videoRef.current.currentTime = videoInfo.data.response.player.initialPlayback?.positionSec
     }, [videoInfo])
 
@@ -138,6 +146,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     };
 
     useEffect(() => {
+
         const toCursorStop = () => {
             if (videoRef.current && videoRef.current.currentTime && videoRef.current.duration && videoRef.current?.currentTime >= videoRef.current?.duration) return
             cursorStopRef.current = true
