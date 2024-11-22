@@ -28,7 +28,6 @@ const settings: { [key: string]: setting } = {
         defaultValue: 1,
         texts: ["非常に薄い(25%)", "薄い(50%)", "やや薄い(75%)", "透過なし"],
         name: "コメント透過",
-        hint: "「PiPでコメントを表示」が有効の場合は使用できません。",
     },
     playbackRate: {
         type: "select",
@@ -58,7 +57,7 @@ const settings: { [key: string]: setting } = {
         name: "共有NGコメントレベル",
         texts: ["なし","低 (< -10000)","中 (< -4800)","高 (< -1000)"],
     },
-    commentRenderFPS: {
+    commentRenderFps: {
         type: "select",
         defaultValue: 60,
         options: [30, 60, 120],
@@ -71,11 +70,12 @@ const settings: { [key: string]: setting } = {
         name: "レジューム再生",
         hint: "プレミアム会員資格が必要です。"
     },
-    /*enableCommentPiP: {
+    enableCommentPiP: {
         type: "checkbox",
         defaultValue: false,
-        name: "PiPでコメントを表示",
-    },*/
+        name: "PiPでコメントを表示(実験的)",
+        hint: "コメント透過率と描画FPSが固定されます。"
+    },
     enableLoudnessData: {
         type: "checkbox",
         defaultValue: true,

@@ -70,10 +70,10 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     const pipVideoRef = useRef<HTMLVideoElement>(null)
     const commentInputRef = useRef<HTMLTextAreaElement>(null)
     const containerRef = useRef<HTMLDivElement>(null)
+    const [previewCommentItem, setPreviewCommentItem] = useState<Comment | null>(null) // プレビューコメント
+
+    // エフェクター
     const [frequencies] = useState([31, 62, 125, 250, 500, 1000, 2000, 4000, 8000, 16000]);
-    const [previewCommentItem, setPreviewCommentItem] = useState<Comment | null>(null)
-
-
     const [effectsState, setEffectsState] = useState<effectsState>(localStorage.playersettings.vefxSettings || {
         equalizer: { enabled: false, gains: new Array(frequencies.length).fill(0) },
         echo: { enabled: false, delayTime: 0.25, feedback: 0.5, gain: 1 },
@@ -81,12 +81,11 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         mono: { enabled: false },
     });
 
+    
     const isLoudnessEnabled = localStorage.playersettings.enableLoudnessData ?? true
     const integratedLoudness = (videoInfo.data?.response.media.domand && videoInfo.data?.response.media.domand?.audios[0].loudnessCollection[0].value) ?? 1
     const loudnessData = isLoudnessEnabled ? integratedLoudness : 1
     const { updateEqualizer, updateEcho, updatePreampGain } = useAudioEffects(videoRef, frequencies, effectsState, loudnessData);
-
-    const shuffleBagRef = useRef<string[]>([])
 
     const handleEffectsChange = (newState: effectsState) => {
         setEffectsState(newState);
@@ -97,8 +96,11 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         updatePreampGain(newState.preamp.gain);
     };
 
-    const userAgent = window.navigator.userAgent.toLowerCase();
-    const shouldUseContentScriptHls = !(userAgent.indexOf('chrome') == -1 || syncStorage.pmwforcepagehls)
+    // シャッフル再生のバッグ
+    const shuffleBagRef = useRef<string[]>([])
+
+    // 外部HLSプラグインが使用される状況の場合は何もしない
+    const shouldUseContentScriptHls = !(import.meta.env.FIREFOX || syncStorage.pmwforcepagehls)
     const hlsRef = useHlsVideo(videoRef, videoInfo, videoId, actionTrackId, shouldUseContentScriptHls, localStorage.playersettings.preferredLevel || -1)
 
     // for transition
@@ -115,6 +117,8 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         window.addEventListener("beforeunload", onUnload)
         return () => { window.removeEventListener("beforeunload", onUnload) }
     }, [])
+
+    // fromから再生位置の指定をするか、レジューム再生で再生位置を指定する
     useEffect(() => {
         if (!videoInfo.data || !videoRef.current) return
         const searchParams = new URLSearchParams(location.search);
@@ -146,12 +150,14 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
     };
 
     useEffect(() => {
-
+        // カーソル表示状態の管理
+        // Timeoutで呼ばれる関数 カーソル非表示状態へ移行
         const toCursorStop = () => {
             if (videoRef.current && videoRef.current.currentTime && videoRef.current.duration && videoRef.current?.currentTime >= videoRef.current?.duration) return
             cursorStopRef.current = true
             containerRef.current?.setAttribute("is-cursor-stopped", "true")
         }
+        // 動画が終了してエンドカードが表示されそうな場合は常にカーソル表示状態に
         const onTimeUpdate = () => {
             if ( !videoRef.current || !videoRef.current.currentTime || !videoRef.current.duration ) return
             if (videoRef.current?.currentTime >= videoRef.current?.duration) {
@@ -160,7 +166,18 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 clearTimeout(timeout)
             }
         }
+        // カーソルが動いたらTimeoutをリセット
+        const handleMouseMove = (e: MouseEvent) => {
+            clearTimeout(timeout)
+            cursorStopRef.current = false
+            containerRef.current?.setAttribute("is-cursor-stopped", "false")
+            timeout = setTimeout(toCursorStop, 2500)
+        }
         let timeout = setTimeout(toCursorStop, 2500)
+        containerRef.current?.addEventListener("mousemove", handleMouseMove, true)
+        videoRef.current?.addEventListener("timeupdate", onTimeUpdate)
+
+        // フルスクリーンから脱出した場合にUIを切り替え
         const handleFullscreenChange = (e: Event) => {
             if ( !document.fullscreenElement ) {
                 setIsFullscreenUi(false)
@@ -168,26 +185,19 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 setIsFullscreenUi(true)
             }
         }
-        const onKeydown = (e: KeyboardEvent) => handleCtrl(e, videoRef.current, commentInputRef.current, toggleFullscreen)
-        const handleMouseMove = (e: MouseEvent) => {
-            clearTimeout(timeout)
-            cursorStopRef.current = false
-            containerRef.current?.setAttribute("is-cursor-stopped", "false")
-            timeout = setTimeout(toCursorStop, 2500)
-        }
-        document.body.addEventListener("keydown", onKeydown)
         document.body.addEventListener("fullscreenchange", handleFullscreenChange)
-        videoRef.current?.addEventListener("mousemove", handleMouseMove)
-        videoRef.current?.addEventListener("timeupdate", onTimeUpdate)
 
-        pipVideoRef.current?.addEventListener("mousemove", handleMouseMove)
+        // ホットキー
+        const onKeydown = (e: KeyboardEvent) => handleCtrl(e, videoRef.current, commentInputRef.current, toggleFullscreen)
+        document.body.addEventListener("keydown", onKeydown)
+        
+        // 破棄時に解除
         return () => {
             clearTimeout(timeout)
             document.body.removeEventListener("keydown", onKeydown)
             document.body.removeEventListener("fullscreenchange", handleFullscreenChange)
-            videoRef.current?.removeEventListener("mousemove", handleMouseMove)
+            containerRef.current?.removeEventListener("mousemove", handleMouseMove)
             videoRef.current?.removeEventListener("timeupdate", onTimeUpdate)
-            pipVideoRef.current?.removeEventListener("mousemove", handleMouseMove)
         }
     }, [])
 
@@ -257,6 +267,9 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
         }
     }
 
+    const preferredCommentFps = (localStorage.playersettings.commentRenderFps ?? 60) // 未指定の場合は60にフォールバック
+    const commentRenderFps = localStorage.playersettings.enableCommentPiP ? 60 : preferredCommentFps // PiPでコメント表示する場合はメモリリークを防ぐために60FPSで固定する
+
     return <div className="player-container"
         id="pmw-player"
         is-pipvideo={localStorage.playersettings.enableCommentPiP && isCommentShown ? "true" : "false"}
@@ -274,6 +287,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 threads={filteredComments}
                 videoOnClick={videoOnClick}
                 enableCommentPiP={localStorage.playersettings.enableCommentPiP}
+                commentRenderFps={commentRenderFps}
                 previewCommentItem={previewCommentItem}
                 defaultPostTargetIndex={videoInfo.data ? videoInfo.data.response.comment.threads.findIndex(elem => elem.isDefaultPostTarget) : -1}
             /> }
