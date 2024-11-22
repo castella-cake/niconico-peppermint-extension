@@ -286,7 +286,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
                 commentOpacity={localStorage.playersettings.commentOpacity || 1}
                 threads={filteredComments}
                 videoOnClick={videoOnClick}
-                enableCommentPiP={localStorage.playersettings.enableCommentPiP}
+                enableCommentPiP={localStorage.playersettings.enableCommentPiP && !previewCommentItem}
                 commentRenderFps={commentRenderFps}
                 previewCommentItem={previewCommentItem}
                 defaultPostTargetIndex={videoInfo.data ? videoInfo.data.response.comment.threads.findIndex(elem => elem.isDefaultPostTarget) : -1}
