@@ -16,6 +16,30 @@
     height: 100%;
 }
 
+.videoaction-modal-transition {
+    &-enter, &-exit-active {
+        --translateY: 25%;
+    }
+    &-enter-active, &-exit-active {
+        transition: opacity 0.15s ease;
+        .videoaction-modal-container {
+            transition: transform 0.15s ease;
+        }
+    }
+    &-enter, &-exit-active {
+        opacity: 0;
+        .videoaction-modal-container {
+            transform: translateY(var(--translateY))
+        }
+    }
+    &-enter-done, &-enter-active {
+        opacity: 1;
+        .videoaction-modal-container {
+            transform: translateY(0%)
+        }
+    }
+}
+
 .videoaction-modal-header h2 {
     margin: 0;
 }

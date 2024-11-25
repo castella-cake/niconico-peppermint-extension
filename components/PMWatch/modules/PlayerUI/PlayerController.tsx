@@ -7,6 +7,7 @@ import { CommentDataRootObject } from "@/types/CommentData";
 import { Seekbar } from "./Seekbar";
 import { secondsToTime, timeCalc } from "../commonFunction";
 import { useStorageContext } from "@/hooks/extensionHook";
+import { CSSTransition } from "react-transition-group";
 type Props = {
     videoRef: RefObject<HTMLVideoElement>,
     effectsState: effectsState,
@@ -30,7 +31,29 @@ const playerTypes = {
 }
 
 function PlayerControllerButton({ onClick, title, className, children }: { onClick: any, title: string, className: string, children: ReactNode}) {
-    return <button className={className} onClick={onClick} title={title}>{children}</button>
+    const [isHovered, setIsHovered] = useState(false)
+    const spanRef = useRef(null)
+    const buttonRef = useRef<HTMLButtonElement>(null)
+    useEffect(() => {
+        let timeout: ReturnType<typeof setTimeout>
+        if ( !buttonRef.current ) return
+        buttonRef.current.addEventListener("mouseenter", () => {
+            timeout = setTimeout(() => setIsHovered(true), 500)
+        })
+        buttonRef.current.addEventListener("mouseleave", ()  => {
+            if (timeout) clearTimeout(timeout)
+            setIsHovered(false)
+        })
+        return () => {
+            if (timeout) clearTimeout(timeout)
+        }
+    }, [])
+    return <button ref={buttonRef} className={className} onClick={onClick} aria-label={title}>
+        {children}
+        <CSSTransition nodeRef={spanRef} in={isHovered} timeout={300} unmountOnExit classNames="playercontroller-tooltip-transition">
+            <span ref={spanRef} className="playercontroller-tooltip">{title}</span>
+        </CSSTransition>
+    </button>
 }
 
 
@@ -330,10 +353,10 @@ function PlayerController({
                     <option value={-1}>Auto</option>
                 </select>}
                 {/*<div className="playercontroller-qualitydisplay">{hlsRef.current && hlsRef.current.levels.map(elem => `${elem.height}p`)[hlsRef.current.currentLevel]}</div>*/}
-                <button type="button" className="playercontroller-commenttoggle" onClick={() => {setIsCommentShown(!isCommentShown)}} title={isCommentShown ? "コメントを非表示" : "コメントを表示"}>{ isCommentShown ? <IconMessage2/> : <IconMessage2Off/>}</button>
-                <button type="button" className="playercontroller-fullscreen" onClick={toggleFullscreen} title={isFullscreenUi ? "フルスクリーンを終了" : "フルスクリーン"}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</button>
-                <button type="button" className="playercontroller-settings" onClick={() => {setIsSettingsShown(!isSettingsShown)}} title="プレイヤーの設定">{ isSettingsShown ? <IconSettingsFilled/> : <IconSettings/>}</button>
-                {isFullscreenUi && <button type="button" className="playercontroller-expandsidebar" onClick={() => {writePlayerSettings("enableBigView", !(localStorage.playersettings.enableBigView ?? false))}} title="サイドバーを展開">{ (localStorage.playersettings.enableBigView ?? false) ? <IconLayoutSidebarRightCollapseFilled/> : <IconLayoutSidebarRightExpand/> }</button>}
+                <PlayerControllerButton className="playercontroller-commenttoggle" onClick={() => {setIsCommentShown(!isCommentShown)}} title={isCommentShown ? "コメントを非表示" : "コメントを表示"}>{ isCommentShown ? <IconMessage2/> : <IconMessage2Off/>}</PlayerControllerButton>
+                <PlayerControllerButton className="playercontroller-fullscreen" onClick={toggleFullscreen} title={isFullscreenUi ? "フルスクリーンを終了" : "フルスクリーン"}>{ isFullscreenUi ? <IconMinimize/> : <IconMaximize/>}</PlayerControllerButton>
+                <PlayerControllerButton className="playercontroller-settings" onClick={() => {setIsSettingsShown(!isSettingsShown)}} title="プレイヤーの設定">{ isSettingsShown ? <IconSettingsFilled/> : <IconSettings/>}</PlayerControllerButton>
+                {isFullscreenUi && <PlayerControllerButton className="playercontroller-expandsidebar" onClick={() => {writePlayerSettings("enableBigView", !(localStorage.playersettings.enableBigView ?? false))}} title="サイドバーを展開">{ (localStorage.playersettings.enableBigView ?? false) ? <IconLayoutSidebarRightCollapseFilled/> : <IconLayoutSidebarRightExpand/> }</PlayerControllerButton>}
             </div>
         </div>
     </div>

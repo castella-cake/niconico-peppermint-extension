@@ -17,7 +17,6 @@
         align-items: center;
         gap: 0.25em;
         flex-wrap: wrap;
-
         svg,span {
             vertical-align: bottom;
         }
@@ -28,8 +27,14 @@
 }
 
 .watch-container:not([watch-type="shinjuku"]) .video-actions {
+    > button {
+        transition: background 0.1s ease;
+    }
     > .video-action-likebutton svg.tabler-icon-heart-filled {
         color: var(--likecolor, #FF5588);
+    }
+    > .video-action-likebutton:hover {
+        background: var(--likebg, #502834);
     }
     > .video-action-likebutton[is-liked="true"] {
         border: 1px solid var(--likecolor, #FF5588);
@@ -42,7 +47,7 @@
     }
 
     > button:not(.video-action-disabled):hover {
-        background: var(--bgcolor1);
+        background: var(--hover1);
         color: var(--textcolor1);
         cursor: pointer;
     }

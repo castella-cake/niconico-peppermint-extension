@@ -38,15 +38,60 @@
         vertical-align: middle;
         padding: 5px 8px;
         border-radius: var(--radius);
+        transition: background 0.1s ease;
         svg {
             vertical-align: middle;
         }
+        position: relative;
     }
     button:hover {
         background: var(--hover1);
+        
         cursor: pointer;
     }
 }
+.playercontroller-tooltip {
+    display: block;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.9em;
+    z-index: 1;
+    backdrop-filter: blur(2px);
+    padding: 2px 4px;
+    top: 3em;
+    border: 1px solid var(--accent1);
+    box-shadow: 0px 0px 4px #000a;
+    left: 50%;
+    right: 50%;
+    width: fit-content;
+    border-radius: var(--radius-mini);
+    pointer-events: none;
+    white-space: nowrap;
+    background: #000a
+    color: #fff;
+    position: absolute;
+    margin: 0 auto;
+}
+.playercontroller-tooltip-transition {
+    &-enter, &-exit-active {
+        --translateY: 50%;
+    }
+    &-enter-active {
+        transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+    }
+    &-exit-active {
+        transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+    &-enter, &-exit-active {
+        transform: translateX(-50%) translateY(var(--translateY))
+        opacity: 0;
+    }
+    &-enter-done, &-enter-active {
+        transform: translateX(-50%) translateY(0%)
+        opacity: 1;
+    }
+}
+
 .playercontroller-qualityselect {
     padding: 4px 8px;
     height: 100%;
@@ -58,6 +103,7 @@
     font-family: inherit;
     font-size: inherit;
     cursor: pointer;
+    transition: background 0.1s ease;
 }
 .playercontroller-qualityselect:hover, .playercontroller-qualityselect:focus {
     background: var(--hover1);
@@ -80,6 +126,7 @@
     padding: 4px;
     vertical-align: middle;
     border-radius: var(--radius-mini);
+    transition: background 0.1s ease;
 }
 
 .playercontroller-effectchange:hover {
@@ -152,9 +199,6 @@
         width: 0px;
     }
 }
-.playercontroller-volume-container:hover .playercontroller-volume-tooltip {
-    display: inline;
-}
 
 .playercontroller-volume-tooltip {
     display: none;
@@ -172,6 +216,9 @@
     width: fit-content;
     margin: 0 auto;
     pointer-events: none;
+}
+.playercontroller-volume-container:hover .playercontroller-volume-tooltip {
+    display: inline;
 }
 .playercontroller-time {
     margin: 0 8px;
@@ -405,7 +452,7 @@
         padding: 4px 8px;
         margin: 0px 2px;
         background: transparent;
-        transition: color 0.1s ease;    
+        transition: color 0.1s ease, background 0.1s ease;    
         &:hover, &:active {
             background: #fff1;
         }

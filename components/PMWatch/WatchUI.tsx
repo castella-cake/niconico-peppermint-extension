@@ -81,6 +81,7 @@ function CreateWatchUI() {
     const isEventFired = useRef<boolean>(false)
 
     const mintConfigElemRef = useRef<HTMLDivElement>(null);
+    const videoActionModalElemRef = useRef<HTMLDivElement>(null);
 
     const [currentDraggingItem, setCurrentDraggingItem] = useState<any | null>(null)
 
@@ -314,13 +315,16 @@ function CreateWatchUI() {
             <div className="watch-container-grid">
                 {currentLayout}
             </div>
-            {videoActionModalState !== false && <VideoActionModal onModalStateChanged={onModalStateChanged} videoInfo={videoInfo} selectedType={videoActionModalState}/>}
+            <CSSTransition nodeRef={videoActionModalElemRef} in={videoActionModalState !== false} timeout={300} unmountOnExit classNames="videoaction-modal-transition">
+                { videoActionModalState !== false ? <VideoActionModal nodeRef={videoActionModalElemRef} onModalStateChanged={onModalStateChanged} videoInfo={videoInfo} selectedType={videoActionModalState}/> : <></>}
+            </CSSTransition>
         </div>
         <DragOverlay>
             { currentDraggingItem && currentDraggingItem.content ? <Card
             thumbnailUrl={currentDraggingItem.content.thumbnail && currentDraggingItem.content.thumbnail.listingUrl}
             thumbText={currentDraggingItem.content.duration ? secondsToTime(currentDraggingItem.content.duration) : "??:??"}
             href={`https://www.nicovideo.jp/watch/${thisVideoId}`}
+            title={""}
         /> : null}
         </DragOverlay>
         </DndContext>

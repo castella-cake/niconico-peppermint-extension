@@ -20,8 +20,8 @@ function Draggable({ id, obj, children }: { id: string, obj: any, children: Reac
     </div>
 }
 
-export function Card({ href, thumbnailUrl, thumbText, ownerName, additionalClassName, children }: { href: string, thumbnailUrl?: string, thumbText?: string, ownerName?: string, additionalClassName?: string, children?: ReactNode }) {
-    return <a className={`info-card ${additionalClassName}`} href={href}>
+export function Card({ href, thumbnailUrl, thumbText, ownerName, additionalClassName, children, title }: { href: string, thumbnailUrl?: string, thumbText?: string, ownerName?: string, additionalClassName?: string, children?: ReactNode, title: string }) {
+    return <a className={`info-card ${additionalClassName}`} href={href} title={title}>
     { (thumbText) && <div className="info-card-thumbnail">
         <img src={thumbnailUrl}/>
         <span className="info-card-durationtext">{thumbText}</span>
@@ -44,6 +44,7 @@ export function VideoInfo({obj, additionalQuery, isNowPlaying, isNextVideo = fal
             ownerName={obj.content.owner.name}
             href={`https://www.nicovideo.jp/watch/${thisVideoId}${additionalQuery || ""}`}
             additionalClassName={isNowPlaying ? "info-card-nowplaying" : ""}
+            title={obj.content.title ?? "タイトル不明"}
         >
             {isNowPlaying && <span className="info-card-playingtext"><IconPlayerPlayFilled/></span> }
             { isNextVideo && <span className="info-card-playingtext"><IconPlayerSkipForwardFilled/></span>}
@@ -53,7 +54,7 @@ export function VideoInfo({obj, additionalQuery, isNowPlaying, isNextVideo = fal
 }
 export function MylistInfo(props: { obj: RecommendItem }) {
     const obj = props.obj
-    return <a className="info-card" href={`https://www.nicovideo.jp/mylist/${obj.id}`}>
+    return <a className="info-card" href={`https://www.nicovideo.jp/mylist/${obj.id}`} title={`マイリスト: ${obj.content.name}`}>
         { (obj.content.sampleItems && obj.content.sampleItems[0].video.thumbnail) && <div className="info-card-thumbnail">
             <img src={obj.content.sampleItems[0].video.thumbnail.listingUrl}/>
             <span className="info-card-durationtext"><IconListNumbers/>{obj.content.itemsCount}</span>
@@ -75,9 +76,9 @@ export function PlaylistVideoCard({obj, additionalQuery, isNowPlaying, isNextVid
         transition,
         ...( isDragging && {pointerEvents: ("none" as React.CSSProperties["pointerEvents"]), zIndex: 1000})
     };
-    return <a className={`info-card ${isNowPlaying ? "info-card-nowplaying" : ""}`} href={`https://www.nicovideo.jp/watch/${obj.id}${additionalQuery || ""}`} style={style} ref={setNodeRef} {...listeners} {...attributes}>
+    return <a className={`info-card ${isNowPlaying ? "info-card-nowplaying" : ""}`} href={`https://www.nicovideo.jp/watch/${obj.id}${additionalQuery || ""}`} style={style} ref={setNodeRef} {...listeners} {...attributes} title={obj.title}>
         { (obj.thumbnailUrl) && <div className="info-card-thumbnail">
-            <img src={obj.thumbnailUrl}/>
+            <img src={obj.thumbnailUrl} alt={`${obj.title} のサムネイル`}/>
             <span className="info-card-durationtext">{secondsToTime(obj.duration)}</span>
         </div>}
         <div className="info-card-text">
