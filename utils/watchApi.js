@@ -39,7 +39,7 @@ export function getVideoInfo(smId) {
     return new Promise(async (resolve, reject) => {
         try {
             // responseType=jsonで取得。
-            const response = await fetch(`https://www.nicovideo.jp/watch/${smId}?responseType=json`, {
+            const response = await fetch(`https://www.nicovideo.jp/watch/${encodeURIComponent(smId)}?responseType=json`, {
                 "credentials": "include",
                 "headers": {
                     "User-Agent": `PepperMintPlus-Watch/${manifestData.version}`,
@@ -56,10 +56,9 @@ export function getVideoInfo(smId) {
 }
 
 export async function getRecommend(smId) {
-    const response = await fetch(`https://nvapi.nicovideo.jp/v1/recommend?recipeId=video_watch_recommendation&videoId=${smId}&limit=25&site=nicovideo&_frontendId=6&_frontendVersion=0`, {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/recommend?recipeId=video_watch_recommendation&videoId=${encodeURIComponent(smId)}&limit=25&site=nicovideo&_frontendId=6&_frontendVersion=0`, {
         "credentials": "include",
-        "method": "GET",
-        "mode": "cors"
+        "method": "GET"
     });
     return await response.json()
 }
@@ -68,21 +67,12 @@ export async function getCommentThread(server, body) {
     const response = await fetch(`${server}/v1/threads`, {
         "credentials": "omit",
         "headers": {
-            "Accept": "*/*",
-            "Accept-Language": "ja,en-US;q=0.7,en;q=0.3",
             "x-client-os-type": "others",
             "x-frontend-id": "6",
             "x-frontend-version": "0",
-            "Content-Type": "text/plain;charset=UTF-8",
-            "Sec-Fetch-Dest": "empty",
-            "Sec-Fetch-Mode": "cors",
-            "Sec-Fetch-Site": "same-site",
-            "Sec-GPC": "1",
-            "Priority": "u=4",
             "Pragma": "no-cache",
             "Cache-Control": "no-cache"
         },
-        "referrer": "https://www.nicovideo.jp/",
         "body": body,
         "method": "POST",
         "mode": "cors"
@@ -104,17 +94,13 @@ export async function getCommentThreadKey(videoId) {
 }
 
 export async function sendLike(smId, method) {
-    const response = await fetch(`https://nvapi.nicovideo.jp/v1/users/me/likes/items?videoId=${smId}`, {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/users/me/likes/items?videoId=${encodeURIComponent(smId)}`, {
         "headers": {
-            "accept": "application/json;charset=utf-8",
-            "accept-language": "ja,en-US;q=0.9,en;q=0.8",
             "x-frontend-id": "6",
             "x-frontend-version": "0",
             "x-niconico-language": "ja-jp",
-            "x-request-with": `https://www.nicovideo.jp/watch/${smId}`
+            "x-request-with": `https://www.nicovideo.jp/watch/${encodeURIComponent(smId)}`
         },
-        "referrer": "https://www.nicovideo.jp/",
-        "referrerPolicy": "strict-origin-when-cross-origin",
         "body": null,
         "method": method,
         "mode": "cors",
@@ -129,19 +115,12 @@ export async function sendLike(smId, method) {
 }
 
 export async function getCommentPostKey(threadId) {
-    const response = await fetch(`https://nvapi.nicovideo.jp/v1/comment/keys/post?threadId=${threadId}`, {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/comment/keys/post?threadId=${encodeURIComponent(threadId)}`, {
         "headers": {
-            "accept": "application/json;charset=utf-8",
-            "accept-language": "ja,en-US;q=0.9,en;q=0.8",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
             "x-frontend-id": "6",
             "x-frontend-version": "0",
             "x-niconico-language": "ja-jp"
         },
-        "referrer": "https://www.nicovideo.jp/",
-        "referrerPolicy": "strict-origin-when-cross-origin",
         "body": null,
         "method": "GET",
         "mode": "cors",
@@ -150,17 +129,12 @@ export async function getCommentPostKey(threadId) {
     return await response.json()
 }
 export async function postComment(threadId, body) {
-    const response = await fetch(`https://public.nvcomment.nicovideo.jp/v1/threads/${threadId}/comments`, {
+    const response = await fetch(`https://public.nvcomment.nicovideo.jp/v1/threads/${encodeURIComponent(threadId)}/comments`, {
         "headers": {
-            "content-type": "text/plain;charset=UTF-8",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-site",
             "x-client-os-type": "others",
             "x-frontend-id": "6",
             "x-frontend-version": "0"
         },
-        "referrer": "https://www.nicovideo.jp/",
         "body": body,
         "method": "POST",
         "mode": "cors",
@@ -170,7 +144,7 @@ export async function postComment(threadId, body) {
 }
 
 export async function getNicoruKey(threadId, fork) {
-    const response = await fetch(`https://nvapi.nicovideo.jp/v1/comment/keys/nicoru?threadId=${threadId}&fork=${fork}`, {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/comment/keys/nicoru?threadId=${encodeURIComponent(threadId)}&fork=${encodeURIComponent(fork)}`, {
         "headers": {
             "x-frontend-id": "6",
             "x-frontend-version": "0",
@@ -183,7 +157,7 @@ export async function getNicoruKey(threadId, fork) {
 }
 
 export async function postNicoru(threadId, body) {
-    const response = await fetch(`https://public.nvcomment.nicovideo.jp/v1/threads/${threadId}/nicorus`, {
+    const response = await fetch(`https://public.nvcomment.nicovideo.jp/v1/threads/${encodeURIComponent(threadId)}/nicorus`, {
         "headers": {
             "x-client-os-type": "others",
             "x-frontend-id": "6",
@@ -199,7 +173,7 @@ export async function postNicoru(threadId, body) {
 }
 
 export async function removeNicoru(nicoruId) {
-    const response = await fetch(`https://nvapi.nicovideo.jp/v1/users/me/nicoru/send/${nicoruId}`, {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/users/me/nicoru/send/${encodeURIComponent(nicoruId)}`, {
         "headers": {
             "x-frontend-id": "6",
             "x-frontend-version": "0",
@@ -230,7 +204,7 @@ export async function putPlaybackPosition(body) {
 }
 
 export async function getCommonsRelatives(videoId, limit = 15) {
-    const response = await fetch(`https://public-api.commons.nicovideo.jp/v1/tree/${videoId}/relatives?_limit=${limit}&with_meta=1&_sort=-id`, {
+    const response = await fetch(`https://public-api.commons.nicovideo.jp/v1/tree/${encodeURIComponent(videoId)}/relatives?_limit=${encodeURIComponent(limit)}&with_meta=1&_sort=-id`, {
         "method": "GET",
         "mode": "cors",
         "credentials": "include"
@@ -240,7 +214,7 @@ export async function getCommonsRelatives(videoId, limit = 15) {
 }
 
 export async function getSeriesInfo(seriesId) {
-    const response = await fetch(`https://nvapi.nicovideo.jp/v2/series/${seriesId}`, {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v2/series/${encodeURIComponent(seriesId)}`, {
         'method': 'GET',
         "headers": {
             "X-Frontend-Id": "6",
@@ -251,18 +225,15 @@ export async function getSeriesInfo(seriesId) {
 }
 
 export async function getMylist(mylistId, sortKey, sortOrder) {
-    const response = await fetch(`https://nvapi.nicovideo.jp/v1/playlist/mylist/${mylistId}?sortKey=${sortKey}&sortOrder=${sortOrder}`, {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/playlist/mylist/${encodeURIComponent(mylistId)}?sortKey=${encodeURIComponent(sortKey)}&sortOrder=${encodeURIComponent(sortOrder)}`, {
         "credentials": "include",
         "headers": {
-            "accept": "application/json;charset=utf-8",
-            "accept-language": "ja,en-US;q=0.9,en;q=0.8",
             "content-type": "application/json",
             "X-Frontend-Id": "6",
             "X-Frontend-Version": "0",
             "X-Niconico-Language": "ja-jp",
         },
         "method": "GET",
-        "referrer": "https://www.nicovideo.jp/",
     });
     return await response.json()
 }
@@ -298,7 +269,7 @@ export async function addItemToMylist(mylistId, itemId, requestWith) {
 }
 
 export async function getPickupSupporters(videoId, limit) {
-    const response = await fetch(`https://api.nicoad.nicovideo.jp/v1/contents/video/${encodeURIComponent(videoId)}/pickup_supporters?limit=${limit}`)
+    const response = await fetch(`https://api.nicoad.nicovideo.jp/v1/contents/video/${encodeURIComponent(videoId)}/pickup_supporters?limit=${encodeURIComponent(limit)}`)
     return await response.json()
 }
 
