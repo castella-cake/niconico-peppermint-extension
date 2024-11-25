@@ -7,6 +7,7 @@ import { RecommendDataRootObject } from "@/types/RecommendData"
 export function useWatchData(smId: string) {
     const [videoInfo, setVideoInfo] = useState<VideoDataRootObject>({})
     const [commentContent, setCommentContent] = useState<CommentDataRootObject>({})
+    const commentThreadKeyRef = useRef("")
     const [errorInfo, setErrorInfo] = useState<any>(false)
     useEffect(() => {
         async function fetchInfo() {
@@ -37,6 +38,7 @@ export function useWatchData(smId: string) {
                 }
                 const commentResponse: CommentDataRootObject = await getCommentThread(fetchedVideoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
                 setCommentContent(commentResponse)
+                commentThreadKeyRef.current = fetchedVideoInfo.data.response.comment.nvComment.threadKey
             } catch (error) {
                 console.error(error)
                 setErrorInfo(error)
@@ -44,7 +46,36 @@ export function useWatchData(smId: string) {
         }
         fetchInfo()
     }, [smId])
-    return { videoInfo, commentContent, setCommentContent, errorInfo }
+    async function reloadCommentContent() {
+        if (!videoInfo.data) return
+        const commentRequestBody = {
+            params: {
+                ...videoInfo.data.response.comment.nvComment.params
+            },
+            threadKey: commentThreadKeyRef.current
+        }
+        let commentResponse: CommentDataRootObject = await getCommentThread(videoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
+        if (!commentResponse.data || !commentResponse.data.threads) {
+            if (commentResponse.meta?.errorCode === "EXPIRED_TOKEN") {
+                console.log("PMW: getCommentThread failed with expired token, fetching token...")
+                const threadKeyResponse: any = await getCommentThreadKey(videoInfo.data.response.video.id)
+                if (threadKeyResponse.meta === 200 && threadKeyResponse.data.threadKey) {
+                    commentThreadKeyRef.current = threadKeyResponse.data.threadKey
+                    commentResponse = await getCommentThread(videoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
+                    if (!commentResponse.data || !commentResponse.data.threads) {
+                        console.error("PMW: getCommentThread failed. (1 threadKey retry)")
+                        return
+                    }
+                } else {
+                    console.error("PMW: fetching threadKey failed.")
+                    return
+                }
+            }
+        }
+        setCommentContent(commentResponse)
+        return commentResponse
+    }
+    return { videoInfo, commentContent, setCommentContent, reloadCommentContent, errorInfo }
 }
 
 export function useRecommendData(smId: string) {

@@ -136,19 +136,6 @@ function CommentList(props: Props) {
         }
     })
 
-    /*async function reloadCommentData() {
-        if (!props.videoInfo.data) return
-        const commentRequestBody = {
-            params: {
-                ...props.videoInfo.data.response.comment.nvComment.params
-            },
-            threadKey: props.videoInfo.data.response.comment.nvComment.threadKey
-        }
-        const commentResponse: CommentDataRootObject = await getCommentThread(props.videoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
-        if (!commentResponse.data || !commentResponse.data.threads) return
-        props.setCommentContent(commentResponse)
-    }*/
-
     async function onNicoru(commentNo: number, commentBody: string, nicoruId: string | null) {
         //"{\"videoId\":\"\",\"fork\":\"\",\"no\":0,\"content\":\"\",\"nicoruKey\":\"\"}"
         if (!props.videoInfo.data || !props.videoInfo.data.response.video.id || !props.videoInfo.data.response.viewer || !props.videoInfo.data.response.viewer.isPremium || !props.commentContent.data) return
