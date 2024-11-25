@@ -90,6 +90,19 @@ export async function getCommentThread(server, body) {
     return await response.json()
 }
 
+export async function getCommentThreadKey(videoId) {
+    const response = await fetch(`https://nvapi.nicovideo.jp/v1/comment/keys/thread?videoId=${encodeURIComponent(videoId)}`, {
+        "credentials": "include",
+        "headers": {
+            "X-Frontend-Id": "6",
+            "X-Frontend-Version": "0",
+            "X-Niconico-Language": "ja-jp",
+        },
+        "method": "GET"
+    })
+    return await response.json()
+}
+
 export async function sendLike(smId, method) {
     const response = await fetch(`https://nvapi.nicovideo.jp/v1/users/me/likes/items?videoId=${smId}`, {
         "headers": {

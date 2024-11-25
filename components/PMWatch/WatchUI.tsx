@@ -64,7 +64,7 @@ function CreateWatchUI() {
     const debugAlwaysOnmyouji: Boolean = syncStorage.debugalwaysonmyouji
 
     const [smId, setSmId] = useState(debugAlwaysOnmyouji ? "sm9" : location.pathname.slice(7).replace(/\?.*/, ''))
-    const {videoInfo, commentContent, setCommentContent, errorInfo} = useWatchData(smId)
+    const {videoInfo, commentContent, setCommentContent, reloadCommentContent, errorInfo} = useWatchData(smId)
     const recommendData = useRecommendData(smId)
     //const [ currentPlaylist, setCurrentPlaylist ] = useState<playlistData>({ type: null })
     //const [ fetchedPlaylistData, setFetchedPlaylistData ] = useState<MylistResponseRootObject | null>(null)
@@ -227,6 +227,7 @@ function CreateWatchUI() {
         isFullscreenUi={isFullscreenUi}
         setIsFullscreenUi={setIsFullscreenUi}
         setCommentContent={setCommentContent}
+        reloadCommentContent={reloadCommentContent}
         playlistData={playlistData}
         changeVideo={changeVideo}
         recommendData={recommendData}

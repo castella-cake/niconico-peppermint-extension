@@ -39,6 +39,7 @@ interface GlobalComment {
 
 interface Meta {
     status: number;
+    errorCode: string;
 }
 
 export interface CommentResponseRootObject {

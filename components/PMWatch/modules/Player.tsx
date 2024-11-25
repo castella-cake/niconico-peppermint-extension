@@ -32,6 +32,7 @@ type Props = {
     actionTrackId: string,
     videoInfo: VideoDataRootObject,
     commentContent: CommentDataRootObject,
+    reloadCommentContent: () => Promise<CommentDataRootObject | undefined>,
     videoRef: RefObject<HTMLVideoElement>,
     isFullscreenUi: boolean,
     setIsFullscreenUi: Dispatch<SetStateAction<boolean>>,
@@ -58,7 +59,7 @@ function VideoPlayer({children, videoRef, onPause, onEnded, onClick}: VideoPlaye
     </div>);
 }
 
-function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi, setCommentContent, playlistData, changeVideo, recommendData }: Props) {
+function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, isFullscreenUi, setIsFullscreenUi, setCommentContent, reloadCommentContent, playlistData, changeVideo, recommendData }: Props) {
     //const lang = useLang()
     const { localStorage, setLocalStorageValue, syncStorage } = useStorageContext()
 
@@ -333,7 +334,7 @@ function Player({ videoId, actionTrackId, videoInfo, commentContent, videoRef, i
 
                 playlistIndexControl={playlistIndexControl}
             />
-            <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} commentInputRef={commentInputRef} setPreviewCommentItem={setPreviewCommentItem}/>
+            <CommentInput videoId={videoId} videoRef={videoRef} videoInfo={videoInfo} setCommentContent={setCommentContent} reloadCommentContent={reloadCommentContent} commentInputRef={commentInputRef} setPreviewCommentItem={setPreviewCommentItem}/>
         </div>
     </div>
 }

@@ -4,7 +4,7 @@ import type { ChangeEvent, Dispatch, KeyboardEvent, RefObject, SetStateAction } 
 import type { VideoDataRootObject } from "@/types/VideoData";
 import type { Comment, CommentDataRootObject, CommentResponseRootObject, Thread } from "@/types/CommentData";
 import { CommentPostBody, KeyRootObjectResponse } from "@/types/CommentPostData";
-import { getCommentPostKey, getCommentThread, postComment } from "../../../../utils/watchApi";
+import { getCommentPostKey, postComment } from "../../../../utils/watchApi";
 //import { getCommentPostKey, postComment } from "../../../modules/watchApi";
 
 
@@ -12,6 +12,7 @@ type Props = {
     videoId: string,
     videoInfo: VideoDataRootObject,
     setCommentContent: Dispatch<SetStateAction<CommentDataRootObject>>,
+    reloadCommentContent: () => Promise<CommentDataRootObject | undefined>,
     videoRef: RefObject<HTMLVideoElement>,
     commentInputRef: RefObject<HTMLTextAreaElement>,
     setPreviewCommentItem: Dispatch<SetStateAction<Comment | null>>
@@ -19,7 +20,7 @@ type Props = {
 
 
 
-function CommentInput({videoRef, videoId, videoInfo, setCommentContent, commentInputRef, setPreviewCommentItem}: Props) {
+function CommentInput({videoRef, videoId, videoInfo, setCommentContent, reloadCommentContent, commentInputRef, setPreviewCommentItem}: Props) {
     const { localStorage } = useStorageContext()
     const commandInput = useRef<HTMLInputElement>(null)
 
@@ -41,14 +42,8 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, commentI
         const commentPostResponse: CommentResponseRootObject = await postComment(mainThreads?.id, JSON.stringify(reqBody))
         //console.log(commentPostResponse)
         if ( commentPostResponse.meta.status === 201 && videoInfo.data ) {
-            const commentRequestBody = {
-                params: {
-                    ...videoInfo.data?.response.comment.nvComment.params
-                },
-                threadKey: videoInfo.data?.response.comment.nvComment.threadKey
-            }
-            const commentResponse: CommentDataRootObject = await getCommentThread(videoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
-            if (!commentResponse.data || !commentResponse.data.threads) return
+            const commentResponse = await reloadCommentContent()
+            if (!commentResponse || !commentResponse.data || !commentResponse.data.threads) return
             const newThreads: Thread[] = commentResponse.data.threads.map((thread: Thread, index) => {
                 const newComments = thread.comments.map((comment, index) => {
                     if ( comment.id === commentPostResponse.data.id || comment.no === commentPostResponse.data.no ) {
