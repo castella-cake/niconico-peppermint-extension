@@ -25,7 +25,7 @@ function blockScriptElement(element: Element) {
     } else if ( element.tagName.toLowerCase() === "link" && ( typeof element.getAttribute("href") === "string" && href.includes("resource.video.nimg.jp") ) ) {
         //console.log("blocked:",element);
         element.setAttribute("href", "");
-        //element.remove()
+        element.remove()
     } else {
         //console.log("not blocked:",element);
     }
@@ -78,10 +78,10 @@ export default defineContentScript({
                 records.forEach((record) => {
                     const addedNodes = record.addedNodes;
                     for (const node of addedNodes) {
-                        console.log("node: ", node)
+                        //console.log("node: ", node)
                         const elem = node as Element;
                         if (node.nodeType === Node.ELEMENT_NODE) {
-                            console.log("nodetype")
+                            //console.log("nodetype")
                             blockScriptElement(elem);
                             elem.querySelectorAll('script').forEach(blockScriptElement);
                         }
