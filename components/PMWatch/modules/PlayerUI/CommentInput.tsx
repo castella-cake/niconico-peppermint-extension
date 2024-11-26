@@ -81,8 +81,8 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, reloadCo
     }
 
     function onKeydown(e: KeyboardEvent<HTMLTextAreaElement>) {
-        if (e.shiftKey || e.ctrlKey || e.altKey) return
-        if ( e.key === "Enter" && commentInputRef.current && videoRef.current && !isComposing ) {
+        if (e.ctrlKey || e.altKey) return
+        if ( !e.shiftKey && e.key === "Enter" && commentInputRef.current && videoRef.current && !isComposing ) {
             sendComment(videoId, commentInputRef.current.value, commandInput.current?.value.split(""), Math.floor(videoRef.current.currentTime * 1000) )
             commentInputRef.current.value = ""
             e.preventDefault()
@@ -93,7 +93,7 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, reloadCo
     
     function onChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
         if (commentInputRef.current) setDummyTextAreaContent(commentInputRef.current.value)
-        if (videoInfo.data && videoInfo.data.response.viewer && commentInputRef.current && commandInput.current && commentInputRef.current.value.length > 0 && videoRef.current) {
+        if (localStorage.playersettings.pauseOnCommentInput && videoInfo.data && videoInfo.data.response.viewer && commentInputRef.current && commandInput.current && commentInputRef.current.value.length > 0 && videoRef.current) {
             setPreviewCommentItem({
                 id: "-1", 
                 no: -1,
