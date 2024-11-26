@@ -203,6 +203,30 @@ html.PMDM-NicoLiveHome {
     [class^="___caption___"] {
         color: var(--textcolor1)
     }
+
+    // 反転するvar類(番組表)
+    [class^="___timetable-content___"], #SideNavigation {
+        --mono8: var(--bgcolor2);
+        --mono7: var(--bgcolor3);
+        --mono6: var(--bgcolor4);
+        --mono5: var(--textcolor3);
+        --mono4: var(--textcolor2);
+        --mono3: var(--textcolor2);
+        --mono2: var(--textcolor1);
+        --mono1: var(--textcolor1);
+        --red: var(--dangerous1)
+    }
+    th[class^="___status___"] {
+        color: var(--textcolor1);
+    }
+    [class^="___schedule-time___"] {
+        color: var(--textcolor2)
+    }
+
+    // フォロー中の番組 のvar反転
+    [class^="___program-provider-name___"], [class^="___program-title___"] {
+        --mono2: var(--textcolor2);
+    }
 }
 html.PMDM-NicoLiveWatch {
     [class*="___base-page"] {
@@ -434,6 +458,33 @@ html.PMDM-NicoLiveWatch {
     .program-menu-dock>li>.share-popup-control>.toggle-button:hover {
         --mono6: var(--hover1)
     }
+
+    // グレースケールが反転するvar類。将来的にぶっ壊れそうだけど破綻はしないはず…？
+    [class^="___ng-setting-panel"], .window-panel {
+        --mono8: var(--bgcolor2);
+        --mono7: var(--bgcolor3);
+        --mono6: var(--bgcolor4);
+        --mono5: var(--textcolor3);
+        --mono4: var(--textcolor2);
+        --mono3: var(--textcolor2);
+        --mono2: var(--textcolor1);
+        --mono1: var(--textcolor1);
+        --red: var(--dangerous1)
+    }
+
+    // 反転しているボタンテキスト用
+    [class^="___copy-button___"], [class^="___list-controller___"] > .register-button {
+        --mono8: var(--textcolor1)
+    }
+    // ボタン類のvar適用
+    [class^="___close-button___"] {
+        --local-icon-color: var(--textcolor2);
+    }
+
+    // 共有モーダルの未指定bgを修正
+    [class^="___elapsed-time-text-box__"] {
+        background: var(--mono8);
+    }
 }
 html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
     /* PAGE TOP */
@@ -483,5 +534,7 @@ html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
         --mono6: var(--textcolor2);
         --mono7: var(--textcolor2);
         --mono8: var(--textcolor1);
+        --red: var(--dangerous1);
+        --blue: var(--linktext3);
     }
 }
