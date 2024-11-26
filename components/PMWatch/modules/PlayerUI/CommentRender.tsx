@@ -3,7 +3,7 @@ import NiconiComments from "@xpadev-net/niconicomments";
 import { RefObject } from "react";
 
 // コメントレンダラー
-export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOpacity, threads, videoOnClick, enableCommentPiP, commentRenderFps, previewCommentItem, defaultPostTargetIndex }: {
+export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOpacity, threads, videoOnClick, enableCommentPiP, commentRenderFps, disableCommentOutline, previewCommentItem, defaultPostTargetIndex }: {
     videoRef: RefObject<HTMLVideoElement>,
     pipVideoRef: RefObject<HTMLVideoElement>,
     isCommentShown: boolean,
@@ -14,9 +14,16 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
     commentRenderFps: number,
     previewCommentItem: null | Comment,
     defaultPostTargetIndex: number,
+    disableCommentOutline: boolean,
 }) {
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const niconicommentsRef = useRef<NiconiComments | null>(null!)
+    const animationFrameIdRef = useRef<number>(null!)
+    function drawWithAnimationFrame() {
+        if (!videoRef.current || !niconicommentsRef.current) return
+        niconicommentsRef.current.drawCanvas(videoRef.current.currentTime * 100)
+        animationFrameIdRef.current = requestAnimationFrame(drawWithAnimationFrame)
+    }
     useEffect(() => {
         if (
             canvasRef.current &&
@@ -32,18 +39,29 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
                 threads[defaultPostTargetIndex].comments = threads[defaultPostTargetIndex].comments.filter(comment => comment.id !== "-1") // プレビューが終わった後も残らないように常にフィルターする。
             }
 
-            niconicommentsRef.current = new NiconiComments(canvasRef.current, threads, { format: "v1", enableLegacyPiP: true, video: (enableCommentPiP ? videoRef.current : undefined), mode: "html5" }) // 
+            niconicommentsRef.current = new NiconiComments(canvasRef.current, threads, {
+                format: "v1",
+                enableLegacyPiP: true,
+                video: (enableCommentPiP ? videoRef.current : undefined),
+                mode: "html5",
+                config: (disableCommentOutline ? {
+                    contextLineWidth: { html5: 0, flash: 0 },
+                    contextStrokeColor: "#000000",
+                    contextStrokeOpacity: 0,
+                } : {})
+            }) // 
 
             // PiP用のvideo要素にキャンバスの内容を流す
             if (enableCommentPiP && pipVideoRef.current && !pipVideoRef.current.srcObject) {
                 pipVideoRef.current.srcObject = canvasRef.current.captureStream()
             }
+            if (commentRenderFps == -1) drawWithAnimationFrame()
             return () => {
                 niconicommentsRef.current = null
                 if (pipVideoRef.current) pipVideoRef.current.srcObject = null
             }
         }
-    }, [threads, enableCommentPiP, previewCommentItem])
+    }, [threads, enableCommentPiP, previewCommentItem, commentRenderFps, disableCommentOutline])
     useInterval(() => {
         if (!videoRef.current || !isCommentShown || !niconicommentsRef.current) return
         niconicommentsRef.current.drawCanvas(videoRef.current.currentTime * 100)

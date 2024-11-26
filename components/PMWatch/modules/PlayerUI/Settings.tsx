@@ -59,10 +59,10 @@ const settings: { [key: string]: setting } = {
     },
     commentRenderFps: {
         type: "select",
-        defaultValue: 60,
-        options: [30, 60, 120],
+        defaultValue: -1,
+        options: [30, 60, 120, -1],
         name: "コメント描画FPS",
-        texts: ["30FPS","60FPS","120FPS"],
+        texts: ["30FPS","60FPS","120FPS", "自動"],
     },
     enableResumePlayback: {
         type: "checkbox",
@@ -75,6 +75,11 @@ const settings: { [key: string]: setting } = {
         defaultValue: false,
         name: "PiPでコメントを表示(実験的)",
         hint: "コメント透過率と描画FPSが固定されます。"
+    },
+    disableCommentOutline: {
+        type: "checkbox",
+        defaultValue: false,
+        name: "コメントの縁取りを無効化"
     },
     enableLoudnessData: {
         type: "checkbox",

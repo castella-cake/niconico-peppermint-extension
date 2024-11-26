@@ -8,6 +8,7 @@ export function useInterval(callback, delayMs) {
         callbackRef.current = callback
     }, [callback])
     useEffect(() => {
+        if (delayMs < 0) return;
         // 新しい関数でRefの関数を実行
         const tick = () => { callbackRef.current() } 
         const id = setInterval(tick, delayMs)
