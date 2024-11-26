@@ -308,7 +308,9 @@ html.PMDM-NicoLiveWatch {
     }
     [class^="___program-statistics-menu"] {
         border-bottom: 1px solid var(--accent1);
+        --mono4: var(--textcolor2);
     }
+    
     [class^="___table-row"]:hover, [class^="___table-row___"][aria-selected="true"] {
         background-color: var(--hover1);
     }
@@ -354,7 +356,7 @@ html.PMDM-NicoLiveWatch {
         color: var(--textcolor3);
     }
     [class^="___count___"][type="button"]:enabled:not([aria-busy="true"]):hover, [data-input-mode="keyboard"] [class^="___count___"][type="button"]:enabled:not([aria-busy="true"]):focus {
-        background-color: var(--hover2);
+        background-color: var(--hover1);
     }
     [class^="___contents-tab-panel"] {
         background: var(--bgcolor2)
@@ -415,6 +417,23 @@ html.PMDM-NicoLiveWatch {
     [class^="___tree-graph-icon___"] > path {
         fill: var(--textcolor1)
     }
+
+    // チャンネル
+    [class*="___channel-summary___"] > .channel-information-area > .channel-name-anchor {
+        color: var(--textcolor2)
+    }
+    [class*="___channel-summary___"] > .channel-information-area > .channel-name-anchor[href]:hover {
+        color: var(--linktext1)
+    }
+
+    // ボタン系
+    .program-menu-dock>li>.share-popup-control>.toggle-button:before, .program-menu-dock>li>.extra-popup-control>.toggle-button:before {
+        --mono1: var(--textcolor2)
+    }
+
+    .program-menu-dock>li>.share-popup-control>.toggle-button:hover {
+        --mono6: var(--hover1)
+    }
 }
 html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
     /* PAGE TOP */
@@ -453,5 +472,16 @@ html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
         [class^="___item"]:hover, [class^="___item"][aria-selected="true"] {
             background: var(--bgcolor3)
         }
+    }
+
+    body.is-PMDarkPalette {
+        --mono1: var(--bgcolor1);
+        --mono2: var(--bgcolor2);
+        --mono3: var(--bgcolor3);
+        --mono4: var(--bgcolor4);
+        --mono5: var(--textcolor3);
+        --mono6: var(--textcolor2);
+        --mono7: var(--textcolor2);
+        --mono8: var(--textcolor1);
     }
 }
