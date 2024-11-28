@@ -1,25 +1,4 @@
 html.PMDM-NicoLiveHome {
-    --base-font: var(--textcolor1);
-    --base-bg: var(--bgcolor1);
-    --mono1: var(--textcolor1);
-    --mono2: var(--textcolor2);
-    --mono3: var(--textcolor3);
-    --mono4: var(--bgcolor4);
-    --mono5: var(--bgcolor3);
-    --mono6: var(--bgcolor2);
-    --mono7: var(--bgcolor1);
-    --mono8: var(--bgcolor1);
-    --blue: var(--linktext1);
-
-    // swiper
-    .swiper-slide [class*="___program-card___"] > .content-area > .program-summary > .program-title > a {
-        color: #fff
-    }
-
-    .swiper-slide [class*="___program-card___"] > .content-area > .program-summary {
-        background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,.7) 100%);
-    }
-
     [class*="___base-page___"] {
         background: var(--bgcolor1);
         color: var(--textcolor1);
@@ -121,6 +100,11 @@ html.PMDM-NicoLiveHome {
         background: var(--bgcolor2)
     }
 
+    .program-card > .content-area > .program-summary {
+        background: transparent
+        color: var(--textcolor1)
+    }
+
     .program-card > .content-area > .program-summary:hover {
         color: var(--linktext1)
     }
@@ -156,11 +140,6 @@ html.PMDM-NicoLiveHome {
         .menu-area > .menu-popup-control > .toggle-button {
             --icon-color: var(--textcolor2)
         }
-    }
-
-    .statistics-item {
-        --local-color: var(--textcolor2);
-        --local-icon-color: var(--bgcolor3)
     }
     // konomi
     [class^="___user-konomi-tag-list-section"] {
@@ -224,18 +203,29 @@ html.PMDM-NicoLiveHome {
     [class^="___caption___"] {
         color: var(--textcolor1)
     }
-    // program-notification
-    [class^="___program-provider-name___"], [class^="___program-title___"] {
+
+    // 反転するvar類(番組表, サイドバー)
+    [class^="___timetable-content___"], #SideNavigation, .side-bar-area, [class^="___site-header2___"] {
+        --mono8: var(--bgcolor2);
+        --mono7: var(--bgcolor3);
+        --mono6: var(--bgcolor4);
+        --mono5: var(--textcolor3);
+        --mono4: var(--textcolor2);
+        --mono3: var(--textcolor2);
+        --mono2: var(--textcolor1);
+        --mono1: var(--textcolor1);
+        --red: var(--dangerous1)
+    }
+    th[class^="___status___"] {
         color: var(--textcolor1);
     }
-    // information-list
-    [class*="___site-information-list-section___"] {
-        background: var(--bgcolor2);
+    [class^="___schedule-time___"] {
+        color: var(--textcolor2)
     }
 
-    //datepicker
-    .react-datepicker__day-name {
-        color: var(--textcolor1);
+    // フォロー中の番組 のvar反転
+    [class^="___program-provider-name___"], [class^="___program-title___"] {
+        --mono2: var(--textcolor2);
     }
 }
 html.PMDM-NicoLiveWatch {
@@ -269,7 +259,7 @@ html.PMDM-NicoLiveWatch {
         background-color: var(--hover1);
     }
     [class^="___item"] {
-        border-top: 1px solid var(--accent2);
+        //border-top: 1px solid var(--accent2);
     }
     /* サイドパネルの修正 */
     [class^="___comment-data-grid"] > .body > .table > .table-row[data-comment-type="normal"] > .table-cell {
@@ -342,7 +332,9 @@ html.PMDM-NicoLiveWatch {
     }
     [class^="___program-statistics-menu"] {
         border-bottom: 1px solid var(--accent1);
+        --mono4: var(--textcolor2);
     }
+    
     [class^="___table-row"]:hover, [class^="___table-row___"][aria-selected="true"] {
         background-color: var(--hover1);
     }
@@ -388,7 +380,7 @@ html.PMDM-NicoLiveWatch {
         color: var(--textcolor3);
     }
     [class^="___count___"][type="button"]:enabled:not([aria-busy="true"]):hover, [data-input-mode="keyboard"] [class^="___count___"][type="button"]:enabled:not([aria-busy="true"]):focus {
-        background-color: var(--hover2);
+        background-color: var(--hover1);
     }
     [class^="___contents-tab-panel"] {
         background: var(--bgcolor2)
@@ -449,6 +441,50 @@ html.PMDM-NicoLiveWatch {
     [class^="___tree-graph-icon___"] > path {
         fill: var(--textcolor1)
     }
+
+    // チャンネル
+    [class*="___channel-summary___"] > .channel-information-area > .channel-name-anchor {
+        color: var(--textcolor2)
+    }
+    [class*="___channel-summary___"] > .channel-information-area > .channel-name-anchor[href]:hover {
+        color: var(--linktext1)
+    }
+
+    // ボタン系
+    .program-menu-dock>li>.share-popup-control>.toggle-button:before, .program-menu-dock>li>.extra-popup-control>.toggle-button:before {
+        --mono1: var(--textcolor2)
+    }
+
+    .program-menu-dock>li>.share-popup-control>.toggle-button:hover {
+        --mono6: var(--hover1)
+    }
+
+    // グレースケールが反転するvar類。将来的にぶっ壊れそうだけど破綻はしないはず…？
+    [class^="___ng-setting-panel"], .window-panel {
+        --mono8: var(--bgcolor2);
+        --mono7: var(--bgcolor3);
+        --mono6: var(--bgcolor4);
+        --mono5: var(--textcolor3);
+        --mono4: var(--textcolor2);
+        --mono3: var(--textcolor2);
+        --mono2: var(--textcolor1);
+        --mono1: var(--textcolor1);
+        --red: var(--dangerous1)
+    }
+
+    // 反転しているボタンテキスト用
+    [class^="___copy-button___"], [class^="___list-controller___"] > .register-button {
+        --mono8: var(--textcolor1)
+    }
+    // ボタン類のvar適用
+    [class^="___close-button___"] {
+        --local-icon-color: var(--textcolor2);
+    }
+
+    // 共有モーダルの未指定bgを修正
+    [class^="___elapsed-time-text-box__"] {
+        background: var(--mono8);
+    }
 }
 html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
     /* PAGE TOP */
@@ -487,5 +523,18 @@ html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
         [class^="___item"]:hover, [class^="___item"][aria-selected="true"] {
             background: var(--bgcolor3)
         }
+    }
+
+    body.is-PMDarkPalette {
+        --mono1: var(--bgcolor1);
+        --mono2: var(--bgcolor2);
+        --mono3: var(--bgcolor3);
+        --mono4: var(--bgcolor4);
+        --mono5: var(--textcolor3);
+        --mono6: var(--textcolor2);
+        --mono7: var(--textcolor2);
+        --mono8: var(--textcolor1);
+        --red: var(--dangerous1);
+        --blue: var(--linktext3);
     }
 }

@@ -63,7 +63,7 @@ function createFastCSSRule(result) {
             } else if (location.pathname.startsWith("/video_top")) {
                 document.documentElement.classList.add('PMDM-VideoTop')
             } else if (location.pathname.startsWith("/search") || location.pathname.startsWith("/tag") || location.pathname.startsWith("/mylist_search")) {
-                document.documentElement.classList.add('PMDM-Search')
+                document.documentElement.classList.add('PMDM-SearchPage')
             }
         }
     } 
