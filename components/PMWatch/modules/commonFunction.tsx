@@ -65,6 +65,16 @@ export const handleCtrl = (e: KeyboardEvent, video: HTMLVideoElement | null, com
         video.currentTime = timeCalc("add", 10, video.currentTime, video.duration)
         return false;
     }
+    if ( e.key === "," && video ) {
+        e.preventDefault()
+        video.currentTime = timeCalc("add", -1 / 60, video.currentTime, video.duration)
+        return false;
+    }
+    if ( e.key === "." && video ) {
+        e.preventDefault()
+        video.currentTime = timeCalc("add", 1 / 60, video.currentTime, video.duration)
+        return false;
+    }
     if ( e.key === "c" || e.key === "C" ) {
         if (!commentInput) return
         // 入力を防ぐために preventDefaultしてからフォーカス(後でreturnしたら間に合わない)
