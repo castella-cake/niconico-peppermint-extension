@@ -35,10 +35,10 @@ type setting = {
     placeholder?: string,
 }
 
-function CreateSettingsControl({ setting, isEditMode }: { setting: setting, isEditMode: boolean }) {
+function CreateSettingsControl({ setting, isEditMode, syncStorage, setSyncStorageValue }: { setting: setting, isEditMode: boolean, syncStorage: any, setSyncStorageValue: any }) {
     //console.log(lang.SETTINGS_ITEMS[settings.name].name)
     const lang = useLang()
-    const [ syncStorage, setSyncStorageValue ]: any = useSyncStorage()
+    //const [ syncStorage, setSyncStorageValue ]: any = useSyncStorage()
 
     function removeQuickOptionList(name: string) {
         const settingsFilter = ( syncStorage.quickoptionlist ? syncStorage.quickoptionlist : ["darkmode"] )
@@ -66,12 +66,12 @@ function CreateSettingsControl({ setting, isEditMode }: { setting: setting, isEd
         return <label key={setting.name}>Unknown settings type</label>
     }
 }
-function createSettingsRow(setting: setting, isEditMode: boolean) {
+function createSettingsRow(setting: setting, isEditMode: boolean, syncStorage: any, setSyncStorageValue: any) {
     if ( !setting || setting.type == "desc" ) return
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: setting.name, disabled: !isEditMode})
     const dndStyle = { transform: CSS.Translate.toString(transform), transition, }
     return <div className="settings-row settings-row-qo" key={`${setting.name}-row`} ref={setNodeRef} style={dndStyle} {...attributes} {...listeners}>
-        <CreateSettingsControl setting={setting} isEditMode={isEditMode}/>
+        <CreateSettingsControl setting={setting} isEditMode={isEditMode} syncStorage={syncStorage} setSyncStorageValue={setSyncStorageValue}/>
     </div>
 }
 
@@ -109,7 +109,7 @@ function CreateQuickOption() {
 
     // functionにしないとなぜかDNDが機能しない
     function SettingsList() {
-        return settingsFilter.map((elem: any) => {return createSettingsRow(settingsObj[elem], isEditMode)})
+        return settingsFilter.map((elem: any) => {return createSettingsRow(settingsObj[elem], isEditMode, syncStorage, setSyncStorageValue)})
     }
 
     const selectRef = useRef<any>(null)
