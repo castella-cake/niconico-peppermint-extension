@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.4] - 2024/11/28
+
+### Fixed
+- DMS: サイドバーのダークモードサポートが更新されました
+- DMS: 検索ページのダークモードサポートを修正しました
+- DMS: ニコニコ生放送のダークモードを変数ベースで改善しました
+- PAGES: クイックオプションの編集が即時で反映されない問題を修正しました
+
 ## [2.1.3] - 2024/10
 
 ### Added
