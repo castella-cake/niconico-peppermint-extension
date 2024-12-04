@@ -61,7 +61,13 @@ export function useWatchData(smId: string) {
                 const threadKeyResponse: { meta?: { status: number }, data?: { threadKey: string } } = await getCommentThreadKey(videoInfo.data.response.video.id)
                 if (threadKeyResponse.meta && threadKeyResponse.meta.status === 200 && threadKeyResponse.data?.threadKey) {
                     commentThreadKeyRef.current = threadKeyResponse.data.threadKey
-                    commentResponse = await getCommentThread(videoInfo.data.response.comment.nvComment.server, JSON.stringify(commentRequestBody))
+                    const newCommentRequestBody = {
+                        params: {
+                            ...videoInfo.data.response.comment.nvComment.params
+                        },
+                        threadKey: commentThreadKeyRef.current
+                    }
+                    commentResponse = await getCommentThread(videoInfo.data.response.comment.nvComment.server, JSON.stringify(newCommentRequestBody))
                     if (!commentResponse.data || !commentResponse.data.threads) {
                         console.error("PMW: getCommentThread failed. (1 threadKey retry)")
                         return
