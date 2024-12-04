@@ -10,6 +10,8 @@ const currentVersion = manifestData.version_name || manifestData.version || "Unk
 
 if (browser.browserAction != undefined) {
     browser.browserAction.setBadgeText({ text: "" })
+} else if (browser.action != undefined) {
+    browser.action.setBadgeText({ text: "" })
 }
 
 const rootElement = document.getElementById("root")
