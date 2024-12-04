@@ -186,6 +186,12 @@ function CommentList(props: Props) {
         setOpenedCommentItem(id)
     }
 
+    function seekTo(time: number) {
+        if (props.videoRef.current) {
+            props.videoRef.current.currentTime = time
+        }
+    }
+
     return <div className="commentlist-container" id="pmw-commentlist">
         <div className="commentlist-title-container">
             <div className="global-flex">
@@ -218,7 +224,10 @@ function CommentList(props: Props) {
                     <div className="commentlist-list-item-body" title={elem.body}>{elem.body}</div>
                     <button type="button" className="commentlist-list-item-vpos" onClick={() => {toggleCommentItemExpand(elem.id)}}>{secondsToTime(Math.floor( elem.vposMs / 1000 ))}</button>
                     { openedCommentItem === elem.id && <>
-                        <div className="commentlist-list-item-stats">コメ番: {elem.no} / 投稿時間: {new Date(elem.postedAt).toLocaleString()}</div>
+                        <div className="commentlist-list-item-stats">
+                            <span>コメ番: {elem.no} / 投稿日時: {new Date(elem.postedAt).toLocaleString()}</span>
+                            <button onClick={() => {seekTo(elem.vposMs / 1000)}} className="commentlist-list-item-seektobutton">投稿時間にシーク</button>
+                        </div>
                     </>}
                 </div>
             })}
