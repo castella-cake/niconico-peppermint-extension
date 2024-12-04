@@ -19,10 +19,12 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
     const canvasRef = useRef<HTMLCanvasElement>(null)
     const niconicommentsRef = useRef<NiconiComments | null>(null!)
     const animationFrameIdRef = useRef<number>(null!)
+    const fpsRef = useRef<number>(null!)
+    fpsRef.current = commentRenderFps
     function drawWithAnimationFrame() {
         if (!videoRef.current || !niconicommentsRef.current) return
         niconicommentsRef.current.drawCanvas(videoRef.current.currentTime * 100)
-        animationFrameIdRef.current = requestAnimationFrame(drawWithAnimationFrame)
+        if (fpsRef.current == -1) animationFrameIdRef.current = requestAnimationFrame(drawWithAnimationFrame)
     }
     useEffect(() => {
         if (
