@@ -418,6 +418,14 @@ html.PMDM-NicoLiveWatch {
         --follow-toggle-form-toggle-button-border-color: #727272;
         --follow-toggle-form-toggle-button-symbol-color-key: #727272;
     }
+    [class^="___user-summary___"]>.main-area>.user-information-area>.user-name-area>.user-name {
+        color: var(--textcolor1);
+    }
+
+    [class^="___user-summary___QFY1e"]>.main-area>.action-menu>.broadcast-request-item>.broadcast-request-send-button {
+        --button-color: var(--textcolor2);
+        --broadcast-request-send-button-symbol-mark-fill: var(--textcolor2);
+    }
 
     /* プロモーションバルーン */
     [class^="___promotion-balloon"], [class^="___promotion-balloon"]::before {
@@ -460,7 +468,7 @@ html.PMDM-NicoLiveWatch {
     }
 
     // グレースケールが反転するvar類。将来的にぶっ壊れそうだけど破綻はしないはず…？
-    [class^="___ng-setting-panel"], .window-panel {
+    [class^="___ng-setting-panel"], .window-panel, [class^="___konomi-tag-list-section___"] {
         --mono8: var(--bgcolor2);
         --mono7: var(--bgcolor3);
         --mono6: var(--bgcolor4);
