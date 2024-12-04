@@ -37,15 +37,19 @@ function PlayerControllerButton({ onClick, title, className, children }: { onCli
     useEffect(() => {
         let timeout: ReturnType<typeof setTimeout>
         if ( !buttonRef.current ) return
-        buttonRef.current.addEventListener("mouseenter", () => {
+        function toHoverState() {
             timeout = setTimeout(() => setIsHovered(true), 500)
-        })
-        buttonRef.current.addEventListener("mouseleave", ()  => {
+        }
+        function cancelHoverState() {
             if (timeout) clearTimeout(timeout)
-            setIsHovered(false)
-        })
+                setIsHovered(false)
+        }
+        buttonRef.current.addEventListener("mouseenter", toHoverState)
+        buttonRef.current.addEventListener("mouseleave", cancelHoverState)
         return () => {
             if (timeout) clearTimeout(timeout)
+            buttonRef.current?.removeEventListener("mouseenter", toHoverState)
+            buttonRef.current?.removeEventListener("mouseleave", cancelHoverState)
         }
     }, [])
     return <button ref={buttonRef} className={className} onClick={onClick} aria-label={title}>
