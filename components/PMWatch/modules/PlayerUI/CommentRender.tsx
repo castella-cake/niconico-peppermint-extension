@@ -59,6 +59,7 @@ export function CommentRender({ videoRef, pipVideoRef, isCommentShown, commentOp
             }
             if (commentRenderFps == -1) drawWithAnimationFrame()
             return () => {
+                cancelAnimationFrame(animationFrameIdRef.current)
                 niconicommentsRef.current = null
                 if (pipVideoRef.current) pipVideoRef.current.srcObject = null
             }
