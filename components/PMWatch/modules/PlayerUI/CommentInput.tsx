@@ -46,7 +46,7 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, reloadCo
             if (!commentResponse || !commentResponse.data || !commentResponse.data.threads) return
             const newThreads: Thread[] = commentResponse.data.threads.map((thread: Thread, index) => {
                 const newComments = thread.comments.map((comment, index) => {
-                    if ( comment.id === commentPostResponse.data.id || comment.no === commentPostResponse.data.no ) {
+                    if ( comment.id === commentPostResponse.data.id && comment.no === commentPostResponse.data.no ) {
                         comment.commands = [...comment.commands, "nico:waku:#ff0"]
                         return comment
                     } else if (comment.isMyPost) {
@@ -72,6 +72,7 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, reloadCo
         if (commentBody === "＠ピザ" || commentBody === "@ピザ") {
             window.open("https://www.google.com/search?q=ピザ")
         }
+        // TODO: コメント入力前から一時停止状態だったなら再生しない
         if (localStorage.playersettings.pauseOnCommentInput && videoRef.current) {
             videoRef.current.play()
         }
@@ -86,13 +87,16 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, reloadCo
             sendComment(videoId, commentInputRef.current.value, commandInput.current?.value.split(""), Math.floor(videoRef.current.currentTime * 1000) )
             commentInputRef.current.value = ""
             e.preventDefault()
-        } else if (localStorage.playersettings.pauseOnCommentInput && videoRef.current ) {
-            videoRef.current.pause()
         }
     }
     
     function onChange(event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) {
         if (commentInputRef.current) setDummyTextAreaContent(commentInputRef.current.value)
+        if ( localStorage.playersettings.pauseOnCommentInput && videoRef.current ) {
+            if (!videoRef.current.paused) {
+                videoRef.current.pause()
+            }
+        }
         if (localStorage.playersettings.pauseOnCommentInput && videoInfo.data && videoInfo.data.response.viewer && commentInputRef.current && commandInput.current && commentInputRef.current.value.length > 0 && videoRef.current) {
             setPreviewCommentItem({
                 id: "-1", 
@@ -111,18 +115,23 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, reloadCo
             })
         } else setPreviewCommentItem(null)
     }
-
+    const commentMaxLength = 75
+    const remainingLength = commentMaxLength - dummyTextAreaContent.length
+    const remainingTextOpacity = dummyTextAreaContent.length > 0 ? 0.8 : 0
     // textarea 周りの挙動は https://qiita.com/tsmd/items/fce7bf1f65f03239eef0 を参考にさせていただきました
     return <div className="commentinput-container global-flex" id="pmw-commentinput">
         <input ref={commandInput} className="commentinput-cmdinput" placeholder="コマンド" onChange={onChange} />
         <div className="commentinput-textarea-container global-flex1">
             <div className="commentinput-textarea-dummy" aria-hidden="true">{dummyTextAreaContent + '\u200b'}</div>
             <textarea ref={commentInputRef} className="commentinput-input" placeholder="コメントを入力" onKeyDown={onKeydown} onChange={onChange} onCompositionStart={startComposition} onCompositionEnd={endComposition}/>
+            <div className="commentinput-remaining" style={(remainingLength < 0) ? { color: "var(--dangerous1)", opacity: remainingTextOpacity } : {opacity: remainingTextOpacity}}>
+                {remainingLength}
+            </div>
         </div>
         <button type="button" className="commentinput-submit" onClick={() => {
-            if (!commentInputRef.current || !videoRef.current || commentInputRef.current.value === "") return
+            if (!commentInputRef.current || !videoRef.current || commentInputRef.current.value === "" || remainingLength < 0) return
             sendComment(videoId, commentInputRef.current.value, commandInput.current?.value.split(" "), Math.floor(videoRef.current.currentTime * 1000) )
-        }}><IconSend2/><span>コメント</span></button>
+        }} aria-disabled={!commentInputRef.current || commentInputRef.current.value === "" || remainingLength < 0}><IconSend2/><span>コメント</span></button>
     </div>
 }
 

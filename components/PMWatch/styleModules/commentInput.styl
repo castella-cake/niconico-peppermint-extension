@@ -32,6 +32,18 @@
             resize: none;
             font-family: inherit;
         }
+        > .commentinput-remaining {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            opacity: 0.8;
+            margin: 1em 0.8em;
+            font-size: 0.8em;
+            line-height: 0.8em;
+            transition: opacity 0.2s ease;
+        }
     }
     .commentinput-input, .commentinput-cmdinput, .commentinput-textarea-dummy  {
         font-size: 0.8rem;
@@ -42,21 +54,29 @@
     }
 }
 .commentinput-submit {
-    background: var(--bgcolor3);
+    background: var(--linktext3);
     color: var(--textcolor1);
     border-radius: 0 var(--radius) var(--radius) 0;
-    border: 2px solid var(--bgcolor3);
+    border: 2px solid var(--linktext3);
     padding: 4px 8px;
+    transition: background 0.1s ease, color 0.1s ease, border-color 0.1s ease, opacity 0.1s ease;
+    opacity: 1
     > * {
         vertical-align: middle;
     }
     > span {
         margin-left: 4px;
     }
-}
-.commentinput-submit:hover {
-    background: var(--bgcolor1);
-    cursor: pointer
+    &[aria-disabled="false"]:hover {
+        background: var(--bgcolor1);
+        cursor: pointer
+    }
+    &[aria-disabled="true"] {
+        background: var(--bgcolor3);
+        border-color: var(--bgcolor3);
+        color: var(--textcolor2);
+        opacity: 0.8;
+    }
 }
 
 .fullscreen .commentinput-container {
