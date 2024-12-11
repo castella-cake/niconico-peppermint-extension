@@ -59,7 +59,7 @@ export default defineContentScript({
             //console.log(document.documentElement.outerHTML)
 
             // わたってくるdocumentには既に動画情報のレスポンスが入っている。使えるならこっちを使って高速化してしまったほうが良いので、innerHTMLが書き換わる前に取得しておく
-            const initialResponse = document.getElementsByName('server-response')[0].getAttribute("content") ?? "" 
+            const initialResponse = (document.getElementsByName('server-response').length > 0 && document.getElementsByName('server-response')[0].getAttribute("content")) ?? "" 
 
             document.documentElement.querySelectorAll('script').forEach(blockScriptElement);
 
@@ -101,7 +101,9 @@ export default defineContentScript({
             
             //console.log("initialResponse", JSON.parse(initialResponse))
             // さっき書き換える前に取得した値を書き戻す。innerHTMLに直接埋め込むのは信用できない。
-            document.getElementsByName('initial-response')[0].setAttribute("content", initialResponse);
+            if (document.getElementsByName('server-response').length > 0 && initialResponse) {
+                document.getElementsByName('initial-response')[0].setAttribute("content", initialResponse);
+            }
 
             if (
                 syncStorage.darkmode === "custom" &&
