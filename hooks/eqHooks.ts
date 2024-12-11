@@ -29,7 +29,7 @@ function returnQValue(center: number, next: number | null, prev: number | null) 
 
 // Thank you ChatGPT
 export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequencies: number[], effectsState: effectsState, loudnessControl: number) => {
-    const audioContextRef = useRef<any>(null);
+    const audioContextRef = useRef<AudioContext>(null!);
     const mediaElementSourceRef = useRef<MediaElementAudioSourceNode | null>(null);
     const biquadFiltersRef = useRef<BiquadFilterNode[]>([]);
     const echoDelayNodeRef = useRef<DelayNode | null>(null);
@@ -37,6 +37,9 @@ export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequenci
     const echoGainNodeRef = useRef<GainNode | null>(null);
     const gainNodeRef = useRef<GainNode | null>(null);
     const loudnessGainNodeRef = useRef<GainNode | null>(null);
+    const mergerSplitterNodeRef = useRef<ChannelSplitterNode | null>(null);
+    const mergerGainLeftNodeRef = useRef<GainNode | null>(null);
+    const mergerGainRightNodeRef = useRef<GainNode | null>(null);
     const mergerNodeRef = useRef<ChannelMergerNode | null>(null);
     
 
@@ -88,7 +91,17 @@ export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequenci
             if (loudnessGainNodeRef.current) loudnessGainNodeRef.current.gain.value = loudnessControl
 
             // モノラル化の設定
+            mergerSplitterNodeRef.current = audioContextRef.current.createChannelSplitter(2);
+            mergerGainLeftNodeRef.current = audioContextRef.current.createGain();
+            mergerGainRightNodeRef.current = audioContextRef.current.createGain();
+            mergerGainLeftNodeRef.current.gain.value = 0.5;
+            mergerGainRightNodeRef.current.gain.value = 0.5;
             mergerNodeRef.current = audioContextRef.current.createChannelMerger(1);
+
+            mergerSplitterNodeRef.current.connect(mergerGainLeftNodeRef.current, 0);
+            mergerSplitterNodeRef.current.connect(mergerGainRightNodeRef.current, 1);
+            mergerGainLeftNodeRef.current.connect(mergerNodeRef.current, 0, 0)
+            mergerGainRightNodeRef.current.connect(mergerNodeRef.current, 0, 0)
         }
         if (mediaElementSourceRef.current) {
             let lastNode: any = mediaElementSourceRef.current;
@@ -131,7 +144,7 @@ export const useAudioEffects = (videoRef: RefObject<HTMLVideoElement>, frequenci
             }
             
             if (mergerNodeRef.current && effectsState.mono.enabled) {
-                lastNode.connect(mergerNodeRef.current);
+                lastNode.connect(mergerSplitterNodeRef.current);
                 lastNode = mergerNodeRef.current;
             }
             
