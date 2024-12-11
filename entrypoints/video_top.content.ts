@@ -15,7 +15,7 @@ export default defineContentScript({
             pushCSSRule('.VideoIntroductionAreaContainer {display:none}')
         }
         //console.log(location.pathname)
-        if ( result.enablecustomvideotop ) {
+        if ( result.enablecustomvideotop && document.getElementsByClassName("BaseLayout-main-custom").length < 1 ) {
             $('.BaseLayout-main').append('<div class="BaseLayout-main-custom" style="margin-top: 16px"></div>')
             $.each(result.customvideotop, function (i, object) {
                 if (object.dispstat == true) {
@@ -28,7 +28,7 @@ export default defineContentScript({
             $('.BaseLayout-main-custom').remove()
 
         }
-        if (result.vidtoptwocolumn) {
+        if (result.vidtoptwocolumn && document.getElementsByClassName("Baselayout-main-twocolumn").length < 1) {
             $('.BaseLayout-main').append('<div class="Baselayout-main-twocolumn BaseLayout-main-left" style="margin-top: 16px"></div><div class="Baselayout-main-twocolumn BaseLayout-main-right" style="margin-top: 16px"></div>');
             $('.BaseLayout-main .BaseLayout-block').each(function (i, elem) {
                 //console.log(`${i + 1} ${(i + 1) % 2 === 0}`)
