@@ -84,8 +84,9 @@ a {
     }
     ::-webkit-scrollbar-thumb {
         background: var(--textcolor3)
-        border-radius: var(--radius-mini);
-        margin: 0 4px;
+        background-clip: content-box;
+        border: 4px solid transparent;
+        border-radius: var(--radius-big);
     }
 }
 @css {
@@ -115,17 +116,46 @@ a {
         display: flex;
         flex-direction: column;
         border-radius: var(--radius);
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
         border: var(--border);
         border-top: none;
         box-shadow: var(--box-shadow);
+        .stacker-title {
+            //box-shadow: 0px 0px 8px #000;
+            border-bottom: 1px solid var(--accent1);
+            padding: 0 1em;
+            min-height: 2.8em;
+            max-height: 2.8em;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            background: var(--bgcolor2);
+            button {
+                background: transparent;
+                border: none;
+                color: var(--textcolor1);
+                padding: 4px 6px;
+                cursor: pointer;
+                border-radius: var(--radius);
+                svg {
+                    height: 1.8em;
+                    width: 1.8em;
+                    vertical-align: middle;
+                }
+                &:hover {
+                    opacity: 1;
+                    background: var(--hover1);
+                }
+            }
+            button[is-enable="false"] {
+                color: var(--textcolor3);
+            }
+        }
     }
 }
 .stacker-tabbutton-container {
     display: flex;
-    //gap: 8px;
-    //margin: 0 var(--radius-big);
+    gap: 0.25rem;
+    margin: 0 calc(var(--radius) + 0.25rem);
     position: relative;
     //bottom: calc(var(--border-width) * -1);
     z-index: 1;
@@ -137,6 +167,7 @@ a {
         border-radius: var(--radius) var(--radius) 0 0;
         cursor: pointer;
         font-size: 0.9em;
+        line-height: 1.5rem;
         align-self: end;
         flex: 1;
         border-bottom: transparent;

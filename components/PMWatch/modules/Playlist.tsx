@@ -98,7 +98,7 @@ function Playlist({ playlistData, videoInfo, setPlaylistData }: { playlistData: 
         setPlaylistData({ ...playlistData, type: "custom", items: playlistItems });*/
     }
     return <div className={`playlist-container`} id="pmw-playlist" ref={setNodeRef}>
-        <div className="playlist-title-container global-flex">
+        <div className="playlist-title-container global-flex stacker-title">
             <div className="playlist-title global-flex1 global-bold">{playlistTypeString[playlistData.type]}再生キュー</div>
             <button title={(localStorage.playersettings.enableShufflePlay ?? false) ? "シャッフル再生を無効化" : "シャッフル再生を有効化"} onClick={onRandomShuffle} is-enable={(localStorage.playersettings.enableShufflePlay ?? false) ? "true" : "false"}>
                 <IconArrowsShuffle/>

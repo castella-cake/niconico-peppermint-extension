@@ -5,7 +5,7 @@
     bottom: 0;
     width: 30%;
     //height: 100%;
-    background: rgba(0,0,0,0.867);
+    background: #111e;
     color: #fff;
     backdrop-filter: blur(8px);
     padding: 16px;
@@ -13,11 +13,17 @@
     min-width: 300px;
     overflow: auto;
     cursor: auto; // 動画の上で動いてない判定されてカーソルが見えなくならないように
+    margin: 4px;
+    border-radius: 6px;
+    border: 1px solid #555a;
+    box-shadow: 0px 0px 4px #000
     p {
         font-size: 0.9em;
     }
     .playersettings-item {
         margin-bottom: 8px;
+        border-top: 1px solid #fff3;
+        padding-top: 8px;
         label {
             font-size: 0.8em;
             select {
@@ -36,6 +42,9 @@
         .playersettings-hint {
             font-size: 0.8em;
         }
+    }
+    &::-webkit-scrollbar {
+        background: transparent;
     }
 }
 .playersettings-title {

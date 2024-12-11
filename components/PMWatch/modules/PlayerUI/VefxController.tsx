@@ -95,123 +95,133 @@ function VefxController({ frequencies, effectsState, onEffectsChange, nodeRef }:
 
     return <div className="vefx-container" id="pmw-vefx" ref={nodeRef}>
         <div className="vefx-container-inner">
-            <div className="vefx-title">Effect control</div>
+            <div className="vefx-title">EFFECT CONTROL</div>
             <VefxDisplay effectsState={effectsState}/>
-            <label>
-                <input
-                    type="checkbox"
-                    checked={effectsState.equalizer.enabled}
-                    onChange={(e) => handleEnabledEffect("equalizer")}
-                />
-                Enable Equalizer
-            </label>
-            {
-                frequencies.map((freq, i) => (
-                    <div key={freq} className="vefx-slidercontainer">
-                        <label className="global-flex">
-                            <span className="global-flex1">{freq.toString().replace("000", "K")}</span>
-                            {effectsState.equalizer.gains[i] > 0 && "+"}{effectsState.equalizer.gains[i]}dB
-                        </label>
-                        <input
-                            type="range"
-                            min="-10"
-                            max="10"
-                            step="1"
-                            value={effectsState.equalizer.gains[i]}
-                            onChange={(e) => handleGainChange(i, parseFloat(e.target.value))}
-                            list="eq-list"
-                            disabled={!effectsState.equalizer.enabled}
-                        />
-                    </div>
-                ))
-            }
-            <datalist id="eq-list">
-                {[-15,-10,-5,0,5,10,15].map(elem => {return <option key={`eq-list-${elem}`}>{elem}</option>})}
-            </datalist>
+            <div className="vefx-module">
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={effectsState.equalizer.enabled}
+                        onChange={(e) => handleEnabledEffect("equalizer")}
+                    />
+                    EQUALIZER
+                </label>
+                {
+                    frequencies.map((freq, i) => (
+                        <div key={freq} className="vefx-slidercontainer">
+                            <label className="global-flex">
+                                <span className="global-flex1">{freq.toString().replace("000", "K")}</span>
+                                {effectsState.equalizer.gains[i] > 0 && "+"}{effectsState.equalizer.gains[i]}dB
+                            </label>
+                            <input
+                                type="range"
+                                min="-10"
+                                max="10"
+                                step="1"
+                                value={effectsState.equalizer.gains[i]}
+                                onChange={(e) => handleGainChange(i, parseFloat(e.target.value))}
+                                list="eq-list"
+                                disabled={!effectsState.equalizer.enabled}
+                            />
+                        </div>
+                    ))
+                }
+                <datalist id="eq-list">
+                    {[-15,-10,-5,0,5,10,15].map(elem => {return <option key={`eq-list-${elem}`}>{elem}</option>})}
+                </datalist>
+            </div>
 
-            <label>
-                <input
-                    type="checkbox"
-                    checked={effectsState.echo.enabled}
-                    onChange={(e) => handleEnabledEffect("echo")}
-                />
-                {delayString(effectsState.echo.delayTime, effectsState.echo.feedback)} d{effectsState.echo.delayTime}s/f{effectsState.echo.feedback}dB/g{effectsState.echo.gain}dB
-            </label>
-            <div className="vefx-slidercontainer">
-                <label>Delay Time</label>
-                <input
-                    type="range"
-                    min="0"
-                    max="0.5"
-                    step="0.025"
-                    value={effectsState.echo.delayTime}
-                    list="gain-list"
-                    onChange={(e) => handleEchoDelayChange(parseFloat(e.target.value))}
-                    disabled={!effectsState.echo.enabled}
-                />
+            <div className="vefx-module">
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={effectsState.echo.enabled}
+                        onChange={(e) => handleEnabledEffect("echo")}
+                    />
+                    <span className="vefx-name">{delayString(effectsState.echo.delayTime, effectsState.echo.feedback).toUpperCase()}</span>
+                </label>
+                <div className="vefx-echo-value">d{effectsState.echo.delayTime}s / f{effectsState.echo.feedback}dB / g{effectsState.echo.gain}dB</div>
+                <div className="vefx-slidercontainer">
+                    <label>Delay Time</label>
+                    <input
+                        type="range"
+                        min="0"
+                        max="0.5"
+                        step="0.025"
+                        value={effectsState.echo.delayTime}
+                        list="gain-list"
+                        onChange={(e) => handleEchoDelayChange(parseFloat(e.target.value))}
+                        disabled={!effectsState.echo.enabled}
+                    />
+                </div>
+                <div className="vefx-slidercontainer">
+                    <label>Feedback</label>
+                    <input
+                        type="range"
+                        min="0"
+                        max="0.5"
+                        step="0.025"
+                        value={effectsState.echo.feedback}
+                        list="gain-list"
+                        onChange={(e) => handleEchoFeedbackChange(parseFloat(e.target.value))}
+                        disabled={!effectsState.echo.enabled}
+                    />
+                </div>
+                <div className="vefx-slidercontainer">
+                    <label>Gain</label>
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value={effectsState.echo.gain}
+                        list="gain-list"
+                        onChange={(e) => handleEchoGainChange(parseFloat(e.target.value))}
+                        disabled={!effectsState.echo.enabled}
+                    />
+                </div>
+                <datalist id="gain-list">
+                    {[-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1].map(elem => {return <option key={`gain-list-${elem}`}>{elem}</option>})}
+                </datalist>
             </div>
-            <div className="vefx-slidercontainer">
-                <label>Feedback</label>
-                <input
-                    type="range"
-                    min="0"
-                    max="0.5"
-                    step="0.025"
-                    value={effectsState.echo.feedback}
-                    list="gain-list"
-                    onChange={(e) => handleEchoFeedbackChange(parseFloat(e.target.value))}
-                    disabled={!effectsState.echo.enabled}
-                />
-            </div>
-            <div className="vefx-slidercontainer">
-                <label>Gain</label>
-                <input
-                    type="range"
-                    min="0"
-                    max="1"
-                    step="0.05"
-                    value={effectsState.echo.gain}
-                    list="gain-list"
-                    onChange={(e) => handleEchoGainChange(parseFloat(e.target.value))}
-                    disabled={!effectsState.echo.enabled}
-                />
-            </div>
-            <datalist id="gain-list">
-                {[-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75,1].map(elem => {return <option key={`gain-list-${elem}`}>{elem}</option>})}
-            </datalist>
 
-            <label>
-                <input
-                    type="checkbox"
-                    checked={effectsState.preamp.enabled}
-                    onChange={(e) => handleEnabledEffect("preamp")}
-                />
-                Preamp
-            </label>
-            <div className="vefx-slidercontainer">
-                <input
-                    type="range"
-                    min="0"
-                    max="3"
-                    step="0.1"
-                    value={effectsState.preamp.gain}
-                    list="preamp-list"
-                    onChange={(e) => handlePreampGainChange(parseFloat(e.target.value))}
-                    disabled={!effectsState.preamp.enabled}
-                />
+            <div className="vefx-module">
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={effectsState.preamp.enabled}
+                        onChange={(e) => handleEnabledEffect("preamp")}
+                    />
+                    <span className="vefx-name">PREAMP</span>
+                    <span className="vefx-value">{effectsState.preamp.gain - 1 > 0 && "+"}{effectsState.preamp.gain - 1}dB</span>
+                </label>
+                <div className="vefx-slidercontainer">
+                    <input
+                        type="range"
+                        min="0"
+                        max="3"
+                        step="0.1"
+                        value={effectsState.preamp.gain}
+                        list="preamp-list"
+                        onChange={(e) => handlePreampGainChange(parseFloat(e.target.value))}
+                        disabled={!effectsState.preamp.enabled}
+                    />
+                </div>
+                <datalist id="preamp-list">
+                    {[0,0.5,1,1.5,2,3].map(elem => {return <option key={`preamp-list-${elem}`}>{elem}</option>})}
+                </datalist>
             </div>
-            <datalist id="preamp-list">
-                {[0,0.5,1,1.5,2,3].map(elem => {return <option key={`preamp-list-${elem}`}>{elem}</option>})}
-            </datalist>
 
-            <label>
-                <input
-                    type="checkbox"
-                    checked={effectsState.mono.enabled}
-                    onChange={(e) => handleEnabledEffect("mono")}
-                />
-                Enable Mono
-            </label>
+            <div className="vefx-module">
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={effectsState.mono.enabled}
+                        onChange={(e) => handleEnabledEffect("mono")}
+                    />
+                    MONO
+                </label>
+            </div>
         </div>
     </div>
 }

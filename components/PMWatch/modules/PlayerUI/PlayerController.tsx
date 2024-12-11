@@ -34,20 +34,21 @@ function PlayerControllerButton({ onClick, title, className, children }: { onCli
     const [isHovered, setIsHovered] = useState(false)
     const spanRef = useRef(null)
     const buttonRef = useRef<HTMLButtonElement>(null)
+    const timeoutRef = useRef<ReturnType<typeof setTimeout>>(null!)
     useEffect(() => {
-        let timeout: ReturnType<typeof setTimeout>
         if ( !buttonRef.current ) return
         function toHoverState() {
-            timeout = setTimeout(() => setIsHovered(true), 500)
+            setIsHovered(false)
+            timeoutRef.current = setTimeout(() => setIsHovered(true), 500)
         }
         function cancelHoverState() {
-            if (timeout) clearTimeout(timeout)
-                setIsHovered(false)
+            setIsHovered(false)
+            if (timeoutRef.current) clearTimeout(timeoutRef.current)
         }
         buttonRef.current.addEventListener("mouseenter", toHoverState)
         buttonRef.current.addEventListener("mouseleave", cancelHoverState)
         return () => {
-            if (timeout) clearTimeout(timeout)
+            clearTimeout(timeoutRef.current)
             buttonRef.current?.removeEventListener("mouseenter", toHoverState)
             buttonRef.current?.removeEventListener("mouseleave", cancelHoverState)
         }

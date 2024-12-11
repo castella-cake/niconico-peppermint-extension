@@ -193,27 +193,25 @@ function CommentList(props: Props) {
     }
 
     return <div className="commentlist-container" id="pmw-commentlist">
-        <div className="commentlist-title-container">
-            <div className="global-flex">
-                <div className="global-flex1 global-bold">
-                    
-                </div>
-                <div>
-                    <select onChange={(e) => {setCurrentForkType(Number(e.currentTarget.value))}} value={currentForkType} className="commentlist-fork-selector">
-                        {props.videoInfo.data.response.comment.threads.map((elem, index) => {
-                            const key = elem.label as keyof typeof forkLabelToLang
-                            return <option key={`${index}-${elem.fork}-${elem.label}`} value={index}>{forkLabelToLang[key] || elem.label}</option>
-                        })}
-                    </select>
-                    <label>
-                        <input
-                            type="checkbox"
-                            className="commentlist-autoscroll"
-                            onChange={(e) => {setAutoScroll(e.currentTarget.checked)}}
-                            checked={autoScroll}
-                        />
-                        自動スクロール</label>
-                </div>
+        <div className="commentlist-title-container global-flex stacker-title">
+            <div className="global-flex1 global-bold">
+                
+            </div>
+            <div>
+                <select onChange={(e) => {setCurrentForkType(Number(e.currentTarget.value))}} value={currentForkType} className="commentlist-fork-selector">
+                    {props.videoInfo.data.response.comment.threads.map((elem, index) => {
+                        const key = elem.label as keyof typeof forkLabelToLang
+                        return <option key={`${index}-${elem.fork}-${elem.label}`} value={index}>{forkLabelToLang[key] || elem.label}</option>
+                    })}
+                </select>
+                <label>
+                    <input
+                        type="checkbox"
+                        className="commentlist-autoscroll"
+                        onChange={(e) => {setAutoScroll(e.currentTarget.checked)}}
+                        checked={autoScroll}
+                    />
+                    自動スクロール</label>
             </div>
         </div>
         <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => setIsCommentListHovered(true)} onMouseLeave={() => setIsCommentListHovered(false)}>

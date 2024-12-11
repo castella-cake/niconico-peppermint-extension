@@ -92,6 +92,14 @@
     }
 }
 
+.playercontroller-container-right, .playercontroller-container-left, .playercontroller-container-center {
+    button:not(:hover):not(:focus-visible) .playercontroller-tooltip {
+        transform: translateX(-50%) translateY(50%)
+        opacity: 0;
+        transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+}
+
 .playercontroller-qualityselect {
     padding: 4px 8px;
     height: 100%;
