@@ -1,13 +1,20 @@
 body {
-    background: var(--bgcolor1);
-    color: var(--textcolor1);
     --radius: 6px;
     --radius-mini: 4px;
     --radius-big: 8px;
-    --border-width: 1px
-    --border-style: solid
-    --border: var(--border-width) var(--border-style) var(--accent1);
-    --box-shadow: 0 0 4px #0001;
+    --border-width: 1px;
+    --border-style: solid;
+    --border-color: var(--accent1);
+    --border: var(--border-width) var(--border-style) var(--border-color);
+    --box-shadow-width: 4px;
+    --box-shadow-color: #0001;
+    --box-shadow: 0 0 var(--box-shadow-width) var(--box-shadow-color);
+    --modal-background: var(--bgcolor2);
+}
+
+body {
+    background: var(--bgcolor1);
+    color: var(--textcolor1);
     margin: 0;
 }
 // font-family を Stylus-langが正しく解釈しないようなので、@cssを使う
