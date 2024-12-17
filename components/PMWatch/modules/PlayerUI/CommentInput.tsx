@@ -29,6 +29,8 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, reloadCo
     const startComposition = () => setIsComposing(true);
     const endComposition = () => setIsComposing(false);
 
+    const previewUpdateTimeout = useRef<ReturnType<typeof setTimeout>>(null!)
+
     // idが遅い方のデフォルトの投稿ターゲット
     const mainThreads = videoInfo.data?.response.comment.threads.filter(elem => elem.isDefaultPostTarget).sort((a, b) => Number(b.id) - Number(a.id))[0]
 
@@ -97,23 +99,30 @@ function CommentInput({videoRef, videoId, videoInfo, setCommentContent, reloadCo
                 videoRef.current.pause()
             }
         }
-        if (localStorage.playersettings.pauseOnCommentInput && videoInfo.data && videoInfo.data.response.viewer && commentInputRef.current && commandInput.current && commentInputRef.current.value.length > 0 && videoRef.current) {
-            setPreviewCommentItem({
-                id: "-1", 
-                no: -1,
-                vposMs: Math.floor(videoRef.current.currentTime * 1000),
-                body: commentInputRef.current.value,
-                commands: ["184", "nico:waku:#faf", ...commandInput.current.value.split(" ")],
-                isMyPost: true,
-                userId: "-1",
-                isPremium: videoInfo.data?.response.viewer?.isPremium,
-                score: 0,
-                postedAt: new Date().toString(),
-                nicoruCount: 0,
-                nicoruId: null,
-                source: ""
-            })
-        } else setPreviewCommentItem(null)
+        if (localStorage.playersettings.pauseOnCommentInput) {
+            clearTimeout(previewUpdateTimeout.current)
+            previewUpdateTimeout.current = setTimeout(() => {
+                if (videoInfo.data && videoInfo.data.response.viewer && commentInputRef.current && commandInput.current && commentInputRef.current.value.length > 0 && videoRef.current) {
+                    setPreviewCommentItem({
+                        id: "-1", 
+                        no: -1,
+                        vposMs: Math.floor(videoRef.current.currentTime * 1000),
+                        body: commentInputRef.current.value,
+                        commands: ["184", "nico:waku:#faf", ...commandInput.current.value.split(" ")],
+                        isMyPost: true,
+                        userId: "-1",
+                        isPremium: videoInfo.data?.response.viewer?.isPremium,
+                        score: 0,
+                        postedAt: new Date().toString(),
+                        nicoruCount: 0,
+                        nicoruId: null,
+                        source: ""
+                    })
+                } else {
+                    setPreviewCommentItem(null)
+                }
+            }, 100)
+        }
     }
     const commentMaxLength = 75
     const remainingLength = commentMaxLength - dummyTextAreaContent.length
