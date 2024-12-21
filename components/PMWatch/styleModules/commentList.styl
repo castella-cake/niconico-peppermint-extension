@@ -111,9 +111,22 @@
     padding: 2px;
     margin: 0 8px;
     background: var(--bgcolor3);
-    color: var(--textcolor2);
+    color: var(--textcolor1);
     border: none;
     border-radius: var(--radius-mini);
     font-size: 0.9em;
     cursor: pointer;
+}
+
+.commentlist-list-toggletabindex {
+    border: none;
+    padding: 8px;
+    background: #000;
+    color: #fff;
+}
+.commentlist-list-toggletabindex[data-isopen="false"]:not(:focus-visible) {
+    opacity: 0;
+    font-size: 0;
+    margin: 0;
+    padding: 0 !important;
 }

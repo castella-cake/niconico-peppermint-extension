@@ -52,6 +52,8 @@ type Props = {
     videoRef: RefObject<HTMLVideoElement>
 }
 
+const ariaDetails = "コメントリストはデフォルトでスクリーンリーダーから不可視です。\nコメントリストを読み上げたり、コメントに対してアクションする場合は、このボタンでコメントリストを開放することが出来ます。"
+
 function CommentList(props: Props) {
     //const lang = useLang()
     const { localStorage } = useStorageContext()
@@ -59,6 +61,8 @@ function CommentList(props: Props) {
     const [ isCommentListHovered, setIsCommentListHovered ] = useState(false)
     const [ autoScroll, setAutoScroll ] = useState(true)
     const [ openedCommentItem, setOpenedCommentItem ] = useState<string>("")
+    const [ listFocusable, setListFocusable ] = useState(false)
+
     const commentListContainerRef = useRef<HTMLDivElement>(null)
     // 複数のref
     const commentRefs = useRef<RefObject<HTMLDivElement>[]>([])
@@ -198,7 +202,7 @@ function CommentList(props: Props) {
                 
             </div>
             <div>
-                <select onChange={(e) => {setCurrentForkType(Number(e.currentTarget.value))}} value={currentForkType} className="commentlist-fork-selector">
+                <select onChange={(e) => {setCurrentForkType(Number(e.currentTarget.value))}} value={currentForkType} className="commentlist-fork-selector" title="コメント種類選択">
                     {props.videoInfo.data.response.comment.threads.map((elem, index) => {
                         const key = elem.label as keyof typeof forkLabelToLang
                         return <option key={`${index}-${elem.fork}-${elem.label}`} value={index}>{forkLabelToLang[key] || elem.label}</option>
@@ -211,16 +215,18 @@ function CommentList(props: Props) {
                         onChange={(e) => {setAutoScroll(e.currentTarget.checked)}}
                         checked={autoScroll}
                     />
-                    自動スクロール</label>
+                    自動スクロール
+                </label>
+                <button className="commentlist-list-toggletabindex" aria-description={ariaDetails} onClick={() => {setListFocusable(!listFocusable);setAutoScroll(false)}} data-isopen={listFocusable}>コメントリストを{listFocusable ? "閉じる" : "開く"}</button>
             </div>
         </div>
-        <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => setIsCommentListHovered(true)} onMouseLeave={() => setIsCommentListHovered(false)}>
+        <div className="commentlist-list-container" ref={commentListContainerRef} onMouseEnter={() => {setIsCommentListHovered(true)}} onMouseLeave={() => setIsCommentListHovered(false)}>
             {filteredComments?.map((elem, index) => {
                 //console.log(elem)
-                return <div key={elem.id} ref={commentRefs.current[index]} className={`commentlist-list-item ${openedCommentItem.includes(elem.id) ? "commentlist-list-item-open" : ""}`} nicoru-count={returnNicoruRank(elem.nicoruCount)}>
-                    <button type="button" onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className={`commentlist-list-item-nicorubutton ${!props.videoInfo.data?.response.viewer || (!props.videoInfo.data?.response.viewer.isPremium) ? "commentlist-list-item-nicorubutton-disabled" : ""}`}>ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>
+                return <div key={elem.id} ref={commentRefs.current[index]} className={`commentlist-list-item ${openedCommentItem.includes(elem.id) ? "commentlist-list-item-open" : ""}`} nicoru-count={returnNicoruRank(elem.nicoruCount)} aria-hidden={!listFocusable}>
+                    <button type="button" tabIndex={listFocusable ? undefined : -1} onClick={() => onNicoru(elem.no, elem.body, elem.nicoruId)} className={`commentlist-list-item-nicorubutton ${!props.videoInfo.data?.response.viewer || (!props.videoInfo.data?.response.viewer.isPremium) ? "commentlist-list-item-nicorubutton-disabled" : ""}`}>ﾆｺ{elem.nicoruId && "ｯﾀ"} {elem.nicoruCount}</button>
                     <div className="commentlist-list-item-body" title={elem.body}>{elem.body}</div>
-                    <button type="button" className="commentlist-list-item-vpos" onClick={() => {toggleCommentItemExpand(elem.id)}}>{secondsToTime(Math.floor( elem.vposMs / 1000 ))}</button>
+                    <button type="button" tabIndex={listFocusable ? undefined : -1} className="commentlist-list-item-vpos" onClick={() => {toggleCommentItemExpand(elem.id)}} title="コメントの詳細を開く">{secondsToTime(Math.floor( elem.vposMs / 1000 ))}</button>
                     { openedCommentItem === elem.id && <>
                         <div className="commentlist-list-item-stats">
                             <span>コメ番: {elem.no} / 投稿日時: {new Date(elem.postedAt).toLocaleString()}</span>

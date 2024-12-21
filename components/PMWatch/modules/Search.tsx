@@ -40,7 +40,7 @@ function Search() {
         </div>
         <div className="searchbox-inputcontainer">
             <input type="text" ref={inputRef} placeholder={`${searchTypesText[currentSearchType]}で検索...`} onKeyDown={(e) => {handleEnter(e.key)}} onCompositionStart={startComposition} onCompositionEnd={endComposition}/>
-            <button onClick={() => {onSearch()}} type="button"><IconSearch/></button>
+            <button onClick={() => {onSearch()}} type="button" title="検索"><IconSearch/></button>
         </div>
     </div>
 }

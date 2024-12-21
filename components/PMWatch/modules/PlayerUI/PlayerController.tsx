@@ -351,7 +351,7 @@ function PlayerController({
                     hlsRef.current.currentLevel = Number(e.currentTarget.value)
                     writePlayerSettings("preferredLevel", Number(e.currentTarget.value))
                     //setHlsLevel(Number(e.currentTarget.value))
-                }} value={hlsLevel} className="playercontroller-qualityselect">
+                }} value={hlsLevel} className="playercontroller-qualityselect" title="画質選択">
                     {hlsRef.current.levels.map((elem, index) => {
                         return <option value={index} key={index}>{`${elem.height}p`}</option>
                     })}

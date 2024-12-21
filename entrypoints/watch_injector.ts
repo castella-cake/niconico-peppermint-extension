@@ -86,6 +86,7 @@ export default defineUnlistedScript({
         const levelSelector = document.createElement("select")
         levelSelector.id = "pmwp-cyaki-mediainjector-level-select"
         levelSelector.className = "playercontroller-qualityselect"
+        levelSelector.title = "画質選択"
 
         if (!document.getElementById("pmwp-cyaki-mediainjector-level-select")) {
             const rightControl = document.getElementsByClassName("playercontroller-container-right")[0]

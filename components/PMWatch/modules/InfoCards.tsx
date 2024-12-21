@@ -23,7 +23,7 @@ function Draggable({ id, obj, children }: { id: string, obj: any, children: Reac
 export function Card({ href, thumbnailUrl, thumbText, ownerName, additionalClassName, children, title }: { href: string, thumbnailUrl?: string, thumbText?: string, ownerName?: string, additionalClassName?: string, children?: ReactNode, title: string }) {
     return <a className={`info-card ${additionalClassName}`} href={href} title={title}>
     { (thumbText) && <div className="info-card-thumbnail">
-        <img src={thumbnailUrl}/>
+        <img src={thumbnailUrl} alt={`${title} のサムネイル`}/>
         <span className="info-card-durationtext">{thumbText}</span>
     </div>}
     <div className="info-card-text">
@@ -56,7 +56,7 @@ export function MylistInfo(props: { obj: RecommendItem }) {
     const obj = props.obj
     return <a className="info-card" href={`https://www.nicovideo.jp/mylist/${obj.id}`} title={`マイリスト: ${obj.content.name}`}>
         { (obj.content.sampleItems && obj.content.sampleItems[0].video.thumbnail) && <div className="info-card-thumbnail">
-            <img src={obj.content.sampleItems[0].video.thumbnail.listingUrl}/>
+            <img src={obj.content.sampleItems[0].video.thumbnail.listingUrl} alt={`プレイリスト ${obj.content.name} に設定されたサンプルのサムネイル`}/>
             <span className="info-card-durationtext"><IconListNumbers/>{obj.content.itemsCount}</span>
         </div>}
         <div className="info-card-text">

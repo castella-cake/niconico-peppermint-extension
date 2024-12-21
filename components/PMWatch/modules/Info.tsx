@@ -92,8 +92,8 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
             })}
         </select>
     }*/
-    const nicodicExistIcon = isShinjukuLayout ? <img src="http://nicovideo.cdn.nimg.jp/web/img/common/icon/dic_on.png"/> : "百"
-    const nicodicNotExistIcon = isShinjukuLayout ? <img src="http://nicovideo.cdn.nimg.jp/web/img/common/icon/dic_off.png"/> : "？"
+    const nicodicExistIcon = isShinjukuLayout ? <img src="http://nicovideo.cdn.nimg.jp/web/img/common/icon/dic_on.png" alt="記事利用可能アイコン"/> : "百"
+    const nicodicNotExistIcon = isShinjukuLayout ? <img src="http://nicovideo.cdn.nimg.jp/web/img/common/icon/dic_off.png" alt="記事未作成アイコン"/> : "？"
 
     return <div className="videoinfo-container" id="pmw-videoinfo">
         <div className="videoinfo-titlecontainer">
@@ -128,13 +128,13 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
             </div>
             { !isShinjukuLayout && <div className="videoinfo-owner">
                 {videoInfoResponse.owner && <a href={`https://www.nicovideo.jp/user/${videoInfoResponse.owner.id}`}>
-                    { videoInfoResponse.owner.iconUrl && <img src={videoInfoResponse.owner.iconUrl}/> }
+                    { videoInfoResponse.owner.iconUrl && <img src={videoInfoResponse.owner.iconUrl} alt={`${videoInfoResponse.owner.nickname} のアイコン`}/> }
                     <span>
                         { videoInfoResponse.owner.nickname }
                     </span>
                 </a>}
                 {videoInfoResponse.channel && <a href={`https://ch.nicovideo.jp/${videoInfoResponse.channel.id}`}>
-                    { videoInfoResponse.channel.thumbnail.smallUrl && <img src={videoInfoResponse.channel.thumbnail.smallUrl}/> }
+                    { videoInfoResponse.channel.thumbnail.smallUrl && <img src={videoInfoResponse.channel.thumbnail.smallUrl} alt={`${videoInfoResponse.channel.name} のアイコン`}/> }
                     <span>
                         { videoInfoResponse.channel.name }
                     </span>
@@ -155,15 +155,15 @@ function Info({videoInfo, videoRef, isShinjukuLayout, isTitleShown, errorInfo}: 
             <div className="tags-item-container">
                 {videoInfoResponse.tag.items.map((elem,index) => {
                     return <div key={`tag-${elem.name}`} className={elem.isLocked ? "tags-item tags-item-locked" : "tags-item"}>
-                        <a href={`/tag/${elem.name}`}>
+                        <a href={`/tag/${elem.name}`} title={`タグ ${elem.name} の動画を検索`}>
                             {elem.name}
                         </a>
-                        <a href={`https://dic.nicovideo.jp/a/${elem.name}`} className={elem.isNicodicArticleExists ? "tags-item-nicodic" : "tags-item-nicodic tags-item-nicodic-notexist"}>
+                        <a href={`https://dic.nicovideo.jp/a/${elem.name}`} className={elem.isNicodicArticleExists ? "tags-item-nicodic" : "tags-item-nicodic tags-item-nicodic-notexist"} title={`タグ ${elem.name} の大百科記事を開く`}>
                             {elem.isNicodicArticleExists ? nicodicExistIcon : nicodicNotExistIcon}
                         </a>
                     </div>
                 })}
-                <button className="tags-editbutton disabled" aria-disabled="true">
+                <button className="tags-editbutton disabled" aria-disabled="true" title="タグ編集は未実装です">
                     <IconEdit/>編集
                 </button>
             </div>
