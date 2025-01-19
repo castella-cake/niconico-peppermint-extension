@@ -111,11 +111,6 @@ const settings: settingList = {
         },
         {
             type: "checkbox",
-            name: "enablewatchpagereplace",
-            default: false,
-        },
-        {
-            type: "checkbox",
             name: "watchhideknowntitle",
             default: false,
         },
@@ -124,29 +119,6 @@ const settings: settingList = {
             name: "usenativedarkmode",
             default: false,
         }
-    ],
-    mintwatch: [
-        {
-            type: "desc",
-            name: "mintwatchdesc"
-        },
-        {
-            type: "select",
-            name: "pmwlayouttype",
-            values: ["recresc", "renew", "stacked", "3col", "shinjuku"],
-            default: "recresc"
-        },
-        {
-            type: "selectButtons",
-            name: "pmwplayertype",
-            values: ["default", "html5", "shinjuku"],
-            default: "default"
-        },
-        {
-            type: "checkbox",
-            name: "pmwforcepagehls",
-            default: false,
-        },
     ],
     nicopedia: [
         {

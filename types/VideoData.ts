@@ -190,7 +190,7 @@ interface SeriesVideos {
     first?: SeriesVideoItem;
 }
 
-interface SeriesVideoItem {
+export interface SeriesVideoItem {
     type: string;
     id: string;
     title: string;

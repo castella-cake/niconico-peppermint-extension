@@ -3,7 +3,6 @@
     "SETTINGS_AREATITLE": {
         "hide": "要素の非表示",
         "watchpage": "視聴ページ",
-        "mintwatch": "MintWatch",
         "nicopedia": "大百科",
         "other": "その他",
         "global": "グローバル",
@@ -41,10 +40,6 @@
             "name": "新視聴ページの開始に伴い、このセクションの機能は現在利用できません。",
             "linktitle": "詳しい情報"
         },
-        "enablewatchpagereplace": {
-            "name": "MintWatchを有効化",
-            "hint": "視聴ページをPepperMint+の独自ページで完全に置き換えます。\nFirefoxでは一部制限があります。"
-        },
         "watchhideknowntitle": {
             "name": "コメント横の不要なボタンタイトルは隠す",
             "hint": "コメント入力欄の横のアクションボタンの内、共有/ニコニ広告/ギフト のタイトルを隠してアイコンのみを表示します。"
@@ -54,20 +49,6 @@
             "hint": "視聴ページ内でPepperMint+のダークモード/カラーパレットを無効にします。"
         },
 
-        "pmwforcepagehls": {
-            "name": "強制的に動画をページスクリプトでロード",
-            "hint": "常にページスクリプトを使用して動画をロードします。(Firefox環境の場合はデフォルトで実行されます)\n一部の環境で動画が正しくロードされない場合に役立つ可能性がありますが、正しく動作している場合は有効にしないでください。"
-        },
-        "pmwlayouttype": {
-            "name": "視聴ページのレイアウト",
-            "hint": "PM視聴ページの見た目を指定します。Shinjukuではスタイルも変更されます。",
-            "select": ["Re-cresc.", "Re-新視聴", "Stacked", "3カラム", "Shinjuku"]
-        },
-        "pmwplayertype": {
-            "name": "プレイヤーのテーマ",
-            "hint": "PM視聴ページで使用するプレイヤーの見た目を指定します。",
-            "select": ["デフォルト", "公式配置", "Shinjuku"]
-        },
         "watchpagetheme": {
             "name": "視聴ページテーマ",
             "hint": "視聴ページの見た目、レイアウトを変更します。",
@@ -243,10 +224,7 @@
             "name": "ニコニコ/PM+全体に対して適用される設定です。"
         },
         "watchpagedesc": {
-            "name": "視聴ページの視覚的変更、MintWatchの有効化を設定します。"
-        },
-        "mintwatchdesc": {
-            "name": "MintWatchの設定を行います。動画プレイヤーの設定はプレイヤーの歯車マークから開くことが出来ます。"
+            "name": "視聴ページの視覚的変更を設定します。"
         },
         "nicopediadesc": {
             "name": "ニコニコ大百科の視覚的変更を設定します。"

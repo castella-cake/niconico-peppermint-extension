@@ -2,7 +2,7 @@
     "name": "niconico-peppermint",
     "description": "ニコニコ動画をもっとクールにする拡張機能",
     "private": true,
-    "version": "3.0.0-BETA2",
+    "version": "3.0.0-BETA3",
     "type": "module",
     "license": "MIT",
     "homepage": "https://github.com/castella-cake/niconico-peppermint-extension#readme",
@@ -22,9 +22,7 @@
         "@dnd-kit/sortable": "^8.0.0",
         "@dnd-kit/utilities": "^3.2.2",
         "@tabler/icons-react": "^3.12.0",
-        "@xpadev-net/niconicomments": "^0.2.73",
         "dompurify": "^3.1.6",
-        "hls.js": "^1.5.14",
         "html-react-parser": "^5.1.12",
         "jquery": "^3.7.1",
         "jquery-ui": "^1.14.0",
@@ -46,6 +44,6 @@
         "@wxt-dev/module-react": "^1.1.1",
         "patch-package": "^8.0.0",
         "typescript": "^5.6.2",
-        "wxt": "^0.19.11"
+        "wxt": "^0.19.23"
     }
 }

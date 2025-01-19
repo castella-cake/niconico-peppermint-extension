@@ -49,19 +49,6 @@
             "name": "Due to the launch of the new watch page, the features in this section are currently unavailable.",
             "linktitle": "Learn more"
         },
-        "enablewatchpagereplace": {
-            "name": "Enable PepperMint watch page",
-            "hint": "Replaces the content of the watch page with the PepperMint+ watch page.\n(There are some restrictions in Firefox)"
-        },
-        "pmwforcepagehls": {
-            "name": "Force video to load with page script",
-            "hint": "Always use page scripts to load videos instead of content scripts.\nThis is done by default in Firefox environments, but may resolve issues if you are making UA changes or if videos are not loading correctly in Chromium environments.\nGenerally there is no need to enable it as it may cause problems."
-        },
-        "pmwlayouttype": {
-            "name": "PepperMint watch page layout",
-            "hint": "Change the layout of the PepperMint watch page.",
-            "select": ["Reimagined-NewWatch", "Reimagined-cresc.", "Reimagined-Mobile", "Three-Column"]
-        },
         "watchpagetheme": {
             "name": "Viewing page theme",
             "hint": "Change the appearance and layout of the viewing page.",
@@ -276,6 +263,24 @@
         "skipquickpanel": {
             "name": "Skip quick panel",
             "hint": "When you click a toolbar button, you will be redirected to the settings without displaying the quick panel. \nSuitable when not using Nicorepo reader or series stock."
+        },
+        "globaldesc": {
+            "name": "ニコニコ/PM+全体に対して適用される設定です。"
+        },
+        "watchpagedesc": {
+            "name": "視聴ページの視覚的変更を設定します。"
+        },
+        "nicopediadesc": {
+            "name": "ニコニコ大百科の視覚的変更を設定します。"
+        },
+        "hidedesc": {
+            "name": "ページに対する要素の非表示を設定します。"
+        },
+        "otherdesc": {
+            "name": "ページに対するその他の視覚的変更を設定します。"
+        },
+        "quickpaneldesc": {
+            "name": "クイックパネルのタブ項目を設定します。"
         }
     },
     "MISSKEYSHARE_CONFIGURE_LINK": "Configure shared destination instance...",
