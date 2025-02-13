@@ -34,6 +34,8 @@ export function AvailableSeriesRow() {
     function addSeriesStock(seriesId, seriesName) {
         if ( syncStorage.stockedseries ) {
             setSyncStorageValue("stockedseries", [{ seriesID: seriesId, seriesName: seriesName }, ...syncStorage.stockedseries])
+        } else {
+            setSyncStorageValue("stockedseries", [{ seriesID: seriesId, seriesName: seriesName }])
         }
     }
 

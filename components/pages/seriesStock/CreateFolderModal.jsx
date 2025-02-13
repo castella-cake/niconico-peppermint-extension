@@ -50,12 +50,12 @@ export function CreateFolderModal() {
     }
 
     function addFolder(name, idList = []) {
-        const addAfter = syncStorage.stockedseries.slice()
+        const addAfter = syncStorage.stockedseries ? syncStorage.stockedseries.slice() : []
         addAfter.unshift({type: "folder", name: ( (name != "" && name) ? name : "名称未設定のフォルダー"), id: crypto.randomUUID(), idList: idList})
         setSyncStorageValue("stockedseries", addAfter)
     }
     function setFolder(folderId, index, obj) {
-        if ( syncStorage.stockedseries[index] && syncStorage.stockedseries[index].type == "folder" && syncStorage.stockedseries[index].id == folderId ) {
+        if ( syncStorage.stockedseries && syncStorage.stockedseries[index] && syncStorage.stockedseries[index].type == "folder" && syncStorage.stockedseries[index].id == folderId ) {
             const stockArrayCopy = syncStorage.stockedseries.slice()
             stockArrayCopy[index] = obj
             setSyncStorageValue("stockedseries", stockArrayCopy)
