@@ -10,12 +10,12 @@ export default defineContentScript({
     matches: ["*://www.nicovideo.jp/series/*"],
     main() {
         function addToStock(newresult: any) {
-            if (newresult.stockedseries != undefined) {
+            if (newresult.stockedseries) {
                 if (newresult.stockedseries.findIndex((series: any) => series.seriesID === location.pathname.slice(8)) != -1) {
-                    var currentstock = newresult.stockedseries
-                    var newstock = currentstock.filter((obj: any) => obj.seriesID !== location.pathname.slice(8));
+                    const currentStock = newresult.stockedseries
+                    const filteredStock = currentStock.filter((obj: any) => obj.seriesID !== location.pathname.slice(8));
                     browser.storage.sync.set({
-                        "stockedseries": newstock
+                        "stockedseries": filteredStock
                     })
                     $('#addtostock').text("add")
                     $('#addtostock').css({
@@ -23,10 +23,9 @@ export default defineContentScript({
                     })
                     $("#addtostock-text").text("ストックに追加")
                 } else {
-                    var currentstock = newresult.stockedseries
-                    currentstock.push({ seriesID: location.pathname.slice(8), seriesName: $('.SeriesDetailContainer-bodyTitle').text() });
+                    const stockAfter = [ ...newresult.stockedseries, { seriesID: location.pathname.slice(8), seriesName: $('.SeriesDetailContainer-bodyTitle').text() } ]
                     browser.storage.sync.set({
-                        "stockedseries": currentstock
+                        "stockedseries": stockAfter
                     })
                     $('#addtostock').text("remove")
                     $('#addtostock').css({
@@ -35,10 +34,9 @@ export default defineContentScript({
                     $("#addtostock-text").text("ストックから削除")
                 }
             } else {
-                const currentstock = []
-                currentstock.push({ seriesID: location.pathname.slice(8), seriesName: $('.SeriesDetailContainer-bodyTitle').text() });
+                const currentStock = [{ seriesID: location.pathname.slice(8), seriesName: $('.SeriesDetailContainer-bodyTitle').text() }]
                 browser.storage.sync.set({
-                    "stockedseries": currentstock
+                    "stockedseries": currentStock
                 })
                 $('#addtostock').text("remove")
                 $('#addtostock').css({

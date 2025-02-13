@@ -175,6 +175,15 @@ main(){
             return { status: false }
         }
     }
+
+    function getSeriesNameFromWatchPage() {
+        const seriesAnchorElem = document.querySelector("a[data-anchor-page=\"watch\"][data-anchor-area=\"series\"]")
+        console.log(seriesAnchorElem)
+        if ( !seriesAnchorElem || !seriesAnchorElem.href || !seriesAnchorElem.pathname ) return {status: false}
+        const splittedPathname = seriesAnchorElem.pathname.split("/")
+        if ( splittedPathname.length < 2 ) return {status: false}
+        return { status: true, name: seriesAnchorElem.textContent, seriesId: splittedPathname[2] }
+    }
     
     browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (message.type == "getRankingXml") {
@@ -278,26 +287,52 @@ main(){
                     browser.tabs.query({ 'active': true, 'currentWindow': true }, tabarray => {
                         if ( tabarray && tabarray[0] ) {
                             const activeURL = tabarray[0].url
+                            console.log(activeURL)
                             const pathArray = activeURL.replace(/\?.*$/, "").replace("https://www.nicovideo.jp/", "").split("/");
-                            if (activeURL && activeURL.indexOf('www.nicovideo.jp') != -1 && pathArray.length >= 4 && pathArray[0] == "user" && pathArray[2] == "series") {
-                                new Promise((resolve) => browser.scripting.executeScript({
-                                    target: { tabId: tabarray[0].id },
-                                    func: getSeriesNameFromPage
-                                }, resolve)).then(res => {
-                                    if ( res && res.status == true && res.name ) {
-                                        sendResponse({ 'status': true, 'seriesId': pathArray[3], 'name': res.name });
-                                        return true;
-                                    } else {
-                                        sendResponse({ 'status': true, 'seriesId': pathArray[3] });
-                                        return true;
-                                    }
-                                })
+                            if (activeURL && activeURL.indexOf('www.nicovideo.jp') !== -1 ) {
+                                if (pathArray.length >= 4 && pathArray[0] == "user" && pathArray[2] == "series") {
+                                    new Promise((resolve) => chrome.scripting.executeScript({
+                                        target: { tabId: tabarray[0].id },
+                                        func: getSeriesNameFromPage,
+                                        args: [pathArray[3],]
+                                    }, resolve)).then(res => {
+                                        if (!res[0]) return;
+                                        const result = res[0].result
+                                        if ( result && result.status == true && result.name ) {
+                                            sendResponse({ 'status': true, 'seriesId': pathArray[3], 'name': result.name });
+                                            return true;
+                                        } else {
+                                            sendResponse({ 'status': true, 'seriesId': pathArray[3] });
+                                            return true;
+                                        }
+                                    })
+                                } else if (pathArray.length >= 1 && pathArray[0] == "watch") {
+                                    console.log("this is watchpage")
+                                    new Promise((resolve) => chrome.scripting.executeScript({
+                                        target: { tabId: tabarray[0].id },
+                                        func: getSeriesNameFromWatchPage
+                                    }, resolve)).then(res => {
+                                        if (!res[0]) return;
+                                        const result = res[0].result
+                                        if ( result && result.status == true && result.name ) {
+                                            sendResponse({ 'status': true, 'seriesId': result.seriesId, 'name': result.name });
+                                            return true;
+                                        } else {
+                                            sendResponse({ 'status': false, 'reason': 'Cannot get series name from page.' });
+                                            return true;
+                                        }
+                                    })
+                                } else {
+                                    console.log("failed")
+                                    sendResponse({ 'status': false, 'reason': 'Current tab is not watchpage or not userpage.' });
+                                    return true;
+                                }
                             } else {
-                                sendResponse({ 'status': false, 'reason': 'Current tab is not Nicovideo or not userpage.' });
+                                sendResponse({ 'status': false, 'reason': 'Current tab is not Nicovideo page.' });
                                 return true;
                             }
                         } else {
-                            sendResponse({ 'status': false, 'reason': 'Cannot get tab infomation.' });
+                            sendResponse({ 'status': false, 'reason': 'Cannot get tab information.' });
                             return true;
                         }
     
