@@ -43,7 +43,8 @@ export default defineContentScript({
                 if (location.hostname === "inform.nicovideo.jp") {
                     document.documentElement.classList.add('PMDM-Inform')
                 }
-                if (location.hostname === "koken.nicovideo.jp") {
+                // iframe内の福引には未対応なのでpathnameで弾く
+                if (location.hostname === "koken.nicovideo.jp" && !location.pathname.startsWith("/campaign/widget")) {
                     document.documentElement.classList.add('PMDM-Koken')
                 }
                 if ( locationWhiteList.includes(location.hostname) ) {
