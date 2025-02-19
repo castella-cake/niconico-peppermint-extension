@@ -1,5 +1,4 @@
 import { getSyncStorageData } from "../utils/storageControl";
-import "./style/dm_external.styl"
 
 export default defineContentScript({
     matches: ["*://www.nicovideo.jp/watch/*"],

@@ -5,13 +5,13 @@ import "./style/index.styl"
 export default defineContentScript({
     matches: ['*://*.nicovideo.jp/*'],
     runAt: "document_start",
+    allFrames: true,
     async main() {
         function onError(error: any) {
             console.log(`Error: ${error}`);
         }
         
-        const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp"];
-        const livePathnameWhiteList = ["/focus", "/recent", "/timetable"]
+        const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp", "nicoad.nicovideo.jp"];
         function createFastCSSRule(result: { [key: string]: any }) {
             // #region HTML要素用のパレット設定
             if (result.darkmode
@@ -34,7 +34,7 @@ export default defineContentScript({
                 if (location.hostname === "anime.nicovideo.jp") {
                     document.documentElement.classList.add('PMDM-NAnime')
                 }
-                if (location.hostname === "live.nicovideo.jp" && ( location.pathname === "/" || location.pathname === "" || livePathnameWhiteList.includes(location.pathname) )) {
+                if (location.hostname === "live.nicovideo.jp") {
                     document.documentElement.classList.add('PMDM-NicoLiveHome')
                 }
                 if (location.hostname === "live.nicovideo.jp" && location.pathname.startsWith("/watch")) {
@@ -47,7 +47,7 @@ export default defineContentScript({
                 if (location.hostname === "koken.nicovideo.jp" && !location.pathname.startsWith("/campaign/widget")) {
                     document.documentElement.classList.add('PMDM-Koken')
                 }
-                if ( locationWhiteList.includes(location.hostname) ) {
+                if ( locationWhiteList.includes(location.hostname) || (location.hostname === "nicoad.nicovideo.jp" && location.pathname.startsWith("/video/choice-player-widget")) ) {
                     document.documentElement.classList.add('PMDM-Enabled')
                 }
                 if (location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/watch")) {

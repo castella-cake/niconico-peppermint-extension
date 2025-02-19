@@ -152,6 +152,7 @@ html.PMDM-Enabled {
     .ContinuousPlayButton-icon {
         fill: var(--textcolor2) !important;
     }
+    // セレクター
     .Selectbox-button {
         background-color: var(--bgcolor2) !important;
         border: 2px solid var(--accent2) !important;
@@ -161,7 +162,11 @@ html.PMDM-Enabled {
     }
     .Selectbox {
         background-color: var(--bgcolor2) !important;
+        .SortSelectbox-item:hover {
+            background: var(--hover1) !important;
+        }
     }
+
     .VideoListEditMenu-delete.VideoListEditMenuButton:hover, .VideoWatchHistoryContainer-headerAllDeleteButton:hover {
         border: 2px solid #d0021b !important;
         color: #fff !important;
@@ -175,6 +180,45 @@ html.PMDM-Enabled {
     }
     .VideoMediaObjectList > * + * {
         border-top: 2px solid var(--accent1) !important;
+    }
+    // マイリストの移動先セレクター
+    .MylistSelectbox-item {
+        color: var(--textcolor1);
+        &:hover {
+            background: var(--hover1);
+        }
+    }
+    // マイリスト新規作成 モーダル
+    .ModalContent {
+        background: var(--bgcolor2);
+    }
+
+    .ModalContent_with-footer .ModalContent-body {
+        background: var(--bgcolor2);
+    }
+
+    .TextField-label {
+        color: var(--textcolor1);
+    }
+
+    .TextField-inputForm {
+        color: var(--textcolor1);
+    }
+
+    .EditMylistModal-settingsItemLabel {
+        color: var(--textcolor1);
+    }
+
+    .MylistCreateModalContainer-watchHistoriesTitle {
+        color: var(--textcolor1);
+    }
+
+    .MylistCreateModalContainer-watchHistoryItem+.MylistCreateModalContainer-watchHistoryItem:before {
+        background: var(--accent1);
+    }
+
+    .ModalContent-footer {
+        background: var(--bgcolor1);
     }
     /* 履歴 */
     .NC-MediaObject .NC-MediaObjectTitle {

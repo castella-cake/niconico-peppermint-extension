@@ -466,33 +466,6 @@ html.PMDM-NicoLiveWatch {
     .program-menu-dock>li>.share-popup-control>.toggle-button:hover {
         --mono6: var(--hover1)
     }
-
-    // グレースケールが反転するvar類。将来的にぶっ壊れそうだけど破綻はしないはず…？
-    [class^="___ng-setting-panel"], .window-panel, [class^="___konomi-tag-list-section___"] {
-        --mono8: var(--bgcolor2);
-        --mono7: var(--bgcolor3);
-        --mono6: var(--bgcolor4);
-        --mono5: var(--textcolor3);
-        --mono4: var(--textcolor2);
-        --mono3: var(--textcolor2);
-        --mono2: var(--textcolor1);
-        --mono1: var(--textcolor1);
-        --red: var(--dangerous1)
-    }
-
-    // 反転しているボタンテキスト用
-    [class^="___copy-button___"], [class^="___list-controller___"] > .register-button {
-        --mono8: var(--textcolor1)
-    }
-    // ボタン類のvar適用
-    [class^="___close-button___"] {
-        --local-icon-color: var(--textcolor2);
-    }
-
-    // 共有モーダルの未指定bgを修正
-    [class^="___elapsed-time-text-box__"] {
-        background: var(--mono8);
-    }
 }
 html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
     /* PAGE TOP */
@@ -532,17 +505,18 @@ html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
             background: var(--bgcolor3)
         }
     }
-
-    body.is-PMDarkPalette {
-        --mono1: var(--bgcolor1);
-        --mono2: var(--bgcolor2);
-        --mono3: var(--bgcolor3);
-        --mono4: var(--bgcolor4);
-        --mono5: var(--textcolor3);
-        --mono6: var(--textcolor2);
-        --mono7: var(--textcolor2);
-        --mono8: var(--textcolor1);
-        --red: var(--dangerous1);
-        --blue: var(--linktext3);
-    }
+    --base-font: var(--textcolor1);
+    --surface-primary: var(--bgcolor2);
+    --surface-secondary: var(--bgcolor1);
+    --mono1: var(--textcolor1);
+    --mono2: var(--textcolor2);
+    --mono3: var(--textcolor3);
+    --mono4: var(--bgcolor4);
+    --mono5: var(--bgcolor3);
+    --mono6: var(--bgcolor2);
+    --mono7: var(--bgcolor1);
+    --mono8: var(--bgcolor1);
+    --blue: var(--linktext3);
+    --red: var(--dangerous1);
+    --rookie-green: rgb(0,136,70);
 }
