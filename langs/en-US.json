@@ -49,109 +49,21 @@
             "name": "Due to the launch of the new watch page, the features in this section are currently unavailable.",
             "linktitle": "Learn more"
         },
-        "watchpagetheme": {
-            "name": "Viewing page theme",
-            "hint": "Change the appearance and layout of the viewing page.",
-            "select": [
-                "Default",
-                "Mint",
-                "Harajuku"
-            ]
+        "watchhideknowntitle": {
+            "name": "Hide unnecessary button titles next to comments",
+            "hint": "Hides the titles of action buttons next to the comment input area, showing only icons for Share/Niconi ad/Gift."
         },
-        "playertheme": {
-            "name": "player theme",
-            "hint": "Change the layout and appearance of players all at once.",
-            "select": [
-                "Default",
-                "Harajuku",
-                "RC1",
-                "RC1",
-                "GINZA",
-                "Mint"
-            ]
+        "usenativedarkmode": {
+            "name": "Use native color palette",
+            "hint": "Disables PepperMint+ dark mode/color palette on watch pages."
         },
-        "playerstyleoverride": {
-            "name": "Player theme override",
-            "hint": "Change the player's appearance. It also overrides player styles set by \"player theme\".",
-            "select": [
-                "Default",
-                "Harajuku",
-                "RC1",
-                "RC1",
-                "GINZA",
-                "Mint",
-                "No style"
-            ]
-        },
-        "commentrow": {
-            "name": "Display line of comment input field",
-            "hint": "Expand the number of lines in the comment input field."
-        },
-        "replacemarqueecontent": {
-            "name": "Marquee area replacement",
-            "hint": "Replaces the content of the marquee that appears above the player video area. \"Display nothing\" leaves only the black background.",
-            "select": [
-                "Default",
-                "Show ranking",
-                "Display nothing"
-            ]
-        },
-        "highlightlockedtag": {
-            "name": "Highlight locked tags",
-            "hint": "Makes the outline of locked tags yellow."
-        },
-        "cleanvidowner": {
-            "name": "Use clean author display",
-            "hint": "Display only the poster's name and hide the posted video and follow button."
-        },
-        "shortcutassist": {
-            "name": "Enable shortcut assist",
-            "hint": "Even when the player is not focused, shortcuts for play/pause, seek forward/backward, and comment focus will be available, and a shortcut key for \"いいね!\" (H key) will also be added. Once ExCommander is enabled, you can open the commander using the Backspace key."
-        },
-        "excommander": {
-            "name": "Use ExCommander"
-        },
-        "usetheaterui": {
-            "name": "Enable Theater UI",
-            "hint": "Use a theater page that displays the player panel while making the video larger. "
-        },
-        "disabletheaterpalette": {
-            "name": "Use theme palette"
-        },
-        "enablenicoboxui": {
-            "name": "Show boxUI toggle button",
-            "hint": "A button to switch between the Nicobox style page and the normal page will be displayed at the bottom left."
-        },
-        "usenicoboxui": {
-            "name": "Enable boxUI",
-            "hint": "Use Nicobox style viewing page. "
-        },
-        "useoldnicoboxstyle": {
-            "name": "Use old boxUI"
-        },
-        "skipkokenending": {
-            "name": "Skip Niconi Contribution's \"提供\" screen",
-            "hint": "Skip the Niconi contribution screen that appears at the end of the video.",
-            "select": [
-                "Default",
-                "Skip with boxUI",
-                "Always skip"
-            ]
-        },
-        "quickvidarticle": {
-            "name": "Show video article button",
-            "hint": "Displays a button that leads to the video article on Niconico Encyclopedia."
-        },
-        "enablemisskeyshare": {
-            "name": "Enable Misskey sharing",
-            "hint": "Displays a button to share the current video on Misskey. "
-        },
+        
         "hidereputation": {
             "name": "Hide number of ratings",
             "hint": "Hides the number of ratings given to encyclopedia article responses.",
             "select": [
                 "Default",
-                "Hide low ratings",
+                "Hide dislikes",
                 "Hide all"
             ]
         },
@@ -265,22 +177,22 @@
             "hint": "When you click a toolbar button, you will be redirected to the settings without displaying the quick panel. \nSuitable when not using Nicorepo reader or series stock."
         },
         "globaldesc": {
-            "name": "ニコニコ/PM+全体に対して適用される設定です。"
+            "name": "Settings that apply to all Niconico/PM+ sections."
         },
         "watchpagedesc": {
-            "name": "視聴ページの視覚的変更を設定します。"
+            "name": "Set up visual changes for the watch page."
         },
         "nicopediadesc": {
-            "name": "ニコニコ大百科の視覚的変更を設定します。"
+            "name": "Set up visual changes for Nicopedia."
         },
         "hidedesc": {
-            "name": "ページに対する要素の非表示を設定します。"
+            "name": "Set up hidden elements on the page."
         },
         "otherdesc": {
-            "name": "ページに対するその他の視覚的変更を設定します。"
+            "name": "Set up other visual changes to the page."
         },
         "quickpaneldesc": {
-            "name": "クイックパネルのタブ項目を設定します。"
+            "name": "Set up tabs in the quick panel."
         }
     },
     "MISSKEYSHARE_CONFIGURE_LINK": "Configure shared destination instance...",

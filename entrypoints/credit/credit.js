@@ -41,7 +41,7 @@ body { background: #000; color: #ff0; }
 }
 .maincontainer_inner {
     transform-style: preserve-3d;
-    animation: 30s linear 0s forwards star;
+    animation: 15s linear 0s forwards star;
     overflow: hidden;
 }
 .settings-area { background: transparent; text-align: center; }
@@ -50,15 +50,15 @@ body { background: #000; color: #ff0; }
 .settings-area a { color: #ff0; }
 @keyframes star {
     0% {
-        transform: perspective(2000px) rotateX(5deg) scale(0.9) translateY(100vh);
+        transform: perspective(2000px) rotateX(40deg) scale(0.9) translateY(300vh);
         opacity: 1.0
     }
     93% {
-        transform: perspective(2000px) rotateX(5deg) scale(0.9) translateY(-500vh);
+        transform: perspective(2000px) rotateX(40deg) scale(0.9) translateY(-250vh);
         opacity: 1.0
     }
     94% {
-        transform: perspective(2000px) rotateX(5deg) scale(0.9) translateY(-500vh);
+        transform: perspective(2000px) rotateX(40deg) scale(0.9) translateY(-250vh);
         opacity: 0.0
     }
     95% {

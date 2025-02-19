@@ -25,8 +25,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PAGES: 設定ページの見出しはリネームされました
 - PAGES: ユーザーデータのインポートの`結合する` チェックボックスが推奨されるようになりました
 - PAGES: ウェルカムページのスタイルが変更されました
-- DMS: `NordNight` のパレット割当が変更されました
+- PAGES: 一部のページの文章が変更されました
+- PAGES: ストレージ管理の警告メッセージが設定からページ内に移動しました
 - PAGES: 「現在のタブから追加可能なシリーズ」が新視聴ページからも検出できるようになりました
+- DMS: `NordNight` のパレット割当が変更されました
 - DMS: 動画以外のダークモードサポートが個別のstylファイルに分解されました
 
 ### Fixed

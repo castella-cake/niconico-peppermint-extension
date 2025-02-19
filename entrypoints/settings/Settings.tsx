@@ -6,7 +6,6 @@ import { StorageProvider } from "@/hooks/extensionHook";
 
 import { ErrorBoundary } from "react-error-boundary";
 
-import "./settingsUI.styl"
 import settings from "@/utils/settingsList";
 
 const rootElement = document.getElementById("root")
@@ -31,28 +30,21 @@ createRoot(rootElement).render(
                     }}>
                         <CreateSettingsList settings={settings}/>
                     </ErrorBoundary>
-                    <div className="settings-area">
-                        <div className="settings-row">
-                            <h1>Dangerous Area</h1>
-                            <div>
-                                ここにあるものは、使い方次第で便利に使用できるものもあれば、使い方次第で全ての設定が削除される場合があります。<br />
-                                また、自分が何をしているか正しく理解せずに使用するとPepperMintの正常動作を妨げる可能性があるため、注意して取り扱ってください！  
-                            </div>
-                            <a href="storagemanage.html" target="_self" className="settinglink">ユーザーデータの管理...</a>
-                        </div>
-                    </div>
+                </div>
+                <div className="footer-settings">
+                    <a href="credit.html" target="_self" className="settinglink">PepperMintについて...</a>
+                    <a href="storagemanage.html" target="_self" className="settinglink">ユーザーデータの管理...</a>
                 </div>
                 <div id="info-area" className="includelinks">
                     <div className="hint">
                         設定は自動保存されます。保存した設定を反映させるには、リロードする必要があります。<br/>
-                        PepperMintの更新後に表示が崩れた場合は、Ctrl+Shift+Rでハード再読み込みを試してみてください。
+                        PepperMintの更新後に表示が崩れた場合は、Ctrl+Shift+Rでハード再読み込みを試してみてください。<br/>
                     </div>
-                    Niconico-PepperMint+ <a href="https://github.com/castella-cake/niconico-peppermint-extension"target="_blank" rel="noopener noreferrer">Github Repo</a><br/>
+                    Niconico-PepperMint+ <a href="https://github.com/castella-cake/niconico-peppermint-extension"target="_blank" rel="noopener noreferrer">Github Repo</a> <a href="https://discord.com/invite/GNDtKuu5Rb" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Discord</a><br/>
                     Created by CYakigasi <a href="https://www.cyakigasi.net" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Website</a>
                     <a href="https://www.nicovideo.jp/user/92343354" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Niconico</a>
-                    <a href="https://discord.com/invite/GNDtKuu5Rb" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Discord</a>
                     <a href="https://www.cyakigasi.net/links" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>SNS Links(Misskey,Bluesky,Twitter...)</a> <br/>
-                    <a href="credit.html" target="_self" className="settinglink">PepperMintについて...</a>    
+                    <div className="flavortext">視聴ページを再構築する拡張機能。よければ <a href="https://github.com/castella-cake/mintwatch" target="_blank" rel="noopener noreferrer">MintWatch(Beta)</a> もご一緒にどうぞ…</div>
                 </div>
             </div>
         </StorageProvider>
