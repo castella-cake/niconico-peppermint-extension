@@ -1,3 +1,4 @@
+import $ from 'jquery'
 function onError(error) {
     console.log(`Error: ${error}`);
 }
