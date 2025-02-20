@@ -22,8 +22,8 @@ import { CSS } from "@dnd-kit/utilities";
 import { useSyncStorage } from "@/hooks/extensionHook";
 
 //import { EditOutlined, EditOffOutlined, DeleteOutlined } from "@mui/icons-material";
-import { MdOutlineEdit, MdOutlineEditOff, MdDeleteOutline} from "react-icons/md"
 import { useLang } from "@/hooks/localizeHook";
+import { IconEdit, IconEditOff, IconTrash } from "@tabler/icons-react";
 
 type setting = {
     type: string,
@@ -47,7 +47,7 @@ function CreateSettingsControl({ setting, isEditMode }: { setting: setting, isEd
     
     if ( !setting || setting.type === "desc" ) return
     if ( isEditMode ) {
-        return <div className="quickoptions-editmode-row" key={setting.name + "-edit"}>{lang.SETTINGS_ITEMS[setting.name].name ?? setting.name}<button className="quickoption-editmode-remove" type="button" title={lang.REMOVE} onClick={() => {removeQuickOptionList(setting.name)}}><MdDeleteOutline style={{fontSize: 16}}/></button></div>
+        return <div className="quickoptions-editmode-row" key={setting.name + "-edit"}>{lang.SETTINGS_ITEMS[setting.name].name ?? setting.name}<button className="quickoption-editmode-remove" type="button" title={lang.REMOVE} onClick={() => {removeQuickOptionList(setting.name)}}><IconTrash style={{fontSize: 16}}/></button></div>
     }
     if ( setting.type == "checkbox" ) {
         return <label key={setting.name}><input type="checkbox" checked={syncStorage[setting.name] ?? setting.default} onChange={(e) => {setSyncStorageValue(setting.name, e.currentTarget.checked)}} />{lang.SETTINGS_ITEMS[setting.name].name ?? setting.name}</label>
@@ -121,7 +121,7 @@ function CreateQuickOption() {
 
     //console.log(elemArray)
     return <div className="block-container">
-        <h2 className="block-title">{lang.DASHBOARD_TITLES.quickoption}<button title={isEditMode ? lang.QUICKOPTION_EDITOFF : lang.QUICKOPTION_EDIT} className="block-title-actionbutton" type="button" onClick={() => {setIsEditMode(!isEditMode)}}>{ isEditMode ? <MdOutlineEditOff style={{fontSize: 20}}/> : <MdOutlineEdit style={{fontSize: 20}}/>}</button><a href="settings.html" target="_self" className="block-title-primary-link">{lang.OPEN_SETTINGS_PAGE}</a></h2>
+        <h2 className="block-title">{lang.DASHBOARD_TITLES.quickoption}<button title={isEditMode ? lang.QUICKOPTION_EDITOFF : lang.QUICKOPTION_EDIT} className="block-title-actionbutton" type="button" onClick={() => {setIsEditMode(!isEditMode)}}>{ isEditMode ? <IconEditOff style={{fontSize: 20}}/> : <IconEdit style={{fontSize: 20}}/>}</button><a href="settings.html" target="_self" className="block-title-primary-link">{lang.OPEN_SETTINGS_PAGE}</a></h2>
         <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}

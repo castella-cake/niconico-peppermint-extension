@@ -4,9 +4,9 @@ import CreateSeriesStockBlock from "./seriesStock";
 import settings from "../../utils/settingsList";
 import CreateDashboardUI from "./dashboardUI";
 
-import { MdOutlineEdit, MdOutlineEditOff } from "react-icons/md"
 import { useManifestData, useStorageContext } from "@/hooks/extensionHook";
 import { useLang } from "@/hooks/localizeHook";
+import { IconEdit, IconEditOff } from "@tabler/icons-react";
 // #region Enum
 const tabType = Object.freeze({
     dashboard: 0,
@@ -59,7 +59,7 @@ function CreateTabUI() {
             {/*(syncStorage.enablenicorepotab || isEditMode) && <button type="button" className={currentTab == tabType.nicorepo || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.nicorepo) }) : (() => {})}>{isEditMode ? <TabEditCheckbox setting={settings.quickpanel[1]} label={lang.NICOREPO} /> : lang.NICOREPO}</button>*/}
             { ((syncStorage.enableseriesstocktab || isEditMode) && syncStorage.enableseriesstock) && <button type="button" className={currentTab == tabType.seriesstock || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.seriesstock) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[0]} label={lang.SERIES_STOCK_TITLE}/> : lang.SERIES_STOCK_TITLE }</button> }
             { (syncStorage.enablequicksettingstab || isEditMode) && <button type="button" className={currentTab == tabType.settings || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.settings) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[1]} label={lang.QUICK_SETTINGS}/> : lang.QUICK_SETTINGS }</button> }
-            <button type="button" className="tab-editbutton" title={isEditMode ? lang.QUICKPANEL_TAB_EDITOFF : lang.QUICKPANEL_TAB_EDIT} onClick={() => {setIsEditMode(!isEditMode); setCurrentTab(tabType.dashboard)}}>{ isEditMode ? <MdOutlineEditOff style={{fontSize: 18}}/> : <MdOutlineEdit style={{fontSize: 18}}/> }</button>
+            <button type="button" className="tab-editbutton" title={isEditMode ? lang.QUICKPANEL_TAB_EDITOFF : lang.QUICKPANEL_TAB_EDIT} onClick={() => {setIsEditMode(!isEditMode); setCurrentTab(tabType.dashboard)}}>{ isEditMode ? <IconEditOff style={{fontSize: 18}}/> : <IconEdit style={{fontSize: 18}}/> }</button>
         </div>
         <div className="quickpanel-mainpanel maincontainer">
             <div className="tabpanel current-tabpanel" style={isEditMode ? {background: "var(--bgcolor2)"} : {}}>

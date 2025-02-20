@@ -13,8 +13,8 @@ import { removeFolder } from "./seriesManage";
 import { CreateRowList } from './StockedSeriesList';
 import { useState } from 'react';
 
-import { MdOutlineEdit, MdDeleteOutline, MdOutlineExpandLess, MdOutlineExpandMore, MdOutlineFolder } from "react-icons/md"
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { IconChevronDown, IconChevronUp, IconEdit, IconFolder, IconTrash } from '@tabler/icons-react';
 
 // フォルダー項目。
 // 与えられたIDリストを使用してストック項目を抽出し、並び替え可能なCreateRowListとして表示します。
@@ -56,12 +56,12 @@ export function FolderRow(props) {
     // 後はリストをこの関数で作ってもらう
     return <div className="stockedseries-row stockedseries-row-folder" key={elem.id} ref={setNodeRef} style={Style} {...attributes} {...listeners}>
         <div className="serieslink-container">
-            <div className="stockedseries-folder-title" style={!isUnlocked ? {flexGrow: 1} : {}}><MdOutlineFolder style={{ fontSize: 16 }}/>{elem.name}</div>
+            <div className="stockedseries-folder-title" style={!isUnlocked ? {flexGrow: 1} : {}}><IconFolder style={{ fontSize: 16 }}/>{elem.name}</div>
             {!isUnlocked && <button type="button" onClick={() => {setIsOpen(!isOpen)}} className="stockedseries-folder-openbutton">
-                { isOpen ? <>{lang.CLOSE_FOLDER}<MdOutlineExpandLess/></> : <>{lang.OPEN_FOLDER}<MdOutlineExpandMore/></> }
+                { isOpen ? <>{lang.CLOSE_FOLDER}<IconChevronUp/></> : <>{lang.OPEN_FOLDER}<IconChevronDown/></> }
             </button>}
-            <button className="stockedseries-row-actionbutton" onClick={() => {setFCEditId(elem.id);setIsFolderCreateWindowVar(true)}} title={lang.EDIT_FOLDER_TITLE}><MdOutlineEdit /></button>
-            <button className="stockedseries-row-actionbutton" onClick={() => {removeFolder(elem.id)}} title={lang.REMOVE_FOLDER_TITLE}><MdDeleteOutline /></button>
+            <button className="stockedseries-row-actionbutton" onClick={() => {setFCEditId(elem.id);setIsFolderCreateWindowVar(true)}} title={lang.EDIT_FOLDER_TITLE}><IconEdit /></button>
+            <button className="stockedseries-row-actionbutton" onClick={() => {removeFolder(elem.id)}} title={lang.REMOVE_FOLDER_TITLE}><IconTrash /></button>
         </div>
         <div className="stockedseries-folder-details" style={(!isOpen && !isUnlocked) ? {display: "none"} : {}}>
             <DndContext

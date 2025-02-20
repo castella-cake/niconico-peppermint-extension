@@ -7,6 +7,7 @@ import { StorageProvider } from "@/hooks/extensionHook";
 import { ErrorBoundary } from "react-error-boundary";
 
 import settings from "@/utils/settingsList";
+import { IconBrandDiscord, IconBrandGithub } from "@tabler/icons-react";
 
 const rootElement = document.getElementById("root")
 if (!rootElement) throw new Error("root element not found");
@@ -17,8 +18,8 @@ createRoot(rootElement).render(
                 <div className="title-container">
                     <div className="title toptitle"><a href="settings.html" target="_blank" rel="noopener noreferrer" className="optlink">PepperMint+ の設定</a></div>
                     <div className="titlelink-container">
-                        <a href="https://discord.com/invite/GNDtKuu5Rb" target="_blank" rel="noopener noreferrer" className="titlelink">Discord</a>
-                        <a href="https://github.com/castella-cake/niconico-peppermint-extension/issues" target="_blank" rel="noopener noreferrer" className="titlelink">Feedback</a>
+                        <a href="https://discord.com/invite/GNDtKuu5Rb" target="_blank" rel="noopener noreferrer" className="titlelink"><IconBrandDiscord/></a>
+                        <a href="https://github.com/castella-cake/niconico-peppermint-extension" target="_blank" rel="noopener noreferrer" className="titlelink"><IconBrandGithub/></a>
                     </div>
                 </div>
                 <div className="settings-page-desc">{lang.SETTINGS_DESC}</div>

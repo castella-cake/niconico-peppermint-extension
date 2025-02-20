@@ -4,6 +4,7 @@ import { ErrorBoundary } from "react-error-boundary";
 
 import "./quickpanel.styl"
 import CreateTabUI from "@/components/pages/TabUI";
+import { IconBrandDiscord, IconBrandGithub } from "@tabler/icons-react";
 
 const manifestData = browser.runtime.getManifest();
 const currentVersion = manifestData.version_name || manifestData.version || "Unknown";
@@ -28,8 +29,8 @@ createRoot(rootElement).render(
                         </span>
                     </div>
                 <div className="titlelink-container">
-                    <a href="https://discord.com/invite/GNDtKuu5Rb" target="_blank" rel="noopener noreferrer" className="titlelink">Discord</a>
-                    <a href="https://github.com/castella-cake/niconico-peppermint-extension/issues" target="_blank" rel="noopener noreferrer" className="titlelink">Feedback</a>
+                <a href="https://discord.com/invite/GNDtKuu5Rb" target="_blank" rel="noopener noreferrer" className="titlelink"><IconBrandDiscord/></a>
+                <a href="https://github.com/castella-cake/niconico-peppermint-extension" target="_blank" rel="noopener noreferrer" className="titlelink"><IconBrandGithub/></a>
                 </div>
             </div>
         </div>

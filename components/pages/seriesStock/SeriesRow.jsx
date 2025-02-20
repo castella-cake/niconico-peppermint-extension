@@ -6,9 +6,9 @@ import { useSSContext } from "./SSContext"
 import { removeSeriesStock, useSeriesInfo } from "./seriesManage";
 import { memo, useState } from "react";
 
-import { MdDeleteOutline, MdOutlinePlayArrow, MdOutlineSkipNext, MdOutlineExpandLess, MdOutlineExpandMore, MdOutlineDriveFileMove } from "react-icons/md"
 import { linkAction } from "@/utils/actions";
 import { MoveToFolder } from "./MoveToFolder";
+import { IconChevronDown, IconChevronUp, IconFolderSymlink, IconPlayerPlayFilled, IconPlayerSkipForwardFilled, IconTrash } from "@tabler/icons-react";
 
 // ストックされているシリーズ項目。フォルダーからも呼び出されます。
 // 操作: シリーズの削除, フォルダーから除去, 「フォルダーへ移動」(MoveToFolder.jsx)を開く, 詳細を展開
@@ -60,8 +60,8 @@ export function SeriesRow(props) {
                     </a>
                     { !isMoveWindowOpen && 
                         <>{props.isfolder ? <button className="stockedseries-row-actionbutton" onClick={() => {removeFromFolder(props.folderid, props.folderindex, thisSeries.seriesID)}}>{lang.REMOVE_FROM_FOLDER}</button> : 
-                        <button className="stockedseries-row-actionbutton" onClick={() => {setMoveWindowOpen(!isMoveWindowOpen)}} title={lang.MOVE_TO_FOLDER}><MdOutlineDriveFileMove/></button>}
-                        <button className="stockedseries-row-actionbutton" onClick={() => {removeSeriesStock(thisSeries.seriesID)}} title={lang.REMOVE_FROM_STOCK}><MdDeleteOutline /></button></>
+                        <button className="stockedseries-row-actionbutton" onClick={() => {setMoveWindowOpen(!isMoveWindowOpen)}} title={lang.MOVE_TO_FOLDER}><IconFolderSymlink /></button>}
+                        <button className="stockedseries-row-actionbutton" onClick={() => {removeSeriesStock(thisSeries.seriesID)}} title={lang.REMOVE_FROM_STOCK}><IconTrash /></button></>
                     }
                     {(thisSeriesInfo && thisSeriesInfo.data && thisSeriesInfo.data.detail && thisSeriesInfo.data.detail.owner) &&
                         (thisSeriesInfo.data.detail.owner.type == "channel" ?
@@ -85,12 +85,12 @@ export function SeriesRow(props) {
             </div>
             { isMoveWindowOpen && <MoveToFolder seriesid={thisSeries.seriesID} onExit={() => {setMoveWindowOpen(false)}}/>}
             <div className="stockedseries-vidlink-container">
-                {thisSeries.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisSeries.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${thisSeries.seriesID}`}><MdOutlinePlayArrow />{lang.LASTVID_TITLE}<span>{thisSeries.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><MdOutlinePlayArrow />{lang.LASTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
-                {thisSeries.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisSeries.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${thisSeries.seriesID}`}><MdOutlineSkipNext />{lang.NEXTVID_TITLE}<span>{thisSeries.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><MdOutlineSkipNext />{lang.NEXTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
+                {thisSeries.lastVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisSeries.lastVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${thisSeries.seriesID}`}><IconPlayerPlayFilled />{lang.LASTVID_TITLE}<span>{thisSeries.lastVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><IconPlayerPlayFilled />{lang.LASTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
+                {thisSeries.nextVidID ? <a className="stockedseries-row-link stockedseries-row-vidlink" onClick={(e) => { linkAction(e) }} href={`https://www.nicovideo.jp/watch/${thisSeries.nextVidID}?ref=series&playlist=${playlist}&transition_type=series&transition_id=${thisSeries.seriesID}`}><IconPlayerSkipForwardFilled />{lang.NEXTVID_TITLE}<span>{thisSeries.nextVidName.replace(titleRegexp, "")}</span></a> : <a style={{ color: "var(--textcolor3)" }} className="stockedseries-row-link stockedseries-row-vidlink vidlinkdisabled"><IconPlayerSkipForwardFilled />{lang.NEXTVID_TITLE}<span>{lang.NO_TRACKED_VIDEO}</span></a>}
             </div>
             {isDetailedViewExpanded && <EpisodeListMemo seriesinfo={thisSeriesInfo}/>}
             <button type="button" className="expanddetailedview" onClick={() => { setDetailedViewExpanded(!isDetailedViewExpanded) }}>
-                {(thisSeriesInfo) ? (isDetailedViewExpanded ? <><MdOutlineExpandLess/>{lang.HIDE_DETAILS}<MdOutlineExpandLess/></> : <><MdOutlineExpandMore />{lang.SEE_DETAILS}<MdOutlineExpandMore /></>) : <><MdOutlineExpandMore /><span style={{ color: "var(--textcolor2)" }}>{lang.LOADING}</span><MdOutlineExpandMore /></>}
+                {(thisSeriesInfo) ? (isDetailedViewExpanded ? <><IconChevronUp/>{lang.HIDE_DETAILS}<IconChevronUp/></> : <><IconChevronDown/>{lang.SEE_DETAILS}<IconChevronDown/></>) : <><IconChevronDown/><span style={{ color: "var(--textcolor2)" }}>{lang.LOADING}</span><IconChevronDown/></>}
             </button>
         </div>
     </div>

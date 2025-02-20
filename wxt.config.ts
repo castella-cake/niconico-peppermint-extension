@@ -4,6 +4,15 @@ import { defineConfig } from 'wxt';
 
 export default defineConfig({
     modules: ['@wxt-dev/module-react'],
+    // https://github.com/tabler/tabler-icons/issues/1233 の解決策
+    vite: () => { return {
+        resolve: {
+            alias: {
+              // /esm/icons/index.mjs only exports the icons statically, so no separate chunks are created
+                '@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
+            },
+        },
+    }},
     manifest: {
         "name": "Niconico-PepperMint+",
         "permissions": [

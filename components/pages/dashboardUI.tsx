@@ -4,7 +4,6 @@ import CreateQuickOption from "./QuickOptions";
 
 //import { EditOutlined, DoneOutlined } from '@mui/icons-material';
 //import DoneOutlined from '@mui/icons-material/DoneOutlined';
-import { MdOutlineEdit, MdOutlineDone } from "react-icons/md"
 
 import {
     DndContext,
@@ -27,6 +26,7 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 import { useLang } from "@/hooks/localizeHook";
 import { useStorageContext } from "@/hooks/extensionHook";
+import { IconCheck, IconEdit } from "@tabler/icons-react";
 
 function FallbackComponent({ error, resetErrorBoundary }: FallbackProps) {
     return <div style={{ background: "var(--bgcolor3)", color: "var(--textcolor3)", borderRadius: 4, padding: 8, fontSize: 13 }}>
@@ -127,7 +127,7 @@ function CreateDashboardUI() {
         </DndContext>
         <button type="button" className="dashboard-editbutton" onClick={() => {
             setIsEditMode(!isEditMode)
-        }}>{isEditMode ? <><MdOutlineDone style={{fontSize: 14}}/> {lang.EDITBUTTON_TITLE_EDITOFF}</> : <><MdOutlineEdit style={{fontSize: 14}}/> {lang.DASHBOARD_EDIT}</>}</button>
+        }}>{isEditMode ? <><IconCheck style={{fontSize: 14}}/> {lang.EDITBUTTON_TITLE_EDITOFF}</> : <><IconEdit style={{fontSize: 14}}/> {lang.DASHBOARD_EDIT}</>}</button>
     </div>
 }
 
