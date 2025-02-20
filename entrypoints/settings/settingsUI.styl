@@ -137,9 +137,12 @@ h1 {
 }
 .settings-area {
 	background: var(--bgcolor2);
-	border-radius: 4px;
-	padding: 8px;
-	margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 8px;
+	&:not(:last-child) {
+		margin-bottom: 16px;
+	}
+    
 }
 
 .toptitle {
@@ -636,6 +639,7 @@ tr td:nth-child(7) {
 	}
 
 	.settings-area {
+		padding: 16px;
 		margin-top: 16px;
 	}
 
