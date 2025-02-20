@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - PAGES: ヘッダーのリンクが一部アイコンに変更されました
 - DMS: `NordNight` のパレット割当が変更されました
 - DMS: 動画以外のダークモードサポートが個別のstylファイルに分解されました
+- TWEAKS: `サポーターボタンを隠す` は新視聴ページの実装後不要になったため削除されました
+- TWEAKS: `ジャンルと投稿日時以外のメタデータを隠す` は検索ページにのみ適用する機能へ変更されました
 
 ### Fixed
 - DMS: ニコニコ生放送のダークモードサポートを更新しました

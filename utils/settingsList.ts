@@ -93,14 +93,8 @@ const settings: settingList = {
         },
         {
             type: "select",
-            name: "hidesupporterbutton",
-            values: ["", "watch", "all"],
-            default: "",
-        },
-        {
-            type: "select",
             name: "hidemetadata",
-            values: ["", "watch", "searchandhome", "all"],
+            values: ["", "searchandhome"],
             default: "",
         },
     ],
