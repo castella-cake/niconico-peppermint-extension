@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - DMS: マイページでモーダルがホワイトアウトする問題を修正しました
 - DMS: いきなり！動画チョイスのiframeサポートを追加しました
 - DMS: 動画トップの一部アイコンに色反転が適用されていなかった問題を修正しました
+- DMS: マイページの実績機能にダークモードサポートを追加しました
 - PAGES: 一部のストック追加操作が特定の条件で失敗する問題を修正しました
 
 ### Removed
