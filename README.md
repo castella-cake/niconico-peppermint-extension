@@ -6,7 +6,7 @@
 
 
 Niconico-PepperMint+は、「ニコニコ動画をもっとクールに」を目標に開発している、   
-主にニコニコ動画向けの視覚的変更やシリーズストックなどの機能を提供する非公式の拡張機能です。   
+主にニコニコ向けの視覚的変更やダークモード化、シリーズストックなどの機能を提供する非公式の拡張機能です。   
 プロジェクトはMITライセンスで提供され、背後の面倒な規約などはありません。   
 Chrome Webstore: https://chrome.google.com/webstore/detail/niconico-peppermint+/oeadnodbjplclhibppgkkijomgcgochf   
 Firefox Add-ONS: https://addons.mozilla.org/ja/firefox/addon/niconico-peppermint/
@@ -52,26 +52,48 @@ Node.jsとnpmをインストールしたら、以下のコマンドで依存関�
 ```
 npm install
 ```
-その後、以下のコマンドでgulpを実行します:
+Manifest V3向け(Chromium)にビルドするには、以下のコマンドを実行します。
 ```
 npm run build
 ```
-ビルドが正常に終了すると、`builds` フォルダーにバージョン名のフォルダーと、ストア提出用のパッケージが作成されます。   
+ビルドが正常に終了すると、`.output` フォルダーに成果物が作成されます。   
+
+HMRを利用できる開発サーバーを開始するには、`npm run dev`を実行してください。   
+提出用のZIP作成には`npm run zip`を使用します。
+
+Manifest V2向け(Firefox)の場合は、コマンドの最後に`:firefox`を付けて実行します。   
 
 # Feature
 実装済みの機能。実装予定の機能については、Issueを参照してください。
+#### Global
+- [x] ダークモード
+    - [x] ニコニコ動画
+    - [x] ニコニコ生放送
+    - [x] Nアニメ (実験的)
+    - [x] ニコニ貢献 (実験的)
+    - [x] お知らせ
+    - [ ] ニコニコ静画
+- [x] ヘッダー背景色の変更
+- [x] spwatchリダイレクト
+- [x] シリーズストック
+    - [x] 追加機能
+    - [x] 最後に見た動画/次の動画記録
+    - [x] リスト取得機能
+    - [x] 新規エピソード通知機能
+    - [x] フォルダー分け機能
+- [x] カスタム動画トップ
 #### Hide
 - [x] ランキングページのニコニ広告行を隠す
 - [x] 視聴ページ上のイベント告知バナーを隠す
 - [x] フォロー/サポーター/プレミアム会員勧誘を隠す
 - [x] ヘッダー上のイベント告知を隠す
-- [x] サポーターボタンを隠す(視聴ページ,全ページ)
+- [x] サポーターボタンを隠す
 - [x] 投稿日時,ジャンル以外のメタデータを隠す
 #### WatchPage
-新視聴ページのリリースにより、視聴ページの機能は利用できなくなりました。[#38](https://github.com/castella-cake/niconico-peppermint-extension/issues/38) を確認してください。   
-- [ ] 独自視聴ページ
-    - [ ] レイアウトカスタマイズ
-    - [ ] 新宿レイアウト 
+新視聴ページのリリースにより、PM+ で利用できた視聴ページの機能は利用できなくなりました。   
+代わりに新しく作られた [MintWatch](https://github.com/castella-cake/mintwatch) を試してみてください。
+- [x] コメント横の不要なボタンタイトルを隠す
+- [x] 視聴ページでネイティブのダークモードを使用
 #### NicoPedia
 - [x] 評価数削除
 - [x] 最大幅開放
@@ -85,26 +107,7 @@ npm run build
     - [x] 2カラム表示
     - [x] 画面幅が小さい場合に1カラムに戻す
 - [x] ヘッダー幅を固定
-#### Global
-- [x] ダークモード
-    - [x] ホーム
-    - [x] ニコニコ動画 - 視聴全般
-    - [x] ニコニコ生放送 - 視聴全般
-    - [x] ニコニ貢献 - 部分的なサポート
-    - [x] 通知ページ(inform)
-    - [ ] ニコニコ静画 - 閲覧全般
-    - ~~[ ] ニコニコインフォ~~
-- [x] ダークモードカスタムパレット
-- [x] ヘッダー背景色の変更
 - [x] ビジュアルパッチ
-- [x] spwatchリダイレクト
-- [x] シリーズストック
-    - [x] 追加機能
-    - [x] 最後に見た動画/次の動画記録
-    - [x] リスト取得機能
-    - [x] 新規エピソード通知機能
-    - [x] フォルダー分け機能
-- [x] カスタム動画トップ
 
 # Support
 Niconico-PepperMintはニコニコ動画に対する改変にフォーカスを当てています。   
@@ -114,30 +117,23 @@ Niconico-PepperMintはニコニコ動画に対する改変にフォーカスを�
 Niconico-PepperMintは最近のFirefoxとその派生ブラウザ、そしてChromium系ブラウザをサポートします。  
 ただし、完全な動作には`:has()`のサポートが必要です。(最近のブラウザでは概ねサポートされているはずです)   
 PCでの動作を想定した拡張機能のため、スマートフォンでの動作は現状サポートしていません。
-### 動作確認済みブラウザーの一覧
-開発者の意図的に動作することを確認したブラウザー。  
-チェックボックスの付いていないブラウザーは、テストしたが何らかの無視できない問題があることを示します。  
-#### Firefox
-- [x] Firefox 110
-- [x] Waterfox 5.1.2
-- [x] Floorp 11 (それ以前のバージョンには表示に軽微な問題がありますが、使用には問題ありません)
-- [x] Wolvic 1.6.0
-#### Chromium
-- [x] Google Chrome 110
-- [x] Vivaldi 5.6.2867.62
-- [x] Microsoft Edge 110
-- [x] Arc
 
 # Donate
 開発者への寄付に関しては、Github sponsorsで受け付けています。   
 https://github.com/sponsors/castella-cake
 
 # License
-Niconico-PepperMint+のライセンスは``MIT License``です。  
+Niconico-PepperMint+ のライセンスは``MIT License``です。  
 詳細は``LICENSE.txt``を確認してください。  
 
-Niconico-PepperMint+には、JQuery, JQuery UI, Nord が含まれています。   
-これらは``MIT License``のもとで配布されています。   
+Niconico-PepperMint+ には、また外部リソースからインポートされたMaterial Iconsを使用している箇所があります。  
+Material Iconsは`Apache License 2.0` のもとで配布されています。  
+Apache License 2.0 の文章: https://www.apache.org/licenses/LICENSE-2.0
 
-これら以外にも、リリースファイルにはReactなどのライブラリが含まれています。   
-それらのライセンス表示については、リリースファイルの各`<ファイル名>.LICENSE.txt`を参照してください。   
+Niconico-PepperMint+ のリリースファイルには、JQuery, JQuery UI, Nord が含まれています。
+これらは``MIT License``のもとで配布されています。
+これら以外にも、React やそれに関連するライブラリなどが含まれています。
+
+Niconico-PepperMint+のリリースファイルにはDOMPurifyが含まれています。   
+DOMPurifyは``Apache License 2.0``、``Mozilla Public License Version 2.0``のデュアルライセンスで配布されています。
+(PepperMint+では``Apache License 2.0``に従います)

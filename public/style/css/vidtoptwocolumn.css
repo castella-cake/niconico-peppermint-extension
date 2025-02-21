@@ -1,0 +1,115 @@
+.Baselayout-main-twocolumn.BaseLayout-main-left {
+	padding-right: 12px;
+}
+.Baselayout-main-twocolumn.BaseLayout-main-right {
+	padding-left: 12px;
+}
+.Baselayout-main-twocolumn {
+	width: 50%;
+}
+.Baselayout-main-twocolumn > .BaseLayout-block:first-child > .Separator {
+	display: none;
+}
+.BaseLayout-block {
+    width: 100%;
+}
+.NC-VideoCard_thumbnailWidth160 {
+	width: 140px;
+}
+.NC-VideoCard_thumbnailWidth192 {
+	width: 172px;
+}
+.NC-VideoCard_thumbnailWidth224, .NC-NicoadCard_thumbnailWidth224 {
+	width: 204px;
+}
+.FollowingVideosContainer .NC-Card, .FollowingVideosContainer .NC-VideoCardSkeleton, .FollowingVideosContainer .VideoFillCard {
+	width: 220px;
+}
+.TagPushVideosContainer-list .NC-Card, .TagPushVideosContainer-list .NC-VideoCardSkeleton {
+	width: 220px;
+}
+.OnTvAnimeVideosContainer .NC-Card, .OnTvAnimeVideosContainer .NC-VideoCardSkeleton, .OnTvAnimeVideosContainer .VideoFillCard {
+	width: 220px;
+}
+.NicoadVideoItem {
+	width: 210px;
+	margin-bottom: 12px;
+}
+.NicoadVideoItem-thumbnail {
+	height: 115px;
+	width: 210px;
+}
+.RankingVideosContainer-columnRight {
+	width: 0;
+}
+.VideoIntroductionAreaContainer-columnLeft {
+	width: 100%;
+}
+.TagWithVideoItem .TagItem {
+	width: 204px;
+}
+.TagWithVideoItem-nicopediaText {
+    width: 204px;
+}
+.NewsNotificationContainer-bannerLink {
+	height: 72px;
+	width: 450px;
+	background-size: contain;
+}
+.NicoadVideosContainer-list {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	height: unset;
+}
+.RecommendVideoContainer-videos {
+	justify-content: space-around;
+}
+.NicoadVideoItem + .NicoadVideoItem {
+	margin-left: 0px;
+}
+/* この広告は消さないとはみ出してしまうので、残念ながらボッシュートとなります！(ﾃﾞﾃﾞｯﾃﾞﾃﾞｯﾃﾞｯﾃﾞｰﾝ) */
+.RankingVideosContainer-columnRight > .Ads300x250WebPcMiddle {
+	display: none;
+}
+.HotTagsContainer-list > * + * {
+	margin-left: 0px;
+}
+.HotTagsContainer-list {
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.FollowingVideosContainer-list {
+	flex-wrap: wrap
+}
+.FollowingVideosContainer-list > .NC-VideoCardWrapper, .ViewHistoriesContainer-list > .NC-VideoCardWrapper {
+	margin-bottom: 12px;
+}
+.BaseLayout-main {
+	flex-direction: row;
+	padding: 0px 12px;
+}
+.BaseLayout, .BaseLayout-container {
+	width: 100vw;
+}
+.NewsNotificationContainer-bannerLink {
+	height: 62px;
+	width: 440px;
+}
+@media (max-width: 1024px) {
+	.Baselayout-main-twocolumn.BaseLayout-main-left {
+		padding-right: 0px;
+		width: 100%
+	}
+	.Baselayout-main-twocolumn.BaseLayout-main-right {
+		padding-left: 0px;
+		width: 100%
+	}
+	.BaseLayout-main {
+		flex-direction: column;
+		padding: 0px 4px;
+	}
+	.Baselayout-main-twocolumn > .BaseLayout-block:first-child > .Separator {
+		display: block;
+	}
+}
