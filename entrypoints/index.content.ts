@@ -47,7 +47,7 @@ export default defineContentScript({
                 if (location.hostname === "koken.nicovideo.jp" && !location.pathname.startsWith("/campaign/widget")) {
                     document.documentElement.classList.add('PMDM-Koken')
                 }
-                if ( locationWhiteList.includes(location.hostname) || (location.hostname === "nicoad.nicovideo.jp" && location.pathname.startsWith("/video/choice-player-widget")) ) {
+                if ( locationWhiteList.includes(location.hostname) && ( location.hostname !== "nicoad.nicovideo.jp" || (location.hostname === "nicoad.nicovideo.jp" && location.pathname.startsWith("/video/choice-player-widget")) ) ) {
                     document.documentElement.classList.add('PMDM-Enabled')
                 }
                 if (location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/watch")) {
