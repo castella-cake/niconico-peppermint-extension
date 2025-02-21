@@ -5,6 +5,64 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2024/11
+
+### Added
+- TWEAK: 視聴ページ セクションに新しい機能を追加しました
+- - `コメント横の不要なボタンタイトルは隠す` を追加しました
+- - `ネイティブのカラーパレットを使用する` を追加しました
+- PAGES: 設定ページにそれぞれのアンカーリンクを追加しました
+- PAGES: 各ページに Discord へのリンクを追加しました
+- DMS: カラーパレットに `NordSnow` を追加しました
+
+### Changed
+- 拡張機能の構築フレームワークとして WXT を使用するようになりました
+- 一部の権限が変更されました
+- TypeScript を使用するファイルが拡張されました
+- 一部のファイルパスが変更されました
+- 拡張機能のアイコンがリニューアルしました
+- PAGES: 設定ページの順序が変更されました
+- PAGES: 設定ページの見出しはリネームされました
+- PAGES: ユーザーデータのインポートの`結合する` チェックボックスが推奨されるようになりました
+- PAGES: ウェルカムページのスタイルが変更されました
+- PAGES: 一部のページの文章が変更されました
+- PAGES: ストレージ管理の警告メッセージが設定からページ内に移動しました
+- PAGES: 「現在のタブから追加可能なシリーズ」が新視聴ページからも検出できるようになりました
+- PAGES: React Icons の Material Icons から Tabler Icons に移行しました
+- PAGES: ヘッダーのリンクが一部アイコンに変更されました
+- DMS: `NordNight` のパレット割当が変更されました
+- DMS: 動画以外のダークモードサポートが個別のstylファイルに分解されました
+- TWEAKS: `サポーターボタンを隠す` は新視聴ページの実装後不要になったため削除されました
+- TWEAKS: `ジャンルと投稿日時以外のメタデータを隠す` は検索ページにのみ適用する機能へ変更されました
+
+### Fixed
+- DMS: ニコニコ生放送のダークモードサポートを更新しました
+- DMS: マイページでモーダルがホワイトアウトする問題を修正しました
+- DMS: いきなり！動画チョイスのiframeサポートを追加しました
+- DMS: 動画トップの一部アイコンに色反転が適用されていなかった問題を修正しました
+- DMS: マイページの実績機能にダークモードサポートを追加しました
+- PAGES: 一部のストック追加操作が特定の条件で失敗する問題を修正しました
+
+### Removed
+- PAGES: 非推奨としてマークされていたシリーズストックのニコニコ内表示は削除されました
+
+## [2.1.3] - 2024/10/01
+
+### Added
+- DMS: 生放送のランキングに簡易的なダークモードサポートを追加しました
+
+### Changed
+- PAGES: 一部のコンポーネントをTypeScriptに移動し、適切なコンポーネント実装をするように変更しました
+- STYLE: 一部のスタイルがindex.cssに移動しました
+- NOTICE.txtをバンドルファイルのライブラリについては各LICENSE.txtに誘導するように変更しました
+
+### Fixed
+- TWEAK: 動画トップ2カラムが広告でずれないようになりました
+- DMS: 検索ページのニコニ広告ダークモードサポートを修正しました
+
+### Removed
+- DMS: ニコニコインフォのダークモードサポートは信頼性が低いため削除されました
+
 ## [2.1.4] - 2024/11/28
 
 ### Fixed
@@ -620,7 +678,8 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.1.4...HEAD
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v2.1.4...v3.0.0
 [2.1.4]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.1.2...v2.1.3
 [2.1.2]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v2.1.1...v2.1.2

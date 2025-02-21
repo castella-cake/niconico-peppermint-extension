@@ -1,31 +1,28 @@
 {
-    "compilerOptions": {
-        "strictNullChecks": true,
-        "noUnusedLocals": true,
-        "noImplicitThis": true,
-        "alwaysStrict": true,
-        "outDir": "./dist/",
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "module": "ESNext",
-        "target": "es2020",
-        "lib": [
-            "ES2020",
-            "DOM",
-            "DOM.Iterable"
-        ],
-        "jsx": "react-jsx",
-        "allowJs": true,
-        "forceConsistentCasingInFileNames": false,
-        "allowUmdGlobalAccess": true,
-        "moduleResolution": "node",
-        "resolveJsonModule": true
-    },
-    "exclude": [
-        "./node_modules/",
-        "./dist/",
-        "./build/",
-        "./builds/",
-        "./dev/"
-    ]
+  "extends": "./.wxt/tsconfig.json",
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "noUnusedLocals" : true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "ESNext",
+    "target": "es2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "forceConsistentCasingInFileNames": false,
+    "allowUmdGlobalAccess": true,
+    "resolveJsonModule": true
+  },
+  "exclude": [
+    "./node_modules/",
+    "./dist/",
+    "./build/",
+    "./builds/",
+    "./dev/"
+  ]
 }

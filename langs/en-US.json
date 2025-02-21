@@ -1,0 +1,275 @@
+{
+    "SETTINGS_DESC": "Change PepperMint+ settings. \nThis setting can be accessed again via the toolbar button or settings on the extension management page.",
+    "SETTINGS_AREATITLE": {
+        "hide": "Hide",
+        "watchpage": "Watchpage",
+        "nicopedia": "Nicopedia",
+        "other": "Other",
+        "global": "Global",
+        "quickpanel": "Quickpanel"
+    },
+    "SETTINGS_ITEMS": {
+        "hiderankpagead": {
+            "name": "Hide the Niconi ad line on the ranking page",
+            "hint": "Hides the Niconi advertisement line that is sandwiched in the middle of the NicoNico Douga ranking."
+        },
+        "hideeventbanner": {
+            "name": "Hide the event announcement banner on the viewing page",
+            "hint": "Hides the event announcement banner displayed under the header."
+        },
+        "hideheaderbanner": {
+            "name": "Hide event announcement banner in header",
+            "hint": "Hides the event announcement banner displayed on the header."
+        },
+        "hidepopup": {
+            "name": "Hide advertisements about following users/supporters/premium members",
+            "hint": "Hides the follow banner that appears when you frequently watch a specific user's videos, supporter solicitation at the bottom left of the user page, and premium membership solicitation."
+        },
+        "hidesupporterbutton": {
+            "name": "Hide supporter button",
+            "hint": "Hide the supporter registration button.",
+            "select": [
+                "Default",
+                "Hide on viewing page",
+                "Hide all"
+            ]
+        },
+        "hidemetadata": {
+            "name": "Hide metadata other than genre and posting date/time",
+            "hint": "Hide the number of views, likes, likes, comments, and highest rankings for intuitive video search.",
+            "select": [
+                "Default",
+                "Hide on viewing page",
+                "Hide in search and home",
+                "Hide all"
+            ]
+        },
+
+        "featurenotavailable_newwatchpage": {
+            "name": "Due to the launch of the new watch page, the features in this section are currently unavailable.",
+            "linktitle": "Learn more"
+        },
+        "watchhideknowntitle": {
+            "name": "Hide unnecessary button titles next to comments",
+            "hint": "Hides the titles of action buttons next to the comment input area, showing only icons for Share/Niconi ad/Gift."
+        },
+        "usenativedarkmode": {
+            "name": "Use native color palette",
+            "hint": "Disables PepperMint+ dark mode/color palette on watch pages."
+        },
+        
+        "hidereputation": {
+            "name": "Hide number of ratings",
+            "hint": "Hides the number of ratings given to encyclopedia article responses.",
+            "select": [
+                "Default",
+                "Hide dislikes",
+                "Hide all"
+            ]
+        },
+        "liketonicoru": {
+            "name": "Replace high ratings with smiles",
+            "hint": "Change the high rating button of responses to smile."
+        },
+        "dicfullwidth": {
+            "name": "open maximum width",
+            "hint": "Unlock the maximum width of your content and make your articles easier to read. "
+        },
+        "dicforcewidthmode": {
+            "name": "Force mode",
+            "select": [
+                "Default",
+                "Medium (auto)",
+                "Strong (100%, not recommended)"
+            ]
+        },
+        "dicsidebartoleft": {
+            "name": "Show sidebar on the left"
+        },
+        "dicbettereditor": {
+            "name": "Use dark editor",
+            "hint": "Change the HTML editor when editing articles to dark and change the font to Consolas."
+        },
+        "diccontextsearch": {
+            "name": "Display \"ニコニコ大百科で検索\" in the context menu",
+            "hint": "When you select a string and open the context menu, \"ニコニコ大百科で検索\" will be displayed.\nClick to search NicoNico Encyclopedia for the selected text in a new tab."
+        },
+        "alignpagewidth": {
+            "name": "Fix the maximum width of Niconico Home",
+            "hint": "Fixed the maximum width of Niconico Home to 1024px."
+        },
+        "fixedheaderwidth": {
+            "name": "Fixed header width",
+            "hint": "The maximum width of the header content in NicoNico Douga is fixed at 1024px. It will be similar to the header before adding the sidebar."
+        },
+        "highlightnewnotice": {
+            "name": "Highlight new notifications",
+            "hint": "A small red circle will be displayed in the upper left corner of new notifications, similar to the notification display in the app version of Niconico Douga."
+        },
+        "vidtoptwocolumn": {
+            "name": "Display the top of the video in 2 columns",
+            "hint": "Displays the \"Video Top\" page wrapped in two columns."
+        },
+        "darkmode": {
+            "name": "Dark mode/color palette",
+            "hint": "Applies the specified palette to the page. Currently, only NicoNico Douga and some live broadcast pages are supported. \nIf you enable \"Follow browser settings\", dark mode will not be used if the browser is in light mode.",
+            "select": [
+                "Default",
+                "PMDark",
+                "SPDark",
+                "NordNight",
+                "SolidBlack",
+                "CyberNight",
+                "custom settings"
+            ]
+        },
+        "darkmodedynamic": {
+            "name": "Follow browser settings",
+            "hint": ""
+        },
+        "headerbg": {
+            "name": "Header background",
+            "hint": "",
+            "select": [
+                "Default",
+                "Gradation",
+                "custom settings"
+            ]
+        },
+        "headercolor": {
+            "name": "Custom color",
+            "hint": "",
+            "placeholder": ""
+        },
+        "enablevisualpatch": {
+            "name": "Enable visual patching",
+            "hint": "Apply CSS to fix visual bugs such as line-height and resume playback display, and integrate rounded corner buttons. \nAlso, accessibility is taken into account, making it easier to see where the focus is."
+        },
+        "enablespredirect": {
+            "name": "Enable SPWatch redirect",
+            "hint": "When you access the mobile browser version of Nico Nico viewing page, you will be automatically redirected to the PC version of Nico Nico Douga."
+        },
+        "enableseriesstock": {
+            "name": "Enable series stock",
+            "hint": "A button to stock series will be displayed at the bottom left of the series page or viewing page, and you can display the stocked series in the quick panel. \nThe videos you watch in the stocked series are automatically recorded, and you can check the last video you watched and the next video. \nIf you enable \"Display on Niconico\", a button to expand the series stock will be displayed at the bottom left of Niconico Home/Video top."
+        },
+            "showseriesstockinpage": {
+                "name": "Display on Niconico(Deprecated)"
+            },
+        "enablecustomvideotop": {
+            "name": "Enable custom video top",
+            "hint": "Sort or hide the content at the top of the video according to settings. "
+        },
+        "enablenicorepotab": {
+            "name": "Enable Nicorepo Reader",
+            "hint": "The \"Nicorepo\" tab will now be displayed on the quick panel, allowing you to check your Nicorepo. \nNew arrivals are checked every 45 minutes, and if there is a new NicoRepo, you will be notified with a toolbar badge. You must be logged in to Niconico within your browser for this feature to work."
+        },
+        "enablequicksettingstab": {
+            "name": "Enable quick settings tab",
+            "hint": "The \"Quick Settings\" tab will now be displayed in the Quick Panel."
+        },
+        "enableseriesstocktab": {
+            "name": "Enable series stock tab",
+            "hint": "The \"Series Stock\" tab will now be displayed in the quick panel."
+        },
+        "skipquickpanel": {
+            "name": "Skip quick panel",
+            "hint": "When you click a toolbar button, you will be redirected to the settings without displaying the quick panel. \nSuitable when not using Nicorepo reader or series stock."
+        },
+        "globaldesc": {
+            "name": "Settings that apply to all Niconico/PM+ sections."
+        },
+        "watchpagedesc": {
+            "name": "Set up visual changes for the watch page."
+        },
+        "nicopediadesc": {
+            "name": "Set up visual changes for Nicopedia."
+        },
+        "hidedesc": {
+            "name": "Set up hidden elements on the page."
+        },
+        "otherdesc": {
+            "name": "Set up other visual changes to the page."
+        },
+        "quickpaneldesc": {
+            "name": "Set up tabs in the quick panel."
+        }
+    },
+    "MISSKEYSHARE_CONFIGURE_LINK": "Configure shared destination instance...",
+    "DARKMODE_CUSTOMPALETTE_LINK": "Set custom color palette...",
+    "SERIESSTOCK_MANAGESERIES_LINK": "Manage series in stock...",
+    "CUSTOMVIDTOP_CONFIGURE_LINK": "Set a custom video top...",
+    "CHANNEL": "Channel",
+    "USER": "User",
+    "LOADING": "Loading...",
+    "CLOSE": "Close",
+    "CANCEL": "Cancel",
+    "ADD": "Add",
+    "REMOVE": "Remove",
+
+    "DASHBOARD": "Dashboard",
+    "QUICK_SETTINGS": "Quick settings",
+    "NICOREPO": "Nicorepo",
+
+    "LAST_FETCHED_DATE": "Last updated",
+    "NICOREPO_FETCH_FAILED": "Failed to obtain Nicorepo information",
+
+    "LASTVID_TITLE": "Last video",
+    "NEXTVID_TITLE": "next video",
+    "NO_TRACKED_VIDEO": "Not saved yet",
+    "SEE_DETAILS": "Show details",
+    "HIDE_DETAILS": "Hide details",
+    "NO_EPISODE_INFO": "There is no episode information for the series.",
+    "NO_STOCKED_SERIES": "There are no series in stock.",
+    "SERIES_STOCK_TITLE": "Series stock",
+    "TO_LOCK": "Change to locked state",
+    "TO_UNLOCK": "Unlock",
+    "THUMB_ALT_TEXT": " thumbnail",
+    "MOVE_TO_FOLDER": "Go to folder",
+    "REMOVE_FROM_STOCK": "Remove from stock",
+    "ADD_AVAILABLE_FROM_CURRENT_TAB": "Can be added from the current tab",
+    "OPEN_FOLDER": "Open folder",
+    "CLOSE_FOLDER": "Close folder",
+    "REMOVE_FROM_FOLDER": "Remove from folder",
+    "MOVE_TO_SELECTED_FOLDER": "Move to specified folder",
+    "NEW_FOLDER_OPENMODAL": "New folder...",
+    "FOLDER_MOVE_TO_LABEL": "Destination folder",
+    "UNKNOWN_CHANNEL": "Unknown channel",
+    "UNKNOWN_USER": "Unknown user",
+
+    "EDITBUTTON_TITLE_TOEDITMODE": "To edit",
+    "EDITBUTTON_TITLE_EDITOFF": "Finish editing",
+
+    "SAVE_CHANGE": "Save changes",
+
+    "ADD_FOLDER": "Add folder",
+
+    "ADD_FOLDER_TITLE": "Create a folder",
+    "EDIT_FOLDER_TITLE": "Edit folder",
+    "REMOVE_FOLDER_TITLE": "Remove Folder (Series within the folder will be moved outside)",
+
+    "ADD_FOLDER_DESC": "Edit the folder. \nThe series displayed is the list of series that can currently be added/removed. Enabling the checkbox will move the selected series to the folder.",
+    "EDIT_FOLDER_DESC": "Creates a new folder within the current series stock. \nThe series displayed is a list of series that can currently be moved. Enabling the checkbox will move the selected series to the folder.",
+    "FOLDER_NAME": "Folder name",
+    "PLACEHOLDER_FOLDER_NAME": "Enter folder name...",
+    "MOVE_SERIES_TO_FOLDER": "Move series to folder",
+
+    "DASHBOARD_TITLES": {
+        "quickoption": "Quick options",
+        "seriesstock": "Series stock",
+        "nicorepo": "Recent Nicorepo"
+    },
+    "QUICKPANEL_TAB_EDIT": "Edit quick panel tab",
+    "QUICKPANEL_TAB_EDITOFF": "Finish editing quick panel tab",
+    "QUICKPANEL_TAB_EDIT_DESC": "You are in edit mode for the quick panel tab. \nSelect the tab checkbox to show/hide the tab.",
+
+    "QUICKOPTION_EDIT": "Edit quick settings",
+    "QUICKOPTION_EDITOFF": "Finish editing quick settings",
+    "OPEN_SETTINGS_PAGE": "Open settings page",
+    "ADD_ITEM": "Add item",
+
+    "DASHBOARD_EDIT": "Edit dashboard",
+    "CLICK_TO_RELOAD": " - will be reloaded",
+
+    "QUICKPANEL_FIRST_TIP": "Welcome to PepperMint+'s quick panel. \nClick \"Open settings page\" or click the title to go to the settings page. You can also edit the tab from the edit button on the top right, or edit the block display from \"Edit dashboard\" at the bottom."
+}
