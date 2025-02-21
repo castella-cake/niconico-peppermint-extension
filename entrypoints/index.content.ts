@@ -11,7 +11,7 @@ export default defineContentScript({
             console.log(`Error: ${error}`);
         }
         
-        const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "blog.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp", "nicoad.nicovideo.jp"];
+        const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp", "nicoad.nicovideo.jp"];
         function createFastCSSRule(result: { [key: string]: any }) {
             // #region HTML要素用のパレット設定
             if (result.darkmode
