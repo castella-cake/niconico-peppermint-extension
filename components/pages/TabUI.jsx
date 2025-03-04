@@ -49,7 +49,7 @@ function CreateTabUI() {
     }
     return <div className="quickpanel-container">
         {localStorage.versionupdated && <div className="updatedinfo-container">
-            PepperMint+が {manifestData.version_name} にアップデートされました！<br/>
+            PepperMint+が {manifestData.version_name || manifestData.version || "Unknown"} にアップデートされました！<br/>
             変更や追加機能は<a href="https://github.com/castella-cake/niconico-peppermint-extension/releases/latest" target="_blank" rel="noopener noreferrer">Releases</a>から確認できます。<br/>
             よければ、開発者を<a href="https://github.com/sponsors/castella-cake" target="_blank" rel="noopener noreferrer">Github sponsorsで支援</a>することを検討してください。
             <button type="button" className="updatedinfo-close" onClick={() => {setLocalStorageValue("versionupdated", false)}}>{lang.CLOSE}</button>
