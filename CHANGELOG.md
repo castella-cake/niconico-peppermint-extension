@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.0] - 2024/11
+## [3.1.0] - 2025/03/05
+
+### Added
+- TWEAK: `フォロー新着に「イラスト投稿」フィルターを追加` を追加しました ([#40](https://github.com/castella-cake/niconico-peppermint-extension/issues/40))
+
+### Changed
+- TWEAK: `SPWatchリダイレクト` が `SPリダイレクト` に変更され、モバイル版ニコニコ静画のリダイレクトに対応しました([#42](https://github.com/castella-cake/niconico-peppermint-extension/issues/42))
+
+### Fixed
+- DMS: ランキングページのモーダルを修正しました
+- DMS: ニコニコ生放送のダークモード適用が遅れる問題を修正しました
+
+## [3.0.0] - 2025/02/21
 
 ### Added
 - TWEAK: 視聴ページ セクションに新しい機能を追加しました
