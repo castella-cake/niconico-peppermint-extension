@@ -88,11 +88,15 @@ export default defineContentScript({
                     document.documentElement.classList.add('PM-HideKnownTitle')
                 }
             }
-            if ( location.hostname === "sp.nicovideo.jp" && location.pathname.startsWith("/watch") ) {
-                if ( result.enablespredirect === true ) {
+            if ( result.enablespredirect === true ) {
+                if ( location.hostname === "sp.nicovideo.jp" && location.pathname.startsWith("/watch") ) {
                     location.href = location.href.replace("sp.nicovideo.jp","www.nicovideo.jp");
                 }
+                if ( location.hostname === "sp.seiga.nicovideo.jp" ) {
+                    location.href = location.href.replace("sp.seiga.nicovideo.jp","seiga.nicovideo.jp");
+                }
             }
+
             // #endregion
         }
         

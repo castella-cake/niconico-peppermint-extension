@@ -194,6 +194,11 @@ const settings: settingList = {
             name: "enablespredirect",
             default: false,
         },
+        {
+            type: "checkbox",
+            name: "enableTimelineSeigaFilter",
+            default: false,
+        }
     ],
     quickpanel: [
         {

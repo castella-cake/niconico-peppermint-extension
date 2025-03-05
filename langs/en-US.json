@@ -146,8 +146,8 @@
             "hint": "Apply CSS to fix visual bugs such as line-height and resume playback display, and integrate rounded corner buttons. \nAlso, accessibility is taken into account, making it easier to see where the focus is."
         },
         "enablespredirect": {
-            "name": "Enable SPWatch redirect",
-            "hint": "When you access the mobile browser version of Nico Nico viewing page, you will be automatically redirected to the PC version of Nico Nico Douga."
+            "name": "Enable SP redirect",
+            "hint": "When accessing the mobile browser version of Watch page or Seiga, you will be automatically redirected to the PC version."
         },
         "enableseriesstock": {
             "name": "Enable series stock",
@@ -175,6 +175,10 @@
         "skipquickpanel": {
             "name": "Skip quick panel",
             "hint": "When you click a toolbar button, you will be redirected to the settings without displaying the quick panel. \nSuitable when not using Nicorepo reader or series stock."
+        },
+        "enableTimelineSeigaFilter": {
+            "name": "Add \"イラスト投稿\" filter to timeline",
+            "hint": "Adds an \"イラスト投稿\" button to the timeline feed on your My Page. "
         },
         "globaldesc": {
             "name": "Settings that apply to all Niconico/PM+ sections."
