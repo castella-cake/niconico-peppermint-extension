@@ -50,10 +50,8 @@ export default defineContentScript({
                 if ( locationWhiteList.includes(location.hostname) && ( location.hostname !== "nicoad.nicovideo.jp" || (location.hostname === "nicoad.nicovideo.jp" && location.pathname.startsWith("/video/choice-player-widget")) ) ) {
                     document.documentElement.classList.add('PMDM-Enabled')
                 }
-                if (location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/watch")) {
-                    document.documentElement.classList.add('PMDM-VidWatch')
-                } else if (location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/ranking")) {
-                    document.documentElement.classList.add('PMDM-Ranking')
+                if (location.hostname === "www.nicovideo.jp" && (location.pathname.startsWith("/watch") || location.pathname.startsWith("/ranking"))) {
+                    document.documentElement.classList.add('PMDM-ModernPage')
                 } else if (location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/video_top")) {
                     document.documentElement.classList.add('PMDM-VideoTop')
                 } else if (location.pathname.startsWith("/search") || location.pathname.startsWith("/tag") || location.pathname.startsWith("/mylist_search")) {

@@ -11,8 +11,8 @@ function saveOptions() {
             bgcolor2: $("#input-bgcolor2").val(),
             bgcolor3: $("#input-bgcolor3").val(),
             bgcolor4: $("#input-bgcolor4").val(),
-            bgcolorad: $("#input-bgcolorad").val(),
-            bgcoloraw: $("#input-bgcoloraw").val(),
+            //bgcolorad: $("#input-bgcolorad").val(),
+            //bgcoloraw: $("#input-bgcoloraw").val(),
             textcolor1: $("#input-textcolor1").val(),
             textcolor2: $("#input-textcolor2").val(),
             textcolor3: $("#input-textcolor3").val(),
@@ -54,8 +54,8 @@ function restoreOptions() {
             $("#input-bgcolor2").val(result.customcolorpalette.bgcolor2 || "");
             $("#input-bgcolor3").val(result.customcolorpalette.bgcolor3 || "");
             $("#input-bgcolor4").val(result.customcolorpalette.bgcolor4 || "");
-            $("#input-bgcolorad").val(result.customcolorpalette.bgcolorad || "");
-            $("#input-bgcoloraw").val(result.customcolorpalette.bgcoloraw || "");
+            //$("#input-bgcolorad").val(result.customcolorpalette.bgcolorad || "");
+            //$("#input-bgcoloraw").val(result.customcolorpalette.bgcoloraw || "");
             $("#input-textcolor1").val(result.customcolorpalette.textcolor1 || "");
             $("#input-textcolor2").val(result.customcolorpalette.textcolor2 || "");
             $("#input-textcolor3").val(result.customcolorpalette.textcolor3 || "");

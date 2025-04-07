@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - TWEAK: イラスト投稿フィルターに漫画の投稿が含まれるようになりました
+- DMS: モダンページのダークモードサポートに相対色構文が使用されるようになりました(これにより、bgcoloraw,abは不要になります)
+
+### Fixed
+- TWEAK: ランキングのリニューアルに緊急対応しました
 
 ## [3.1.0] - 2025/03/05
 

@@ -1,6 +1,22 @@
 // ランキングページのニコニ広告を隠す
-html.PM-HideRankingPageNiconiAdRow {
-    .RankingMatrixNicoadsRow,.NC-NicoadMediaObject,.RankingMainNicoad,.ContinuousPlayButtonTeaching,.NC-Balloon-arrowWrap,.NC-NicoadMediaObjectWrapper{
-        display: none
+@css {
+    html.PM-HideRankingPageNiconiAdRow {
+        /* ランキングリニューアルにより不要
+        .RankingMatrixNicoadsRow,.NC-NicoadMediaObject,.RankingMainNicoad,.ContinuousPlayButtonTeaching,.NC-Balloon-arrowWrap,.NC-NicoadMediaObjectWrapper{
+            display: none
+        }
+        */
+        /* for you ページ */
+        & div[aria-label="nicovideo-content"] section .d_flex.flex-d_column.gap_x3.w_\[calc\(100vw_-_\{sizes\.webDrawer\.currentWidth\}_-_var\(--scrollbar-width\)_-_\{sizes\.x3\}_\*_2\)\].max-w_100\% > .d_flex.flex-d_column.gap_x2.my_x2{
+            display: none;
+        }
+        /* 「すべて」ページ */
+        & div[aria-label="nicovideo-content"] section .d_flex.flex-d_column.gap_x2 > .pl_\[calc\(\{sizes\.x5\}_\+_\{sizes\.x1_5\}\)\] {
+            display: none;
+        }
+        /*「カスタム」ページ */
+        & .w_100\%.d_grid.grid-tc_\{sizes\.x5\}_1fr_1fr_1fr_1fr_1fr.gap_base:has(.d_flex.flex-d_column.c_serviceColor\.nicoadGold.fill_serviceColor\.nicoadGold) {
+            display: none;
+        }
     }
 }
