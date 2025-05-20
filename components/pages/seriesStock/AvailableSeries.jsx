@@ -16,7 +16,7 @@ export function AvailableSeriesRow() {
     useEffect(() => {
         async function getData() {
             const ncStateResult = await new Promise((resolve) => browser.runtime.sendMessage({ type: "getActiveNCState", getType: "series" }, resolve))
-            if (ncStateResult && ncStateResult.status == true && ncStateResult.seriesId && !seriesIdArray.includes(ncStateResult.seriesId)) {
+            if (ncStateResult && ncStateResult.status == true && ncStateResult.seriesId) {
                 setAddAvailableSeriesId(ncStateResult.seriesId)
                 if ( !ncStateResult.name ) {
                     const thisSeriesInfo = await getSeriesInfo(ncStateResult.seriesId)
@@ -38,8 +38,8 @@ export function AvailableSeriesRow() {
             setSyncStorageValue("stockedseries", [{ seriesID: seriesId, seriesName: seriesName }])
         }
     }
-
-    return <>{( addAvailableSeriesId && addAvailableSeriesName ) && <div className="stockedseries-add-row">
+    
+    return <>{( addAvailableSeriesId && addAvailableSeriesName && !seriesIdArray.includes(addAvailableSeriesId) ) && <div className="stockedseries-add-row">
         <div style={{ flexGrow: 1 }}>{lang.ADD_AVAILABLE_FROM_CURRENT_TAB}: {addAvailableSeriesName}</div>
         <button type="button" onClick={() => {
             addSeriesStock(addAvailableSeriesId, addAvailableSeriesName)
