@@ -1,32 +1,24 @@
 import { getSyncStorageData } from "../utils/storageControl";
 
+const watchPattern = new MatchPattern('*://www.nicovideo.jp/watch/*');
+
 export default defineContentScript({
-    matches: ["*://www.nicovideo.jp/watch/*"],
+    matches: ["*://www.nicovideo.jp/*"],
     runAt: "document_idle",
-    async main() {
+    async main(ctx) {
         const result = await getSyncStorageData
         function requestSeriesStockUpdate() {
-            const smId = location.pathname.slice(7).replace(/\?.*/, '')
+            if (!watchPattern.includes(location.toString())) return
+            const smId = location.pathname.replace("/watch/", "")
             browser.runtime.sendMessage({ "type": "updateSeriesStockState", "smId": smId }).then(res => {
                 if (res.status != true) console.error(res)
             })
         }
-        if (result.enableseriesstock) {
-            requestSeriesStockUpdate()
-            let previousPathname = location.pathname
-            // TODO: 今はobserverで随時pathnameを確認しているけど、navigationのイベントが一般化されたら置き換える。
-            const body = document.body
-            const bodyObserver = new MutationObserver(records => {
-                if ( previousPathname != location.pathname ) {
-                    requestSeriesStockUpdate()
-                    previousPathname = location.pathname
-                    //console.log("updated")
-                }
-            })
-            bodyObserver.observe(body, {
-                childList: true
-            })
-        }
+        ctx.addEventListener(window, 'wxt:locationchange', ({ newUrl }) => {
+            if (watchPattern.includes(newUrl) && result.enableseriesstock) {
+                requestSeriesStockUpdate()
+            }
+        });
         return
     },
 });
