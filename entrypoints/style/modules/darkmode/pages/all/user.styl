@@ -524,4 +524,19 @@ html.PMDM-Enabled {
     .RepresentedAchievementModalItemList-items {
         border-bottom: 1px solid var(--accent1);
     }
+    // オーバーレイバナー(宣伝ポップアップ)
+    .OverlayBannerFrame-item {
+        background: var(--bgcolor2);
+    }
+    .OverlayBannerFrame-itemDescription {
+        color: var(--textcolor1);
+    }
+    .OverlayBannerFrame-itemLink {
+        // なぜかstyleアトリビュートで指定が入ってたので!important
+        background: var(--bgcolor2) !important;
+        &:hover {
+            background: var(--hover1) !important;
+            color: var(--textcolor1);
+        }
+    }
 }
