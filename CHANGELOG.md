@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.2] - 2025/05
+
+### Changed
+- DEPS: 依存関係が更新されました
+- TWEAKS: シリーズストックのエピソード変更を検出する方法が変更されました
+
+### Fixed
+- DMS: ユーザーページのダークモードサポートを更新しました
+- DMS: コメント/タグ通報フォームに誤ってダークモードが適用される問題を修正しました
+- TWEAKS: ニコニコ大百科の機能が動作しない問題を修正しました
+
 ## [3.1.1] - 2025/04/07
 
 ### Changed
