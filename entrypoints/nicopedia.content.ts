@@ -5,6 +5,10 @@ export default defineContentScript({
     matches: ["*://dic.nicovideo.jp/*"],
     runAt: "document_end",
     main() {
+        function onError(error: any) {
+            console.log(`Error: ${error}`);
+        }
+        
         getSyncStorageData.then(createCSSRule, onError);
         function createCSSRule(result: any) {
             if ( result.dicfullwidth === true && result.dicforcewidthmode !== "auto" && result.dicforcewidthmode !== "100" ) {
