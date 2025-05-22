@@ -2,6 +2,8 @@ import { getSyncStorageData } from "../utils/storageControl";
 import { addCSS, pushCSSRule } from "../utils/styleControl";
 import "./style/index.styl"
 
+const allegationPattern = new MatchPattern('*://www.nicovideo.jp/comment_allegation/*');
+
 export default defineContentScript({
     matches: ['*://*.nicovideo.jp/*'],
     runAt: "document_start",
@@ -18,6 +20,7 @@ export default defineContentScript({
                 && !(result.darkmodedynamic === true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)
                 && locationWhiteList.includes(location.hostname)
                 && !(location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/watch") && result.usenativedarkmode)
+                && !allegationPattern.includes(location.toString())
             ) {
                 document.documentElement.classList.add('PMDM-Assist')
                 if (result.darkmode === 'custom' && result.customcolorpalette !== undefined) {
