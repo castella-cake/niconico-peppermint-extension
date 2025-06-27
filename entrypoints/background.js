@@ -177,6 +177,10 @@ main(){
     }
 
     function getSeriesNameFromWatchPage() {
+        const mintWatchSeriesAnchorElem = document.querySelector("a[data-pmw-type=\"series-title\"]")
+        if (mintWatchSeriesAnchorElem && mintWatchSeriesAnchorElem.getAttribute("data-pmw-value")) {
+            return { status: true, name: mintWatchSeriesAnchorElem.textContent, seriesId: mintWatchSeriesAnchorElem.getAttribute("data-pmw-value") }
+        }
         const seriesAnchorElem = document.querySelector("a[data-anchor-page=\"watch\"][data-anchor-area=\"series\"]")
         console.log(seriesAnchorElem)
         if ( !seriesAnchorElem || !seriesAnchorElem.href || !seriesAnchorElem.pathname ) return {status: false}
