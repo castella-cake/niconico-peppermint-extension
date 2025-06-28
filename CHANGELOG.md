@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.1.4] - 2025/06/28
 
+### Changed
+- DEPS: 依存関係を更新しました
+
 ### Fixed
 - PAGES: タブカスタマイズが機能しない問題を修正しました
 - シリーズストックのトラッキングが正しく機能するようになりました
