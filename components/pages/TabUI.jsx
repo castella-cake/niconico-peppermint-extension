@@ -41,7 +41,7 @@ function CreateTabUI() {
     if (currentTab == tabType.dashboard) {
         currentTabElem = <CreateDashboardUI />;
     } else if (currentTab == tabType.settings) {
-        currentTabElem = <CreateSettingsList />;
+        currentTabElem = <CreateSettingsList settings={settings} />;
     } else if (currentTab == tabType.nicorepo) {
         currentTabElem =  null;
     } else if (currentTab == tabType.seriesstock) {
@@ -57,8 +57,8 @@ function CreateTabUI() {
         <div className="tabcontainer">
             <button type="button" className={currentTab == tabType.dashboard || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.dashboard) }) : (() => {})}>{lang.DASHBOARD}</button>
             {/*(syncStorage.enablenicorepotab || isEditMode) && <button type="button" className={currentTab == tabType.nicorepo || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.nicorepo) }) : (() => {})}>{isEditMode ? <TabEditCheckbox setting={settings.quickpanel[1]} label={lang.NICOREPO} /> : lang.NICOREPO}</button>*/}
-            { ((syncStorage.enableseriesstocktab || isEditMode) && syncStorage.enableseriesstock) && <button type="button" className={currentTab == tabType.seriesstock || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.seriesstock) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[0]} label={lang.SERIES_STOCK_TITLE}/> : lang.SERIES_STOCK_TITLE }</button> }
-            { (syncStorage.enablequicksettingstab || isEditMode) && <button type="button" className={currentTab == tabType.settings || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.settings) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[1]} label={lang.QUICK_SETTINGS}/> : lang.QUICK_SETTINGS }</button> }
+            { ((syncStorage.enableseriesstocktab || isEditMode) && syncStorage.enableseriesstock) && <button type="button" className={currentTab == tabType.seriesstock || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.seriesstock) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[1]} label={lang.SERIES_STOCK_TITLE}/> : lang.SERIES_STOCK_TITLE }</button> }
+            { (syncStorage.enablequicksettingstab || isEditMode) && <button type="button" className={currentTab == tabType.settings || isEditMode ? "tabbutton current-tab" : "tabbutton"} onClick={!isEditMode ? (() => { setCurrentTab(tabType.settings) }) : (() => {})}>{ isEditMode ? <TabEditCheckbox setting={settings.quickpanel[2]} label={lang.QUICK_SETTINGS}/> : lang.QUICK_SETTINGS }</button> }
             <button type="button" className="tab-editbutton" title={isEditMode ? lang.QUICKPANEL_TAB_EDITOFF : lang.QUICKPANEL_TAB_EDIT} onClick={() => {setIsEditMode(!isEditMode); setCurrentTab(tabType.dashboard)}}>{ isEditMode ? <IconEditOff style={{fontSize: 18}}/> : <IconEdit style={{fontSize: 18}}/> }</button>
         </div>
         <div className="quickpanel-mainpanel maincontainer">

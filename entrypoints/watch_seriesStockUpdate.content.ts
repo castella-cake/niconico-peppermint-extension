@@ -19,6 +19,7 @@ export default defineContentScript({
                 requestSeriesStockUpdate()
             }
         });
+        requestSeriesStockUpdate()
         return
     },
 });
