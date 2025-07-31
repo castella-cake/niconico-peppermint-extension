@@ -248,6 +248,82 @@ html.PMDM-Enabled {
     .NC-VideoMediaObject-description, .VideoWatchHistoryItemAfter-meta {
         color: var(--textcolor2) !important;
     }
+
+    .VideoWatchHistoryContainer-dayHeader {
+        border-bottom-color: var(--accent1);
+    }
+    // 動画履歴コントロール
+    .VideoWatchHistoryControlArea-button {
+        background: var(--bgcolor2);
+        border-color: var(--accent1);
+        color: var(--textcolor1);
+    }
+
+    .VideoWatchHistoryControlArea-button:not([data-disabled=true]):not(:has(.VideoWatchHistoryControlArea-dateResetButton:hover)):hover {
+        background: var(--textcolor1);
+        color: var(--bgcolor2);
+        > svg * {
+            fill: var(--bgcolor2);
+        }
+    }
+
+    .VideoWatchHistoryControlArea-button * {
+        fill: var(--textcolor2);
+    }
+
+    .VideoWatchHistoryDateSelectPanel {
+        background: var(--bgcolor2);
+        color: var(--textcolor1);
+    }
+
+    .VideoWatchHistoryDateSelectPanel-labeledInput .VideoWatchHistoryDateSelectPanel-input {
+        border-color: var(--accent1);
+        color: var(--textcolor1);
+    }
+
+    .VideoWatchHistoryDateSelectPanel-labeledInput .VideoWatchHistoryDateSelectPanel-label {
+        color: var(--textcolor2);
+    }
+
+    .VideoWatchHistoryDateSelectPanel-buttonGhost {
+        color: var(--textolor1);
+    }
+
+    .DatePicker {
+        background: var(--bgcolor2);
+    }
+
+    .DatePicker-tableCellTrigger:not([data-unavailable]):hover {
+        background: var(--hover1);
+    }
+
+    .DatePicker-viewControllIconButton svg * {
+        fill: var(--textcolor1);
+    }
+
+    .DatePicker-viewControlButton {
+        background: var(--bgcolor3);
+        color: var(--textcolor1);
+    }
+
+    .DatePicker-viewControl {
+        border-bottom-color: var(--accent1);
+    }
+
+    .VideoWatchHistoryDateSelectPanel-buttonGhost:hover {
+        background: var(--hover1);
+    }
+
+    .VideoWatchHistoryDateSelectPanel-button {
+        background: var(--bgcolor3);
+        color: var(--textcolor1);
+        border-color: var(--accent2);
+    }
+
+    .VideoWatchHistoryDateSelectPanel-button:hover {
+        border-color: var(--linktext2);
+        color: var(--linktext2);
+    }
     /* サイドバー */
     .SubMenuLink-label {
         color:var(--textcolor2) !important;
