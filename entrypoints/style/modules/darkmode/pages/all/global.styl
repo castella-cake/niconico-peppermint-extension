@@ -6,7 +6,10 @@ html.PMDM-Enabled {
     body {
         background-color: var(--bgcolor1);
     }
-    a,.FrameTitleLink-titleText,.FrameTitle {
+    .FrameTitleLink-titleText,.FrameTitle {
+        color: var(--theater-linktext, var(--textcolor1))
+    }
+    &:not(.PMDM-ModernPage) a {
         color: var(--theater-linktext, var(--textcolor1))
     }
 
