@@ -1,4 +1,7 @@
 html.PMDM-Enabled {
+    .BaseUniLayout {
+        color: var(--textcolor1);
+    }
     .UserDetailsContainer::after, .UserPage-header, .UserDetailsHeader {
         background-color: var(--bgcolor1) !important;
     }
@@ -152,6 +155,66 @@ html.PMDM-Enabled {
     .ContinuousPlayButton-icon {
         fill: var(--textcolor2) !important;
     }
+    .MylistItemAddition-addedAt {
+        color: var(--textcolor2);
+    }
+
+    .MylistItemMemo-edit.TextField {
+        background: var(--bgcolor2);
+        border-color: var(--accent1);
+    }
+
+    .MylistItemMemo-preview {
+        background: var(--bgcolor2);
+        color: var(--textcolor1);
+    }
+    // テキスト入力
+    .TextField-label {
+        color: var(--textcolor1);
+    }
+
+    .TextField-inputForm {
+        color: var(--textcolor1);
+    }
+
+    .TextField-saveButton {
+        color: var(--linktext1);
+        background: var(--bgcolor2);
+        border-color: var(--linktext1);
+    }
+
+    .TextField-cancelButton {
+        background: var(--bgcolor3);
+        color: var(--textcolor1);
+        border-color: var(--accent1);
+    }
+
+    .TextField-counter {
+        color: var(--textcolor2);
+    }
+
+    // 日付入力
+    .DatePicker {
+        background: var(--bgcolor2);
+    }
+
+    .DatePicker-tableCellTrigger:not([data-unavailable]):hover {
+        background: var(--hover1);
+    }
+
+    .DatePicker-viewControllIconButton svg * {
+        fill: var(--textcolor1);
+    }
+
+    .DatePicker-viewControlButton {
+        background: var(--bgcolor3);
+        color: var(--textcolor1);
+    }
+
+    .DatePicker-viewControl {
+        border-bottom-color: var(--accent1);
+    }
+
     // セレクター
     .Selectbox-button {
         background-color: var(--bgcolor2) !important;
@@ -195,14 +258,6 @@ html.PMDM-Enabled {
 
     .ModalContent_with-footer .ModalContent-body {
         background: var(--bgcolor2);
-    }
-
-    .TextField-label {
-        color: var(--textcolor1);
-    }
-
-    .TextField-inputForm {
-        color: var(--textcolor1);
     }
 
     .EditMylistModal-settingsItemLabel {
@@ -258,10 +313,6 @@ html.PMDM-Enabled {
 
     .MylistRegisterModal-sectionLabel {
         color: var(--textcolor1);
-    }
-
-    .TextField-counter {
-        color: var(--textcolor2);
     }
     
     /* 履歴 */
@@ -331,27 +382,6 @@ html.PMDM-Enabled {
 
     .VideoWatchHistoryDateSelectPanel-buttonGhost {
         color: var(--textolor1);
-    }
-
-    .DatePicker {
-        background: var(--bgcolor2);
-    }
-
-    .DatePicker-tableCellTrigger:not([data-unavailable]):hover {
-        background: var(--hover1);
-    }
-
-    .DatePicker-viewControllIconButton svg * {
-        fill: var(--textcolor1);
-    }
-
-    .DatePicker-viewControlButton {
-        background: var(--bgcolor3);
-        color: var(--textcolor1);
-    }
-
-    .DatePicker-viewControl {
-        border-bottom-color: var(--accent1);
     }
 
     .VideoWatchHistoryDateSelectPanel-buttonGhost:hover {
