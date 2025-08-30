@@ -53,7 +53,15 @@ export default defineContentScript({
                 if ( locationWhiteList.includes(location.hostname) && ( location.hostname !== "nicoad.nicovideo.jp" || (location.hostname === "nicoad.nicovideo.jp" && location.pathname.startsWith("/video/choice-player-widget")) ) ) {
                     document.documentElement.classList.add('PMDM-Enabled')
                 }
-                if (location.hostname === "www.nicovideo.jp" && (location.pathname.startsWith("/watch") || location.pathname.startsWith("/ranking"))) {
+                if (location.hostname === "www.nicovideo.jp" && (
+                    location.pathname.startsWith("/watch") ||
+                    location.pathname.startsWith("/ranking") ||
+                    location.pathname.startsWith("/tag") ||
+                    location.pathname.startsWith("/search") ||
+                    location.pathname.startsWith("/series_search") ||
+                    location.pathname.startsWith("/mylist_search") ||
+                    location.pathname.startsWith("/user_search")
+                )) {
                     document.documentElement.classList.add('PMDM-ModernPage')
                 } else if (location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/video_top")) {
                     document.documentElement.classList.add('PMDM-VideoTop')

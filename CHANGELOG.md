@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.8] - 2025/08/31
+
+### Fixed
+- DMS: モダンページでのスタイルを修正しました
+- DMS: 検索ページにモダンページのカラーパレットを使用するように更新しました
+- DMS: ニコニコ生放送のembedを修正しました
+
 ## [3.1.7] - 2025/08/30
 
 ### Fixed
@@ -747,8 +754,9 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.1.7...HEAD
-[3.1.6]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.6...v3.1.7
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.1.8...HEAD
+[3.1.8]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.7...v3.1.8
+[3.1.7]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.6...v3.1.7
 [3.1.6]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.5...v3.1.6
 [3.1.5]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.4...v3.1.5
 [3.1.4]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.3...v3.1.4
