@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - DMS: モダンページでのスタイルを修正しました
 - DMS: 検索ページにモダンページのカラーパレットを使用するように更新しました
+- DMS: ニコニコ生放送のembedを修正しました
 
 ## [3.1.7] - 2025/08/30
 
