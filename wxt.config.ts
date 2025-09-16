@@ -39,7 +39,6 @@ export default defineConfig({
             ]
         }],
     },
-    extensionApi: "chrome",
     hooks: {
         'build:manifestGenerated': (wxt, manifest) => {
             if (wxt.config.mode.toLowerCase() === "development") {
