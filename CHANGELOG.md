@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.10] - 2025/10
+
+### Fixed
+- DMS: ダークモードサポートのクラス名の適用条件を修正しました
+- DMS: モダンページのパレットに合わせたスタイルを打ち消すように修正しました
+- DMS: ニコニ貢献のサポーターページのダークモードサポートを修正しました
+
 ## [3.1.9] - 2025/09/16
 
 ### Fixed
