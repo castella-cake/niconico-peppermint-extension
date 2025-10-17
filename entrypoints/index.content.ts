@@ -55,13 +55,18 @@ export default defineContentScript({
                 }
                 if (location.hostname === "www.nicovideo.jp" && (
                     location.pathname.startsWith("/watch") ||
-                    location.pathname.startsWith("/ranking") ||
-                    location.pathname.startsWith("/tag") ||
-                    location.pathname.startsWith("/search") ||
-                    location.pathname.startsWith("/series_search") ||
-                    location.pathname.startsWith("/mylist_search") ||
-                    location.pathname.startsWith("/user_search")
+                    location.pathname.startsWith("/ranking")
                 )) {
+                    document.documentElement.classList.add('PMDM-ModernPage')
+                } else if (
+                    location.hostname === "www.nicovideo.jp" && (
+                        location.pathname.startsWith("/tag/") ||
+                        location.pathname.startsWith("/search/") ||
+                        location.pathname.startsWith("/series_search/") ||
+                        location.pathname.startsWith("/mylist_search/") ||
+                        location.pathname.startsWith("/user_search/")
+                    )
+                ) {
                     document.documentElement.classList.add('PMDM-ModernPage')
                     document.documentElement.classList.add('PMDM-SearchPage')
                 } else if (location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/video_top")) {

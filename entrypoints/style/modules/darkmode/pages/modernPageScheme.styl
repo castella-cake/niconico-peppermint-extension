@@ -130,6 +130,7 @@ html.PMDM-ModernPage body {
     --colors-achievement-text-pleasure: #66B814;
     --shadows-base: 0 0 8px 0 rgba(0,0,0,.8);
     --shadows-base-bottom: 0 4px 8px -4px rgba(0,0,0,.8);
+    --colors-text-on-layer-visited: var(--colors-monotone--l40);
 
     // anchor要素に対するルールが邪魔するので再設定
     .button-color_primary[data-anchor-page^="ranking_"] {
@@ -169,5 +170,17 @@ html.PMDM-ModernPage body {
         --colors-transparent-gray--a20: rgb(from var(--bgcolor1) r g b / 20%);
         --colors-transparent-gray--a10: rgb(from var(--bgcolor1) r g b / 10%);
         --colors-transparent-gray--a5: rgb(from var(--bgcolor1) r g b / 5%);
+    }
+
+    \:bg-c_transparentWhite\.A95 {
+        background-color: var(--colors-transparent-white--a95) !important;
+    }
+
+    \:fill_transparentGray\.A95 {
+        fill: var(--colors-transparent-gray--a95) !important;
+    }
+
+    \:c_transparentGray\.A95 {
+        color: var(--colors-transparent-gray--a95) !important;
     }
 }
