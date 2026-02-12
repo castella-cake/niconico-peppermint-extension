@@ -527,3 +527,131 @@ html.PMDM-NicoLiveHome, html.PMDM-NicoLiveWatch {
     --red: var(--dangerous1);
     --rookie-green: rgb(0,136,70);
 }
+
+html.PMDM-NicoLiveEmbed {
+    --base-font: var(--textcolor1);
+    --surface-float: var(--bgcolor2);
+    --surface-primary: var(--bgcolor2);
+    --surface-secondary: var(--bgcolor1);
+    --mono1: var(--textcolor1);
+    --mono2: var(--textcolor2);
+    --mono3: var(--textcolor3);
+    --mono4: var(--bgcolor4);
+    --mono5: var(--bgcolor3);
+    --mono6: var(--bgcolor2);
+    --mono7: var(--bgcolor1);
+    --mono8: var(--bgcolor1);
+    --blue: var(--linktext3);
+    --red: var(--dangerous1);
+    --rookie-green: rgb(0,136,70);
+    [class^="___timeshift-reservations-page"] {
+        background: var(--bgcolor1);
+        color: var(--textcolor1);
+    }
+    [class^="___program-card"] > .content-area > .program-summary > .program-title {
+        color: var(--textcolor1);
+    }
+    [class^="___program-card"] > .content-area > .program-summary > .program-description {
+        color: var(--textcolor2);
+    }
+    [class^="___program-card"] > .content-area > .status-bar {
+        color: var(--textcolor3);
+    }
+    [class^="___program-card"] > .content-area > .status-bar > .program-statistics > .program-statistics-list > .statistics-item {
+        --local-color: var(--textcolor2);
+        --local-icon-color: var(--textcolor2);
+    }
+
+    // 番組ボーダー
+    [class^="___item"]:not(:first-child) {
+        border-top-color: var(--accent1);
+    }
+
+    // 番組統計
+    [class^="___counter"] {
+        color: var(--textcolor2);
+        > .score {
+            color: var(--textcolor1);
+        }
+    }
+
+    // 番組概要
+    [class^="___description___"] {
+        color: var(--textcolor2);
+    }
+
+    // 汎用ボタン
+    [class^="___toggle-button___"] {
+        background: var(--bgcolor2);
+        color: var(--textcolor1);
+        border-color: var(--accent1);
+
+        & span {
+            color: var(--textcolor1);
+        }
+
+        & > svg path {
+            fill: var(--textcolor1);
+        }
+
+        &:hover {
+            border-color: var(--linktext1);
+            & span {
+                color: var(--linktext1);
+            }
+        
+            & > svg path {
+                fill: var(--linktext1);
+            }
+        }
+    }
+
+    // select
+    [class*="___list-box___"] {
+        background: var(--bgcolor2);
+        color: var(--textcolor1);
+
+        [class^="___item"]:hover {
+            background: var(--hover1);
+        }
+    }
+
+    // タイムシフト削除
+    [class^="___delete-button"] {
+        background: var(--bgcolor2);
+        color: var(--textcolor1);
+        border-color: var(--accent1);
+
+        &:hover {
+            border-color: var(--dangerous1);
+            color: var(--dangerous1);
+        }
+
+        &:disabled {
+            background: var(--bgcolor3);
+            color: var(--textcolor2);
+        }
+    }
+
+    // ポップアップメニュー
+    [class^="___program-card___"]>.action-area>.menu-popup-control>.toggle-button:before {
+        background: var(--textcolor2);
+    }
+
+    [class^="___program-card___"]>.action-area>.menu-popup-control>.toggle-button:hover {
+        background: var(--hover1);
+    }
+
+    [class^="___program-card___"]>.action-area>.menu-popup-control>.target {
+        background: var(--bgcolor2);
+        color: var(--textcolor1);
+    }
+
+    [class^="___program-card___"]>.action-area>.menu-popup-control>.target>button, [class^="___program-card___"]>.action-area>.menu-popup-control>.target>a {
+        color: var(--textcolor1);
+
+        &:hover {
+            background: var(--hover1);
+        }
+    }
+}

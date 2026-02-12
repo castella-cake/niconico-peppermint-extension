@@ -37,8 +37,11 @@ export default defineContentScript({
                 if (location.hostname === "anime.nicovideo.jp") {
                     document.documentElement.classList.add('PMDM-NAnime')
                 }
-                if (location.hostname === "live.nicovideo.jp") {
+                if (location.hostname === "live.nicovideo.jp" && !location.pathname.startsWith("/embed")) {
                     document.documentElement.classList.add('PMDM-NicoLiveHome')
+                }
+                if (location.hostname === "live.nicovideo.jp" && location.pathname.startsWith("/embed")) {
+                    document.documentElement.classList.add('PMDM-NicoLiveEmbed')
                 }
                 if (location.hostname === "live.nicovideo.jp" && location.pathname.startsWith("/watch")) {
                     document.documentElement.classList.add('PMDM-NicoLiveWatch')
