@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - DMS: ニコニコ生放送のタイムシフトリストのダークモードサポートを修正しました
 - DMS: ニコニコホームのダークモードサポートを更新しました
+- TWEAK: 大百科の「サイドバーを左に表示する」を再実装しました
 
 ### Removed
 - DMS: Nアニメのダークモードサポートは維持が困難であるため廃止されました
