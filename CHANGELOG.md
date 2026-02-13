@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.11] - 2025/02/13
+
+### Fixed
+- DMS: ニコニコ生放送のタイムシフトリストのダークモードサポートを修正しました
+- DMS: ニコニコホームのダークモードサポートを更新しました
+- TWEAK: 大百科の「サイドバーを左に表示する」を再実装しました
+
+### Removed
+- DMS: Nアニメのダークモードサポートは維持が困難であるため廃止されました
+
 ## [3.1.10] - 2025/10/17
 
 ### Fixed
@@ -769,7 +779,9 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.1.9...HEAD
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.1.11...HEAD
+[3.1.11]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.10...v3.1.11
+[3.1.10]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.9...v3.1.10
 [3.1.9]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.8...v3.1.9
 [3.1.8]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.7...v3.1.8
 [3.1.7]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.6...v3.1.7

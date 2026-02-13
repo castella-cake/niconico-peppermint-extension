@@ -13,7 +13,7 @@ export default defineContentScript({
             console.log(`Error: ${error}`);
         }
         
-        const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "anime.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp", "nicoad.nicovideo.jp"];
+        const locationWhiteList = ["www.nicovideo.jp", "live.nicovideo.jp", "inform.nicovideo.jp", "koken.nicovideo.jp", "nicoad.nicovideo.jp"];
         function createFastCSSRule(result: { [key: string]: any }) {
             // #region HTML要素用のパレット設定
             if (result.darkmode
@@ -34,11 +34,14 @@ export default defineContentScript({
                 if (location.hostname === "blog.nicovideo.jp" && location.pathname.startsWith("/niconews")) {
                     document.documentElement.classList.add('PMDM-NicoInfo')
                 }
-                if (location.hostname === "anime.nicovideo.jp") {
+                /*if (location.hostname === "anime.nicovideo.jp") {
                     document.documentElement.classList.add('PMDM-NAnime')
-                }
-                if (location.hostname === "live.nicovideo.jp") {
+                }*/
+                if (location.hostname === "live.nicovideo.jp" && !location.pathname.startsWith("/embed")) {
                     document.documentElement.classList.add('PMDM-NicoLiveHome')
+                }
+                if (location.hostname === "live.nicovideo.jp" && location.pathname.startsWith("/embed")) {
+                    document.documentElement.classList.add('PMDM-NicoLiveEmbed')
                 }
                 if (location.hostname === "live.nicovideo.jp" && location.pathname.startsWith("/watch")) {
                     document.documentElement.classList.add('PMDM-NicoLiveWatch')

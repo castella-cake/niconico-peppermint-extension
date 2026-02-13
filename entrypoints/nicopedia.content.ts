@@ -18,6 +18,9 @@ export default defineContentScript({
             } else if ( result.dicfullwidth === true && result.dicforcewidthmode === "100" ) {
                 addCSS(browser.runtime.getURL("/style/css/nicopedia/fullwidth_force100.css"))
             }
+            if ( result.dicsidebartoleft ) {
+                addCSS(browser.runtime.getURL("/style/css/nicopedia/sidebartoleft.css"))
+            }
             if ( result.dicbettereditor ) {
                 addCSS(browser.runtime.getURL("/style/css/nicopedia/bettereditor.css"))
             }
