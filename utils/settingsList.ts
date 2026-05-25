@@ -39,6 +39,11 @@ const settings: settingList = {
             }],
         },
         {
+            type: "checkbox",
+            name: "usenativedarkmode",
+            default: false,
+        },
+        {
             type: "select",
             name: "headerbg",
             values: ["", "gradient", "custom"],
@@ -108,11 +113,6 @@ const settings: settingList = {
             name: "watchhideknowntitle",
             default: false,
         },
-        {
-            type: "checkbox",
-            name: "usenativedarkmode",
-            default: false,
-        }
     ],
     nicopedia: [
         {

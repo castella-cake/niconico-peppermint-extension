@@ -1,3 +1,4 @@
+import { isNvpcNext } from "@/utils/isNvpcNext";
 import { getSyncStorageData } from "../utils/storageControl";
 import { addCSS, addPMStyleElem, pushCSSRule } from "../utils/styleControl";
 import $ from "jquery"
@@ -33,7 +34,7 @@ export default defineContentScript({
             // #region パレットとダークモード関連
             if ( result.darkmode && result.darkmode !== ""
                 && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) 
-                && !(location.hostname == "www.nicovideo.jp" && location.pathname.startsWith("/watch") && result.usenativedarkmode)
+                && !(location.hostname == "www.nicovideo.jp" && isNvpcNext(location) && result.usenativedarkmode)
             ) {
                 if (result.darkmode == 'custom' && result.customcolorpalette) {
                     const varArray = Object.keys(result.customcolorpalette).map(item => {

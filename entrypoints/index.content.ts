@@ -19,7 +19,7 @@ export default defineContentScript({
             if (result.darkmode
                 && !(result.darkmodedynamic === true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)
                 && locationWhiteList.includes(location.hostname)
-                && !(location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/watch") && result.usenativedarkmode)
+                && !(location.hostname === "www.nicovideo.jp" && isNvpcNext(location) && result.usenativedarkmode)
                 && !allegationPattern.includes(location.toString())
             ) {
                 document.documentElement.classList.add('PMDM-Assist')
