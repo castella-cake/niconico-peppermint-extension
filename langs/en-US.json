@@ -53,10 +53,6 @@
             "name": "Hide unnecessary button titles next to comments",
             "hint": "Hides the titles of action buttons next to the comment input area, showing only icons for Share/Niconi ad/Gift."
         },
-        "usenativedarkmode": {
-            "name": "Use native color palette",
-            "hint": "Disables PepperMint+ dark mode/color palette on watch pages."
-        },
         
         "hidereputation": {
             "name": "Hide number of ratings",
@@ -126,6 +122,10 @@
         "darkmodedynamic": {
             "name": "Follow browser settings",
             "hint": ""
+        },
+        "usenativedarkmode": {
+            "name": "Use native color palette",
+            "hint": "Disables PepperMint+ dark mode/color palette on modern pages."
         },
         "headerbg": {
             "name": "Header background",

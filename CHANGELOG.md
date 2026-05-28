@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.12] - 2025/05/28
+
+### Changed
+- TWEAK: `ネイティブのカラーパレットを使用する` がランキングページと検索ページを対象にするように変更しました
+
+### Fixed
+- DMS: ヘッダーのダークモードサポートを更新しました
+- DMS: 視聴履歴のダークモードサポートを更新しました
+
 ## [3.1.11] - 2025/02/13
 
 ### Fixed
@@ -779,7 +788,8 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.1.11...HEAD
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.1.12...HEAD
+[3.1.12]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.11...v3.1.12
 [3.1.11]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.10...v3.1.11
 [3.1.10]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.9...v3.1.10
 [3.1.9]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.8...v3.1.9
