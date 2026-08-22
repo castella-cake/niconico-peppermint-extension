@@ -57,7 +57,8 @@ export default defineContentScript({
                     document.documentElement.classList.add('PMDM-Enabled')
                 }
                 if (location.hostname === "www.nicovideo.jp" && (
-                    location.pathname.startsWith("/watch") ||
+                    location.pathname.startsWith("/watch/") ||
+                    location.pathname.startsWith("/shorts/") ||
                     location.pathname.startsWith("/ranking") ||
                     location.pathname.startsWith("/tag/") ||
                     location.pathname.startsWith("/search/") ||
