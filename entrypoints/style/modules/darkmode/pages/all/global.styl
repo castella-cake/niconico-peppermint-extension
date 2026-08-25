@@ -114,8 +114,29 @@ html.PMDM-Enabled {
     .AuroraVisionCard {
         background-color: var(--bgcolor2);
     }
-    .AuroraVisionCard-metaCatch {
+    .AuroraVisionCard-metaCatch, .AuroraVisionCard-metaPickUpComment, .AuroraVisionCard-metaContentTitle {
         color: var(--textcolor1);
+    }
+    .AuroraVisionCard-metaCounters {
+        color: var(--textcolor2);
+    }
+    .AuroraVisionCard-metaCounters>span>svg {
+        fill: var(--textcolor2);
+    }
+
+    /* イベント */
+    .StageEventContentCard {
+        background: var(--bgcolor2);
+    }
+    /* 背景のあるセクションで元に戻す */
+    section.EventDecorationContainer:has(.EventDecorationContainer-background) {
+        --bgcolor1: #f5f5f5;
+        --bgcolor2: #fafafa;
+        --bgcolor3: #e7e7e7;
+        --bgcolor4: #c7c7c7;
+        --textcolor1: #111;
+        --textcolor2: #333;
+        --textcolor3: #555;
     }
 
     /* ニュース */
