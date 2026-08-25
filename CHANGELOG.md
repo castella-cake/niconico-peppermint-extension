@@ -7,8 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased] - 2026/08
 
+### Changed
+- おすすめ動画ページのモダン化に伴って、モダンページ用パレットを適用するように変更しました
+
 ### Fixed
 - モダンページの判定にショートページが含まれるようになりました
+- オーロラビジョンのダークモードサポートを更新しました
 
 ### Removed
 - 旧検索のダークモードサポートが削除されました (PR #45, by @nines75)

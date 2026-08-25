@@ -64,7 +64,8 @@ export default defineContentScript({
                     location.pathname.startsWith("/search/") ||
                     location.pathname.startsWith("/series_search/") ||
                     location.pathname.startsWith("/mylist_search/") ||
-                    location.pathname.startsWith("/user_search/")
+                    location.pathname.startsWith("/user_search/") ||
+                    location.pathname.startsWith("/recommendations")
                 )) {
                     document.documentElement.classList.add('PMDM-ModernPage')
                 } else if (location.hostname === "www.nicovideo.jp" && location.pathname.startsWith("/video_top")) {
