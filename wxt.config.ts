@@ -32,6 +32,7 @@ export default defineConfig({
             "resources": [
                 "style/*",
                 "watch_injector.js",
+                "past-log-loader.js",
                 "*://*.nicovideo.jp/*",
             ],
             "matches": [

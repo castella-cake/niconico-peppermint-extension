@@ -113,6 +113,11 @@ const settings: settingList = {
             name: "watchhideknowntitle",
             default: false,
         },
+        {
+            type: "checkbox",
+            name: "enablePastLogLoader",
+            default: false,
+        },
     ],
     nicopedia: [
         {
