@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.1.14] - 2026/10
+
+### Fixed
+- カスタムランキングページでニコニ広告行を隠すと、5位より先のランキングがロードされなくなる問題を修正しました
+
 ## [3.1.13] - 2026/08/25
 
 ### Changed
@@ -800,7 +805,8 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.1.13...HEAD
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.1.14...HEAD
+[3.1.14]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.13...v3.1.14
 [3.1.13]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.12...v3.1.13
 [3.1.12]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.11...v3.1.12
 [3.1.11]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.10...v3.1.11
