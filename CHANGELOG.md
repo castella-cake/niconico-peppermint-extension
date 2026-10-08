@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [3.1.14] - 2026/10
 
+### Changed
+- 動画トップ2カラムでおすすめの動画セクションの右側広告は下に表示するようになりました
+
 ### Fixed
 - カスタムランキングページでニコニ広告行を隠すと、5位より先のランキングがロードされなくなる問題を修正しました
 
