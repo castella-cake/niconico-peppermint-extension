@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - カスタムランキングページでニコニ広告行を隠すと、5位より先のランキングがロードされなくなる問題を修正しました
+- 動画トップ2カラムでスクロールバー分横スクロールが発生する問題を修正しました
 
 ## [3.1.13] - 2026/08/25
 

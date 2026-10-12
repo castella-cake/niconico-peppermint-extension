@@ -1,5 +1,5 @@
 import $ from "jquery"
-import { addCSS, pushCSSRule } from "../utils/styleControl";
+import { pushCSSRule } from "../utils/styleControl";
 
 
 export default defineContentScript({
@@ -39,7 +39,7 @@ export default defineContentScript({
                     $('.BaseLayout-main-left').append(elem)
                 }
             });
-            addCSS(browser.runtime.getURL("/style/css/vidtoptwocolumn.css"))
+            document.documentElement.classList.add('PM-VideoTopTwoColumn')
         }
     },
 });
