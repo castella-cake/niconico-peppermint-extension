@@ -12,6 +12,7 @@ export function MoveToFolder(props) {
         if (syncStorage.stockedseries != undefined && syncStorage.stockedseries.findIndex(elem => elem.id === folderId) != -1) {
             const index = syncStorage.stockedseries.findIndex(elem => elem.id === folderId)
             if ( syncStorage.stockedseries[index].idList.includes(seriesId) ) return
+            /** @type {import("@/types/seriesStock").SeriesStock[]} */
             const stockArrayCopy = syncStorage.stockedseries.slice()
             stockArrayCopy[index].idList.push(seriesId)
             setSyncStorageValue("stockedseries", stockArrayCopy)

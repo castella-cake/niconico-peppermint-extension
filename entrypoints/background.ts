@@ -1,4 +1,5 @@
 
+import type { SeriesStock } from "../types/seriesStock";
 
 export default defineBackground({
     persistent: false,
@@ -7,7 +8,7 @@ main(){
     browser.runtime.onInstalled.addListener(function (details) {
         if (details.reason == "install") {
             browser.tabs.create({
-                url: browser.runtime.getURL("welcome.html")
+                url: browser.runtime.getURL("/welcome.html")
             });
         } else if (details.reason == "update" && details.previousVersion !== manifestData.version) {
             if (browser.browserAction != undefined) {
@@ -18,10 +19,10 @@ main(){
                 browser.action.setBadgeBackgroundColor({ color: "#169cf0"});
             }
             if (
-                details.previousVersion.split(".")[0] != manifestData.version.split(".")[0]
+                details.previousVersion && details.previousVersion.split(".")[0] != manifestData.version.split(".")[0]
             ) {
                 browser.tabs.create({
-                    url: browser.runtime.getURL("update.html")
+                    url: browser.runtime.getURL("/update.html")
                 });
             }
             browser.storage.local.set({ "versionupdated": true })
@@ -54,44 +55,7 @@ main(){
                 break;
         }
     })
-    function generateActionTrackId() {
-        const atc_first = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        const atc_last = "0123456789"
-        let ati_firststr = ""
-        let ati_laststr = ""
-        for (let i = 0; i < 10; i++) {
-            //console.log(i)
-            ati_firststr += atc_first[Math.floor(Math.random() * atc_first.length)]
-        }
-        for (let i = 0; i < 24; i++) {
-            //console.log(i)
-            ati_laststr += atc_last[Math.floor(Math.random() * atc_last.length)]
-        }
-        return ati_firststr + "_" + ati_laststr
-    }
-    // #region getVideoInfo
-    function getVideoInfo(smId) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                // responseType=jsonで取得。
-                const response = await fetch(`https://www.nicovideo.jp/watch/${smId}?responseType=json`, {
-                    "credentials": "include",
-                    "headers": {
-                        "User-Agent": `PepperMintPlus/${manifestData.version}`,
-                    },
-                    "method": "GET"
-                })
-                if ( !response.ok ) reject("Response is not ok")
-                const responseJson = await response.json()
-                if ( responseJson.meta.status !== 200 ) reject(responseJson.meta.status)
-                resolve(responseJson)
-            } catch (err) {
-                reject(err)
-            }
-        })
-    }
-    // #endregion
-    function getSeriesInfo(seriesid, cachemode = 0) {
+    function getSeriesInfo(seriesid: number, cachemode = 0) {
         // シリーズ情報を取得してキャッシュします。
         // キャッシュモードが0の場合はキャッシュを返します。
         // cachemode 0 => use cache 1 => no cache 2 => no cache and badge update
@@ -162,7 +126,7 @@ main(){
         })
     }
     
-    function getSeriesNameFromPage(targetId) {
+    function getSeriesNameFromPage(targetId: string) {
         const pathArray = location.pathname.split("/")
         if ( pathArray[1] == "user" && pathArray[3] == "series" && pathArray[4].startsWith(targetId) ) {
             const seriesNameElem = document.querySelector(".SeriesDetailHeader-bodyTitle")
@@ -181,12 +145,33 @@ main(){
         if (mintWatchSeriesAnchorElem && mintWatchSeriesAnchorElem.getAttribute("data-pmw-value")) {
             return { status: true, name: mintWatchSeriesAnchorElem.textContent, seriesId: mintWatchSeriesAnchorElem.getAttribute("data-pmw-value") }
         }
-        const seriesAnchorElem = document.querySelector("a[data-anchor-page=\"watch\"][data-anchor-area=\"series\"]")
+        const seriesAnchorElem = document.querySelector<HTMLAnchorElement>("a[data-anchor-page=\"watch\"][data-anchor-area=\"series\"]")
         console.log(seriesAnchorElem)
-        if ( !seriesAnchorElem || !seriesAnchorElem.href || !seriesAnchorElem.pathname ) return {status: false}
+        if ( !seriesAnchorElem || !seriesAnchorElem.href || !seriesAnchorElem.pathname ) return {status: false, reason: "Cannot get series anchor element."}
+
+        const prevAnchorElem = document.querySelector<HTMLAnchorElement>("a[data-anchor-page=\"watch\"][data-anchor-area=\"series\"][data-anchor-detail=\"prev\"]")
+        const nextAnchorElem = document.querySelector<HTMLAnchorElement>("a[data-anchor-page=\"watch\"][data-anchor-area=\"series\"][data-anchor-detail=\"next\"]")
         const splittedPathname = seriesAnchorElem.pathname.split("/")
-        if ( splittedPathname.length < 2 ) return {status: false}
-        return { status: true, name: seriesAnchorElem.textContent, seriesId: splittedPathname[2] }
+        const prevUrl = prevAnchorElem ? new URL(prevAnchorElem.href) : null
+        const nextUrl = nextAnchorElem ? new URL(nextAnchorElem.href) : null
+
+        const videoTitleElem = document.querySelector("main h1")
+        const thisSmId = location.pathname.split("/")[2]
+
+        console.log(videoTitleElem, thisSmId, prevAnchorElem, nextAnchorElem)
+
+        if ( splittedPathname.length < 2 ) return {status: false, reason: "Cannot parse series path."}
+        return {
+            status: true,
+            name: seriesAnchorElem.textContent,
+            seriesId: splittedPathname[2],
+            prevVidTitle: prevAnchorElem ? prevAnchorElem.textContent : null,
+            nextVidTitle: nextAnchorElem ? nextAnchorElem.textContent : null,
+            prevVidId: prevUrl ? prevUrl.pathname.split("/")[2] : null,
+            nextVidId: nextUrl ? nextUrl.pathname.split("/")[2] : null,
+            currentVidTitle: videoTitleElem ? videoTitleElem.textContent : null,
+            currentVidId: thisSmId ? thisSmId : null
+        }
     }
     
     browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -230,7 +215,7 @@ main(){
                 try {
                     browser.tabs.query({ 'active': true, 'currentWindow': true }, tabarray => {
                         const activeURL = tabarray[0].url
-                        if (activeURL != undefined && activeURL.indexOf('www.nicovideo.jp') != -1) {
+                        if (activeURL != undefined && activeURL.indexOf('www.nicovideo.jp') != -1 && tabarray[0].id) {
                             browser.tabs.update(tabarray[0].id, { url: message.href })
                         } else {
                             browser.tabs.create({ url: message.href });
@@ -289,17 +274,17 @@ main(){
             if ( message.getType == "series" ) {
                 try {
                     browser.tabs.query({ 'active': true, 'currentWindow': true }, tabarray => {
-                        if ( tabarray && tabarray[0] ) {
+                        if ( tabarray && tabarray[0] && tabarray[0].url && tabarray[0].id ) {
                             const activeURL = tabarray[0].url
                             console.log(activeURL)
                             const pathArray = activeURL.replace(/\?.*$/, "").replace("https://www.nicovideo.jp/", "").split("/");
                             if (activeURL && activeURL.indexOf('www.nicovideo.jp') !== -1 ) {
                                 if (pathArray.length >= 4 && pathArray[0] == "user" && pathArray[2] == "series") {
-                                    new Promise((resolve) => chrome.scripting.executeScript({
-                                        target: { tabId: tabarray[0].id },
+                                    new Promise((resolve) => browser.scripting.executeScript({
+                                        target: { tabId: tabarray[0].id! },
                                         func: getSeriesNameFromPage,
                                         args: [pathArray[3],]
-                                    }, resolve)).then(res => {
+                                    }, resolve)).then((res: any) => {
                                         if (!res[0]) return;
                                         const result = res[0].result
                                         if ( result && result.status == true && result.name ) {
@@ -312,10 +297,10 @@ main(){
                                     })
                                 } else if (pathArray.length >= 1 && pathArray[0] == "watch") {
                                     console.log("this is watchpage")
-                                    new Promise((resolve) => chrome.scripting.executeScript({
-                                        target: { tabId: tabarray[0].id },
+                                    new Promise((resolve) => browser.scripting.executeScript({
+                                        target: { tabId: tabarray[0].id! },
                                         func: getSeriesNameFromWatchPage
-                                    }, resolve)).then(res => {
+                                    }, resolve)).then((res: any) => {
                                         if (!res[0]) return;
                                         const result = res[0].result
                                         if ( result && result.status == true && result.name ) {
@@ -367,46 +352,42 @@ main(){
                     });
                     return true;
                 }
-                // 動画情報を取得する
-                getVideoInfo(message.smId).then(videoInfo => {
-                    //console.log(videoInfo)
-                    // データと応答とシリーズ情報が存在する？
-                    if ( videoInfo.data && videoInfo.data.response && videoInfo.data.response.series ) {
-                        // シリーズ情報を代入して、ストック情報をコピー
-                        const thisSeriesInfo = videoInfo.data.response.series
-                        //console.log(thisSeriesInfo)
-                        const stockedseriesarray = JSON.parse(JSON.stringify(storage.stockedseries))
-                        // ストック情報を走査して、現在の動画が属しているシリーズに一致する要素を書き換える
-                        stockedseriesarray.forEach((object) => {
-                            // 型が違う！！===にしないように
-                            if (object.seriesID == thisSeriesInfo.id) {
-                                object.lastVidID = message.smId
-                                object.lastVidName = videoInfo.data.response.video.title
-                                if ( thisSeriesInfo.video.next ) {
-                                    object.nextVidID = thisSeriesInfo.video.next.id
-                                    object.nextVidName = thisSeriesInfo.video.next.title
-                                } else {
-                                    object.nextVidID = null
-                                    object.nextVidName = null
+                if ( sender.tab && sender.tab?.id ) {
+                    new Promise((resolve) => browser.scripting.executeScript({
+                        target: { tabId: sender.tab!.id! },
+                        func: getSeriesNameFromWatchPage
+                    }, resolve)).then((res: any) => {
+                        if (!res[0]) return;
+                        const result = res[0].result
+                        if ( result && result.status == true && result.name && result.seriesId && result.currentVidId && result.currentVidTitle ) {
+                            const stockedseriesarray: SeriesStock[] = JSON.parse(JSON.stringify(storage.stockedseries))
+                            // ストック情報を走査して、現在の動画が属しているシリーズに一致する要素を書き換える
+                            stockedseriesarray.forEach((object) => {
+                                if (String(object.seriesID) === String(result.seriesId)) {
+                                    object.lastVidID = result.currentVidId
+                                    object.lastVidName = result.currentVidTitle
+                                    if ( result.nextVidId && result.nextVidTitle ) {
+                                        object.nextVidID = result.nextVidId
+                                        object.nextVidName = result.nextVidTitle
+                                    } else {
+                                        object.nextVidID = null
+                                        object.nextVidName = null
+                                    }
+                                    //console.log(object)
                                 }
-    
-                                //console.log(object)
-                            }
-                        })
-                        // 保存してステータス返却
-                        browser.storage.sync.set({
-                            "stockedseries": stockedseriesarray
-                        })
-                        sendResponse({ 'status': true });
-                        return true;
-                    }
-                }).catch(err => {
-                    sendResponse({
-                        'status': false,
-                        'reason': err
-                    });
-                    return true;
-                })
+                            })
+
+                            browser.storage.sync.set({
+                                "stockedseries": stockedseriesarray
+                            })
+                            sendResponse({ 'status': true });
+                            return true;
+                        } else {
+                            sendResponse({ 'status': false, 'reason': `Cannot get elements from page: ${JSON.stringify(result)}` });
+                            return true;
+                        }
+                    })
+                }
             })
             return true;
         } else {
@@ -428,10 +409,11 @@ main(){
                 getStorageData.then(function (result) {
                     // 有効でかつストック中がundefinedじゃない
                     if (result.enableseriesstock && result.stockedseries) {
+                        const stockedSeries: SeriesStock[] = result.stockedseries
                         // lengthが300以下なら
-                        if (result.stockedseries.length < 300) {
+                        if (stockedSeries.length < 300) {
                             // forEachで一個ずつ処理
-                            result.stockedseries.forEach((element, i) => {
+                            stockedSeries.forEach((element, i) => {
                                 setTimeout(() => {
                                     //console.log(element.seriesID)
                                     // キャッシュなしで取得(これでキャッシュされる)

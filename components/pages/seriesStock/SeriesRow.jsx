@@ -14,6 +14,7 @@ import { IconChevronDown, IconChevronUp, IconFolderSymlink, IconPlayerPlayFilled
 // 操作: シリーズの削除, フォルダーから除去, 「フォルダーへ移動」(MoveToFolder.jsx)を開く, 詳細を展開
 export function SeriesRow(props) {
     const { isUnlocked, lang, syncStorage, setSyncStorageValue } = useSSContext()
+    /** @type {import("@/types/seriesStock").SeriesStock} */
     const thisSeries = props.series
     if (thisSeries.type == "folder") {
         return

@@ -38,6 +38,7 @@ export function CreateFolderModal() {
         getData()
     }, [])
     const editFolderIndex = (fcEditId != null ? syncStorage.stockedseries.findIndex(elem => elem.id === fcEditId) : -1);
+    /** @type {import("@/types/seriesStock").SeriesStock | undefined} */
     const editFolderObj = (editFolderIndex != -1 ? syncStorage.stockedseries[editFolderIndex] : undefined)
     const [ checkedIds, setCheckedIds ] = useState([].concat((editFolderObj ? editFolderObj.idList : fcDefaultSelected)))
     const folderNameInputRef = useRef(null)

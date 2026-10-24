@@ -32,11 +32,9 @@ export function AvailableSeriesRow() {
     }, [])
 
     function addSeriesStock(seriesId, seriesName) {
-        if ( syncStorage.stockedseries ) {
-            setSyncStorageValue("stockedseries", [{ seriesID: seriesId, seriesName: seriesName }, ...syncStorage.stockedseries])
-        } else {
-            setSyncStorageValue("stockedseries", [{ seriesID: seriesId, seriesName: seriesName }])
-        }
+        /** @type {import("@/types/seriesStock").SeriesStock[]} */
+        const addAfter = [{ seriesID: seriesId, seriesName: seriesName }, ...(syncStorage.stockedseries ?? [])]
+        setSyncStorageValue("stockedseries", addAfter)
     }
     
     return <>{( addAvailableSeriesId && addAvailableSeriesName && !seriesIdArray.includes(addAvailableSeriesId) ) && <div className="stockedseries-add-row">
