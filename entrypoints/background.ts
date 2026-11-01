@@ -141,9 +141,41 @@ main(){
     }
 
     function getSeriesNameFromWatchPage() {
+        const thisSmId = location.pathname.split("/")[2]
+
         const mintWatchSeriesAnchorElem = document.querySelector("a[data-pmw-type=\"series-title\"]")
         if (mintWatchSeriesAnchorElem && mintWatchSeriesAnchorElem.getAttribute("data-pmw-value")) {
-            return { status: true, name: mintWatchSeriesAnchorElem.textContent, seriesId: mintWatchSeriesAnchorElem.getAttribute("data-pmw-value") }
+            const infoCards = document.querySelectorAll("#pmw-seriesinfo .seriesinfo-episodes .info-card")
+            let videoObject = {}
+            infoCards.forEach(element => {
+                const statusText = element.querySelector(".info-card-series-text")
+                if (statusText?.textContent === "前の動画") {
+                    const prevAnchorElem = element.querySelector<HTMLAnchorElement>("a.info-card-link")
+                    const prevAnchorUrl = prevAnchorElem ? new URL(prevAnchorElem.href) : null
+                    videoObject = {
+                        ...videoObject,
+                        prevVidTitle: element.querySelector(".info-card-content-title")?.textContent,
+                        prevVidId: prevAnchorUrl ? prevAnchorUrl.pathname.split("/")[2] : null
+                    }
+                } else if (statusText?.textContent === "次の動画") {
+                    const prevAnchorElem = element.querySelector<HTMLAnchorElement>("a.info-card-link")
+                    const prevAnchorUrl = prevAnchorElem ? new URL(prevAnchorElem.href) : null
+                    videoObject = {
+                        ...videoObject,
+                        nextVidTitle: element.querySelector(".info-card-content-title")?.textContent,
+                        nextVidId: prevAnchorUrl ? prevAnchorUrl.pathname.split("/")[2] : null
+                    }
+                }
+            });
+            const videoTitleElem = document.querySelector("#pmw-videoinfo .videotitle")
+            return {
+                status: true,
+                name: mintWatchSeriesAnchorElem.textContent,
+                seriesId: mintWatchSeriesAnchorElem.getAttribute("data-pmw-value"),
+                currentVidId: (videoTitleElem && thisSmId) || null,
+                currentVidTitle: videoTitleElem?.textContent ?? null,
+                ...videoObject
+            }
         }
         const seriesAnchorElem = document.querySelector<HTMLAnchorElement>("a[data-anchor-page=\"watch\"][data-anchor-area=\"series\"]")
         console.log(seriesAnchorElem)
@@ -156,7 +188,6 @@ main(){
         const nextUrl = nextAnchorElem ? new URL(nextAnchorElem.href) : null
 
         const videoTitleElem = document.querySelector("main h1")
-        const thisSmId = location.pathname.split("/")[2]
 
         console.log(videoTitleElem, thisSmId, prevAnchorElem, nextAnchorElem)
 

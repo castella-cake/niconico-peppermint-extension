@@ -1,7 +1,7 @@
 import { getSyncStorageData } from "../utils/storageControl";
 
 const watchPattern = new MatchPattern('*://www.nicovideo.jp/watch/*');
-const seriesAnchorSelector = 'a[data-anchor-page="watch"][data-anchor-area="series"]';
+const seriesAnchorSelector = 'a[data-anchor-page="watch"][data-anchor-area="series"], a[data-pmw-type=\"series-title\"]';
 const seriesAnchorTimeoutMs = 5000;
 
 function waitForSeriesAnchor(timeoutMs: number) {
