@@ -1,0 +1,164 @@
+.pmw-comment-timemachine-container {
+  --bgcolor1: #252525;
+  --bgcolor2: #333;
+  --bgcolor3: #666;
+  --bgcolor4: #aaa;
+  --bgcolorab: rgba(#252525, 0.25);
+  --bgcoloraw: rgba(#fff, 0.25);
+  --textcolor1: #fcfcfc;
+  --textcolor2: #ddd;
+  --textcolor3: #aaa;
+  --textcolornew: #e05050;
+  --accent1: #444;
+  --accent2: #888;
+  --hover1: #666;
+  --hover2: #aaa;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: var(--accent1);
+  --border: var(--border-width) var(--border-style) var(--border-color);
+
+  position: absolute;
+  right: auto;
+  left: 0;
+  bottom: 100%;
+  width: auto;
+  margin-bottom: 8px;
+  padding: 16px;
+  background: var(--bgcolor1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-big);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--textcolor1);
+  font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: pmw-comment-timemachine-fadein 200ms ease forwards;
+
+  .pmw-comment-timemachine-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  .pmw-comment-timemachine-reload {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: var(--radius-mini);
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--textcolor1);
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 150ms ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.5);
+      outline-offset: 2px;
+    }
+  }
+
+  .pmw-comment-timemachine-content {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .pmw-comment-timemachine-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    label {
+      font-size: 11px;
+      color: var(--textcolor2);
+    }
+  }
+
+  .pmw-comment-timemachine-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 8px;
+    border: none;
+    border-radius: var(--radius-mini);
+    background: var(--bgcolor2);
+    color: var(--textcolor1);
+    font-family: inherit;
+    font-size: 13px;
+    color-scheme: dark;
+  }
+
+  .pmw-comment-timemachine-confirm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    border: var(--border);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--textcolor1);
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 150ms ease, transform 150ms ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.5);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    &[aria-disabled="true"] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  .pmw-comment-timemachine-currentindicator {
+    padding: 6px 8px;
+    margin-bottom: 8px;
+    border-radius: var(--radius-mini);
+    background: var(--bgcolor2);
+    color: var(--textcolor2);
+    font-size: 12px;
+  }
+
+  .pmw-comment-timemachine-description {
+    font-size: 11px;
+    color: var(--textcolor3);
+    line-height: 1.5;
+  }
+}
+
+@keyframes pmw-comment-timemachine-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

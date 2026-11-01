@@ -124,12 +124,7 @@ export default defineContentScript({
                 addCSS(browser.runtime.getURL("/style/css/visualpatch.css"))
             }
         }
-        getSyncStorageData.then((result) => {
-            createFastCSSRule(result);
-            if (location.hostname === "www.nicovideo.jp" && result.enablePastLogLoader === true) {
-                injectScript("/past-log-loader.js").catch(onError);
-            }
-        }, onError)
+        getSyncStorageData.then(createFastCSSRule, onError)
         
         // <head>が増えた時に一度だけbaseCSSRuleを呼ぶ。
         const observehtml = document.documentElement

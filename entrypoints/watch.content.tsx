@@ -1,8 +1,15 @@
 import { createRoot } from "react-dom/client";
 import { getSyncStorageData } from "../utils/storageControl";
 import WatchActionButtons from "@/components/WatchActionButtons";
+import SeriesStockButton from "@/components/SeriesStockButton";
+import "@/components/MintWatchIntegration.styl";
 
 const watchPattern = new MatchPattern('*://www.nicovideo.jp/watch/*');
+
+function isMintWatch(): boolean {
+    return document.documentElement.classList.contains("MW-Enabled");
+}
+
 // pmbutton-container は index_end.content.ts が document_end で作成するが、
 // 何らかの理由で存在しない場合はこのスクリプト側で用意する。
 function ensurePmbuttonContainer(): HTMLElement {
@@ -15,7 +22,7 @@ function ensurePmbuttonContainer(): HTMLElement {
     return container;
 }
 
-const seriesAnchorSelector = 'a[data-anchor-page="watch"][data-anchor-area="series"], a[data-pmw-type=\"series-title\"]';
+const seriesAnchorSelector = 'a[data-anchor-page="watch"][data-anchor-area="series"], a[data-pmw-type="series-title"]';
 const seriesAnchorTimeoutMs = 5000;
 
 function waitForSeriesAnchor(timeoutMs: number) {
@@ -77,7 +84,7 @@ export default defineContentScript({
             anchor: ".pmbutton-container",
             onMount: (wrapper) => {
                 const root = createRoot(wrapper);
-                root.render(<WatchActionButtons />);
+                root.render(<WatchActionButtons enablePastLogLoader={result.enablePastLogLoader === true} />);
                 return root;
             },
             onRemove: (root) => {
@@ -92,7 +99,10 @@ export default defineContentScript({
 
         function refreshWatchUI() {
             const onWatchPage = location.pathname.startsWith('/watch/');
-            if (onWatchPage) {
+            // シリーズストックも過去ログローダーも無効なら、左下UIを使う機能が無いので表示しない
+            const hasEnabledFeature = result.enableseriesstock === true || result.enablePastLogLoader === true;
+            // MintWatch 環境では左下UIは使わない (MintWatch側に同機能があるため)
+            if (onWatchPage && hasEnabledFeature && !isMintWatch()) {
                 if (!isUiMounted) {
                     ensurePmbuttonContainer();
                     ui.mount();
@@ -106,14 +116,74 @@ export default defineContentScript({
             }
         }
 
+        let mintWatchStockUi: ReturnType<typeof createIntegratedUi> | null = null;
+
+        function refreshMintWatchUI() {
+            const onWatchPage = location.pathname.startsWith('/watch/');
+            if (onWatchPage && result.enableseriesstock === true && isMintWatch()) {
+                if (!mintWatchStockUi) {
+                    mintWatchStockUi = createIntegratedUi(ctx, {
+                        position: "inline",
+                        anchor: "#pmw-seriesinfo .seriesinfo-content",
+                        onMount: (wrapper) => {
+                            wrapper.classList.add("pm-series-stock-mount");
+                            const root = createRoot(wrapper);
+                            root.render(<SeriesStockButton />);
+                            return root;
+                        },
+                        onRemove: (root) => {
+                            root?.unmount();
+                        },
+                    });
+                    mintWatchStockUi.autoMount();
+                }
+            } else {
+                if (mintWatchStockUi) {
+                    mintWatchStockUi.remove();
+                    mintWatchStockUi = null;
+                }
+            }
+        }
+
+        // fetchラッパー (past-log-loader) の注入。
+        // 過去ログローダー設定が有効かつ MintWatch 環境でないときに一度だけ注入する
+        // (MintWatch 環境では過去ログは MintWatch 側の機能を使うため注入しない)。
+        let pastLogInjected = false;
+        function refreshPastLogInjection() {
+            if (pastLogInjected) return;
+            if (result.enablePastLogLoader !== true) return;
+            if (isMintWatch()) return;
+            pastLogInjected = true;
+            injectScript("/past-log-loader.js").catch((err) => {
+                pastLogInjected = false;
+                console.error(err);
+            });
+        }
+
+        function refreshEnvironments() {
+            refreshWatchUI();
+            refreshMintWatchUI();
+            refreshPastLogInjection();
+        }
+
         ctx.addEventListener(window, 'wxt:locationchange', ({ newUrl }) => {
+            // WXTの locationchange はイベント名が名前空間化されるため、
+            // React コンポーネント側からは購読できない。ブリッジ用の素のイベントを発行する。
+            window.dispatchEvent(new CustomEvent("pmwatch:locationchange"));
             if (watchPattern.includes(newUrl) && result.enableseriesstock) {
                 requestSeriesStockUpdate();
             }
-            refreshWatchUI();
+            refreshEnvironments();
         });
 
+        // MintWatch は別拡張機能のため、MW-Enabled クラスが後から付く/外れる可能性がある
+        const mwObserver = new MutationObserver(() => {
+            refreshEnvironments();
+        });
+        mwObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+        ctx.onInvalidated(() => mwObserver.disconnect());
+
         requestSeriesStockUpdate();
-        refreshWatchUI();
+        refreshEnvironments();
     },
 });
