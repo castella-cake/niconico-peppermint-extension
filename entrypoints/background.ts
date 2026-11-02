@@ -36,7 +36,7 @@ main(){
         browser.alarms.create('seriesStock_Refresh', { delayInMinutes: 1, periodInMinutes: 120 })
         //browser.alarms.create('dynamicPatch_Refresh', { delayInMinutes: 0, periodInMinutes: 360 })
         let getStorageData = browser.storage.sync.get(null)
-        getStorageData.then((storage) => {
+        getStorageData.then((storage: { [key: string]: any }) => {
             if (storage.pediacontextsearch == true || storage.pediacontextsearch == false) {
                 browser.contextMenus.update( "dicsearch", {visible: storage.pediacontextsearch});
             } else {
@@ -62,7 +62,7 @@ main(){
         return new Promise((resolve, reject) => {
             try {
                 let getStorageData = browser.storage.local.get(null);
-                getStorageData.then((storage) => {
+                getStorageData.then((storage: { [key: string]: any }) => {
                     // ストレージにあるseriesidのキャッシュがnullでもundefinedでもなくて極めつけにusecacheがtrueならストレージのものを返す
                     if (storage.seriesdatacache != undefined && (storage.seriesdatacache[seriesid] != null && storage.seriesdatacache[seriesid] != undefined && cachemode == 0)) {
                         resolve(storage.seriesdatacache[seriesid])
@@ -290,7 +290,7 @@ main(){
             }
         } else if (message.type == "updateContextMenuState") {
             let getStorageData = browser.storage.sync.get(null);
-            getStorageData.then((storage) => {
+            getStorageData.then((storage: { [key: string]: any }) => {
                 if (storage.pediacontextsearch == true || storage.pediacontextsearch == false) {
                     browser.contextMenus.update( "dicsearch", {visible: storage.pediacontextsearch});
                 } else {
@@ -374,7 +374,7 @@ main(){
             }
         } else if ( message.type === "updateSeriesStockState" ) {
             let getStorageData = browser.storage.sync.get(null)
-            getStorageData.then((storage) => {
+            getStorageData.then((storage: { [key: string]: any }) => {
                 // ストックされたシリーズが存在しないならreturn
                 if ( !storage.stockedseries || storage.stockedseries.length <= 0 ) {
                     sendResponse({
@@ -431,13 +431,13 @@ main(){
     
     });
     
-    browser.alarms.onAlarm.addListener(function (e) {
+    browser.alarms.onAlarm.addListener((e) => {
         try {
             if (e.name == 'seriesStock_Refresh') {
                 //console.log('seriesstock refresh')
                 // ストレージ取得
                 let getStorageData = browser.storage.sync.get(null)
-                getStorageData.then(function (result) {
+                getStorageData.then((result: { [key: string]: any }) => {
                     // 有効でかつストック中がundefinedじゃない
                     if (result.enableseriesstock && result.stockedseries) {
                         const stockedSeries: SeriesStock[] = result.stockedseries

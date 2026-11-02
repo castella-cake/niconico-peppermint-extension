@@ -38,7 +38,7 @@ export default function SeriesStockButton() {
 
     useEffect(() => {
         async function init() {
-            const result = await browser.storage.sync.get(["enableseriesstock", "stockedseries"]);
+            const result: { [key: string]: any } = await browser.storage.sync.get(["enableseriesstock", "stockedseries"]);
             setIsEnabled(result.enableseriesstock === true);
             setStockedseries(result.stockedseries || []);
         }
@@ -124,7 +124,7 @@ export default function SeriesStockButton() {
     async function handleToggle() {
         if (!seriesInfo) return;
 
-        const result = await browser.storage.sync.get("stockedseries");
+        const result: { [key: string]: any } = await browser.storage.sync.get("stockedseries");
         const currentStock: SeriesStock[] = result.stockedseries || [];
         const isCurrentlyStocked = currentStock.some(
             (item) => String(item.seriesID) === String(seriesInfo.seriesId)
