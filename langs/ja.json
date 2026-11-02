@@ -48,6 +48,9 @@
             "name": "過去ログローダーを使用する",
             "hint": "新視聴ページで過去ログを読み込み可能にします。"
         },
+        "disableWatchActionButton": {
+            "name": "動画ページ内の PepperMint アクションボタンを非表示にする"
+        },
 
         "hidereputation": {
             "name": "評価数を隠す",

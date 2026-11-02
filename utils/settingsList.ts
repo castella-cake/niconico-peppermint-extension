@@ -118,6 +118,11 @@ const settings: settingList = {
             name: "enablePastLogLoader",
             default: false,
         },
+        {
+            type: "checkbox",
+            name: "disableWatchActionButton",
+            default: false,
+        }
     ],
     nicopedia: [
         {

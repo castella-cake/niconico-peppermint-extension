@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import { getSyncStorageData } from "../utils/storageControl";
 import WatchActionButtons from "@/components/WatchActionButtons";
 import SeriesStockButton from "@/components/SeriesStockButton";
-import "@/components/MintWatchIntegration.styl";
+import "@/components/MWSeriesStockButton.styl";
 
 const watchPattern = new MatchPattern('*://www.nicovideo.jp/watch/*');
 
@@ -101,8 +101,8 @@ export default defineContentScript({
             const onWatchPage = location.pathname.startsWith('/watch/');
             // シリーズストックも過去ログローダーも無効なら、左下UIを使う機能が無いので表示しない
             const hasEnabledFeature = result.enableseriesstock === true || result.enablePastLogLoader === true;
-            // MintWatch 環境では左下UIは使わない (MintWatch側に同機能があるため)
-            if (onWatchPage && hasEnabledFeature && !isMintWatch()) {
+            // MintWatch環境もしくは設定で無効化された場合にも左下UIを使わない
+            if (onWatchPage && hasEnabledFeature && !isMintWatch() && !result.disableWatchActionButton) {
                 if (!isUiMounted) {
                     ensurePmbuttonContainer();
                     ui.mount();
@@ -147,7 +147,6 @@ export default defineContentScript({
 
         // fetchラッパー (past-log-loader) の注入。
         // 過去ログローダー設定が有効かつ MintWatch 環境でないときに一度だけ注入する
-        // (MintWatch 環境では過去ログは MintWatch 側の機能を使うため注入しない)。
         let pastLogInjected = false;
         function refreshPastLogInjection() {
             if (pastLogInjected) return;

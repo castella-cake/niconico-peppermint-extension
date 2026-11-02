@@ -57,6 +57,9 @@
             "name": "Enable past log loader",
             "hint": "Enables loading of past logs on the new watch page."
         },
+        "disableWatchActionButton": {
+            "name": "Disable PepperMint action button in watch page"
+        },
         
         "hidereputation": {
             "name": "Hide number of ratings",
