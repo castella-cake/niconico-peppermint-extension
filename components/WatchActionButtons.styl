@@ -1,0 +1,162 @@
+.watch-action-buttons {
+  --bgcolor1: #1a1a1aaa;
+  --bgcolor2: #252525aa;
+  --bgcolor3: #3a3a3aaf;
+  --bgcolor4: #6a6a6aaf;
+  --accent1: #202020af;
+  --accent2: #2a2a2aaf;
+  --hover1: #404040af;
+  --hover2: #5a5a5aaf;
+  --textcolor1: #fff;
+  --textcolor2: #ddd;
+  --textcolor3: #aaa;
+  --radius: 6px;
+  --radius-mini: 4px;
+  --radius-big: 8px;
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: var(--accent1);
+  --border: var(--border-width) var(--border-style) var(--border-color);
+  --block-padding: 16px;
+  --blocks-gap: 8px;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background: var(--bgcolor1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-big);
+  gap: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: gap 200ms ease, background 150ms ease;
+
+  &[data-is-open="true"] {
+    gap: var(--blocks-gap);
+  }
+
+  .watch-action-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: var(--radius-big);
+    border: none;
+    background: transparent;
+    color: var(--textcolor1);
+    cursor: pointer;
+    padding: 0;
+    transition: background 150ms ease, transform 150ms ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.5);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+
+    &[aria-expanded="true"] {
+      background: var(--bgcolor2);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .watch-action-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: var(--radius);
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--textcolor1);
+    font-size: 13px;
+    font-family: "Lato", "Yu Gothic UI", "Meiryo", sans-serif;
+    line-height: 1;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.5);
+      outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    /* シリーズ未検出・読込中のグレーアウト状態 */
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    &[data-stocked="true"] {
+      background: rgba(224, 80, 80, 0.2);
+
+      &:hover {
+        background: rgba(224, 80, 80, 0.3);
+      }
+    }
+  }
+
+  .watch-action-content {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    max-width: 0;
+    opacity: 0;
+    transform: translateX(-8px);
+    padding: 0;
+    border-radius: var(--radius-big);
+    background: transparent;
+    transition: max-width 200ms ease, opacity 200ms ease, transform 200ms ease, padding 200ms ease;
+  }
+
+  &[data-is-open="true"] .watch-action-content {
+    max-width: 400px;
+    opacity: 1;
+    transform: translateX(0);
+    padding: 8px;
+  }
+
+  .past-log-loader-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow: hidden;
+    max-width: 0;
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: max-width 200ms ease, opacity 200ms ease, transform 200ms ease;
+  }
+
+  &[data-is-open="true"] .past-log-loader-wrapper {
+    max-width: 400px;
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
