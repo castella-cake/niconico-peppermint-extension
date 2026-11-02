@@ -186,7 +186,7 @@ main(){
             }
         }
         const seriesAnchorElem = document.querySelector<HTMLAnchorElement>("a[data-anchor-page=\"watch\"][data-anchor-area=\"series\"]")
-        console.log(seriesAnchorElem)
+        //console.log(seriesAnchorElem)
         if ( !seriesAnchorElem || !seriesAnchorElem.href || !seriesAnchorElem.pathname ) return {status: false, reason: "Cannot get series anchor element."}
 
         const prevAnchorElem = document.querySelector<HTMLAnchorElement>("a[data-anchor-page=\"watch\"][data-anchor-area=\"series\"][data-anchor-detail=\"prev\"]")
@@ -197,7 +197,7 @@ main(){
 
         const videoTitleElem = document.querySelector("main h1")
 
-        console.log(videoTitleElem, thisSmId, prevAnchorElem, nextAnchorElem)
+        //console.log(videoTitleElem, thisSmId, prevAnchorElem, nextAnchorElem)
 
         if ( splittedPathname.length < 2 ) return {status: false, reason: "Cannot parse series path."}
         return {
