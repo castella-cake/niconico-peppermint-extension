@@ -46,7 +46,7 @@
         },
         "enablePastLogLoader": {
             "name": "過去ログローダーを使用する",
-            "hint": "新視聴ページで過去ログを読み込み可能にします。"
+            "hint": "新視聴ページで過去ログを読み込み可能にします。MintWatch の使用中は無効化されます。"
         },
         "disableWatchActionButton": {
             "name": "動画ページ内の PepperMint アクションボタンを非表示にする"

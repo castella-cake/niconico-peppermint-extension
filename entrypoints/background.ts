@@ -19,7 +19,15 @@ main(){
                 browser.action.setBadgeBackgroundColor({ color: "#169cf0"});
             }
             if (
-                details.previousVersion && details.previousVersion.split(".")[0] != manifestData.version.split(".")[0]
+                details.previousVersion && (
+                    details.previousVersion.split(".")[0] != manifestData.version.split(".")[0] ||
+                    (
+                        details.previousVersion.split(".")[0] === "3" &&
+                        details.previousVersion.split(".")[1] === "1" &&
+                        manifestData.version.split(".")[0] === "3" &&
+                        manifestData.version.split(".")[1] === "2"
+                    )
+                )
             ) {
                 browser.tabs.create({
                     url: browser.runtime.getURL("/update.html")
