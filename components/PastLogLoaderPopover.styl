@@ -68,6 +68,11 @@
       outline: 2px solid rgba(255, 255, 255, 0.5);
       outline-offset: 2px;
     }
+
+    &[aria-disabled="true"] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    } 
   }
 
   .pmw-comment-timemachine-content {

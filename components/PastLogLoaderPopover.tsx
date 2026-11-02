@@ -88,10 +88,16 @@ export default function PastLogLoaderPopover() {
 
     function handleReload() {
         const url = new URL(location.href);
+        if (!url.searchParams.has("past_log")) return;
         url.searchParams.delete("past_log");
         window.location.href = url.toString();
     }
 
+    const isPastlogSet = useMemo(() => {
+        const url = new URL(location.href);
+        return url.searchParams.has("past_log");
+    }, [window.location]);
+    
     const todayString = useMemo(() => new Date().toISOString().split("T")[0], []);
 
     return (
@@ -102,6 +108,7 @@ export default function PastLogLoaderPopover() {
                     type="button"
                     className="pmw-comment-timemachine-reload"
                     onClick={handleReload}
+                    aria-disabled={!isPastlogSet}
                 >
                     現代に戻る
                 </button>
