@@ -29,6 +29,11 @@ import { useStorageContext } from "@/hooks/extensionHook";
 import { IconCheck, IconEdit } from "@tabler/icons-react";
 
 function FallbackComponent({ error, resetErrorBoundary }: FallbackProps) {
+    if (!(error instanceof Error)) {
+        return <div style={{ background: "var(--bgcolor3)", color: "var(--textcolor3)", borderRadius: 4, padding: 8, fontSize: 13 }}>
+            このブロックの表示中に重大なエラーが発生しました。
+        </div> 
+    }
     return <div style={{ background: "var(--bgcolor3)", color: "var(--textcolor3)", borderRadius: 4, padding: 8, fontSize: 13 }}>
         このブロックの表示中に重大なエラーが発生しました。<br/>
         {error.message}

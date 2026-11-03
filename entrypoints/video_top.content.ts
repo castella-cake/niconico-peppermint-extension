@@ -5,7 +5,7 @@ import { pushCSSRule } from "../utils/styleControl";
 export default defineContentScript({
     matches: ["*://www.nicovideo.jp/video_top", "*://www.nicovideo.jp/video_top*"],
     async main() {
-        const result = await browser.storage.sync.get(null)
+        const result: { [key: string]: any } = await browser.storage.sync.get(null)
         if (result.darkmode && !(result.darkmodedynamic == true && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches)) {
             if ((result.darkmode !== "custom" || (result.darkmode == "custom" && result.customcolorpalette.mainscheme == "dark")) && result.darkmode !== "nordlight") {
                 pushCSSRule('.RankingVideosContainer .ColumnTitle-icon,.ViewHistoriesContainer .ColumnTitle-icon,.NicoadVideosContainer .ColumnTitle-icon,.HotTagsContainer .ColumnTitle-icon,.NewArrivalVideosContainer .ColumnTitle-icon,.NewsNotificationContainer-column[data-sub-column="maintenance"] .ColumnTitle-icon, .ForYouRankingContainer .ColumnTitle-icon, .ForYouRankingContainer-rankingTitle>h2:before {filter: invert()}')

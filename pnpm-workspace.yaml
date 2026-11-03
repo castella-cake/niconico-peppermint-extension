@@ -1,3 +1,5 @@
 allowBuilds:
   esbuild: true
   spawn-sync: true
+patchedDependencies:
+  '@dnd-kit/core': patches/@dnd-kit__core.patch

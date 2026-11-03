@@ -25,6 +25,11 @@ createRoot(rootElement).render(
                 <div className="settings-page-desc">{lang.SETTINGS_DESC}</div>
                 <div className="maincontainer">
                     <ErrorBoundary fallbackRender={({ error, resetErrorBoundary }) => {
+                        if (!(error instanceof Error)) {
+                            return <div style={{ background: "var(--bgcolor3)", color: "var(--textcolor3)"}}>
+                                表示中に重大なエラーが発生しました。
+                            </div>
+                        }
                         return <div style={{ background: "var(--bgcolor3)", color: "var(--textcolor3)"}}>
                             表示中に重大なエラーが発生しました: {error.message}
                         </div>
@@ -45,7 +50,7 @@ createRoot(rootElement).render(
                     Created by CYakigasi <a href="https://www.cyakigasi.net" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Website</a>
                     <a href="https://www.nicovideo.jp/user/92343354" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>Niconico</a>
                     <a href="https://www.cyakigasi.net/links" target="_blank" rel="noopener noreferrer" style={{marginRight: 4}}>SNS Links(Misskey,Bluesky,Twitter...)</a> <br/>
-                    <div className="flavortext">視聴ページを再構築する拡張機能。よければ <a href="https://github.com/castella-cake/mintwatch" target="_blank" rel="noopener noreferrer">MintWatch(Beta)</a> もご一緒にどうぞ…</div>
+                    <div className="flavortext">視聴ページを再構築する拡張機能。よければ <a href="https://github.com/castella-cake/mintwatch" target="_blank" rel="noopener noreferrer">MintWatch</a> もご一緒にどうぞ…</div>
                 </div>
             </div>
         </StorageProvider>

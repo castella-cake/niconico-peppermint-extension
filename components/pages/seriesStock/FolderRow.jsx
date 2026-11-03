@@ -21,6 +21,7 @@ import { IconChevronDown, IconChevronUp, IconEdit, IconFolder, IconTrash } from 
 // 操作: このフォルダーを削除, フォルダー編集モーダルを開く
 export function FolderRow(props) {
     const { setFCEditId, isUnlocked, setIsFolderCreateWindowVar, lang, syncStorage, setSyncStorageValue } = useSSContext()
+    /** @type {import("@/types/seriesStock").SeriesStock} */
     const elem = props.folderinfo
     const folderContent = props.contents
 

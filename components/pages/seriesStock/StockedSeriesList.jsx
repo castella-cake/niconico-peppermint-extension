@@ -20,6 +20,7 @@ import { SeriesRow } from './SeriesRow';
 // 渡された配列からリストを作成する関数。
 // SeriesRowとFolderRowを参照します。
 export function CreateRowList(props) {
+    /** @type {import("@/types/seriesStock").SeriesStock[]} */
     const array = props.array
     // 個別表示するべきかしないべきかを判断するために、一旦シリーズストック内にあるフォルダーを見て、個別表示してはならないIDを列挙する
     // mapでIDリストを取ってから、reduceで繋げる
@@ -74,7 +75,7 @@ export function SeriesStockRow() {
             const currentIdList = syncStorage.stockedseries.map(elem => { return (elem.seriesID ? elem.seriesID.toString() : elem.id)});
             const oldIndex = currentIdList.indexOf(active.id);
             const newIndex = currentIdList.indexOf(over.id);
-            const stockArrayCopy = syncStorage.stockedseries.slice()
+            const stockArrayCopy = /** @type {import("@/types/seriesStock").SeriesStock[]} */ (syncStorage.stockedseries.slice())
             const sortAfter = arrayMove(stockArrayCopy, oldIndex, newIndex);
             setSyncStorageValue("stockedseries", sortAfter)
         }

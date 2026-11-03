@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2026/11/02
+
+### Added
+- 視聴ページ内の左下UIを復活させました  
+  現在はシリーズストックの追加と、後述する過去ログローダーをサポートしています。
+- 過去ログローダーを追加しました  
+  past_logを付与して再読み込みするUIと、それを元に取得させるデータを変更するfetchインターセプターの2つから構成されます。
+- MintWatch 環境では、シリーズUIに直接シリーズストックに追加するボタンを埋め込むようになりました
+
+### Changed
+- シリーズストックの状態更新時に、常にページから情報を取得するように変更しました
+
 ## [3.1.14] - 2026/10/12
 
 ### Changed
@@ -809,7 +821,8 @@ spニコニコ動画の視聴ページにアクセスした際に、自動でPC�
 - テスト用機能のコードを削除
 
 [Acorn]: https://acorn.firefox.com/latest/acorn.html
-[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.1.14...HEAD
+[UnReleased]: https://github.com/castella-cake/niconico-peppermint-extension/compare/v3.2.0...HEAD
+[3.2.0]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.14...v3.2.0
 [3.1.14]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.13...v3.1.14
 [3.1.13]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.12...v3.1.13
 [3.1.12]: https://github.com/castella-cake/niconico-peppermint-extension/releases/tag/v3.1.11...v3.1.12
