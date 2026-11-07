@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - MintWatch で動画遷移時にシリーズストックの更新が行われない問題を修正しました
+- カスタムランキングページでニコニ広告行を隠すと、レーンヘッダーが表示されなくなる問題を修正しました
 
 ## [3.2.0] - 2026/11/02
 
