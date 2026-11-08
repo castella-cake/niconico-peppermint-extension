@@ -169,11 +169,32 @@ export default defineContentScript({
             // WXTの locationchange はイベント名が名前空間化されるため、
             // React コンポーネント側からは購読できない。ブリッジ用の素のイベントを発行する。
             window.dispatchEvent(new CustomEvent("pmwatch:locationchange"));
-            if (watchPattern.includes(newUrl) && result.enableseriesstock) {
+            if (watchPattern.includes(newUrl) && result.enableseriesstock && !isMintWatch()) {
                 requestSeriesStockUpdate();
             }
             refreshEnvironments();
         });
+
+        document.addEventListener("pmw_playerReady", (e) => {
+            if (!document.getElementById("pmwp-pm-peppermintintegration")) {
+                console.log("PMW Plugin: PepperMint Integration")
+                const pluginList = document.getElementById("pmw-plugin-list")
+
+                const mediaInjectorContainer = document.createElement("div")
+                mediaInjectorContainer.id = "pmwp-pm-peppermintintegration"
+                mediaInjectorContainer.className = "plugin-list-item"
+                mediaInjectorContainer.innerHTML = `
+                    <div class="plugin-list-item-title">
+                        PepperMint Integration
+                    </div>
+                    <div class="plugin-list-item-desc">
+                        シリーズストックとの統合を行います。
+                    </div>
+                `
+                if (pluginList) pluginList.appendChild(mediaInjectorContainer)
+            }
+            requestSeriesStockUpdate();
+        })
 
         // MintWatch は別拡張機能のため、MW-Enabled クラスが後から付く/外れる可能性がある
         const mwObserver = new MutationObserver(() => {
@@ -182,7 +203,9 @@ export default defineContentScript({
         mwObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
         ctx.onInvalidated(() => mwObserver.disconnect());
 
-        requestSeriesStockUpdate();
+        if (!isMintWatch()) {
+            requestSeriesStockUpdate();
+        }
         refreshEnvironments();
     },
 });
